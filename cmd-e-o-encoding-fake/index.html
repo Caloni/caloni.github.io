@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Cmd e o encoding fake</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Cmd e o encoding fake"/>
+  <meta itemprop="description"
+        content="Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Cmd e o encoding fake"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/cmd-e-o-encoding-fake/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2017-12-26T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Cmd e o encoding fake"/>
+  <meta name="twitter:description"
+        content="Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Cmd e o encoding fake</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/cmd-e-o-encoding-fake.md" title="History">
+    2017-12-26
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/cmd-e-o-encoding-fake.md" title="GitHub">430</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas podem vir de qualquer programa com qualquer encoding. A missão do cmd.exe é usar o encoding escolhido pelo usuário para exibir os caracteres na tela. Vamos supor que nós criemos uma pasta com acentos no nome (pelo Explorer para não ter erro):</p>
+<p>Agora através de um cmd.exe podemos observar como esse nome acentuado aparece:</p>
+<p>Note como o &ldquo;a&rdquo; acentuado com til aparece perfeitamente. Também note que o codepage utilizado é o 437.</p>
+<p>Até aí tudo bem, certo?</p>
+<p>Não! Não! Não!</p>
+<p>O codepage 437 não possui ã. Nem õ.</p>
+<p>Isso, meus amigos, é chamado tecnicamente na área de &ldquo;muito louco&rdquo;.</p>
+<p>Curioso a respeito disso, resolvi observar a saída padrão do cmd.exe, para ver o que diabos vem como resultado. Para isso desenvolvi um simples output redirector tabajara:</p>
+<pre><code>#include &lt;Windows.h&gt;
+
+int main(int argc, char* argv[])
+{
+    DWORD ret = ERROR_SUCCESS;
+    SECURITY_ATTRIBUTES sa = { 0, NULL, TRUE };
+    STARTUPINFOA si = { sizeof(si) };
+    PROCESS_INFORMATION pi;
+    CHAR cmd[4096] = &quot;cmd.exe&quot;;
+    SECURITY_ATTRIBUTES saAttr;
+ 
+    saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
+    saAttr.bInheritHandle = TRUE;
+    saAttr.lpSecurityDescriptor = NULL;
+
+    si.dwFlags = STARTF_USESTDHANDLES;
+    si.hStdOutput = CreateFileA(&quot;cmd.log&quot;, GENERIC_WRITE, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, 0, NULL);
+    si.hStdError = si.hStdOutput;
+
+    if( si.hStdOutput != NULL &amp;&amp; si.hStdOutput != INVALID_HANDLE_VALUE )
+    {
+        if (CreateProcessA(NULL, cmd, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &amp;si, &amp;pi))
+        {
+            WaitForSingleObject(pi.hProcess, INFINITE);
+            CloseHandle(pi.hThread);
+            CloseHandle(pi.hProcess);
+        }
+
+        CloseHandle(si.hStdOutput);
+    }
+}
+</code></pre>
+<p>Simples, bonito e prático. Quando executamos Redirector.exe ele executa um cmd.exe, com a diferença que a saída dele vai parar no arquivo cmd.log, que podemos observar com um BareTail da vida.</p>
+<p>Opa, opa, opa!</p>
+<p>O til sumiu!</p>
+<p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao ã foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &ldquo;a&rdquo;, simplesmente, sem til.</p>
+<p>Isso quer dizer que ao receber um &ldquo;ã&rdquo; o cmd.exe o reinterpreta como &ldquo;a&rdquo;, mesmo estando sob o encoding 437. Esse é o resultado de um prompt user friendly que quer seu amigo.</p>
+<p>Se analisarmos a memória do cmd.exe veremos que ele armazena as coisas em UTF-16, como qualquer programa Windows nativo unicode.</p>
+<pre><code>@echo off
+:beg
+dir /b c:\temp\quemquer*
+goto beg
+</code></pre>
+<p>E com isso constatamos que não necessariamente no Windows, What You See Is What You Get. Ou, em termos mais filosóficos, What You See Is Not What I Get.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Qualquer%20um%20que%20j%c3%a1%20tenha%20mexido%20no%20prompt%20de%20comandos%20do%20Windows%20sabe%20que%20ele%20permite%20voc%c3%aa%20escolher%20qual%20code%20page...%20http%3a%2f%2fwww.caloni.com.br%2fcmd-e-o-encoding-fake%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/erased/">Erased: Piloto<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/se-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Se você não precisa de classe você não precisa de classe</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

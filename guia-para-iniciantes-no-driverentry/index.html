@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Guia para iniciantes no DriverEntry</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Guia para iniciantes no DriverEntry"/>
+  <meta itemprop="description"
+        content="A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Guia para iniciantes no DriverEntry"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/guia-para-iniciantes-no-driverentry/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-08-11T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Guia para iniciantes no DriverEntry"/>
+  <meta name="twitter:description"
+        content="A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Guia para iniciantes no DriverEntry</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/guia-para-iniciantes-no-driverentry.md" title="History">
+    2008-08-11
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/guia-para-iniciantes-no-driverentry.md" title="GitHub">636</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de teoria vive o programador-escovador-de-bits. Pensando nisso, esse fim-de-semana comecei a me aventurar nos ótimos exemplos e explicações do DriverEntry.com.br, nossa referência kernel mode tupiniquim.</p>
+<p>A exemplo do que Dmitry fez com os livros de drivers, acredito que a mesma coisa pode ser feita com os blogues. A maneira de esmiuçá-los vai depender, principalmente, da quantidade de material a ser estudado e das práticas necessárias para que o conhecimento entre na cabeça de uma vez por todas.</p>
+<p>No momento, minha prática se resume a isso:</p>
+<ul>
+<li>
+<p>Debug or not debug. Aqui resolvi dar uma olhada de perto nas macros e funções usadas para <em>tracing</em> no DDK, e descobri que, assim como a runtime do C, podemos ter mensagens formatadas no estilo do printf e vprintf, o que economiza uma porção de código repetitivo. Dessa forma pude usar minha estratégia de ter a macro LOG usada para mandar linhas de depuração na saída padrão. Ainda tenho que estudar, contudo, o uso da variável va_list em kernel.</p>
+</li>
+<li>
+<p>ExAllocatePool (WithoutTag). Precisei fazer alguns testes no Dependency Walker e anexar o fonte que faz a vez do GetProcAddress para drivers em meu miniprojeto do Bazaar para aprendizado de programação em <em>kernel</em> (linque para <em>download</em> no final do artigo).</p>
+</li>
+<li>
+<p>Getting Started. Esse foi o artigo mais interessante de todos, pois foi a base de todo o código que ando repetindo em meus exercícios. Além desse, é vital o uso do Visual Studio no processo de desenvolvimento, pois muitas (quase todas) das funções do DDK são alienígenas para mim, assim como os seus 497 parâmetros cada.</p>
+</li>
+<li>
+<p>Driver plus plus. Tive que perder algum tempo codificando uma segunda versão do Useless e baixando o framework da Hollis para testar as peculiaridades do C++ em kernel mode. Não que eu vá usar alguma coisa avançada nesse estágio, mas preciso conhecer algumas limitações e alguns macetes que farão uma grande diferença no futuro, quando as linhas de código ultrapassarem 10.000.</p>
+</li>
+<li>
+<p>Pulei alguns tópicos que pretendo explorar quando estiver mais à vontade com alguns conceitos básicos, como a explicação de como obter o processo dono de uma IRP, a explicação do que é uma IRP (apesar de eu ter baixado e brincado com o monitor da OSR) e a aparentemente simples explanação sobre como funcionam as listas ligadas do DDK. Tudo isso virá com o tempo, e algumas coisas estarão sempre martelando na cabeça. É só dar tempo ao tempo e codificar.</p>
+</li>
+<li>
+<p>Nós queremos exemplos. Esse foi o artigo que mais me deu trabalho, mas que mais valeu a pena. Codifiquei tudo do zero, olhando aos poucos no código do Fernando para pegar o jeito de usar funções com nomes enormes e auto-explicativas e parâmetros com os nomes a, b, c. Também dediquei um tempinho considerável com a aplicação de user mode, para (re)aprender a depurar dos dois lados da moeda.</p>
+</li>
+</ul>
+<p>Próximos passos?</p>
+<p>Pelo que eu vi, no geral, acredito que aos poucos irei voltar para os tópicos que pulei, além de olhar em outros artigos que chamaram minha atenção:</p>
+<ul>
+<li>
+<p>Como criar um driver de boot</p>
+</li>
+<li>
+<p>Usando o DSF para interagir com dispositivos USB de mentirinha</p>
+</li>
+<li>
+<p>A continuação emocionante de nosso driver que recebe reads e writes</p>
+</li>
+<li>
+<p>Usar o que existe de bom e melhor para garantir a qualidade de um driver</p>
+</li>
+<li>
+<p>Mais alguns detalhes que começam a fazer sentido em nosso KernelEcho</p>
+</li>
+<li>
+<p>Criando e usando IOCTLs. Essa vai ser ótima!</p>
+</li>
+<li>
+<p>A necessidade inevitável de mexer com o registro do sistema</p>
+</li>
+</ul>
+<p>Tudo isso aliado aos exemplos e à teoria latente do Windows 2000 Device Driver Book (minha primeira leitura) irá dar um upgrade forçado aos meus neurônios. Espero sobreviver para contar o final da história.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20mensagem%20anterior%20deixou%20bem%20claro%20que%20tenho%20um%20roteiro%20de%20leituras%20bem%20hardcore%20a%20fazer%20nos%20pr%c3%b3ximos%2020%20anos....%20http%3a%2f%2fwww.caloni.com.br%2fguia-para-iniciantes-no-driverentry%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/quando-o-navegador-nao-quer-largar-um-arquivo/">Quando o navegador não quer largar um arquivo<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/aprendizado-em-kernel-mode/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Aprendizado em kernel mode</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

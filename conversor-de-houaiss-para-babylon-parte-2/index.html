@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Conversor de Houaiss para Babylon - parte 2</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.
+Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Conversor de Houaiss para Babylon - parte 2"/>
+  <meta itemprop="description"
+        content="Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.
+Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Conversor de Houaiss para Babylon - parte 2"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-2/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.
+Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-04-08T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Conversor de Houaiss para Babylon - parte 2"/>
+  <meta name="twitter:description"
+        content="Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.
+Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Conversor de Houaiss para Babylon - parte 2</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/conversor-de-houaiss-para-babylon-parte-2.md" title="History">
+    2008-04-08
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/conversor-de-houaiss-para-babylon-parte-2.md" title="GitHub">748</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.</p>
+<p>Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada nos arquivos do dicionário para permitir nossa posterior análise, com o simples e justo objetivo de importá-lo para o Babylon, cujas funcionalidades de busca são bem superiores.</p>
+<p>Feito isso, agora nos resta entender a estrutura interna do Houaiss para montar um conversor que irá ajudar o Babylon Builder a construir nosso Houaiss-Babylon. Simples, não?</p>
+<p>A primeira parte de toda análise é a busca por padrões com um pouco de bom senso. O Houaiss armazena suas definições em um conjunto de arquivos de nome deahNNN.dhx (provavelmente deah de Dicionario Eletrônico Antônio Houaiss). Os NNN variam de 001 - o maior arquivo - até 065, com algumas poucas lacunas, em um total de 53 arquivos originais.</p>
+<p>O nosso rústico importador fez o trabalho de desofuscar todos os 53 arquivos usando a mesma lógica encontrada pelo WinDbg: somar o valor 0x0B para cada byte do arquivo. Dessa forma foram gerados 53 arquivos novos no mesmo diretório, porém com a extensão TXT.</p>
+<p>Partindo do bom senso, abriremos o arquivo maior, deah001.txt, e abriremos o próprio dicionário Houaiss, em busca de um padrão que faça sentido. Como poderemos ver na figura abaixo, o padrão inicial não é nem um pouco complicado.</p>
+<p>As duas primeiras observações do formato do arquivo nos dizem que (1) o primeiro caractere de cada linha indica o conteúdo dessa linha, e que (2) a formatação dos caracteres é feita dentro de um par de chaves {}.</p>
+<p>Dessa forma, podemos começar a construir nosso interpretador de arquivos do Houaiss em seu formato básico.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()
+{
+    char cmd; // comando da linha atualmente lida
+    string line; // linha atualmente lida
+    int count = 0; // contador de palavras
+
+    while( getline(cin, line) )
+    {
+        cmd = line[0]; // guardamos o comando
+        line.erase(0, 1); // tiramos o comando da linha
+        format(line); // formatação da linha (explicações adiante)
+
+        switch( cmd ) // que comando é esse?
+        {
+        case '*': // verbete
+            ++count;
+            cout &lt;&lt; '\n' &lt;&lt; line &lt;&lt; '\n';
+            break;
+
+        case ':': // definição
+            cout &lt;&lt; line &lt;&lt; &quot;&lt;br&gt;\n&quot;;
+            break;
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Simples e funcional. Com esse código já é possível extrair o básico que precisamos de um dicionário: os vocábulos e suas definições.</p>
+<p>Para conseguir mais, é necessário mais trabalho.</p>
+<p>A formatação segue o estilo já identificado, de forma que podemos aos poucos montar um interpretador de formatação para HTML, que é o formato reconhecido pelo Babylon Builder. Podemos seguir o seguinte molde, chamado no exemplo de código anterior:</p>
+<pre><code>void format(string&amp; str)
+{
+    string::size_type pos1 = 0;
+    string::size_type pos2 = 0;
+
+    while( (pos1 = str.find('&lt;')) != string::npos )
+        str.replace(pos1, 1, &quot;&lt;&quot;);
+
+    while( (pos1 = str.find('&gt;')) != string::npos )
+        str.replace(pos1, 1, &quot;&gt;&quot;);
+
+    while( (pos1 = str.find('{')) != string::npos )
+    {
+        if( pos1 &amp;&amp; str[pos1 - 1] == '\\' ) // caractere de escape
+            str.replace(pos1 - 1, 2, &quot;{&quot;);
+        else
+        {
+            string subStr;
+
+            pos2 = str.find('}', pos1);
+
+            if( pos2 != string::npos )
+                subStr = str.substr(pos1 + 1, pos2 - pos1 - 1);
+            else
+                subStr = str.substr(pos1 + 1);
+
+            istringstream is(subStr);
+
+            string fmt;
+            string word;
+            is &gt;&gt; fmt;
+            getline(is, word);
+            if( word[0] == ' ' )
+            word.erase(0, 1);
+
+            if( fmt.find(&quot;\\i&quot;) != string::npos )
+                word = &quot;&lt;i&gt;&quot; + word + &quot;&lt;/i&gt;&quot;;
+
+            if( fmt.find(&quot;\\b&quot;) != string::npos )
+                word = &quot;&lt;b&gt;&quot; + word + &quot;&lt;/b&gt;&quot;;
+
+            if( fmt.find(&quot;\\f20&quot;) != string::npos )
+                word = &quot;&lt;font style=\&quot;text-transform: uppercase;\&quot;&gt;&quot; + word + &quot;&lt;/font&gt;&quot;;
+
+            if( fmt.find(&quot;\\super&quot;) != string::npos )
+                word = &quot;&lt;font style=\&quot;vertical-align: super;\&quot;&gt;&quot; + word + &quot;&lt;/font&gt;&quot;;
+
+            if( pos2 != string::npos )
+                str.replace(pos1, pos2 - pos1 + 1, word);
+            else
+                str.replace(pos1, pos2, word);
+        }
+    }
+}
+</code></pre>
+<p>Algumas partes ainda estão feias, eu sei. Mas, ei, isso é um código de ráquer, não é mesmo? Além do mais, se isso não é desculpa suficiente, estamos trabalhando em uma versão beta.</p>
+<p>A partir dessas duas funções é possível dissecar o primeiro arquivo do dicionário, e assim, construirmos a primeira versão interessante do Houaiss no Babylon.</p>
+<p>Como é normal a qualquer dicionário do Babylon, podemos instalá-lo simplesmente clicando duas vezes no arquivo (em uma máquina com Babylon previamente instalado).</p>
+<p>O projeto atual está um tanto capenga, mas já desencripta os arquivos do Houaiss e gera o projeto do Babylon Builder sozinho. Em anexo já está um projeto do Babylon Builder. Basta copiar o arquivo Houaiss.txt para a pasta do projeto e gerar o projeto do Babylon.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Ap%c3%b3s%20algumas%20semanas%20de%20suspense%2c%20chegamos%20finalmente%20%c3%a0%20nossa%20segunda%20e%20%c3%baltima%20parte%20da%20saga%20do%20dicion%c3%a1rio%20Houaiss.%0aComo...%20http%3a%2f%2fwww.caloni.com.br%2fconversor-de-houaiss-para-babylon-parte-2%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/linux-e-o-dhcp/">Linux e o DHCP<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/try-catch-flutuante/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Try-catch flutuante</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

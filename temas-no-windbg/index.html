@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Temas no WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Temas no WinDbg"/>
+  <meta itemprop="description"
+        content="Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Temas no WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/temas-no-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-01-14T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Temas no WinDbg"/>
+  <meta name="twitter:description"
+        content="Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Temas no WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/temas-no-windbg.md" title="History">
+    2008-01-14
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/temas-no-windbg.md" title="GitHub">319</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).</p>
+<p>O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:</p>
+<pre><code>reg delete HKCU\Software\Microsoft\WinDbg
+</code></pre>
+<p>Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.</p>
+<p>Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:</p>
+<ul>
+<li>
+<p>Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath+.</p>
+</li>
+<li>
+<p>Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor.</p>
+</li>
+<li>
+<p>Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.</p>
+</li>
+</ul>
+<p>Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.</p>
+<p>Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).</p>
+<pre><code>reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg
+</code></pre>
+<p>Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Desde%20a%20vers%c3%a3o%206.4.7.2%20que%20o%20WinDbg%20fornece%20uma%20subpasta%20chamada%20Themes%2c%20onde%20l%c3%a1%20est%c3%a3o%20diversos%20workspaces%20configurados....%20http%3a%2f%2fwww.caloni.com.br%2ftemas-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/encontrando-as-respostas-do-flash-pops/">Encontrando as respostas do Flash Pops<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Analisando dumps com WinDbg e IDA</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

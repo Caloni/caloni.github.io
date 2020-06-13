@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - O Bug Mais Bizarro Que Já Resolvi</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="O Bug Mais Bizarro Que Já Resolvi"/>
+  <meta itemprop="description"
+        content="Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="O Bug Mais Bizarro Que Já Resolvi"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2020-05-10T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="O Bug Mais Bizarro Que Já Resolvi"/>
+  <meta name="twitter:description"
+        content="Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">O Bug Mais Bizarro Que Já Resolvi</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/o-bug-mais-bizarro-que-ja-resolvi.md" title="History">
+    2020-05-10
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>8 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/o-bug-mais-bizarro-que-ja-resolvi.md" title="GitHub">1682</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que eu tinha em volta eram papéis com anotações que ia fazendo conforme observava algo que poderia ser uma pista. Qualquer coisa servia. Do outro lado da sala, uma estagiária recém-chegada na empresa observava de longe, talvez com uma certa curiosidade, talvez medo, aquele rapaz ligar e desligar um desktop empoeirado enquanto a cada vez que apertava o botão de Power ele olhava fixamente para a tela por uma, às vezes duas horas seguidas. Às vezes ele ficava a manhã inteira observando um único e singelo boot na câmera mais lenta possível. Cada mov demorava alguns minutos de reflexão.</p>
+<p>Tudo isso começou com O cara do suporte, um sujeito bonachão que parecia atrair bugs para nossos sistemas só de olhar para eles. Não eram os piores bugs, mas com certeza os mais bizarros. Bizarro no sentido de que você nunca imaginaria um erro desses ocorrendo. Era como se existisse um bug na própria Matrix. Como se um gato aparecesse duas vezes seguidas, mas esse gato preto sequer existia no cenário que ele encontrou dessa vez.</p>
+<p>O sujeito chegou na nossa sala de desenvolvimento falando dessa máquina que tinha acabado de chegar do cliente. Haviam instalado a criptografia de disco, mas esta não é uma história em que dados serão perdidos, pois o Windows ainda mostrava o seu logo esvoaçante segundos depois de ligarmos o velho desktop. O problema era que se você desligasse essa máquina que acabou de ligar e ligasse novamente, segundos depois nada mais acontecia. Tela preta. Nada de logo esvoaçante nem cursor piscando. O disco nem se mexia.</p>
+<p>Mas o bizarro não era isso, mas o que vinha depois. Você desligava a pobre máquina novamente. Apertava o botão de Power. E ela subitamente ligava, com tudo no lugar: logo do Windows, barulhinho irritante da sua tela de boas vindas e o disco do HD magnético piscando freneticamente. Tudo certo mais uma vez na terra do Tio Bill.</p>
+<p>Então o bug era esse: nos boots ímpares a máquina não bootava. Nos boots pares não havia nada de errado (ou vice-versa). Antes que você comece a confabular o que poderia ser, um cacoete que todos nós, programadores, costumamos ter, não há relação com energia ou memória RAM. Você podia desligar a máquina e tirar da tomada. Ir tomar um café. Uma hora depois coloca a tomada de novo e a liga. A bendita não funciona. Tire a tomada novamente. Mais um café. Desenergizada novamente, botão de Power. E tudo estava certinho.</p>
+<p>A criptografia desse sistema operava em dois níveis, necessários naquela época. O PC é uma monstruosidade construída em camadas legadas uma em cima da outra. Abaixo de tudo existe a BIOS que controla todo mundo. Até um certo ponto, pelo menos. O que importa é que nesse primeiro momento não existe sistema operacional. Não existe a querida proteção de memória que os SOs implementam (com a ajuda da arquitetura) para isolar os programas, onde qualquer violação de memória é tratada graciosamente com uma mensagem de erro. Não, mano. Aqui é o modo real. Fica esperto, que se um ponteiro ficar doido você vai levar tiro pra tudo quanto é lado. Ou como diria Morpheus: &ldquo;Welcome&hellip; to the desert&hellip; of the real.&rdquo;</p>
+<p>Nesse ambiente pesadão e promíscuo, onde as memórias se encostam e trocam de valores sem qualquer pudor, programas residentes se mantém em memória através do hook de interrupções. Interrupções são as funções originais da BIOS, ponteiros de funções com código carregado da sua memória, e um hook é se colocar na frente dessas funções trocando o ponteiro. Então, por exemplo, se um programa roda e consegue sobrescrever o endereço da interrupção responsável por escrever na tela, esse programa pode ligar e desligar pixels que o programa original nem imagina. Esse seria o antepassado do gemidão, versão ASCII Art.</p>
+<p>No caso de um programa de criptografia de disco as interrupções mais importantes são a de disco. E como é importante para o sistema operacional que pretende conseguir subir, ele deve conseguir ler seus dados do disco, mesmo criptografados. Esses dados precisam ser descriptografados antes que exista um driver de criptografia no ar. É aí que entra o programa residente desse sistema que deu problema.</p>
+<p>É claro que contando isso para vocês a posteriori parece mais fácil, mas meu primeiro instinto foi espetar o WinDbg nessa máquina, para rapidamente descobrir que não existia kernel do Windows para ser depurado. O Windows nem conseguiu subir ainda, quanto mais deixar as pessoas depurarem ele. Então a solução para depuração foi o SoftIce 16 bits, que funciona até que bem quando você não tem outros programas residentes querendo espaço no disco. Como o programa de criptografia que instalava um hook na int13 (essa é a interrupção de disco). Nesse caso o depurador de modo real travava nas primeiras interrupções. Não havia memória o suficiente ou as chamadas das ints entravam em conflito. De qualquer forma, o barato ficava loko.</p>
+<p>Então o jeito foi usar o debug.com. Para os mais novinhos, este era um programa que vinha no pacote MS-DOS e em alguns Windows mais velhos que consistia em um depurador de modo real). Era possível carregar um segmento de um arquivo ou da memória real para este depurador e ele seguia passo a passo para você a execução do programa. Em assembly de modo real, claro.</p>
+<p>Esse foi o jeito que eu consegui ir entendendo o fluxo de execução, pois eram muitos valores e variáveis. Eventualmente o debug.com também travava, mas isso não importava tanto, pois era possível ir mapeando seu funcionamento aos poucos, anotando as descoberta uma a uma em um pedaço de papel. Uma técnica que pode ser interessante se você se encontrar em tal situação é escrever as ints 3 (interrupção de brakpoint) diretamente na memória do programa e deixar ela ser ativada para depois que capotar sobrescrever com o código antigo. Eventualmente isso também travava. Daí nesse momento o jeito era fingir que estava tudo bem e continuar a execução de um outro ponto, anotando em um papel o estado dos registradores e da memória até o momento, para depois ir ligando os pontos.</p>
+<p>Depois de alguns dias nesse modus operandi, em que o mundo externo não importava mais, e que eu só enxergava movs, pushs e pops na hora do café, comecei a vislumbrar a possibilidade de existir um bug no código do algoritmo de criptografia. Esse algoritmo é o Blowfish), um cifrador simétrico em bloco. Seu funcionamento é basicamente pegar um bloco de dados a serem criptografados, aplicar uma chave, e cuspir o mesmo tamanho do bloco de volta. Aplicando a mesma chave novamente obtém-se o bloco original. Não lembro como tive esse insight, mas essa alternância simétrica fazia tocar os sinos na minha cabeça de que o bug bizarro dos boots ímpares e pares poderia estar relacionado. Só não sabia ainda como.</p>
+<p>Pois bem: bora aprender como funciona esse algoritmo passo a passo, pois o código usado no sistema estava obviamente em assembly. Não é um código difícil em C, mas extenso em Assembly. De qualquer forma, tudo é possível se você está trancado em uma sala sem ninguém para importunar. Tudo que você precisa é de tempo e paciência. E café. Não se esqueça disso.</p>
+<p>Mas, enfim, não conseguirei descrever melhor o cenário em que eu estava naquela semana. Tudo que me lembro é que de fato foi uma semana de 40 ou mais horas. E tornando agora esta história que já está longa em algo mais curto, segue o commit que corrigiu essa bagaça:</p>
+<pre><code>commit 56f510... (tag: 1.49)
+Author: root &lt;root@desenv05x&gt;
+Date: Mon Apr 21 03:26:50 2008 -0300
+
+Corrigido bug na encriptacao por 
+    Blowfish em assembly.
+
+O problema ocorria por causa da 
+inversao desnecessaria do iv, e 
+existia apenas na funcao de 
+encriptacao (escritas no disco), 
+funcionando normalmente, portanto, 
+na desencriptacao (leituras 
+no disco).
+
+Esse bug provavelmente afetava 
+somente boots de sistemas que 
+tentavam escrever no disco 
+antes de entrar o driver.
+
+-  xor     4[si], eax
++  xor     [si] eax
+   add     bx, #4
+   seg     es
+   mov   eax, [bx]
+-  xor     [si], eax
++  xor     4[si], eax
+...
+-  xchg    eax, 4[si]
+-  bswap   eax
+   mov     [si], eax
++  mov     eax, 4[si]
++  bswap   eax
++  mov     4[si], eax
+</code></pre>
+<p>O IV, ou Initialization Vector, é um array de bytes usado em algoritmos criptográficos para diminuir a previsibilidade da série de bytes resultantes do algoritmo. Sem o IV pode-se usar força bruta com várias chaves até encontrar a certa. Com o IV, que é alterado de maneira previsível, mas difícil de rastrear, a mesma chave gera séries de bytes completamente diferentes, impedindo esse tipo de ataque.</p>
+<p>O que estava acontecendo nesse caso para o boot estar intermitente era que, como comentado no commit, as escritas em disco durante o boot gravavam a série de bytes com um IV invertido. Isso na hora de ler entregaria os dados errados, obviamente, e a máquina não bootaria. Porém, pelo blowfish ser simétrico, e pelo boot ser o mesmo (com os mesmos dados no disco), uma segunda escrita feita em um segundo boot inverteria o IV já invertido, gravando os dados originalmente invertidos corretamente, e a vida seguia feliz (até a música de boas vindas do Windows).</p>
+<p>Descrevendo a descoberta desse bug hoje, 12 anos após o ocorrido, ainda não entendo como consegui descobri-lo, mas isso exigiu tanta concentração que me lembro com um prazer indescritível de ter sido capaz de fazê-lo. Todo o tempo despendindo se tornou uma marca de felicidade em minha memória, gravada em meu HD temporário desta vida. Lembrarei dela com carinho, e como ela está criptografada também, entenderei que em alguns momentos ela irá soar amarga, mas em vários outros irei ter certeza de ter sido um feito e tanto para um ser humano entender uma máquina em seus detalhes mais obscuros. Essa é a verdadeira felicidade desta profissão.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/debug">debug</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=M%c3%a1quina%20IBM%20velha%20e%20empoeirada%2c%20criptografia%20blowfish%2c%20assembly%2016%20bits%2c%20programa%20residente%20e%20nenhum%20depurador...%20http%3a%2f%2fwww.caloni.com.br%2fo-bug-mais-bizarro-que-ja-resolvi%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/cinema-paradiso/">Cinema Paradiso<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/vermelho-como-o-ceu/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Vermelho Como o Céu</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

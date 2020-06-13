@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Antidebugging using exceptions (part two)</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints...."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Antidebugging using exceptions (part two)"/>
+  <meta itemprop="description"
+        content="In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints...."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Antidebugging using exceptions (part two)"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/antidebugging-using-exceptions-part-two/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints...."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-07-30T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Antidebugging using exceptions (part two)"/>
+  <meta name="twitter:description"
+        content="In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints...."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Antidebugging using exceptions (part two)</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/antidebugging-using-exceptions-part-two.md" title="History">
+    2008-07-30
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/antidebugging-using-exceptions-part-two.md" title="GitHub">1027</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints. However, we saw also that this is a difficult solution to keep in the source code, besides its main weakness to be easily bypassed if discovered. Now it&rsquo;s time to put things easier to support and at the same time to guarantee tough times even if the attacker discover what is going on.</p>
+<p>The upgrade showed here still uses the exception throwing intrinsically, but now it doesn&rsquo;t depends on the code division in minifunctions and minicalls. Instead, we just need to get code traces and put them inside a miraculous macro that will do everything we want. This, of course, after some &ldquo;hammer work&rdquo; that will be explained here.</p>
+<pre><code>// Go back to place pre-defined by the restoration point.
+void LongJmp(restorePoint)
+{
+    // Here we will generate an exception to make things difficult.
+    // @todo Make a breakpoint exception and catch it.
+
+    // 3. We return to the if without using the stack, but from the restoration point.
+    GoBackToTheStartFunction(restorePoint);
+}
+
+// Here everything begins.
+int Start()
+{
+    // Obs.: follow the agreement flow according to the numbers.
+
+    // 1. First pass: we define a restoration point to the return of LongJmp.
+    // 4. Second pass: we go back from the LongJmp function, but this time we get into the else.
+    if( RestorePointDefined() == Defined )
+    {
+        // 2. We call the function that will return to the if.
+        LongJmp( if );
+    }
+    else
+    {
+        // 5. Call the real function, our true target.
+        CallTheUsefulFunction();
+    }
+
+    // 6. End of execution.
+    return 0;
+} 
+</code></pre>
+<p>The solution above is explained in pseudocode to make things clearer. Notice that exist some kind of invisible return, not stack based. To handle it, however, we can use the good for all C ANSI standard, using the setjmp (step one) and longjmp (step 3). To understand the implementation for theses functions running on the 8086 platform we need to get the basic vision of the function calls in a stack based environment (the C and Pascal way).</p>
+<p>Registers are reserved variables in the processor that can be used by the assembly code. Stack frame is the function calling hierarchy, the &ldquo;who called who&rdquo; in a given execution state. Call and ret are assembly instructions to call and return from a function, respectively. Both change the stack frame.</p>
+<p>Imagine you have a function, CallFunc, and another function, Func, and one calls the other. In order to analyse just the function call, and just that, let&rsquo;s consider Func doesn&rsquo;t receive any argument and doesn&rsquo;t return any value. The C code, would be like bellow:</p>
+<pre><code>void Func()
+{
+   return;
+}
+
+
+void CallFunc()
+{
+   Func();
+}
+</code></pre>
+<p>Simple, huh? Being simple, the generated assembly will be simple as well. In CallFunc it should have the function call, and inside Func the return from the call. The rest of the code is related with Debug version stuff.</p>
+<pre><code>Func:
+00411F73 prev_instruction ; ESP = 0012FD38 (four bytes stacked up)
+00411F74 ret ; *ESP = 00411FA3 (return address)
+
+
+CallFunc:
+00411F9C prev_instruction
+00411F9E call Func (411424h) ; ESP = 0012FD3C
+00411FA3 next_instruction
+</code></pre>
+<p>From the assembly above we can conclude two things: 1. The stack grows down, since its value decremented four bytes (0012FD3C minus 0012FD38 equal four) and 2. The return value from the calling is the address of the very next instruction after the call instruction, in the case 00411FA3.</p>
+<p>Well, in the same way we can follow this simple execution, the attacker will do as well. That&rsquo;s why in the middle of this call we will throw an exception and, in the return, we will not do the return in the conventional way, but using another technique that, instead using the ret instruction, sets manually the esp value (stack state) and jumps to the next instruction in CallFunc.</p>
+<pre><code>Func:
+00411F60 throw_exception
+00411F61 ...
+00411F73 catch_exception
+00411F74 mov ESP, 0012FD3C ; ESP = 0012FD3C, just like CallFunc
+00411F75 jmp 00411FA3 ; jumps to CallFunc::next_instruction
+</code></pre>
+<p>All this assembly stuff doesn&rsquo;t need to be written in assembly level. It was just a way I found to illustrate the differences between the stack return and the jump return. As it was said, to the luck and well being for all, this same technique can be implemented using ANSI C functions:</p>
+<pre><code>jmp_buf env; // Contains the next instruction (stack state).
+
+void Func()
+{
+    // 3. Return using the &quot;nonconventional&quot; way
+    longjmp(env, 1);
+}
+
+void CallFunc()
+{
+    // 1. If we're setting, returns 0.
+    // 2. If we're returning, returns a value different from 0.
+    if( setjmp(env) == 0 )
+        Func();
+
+    int x = 10; // 4. Next instruction.
+} 
+</code></pre>
+<p>That was the new trick for the trowing of exceptions. The final code is clearer, now:</p>
+<pre><code>/** The only purpose of this function is to generate an exception.
+*/
+DWORD LongJmp(jmp_buf* env)
+{
+    __try
+    {
+        __asm int 3
+    }
+        __except( EXCEPTION_EXECUTE_HANDLER )
+    {
+        longjmp(*env, 1);
+    }
+
+    return ERROR_SUCCESS;
+}
+
+/** And God said: 'int main!'
+*/
+int main()
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    while( cin )
+    {
+        string line;
+
+        cout &lt;&lt; &quot;Type something\n&quot;;
+        getline(cin, line);
+
+        jmp_buf env;
+
+        if( setjmp(env) == 0 )
+        {
+            LongJmp(&amp;env);
+        }
+        else
+        {
+            cout &lt;&lt; line &lt;&lt; endl;
+        }
+    }
+
+    return (int) ret;
+} 
+</code></pre>
+<p>At first sight, it seems a waste the if being directly in the code (remember we gonna use the same conditional structure in several parts in the code). To turn things clearer, resume the protected call and allows the protection to be disabled in debug version code, let&rsquo;s create a macro:</p>
+<pre><code>/** Use this macro instead LongJmp
+*/
+#define ANTIDEBUG(code)
+{
+    jmp_buf env;
+
+    if( setjmp(env) == 0 )
+    {
+        LongJmp(&amp;env);
+    }
+    else
+    {
+        code;
+    }
+}
+
+/** And God said: 'int main!'
+*/
+int main()
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    while( cin )
+    {
+        string line;
+
+        cout &lt;&lt; &quot;Type something\n&quot;;
+        getline(cin, line);
+
+        ANTIDEBUG(( cout &lt;&lt; line &lt;&lt; endl ));
+    }
+
+    return (int) ret;
+} 
+</code></pre>
+<p>Now we allow the antidebugging selection by call, what turns things much easier than to choose the protected points inside the code.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=In%20the%20first%20article%20we%20saw%20how%20it%26rsquo%3bs%20possible%20to%20spoof%20the%20debugger%20through%20exceptions%20and%20let%20the%20attacker%20lose...%20http%3a%2f%2fwww.caloni.com.br%2fantidebugging-using-exceptions-part-two%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/antidebugging-using-the-debugport/">Antidebugging using the DebugPort<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-one/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Antidebugging using exceptions (part one)</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

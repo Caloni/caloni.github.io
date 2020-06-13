@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - code</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content=""/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="code"/>
+  <meta itemprop="description"
+        content=""/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="code"/>
+  <meta property="og:type"
+        content="website"/>
+  <meta property="og:url" content="http://www.caloni.com.br/categories/code/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content=""/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:section" content="categories"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="code"/>
+  <meta name="twitter:description"
+        content=""/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="/categories/code/index.xml" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="/categories/code/index.xml" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;caloni::code</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+    <div class="container">
+<div class="column">
+<div style="min-height:56vh">
+
+    <div style="padding-bottom: 1em;"></div>
+<input type="text" name="filter" value="" id="filter" placeholder="filter" style="width: 60%; font-size: 1.5rem; margin-top: 1em; margin-left: 10px;" title=""/>
+<button id="filterbutton" style="font-size: 1.5rem;" onclick="ApplyFilter($('#filter').val());"><span class="icon"><i class="fa fa-filter"></i></span></button>
+<button id="randombutton" style="font-size: 1.5rem;" onclick="window.location = randomPost;"><span class="icon"><i class="fa fa-magic"></i></span></button>
+
+    <div><big><b><span style="visibility: hidden; padding: 5px;" name="results" id="results">...</span></b></big></div>
+<table class="sortable">
+
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e...</i>
+        <b><a href="http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/">O Bug Mais Bizarro Que Já Resolvi</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/debug"> debug</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão...</i>
+        <b><a href="http://www.caloni.com.br/cast-operator/">Cast Operator</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/ccpp"> ccpp</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em...</i>
+        <b><a href="http://www.caloni.com.br/winsock-mock/">Winmock</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Alguns implementam mutex pero no mucho, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo...</i>
+        <b><a href="http://www.caloni.com.br/try-lock-de-pelucia/">Meu Try Lock de Pelúcia</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/fun"> fun</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Code Jam esse ano terminou rápido para mim. Estou enferrujado? Nem tanto. Apenas dei menos atenção ao evento no seu início, mas apesar de me concentrar nas últimas 11 horas não tive um resultado...</i>
+        <b><a href="http://www.caloni.com.br/code-jam-2020/">Code Jam 2020</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a...</i>
+        <b><a href="http://www.caloni.com.br/golang-e-c/">Golang e C</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É a segunda vez que uso subtrees no Git. Não é algo que me acostumei usar por rotina, mas é uma técnica que eu recomendo que todo programador conheça para unir repositórios que não dependa dos...</i>
+        <b><a href="http://www.caloni.com.br/git-subtree/">Git Subtree</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Continuando minhas aventuras em tentar ser mais rápido que o Hugo, fiz uma versão que gera um html porco com os parágrafos obtidos no parser porco de markdown, rodando em cima dos meus 2740 posts....</i>
+        <b><a href="http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/">Projeto Hu Cpp: Not Fast Enough</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Utilizo o Hugo como renderizador do meu saite já faz um tempo. Depois que juntei os posts do finado Cine Tênis Verde e do meu blogue técnico a soma dos textos ultrapassou a marca dos dois mil....</i>
+        <b><a href="http://www.caloni.com.br/projeto-hu-cpp/">Projeto Hu Cpp</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A ideia por trás de um sistema multipath de rede é fornecer mais de um caminho para o tráfego de pacotes. O objetivo pode ser diminuir a perda de pacotes por causa da instabilidade da rede, mas também...</i>
+        <b><a href="http://www.caloni.com.br/como-funciona-o-mptunnel/">Como Funciona o MPTunnel</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A versatilidade do vcpkg, gerenciador de pacotes multiplataforma da Microsoft, é permitir modificar tudo no projeto, desde código-fonte, pacotes instaláveis e a própria origem do repositório. Através...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg-bootstrap/">Vcpkg: Bootstrap</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O protocolo DTLS, grosso modo, é um addon do TLS, que é a versão mais nova e segura do SSL, só que em vez de usar por baixo o TCP, que garante entrega na ordem certa dos pacotes, além de outras...</i>
+        <b><a href="http://www.caloni.com.br/dtls-simples/">DTLS Simples... simples?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Mais uma aventura em vcpkg. Dessa vez o projeto openssl, a biblioteca de SSL open-source multiplataforma. O vcpkg divide esse port por SO, sendo o openssl-windows o port que alterei. A alteração foi...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg-openssl-cnf/">Vcpkg: openssl.cnf</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quem programa em C++ no Brasil geralmente precisa estar preparado para manter velharias. Boa parte do parque de máquinas das empresas usam Windows, e não estou falando de Windows 10, mas muitas vezes...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg-boost-windows-xp/">Vcpkg: Boost para Windows XP</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Hoje tive que compilar a versão 1.13.0 do Asio para Windows, mas o vcpkg não suporta essa versão ainda, apesar de suportar uma versão (1.12.2.2). Daí entra os problemas que todo programador Windows...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg-atualizando-lib-asio/">Vcpkg: Atualizando Lib Asio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Olá. Esta é uma viagem para dentro do computador. Como funciona um computador? Você sabe? Pois é, nem eu. Mas vamos explorar alguns pontos onde nossa vã metafísica mal encosta na singularidade que é...</i>
+        <b><a href="http://www.caloni.com.br/do-bit-para-o-codigo/">Do Bit para o Código</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code,...</i>
+        <b><a href="http://www.caloni.com.br/hacker-rank/">Some things I learned in a Hacker Rank exercise</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/ccpp"> ccpp</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a><a style="color: gray;" href="/tags/english"> english</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Antigamente ele era conhecido apenas como tio, mas seu nome foi trocado para a nova modinha dos hubs com o sufixo db: são os chamados nosql. De qualquer forma, o tio, ou The Information Overlord...</i>
+        <b><a href="http://www.caloni.com.br/tiodb/">tiodb</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Hoje foi o dia de redescobrir meu velho ranço com a solução Microsoft para banco de dados. Já perdi horas, dias e semanas com problemas de conexão com algum servidor SQL Server porque a instalação...</i>
+        <b><a href="http://www.caloni.com.br/sqllocaldb/">SLQLocalDB</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Eu publico meu blog inteiro de tempos em tempos para um ebook que construo formatando primeiro em html através de um tema do Hugo, o parser de blog que estou usando no momento porque ele suporta 2500...</i>
+        <b><a href="http://www.caloni.com.br/como-publicar-seu-blog-em-hugo-para-ebook/">Como Publicar Seu Blog Em Hugo Para Ebook</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para quem decide usar a linguagem C para resolver tudo, a gota da água é o goto. Ele é flexível, cabe em (quase) qualquer ponto do código e tem 1001 utilidades. O goto é o bombril da engenharia de...</i>
+        <b><a href="http://www.caloni.com.br/goto/">C Resolve Tudo: goto</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Continuando nossa série, conforme sugerido pelo @colemaker do grupo C/C++/42/Império do Brasil, a próxima ideia a ser implementada em C é o sistema polimórfico de chamadas do Lisp orientado a objetos....</i>
+        <b><a href="http://www.caloni.com.br/c-resolve-tudo-clos/">C Resolve Tudo Clos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como programadores há um vício em nossas cabeças que é estar constantemente buscando a bala de prata, ou seja, a solução final e única para todos os nossos problemas de implementação. Com o tempo e...</i>
+        <b><a href="http://www.caloni.com.br/c-resolve-tudo/">C Resolve Tudo: Orientação a Objetos (com Polimorfismo)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Tantas linguagens hoje em dia tentando implementar a abstração de corrotinas e inserindo mais camadas de abstração (fibras e cereais)&hellip; há duas implementações já no Boost, ambas dependendo de...</i>
+        <b><a href="http://www.caloni.com.br/coroutines-em-c-picoro/">Coroutines Em C: Picoro</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Desde o Visual Studio 2015 há suporte a unit tests em C++ automatizado na IDE. Porém, a partir do VS 2017 15.5 o suporte aumentou drasticamente, vindo embutidos os suportes para as bibliotecas de...</i>
+        <b><a href="http://www.caloni.com.br/visual-studio-unit-test/">Visual Studio Unit Test (C&#43;&#43;)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão....</i>
+        <b><a href="http://www.caloni.com.br/const-int-pointer-var/">Const Int Pointer Var</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Secure Shell (SSH) é um protocolo de sucesso nos unixes da vida para terminal remoto e seguro por décadas, mas no Windows nunca houve uma forma simples e protegida de abrir um terminal ou copiar...</i>
+        <b><a href="http://www.caloni.com.br/openssh-windows/">OpenSSH no Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Estou viajando e com poucas horas de acesso a um computador, mas os dois primeiros desafios do Code Jam esse ano foram tão simples que sequer precisaram de meia-hora. Isso para um chinês, campeões em...</i>
+        <b><a href="http://www.caloni.com.br/code-jam-2019-qualification-round/">Code Jam 2019 Qualification Round</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Agora que o VS Code é a ferramenta universal para todas as plataformas e linguagens imagináveis, acreditem ou não, há até plugin para Pascal. Ao instalar a extensão mantida por Alessandro Fragnani...</i>
+        <b><a href="http://www.caloni.com.br/free-pascal-e-vs-code/">Free Pascal e VS Code</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Já escrevi sobre debug remoto no finado C++ Builder, sobre como usar o msvcmon.exe no VS 2003 e o msvsmon.exe no 2010+. Sobre como depurar um serviço quando a máquina está para desligar, e até sobre...</i>
+        <b><a href="http://www.caloni.com.br/debug-remoto-visual-studio-2010-superior/">Debug Remoto no Visual Studio 2010 ou Superior</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de um mês de correção e mais um ou dois meses preparando um compilado do que ocorreu no software que estamos mantendo, foi descoberta uma situação muito peculiar que ocorre tanto em Windows XP...</i>
+        <b><a href="http://www.caloni.com.br/bug-boost-asio-acceptex-winsock/">Bug no Boost Asio usando função AcceptEx do Winsock</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Estou voltando a programar algumas coisas no boost. Algo que eu perdi ao me isolar do movimento de modernização do C++ foi a capacidade brilhante da biblioteca boost em encapsular e abstrair conceitos...</i>
+        <b><a href="http://www.caloni.com.br/boost-bind-e-os-erros-escrotos/">Boost.Bind e os Erros Escrotos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma corrotinas é um mecanismo de troca de contexto onde apenas uma thread está envolvida. Ela me faz lembrar do Windows 3.0, não exatamente por não existirem threads (e não existiam mesmo), mas pelo...</i>
+        <b><a href="http://www.caloni.com.br/coroutine-internals/">Coroutine Internals</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de entender mais ou menos como funciona o vcpkg é hora de realmente entrar no código e entender qual a grande sacada dessa ferramenta da Microsoft.
+Uma das formas mais divertidas de entender o...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg-internals/">Vcpkg Internals: como o gerenciador de pacotes da M$ funciona por dentro (e como fazer seu próprio pacote!)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Sim, eu acho que já resumi o suficiente meu parseador de argv/argc no meu último artigo sobre o tema. Sim, eu também acho que a versão com STL bonitinha (mas ordinária). A questão agora não são as...</i>
+        <b><a href="http://www.caloni.com.br/getarg/">GetArg: the ultimate badass argv/argc parser</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado....</i>
+        <b><a href="http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/">Meu Novo Parseador de Argc Argv</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Segue meu segundo vídeo curto onde estou apenas demonstrando como é o depurador do Visual Studio. Mas dessa vez com comentários =)</i>
+        <b><a href="http://www.caloni.com.br/video-depuracao-visualstudio-101-comentado/">Vídeo: Visual Studio e seu depurador (comentado)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Redescobrindo meu canal no YouTube me empolguei em publicar mais alguma coisa. Os meu primeiros vídeos, no meu canal pessoal, são longos e possuem narração um pouco confusa, mas explicam bem alguns...</i>
+        <b><a href="http://www.caloni.com.br/video-depuracao-visualstudio-101/">Vídeo: Depuração Visual Studio 101</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para quem está tentando compilar um executável usando py2exe e protobuf, #ficadica: desista. Ele não vai funcionar ou se funcionar vai dar trabalho. Em vez disso melhor usar buildexe (através do...</i>
+        <b><a href="http://www.caloni.com.br/python27-protobuf-py2exe-cx_freeze/">Python27, protobuf, py2exe e buildexe</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O ambiente padronizado de bibliotecas C/C++ dos sistemas UNIX é motivo de inveja dos programadores Windows por séculos. Mas, finalmente, a Microsoft tem acordado diante da ressurreição do C++, com...</i>
+        <b><a href="http://www.caloni.com.br/vcpkg/">Vcpkg: gerenciador de libs c&#43;&#43; para Linux, Mac OS... e Windows!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O protocolo TLS/SSL tem por objetivo criar uma camada de criptografia assimétrica para a aplicação. E quando eu falo em camada não estou me referindo às camadas OSI. Nem às camadas TCP/IP. Isso porque...</i>
+        <b><a href="http://www.caloni.com.br/ssl-limite-de-pacote/">SSL e seu limite de pacote</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Boost Meta State Machine (MSM for short) é uma das duas bibliotecas mais famosinhas de state machine do Boost. Ela é uma versão estática que permite incluir chamadas para as entradas e saídas de um...</i>
+        <b><a href="http://www.caloni.com.br/boost-meta-state-machine/">Boost Meta State Machine</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque...</i>
+        <b><a href="http://www.caloni.com.br/lista-ligada/">Lista Ligada; tá ligado?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Observar um estudante de computação (qualquer curso) lutando nos primeiros meses para conseguir fazer seus programas compilarem em C é um misto de emoções. É uma mistura entre risos, risadas e...</i>
+        <b><a href="http://www.caloni.com.br/projetoaluno/">Projeto Aluno</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Desde o C++ moderno (pós-03) o uso de arrays de tamanho fixo estão se tornando depreciados. E por um bom motivo: você nunca sabe realmente qual o tamanho que você precisa para um array de bytes até...</i>
+        <b><a href="http://www.caloni.com.br/contra-o-array-de-100-bytes-eh-suficiente/">Contra o &#39;Array de 100 bytes é suficiente&#39;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma dúvida muito comum dos programadores iniciantes em C/C++ diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora...</i>
+        <b><a href="http://www.caloni.com.br/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao/">Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Os clássicos argv/argc são úteis quando os parâmetros de um programa são conhecidos e geralmente obrigatórios (até a ordem pode ser obrigatória). Isso funciona muito bem para C. Porém, há a...</i>
+        <b><a href="http://www.caloni.com.br/como-parsear-argc-argv-para-um-map-stl/">Como Parsear Argc Argv para um map STL</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques...</i>
+        <b><a href="http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/">Como Achar Erros no Printf via Dump</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/ccpp"> ccpp</a><a style="color: gray;" href="/tags/debug"> debug</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Geralmente se cria um projeto console/prompt quando há a necessidade de interfacear com o usuário com o uso da tela preta, saída padrão, etc. E no caso do Windows também há a possibilidade de criar um...</i>
+        <b><a href="http://www.caloni.com.br/como-apagar-o-prompt-do-seu-programa-windows/">Como Apagar o Prompt do seu Programa Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas...</i>
+        <b><a href="http://www.caloni.com.br/cmd-e-o-encoding-fake/">Cmd e o encoding fake</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nos últimos dias me deparei com o seguinte (pseudo-)código:
+int main(int argc, const char **argv){MyClass obj;HRESULT hr = obj.init();if ( SUCCEEDED(hr) ){if ( args have &quot;cmd1&quot; ){hr...</i>
+        <b><a href="http://www.caloni.com.br/se-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe/">Se você não precisa de classe você não precisa de classe</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um dos últimos posts no grupo CCPPBR do Thiago Adams chama mais uma vez a atenção para a complexidade infinita que linguagens como C++ estão preferindo tomar. Esta é a geração que irá sofrer as dores...</i>
+        <b><a href="http://www.caloni.com.br/cpp-arranca-os-cabelos-por-voce/">C&#43;&#43; Moderno Arranca os Cabelos por Você (std::move e classes simples).</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de migrar meus blogues para o Hugo decidi deixar o repositório mais magro migrando as imagens para um serviço de imagens. O imgur me pareceu uma solução simples com uma interface rápida (e uma...</i>
+        <b><a href="http://www.caloni.com.br/migrando-imagens-para-imgur/">Migrando Imagens Para Imgur</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No post anterior sobre debug eu havia me focado mais na depuração de processos remotos no Visual Studio 2003 de maneira convencional. Aqui eu vou abordar o assunto de uma maneira menos convencional:...</i>
+        <b><a href="http://www.caloni.com.br/forma-mais-simples-de-depurar-processos-antes-do-logon/">Forma Mais Simples De Depurar Processos Antes Do Logon</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que...</i>
+        <b><a href="http://www.caloni.com.br/debugger-remoto-do-visual-studio/">Debugger remoto do Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando projetos remotos usam submodules é possível que algum deles seja acessível apenas através de chaves criptográficas. Isso exige que os sub-projetos necessários para fazer funcionar seu projeto...</i>
+        <b><a href="http://www.caloni.com.br/submodules-locais-no-git/">Como acessar submódulos no git inacessíveis?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Há diversas distros Linux capazes de bootar via CD e com uma penca de ferramentas. Conheci há alguns anos uma delas: a SystemRescueCd: um disco de recuperação de HDs com diversas ferramentas...</i>
+        <b><a href="http://www.caloni.com.br/systemrescuecd-um-cd-cheio-de-ferramentas/">SystemRescueCD: um CD cheio de ferramentas Linux para desenvolvedores e suporte</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A forma mais simples e rápida para subir um servidor de arquivos é usar o file server embutido do python:
+# 2python -m SimpleHTTPServer# 3python -m http.server Para que não seja necessário...</i>
+        <b><a href="http://www.caloni.com.br/forma-simples-de-baixar-atualizacoes-remotamente-de-um-cliente-para-um-servidor/">Forma simples de baixar atualizações remotamente de um cliente para um servidor</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A estratégia que utilizei em meu último artigo sobre Qt para expandir o tipo QString no depurador não existe mais no VS2017 RC. O arquivo autoexp.dat foi extirpado e em seu lugar foi deixado os já...</i>
+        <b><a href="http://www.caloni.com.br/qt5-natvis/">qt5.natvis</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar...</i>
+        <b><a href="http://www.caloni.com.br/o-velho-problema-do-project-out-of-date-do-visual-studio/">O velho problema do project out of date do Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Qt não é um framework que pode apenas ser usado no QtCreator. Através de um projeto bem configurado pelo CMake, por exemplo, é possível ter um projeto que pode ser compilado e depurado tanto nas...</i>
+        <b><a href="http://www.caloni.com.br/visualizando-qstring-no-visual-studio/">Visualizando QString no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C++ como a linguagem-base e o...</i>
+        <b><a href="http://www.caloni.com.br/palestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off/">Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É muito bom (para quem gosta) usar a IDE e viver feliz sem precisar se preocupar em digitar comandos estranhos no prompt. Porém, essa vida acaba quando ocorre o primeiro erro inexplicável, aquele tipo...</i>
+        <b><a href="http://www.caloni.com.br/pacotes-perdidos-nuget-em-projetos-cpp-no-visual-studio/">Pacotes perdidos do NuGet em projetos C&#43;&#43; no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A comunicação oferecida pelo Protocol Buffers, uma maneira otimizada de codificar mensagens em alto nível, é uma das formas mais ideais de realizar a ponte entre cliente e servidor quando se fala de...</i>
+        <b><a href="http://www.caloni.com.br/android-protobuf-mock-configuravel/">Android protobuf, mock configurável</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são...</i>
+        <b><a href="http://www.caloni.com.br/um-commit-por-feature/">Um commit por feature</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Você já colocou aquele seu projeto favorito em /W4? Por padrão, o Visual Studio cria seus projetos com o nível de warnings e 3, porque o nível 4 é muito, muito chato. No entanto, algumas vezes ele...</i>
+        <b><a href="http://www.caloni.com.br/warning-de-nivel-4/">Warning de nível 4</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Ano passado tive alguns problemas em um projeto que se comunicava com um dispositivo em firmware pela USB. Estávamos utilizando uma biblioteca open source do GitHub que parecia estar bem testada e...</i>
+        <b><a href="http://www.caloni.com.br/readfile-assincrono-pode-ser-sincrono-quando-voce-menos-espera/">ReadFile assíncrono pode ser síncrono quando você menos espera</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Com o surgimento da infraestrutura LLVM, que possibilita a união entre diferentes ferramentas que suportam diferentes plataformas para o desenvolvimento de software, e o clang, um font-end para C/C++...</i>
+        <b><a href="http://www.caloni.com.br/video-usando-clang-no-visual-studio/">Vídeo: Usando clang no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O livro-base sobre a linguagem C++ e como programar nela tem o nome pouco criativo &ldquo;The C++ Programming Language&rdquo;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhar...</i>
+        <b><a href="http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/">A Linguagem de Programação C&#43;&#43;: O Início</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Mesmo que você não programe em C/C++, mas programe para Windows (ex: .NET), sempre há a possibilidade de seu programa estar causando leaks de handles indefinidamente, o que não se traduz em aumento...</i>
+        <b><a href="http://www.caloni.com.br/quantos-handles/">Quantos handles sua aplicação está abrindo?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Fazer o setup inicial de testes unitários em seu projeto C++ pode ser algo enfadonho se você precisa baixar e compilar uma lib do Google ou do Boost. Há uma alternativa mais leve e bem direta, que um...</i>
+        <b><a href="http://www.caloni.com.br/unitmenosmenos/">unit-menos-menos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quem nunca teve que mexer em um projeto cheio de bugs de compilação, péssima organização, documentação e nomes de funções, classes e argumentos? Que você acaba de baixar em sua máquina e ele não...</i>
+        <b><a href="http://www.caloni.com.br/video-resolvendo-problemas-em-projetos-desleixados/">Vídeo: Resolvendo problemas em projetos desleixados</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Bancos de dados são uma dor de cabeça para o desenvolvedor acessar. Quase tão motivation killer que as configurações do .NET. Se for um programador em C++ para Windows, então, desista.
+O DBAccess é...</i>
+        <b><a href="http://www.caloni.com.br/dbaccess/">DBAccess</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Olá de novo. Este é o segundo vídeo da série &ldquo;o que que eu tô fazendo no YouTube?&quot;. Dessa vez abri o Visual Studio para depurar um código de 10 linhas com um bug absurdamente absurdo, mas...</i>
+        <b><a href="http://www.caloni.com.br/depurando-codigo-c-no-visual-studio/">Vídeo: Depurando código C&#43;&#43; no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse vídeo é um experimento que estou fazendo para tentar começar a compartilhar conhecimento em vídeo. Para começar, acho que nada mais apropriado que criar um projeto novo no Visual Studio, não?...</i>
+        <b><a href="http://www.caloni.com.br/video-criando-projeto-c-console-no-visual-studio-2015/">Vídeo: Criando Projeto C&#43;&#43; Console no Visual Studio 2015</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Há umas semanas (sim, estava enrolado para falar sobre isso) ministrei uma nova palestra lá em Sorocaba. Cheguei no meio de uma greve de ônibus, o que atrasou o evento em uma hora e me deu tempo de...</i>
+        <b><a href="http://www.caloni.com.br/palestra-stack-overflow/">Palestra: Stack Overflow</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Passou o Round 1A do Code Jam, e para variar, fui muito mal, só respondendo a primeira questão. A segunda me fez ficar pensando um tempo desproporcional sobre como encaixar as diferentes linhas e...</i>
+        <b><a href="http://www.caloni.com.br/rank-and-file-code-jam/">Rank and File</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Bom, depois de criar um script para basicamente apenas escrever o texto dos filmes que assisto e buscar uma imagem agradável para meu finado blogue de Cinema, o próximo passo foi portar esse mesmo...</i>
+        <b><a href="http://www.caloni.com.br/testando-sistema-de-postagem/">Testando sistema de postagem</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada,...</i>
+        <b><a href="http://www.caloni.com.br/log-de-apis-chamadas-direto-do-windbg/">Log de chamadas API direto do WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A grande vantagem dos templates é manter o tipo de seus argumentos. Infelizmente, eles não existem na linguagem C, mas podem ser usados em construções C feitas com a linguagem C++, como ocorre com...</i>
+        <b><a href="http://www.caloni.com.br/templates-em-c-no-lugar-de-macros/">Templates em C no lugar de macros</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um template &ndash; ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito &ndash; é um molde que pode ser usado por diferentes tipos...</i>
+        <b><a href="http://www.caloni.com.br/gabaritos/">Gabaritos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No post anterior implementamos &ldquo;métodos&rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de...</i>
+        <b><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/">Classe, objeto, contexto, método, polimorfismo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &ldquo;objeto&rdquo;, seja em C (manualmente) ou em C++ (automagicamente pelo operador...</i>
+        <b><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo/">Classe, objeto, contexto, método</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para entender conceitos simples em C++, como métodos de uma classe, ajuda muito seguir o raciocínio dos programadores C e como eles lidavam com o tipo de problema que C++ resolve elegantemente...</i>
+        <b><a href="http://www.caloni.com.br/classe-objeto-contexto/">Classe, objeto, contexto</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Trabalhar com inúmeros projetos de diferentes clientes e diferentes binários pode ser uma loucura. Quando o mundo é Windows, algumas medidas precisam ser padronizadas para evitar a perda de informação...</i>
+        <b><a href="http://www.caloni.com.br/indexando-simbolos-com-rapidez/">Indexando símbolos com rapidez</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft...</i>
+        <b><a href="http://www.caloni.com.br/o-estranho-caso-do-pdb-mal-formado/">O Estranho Caso do PDB Mal-Aformado</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando se mexe com C++ em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de...</i>
+        <b><a href="http://www.caloni.com.br/voce-sabe-o-que-esta-usando-no-seu-codigo/">Você sabe o que está usando no seu código?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &ldquo;passou por aqui&rdquo; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas...</i>
+        <b><a href="http://www.caloni.com.br/logs-em-servicos-e-outras-coisas/">Logs em serviços (e outras coisas)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Semana passada fiquei sabendo que o vídeo da minha palestra &ldquo;Depurando até o fim do mundo&rdquo; do TDC 2014 estava disponível online. Resolvi assistir para ver se aprendia alguma coisa. A...</i>
+        <b><a href="http://www.caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github/">Depurando até o fim do mundo e de volta de novo: source server com GitHub</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>As ferramentas da SysInternals fazem a gente economizar um tempo considerável na resolução de problemas. Não que elas sejam indispensáveis. Tudo que elas fazem é encurtar o caminho entre a análise de...</i>
+        <b><a href="http://www.caloni.com.br/analisando-erros-pelo-filtro-do-file-mon/">Analisando erros pelo filtro do File Monitor</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Pergunta de um leitor:
+void func(){}int main(){func(&quot;sbrubles&quot;);return 0;} Resposta do Autor: Por que C é zoado :P
+OK, a verdade é que não existem (existiam?) muitas regras de...</i>
+        <b><a href="http://www.caloni.com.br/convencao-de-chamada/">Convenção de Chamada</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Programadores C e C++, preparem-se para explodir as cabeças!
+No princípio&hellip; não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram...</i>
+        <b><a href="http://www.caloni.com.br/origem-do-tipo-char/">Origem do tipo char</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que contém uma boa dica para quem já entendeu o passo-a-passo da compilação, mas ainda tem sérios problemas quando os projetos...</i>
+        <b><a href="http://www.caloni.com.br/por-que-o-visual-studio-gera-executaveis-mutantes/">Por que o Visual Studio gera executáveis mutantes</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a...</i>
+        <b><a href="http://www.caloni.com.br/entendendo-a-compilacao/">Entendendo a Compilação</a></b>
+        <i><a style="color: gray;" href="/tags/ccpp"> ccpp</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O projeto Houaiss2Babylon, iniciado há mais de 6 anos, já devia estar ultrapassado. Porém, cada vez mais pessoas compartilham seus usos e desusos do que foi um dia uma base de dados ofuscada e presa a...</i>
+        <b><a href="http://www.caloni.com.br/houaiss-para/">Houaiss Para *</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que...</i>
+        <b><a href="http://www.caloni.com.br/shareando-ponteiros/">Shareando Ponteiros</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente,...</i>
+        <b><a href="http://www.caloni.com.br/o-novo-como-nao-dar-step-into-do-visual-studio-201213/">O novo &#39;como não dar step into&#39; do Visual Studio 2012/13</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como já vimos algumas vezes, a STL não prima por interfaces intuitivas, preferindo abstrações que criem um leque de ferramentas genéricas para tratamento uniformizado de coleções de dados através de...</i>
+        <b><a href="http://www.caloni.com.br/se-iterando-com-os-pseudo-ponteiros-uma-breve-introducao/">Se iterando com os pseudo-ponteiros: uma breve introdução</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Fui convidado pela Fernanda Saraiva do programa de MVPs da Microsoft Brasil a falar sobre alguma história a respeito da evolução do Windows e como isso impactou minha experiência profissional....</i>
+        <b><a href="http://www.caloni.com.br/eles-querem-que-a-gina-va-embora-tres-posts-sobre-evolucao-windows/">Eles querem que a GINA vá embora: três posts sobre evolução Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para...</i>
+        <b><a href="http://www.caloni.com.br/ss/">SS</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Este post não estará mais disponível devido ao mau uso de pessoas que se aproveitaram das minhas explicações didáticas a respeito do funcionamento da versão Desktop do dicionário e, agindo de má-fé,...</i>
+        <b><a href="http://www.caloni.com.br/desmontando-o-aulete-digital/">Desmontando o Aulete Digital</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida...</i>
+        <b><a href="http://www.caloni.com.br/estruturas-vs-classes-fight/">Estruturas VS Classes: fight!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Minha primeira linguagem de programação foi o BASIC. Aprendi durante minhas frequentes visitas à biblioteca lendo livros dos anos 80. Na verdade, eu não me lembro muito bem por que diabos resolvi...</i>
+        <b><a href="http://www.caloni.com.br/50-anos-de-basic/">50 Anos de BASIC</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops...</i>
+        <b><a href="http://www.caloni.com.br/poker-face/">Poker Face</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o...</i>
+        <b><a href="http://www.caloni.com.br/que-geleia-de-mocoto/">Que geleia de mocotó</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Pronto, posso programar em paz. O jogo 2048 é uma lástima para todos os trabalhadores intelectuais que dependem de suas mentes para produzir algo que preste. Ele gerou mais posts no Hacker News do que...</i>
+        <b><a href="http://www.caloni.com.br/2048-motivos-para-nao-programar/">2048 motivos para não programar</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais...</i>
+        <b><a href="http://www.caloni.com.br/geleia-de-codigo/">Geleia de Código</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/puzzle"> puzzle</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Na última vez que foi abordado o tema &ldquo;lambda na ferida&rdquo; falamos brevemente sobre como C++ agora permite criar funções dentro de funções. Hoje vamos apenas falar que aquela construção...</i>
+        <b><a href="http://www.caloni.com.br/lambda-o-retorno/">Lambda: o Retorno!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A nova moda de programar C++ nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
+O que esse nome quer dizer basicamente é que agora é...</i>
+        <b><a href="http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/">A moda agora é levar lambda na função</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e...</i>
+        <b><a href="http://www.caloni.com.br/houaiss-para-babylon-em-python/">Houaiss para Babylon em Python!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A surpresa de hoje foi descobrir (vejam só) que o removeif, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove...</i>
+        <b><a href="http://www.caloni.com.br/remove_if-ate-remove-so-que-diferente/">removeif até remove, só que diferente</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Eu não sou apenas um programador: sou um especulador. Ou, para quem ficou com medo, um investidor. Ficou bonito, agora? Trocando em miúdos, isso quer dizer que muitas vezes aposto na bolsa de valores,...</i>
+        <b><a href="http://www.caloni.com.br/bovespabacktesting/">BovespaBacktesting</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando armazenamos valores monetários em doubles seus cálculos conseguem manter a precisão e na maioria das vezes o ajuste de precisão funciona. Porém, encontrei alguns casos onde a subtração de dois...</i>
+        <b><a href="http://www.caloni.com.br/ponto-flutuante-afundando/">Ponto Flutuante Afundando</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Duas semanas atrás rolou a trilha C++ do TDC 2012, que contou com além da minha presença com a dos já conhecidos Fernando Roberto (DriverEntry), Rodrigo Strauss (1Bit), etc. Uma novidade: meu colega e...</i>
+        <b><a href="http://www.caloni.com.br/minha-palestra-do-tdc-2012/">Minha palestra do TDC 2012</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Muitas vezes uma solução intuitiva não é exatamente o que esperamos que seja quando o código está rodando. Gerar IDs únicos, por exemplo. Se você analisar por 5 minutos pode chegar à conclusão que um...</i>
+        <b><a href="http://www.caloni.com.br/gettickcount-nao-e-um-gerador-de-ids-unicos/">GetTickCount não é um gerador de IDs únicos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de vacilar por alguns meses, incentivado pelo meu amigo Chico Pimenta, resolvi experimentar o tal do GitHub, e consequentemente o sistema de controle de fontes distribuído Git, que antes era...</i>
+        <b><a href="http://www.caloni.com.br/meus-repositorios-no-github/">Meus repositórios no GitHub</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de uma agradável manhã e tarde acompanhando o curso de desenvolvimento de drivers do meu amigo Ferdinando voltei para a casa para brincar um pouco mais com o mundo kernel e voltar a encontrar...</i>
+        <b><a href="http://www.caloni.com.br/problemas-comuns-no-windbg-e-suas-solucoes/">Problemas comuns no WinDbg e suas soluções</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o...</i>
+        <b><a href="http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/">Sobrecarga de função às avessas</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Era um belo dia em um ambiente de processamento fictício de filas fictícias e threads fictícias. Eis um belo código com filas, threads e processamentos feitos em stop-motion:
+#include...</i>
+        <b><a href="http://www.caloni.com.br/consumo-abusivo-de-memoria/">Consumo abusivo de memória</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O Visual Studio é uma ótima ferramenta para depurar rapidamente programas sendo desenvolvidos e para o resto usamos Vim. No entanto, a versão 2010 do ambiente (ainda não testei a 2011 beta) possui um...</i>
+        <b><a href="http://www.caloni.com.br/header-inutil/">Header Inútil</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Continuando o papo sobre o que fazer para analisar rapidamente um crash no servidor com o pacote WinDbg, na maioria das vezes a exceção lançada pelo processo está diretamente relacionada com um acesso...</i>
+        <b><a href="http://www.caloni.com.br/depuracao-de-emergencia-receita-de-bolo/">Depuração de emergência com receita de bolo no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/debug"> debug</a><a style="color: gray;" href="/tags/tools"> tools</a><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um dos problemas que a linguagem C++ possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da...</i>
+        <b><a href="http://www.caloni.com.br/cuidado-com-variaveis-temporarias/">Cuidado com variáveis temporárias</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é...</i>
+        <b><a href="http://www.caloni.com.br/depuracao-de-emergencia/">Depuração de emergência</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O WinDbg fornece aos programadores diversos meios (muitos redundantes) de comparar valores inteiros em quaquer lugar da memória, em qualquer tamanho (8, 16, 32, 64 bits). Porém, quando precisamos...</i>
+        <b><a href="http://www.caloni.com.br/comparando-strings-no-windbg/">Comparando strings no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Em C++ não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
+class MyClass{public:...</i>
+        <b><a href="http://www.caloni.com.br/sem-reflection/">Sem reflection</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Os problemas relacionados com acesso negado durante a conversão/construção do dicionário foram corrigidos na novíssima versão disponível no GitHub.
+Erroneamente imaginando que a falta de acesso tinha...</i>
+        <b><a href="http://www.caloni.com.br/houaiss-1-3/">Houaiss 1.3</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
+&quot;Salve Caloni,Já leio o seu site a algum tempo. Realmente acho...</i>
+        <b><a href="http://www.caloni.com.br/base64/">Base64</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O DayToDay é um projetinho que criei para fazer tracking das minhas atividades diárias. Eu o criei há mais de 6 anos, e provavelmente se tivesse pensado em como isso seria útil para as pessoas...</i>
+        <b><a href="http://www.caloni.com.br/projeto-daytoday/">Projeto DayToDay</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Acho que na breve história desse blogue nunca contei a história do vtable. No máximo fizemos um hookzinho nos métodos de um componente COM. Mas só.
+Não encontro uma analogia simples, assim, de cabeça....</i>
+        <b><a href="http://www.caloni.com.br/vtable/">VTable</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Brincando com obtenções e conversões de SIDs, tive uma pequena dificuldade de usar a função ConvertStringSidToSid, de Sddl.h. Seu objetivo é receber uma string-SID no formato usado pela ferramenta...</i>
+        <b><a href="http://www.caloni.com.br/esse-ponteiro-vai-ate-onde/">Esse ponteiro vai até onde?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Mesmo as vezes que você não queira, algumas dependências pedem carona e o compilador deixa entrar. Daí mesmo que você não use uma função API, ela acaba te atazanando a vida.
+Foi o caso da ToolHelp32...</i>
+        <b><a href="http://www.caloni.com.br/dependencia-pedindo-carona/">Dependência pedindo carona</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No artigo anterior fizemos um patch rapidinho na memória se aproveitando de um Sleep nojento que o código nos forneceu.
+E se não houvesse Sleep?
+As chances de estarmos escrevendo no momento em que a...</i>
+        <b><a href="http://www.caloni.com.br/patch-de-emergencia-2/">Patch de emergência 2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Após um projeto muito bem sucedido, entregue no prazo e homologado em tempo recorde, você e sua equipe estão aproveitando suas devidas férias nas Bahamas, tomando água de coco na sombra de uma...</i>
+        <b><a href="http://www.caloni.com.br/patch-de-emergencia/">Patch de emergência</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte...</i>
+        <b><a href="http://www.caloni.com.br/suporte-tecnico/">Suporte técnico</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Já foi comentado em alguns círculos de ótimos programadores que a função da Win32 API FormatMessage é uma das criaturas mais bizarras já criadas.
+O objetivo da FormatMessage é formatar uma string,...</i>
+        <b><a href="http://www.caloni.com.br/formatmessage-para-dumies/">FormatMessage para... dumies?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Que vergonha passar tanto tempo sem postar nada. Parece que não fiz nada que valesse a pena comentar por aqui.
+Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e reuniões de...</i>
+        <b><a href="http://www.caloni.com.br/tres-em-um/">Três em um</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Já fiz ofuscamento e embaralhamento de dados acho que umas três ou quatro vezes. Dessa vez, parti para o batidíssimo esquema de fazer o pré-processamento de um header com defines que irão virar...</i>
+        <b><a href="http://www.caloni.com.br/como-ofuscar-strings/">Como ofuscar strings</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Agora que a temporada das telas azuis passou estou às voltas com o nosso sistema de detecção de crashes, além de alguns dumps e logs pra relaxar de vez em quando.
+Fiquei impressionado com a...</i>
+        <b><a href="http://www.caloni.com.br/gerando-dumps-automatizados/">Gerando dumps automatizados</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse fim-de-semana houve o tão falado evento C++, com a presença de dezenas de pessoas, algo que eu sinceramente não esperava. O bom desse evento foi saber que existem tantas pessoas interessadas em...</i>
+        <b><a href="http://www.caloni.com.br/evento-c/">Evento C&#43;&#43;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Continuo escovando bits. Dessa vez de forma mais nervosa. Se trata de um serviço que trava durante seu stop. Um colega muito esperto do suporte gerou um dump para mim, tornando as coisas mais fáceis....</i>
+        <b><a href="http://www.caloni.com.br/como-achar-o-codigo-fonte-sem-simbolos/">Como achar o código-fonte sem símbolos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Ontem falei sobre como &ldquo;brincar&rdquo; com os breakpoints promíscuos, ou seja, aqueles que topam qualquer processo. Isso
+é muito simples de se fazer:
+ Configure uma VM para bootar em kernel...</i>
+        <b><a href="http://www.caloni.com.br/breakpoints-promiscuos/">Breakpoints promíscuos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Padrão C (ISO/IEC 9899:1990)
+6.5.3 type-qualifierconstvolatilePadrão C++ (ISO/IEC 14882:1998)cv-qualifierconstvolatile Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile....</i>
+        <b><a href="http://www.caloni.com.br/const-e-volatile/">Const e Volatile</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Padrão C (ISO/IEC 9899:1990)
+6.5.2.2 enum-specifierenumPadrão C++ (ISO/IEC 14882:1998)type-specifierenum-specifierenum-specifierenum Uma enumeração faz duas coisas: define um novo tipo,...</i>
+        <b><a href="http://www.caloni.com.br/enum/">Enum</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>@caloni poderia pensar em fazer um artigo sobre os modificadores de tipo em c? os mais complexo, acho eu: volatile, enum, union, extern, etc
+Uma coisa de cada vez: existem modificadores (ou...</i>
+        <b><a href="http://www.caloni.com.br/modificadores-e-qualificadores-de-tipo/">Modificadores e qualificadores de tipo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse artigo continua a explicação sobre os typedefs arcaicos, já que ainda falta explicar por que diabos os ponteiros da Microsoft começam com LP. Tentei explicar para minha pupila que, por ser código...</i>
+        <b><a href="http://www.caloni.com.br/por-que-long-pointer/">Por que Long Pointer</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de...</i>
+        <b><a href="http://www.caloni.com.br/typedef-arcaico/">Typedef arcaico</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Os últimos comentários de Henrique Esteves (quando havia seção de comentários no blogue) sobre o HouaissParaBabylon me fizeram dar mais uma fuçada nele e ver se tento deixá-lo compatível com o Houaiss...</i>
+        <b><a href="http://www.caloni.com.br/houaiss-para-babylon-12/">Houaiss Para Babylon!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Semestre que vem deve sair uma nova versão do nosso depurador favorito. Alguns atrasos e novas definições do projeto fizeram com que tivéssemos mais um ou dois releases da finada versão 6 antes da...</i>
+        <b><a href="http://www.caloni.com.br/novidades-no-windbg-7/">Novidades no Windbg 7</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Algumas ferramentas viram essenciais quando o importante é tempo. As minhas favoritas são: Visual Studio e batch. Com esses dois eu faço virtualmente qualquer coisa que preciso em pouquíssimo tempo. É...</i>
+        <b><a href="http://www.caloni.com.br/restauranto-o-registro/">Restaurando o registro</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Mais uma analogia vencedora para ponteiros, chamadas por valor e chamadas por referência: e-mails.
+Quando passamos um parâmetro por valor, estamos enviando um e-mail com um arquivo em anexo. Não...</i>
+        <b><a href="http://www.caloni.com.br/passagem-por-valor-e-emails-com-anexo/">Passagem por valor e emails com anexo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A engenharia reversa das entranhas do kernel não tem limites se você sabe o que está fazendo. No entanto, algumas facilidades do depurador podem ajudar a minimizar o tempo que gastamos para analisar...</i>
+        <b><a href="http://www.caloni.com.br/importando-tipos-de-outros-projetos/">Importando tipos de outros projetos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Finalmente chegamos em um pouco onde podemos usar o WinDbg.
+Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rodando antes do próprio sistema operacional, teremos um sistema...</i>
+        <b><a href="http://www.caloni.com.br/o-boot-no-windows-kernel/">O boot no Windows: Kernel</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Minhas análises estão demorando muito para ser feitas. Talvez seja a hora de revelar o pouco que sei (e pesquisei) sobre o próximo processo de boot do Windows: o NTLDR.
+O nosso amigo NT Loader pode...</i>
+        <b><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/">O boot no Windows: NTLDR</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &ldquo;espetaculoso&rdquo; de todos os tempos sobre esse assunto, parte integrante do livro...</i>
+        <b><a href="http://www.caloni.com.br/o-boot-no-windows-pre-ntldr/">O boot no Windows: pré-NTLDR</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Desde quando o usuário liga o computador até o momento em que ele vê a barra de tarefas e aqueles fundos lindos de papel de parede existem diversas coisas sendo feitas por debaixo do pano. Essa série...</i>
+        <b><a href="http://www.caloni.com.br/o-boot-no-windows-sem-windows/">O boot no Windows: sem Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução...</i>
+        <b><a href="http://www.caloni.com.br/adplus-no-cliente-nao-voce/">AdPlus no cliente, não você!</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A sobrecarga estática possui algumas desvantagens em relação ao sistema de nomes da boa e velha linguagem C: ela não foi padronizada entre compiladores. O que isso quer dizer na prática é que funções...</i>
+        <b><a href="http://www.caloni.com.br/name-mangling/">Name mangling</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para explicar polimorfismo, nada como ver as coisas como elas eram. Se você fosse um programador C de vinte anos atrás e criasse as seguintes funções:
+int soma(int x, int y);double soma(double x,...</i>
+        <b><a href="http://www.caloni.com.br/polimorfismo-estatico/">Polimorfismo estático</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
+int soma(int x, int y);double...</i>
+        <b><a href="http://www.caloni.com.br/static-polymorphism/">Static Polymorphism</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como já vimos centenas e centenas de vezes, memória é apenas memória até que alguém diga que isso vale alguma coisa. Em seu estado latente é o que chamamos formalmente de dados. E dados são bytes...</i>
+        <b><a href="http://www.caloni.com.br/strings/">Strings</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Saiu um artigo na Wired News sobre os piores bugs da história. Entre eles estão a explosão de um oleoduto soviético em plena guerra-fria (como se não bastasse chernobyl), o primeiro worm da Internet...</i>
+        <b><a href="http://www.caloni.com.br/bugs-dificeis-de-achar/">Bugs Difíceis de Achar</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como não consigo mais ter ideias para artigos, resolvi catalogar todas as coisas que já falei nesse blogue e, o mais importante, todas as coisas que ainda não falei nesse blogue (e espero um dia falar...</i>
+        <b><a href="http://www.caloni.com.br/meu-roteiro-c/">Meu roteiro C&#43;&#43;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando falei sobre a fila das threads, e como cada thread espera pacientemente em uma fila até chegar sua vez de ser atendida no guichê das CPUs, também vimos como é fácil fazer caquinhas em um...</i>
+        <b><a href="http://www.caloni.com.br/a-sala-da-fila-das-threads/">A sala da fila das threads</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Em um ambiente multithreading, diversas threads disputam &ldquo;a tapas&rdquo; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa...</i>
+        <b><a href="http://www.caloni.com.br/a-fila-das-threads/">A fila das threads</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como depurar um programa que dá pau logo no final do desligamento de uma máquina?
+No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar...</i>
+        <b><a href="http://www.caloni.com.br/depurando-ate-o-ultimo-segundo/">Depurando até o último segundo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quase todos os problemas do Universo são resolvidos depois de um belo dia de depuração, código comentado, descomentado, recomentado e umas muitas e boas doses de café. Alguns outros problemas mais...</i>
+        <b><a href="http://www.caloni.com.br/os-problemas-mais-cabeludos/">Os problemas mais cabeludos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como já havia dito, não há nada mais prazeroso do que ensinar a alguém os velhos truques da profissão e relembrar o porquê de tantas coisas que guardamos na cabeça sobre programação. Hoje tive a...</i>
+        <b><a href="http://www.caloni.com.br/as-funcoes-polegar/">As funções-polegar</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É lógico que não poderia faltar no cinto de utilidades de todo bom programador C conhecimentos básicos da linguagem assembly, sua mãe espiritual. São tantos conceitos em comum que, uma vez aprendido...</i>
+        <b><a href="http://www.caloni.com.br/basico-do-basico-assembly/">Básico do básico: assembly</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Saindo mais um do forno.
+Essa nova versão do conversor do dicionário Houaiss para Babylon corrige o problema de não encontrar o Houaiss 1.0. O problema ocorria porque o conversor se baseava na...</i>
+        <b><a href="http://www.caloni.com.br/houaissparababylon-versao-11/">HouaissParaBabylon versão 1.1</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Apesar do tema binário, o assunto de hoje no fundo remete-nos a todo e qualquer tipo de representação. É o faz-de-conta um pouco mais intenso, vindo das profundezas da matemática e dominado com...</i>
+        <b><a href="http://www.caloni.com.br/basico-do-basico-binario/">Básico do básico: binário</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um tipo nada mais é que do que uma forma (ô) de bolo, que molda a memória como acharmos melhor moldá-la. Bom, para isso fazer sentido é necessário explicar memória, que é um conceito mais básico...</i>
+        <b><a href="http://www.caloni.com.br/basico-do-basico-tipos/">Básico do básico: tipos</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nessas últimas semanas tenho gastado meu tempo junto da mais nova pupila da SCUA, aspirante a programadora em C e Install Shield Script. Minha tarefa? Explicar tudo, desde o mais simples, como...</i>
+        <b><a href="http://www.caloni.com.br/basico-do-basico-ponteiros/">Básico do básico: ponteiros</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de muitos fins-de-semana divididos em horas picadinhas de programação de lazer, está disponível em vosso saite a primeira versão para usuários do conversor do dicionário Houaiss para o...</i>
+        <b><a href="http://www.caloni.com.br/houaissparababylon-versao-beta/">HouaissParaBabylon versão beta</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Semana passada precisei reproduzir o comportamento da ferramenta PsExec em um projeto, o que me fez sentir alguma nostalgia dos tempos em que eu fazia engenharia reversa todo dia. Este breve relato...</i>
+        <b><a href="http://www.caloni.com.br/como-funciona-o-psexec/">Como funciona o PsExec</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções (o livro estava em português) no mínimo curiosas.
+Se trata do primeiro...</i>
+        <b><a href="http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/">A alça dentro do fio gerou um bloqueio da morte</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No entanto, num belo dia, qual não foi minha surpresa ao notar umas pastinhas chamadas atl21, atl30 e atl71 dentro da distribuição do WDK (o finado DDK, renomeado sabe-se-lá-por-quê)? Pelo visto, tem...</i>
+        <b><a href="http://www.caloni.com.br/como-usar-wtl-com-o-atl-do-ddk/">Como usar WTL com o ATL do DDK</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.
+Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos...</i>
+        <b><a href="http://www.caloni.com.br/windows-jobs-com-completion-port/">Windows Jobs com Completion Port</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Tudo começou com o artigo de Roberto Farah sobre o comando &ldquo;escondido&rdquo; do WinDbg .cmdtree. Logo depois meus outros colegas do fã-clube do WinDbg Volker von Einem e Dmitry Vostokov...</i>
+        <b><a href="http://www.caloni.com.br/reuna-seus-comandos-mais-usados-no-windbg-com-cmdtree/">Reúna seus comandos mais usados no WinDbg com .cmdtree</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Estava eu outro dia programando aquele código esperto &ldquo;para ontem&rdquo; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx)...</i>
+        <b><a href="http://www.caloni.com.br/retorno-do-pathisdirectory/">Retorno do PathIsDirectory</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O artigo anterior mostrava como detectar o leak de um processo gerado pela retenção e não-liberação de handles para o Windows Explorer. O problema fora causado por um serviço malcriado. No entanto, a...</i>
+        <b><a href="http://www.caloni.com.br/processleaker/">ProcessLeaker</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Estava eu outro belo dia tentando achar um problema em um driver que controla criação de processos quando, por acaso, listo os processos na máquina pelo depurador de kernel, após ter dado alguns...</i>
+        <b><a href="http://www.caloni.com.br/os-processos-fantasma/">Os processos-fantasma</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>De vez em quando gosto muito de um vídeo que estou assistindo. Gosto tanto que faço questão de guardar para assistir mais vezes depois. O problema é que o meu Firefox ou, para ser mais técnico, o...</i>
+        <b><a href="http://www.caloni.com.br/quando-o-navegador-nao-quer-largar-um-arquivo/">Quando o navegador não quer largar um arquivo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A mensagem anterior deixou bem claro que tenho um roteiro de leituras bem hardcore a fazer nos próximos 20 anos. Pretendo, enquanto isso, programar alguma coisinha rodando em ring0, porque nem só de...</i>
+        <b><a href="http://www.caloni.com.br/guia-para-iniciantes-no-driverentry/">Guia para iniciantes no DriverEntry</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first...</i>
+        <b><a href="http://www.caloni.com.br/antidebugging-during-the-process-attach/">Antidebugging during the process attach</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside...</i>
+        <b><a href="http://www.caloni.com.br/antidebugging-using-the-debugport/">Antidebugging using the DebugPort</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>In the first article we saw how it&rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints....</i>
+        <b><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-two/">Antidebugging using exceptions (part two)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>A debugger puts breakpoints to stop for a moment the debuggee execution. In order to do this it makes use of a well known instruction: int 3. This instruction throws an exception - the breakpoint...</i>
+        <b><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-one/">Antidebugging using exceptions (part one)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É conhecido que uma das desvantagens de se programar diretamente em Win32 API é a dificuldade de se entender os parâmetros e o retorno das funções. Concordo em parte. Constituída de boa documentação,...</i>
+        <b><a href="http://www.caloni.com.br/aprenda-a-usar-sua-api/">Aprenda a usar sua API</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O artigo anterior mostrou que nem sempre as coisas são simples de resolver, mas que sempre existe um caminho a seguir e que, eventualmente, todos os problemas se solucionarão.
+Porém, resolver um...</i>
+        <b><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/">O conhecido unresolved external</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Todos os projetos do Visual Studio 6 estavam compilando normalmente com a nova modificação do código-fonte, uma singela chamada a uma função.aspx) da DLL iphlpapi.dll. No entanto, ainda restava a...</i>
+        <b><a href="http://www.caloni.com.br/o-caso-da-funcao-de-delay-load-desaparecida/">O caso da função de Delay Load desaparecida</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de vários comentários (na época que o saite tinha comentários) de pessoas tendo problemas em converter seus dicionários Houaiss para o formato Babylon, resolvi criar vergonha na cara e dar uma...</i>
+        <b><a href="http://www.caloni.com.br/segunda-versao-do-houaiss2babylon/">Segunda versão do Houaiss2Babylon</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de...</i>
+        <b><a href="http://www.caloni.com.br/primeiros-passos-no-vmware-workstation/">Primeiros passos no VMware Workstation</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>É muito difícil construir um modelo de pastas que sirva para a maioria dos projetos que tivermos que colocar na fôrma. Ainda mais se esses projetos tiverem que futuramente fazer parte da mesma...</i>
+        <b><a href="http://www.caloni.com.br/projeto-modelo/">Projeto-modelo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O termo e conceito de &ldquo;reflection)&rdquo; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode...</i>
+        <b><a href="http://www.caloni.com.br/reflexao-em-c/">Reflexão em C&#43;&#43;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Comentários são essenciais em um código-fonte bem feito. O código pode até fazer milagres, salvar vidas e multiplicar pães, mas se não tiver um apóstolo eficiente que escreva um evangelho para ele, as...</i>
+        <b><a href="http://www.caloni.com.br/primeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen/">Primeiros passos na documentação de código-fonte usando Doxygen</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um dos últimos artigos de Dmitry Vostokov, e tenho que falar assim porque o cara escreve muito em pouco tempo, fala sobre os perigos de termos uma mesma DLL carregada duas vezes em um único processo,...</i>
+        <b><a href="http://www.caloni.com.br/e-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo/">É possível carregar duas DLLs gêmeas no mesmo processo?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como vimos durante o seminário CCPP, o alinhamento de memória pode ser problemático durante momentos críticos, como migração de plataforma (16 para 32 bits) e de ambiente (compilador novo). A forma...</i>
+        <b><a href="http://www.caloni.com.br/alinhamento-de-memoria-portavel/">Alinhamento de memória portável</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Alguns conceitos-chave antes de trabalhar com o Bazaar são:
+ Revision (Revisão). Um snapshot dos arquivos que você está trabalhando. Working Tree (Árvore de Trabalho). Um diretório contendo seus...</i>
+        <b><a href="http://www.caloni.com.br/guia-basico-de-repositorios-no-bazaar/">Guia básico de repositórios no Bazaar</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma diferença que eu considero crucial na linguagem C/C++ é a questão da declaração/definição (em inglês, declaration/definition). É a diferença entre esses dois conceitos que permite, por exemplo,...</i>
+        <b><a href="http://www.caloni.com.br/declaracao-x-definicao/">Declaração x definição</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando se está começando no ramo, alguns detalhes nunca vêm à tona para o programador novato. Ele simplesmente vai codando até se sentir satisfeito com o prazer que é proporcionado pela prática da...</i>
+        <b><a href="http://www.caloni.com.br/como-criar-uma-lib-no-visual-studio/">Como criar uma LIB no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil,...</i>
+        <b><a href="http://www.caloni.com.br/aprendendo-rapidamente-conceitos-essenciais-do-windbg/">Aprendendo rapidamente conceitos essenciais do WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Bem, como a maioria de você já sabe, eu realmente não gosto de mouses. Apesar disso respeito os usuário que usam-no e até gostam dele. Essa é a razão por que estou escrevendo mais uma vez sobre isso....</i>
+        <b><a href="http://www.caloni.com.br/mousetool-clique-automatico-do-seu-rato/">MouseTool: clique automático do seu rato</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nesses últimos dias andei conversando com um amigo que está estudando sistemas operacionais na faculdade. Melhor ainda, vendo o código real de um sistema operacional em funcionamento. A conseqüência é...</i>
+        <b><a href="http://www.caloni.com.br/aquele-do-while-engracado/">Aquele do-while engraçado</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Existem algumas situações onde um depurador WYSIWYG é artigo de luxo.
+Imagine o seguinte: temos um serviço que inicia automagicamente antes do login do Windows, e possivelmente antes mesmo do ambiente...</i>
+        <b><a href="http://www.caloni.com.br/kernel-mode-user-mode/">Kernel Mode &gt;&gt; User Mode</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Hoje fizemos um merge de duas versões que entraram em conflito em nosso projeto-piloto usando bzr. Isso geralmente ocorre quando alguma coisa mudou no mesmo arquivo em lugares muito próximos um do...</i>
+        <b><a href="http://www.caloni.com.br/como-tratar-um-merge-no-bazaar/">Como tratar um merge no Bazaar</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte...</i>
+        <b><a href="http://www.caloni.com.br/acessando-memoria-fisica-no-windbg/">Acessando memória física no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Houve um bom motivo para que, semana passada, eu estivesse caçando inúmeras versões de um projeto desenvolvido fora da empresa: falta de controle de código. Esse tipo de lapso pode consumir de horas a...</i>
+        <b><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-mercurial/">Guia básico de controle de código (Mercurial)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Além de servir para corrigir alguns bugs escabrosos, o nosso bom e fiel amigo depurador também possui uma utilidade inusitada: ensinar assembly! A pessoa interessada em aprender alguns conceitos...</i>
+        <b><a href="http://www.caloni.com.br/aprendendo-assembly-com-o-depurador/">Aprendendo assembly com o depurador</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Após algumas semanas de suspense, chegamos finalmente à nossa segunda e última parte da saga do dicionário Houaiss.
+Como devem estar lembrados, a primeira parte se dispôs a desmontar a ofuscação usada...</i>
+        <b><a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-2/">Conversor de Houaiss para Babylon - parte 2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue (na época que o blogue tinha comentários) e tive o prazer de conhecer no 4o. EPA-CCPP.
+É possível, apesar...</i>
+        <b><a href="http://www.caloni.com.br/try-catch-flutuante/">Try-catch flutuante</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Acho que o que mais me impressionou até hoje a respeito do WinDbg é a sua capacidade de depuração remota. Não há nada como depurar problemas sentado confortavelmente na sua cadeira de programador em...</i>
+        <b><a href="http://www.caloni.com.br/windbg-a-distancia/">WinDbg a distância</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Dando continuidade a um artigo beeeem antigo sobre depuração da BIOS usando SoftIce, como já vimos, podemos igualmente depurar a MBR após a chamada da INT13. Porém, devo atentar para o fato que, em...</i>
+        <b><a href="http://www.caloni.com.br/depuracao-da-mbr/">Depuração da MBR</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Há muito tempo sou enxadrista não-praticante. Acho que os anos de programação me deixaram mais viciado em codar do que pensar no xeque-mate. No entanto, sempre que posso, dou uma escapulida do Visual...</i>
+        <b><a href="http://www.caloni.com.br/influence-board/">Influence Board</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Mal comecei a leitura do meu mais novo &ldquo;mother-fucker&rdquo; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo...</i>
+        <b><a href="http://www.caloni.com.br/o-misterio-das-pilhas-diferentes/">O mistério das pilhas diferentes</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse artigo é resultado de eu ter me matado para conseguir encontrar a forma correta de usar o aplicativo sed para fazer uma filtragem simples nos resultados de uma listagem de arquivos....</i>
+        <b><a href="http://www.caloni.com.br/sed-grep-e-afins/">Sed, Grep e afins</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um bug que já encontrei uma dúzia de vezes entre os novatos da STL é a utilização de iteradores como se eles não fossem mudar nunca. Porém, a verdade é bem diferente: iteradores se tornam inválidos...</i>
+        <b><a href="http://www.caloni.com.br/iteradores-nao-sao-constantes/">Iteradores não são constantes</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Pois bem. O mesmo amigo que me recomendou que escrevesse sobre o assunto do ponteiro nulo achou um livro sobre armadilhas em C com um exemplo que demonstra exatamente o contrário: dependendo da...</i>
+        <b><a href="http://www.caloni.com.br/quando-o-ponteiro-nulo-nao-e-invalido/">Quando o ponteiro nulo não é inválido</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Este artigo é sobre desmontar e montar novamente. Iremos descobrir como as entradas do dicionário Houaiss eletrônico estão gravadas em um primeiro momento, para depois remontarmos essa informação de...</i>
+        <b><a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-1/">Conversor de Houaiss para Babylon - parte 1</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Bom, parece que o &ldquo;mother-fucker&rdquo; wordpress ferrou com meu artigo sobre o Houaiss. Enquanto eu choro as pitangas aqui vai um outro artigo um pouco mais simples, mas igualmente...</i>
+        <b><a href="http://www.caloni.com.br/codigos-de-entrevista-o-ponteiro-nulo/">Códigos de entrevista - o ponteiro nulo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Ao iniciar na arte da programação em C no Visual Studio, eventualmente o programador irá querer testar seus programas rodando em outra máquina que não seja a de desenvolvimento, mandar uma versão beta...</i>
+        <b><a href="http://www.caloni.com.br/configurando-seus-projetos-no-visual-studio/">Configurando seus projetos no Visual Studio</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma coisa que me espanta de vez em quando é o total desconhecimento por programadores mais ou menos experientes dos níveis de erros que podem ocorrer em um fonte escrito em C ou C++. Desconheço o...</i>
+        <b><a href="http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/">Os diferentes erros na linguagem C</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never...</i>
+        <b><a href="http://www.caloni.com.br/funky-do-while/">Funky do-while</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como alguns devem saber, e outros não (ou não deveriam), existe uma competição internacional para escolher quem escreve o código em C mais ofuscado. Isso mesmo. O evento se chama The International...</i>
+        <b><a href="http://www.caloni.com.br/desconstruindo-ioccc/">Desconstruindo IOCCC</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>I know what you going to think about this one: &ldquo;silly trick&rdquo;. That&rsquo;s why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who...</i>
+        <b><a href="http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/">Silly regex trick: finding the project who failed inside a big VS solution</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Essa é uma regra básica, mas não é fácil de cumpri-la. Só quem já tentou fazer isso sabe do que estou falando. Inúmeros programas mal-escritos vão tentar, de uma hora pra outra, acessar áreas do...</i>
+        <b><a href="http://www.caloni.com.br/process-monitor-e-o-monopolio-malcriado/">Process Monitor e o monopólio malcriado</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nota de desempenho: esse artigo finaliza (finalmente) a republicação de todos os artigos do antigo blogue. Isso quer dizer que a partir de agora eu sou obrigado a trabalhar, e, se quiser manter meu...</i>
+        <b><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo-v2/">Compartilhando variáveis com o mundo v2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Desde que comecei a programar, para compartilhar variáveis entre processo é meio que consenso usar-se a milenar técnica do crie uma seção compartilhada no seu executável/DLL. Isso funciona desde a...</i>
+        <b><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo/">Compartilhando variáveis com o mundo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Aproveitando que utilizei a mesma técnica semana passada para desenvolver um vírus para Ethical Hacking, republico aqui este artigo que já está mofando no Code Projet, mas que espero que sirva de...</i>
+        <b><a href="http://www.caloni.com.br/rmthread-rode-codigo-em-processo-vizinho/">RmThread: rode código em processo vizinho</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Às vezes na vida a vontade de fazer alguma coisa besta acaba sendo mais forte do que o senso de ridículo. Então, resolvi ressuscitar o quase apodrecido RusKey, um programa que fiz para trocar letras...</i>
+        <b><a href="http://www.caloni.com.br/keychanger-de-crianca/">Keychanger de criança</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O livro que estou lendo fala sobre algoritmos em C. Os primeiros capítulos são praticamente uma revisão para quem já programou em C, pois tratam de coisas que programadores com mais de cinco anos de...</i>
+        <b><a href="http://www.caloni.com.br/otimizacao-em-funcoes-recursivas/">Otimização em funções recursivas</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Existe uma série de jogos no sítio da UOL onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da década de 40 até a atualidade. É divertido e viciante fazer pesquisa...</i>
+        <b><a href="http://www.caloni.com.br/encontrando-as-respostas-do-flash-pops/">Encontrando as respostas do Flash Pops</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Apesar de ser recomendado que 100% dos componentes de um software esteja configurado corretamente para gerar símbolos na versão release, possibilitando assim a visualização do nome das funções...</i>
+        <b><a href="http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida/">Analisando dumps com WinDbg e IDA</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C++ de sua...</i>
+        <b><a href="http://www.caloni.com.br/gambi-do-dia-swap-com-apenas-duas-variaveis/">Gambi do dia: swap com apenas duas variáveis</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C++ de sua...</i>
+        <b><a href="http://www.caloni.com.br/curiosidades-inuteis-o-operador-de-subscrito-em-c/">Curiosidades inúteis: o operador de subscrito em C&#43;&#43;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Dois conceitos de programação relacionados a limites computacionais são bem conhecidos do programador: o famigerado overflow e o não-tão-famoso underflow (embora seja fácil imaginar que ele é o oposto...</i>
+        <b><a href="http://www.caloni.com.br/o-que-acontece-quando-o-contador-estoura/">O que acontece quando o contador estoura</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na...</i>
+        <b><a href="http://www.caloni.com.br/banco-de-dados-no-c-builder/">Banco de dados no C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O sistema de drag and drop do C++ Builder é muito fácil de usar, integrado que está com o sistema de classes e objetos do framework. Tanto para o objeto de drag quanto para o objeto de drop tudo que...</i>
+        <b><a href="http://www.caloni.com.br/drag-and-drop-no-c-builder/">Drag and drop no C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Algumas coisas em C parecem tão simples na programação do dia-a-dia que em alguns momentos podem existir situações confusas e misteriosas. O uso obscuro do operador sizeof, por exemplo, pode dar...</i>
+        <b><a href="http://www.caloni.com.br/sizeof-de-novo/">Sizeof (de novo)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Esse é um detalhe que pode passar despercebido da maioria da população Borland, mas o Builder, assim como o Visual Studio, possui sua suíte para depuração remota. E tudo o que você precisa fazer é...</i>
+        <b><a href="http://www.caloni.com.br/debug-remoto-no-c-builder/">Debug remoto no C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>As janelas criadas no C++ Builder são equivalentes às janelas criadas pela API, com o detalhe que a VCL gerencia tudo automaticamente. Isso não quer dizer que não podemos tomar controle de tudo. Quer...</i>
+        <b><a href="http://www.caloni.com.br/gerenciamento-de-janelas-em-c-builder/">Gerenciamento de janelas em C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para essa proeza precisaremos de:
+Dois TButtonsUm TEditUm TListBox Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos...</i>
+        <b><a href="http://www.caloni.com.br/interacao-entre-controles-no-c-builder/">Interação entre controles no C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No projeto que é criado quando iniciamos a IDE três arquivos-fonte são gerados: Project1.cpp, Unit1.cpp e Unit1.h. Desses três, vamos analisar o primeiro:
+#include &lt;vcl.h&gt;WINAPI...</i>
+        <b><a href="http://www.caloni.com.br/conceitos-basicos-na-programacao-com-c-builder/">Conceitos básicos na programação com C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Uma das partes mais fáceis e divertidas de se mexer no C++ Builder é a que lida com gráficos. A abstração da VCL toma conta da alocação e liberação dos objetos gráficos da GDI e nos fornece uma...</i>
+        <b><a href="http://www.caloni.com.br/desenhando-em-c-builder/">Desenhando em C&#43;&#43; Builder</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Como pudemos ver no artigo anterior, o processo para carregar uma DLL pelo WinDbg é muito extenso, enfadonho e sujeito a erros. Por esse motivo, e para tornar as coisas mais divertidas, resolvi...</i>
+        <b><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">Carregando DLLs arbitrárias pelo WinDbg - parte 2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Durante meus testes para a correção de um bug me deparei com a necessidade de carregar uma DLL desenvolvida por mim no processo depurado. O detalhe é que o processo depurado é de terceiros e não...</i>
+        <b><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg/">Carregando DLLs arbitrárias pelo WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Por padrão, todo projeto no Visual Studio depende da LIBC. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos...</i>
+        <b><a href="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/">Usando a LIBC nativa do Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Chega às lojas no dia 25 de outubro de 2001 a unificação entre as plataformas de uso doméstico e corporativo do sistema. O Windows XP usa o kernel de 32 bits de seus antecessores Windows NT e Windows...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-51/">História do Windows - parte 5.1</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Well, as most of you already know, I really don&rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I...</i>
+        <b><a href="http://www.caloni.com.br/mousetool/">MouseTool</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/projects"> projects</a><a style="color: gray;" href="/tags/english"> english</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um hook global:
+bp...</i>
+        <b><a href="http://www.caloni.com.br/detectando-hooks-globais-no-windbg/">Detectando hooks globais no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Depois de publicado o artigo anterior sobre ponteiros de métodos surgiu uma dúvida muito pertinente do autor do blogue CodeBehind, um escovador de bits disfarçado de programador .NET: qual objeto que...</i>
+        <b><a href="http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/">Ponteiro de método: qual this é usado?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar...</i>
+        <b><a href="http://www.caloni.com.br/ponteiros-de-metodo-conceito-fundamental/">Ponteiros de método: conceito fundamental</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um...</i>
+        <b><a href="http://www.caloni.com.br/brincando-com-o-windbg/">Brincando com o WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é...</i>
+        <b><a href="http://www.caloni.com.br/protecao-dos-membros-protected/">Proteção dos membros protected</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por...</i>
+        <b><a href="http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/">Typeid e os perigos do não-polimorfismo</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Aproveitando um dos últimos artigos que fala sobre conceitos básicos de programação, lembro que, tão importante quanto, é possuir habilidades básicas de depuração, uma arte por muitos programadores...</i>
+        <b><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/">Guia básico para programadores de primeiro breakpoint</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida,...</i>
+        <b><a href="http://www.caloni.com.br/por-que-minha-dll-travou/">Por que minha DLL travou?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer programas fáceis de manter (merece ser lido!) e vou republicar um artigo do blogue antigo sobre o básico do básico para...</i>
+        <b><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-int-main/">Guia básico para programadores de primeiro int main</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Dei uma reformada em minha última palestra sobre engenharia reversa. O tema escolhido foi tentar abranger os níveis de conhecimento que uma pessoa disposta a se dedicar à engenharia reversa de...</i>
+        <b><a href="http://www.caloni.com.br/engenharia-reversa-para-principiantes/">Engenharia reversa para principiantes</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Em novembro de 1998 (apenas para parceiros Microsoft) é lançada a versão 5.0 do Windows NT, conhecida como Windows 2000. Melhorias significativas foram feitas no acesso à internet, intranet e...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-50/">História do Windows - parte 5.0</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira...</i>
+        <b><a href="http://www.caloni.com.br/debug-da-bios-com-o-softice-16-bits/">Debug da BIOS com o SoftIce 16 bits</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Após mais de um ano de tentativas, finalmente consegui instalar e iniciar com sucesso o Borland Developer Studio. Esse foi o nome pomposo dado pela Borland para a &ldquo;continuação&rdquo; do velho...</i>
+        <b><a href="http://www.caloni.com.br/introducao-ao-c-builderturbo-c/">Introdução ao C&#43;&#43; Builder...Turbo C&#43;&#43;</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>There is a document from Microsoft alerting about the hazards in putting your code inside a DllMain function. what is more comprehensive and easier to read than the MSDN observations. It is worth...</i>
+        <b><a href="http://www.caloni.com.br/why-is-my-dll-locked/">Why is my DLL locked?</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria...</i>
+        <b><a href="http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/">A mobilidade das variáveis no printf</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a><a style="color: gray;" href="/tags/ccpp"> ccpp</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de...</i>
+        <b><a href="http://www.caloni.com.br/hook-de-com-no-windbg/">Hook de COM no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O título desse artigo é uma técnica presente no paradigma da programação em C++, razão pela qual não temos o operador finally. A idéia por trás dessa técnica é conseguirmos usar recursos representados...</i>
+        <b><a href="http://www.caloni.com.br/aquisicao-de-recurso-e-inicializacao/">Aquisição de recurso é inicialização</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O primeiro passo para se passar no Teste do Joel é possuir algum tipo de controle de código. E ele está mais do que certo. Não existe nada mais frustrante do que não ter exatamente o código-fonte da...</i>
+        <b><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-source-safe/">Guia básico de controle de código (Source Safe)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Hoje foi um belo dia para engenharia reversa e análise de proteções. Dois ótimos programas vieram ao meu conhecimento: um monitor de chamadas de API e um monitor de chamadas de COM (complementando o...</i>
+        <b><a href="http://www.caloni.com.br/antidebug-detectando-attach/">Antidebug: detectando attach</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Em meio a uma febre de consumismo, no dia 24 de agosto de 1995, foi lançado a revolução no sistema gráfico da Microsoft: a interface do Windows 95. Ela foi considerada muito mais amigável que suas...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-40/">História do Windows - parte 4.0</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &ldquo;link estático&rdquo;) ou ele chama a...</i>
+        <b><a href="http://www.caloni.com.br/hook-de-api-no-windbg/">Hook de API no WinDbg</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um...</i>
+        <b><a href="http://www.caloni.com.br/antidebug-ocupando-a-debugport/">Antidebug: ocupando a DebugPort</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Quando fala-se em depuração geralmente o pensamento que vem é de um código que já foi compilado e está rodando em alguma outra máquina e gerando problemas não detectados nos testes de desenvolvedor....</i>
+        <b><a href="http://www.caloni.com.br/erro-de-compilacao-funcoes-muito-novas-na-win32-api/">Erro de compilação: funções muito novas na Win32 API</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Semana passada baixei uma nova imagem para minha máquina de desenvolvimento. Esse esquema do pessoal da engenharia instalar as coisas para você facilita muito as coisas, mas existe o risco de algo ser...</i>
+        <b><a href="http://www.caloni.com.br/junctions/">Junctions</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No princípio&hellip; não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados Srs....</i>
+        <b><a href="http://www.caloni.com.br/historia-da-linguagem-c-parte-2/">História da linguagem C - parte 2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Não fui convidado a participar do tema, mas como já faz algum tempo que o rascunho deste artigo está no molho, e aproveitando que meu amigo Ferdinando resolveu escrever sobre nossa amiga em comum,...</i>
+        <b><a href="http://www.caloni.com.br/gina-x-credential-provider/">GINA x Credential Provider</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de...</i>
+        <b><a href="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-2/">Antidebug: interpretação baseada em exceção (parte 2)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Nos anos 90, a relação IBM/Microsoft era muito próxima por causa do desenvolvimento do OS/2, o projeto de um novo sistema operacional. As empresas cooperavam entre si e tinham acesso uma ao código da...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-351/">História do Windows - parte 3.51</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Em 22 de maio de 1990 a versão 3.0 do Windows foi lançada. Foi melhorado o gerenciador de programas e o sistema de ícones, além de um novo gerenciador de arquivos e suporte a 16 cores. Entre as...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-30/">História do Windows - parte 3.0</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Confesso que adoro estudar sobre a história da linguagem C. Essa verdadeira adoração pela linguagem me fez estudar suas precursoras, como as linguagens BCPL e B. Posso dizer que todo esse...</i>
+        <b><a href="http://www.caloni.com.br/historia-da-linguagem-c-parte-1/">História da linguagem C - parte 1</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Wanderley, your explanation about why a program compiles in C++ and not in C seems to me logic and correct, but gave me some doubts, because I always learned that the C and C++ operator precedence are...</i>
+        <b><a href="http://www.caloni.com.br/c-and-c-operators-precedence-table/">C and C&#43;&#43; Operators Precedence Table</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Bom, vamos deixar de papo furado e &ldquo;codar&rdquo;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do mouse quando pressionada uma tecla de atalho e voltar à sua...</i>
+        <b><a href="http://www.caloni.com.br/movendo-o-cursor-do-mouse-com-o-teclado/">Movendo o cursor do mouse com o teclado</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Um depurador utiliza breakpoints para &ldquo;paralisar&rdquo; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como int 3. Essa...</i>
+        <b><a href="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-1/">Antidebug: interpretação baseada em exceção (parte 1)</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
+static const size_t FIELD_SIZE_MSGID = 15;struct FEEDER_RECORD_HEADER{char...</i>
+        <b><a href="http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/">What happens inside the sizeof operator</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Once upon a time my old friend Kabloc wrote this little and &ldquo;harmless&rdquo; function in order to print the multiplication table:
+#include &lt;stdio.h&gt;int main(){int f1,f2,s=0;...</i>
+        <b><a href="http://www.caloni.com.br/precedence-difference/">Precedence difference</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Eu seu, eu sei. A maioria dos meus leitores odiou o tema história do Windows na era paleozóica. Porém, como eu disse na parte 1.0, estou apenas satisfazendo a outra parte de leitores que procurou no...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-20/">História do Windows - parte 2.0</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O que acontece quando você precisa depurar um programa e não tem o Visual Studio instalado na máquina onde o problema está ocorrendo? Ora, para isso que existe o Remote Debugging.aspx). Eu uso direto....</i>
+        <b><a href="http://www.caloni.com.br/introducao-ao-softice/">Introdução ao SoftICE</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Vimos na primeira parte desse artigo como o if revolucionou o mundo da computação trazendo um salto que depende de condições anteriores e, portanto, depende do estado do programa. A ele chamamos de...</i>
+        <b><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-2/">A inteligência do if - parte 2</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Devido à grande procura através de mecanismos de busca (vulgo Google), estarei republicando esse artigo dividido em partes (até porque existem partes não acabadas), cada parte descrevendo um conceito...</i>
+        <b><a href="http://www.caloni.com.br/historia-do-windows-parte-10/">História do Windows - parte 1.0</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand...</i>
+        <b><a href="http://www.caloni.com.br/disassembling-the-array-operator/">Disassembling the array operator</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los...</i>
+        <b><a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/">Introdução ao Debugging Tools for Windows</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    <tr><td style="border-bottom: 1px dotted black; padding: 10px;">
+        <i>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o...</i>
+        <b><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/">A inteligência do if - parte 1</a></b>
+        <i><a style="color: gray;" href="/tags/draft"> draft</a></i>   
+        </td></tr>
+    
+    </table>
+
+    </div>
+</div>
+</section>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

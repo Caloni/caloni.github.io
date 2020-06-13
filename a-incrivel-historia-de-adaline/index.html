@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - A Incrível História de Adaline</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A premissa por trás de &ldquo;Adaline&rdquo; é muito interessante, como toda ficção científica bem imaginada costuma ser. O filme, aliás, possui diversos pontos altos em sua história. Porém, o novelão..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="A Incrível História de Adaline"/>
+  <meta itemprop="description"
+        content="A premissa por trás de &ldquo;Adaline&rdquo; é muito interessante, como toda ficção científica bem imaginada costuma ser. O filme, aliás, possui diversos pontos altos em sua história. Porém, o novelão..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="A Incrível História de Adaline"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/a-incrivel-historia-de-adaline/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A premissa por trás de &ldquo;Adaline&rdquo; é muito interessante, como toda ficção científica bem imaginada costuma ser. O filme, aliás, possui diversos pontos altos em sua história. Porém, o novelão..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2015-09-11T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="A Incrível História de Adaline"/>
+  <meta name="twitter:description"
+        content="A premissa por trás de &ldquo;Adaline&rdquo; é muito interessante, como toda ficção científica bem imaginada costuma ser. O filme, aliás, possui diversos pontos altos em sua história. Porém, o novelão..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">A Incrível História de Adaline</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/a-incrivel-historia-de-adaline.md" title="History">
+    2015-09-11
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/a-incrivel-historia-de-adaline.md" title="GitHub">518</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A premissa por trás de &ldquo;Adaline&rdquo; é muito interessante, como toda ficção científica bem imaginada costuma ser. O filme, aliás, possui diversos pontos altos em sua história. Porém, o novelão romântico ao qual ele se entrega não deixa de incomodar durante todo o tempo, fazendo com que uma experiência fascinante vá aos poucos nos lembrando das velhas fórmulas de fazer romance com um drama genérico.</p>
+<p>A história gira em torno da Adaline do título, que sofre um acidente de carro que faz com que ela não envelheça mais. Nascida nos anos 1900, a história de Adaline combina com todo o século XX, e vemos através de flashbacks diferentes momentos deste em que Adaline estava presente, o suficiente para dar a dimensão do que é viver um século e não envelhecer um dia.</p>
+<p>Descoberta, porém, na era do Macartismo, Adaline foge e resolve adotar um cronograma em que ela muda de aparência e cidade de década em década, para nunca mais correr o risco de virar um experimento científico. Dessa forma, ela vive várias vidas, mas nenhuma longa o suficiente para que ela ganhe intimidade e se relacione com outras pessoas, exceto seus cachorros (e é tocante o momento em que presenciamos o fim de vida de um deles, pois ele representa uma série provavelmente grande de companheiros caninos na vida da &ldquo;garota&rdquo;).</p>
+<p>Sem muita desenvoltura, a atuação de Blake Lively tem um ou outro detalhe curioso &ndash; como a forma contemplativa e lenta &ldquo;para alguém de sua idade&rdquo; ao observar a realidade à sua volta &ndash; mas nada que consiga imprimir um século de existência, exceto os detalhes curiosos e descartáveis inseridos pelo roteiro de J. Mills Goodloe, como o fato dela falar inúmeras línguas.</p>
+<p>Porém, se por um lado a memória de Adaline permanece intocável por tanto tempo, em outros há a impressão de que os momentos de sua existência se misturam em uma cornucópia mágica e infinita de anos que parecem se repetir e nunca significar mais do que vagas lembranças. Sua filha é o único ponto constante, e mesmo assim ela pouco a visita. O sinal de que em breve ela não mais estará com ela acende seu alarme interno de que talvez seja a hora de confiar em mais uma pessoa.</p>
+<p>E é assim que o filme dirigido por Lee Toland Krieger dá uma guinada interessante ao questionar a necessidade do ser humano de plantar raízes e evoluir em seus relacionamentos para justificar sua existência ou até mesmo descobri-la. Junto a isso ocorre um evento extraordinário demais para fazer sentido lógico, e é aí que o esoterismo parece flertar mais ainda com seu personagem.</p>
+<p>Tendo a participação surpresa de um Harrison Ford cada vez melhor enquanto envelhece &ndash; uma curiosidade em um filme que fala sobre não envelhecer &ndash; A Incrível História de Adaline parecia bom e original demais para ser verdade em seu início, demonstrando aos poucos que não passa de mais um dramalhão feito para o público não ficar pensando ou refletindo demais, um pecado imperdoável se tratando de ficção científica, sendo que uma das maiores virtudes do gênero é justamente essa.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+        
+            The Age of Adaline
+            (United States, Canada, 2015).
+             Dirigido por Lee Toland Krieger.
+             Escrito por J. Mills Goodloe, Salvador Paskowitz.
+             Com Blake Lively, Michiel Huisman, Harrison Ford, Ellen Burstyn, Kathy Baker, Amanda Crew.</br>
+             <a href="https://www.imdb.com/title/tt1655441" style="text-decoration: underline;" title="Internet Movie Database">imdb</a>
+             <a href="https://letterboxd.com/imdb/1655441" style="text-decoration: underline;" title="Letterboxd">letterboxd</a>
+        
+        <a href="https://github.com/Caloni/caloni/blob/master/data/post/a-incrivel-historia-de-adaline.toml">details</a>
+    
+      <a href="/categories/cinema">cinema</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/movies">movies</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20premissa%20por%20tr%c3%a1s%20de%20%26ldquo%3bAdaline%26rdquo%3b%20%c3%a9%20muito%20interessante%2c%20como%20toda%20fic%c3%a7%c3%a3o%20cient%c3%adfica%20bem%20imaginada%20costuma...%20http%3a%2f%2fwww.caloni.com.br%2fa-incrivel-historia-de-adaline%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/e-o-fonte-idiota/">É o fonte, idiota!<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/narcos/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Narcos</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - O novo &#39;como não dar step into&#39; do Visual Studio 2012/13</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="O novo &#39;como não dar step into&#39; do Visual Studio 2012/13"/>
+  <meta itemprop="description"
+        content="Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="O novo &#39;como não dar step into&#39; do Visual Studio 2012/13"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/o-novo-como-nao-dar-step-into-do-visual-studio-201213/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2014-08-01T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="O novo &#39;como não dar step into&#39; do Visual Studio 2012/13"/>
+  <meta name="twitter:description"
+        content="Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">O novo &#39;como não dar step into&#39; do Visual Studio 2012/13</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/o-novo-como-nao-dar-step-into-do-visual-studio-201213.md" title="History">
+    2014-08-01
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>1 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/o-novo-como-nao-dar-step-into-do-visual-studio-201213.md" title="GitHub">205</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente, quando dá pau, preciso ir no disassembly e cutucar a STL para ela me entregar qual o problema com o meu contêiner.)</p>
+<p>Nas edições antigas da IDE (até o 2010) existia uma configuração no registro para isso. Desde o Visual Studio 2012 isso mudou, e agora existe um arquivo em %programfiles(x86)%\Microsoft Visual Studio 11(ou12).0\Common7\Packages\Debugger\Visualizers chamado default.natstepfilter (gostei do detalhe do &ldquo;nat&rdquo;: &ldquo;nat thou step into, little bestard!&quot;). Ele é um XML que já vem preenchido com algumas opções interessante:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;StepFilter xmlns=&quot;http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010&quot;&gt;
+  &lt;Function&gt;&lt;Name&gt;__security_check_cookie&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;__abi_winrt_.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;_ObjectStublessClient.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;_Invoke@12&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;_RTC_Check(Esp|StackVars)&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;_chkstk&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;ATL::CComPtrBase.*::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;ATL::CComPtrBase.*::operator-&amp;gt;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;ATL::CHeapPtrBase.*::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;ATL::CHeapPtrBase.*::operator-&amp;gt;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;ATL::CComBSTR::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;std::forward&amp;lt;.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;std::move&amp;lt;.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;Platform::EventSource::Invoke.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;std::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;boost::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+&lt;/StepFilter&gt;
+</code></pre>
+<p>Podemos simplesmente adicionar mais duas opções para o parzinho STL/Boost:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;StepFilter xmlns=&quot;http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010&quot;&gt;
+
+  &lt;Function&gt;&lt;Name&gt;std::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+  &lt;Function&gt;&lt;Name&gt;boost::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
+
+&lt;/StepFilter&gt;
+</code></pre>
+<p>A boa nova, pelo menos para o Visual Studio 2013, é que agora é possível, se quisermos, entrar nas funções que serão ignoradas:</p>
+<p>Eu não sei qual vai ser a próxima novidade do step into, mas para mim, já está bem ótimo.</p>
+<p>(Fonte da informação: Andy Pennell&rsquo;s Blog).</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Toda%20vez%20que%20instalo%20um%20Visual%20Studio%20novo%20e%20come%c3%a7o%20a%20depurar%20sempre%20surge%20a%20necessidade%20de%20faz%c3%aa-lo%20calar%20a%20boca%20nos...%20http%3a%2f%2fwww.caloni.com.br%2fo-novo-como-nao-dar-step-into-do-visual-studio-201213%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/tdc2014-trilhas-de-seguranca-o-que-e-ser-hacker/">TDC2014: Trilhas de Segurança: o que é ser hacker?<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/vestindo-a-camisa-da-minha-empresa/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Vestindo a Camisa da Minha Empresa</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

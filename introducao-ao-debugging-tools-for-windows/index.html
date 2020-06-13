@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Introdução ao Debugging Tools for Windows</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Introdução ao Debugging Tools for Windows"/>
+  <meta itemprop="description"
+        content="O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Introdução ao Debugging Tools for Windows"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-06-20T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Introdução ao Debugging Tools for Windows"/>
+  <meta name="twitter:description"
+        content="O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Introdução ao Debugging Tools for Windows</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/introducao-ao-debugging-tools-for-windows.md" title="History">
+    2007-06-20
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>6 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/introducao-ao-debugging-tools-for-windows.md" title="GitHub">1201</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los em minha própria máquina e não consigo fazer tudo que preciso usando apenas o depurador integrado do Visual Studio (como remontar o assembly do programa, por exemplo). Tudo isso faz do WinDbg a alternativa perfeita (senão uma das únicas). É um depurador que permite ser usado tanto através de janelas quanto através de comandos, o que permite um aprendizado em doses homeopáticas: comece com as janelas e aos poucos ganhe o controle total. Conseqüentemente cada dia aprendo um comando novo ou um novo uso para um comando que já conheço.</p>
+<p>Abaixo um esboço de como o WinDbg se parece, com suas principais janelas. A de comandos é a da direita.</p>
+<p>Ele não está limitado apenas para engenharia reversa de código malévolo. Esse é o uso que eu faço dele. Meu amigo Thiago, por exemplo, resolve problemas em servidores que rodam código gerenciado com WinDbg. É a maneira ideal de depurar um problema em uma máquina onde o ambiente de desenvolvimento não está disponível nem pode ser instalado. Outro ponto relevante é que ele não depura apenas um programa em particular, mas pode ser usado para depurar um sistema inteiro. Chamado de kernel debugging, podemos usar esse modo de funcionamento para resolver os problemas que surgem logo depois de espetar algum periférico novo comprado na Santa Ifigênia.</p>
+<p>Mas esse artigo não é apenas sobre o WinDbg. Ele não vem sozinho. É uma interface amigável para alguns depuradores linha de comando e outras ferramentas disponíveis no Debugging Tools for Windows, pacote disponível gratuitamente no sítio da Microsoft e atualizado geralmente de seis em seis meses. Nele podemos encontrar:</p>
+<ul>
+<li>CDB: depurador que roda em <em>user mode</em> e é uma &ldquo;linha de comando agradável&rdquo; para um programador avançado.</li>
+<li>NTSD: depurador que roda em <em>user mode</em>, da mesma forma que o CDB, mas também pode ser usado como um redirecionador de comandos para o depurador de <em>kernel</em> (logo abaixo). Existem algumas diferenças sutis entre esses dois depuradores (como o fato do NTSD não criar janelas quando usado como redirecionador), mas são diferenças que se aprendem no dia-a-dia.</li>
+<li>KD: depurador que roda em <em>kernel mode</em>, pode analisar dados do sistema local ou depurar um sistema remoto conectado através de um cabo serial ou por meio de um <em>pipe</em> criado por uma máquina virtual. Existem outros métodos mais avançados ainda para conseguir depurar uma máquina tão tão distante, por exemplo.</li>
+<li>Logger: _tracer _de chamadas de funções da API. Pode ser usado para análise de performance ou para fazer o que eu faço com os <em>trojans</em>, que é dar uma olhada nas funções que eles chamam constantemente.</li>
+<li>Logviewer: visualiza resultados do Logger. É o que abriremos depois de capturar as APIs chamadas por um programa através do <em>logger</em>.</li>
+</ul>
+<p>Existem ainda outras ferramentas, mas estas são as principais que costumo utilizar. Para saber como usá-las de acordo com suas necessidades recomendo a leitura de um pequeno tutorial para o WinDbg que vem junto da instalação, o kerneldebuggingtutorial.doc. Ele é apenas a introdução dos principais comandos e técnicas. Depois de ter dominado o básico, pode partir para o arquivo de ajuda, que detalha de forma completa todos os comandos, técnicas e ferramentas de todo o pacote: o debugger.chm. A maioria dos comandos que precisava encontrei usando essa ajuda ou em alguns blogs muito bons. Acredite: no WinDbg, você quase sempre vai encontrar o comando que precisa.</p>
+<p>Já baixei e instalei. E agora, o que eu faço? Para exemplificar um uso prático dessas ferramentas vamos usar o Loggerpara descobrir quais funções API estão sendo chamadas constantemente por um cavalo de tróia, uma coisa um tanto comum em ataques a bancos. Para tornar as coisas mais reais ainda vamos utilizar o código-fonte de um suposto cavalo de tróia usado em minhas apresentações:</p>
+<pre><code>#include &lt;windows.h&gt;
+#include &lt;shlwapi.h&gt;
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, PSTR, int)
+{
+    CHAR wndTxt[MAX_PATH];
+
+    while( true )
+    {
+        HWND fgWin = GetForegroundWindow();
+        wndTxt[0] = 0;
+
+        if( GetWindowText(fgWin, wndTxt, sizeof(wndTxt)) )
+        {
+            if( StrStrI(wndTxt, &quot;Fict Bank&quot;) )
+            {
+                MessageBox(fgWin, &quot;Hello! Would you like to be under attack?&quot;,
+                    &quot;Free Trojan&quot;, MB_OK | MB_ICONINFORMATION);
+                break;
+            }
+        }
+    }
+
+    ExitProcess(ERROR_SUCCESS);
+} 
+</code></pre>
+<p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do Visual Studio:</p>
+<pre><code>cl /c freetrojan.cpp
+link freetrojan.obj user32.lib shlwapi.lib
+</code></pre>
+<p>O logger.exe possui uma extensão que pode ser usada pelo WinDbg para usar os mesmos comandos a partir do depurador. Mas para tornar as coisas mais fáceis nesse primeiro contato iremos iniciar o programa através do próprio executável:</p>
+<pre><code>logger freetrojan.exe
+</code></pre>
+<p>Irá aparecer uma janela onde selecionamos o conjunto de APIs que serão capturadas. Podemos manter todas as categorias selecionadas e mandar rodar usando o botão &ldquo;Go&rdquo;.</p>
+<p>Aguarde o programa executar por um tempo para termos um pouco de dados para analisar. Em minhas análises reais eu geralmente deixo ele atacar, seja no sítio real do banco ou em uma armadilha. Depois do ataque posso confirmar qual a API que ele utilizou. Se quiser fazer isso nesse teste basta criar uma janela que contenha o texto &ldquo;Fict Bank&rdquo; em seu título. Após isso, podemos finalizar o processo pelo Gerenciador de Tarefas:</p>
+<p>Mesmo após finalizá-lo ele continuará na lista de processos, como se tivesse travado. Na verdade, a parte injetada do Logger mantém o processo no ar, em um estado semi-morto (ou semi-vivo). Depois de finalizar o Logger fechando sua janela principal ambos os processos terminam e podemos ler o resultado da captura em uma pasta chamada LogExts criada por padrão no Desktop ouÁrea de Trabalho. Podemos dar uma olhada nos resultados através do visualizador de logs gerados, o Logviewer.</p>
+<p>Algumas colunas do Logviewersão tão úteis que vale a pena mencioná-las:</p>
+<ul>
+<li>Module: determina quem chamou a API, o próprio executável ou alguma DLL.</li>
+<li>Call Duration: tempo em milissegundos que a chamada da função demorou.</li>
+<li>API Function: o nome da função API que foi chamada.</li>
+<li>Return Value: o retorno da chamada da função.</li>
+</ul>
+<p>De quebra ele exibe todos os parâmetros das funções de acordo com o tipo, identificando inclusive quando se trata de uma enumeração ou define reservado. Essa &ldquo;mágica&rdquo; é feita interpretando os headers que ficam na pasta &ldquo;Debugging Tools for Windows\winext\manifest&rdquo;, tarefa executada pelo Logger no início.</p>
+<p>É só isso? O Debugging Tools é um pacote extremamente poderoso de ferramentas para programadores avançados. De maneira alguma conseguirei cobrir tudo que é possível fazer com essas ferramentas em apenas um blog. Porém, espero que essa pequena introdução seja o começo de uma série de artigos bem interessantes sobre debugging e uma série de testes realizados pelos meus leitores.</p>
+<p>Seguem alguns blogs dedicados inteiramente ao assunto WinDbg e debugging:</p>
+<ul>
+<li>Microsoft Advanced Windows Debugging and Troubleshooting - site mantido pelo time de resolução de problemas críticos da Microsoft.</li>
+<li>Debugging Toolbox - <em>blog</em> mantido pelo Roberto Farah, contém muitos <em>scripts</em> para ser utilizando no Windbg.</li>
+<li>Crash Dump Analysis - uma exploração profunda na análise de telas azuis e o motivo delas existirem.</li>
+<li>WinDbg by Volker von Einem - como o autor mesmo diz, &ldquo;uma coleção de utilidades para lidar com windbg&rdquo;.</li>
+<li>Nynaeve - além de falar sobre <em>debugging</em> no Windows contém análises de engenharia reversa.</li>
+</ul>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20WinDbg%20%c3%a9%20uma%20ferramenta%20obrigat%c3%b3ria%20em%20uma%20das%20minhas%20mais%20divertidas%20tarefas%20aqui%20na%20Open%3a%20engenharia%20reversa%20de...%20http%3a%2f%2fwww.caloni.com.br%2fintroducao-ao-debugging-tools-for-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/disassembling-the-array-operator/">Disassembling the array operator<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/"><span class="icon"><i class="fa fa-arrow-left"></i></span>A inteligência do if - parte 1</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

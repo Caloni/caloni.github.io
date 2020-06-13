@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Banco de dados no C&#43;&#43; Builder</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Banco de dados no C&#43;&#43; Builder"/>
+  <meta itemprop="description"
+        content="Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Banco de dados no C&#43;&#43; Builder"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/banco-de-dados-no-c-builder/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-12-21T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Banco de dados no C&#43;&#43; Builder"/>
+  <meta name="twitter:description"
+        content="Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Banco de dados no C&#43;&#43; Builder</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/banco-de-dados-no-c-builder.md" title="History">
+    2007-12-21
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/banco-de-dados-no-c-builder.md" title="GitHub">664</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Um banco de dados é qualquer lugar onde podemos ler e escrever informação geralmente persistente. Pode ser um arquivo INI, uma estrutura binária ou uma plantação de servidores para fazer busca na internet.</p>
+<p>O uso de banco de dados em programação é mais que essencial, pois permite que armazenemos os resultados de um processamento e utilizemos esses mesmos resultados em futuras execuções.</p>
+<p>Visando preencher algumas lacunas na internet sobre esse tema, iremos agora nos aventurar na configuração e uso de um banco de dados no C++ Builder.</p>
+<p>Obs. de camarada: banco de dados pode ser uma coisa bem chata. Contudo, a vida não é completa sem as partes chatas. O conhecimento dessa área é vital para a sobrevivência de muito desenvolvedores de software. Além do mais, pode se tornar bem mais interessante em algumas situações, como o estudo sobre normalização.</p>
+<p>Quase como um prêmio de consolação por participarmos de um sorteio que sabemos que não iremos ganhar nunca, a Caixa generosamente oferece a opção de baixarmos todos os resultados da Mega Sena desde seu início. Iremos utilizar esse banco de dados para criar uma interface de visualização de resultados no C++ Builder.</p>
+<p>Um problema inicial está no fato que o arquivo está no formato HTML, um formato mais difícil de usarmos no C++ Builder. Portanto, irei converter este formato em algo mais maleável, como um arquivo do Microsoft Access (manipulável pelo Open Office), o famoso MDB.</p>
+<p>Para a conversão, nada mais que algumas expressões regulares e macros de edição não resolvam em 5 minutos, sem contar a opção de importação do próprio Access.</p>
+<p>Neste tutorial vamos usar aquilo que é o configurador oficial de banco de dados no C++ Builder: o BDE. Se você ainda não observou, após a instalação do C++ Builder um novo item surgiu no Painel de Controle, o BDE Administrator. Vamos usá-lo para configurar uma base de dados baseada no nosso arquivo MDB recém-gerado .</p>
+<p>Criado o MDB, podemos clicar no BDE Administrator do Painel de Controle. A única coisa que precisamos fazer é criar uma nova base de dados, e especificar seus poucos parâmetros, como o tipo de base (MSACCESS) e o path de onde está o arquivo MDB.</p>
+<p>Ah, sim, claro, também é importante colocar um nome apropriado para a base de dados: MegaSena.</p>
+<p>A partir daí, clicando no botão Apply !BDE Apply, tudo deve fluir. Como em informática tudo quer dizer nada, eu deixo por conta do leitor a resolução de quaisquer problemas que acontecerem durante a configuração.</p>
+<p>Criado o banco e testado (experimente conectar pelo próprio BDE) podemos agora criar um novo projeto VCL e colocar alguns componentes interessantes feitos especialmente para banco de dados. São eles:</p>
+<ul>
+<li>
+<p>TDatabase: representa a própria base da dados, onde especificamos o nome da base de dados que vamos utilizar.</p>
+</li>
+<li>
+<p>TTable: representa uma tabela de uma base de dados.</p>
+</li>
+<li>
+<p>TDataSource: a origem dos dados que serão usados para popular seja lá o que quisermos popular.</p>
+</li>
+</ul>
+<p>Abaixo segue a configuração de cada um deles, ou seja, as propriedades que você deve mudar para que tudo funcione.</p>
+<pre><code>  object Database1: TDatabase
+    AliasName = 'MegaSena'
+    Connected = True
+    DatabaseName = 'MegaSena'
+    LoginPrompt = False
+  end
+  object Table1: TTable
+    Active = True
+    DatabaseName = 'MegaSena'
+    TableName = 'Resultados'
+  end
+  object DataSource1: TDataSource
+    DataSet = Table1
+  end
+</code></pre>
+<p>Após todos esses componentes não-visuais terem sido inseridos no form, nada como colocar alguma coisa que o usuário veja: um TDBGrid.</p>
+<pre><code>  object DBGrid1: TDBGrid
+    DataSource = DataSource1
+  end
+</code></pre>
+<p>Com isso, nossa janela já exibe o conteúdo da tabela em tempo de design:</p>
+<p>E é isso! Se chegamos até aqui, já sabemos o arroz com feijão de usar banco de dados com o C++ Builder. Mais para a frente podemos nos aventurar em tópicos um pouco mais avançados, como fazer buscas, navegar item a item e essas coisas que as pessoas costumam fazer com um MDB.</p>
+<ul>
+<li>Borland Developer Studio: baixe a versão gratuita para desenvolver programas Win32 nativos em RAD</li>
+<li>OpenOffice: uma suíte de escritório gratuita (para ler e escrever MDBs)</li>
+</ul>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Um%20banco%20de%20dados%20%c3%a9%20qualquer%20lugar%20onde%20podemos%20ler%20e%20escrever%20informa%c3%a7%c3%a3o%20geralmente%20persistente.%20Pode%20ser%20um%20arquivo...%20http%3a%2f%2fwww.caloni.com.br%2fbanco-de-dados-no-c-builder%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-que-acontece-quando-o-contador-estoura/">O que acontece quando o contador estoura<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/drag-and-drop-no-c-builder/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Drag and drop no C&#43;&#43; Builder</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

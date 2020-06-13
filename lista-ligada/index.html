@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Lista Ligada; tá ligado?</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Lista Ligada; tá ligado?"/>
+  <meta itemprop="description"
+        content="Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Lista Ligada; tá ligado?"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/lista-ligada/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2018-04-24T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Lista Ligada; tá ligado?"/>
+  <meta name="twitter:description"
+        content="Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Lista Ligada; tá ligado?</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/lista-ligada.md" title="History">
+    2018-04-24
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/lista-ligada.md" title="GitHub">646</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque existe além dos dados em si mais uma informação que você precisará guardar em cada elemento de sua lista: o próximo elemento.</p>
+<p>Sua estrutura pode ser simples e direta. Digamos uma lista ligada de idades vai ter o endereço do próximo elemento e o dado propriamente dito deste elemento (a idade):</p>
+<pre><code>struct Element
+{
+    Element* next; // proximo elemento de sua lista
+    int age; // a idade de alguem
+};
+</code></pre>
+<p>A primeira coisa que você precisa ter em sua lista é onde ela começa. Isso pode ser uma variável especial que não é usada para nada exceto indicar qual o primeiro elemento da sua lista (esse, sim, um elemento). Ele pode ser simplesmente um ponteiro para o próximo (no caso o primeiro) elemento.</p>
+<pre><code>Element* g_head = NULL; // este eh o inicio de tudo
+
+head --&gt; *
+</code></pre>
+<p>Este ponteiro começa em NULL porque a lista está vazia. Mas assim que inserirmos um item ele deixará de ser nulo.</p>
+<pre><code>Element* InsertElement(Element* next)
+{
+    Element* ret = new Element;
+    ret-&gt;next = NULL;
+    if( next != NULL )
+        next-&gt;next = ret;
+    return ret;
+}
+
+before:
+head --&gt; *     ---
+              |   | --&gt; *
+               ---
+after:
+           ---
+ head --&gt; |   | --&gt; *
+           ---
+</code></pre>
+<p>A única coisa que liga um elemento ao outro é o membro next:</p>
+<pre><code>if( next != NULL )
+    next-&gt;next = ret;
+</code></pre>
+<p>Geralmente adicionamos um novo elemento no meio de uma lista, e por isso não nos preocupamos aqui com o membro next sobrescrito (que obviamente é NULL). Porém, para um resultado mais genérico podemos verificar se ele de fato é NULL. Se não for ele se tornará o next do elemento inserido (o que quer dizer que ele não será o último!):</p>
+<pre><code>if( next != NULL )
+{
+    if( next-&gt;next != NULL )
+        ret-&gt;next = next-&gt;next; // isso pode confundir a cabeca de muita gente...
+    next-&gt;next = ret;
+}
+
+before:
+ ---      ---      ---      
+| A | -&gt; | B | -&gt; | D | -&gt;*
+ ---      ---      ---      
+
+          ---     
+         | C | -&gt;*
+          ---     
+
+after:
+ ---      ---      ---      ---      
+| A | -&gt; | B | -&gt; | C | -&gt; | D | -&gt;*
+ ---      ---      ---      ---      
+</code></pre>
+<p>Se formos sempre inserir um novo elemento no final também é interessante termos um ponteiro para o último elemento:</p>
+<pre><code>Element* g_head = NULL; // este eh o inicio de tudo
+Element* g_last = NULL; // e este eh o final
+</code></pre>
+<p>É preciso prestar atenção quando temos muitas variáveis sobrando no código. Caso você esteja com sua lista ligada vazia, por exemplo, ghead e glast precisam ser atualizados!</p>
+<pre><code>if( g_head == NULL )
+{
+    g_head = InsertElement(NULL);
+    g_last = g_head;
+}
+</code></pre>
+<p>Se a lista não estiver vazia apenas o glast deve ser atualizado.</p>
+<pre><code>if( g_head == NULL )
+{
+    g_head = InsertElement(NULL);
+    g_last = g_head;
+}
+else
+{
+    Element* e = InsertElement(g_last);
+    g_last = e-&gt;next;
+}
+</code></pre>
+<p>Remover é a parte mais complicada de uma lista ligada, pois temos que atualizar o elemento de trás (se houver):</p>
+<pre><code>void RemoveElement(Element* prev)
+{
+    Element* next = prev-&gt;next-&gt;next;
+    delete prev-&gt;next;
+    prev-&gt;next = next;
+}
+
+before:
+ ---      ---      ---      ---      
+| A | -&gt; | B | -&gt; | C | -&gt; | D | -&gt;*
+ ---      ---      ---      ---      
+
+after:
+ ---      ---      ---      
+| A | -&gt; | B | -&gt; | D | -&gt;*
+ ---      ---      ---      
+
+          ---     
+         | C | -&gt;*
+          ---     
+</code></pre>
+<p>Não parece tão complicado. Mas imagine que para realizar esta façanha você terá que encontrar o elemento que quer apagar, mas mantendo o elemento anterior em outra variável.</p>
+<p>Este artigo está incompleto de propósito, pois é preciso pensar antes de implementar uma solução. Para que você precisa de uma lista ligada, pra começo de conversa?</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Uma%20lista%20ligada%20%c3%a9%20uma%20lista%20de%20alguma%20coisa.%20Essa%20alguma%20coisa%20podem%20ser%20inteiros%2c%20strings%20ou%20estruturas%20inteiras....%20http%3a%2f%2fwww.caloni.com.br%2flista-ligada%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/hype-da-previa-de-vingadores-guerra-infinita/">Hype da Prévia de Vingadores: Guerra Infinita<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-forma-da-agua/"><span class="icon"><i class="fa fa-arrow-left"></i></span>A Forma da Água</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

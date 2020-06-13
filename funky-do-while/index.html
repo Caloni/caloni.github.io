@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Funky do-while</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Funky do-while"/>
+  <meta itemprop="description"
+        content="It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Funky do-while"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/funky-do-while/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-02-13T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Funky do-while"/>
+  <meta name="twitter:description"
+        content="It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Funky do-while</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/funky-do-while.md" title="History">
+    2008-02-13
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/funky-do-while.md" title="GitHub">548</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.</p>
+<p>Let&rsquo;s imagine a trace macro that&rsquo;s enabled in debug mode, whilst kept in silence in release builds:</p>
+<pre><code>#ifdef NDEBUG
+
+#define MYTRACE( message ) /* nothing */
+
+#else
+
+#define MYTRACE( message )        \
+    {                              \
+        char buffer[500];           \
+        sprintf(buffer,             \
+            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
+            __FILE__,                \
+            __LINE__,                \
+            message);                \
+        OutputDebugString(buffer);  \
+    }
+
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&rsquo;t work.</p>
+<pre><code>if( exploded() )
+    MYTRACE(&quot;Oh, my God&quot;);
+else
+    MYTRACE(&quot;That's right&quot;); 
+
+
+
+error C2181: illegal else without matching if
+</code></pre>
+<p>Why&rsquo;s that? In order to answer this question, we need to look closer into the result code from the preprocessor, just replacing the macro for its piece of code:</p>
+<pre><code>if( exploded() )
+    {
+        char buffer[500];
+        sprintf(buffer,
+            &quot;MYTRACE: %s(%d) %s\n&quot;,
+            __FILE__,
+            __LINE__,
+            &quot;Oh, my God&quot;);
+        OutputDebugString(buffer);
+    };
+else
+    {
+        char buffer[500];
+        sprintf(buffer,
+            &quot;MYTRACE: %s(%d) %s\n&quot;,
+            __FILE__,
+            __LINE__,
+            &quot;That's right&quot;);
+        OutputDebugString(buffer);
+    };
+</code></pre>
+<p>So, that&rsquo;s why. When we call a macro, generally we use the funcion-call syntax, putting a semicolon in the end. This is the right way to call a function, but in the macro case, it&rsquo;s a disaster, because it creates two commands instead of one (an empty semicolon, despite doing nothing, it&rsquo;s a valid command). So that&rsquo;s what the compiler does:</p>
+<pre><code>if( instruction )
+{
+    /* a lot of comands */
+
+} /* here I would expect an else or new instruction */
+
+; /* a new command! okay, no else this time */
+
+
+else /* wait! what this else is doing here without an if?!?! */
+{
+    /* more commands */
+}
+</code></pre>
+<p>Think about the empty command as if it was a real command, what is the easier way to realize the compiler error:</p>
+<pre><code>if( error() )
+{
+    printf(&quot;error&quot;);
+}
+</code></pre>
+<p>printf(&ldquo;here we go&rdquo;);</p>
+<pre><code>else /* llegal else without matching if! */
+{
+    printf(&quot;okay&quot;);
+}
+</code></pre>
+<p>For this reason, the tradicional way to skip this common error is to use a valid construction who asks for a semicolon in the end. Fortunately, language C has such construction, and it is&hellip; right, the do-while!</p>
+<pre><code>do
+{
+    /* multiple commands here */
+}
+while( expression )
+</code></pre>
+<p>;</p>
+<pre><code> /* I expect a semicolon here, in order
+                         to end the do-while instruction */
+</code></pre>
+<p>So we can rewrite our trace macro the right way, even being a funcky one:</p>
+<pre><code>#ifdef NDEBUG
+
+#define MYTRACE( message ) /* nothing */
+
+#else
+
+#define MYTRACE( message )        \
+    do                             \
+    {                              \
+        char buffer[500];           \
+        sprintf(buffer,             \
+            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
+            __FILE__,                \
+            __LINE__,                \
+            message);                \
+        printf(buffer);             \
+    }                              \
+    while( 0 )
+
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Using a do-while (with a false expression inside the test to execute the block just once) the if-else construction is allowed and working properly:</p>
+<pre><code>if( exploded() )
+    do
+    {
+        char buffer[500];
+        sprintf(buffer,
+            &quot;MYTRACE: %s(%d) %s\n&quot;,
+            __FILE__,
+            __LINE__,
+            &quot;Oh, my God&quot;);
+        OutputDebugString(buffer);
+    }
+    while( 0 );
+else
+    do
+    {
+        char buffer[500];
+        sprintf(buffer,
+            &quot;MYTRACE: %s(%d) %s\n&quot;,
+            __FILE__,
+            __LINE__,
+            &quot;That's right&quot;);
+        OutputDebugString(buffer);
+    }
+    while( 0 );
+</code></pre>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=It%26rsquo%3bs%20a%20known%20habit%20to%20use%20do-while%20constructions%20when%20there%26rsquo%3bs%20a%20need%20to%20define%20a%20macro%20that%20has%20more%20than...%20http%3a%2f%2fwww.caloni.com.br%2ffunky-do-while%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/">Os diferentes erros na linguagem C<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/desconstruindo-ioccc/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Desconstruindo IOCCC</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

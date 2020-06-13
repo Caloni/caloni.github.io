@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Usando GVim com projetos do Visual Studio</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A vida dos programadores C/C&#43;&#43; Windows &ndash; e que geralmente precisam do Visual Studio &ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Usando GVim com projetos do Visual Studio"/>
+  <meta itemprop="description"
+        content="A vida dos programadores C/C&#43;&#43; Windows &ndash; e que geralmente precisam do Visual Studio &ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Usando GVim com projetos do Visual Studio"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A vida dos programadores C/C&#43;&#43; Windows &ndash; e que geralmente precisam do Visual Studio &ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2016-09-18T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Usando GVim com projetos do Visual Studio"/>
+  <meta name="twitter:description"
+        content="A vida dos programadores C/C&#43;&#43; Windows &ndash; e que geralmente precisam do Visual Studio &ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Usando GVim com projetos do Visual Studio</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/usando-gvim-com-projetos-do-visual-studio.md" title="History">
+    2016-09-18
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/usando-gvim-com-projetos-do-visual-studio.md" title="GitHub">1025</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A vida dos programadores C/C++ Windows &ndash; e que geralmente precisam do Visual Studio &ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .NET, do Visual Studio 2003 e dos XMLs disfarçados como arquivos de projeto e solution, o uso do makefile foi paulatinamente abandonado, gerando diferentes versões de ferramentas &ndash; todas incompatíveis &ndash; para conseguir compilar um ou mais cpps e conseguir ver o resultado.</p>
+<p>Por isso mesmo é um assunto pouco explorado nos fóruns do Stack Overflow como configurar decentemente o comando :make do Vim para conseguir realizar o ciclor program-compile-debug que já era feito desde a época do Amiga OS (e conhecido no manual do Vim como Quickfix). Ninguém se dá ao trabalho de usar esse modelo torto.</p>
+<p>Houve um tempo que eu mesmo pesquisei algumas soluções, e caí no velho problema de tentar conviver com diferentes versões do Visual Studio. Deixei de lado o Vim por uns anos, e passei a usar o VsVim, um plugin que roda em várias versões do Visual Studio e utiliza o vimrc de sua instalação.</p>
+<p>Hoje voltei a fuçar esse problema e depois de algumas horas tentando entender qual a dinâmica que deve ser seguida, cheguei a dois usos legítimos do make no Visual Studio: o modo legado, através do devenv, e o modo comportado, que usa a ferramenta MsBuild para encontrar o projeto e a solution que devem ser compilados.</p>
+<p>A não ser que você coloque o path das ferramentas direto nos comandos (algo que não recomendo pois as coisas no Vim começam a ficar estranhas com paths com espaços, algo abundante no Windows) é preferível que você escolha qual devenv e qual msbuild deseja utilizar e definir isso na variável de sistema path. No meu exemplo estou usando o msbuild para qualquer Visual Studio acima do 2010 (como o 2015), pois já está padronizado, e como tenho projetos no VS2003 para manter, escolhi deixar o devenv.com com ele.</p>
+<pre><code>set path=%path%;C:\Program Files (x86)\MSBuild\14.0\Bin
+set path=%path%;c:\Program Files (x86)\Microsoft Visual Studio .NET 2003\Common7\IDE
+</code></pre>
+<p>Note que essa configuração, para ficar persistente, precisa ser definida através do Painel de Controle ou Propriedades do Sistema. Google for it.</p>
+<p>Depois de configurado, qualquer projeto deve ser compilável em 2003 pela linha de comando (através do devenv.com):</p>
+<pre><code>C:\Projects\samples\FixCMake&gt;devenv.com FixCMake.sln /build Debug
+
+Microsoft (R) Development Environment  Version 7.10.3077.
+Copyright (C) Microsoft Corp 1984-2001. All rights reserved.
+------ Build started: Project: FixCMake, Configuration: Debug Win32 ------
+
+Compiling...
+FixCMake.cpp
+Linking...
+
+Build log was saved at &quot;file://c:\Projects\samples\FixCMake\Debug\BuildLog.htm&quot;
+FixCMake - 0 error(s), 0 warning(s)
+
+---------------------- Done ----------------------
+
+    Build: 1 succeeded, 0 failed, 0 skipped
+
+C:\Projects\samples\FixCMake&gt;
+</code></pre>
+<p>Da mesma forma, projetos 2010+ devem usar o msbuild:</p>
+<pre><code>C:\Projects\samples\ConsoleApplication5&gt;msbuild
+Microsoft (R) Build Engine version 14.0.25420.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Building the projects in this solution one at a time. To enable parallel build, please add the &quot;/m&quot; switch.
+Build started 9/18/2016 6:02:19 PM.
+Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; on node 1 (default targets).
+ValidateSolutionConfiguration:
+  Building solution configuration &quot;Debug|x64&quot;.
+The target &quot;_ConvertPdbFiles&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
+The target &quot;_CollectPdbFiles&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
+The target &quot;_CollectMdbFiles&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
+The target &quot;_CopyMdbFiles&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\Impo
+Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; (1) is building &quot;C:\Projects\samples\ConsoleApplication5\C
+PrepareForBuild:
+  Creating directory &quot;x64\Debug\&quot;.
+  Creating directory &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\&quot;.
+InitializeBuildStatus:
+  Creating &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\unsuccessfulbuild&quot; because &quot;AlwaysCreate&quot; was specified.
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE
+  140.pdb&quot; /Gd /TP /errorReport:queue stdafx.cpp
+  stdafx.cpp
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE
+  140.pdb&quot; /Gd /TP /errorReport:queue ConsoleApplication5.cpp
+  ConsoleApplication5.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:&quot;C:\Projects\samples\Console
+  ib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:&quot;level='asInvoker' uiAccess='false'&quot; /manifest:embed /DEBUG /PDB:&quot;C:\Projects\sa
+  cation5.lib&quot; /MACHINE:X64 x64\Debug\ConsoleApplication5.obj
+  x64\Debug\stdafx.obj
+  ConsoleApplication5.vcxproj -&gt; C:\Projects\samples\ConsoleApplication5\x64\Debug\ConsoleApplication5.exe
+  ConsoleApplication5.vcxproj -&gt; C:\Projects\samples\ConsoleApplication5\x64\Debug\ConsoleApplication5.pdb (Full PDB)
+FinalizeBuildStatus:
+  Deleting file &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\unsuccessfulbuild&quot;.
+  Touching &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\ConsoleApplication5.lastbuildstate&quot;.
+Done Building Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.vcxproj&quot; (default targets).
+
+Done Building Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.31
+
+C:\Projects\samples\ConsoleApplication5&gt;
+</code></pre>
+<p>Pois é. Tirando essa facilidade, as coisas no Vim para msbuild rodam particularmente bem. Basta alterarmos o makeprg da seguinte maneira:</p>
+<pre><code>:set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true&lt;CR&gt;
+</code></pre>
+<p>As opções específicas são para gerar o path completo, as barras invertidas são por causa dessa mania do Vim de dar pau quando tem espaço em tudo.</p>
+<p>A partir dessa configuração já é possível compilar um projeto estando em sua pasta:</p>
+<p>Para o Visual Studio 2003 (ou qualquer um usando o devenv.com) é necessário mudar esse comando:</p>
+<pre><code>:set makeprg=devenv\ %\ /build\ Debug&lt;CR&gt;
+</code></pre>
+<p>Sim, temos que escolher uma configuração (o msbuild já escolhe por você). E note que ele usa o arquivo atual (%) para compilar. Isso quer dizer que isso irá exigir do usuário de Vim abrir o sln ou o vcproj e executar o :make a partir daí. De qualquer forma, ele funciona também:</p>
+<p>Note que em nenhum dos casos erros conseguirão ser capturados para irmos direto no ponto do código-fonte onde ele está. Para isso funcionar, em nosso último passo, é necessário configurar o errorformat para que ele tenha um padrão que funcione com ambas as ferramentas. Depois de testar um pouco, cheguei nesse formato:</p>
+<pre><code>set errorformat=%f(%l)%m
+</code></pre>
+<p>Ele pega também os warnings, mas fazer o quê. Você não quer conviver com warnings em seu código pelo resto da vida, né? =)</p>
+<p>E para navegar na lista é como o resultado de comandos como :vimgrep. :cnext e :cprevious vão para frente e para trás na lista, sempre pulando para o ponto no código onde está o erro.</p>
+<p>Como deu pra perceber, para conseguir usar o msbuild e o devenv ao mesmo tempo você seria obrigado a trocar o makeprg sempre que precisasse. Para facilitar seu uso, nada como fazer um mapeamento de atalhos:</p>
+<pre><code>map &lt;F7&gt; :set makeprg=devenv\ %\ /build\ Debug&lt;CR&gt;
+map &lt;S-F7&gt; :set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true&lt;CR&gt;
+</code></pre>
+<p>Para alguém curioso para ver minhas configurações do Vim (quem quiser compartilhar também, fique à vontade), segue.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20vida%20dos%20programadores%20C%2fC%2b%2b%20Windows%20%26ndash%3b%20e%20que%20geralmente%20precisam%20do%20Visual%20Studio%20%26ndash%3b%20est%c3%a1%20um%20abandono...%20http%3a%2f%2fwww.caloni.com.br%2fusando-gvim-com-projetos-do-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/demonio-de-neon/">Demônio de Neon<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-passageira/"><span class="icon"><i class="fa fa-arrow-left"></i></span>A Passageira</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

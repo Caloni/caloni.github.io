@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - CSI: Crashed Server Investigation?</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O artigo de Jeff Dailey em que ele compara a nossa atividade de &ldquo;cientistas do debugging&rdquo; com a atividade dos profissionais da análise forense é exatamente o que eu penso sobre nossa..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="CSI: Crashed Server Investigation?"/>
+  <meta itemprop="description"
+        content="O artigo de Jeff Dailey em que ele compara a nossa atividade de &ldquo;cientistas do debugging&rdquo; com a atividade dos profissionais da análise forense é exatamente o que eu penso sobre nossa..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="CSI: Crashed Server Investigation?"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/csi-crashed-server-investigation/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O artigo de Jeff Dailey em que ele compara a nossa atividade de &ldquo;cientistas do debugging&rdquo; com a atividade dos profissionais da análise forense é exatamente o que eu penso sobre nossa..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-04-23T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="CSI: Crashed Server Investigation?"/>
+  <meta name="twitter:description"
+        content="O artigo de Jeff Dailey em que ele compara a nossa atividade de &ldquo;cientistas do debugging&rdquo; com a atividade dos profissionais da análise forense é exatamente o que eu penso sobre nossa..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">CSI: Crashed Server Investigation?</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/csi-crashed-server-investigation.md" title="History">
+    2008-04-23
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/csi-crashed-server-investigation.md" title="GitHub">554</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O artigo de Jeff Dailey em que ele compara a nossa atividade de &ldquo;cientistas do debugging&rdquo; com a atividade dos profissionais da análise forense é exatamente o que eu penso sobre nossa profissão. Freqüentemente assisto ao CSI: Las Vegas e mais freqüentemente ainda uso os métodos científicos empregados pela equipe de Gil Grissom para resolver os problemas mais escabrosos que podem ocorrer em um sistema.</p>
+<p>Jeff fez uma divertida comparação entre todas as etapas de uma análise forense com todas as etapas de nossa análise do bug. Aqui vai a tradução livre dessas etapas (em linguagem cinematográfica):</p>
+<p>São duas horas da manhã. A câmera focaliza um pager explodindo sobre um criado-mudo&hellip; só pode querer dizer uma coisa: algo de ruim aconteceu e pessoas estão à procura de ajuda. O detetive acorda e diz para sua mulher: &ldquo;Desculpe, eles precisam de mim&hellip; Eu tenho que ir&rdquo;.</p>
+<p>Engraçado, eu fiz a mesma coisa, só porque alguém encontrou um servidor morto.</p>
+<p>O detetive aparece na cena do crime. Todos os policiais estão confusos, então eles apenas mantém a área isolada até que os experts cheguem. Seus anos de experiência e iluminação única irão permiti-lo ver coisas que os outros não vêem.</p>
+<p>Umm&hellip; Isso só me parece apenas familiar. Eu tipicamente uso Live Meeting ou Easy Assist&hellip;</p>
+<p>Usando uma combinação de ferramentas especializadas e métodos aprendidos tanto na escola quanto os aprendidos com o tempo, a evidência é coletada na cena para que seja feita uma pesquisa adicional no escritório. Testemunhas são questionadas: &ldquo;Por volta de que horas isso ocorreu?&quot;, &ldquo;Você ouviu algum barulho estranho&rdquo;, e &ldquo;você viu alguém ou alguma coisa não usual&rdquo;. Fotos são tiradas, objetos são arquivados, fibras e amostras de DNA são coletadas.</p>
+<p>Ok, então o escopo do problema está determinado e todas as informações disponíveis foram obtidas. Ummm&hellip; eu faço isso todo dia.</p>
+<p>O prefeito chama o oficial para que diga ao chefe dos detetives que nós devemos resolver este caso. Isso não pode acontecer de novo.  Nós devemos capturar o vilão!</p>
+<p>Sinta-se livre para substituir &ldquo;prefeito&rdquo; com qualquer figura de alto nível gerencial. Uau, isso ou é um cara mau e asqueiroso ou o driver de alguém está causando pool corruption causando um servidor crítico falhar!</p>
+<p>Nós agora cortamos onde o detetive está no laboratório, usando luminárias,  procurando por evidências de DNA, refletindo sobre os fatos principais do caso, pesquisando crimes passados.</p>
+<p>Eu não sei sobre você, mas eu simplesmente me refiro a isso como o processo de depuração.</p>
+<p>Finalmente um progresso: o DNA coletado na cena do crime identifica um suspeito que não deveria estar lá. Ao fazer uma pesquisa adicional, o suspeito tem um histórico desse tipo de atividade. O cara mau é capturado, os custos são arquivados e o caso está resolvido!</p>
+<p>Isso deve ser o mesmo que encontrar a causa principal, preencher um bug, e lançar uma correção.</p>
+<p>Para finalizar, uma frase do artigo original que resume tudo:</p>
+<p>&ldquo;Ultimately that&rsquo;s what we do.  We are all detectives looking for the digital DNA of bugs in the wild affecting our customers.  We hunt them down using tools, expertise, and experience.&rdquo;</p>
+<p>Dmitry Vostokov imaginou siglas mais imaginativas e fiéis a todos os que depuram problemas em software, independente deste rodar em servidores ou máquinas de café. Além, é claro, de uma ótima dica de livro sobre análise forense. Thanks, Dmitry!</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/essays">essays</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20artigo%20de%20Jeff%20Dailey%20em%20que%20ele%20compara%20a%20nossa%20atividade%20de%20%26ldquo%3bcientistas%20do%20debugging%26rdquo%3b%20com%20a%20atividade...%20http%3a%2f%2fwww.caloni.com.br%2fcsi-crashed-server-investigation%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/seminario-ccpp-portabilidade-e-performance/">Seminário CCPP Portabilidade e Performance<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/ode-ao-c/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Ode ao C&#43;&#43;</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

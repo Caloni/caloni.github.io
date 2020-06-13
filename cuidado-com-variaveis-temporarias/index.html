@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Cuidado com variáveis temporárias</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Um dos problemas que a linguagem C&#43;&#43; possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Cuidado com variáveis temporárias"/>
+  <meta itemprop="description"
+        content="Um dos problemas que a linguagem C&#43;&#43; possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Cuidado com variáveis temporárias"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/cuidado-com-variaveis-temporarias/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Um dos problemas que a linguagem C&#43;&#43; possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2011-07-26T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Cuidado com variáveis temporárias"/>
+  <meta name="twitter:description"
+        content="Um dos problemas que a linguagem C&#43;&#43; possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Cuidado com variáveis temporárias</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/cuidado-com-variaveis-temporarias.md" title="History">
+    2011-07-26
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/cuidado-com-variaveis-temporarias.md" title="GitHub">645</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Um dos problemas que a linguagem C++ possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da vida dos objetos. Às  vezes a coisa fica de tal como complexa que fica até difícil explicar o porquê das coisas.</p>
+<p>Por exemplo, vejamos o singelo caso de alguém que precisa formatar uma saída de erro e para isso escolheu um stringstream:</p>
+<pre><code>#include &lt;sstream&gt;
+#include &lt;exception&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+void LogError(const char* msg)
+{
+    cerr &lt;&lt; &quot;** &quot; &lt;&lt; msg &lt;&lt; endl;
+}
+
+void func()
+{
+    //doSomething();
+    throw exception(&quot;sbrubles exception&quot;);
+}
+
+int main()
+{
+    try
+    {
+        func();
+    }
+    catch(exception&amp; e)
+    {
+        stringstream ss;
+        ss &lt;&lt; &quot;Error calling func: &quot; &lt;&lt; e.what() &lt;&lt; endl;
+        const char* errorMessage = ss.str().c_str();
+        LogError(errorMessage);
+    }
+}
+</code></pre>
+<p>Quando chamamos func, ele lança uma exceção que é capturada no main que, por sua vez, formata uma stream e obtém sua string (através do método str) e através dessa string obtém o ponteiro da string em C puro (através do método cstr). Porém, a mensagem resultante na saída-padrão de erro não era o esperado:</p>
+<p>Depurando diretamente, vemos que a stream, de fato, contém o que esperávamos. O único elemento errante é justamente o ponteiro obtido através da chamada dupla de métodos.</p>
+<p>O porquê isso ocorre só fica óbvio quando vemos a ajuda (ou a assinatura) da função str da classe stringstream:</p>
+<blockquote>
+<pre><code>&lt;span style=&quot;color: #ff0000;&quot;&gt;string str ( ) const;&lt;/span&gt;
+void str ( const string &amp; s );
+
+Get/set the associated string object
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>The first version &lt;span style=&quot;text-decoration: underline; color: #ff0000;&quot;&gt;returns a copy of the string object&lt;/span&gt; currently associated with the string stream buffer.
+</code></pre>
+</blockquote>
+<p>Ora, a função str retorna uma cópia do objeto string usado internamento pelo buffer de nossa string stream. Duas coisas ocorrem em qualquer cópia de um objeto retornada por uma função:</p>
+<ul>
+<li>
+<p>A cópia do objeto original e seu desacoplamento (óbvio).</p>
+</li>
+<li>
+<p>A construção de um objeto baseado no original e que, após o fim da expressão onde foi chamado o método, é destruído.</p>
+</li>
+</ul>
+<p>Uma vez que a chamada a str termina, é entregue uma instância de uma string que contém a string original que está sendo usada pela string stream para a expressão da chamada, que geralmente vem seguida de uma cópia:</p>
+<pre><code>//
+// 1. str retorna uma cópia;
+// 2. atribuição copia retorno para buf.
+//
+string buf = ss.str();
+</code></pre>
+<p>A variável buf no exemplo acima será, portanto, a terceira string usada aqui até então. Ao final da expressão, a string intermediária retornada por str é automaticamente destruída, por se trata de uma cópia temporária para obedecer a sintaxe de retorno da função.</p>
+<p>Agora, o que acontece se, na cópia temporária, é feita uma operação para obter seu ponteiro interno usado para armazenar sua string estilo C?</p>
+<p>Obviamente ele fica inválido após o fim da expressão!</p>
+<p>Vamos ver em câmera lenta:</p>
+<p>Nada como assembly fresquinho para refrescar os conceitos de C++ por baixo dos panos.</p>
+<p>Após uma enxurrada de programadores gerenciáveis perguntarem qual seria, então, a solução ideal, segue o snipet mais explicitado:</p>
+<pre><code>// 1. Copie a string retornada para uma variável não-temporária
+string buf = message.str();
+
+// 2. Use essa string dentro de seu escopo válido (até o final do catch, no exemplo do artigo).
+const char* text = buf.c_str();
+</code></pre>
+<p>Outro leitor sugeriu fazer toda a chamada em uma única instrução, economizando em expressividade e ainda evitando a destruição da variável temporária criada ao chamar str.</p>
+<pre><code>// 1. Matar três coelhos com uma instrução só.
+LogError(ss.str().c_str());
+</code></pre>
+<p>Particularmente, gosto de instruções simples que me permitam ver claramente o que está acontecendo de forma simples pelo depurador (até porque sei que o compilador irá otimizar tudo no final em versão Release, ainda mais se estiver quebrado em instruções simples). Porém, toda solução que evita o uso da variável temporária após a execução do método str é válida.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Um%20dos%20problemas%20que%20a%20linguagem%20C%2b%2b%20possui%20para%20seus%20iniciantes%20%c3%a9%20o%20de%20n%c3%a3o%20deixar%20muito%20expl%c3%adcito%20partes%20do%20seu...%20http%3a%2f%2fwww.caloni.com.br%2fcuidado-com-variaveis-temporarias%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/meia-noite-em-paris/">Meia-Noite em Paris<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/depuracao-de-emergencia/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Depuração de emergência</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

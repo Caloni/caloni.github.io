@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Por que minha DLL travou?</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Por que minha DLL travou?"/>
+  <meta itemprop="description"
+        content="Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Por que minha DLL travou?"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/por-que-minha-dll-travou/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-10-18T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Por que minha DLL travou?"/>
+  <meta name="twitter:description"
+        content="Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Por que minha DLL travou?</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/por-que-minha-dll-travou.md" title="History">
+    2007-10-18
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/por-que-minha-dll-travou.md" title="GitHub">571</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida, especialmente por causa das explicações sobre o loader lock e seus efeitos colaterais.</p>
+<p>O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &ldquo;mutex&rdquo;) para sincronizar as chamadas. O resultado é que, em um processo, apenas um DllMain é chamado em um dado momento. Esse objeto é chamado de &ldquo;loader lock&rdquo; na documentação da Microsoft.</p>
+<p>O código abaixo é besta, mas representa o que já vi em muito código-fonte, e muitas vezes não consegui perceber o que estava acontecendo (tanto porque desconhecia a existência desse loader lock quanto o código estava obscuro demais pra entender mesmo). Os comentários dizem tudo:</p>
+<pre><code>//
+// LoaderLock.dll
+//
+#include &lt;windows.h&gt;
+
+HANDLE g_thrLock = NULL; // locked thread handle
+BOOL g_getOut = FALSE; // it would be useful to unlock the thread, but it's not
+
+/** The thread locker
+
+The function of this thread is to lock. It tries to call DllMain (indirectly). 
+In order to do this, it needs the loader lock. Unfortunately the main thread 
+has got it before. The obvious result: this secondary thread is going to 
+wait forever for a resource that will be never released.
+*/
+DWORD WINAPI ThreadLock(PVOID)
+{
+    while( true )
+    {
+        // I'm here to hinder, not to help
+        Sleep(1000);
+        if( g_getOut ) 
+            break;
+    }
+
+    return ERROR_ACCESS_DENIED; // this does not work
+}
+
+/** The DllMain locker
+
+The function of this DllMain is to show how not to code an DllMain. It creates 
+a thread on the PROCESS_ATTACH event (bad sign). Not happy yet, it waits 
+for the thread on the PROCESS_DETACH event (bad bad sign). As this thead has 
+got the loader lock, the secondary thread will never reach the point 
+where it returns.
+*/
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+    if( fdwReason == DLL_PROCESS_ATTACH )
+    {
+        // creates the locked thread
+        DWORD tid = 0;
+        g_thrLock = CreateThread(NULL, 0, ThreadLock, NULL, 0, &amp;tid);
+    }
+    else if( fdwReason == DLL_PROCESS_DETACH )
+    {
+        // waits for the thread for ever and ever
+        g_getOut = TRUE;
+        WaitForSingleObject(g_thrLock, INFINITE);
+        CloseHandle(g_thrLock), g_thrLock = NULL;
+    }
+} 
+</code></pre>
+<p>Uma simples vítima disso pode ser um pobre executável usando uma pobremente escrita DLL, assim como no código abaixo:</p>
+<pre><code>//
+// Victim.exe
+//
+#include &lt;windows.h&gt;
+#include &lt;tchar.h&gt;
+
+int main()
+{
+    HMODULE lockDll = LoadLibrary(_T(&quot;LoaderLock.dll&quot;));
+
+    if( lockDll )
+    {
+        Sleep(5000);
+        FreeLibrary(lockDll), lockDll  = NULL;
+    }
+} 
+</code></pre>
+<p>Para ver o problema de lock em ação, copie os fontes da DLL e do EXEcutável e use os comandos abaixo para gerar os arquivos:</p>
+<pre><code>cl /c loaderlock.cpp loaderlock-exe.cpp
+link loaderlock-exe.obj
+link /dll loaderlock.obj
+</code></pre>
+<p>É importante sempre lembrar que a Microsoft acha feio, muito feio você ficar dependendo do DllMain pra fazer alguma coisa, <strong>mas</strong> admite que em alguns casos o único lugar onde podemos rodar código é no DllMain. Nesses casos - e em alguns outros - <strong>utilize uma comunicação paralela com sua thread travadona</strong>, por meio de um evento ou algo do gênero, antes que ela realmente saia. Com isso a thread pode ainda não ter saído, mas pode avisar a thread principal que o que ela precisava fazer já foi feito.</p>
+<ol>
+<li>NT Loader (MSJ Sep 99) - Matt Pietrek</li>
+<li>mgrier&rsquo;s WebLog - NT Loader team participant</li>
+</ol>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Saiu%20um%20documento%20da%20Microsoft%20alertando%20sobre%20os%20perigos%20em%20colocar%20c%c3%b3digo%20no%20DllMain.%20%c3%89%20algo%20mais%20completo%20e%20did%c3%a1tico...%20http%3a%2f%2fwww.caloni.com.br%2fpor-que-minha-dll-travou%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/">Guia básico para programadores de primeiro breakpoint<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-int-main/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Guia básico para programadores de primeiro int main</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Typeid e os perigos do não-polimorfismo</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Typeid e os perigos do não-polimorfismo"/>
+  <meta itemprop="description"
+        content="Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Typeid e os perigos do não-polimorfismo"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-10-24T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Typeid e os perigos do não-polimorfismo"/>
+  <meta name="twitter:description"
+        content="Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Typeid e os perigos do não-polimorfismo</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/typeid-e-os-perigos-do-nao-polimorfismo.md" title="History">
+    2007-10-24
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/typeid-e-os-perigos-do-nao-polimorfismo.md" title="GitHub">410</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n'água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C++ pode proporcionar.</p>
+<p>Eis um exemplo singelo, sem dramatização (com dramatização == &ldquo;500 linhas de código de produção além do código abaixo&rdquo;).</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;typeinfo&gt;
+
+using namespace std;
+
+class Base
+{
+public:
+    Base()
+    {
+        cout &lt;&lt; &quot;Base()\n&quot;;
+        m_x = 0;
+    }
+
+    ~Base()
+    {
+        cout &lt;&lt; &quot;~Base()\n&quot;;
+    }
+
+    int m_x;
+};
+
+// como Base não é polimórfica (como vamos ver), Deriv paga o pato
+class Deriv : public Base
+{
+public:
+    Deriv()
+    {
+        cout &lt;&lt; &quot;Deriv()\n&quot;;
+
+        m_x = 1;
+        m_y = 0;
+    }
+
+    virtual ~Deriv() // ela é polimórfica
+    {
+        cout &lt;&lt; &quot;~Deriv()\n&quot;;
+    }
+
+    int m_y;
+};
+
+void func(Base* b) // eu não sei que é uma derivada
+{
+    cout &lt;&lt; typeid(*b).name() &lt;&lt; '\n'; // e nem o typeid número 1
+}
+
+int main()
+{
+    Base* b = new Deriv(); // o ponteiro é pra base, mas a instância é de derivada
+    func(b);
+} 
+
+
+
+-----
+Saída:
+Base()
+Deriv()
+class Base
+</code></pre>
+<p>O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &ldquo;ponteiro para objeto de classe não-polimórfica&rdquo;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &ldquo;não existe sobrecarga de execução sem que o programador queira&rdquo;.</p>
+<p>Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:</p>
+<pre><code>virtual ~Base() // agora sou polimórfica também!
+{
+    cout &lt;&lt; &quot;~Base()\n&quot;;
+} 
+
+
+
+-----
+Saída:
+Base()
+Deriv()
+class Deriv ; como desejava o programador polimórfico
+</code></pre>
+<p>Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Quando%20usamos%20o%20operador%20typeid%20geralmente%20desejamos%20conhecer%20informa%c3%a7%c3%b5es%20sobre%20o%20tipo%20exato%20do%20objeto%20que%20temos%20em...%20http%3a%2f%2fwww.caloni.com.br%2ftypeid-e-os-perigos-do-nao-polimorfismo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/protecao-dos-membros-protected/">Proteção dos membros protected<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Guia básico para programadores de primeiro breakpoint</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

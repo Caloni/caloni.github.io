@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Const Int Pointer Var</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Const Int Pointer Var"/>
+  <meta itemprop="description"
+        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Const Int Pointer Var"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/const-int-pointer-var/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2019-04-29T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Const Int Pointer Var"/>
+  <meta name="twitter:description"
+        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Const Int Pointer Var</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/const-int-pointer-var.md" title="History">
+    2019-04-29
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/const-int-pointer-var.md" title="GitHub">234</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:</p>
+<p>Quem diz o asterisco fazer parte do tipo e não da variável tem razão. Pensando dessa forma ele tem que ficar próximo do tipo.</p>
+<pre><code>const int* var
+</code></pre>
+<p>Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade. Ou seja, int pointer var significa que pointer var equivale a um int (constante ou não, mas preciso dessa variável não-const para o exemplo). É por isso que pointer var igual a dez possui o mesmo valor de atribuição do que int var seguido de var igual a dez, ou seja, pointer var é sinônimo do l-value var (se var fosse um inteiro e não um ponteiro).</p>
+<p>Além disso, outro argumento pró-proximidade da variável é que declarações de múltiplas variáveis na mesma linha precisam de múltiplos asteriscos: const int pointer var1, pointer var2, pointer var3.</p>
+<p>Portanto, como ambos os lados estão certos, separar o asterisco de ambos não dá prioridade a nenhuma forma que o programador poderá interpretar essa decisão, seja como parte do tipo ou da variável. Cada programador com seu próprio estilo irá enxergar em const int pointer  var a proximidade com int ou com var de acordo com seu próprio bias (e estará certo em sua análise).</p>
+<pre><code>qualifier type * name;
+</code></pre>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20melhor%20forma%20de%20declarar%20vari%c3%a1veis%20ponteiros%20%28constante%20ou%20n%c3%a3o%2c%20mas%20segue%20o%20exemplo%29%20%c3%a9%20const%20int%20pointer%20var....%20http%3a%2f%2fwww.caloni.com.br%2fconst-int-pointer-var%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/longa-jornada-noite-adentro/">Longa Jornada Noite Adentro<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/familia-rodante/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Família Rodante</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

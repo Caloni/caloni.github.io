@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Um commit por feature</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Um commit por feature"/>
+  <meta itemprop="description"
+        content="Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Um commit por feature"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/um-commit-por-feature/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2017-02-04T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Um commit por feature"/>
+  <meta name="twitter:description"
+        content="Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Um commit por feature</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/um-commit-por-feature.md" title="History">
+    2017-02-04
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>6 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/um-commit-por-feature.md" title="GitHub">1196</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são necessários para manter a ordem em sua cabeça. &ldquo;Fiz isso logo de manhã, testei algo diferente antes do almoço e de tarde fui incrementando a solução final até passar todos os testes.&rdquo; Tudo bonito. Mas como fica na hora de subir essa bagaça pras pessoas verem?</p>
+<p>Vamos visualizar isso em commits. Você baixa a última versão do dev, começa a trabalhar e de duas uma:</p>
+<ol>
+<li>Percebe que dá para resolver tudo em um commit só.</li>
+<li>Percebe que o buraco é mais embaixo; vou precisar de mais tempo e mais commits.</li>
+</ol>
+<p>No caso 1, a solução é simples e direta: faça as modificações, rode os testes locais e aplique o commit já no formato definido pela sua equipe (número do ticket, texto no idioma correto, detalhes nos parágrafos abaixo). Suba e mande para code review.</p>
+<pre><code>C:\Temp\projectX&gt;git pull
+Already up-to-date.
+
+C:\Temp\projectX&gt;git branch
+* dev
+  master
+
+C:\Temp\projectX&gt;gvim main.cpp
+
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;ISS-4 Changing test function return type to int.&quot;
+[dev 7f0121b] ISS-4 Changing test function return type to int.
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+C:\Temp\projectX&gt;git status
+On branch dev
+Your branch is ahead of 'origin/dev' by 1 commit.
+  (use &quot;git push&quot; to publish your local commits)
+nothing to commit, working tree clean
+
+C:\Temp\projectX&gt;
+</code></pre>
+<p>Se a política de pull request estiver sendo usada, faça isso em um branch à parte, mas já mande para o reviewer aprovar o branch como se fosse um commit apenas e de preferência pronto para o rebase (o que não deve ser nem um problema se for uma mudança pontual).</p>
+<pre><code>C:\Temp\projectX&gt;gvim main.cpp
+
+C:\Temp\projectX&gt;git co -b ISS-5-changing-test-return-value
+M       main.cpp
+Switched to a new branch 'ISS-5-changing-test-return-value'
+
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;ISS-5 Changing test return value&quot;
+[ISS-5-changing-test-return-value 38df69c] ISS-5 Changing test return value
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+C:\Temp\projectX&gt;git status
+On branch ISS-5-changing-test-return-value
+nothing to commit, working tree clean
+
+C:\Temp\projectX&gt;git push origin ISS-5-changing-test-return-value
+Counting objects: 6, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 618 bytes | 0 bytes/s, done.
+Total 6 (delta 2), reused 0 (delta 0)
+To ..\projectXRemote
+ * [new branch]      ISS-5-changing-test-return-value -&gt; ISS-5-changing-test-return-value
+</code></pre>
+<p>Quando mais de um commit é necessário é porque vai rolar a festa. Vários commits com texto e modificações temporárias podem ser feitos, e caso o trabalho vire a noite, é recomendado subir tudo para um branch temporário remoto (de preferência que já seja identificado pela equipe como o branch para determinado issue).</p>
+<pre><code>C:\Temp\projectX&gt;git branch
+  ISS-5-changing-test-return-value
+* dev
+  master
+
+C:\Temp\projectX&gt;git co -b ISS-6-very-hard-hacking
+Switched to a new branch 'ISS-6-very-hard-hacking'
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Starting to test return 42.&quot;
+[ISS-6-very-hard-hacking e09cf24] Starting to test return 42.
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Created backup test.
+[ISS-6-very-hard-hacking 80a7f71] Created backup test.
+ 1 file changed, 5 insertions(+)
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Deleted backup function test.&quot;
+[ISS-6-very-hard-hacking 9620226] Deleted backup function test.
+ 1 file changed, 5 deletions(-)
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Screwing around.&quot;
+[ISS-6-very-hard-hacking 18d3afa] Screwing around.
+ 1 file changed, 2 deletions(-)
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Getting old version back.&quot;
+[ISS-6-very-hard-hacking f2a63d1] Getting old version back.
+ 1 file changed, 2 insertions(+)
+
+C:\Temp\projectX&gt;gvim main.cpp
+C:\Temp\projectX&gt;git add main.cpp
+
+C:\Temp\projectX&gt;git ci -m &quot;Small fix after unit tests.&quot;
+[ISS-6-very-hard-hacking e612339] Small fix after unit tests.
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+C:\Temp\projectX&gt;git log --oneline
+e612339 Small fix after unit tests.
+f2a63d1 Getting old version back.
+18d3afa Screwing around.
+9620226 Deleted backup function test.
+80a7f71 Created backup test.
+e09cf24 Starting to test return 42.
+7f0121b ISS-4 Changing test function return type to int.
+97222ec ISS-3 Testing something new.
+49d28aa ISS-2 Insertind comments and whatever.
+bff8edf ISS-1 First version.
+</code></pre>
+<p>Agora nós criamos uma bela duma bagunça, mas em um branch apartado e que ainda não foi enviado para pull requet ou inserido no branch de dev. Agora chega a hora de arrumar a casa. Para isso, como tudo no git, há várias maneiras, mas a mais direta é um rebase interativo (-i), onde você pega os commits e empacota tudo junto.</p>
+<p>(Obs.: se sua modificação demorou algum tempo é melhor atualizar o branch de dev para ver se há algo novo e fazer o merge com o branch de feature; o rebase daí não encontrará conflitos.)</p>
+<pre><code>C:\Temp\projectX&gt;git merge dev
+Already up-to-date.
+
+C:\Temp\projectX&gt;git rebase -i dev
+</code></pre>
+<p>Nesse momento o git irá abrir o editor com os commits trabalhados. Você deverá escolher quais operações fazer com cada commit. Se o objetivo é empacotar tudo, geralmente é pick no primeiro e squash em todos os outros:</p>
+<pre><code>pick e09cf24 Starting to test return 42.
+squash 80a7f71 Created backup test.
+squash 9620226 Deleted backup function test.
+squash 18d3afa Screwing around.
+squash f2a63d1 Getting old version back.
+squash e612339 Small fix after unit tests.
+</code></pre>
+<p>Ao final da operação mais uma vez o git irá exibir o editor. Agora é hora de você escolher o texto bonitinho, formatadinho, do seu único commit que será usado no branch de dev. Em outras palavras, transformar isso:</p>
+<pre><code># This is a combination of 6 commits.
+# The first commit's message is:
+
+Starting to test return 42.
+
+# This is the commit message #2:
+
+Created backup test.
+
+# This is the commit message #3:
+
+Deleted backup function test.
+
+# This is the commit message #4:
+
+Screwing around.
+
+# This is the commit message #5:
+
+Getting old version back.
+
+# This is the commit message #6:
+
+Small fix after unit tests.
+</code></pre>
+<p>Nisso:</p>
+<pre><code>ISS-6 A very hard hacking, tested and ready to merge.
+
+This hack involved several operations:
+ - Starting to test return 42.
+ - Created backup test.
+ - Deleted backup function test.
+ - Small fix after unit tests.
+</code></pre>
+<p>Agora na hora de fazer o merge seu histórico estará redondo, sem ramificações e com o resultado final de seu hacking parecendo que foi feito bonito desde o começo (ah, vá):</p>
+<pre><code>C:\Temp\projectX&gt;git log
+commit b4de47231f090e897053f4e9d19ea66c88d1f1fa
+Author: Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
+Date:   Sat Feb 4 10:59:18 2017 -0200
+
+    ISS-6 A very hard hacking, tested and ready to merge.
+
+    This hack involved several operations:
+     - Starting to test return 42.
+     - Created backup test.
+     - Deleted backup function test.
+     - Small fix after unit tests.
+
+commit 7f0121baac183eb1a832575781cca5d6e6a5489c
+Author: Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
+Date:   Sat Feb 4 10:51:54 2017 -0200
+
+    ISS-4 Changing test function return type to int.
+
+commit 97222ec4578f9a4bced847266739b18f933178f3
+Author: Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
+Date:   Sat Feb 4 10:50:29 2017 -0200
+
+    ISS-3 Testing something new.
+
+commit 49d28aa7faa02ff327ae9fac93676abad18ad0f3
+Author: Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
+Date:   Sat Feb 4 10:49:26 2017 -0200
+
+    ISS-2 Insertind comments and whatever.
+
+commit bff8edf06e4a30480088a9a33c9b0c2ca5b6e0b3
+Author: Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
+Date:   Sat Feb 4 10:47:11 2017 -0200
+
+    ISS-1 First version.
+</code></pre>
+<p>Esta é uma das inúmeras formas de trabalhar com o git de maneira individual sem atrapalhar seus colegas. Basicamente você pode escolher outras estratégias de commits e branchs locais, mas através do comando rebase -i é possível sempre reorganizar a bagunça em commits comportados, e dar a impressão que esses programadores são enviados divinos que modificam o fonte e acertam de primeira.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Imagine%20que%20voc%c3%aa%20vai%20come%c3%a7ar%20a%20trabalhar%20em%20algo%20novo.%20Da%c3%ad%20voc%c3%aa%20baixa%20a%20%c3%baltima%20vers%c3%a3o%20do%20branch%20de%20dev%20e%20come%c3%a7a%20a%20codar....%20http%3a%2f%2fwww.caloni.com.br%2fum-commit-por-feature%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/a-chegada/">A Chegada<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/um-homem-chamado-ove/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Um Homem Chamado Ove</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

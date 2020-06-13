@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C&#43;&#43; como a linguagem-base e o..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)"/>
+  <meta itemprop="description"
+        content="Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C&#43;&#43; como a linguagem-base e o..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/palestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C&#43;&#43; como a linguagem-base e o..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2017-02-19T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)"/>
+  <meta name="twitter:description"
+        content="Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C&#43;&#43; como a linguagem-base e o..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/palestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off.md" title="History">
+    2017-02-19
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/palestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off.md" title="GitHub">688</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C++ como a linguagem-base e o foco está mais na implementação do que na matemática ou no algoritmo. Assim como foi criado o bitcoin, o importante a aprender é como unir diferentes tipos de conhecimento e tecnologia em torno de um objetivo único, simples e prático.</p>
+<p>A partir da criação da moeda surge a necessidade de facilitar o seu uso, um problema recorrente em todas as mais de 700 moedas digitais existentes no mercado e no laboratório, incluindo o bitcoin. Após a palestra teremos uma discussão de como levar a tecnologia ao usuário comum.</p>
+<p>Para nossa moeda digital utilizaremos um sistema simples, rápido e prático para subir informações na memória de um nó (server) e repassar essas informações para outros nós, o tiodb. Este projeto mantém contêineres STL na memória da maneira mais enxuta possível e eles são acessíveis através do protocolo mais simples possível utilizando uma gama de linguagens (C, C++, Python, .NET).</p>
+<p>A primeira coisa é compilar o projeto tiodb, que irá disponibilizar alguns binários em sua saída:</p>
+<ul>
+<li><strong>tio.exe</strong> é o executável central cuja instância mantém contêineres na memória;</li>
+<li><strong>InteliHubExplorer.exe</strong> é uma interface simples para navegar por esses contêineres;</li>
+<li><strong>tioclient.dll</strong> é a biblioteca dinâmica que pode ser usada por clientes para acessar o tio.</li>
+</ul>
+<p>Podemos rodar o tio deixando ele usar os parâmetros padrão ou alterar número da porta e outros detalhes. Vamos executar da maneira mais simples:</p>
+<pre><code>C:\Projects\tiocoin\tiodb\bin\x64\Debug&gt;tio
+Tio, The Information Overlord. Copyright Rodrigo Strauss (www.1bit.com.br)
+Starting infrastructure...
+Saving files to C:/Users/Caloni/AppData/Local/Temp
+Listening on port 2605
+Up and running!
+</code></pre>
+<p>OK, tio rodando e ativo. Podemos navegar já pelos seus contêineres usando o InteliHubExplorer:</p>
+<p>Por convenção os contêineres seguem um padrão de nomes que se assemelha a uma hierarquia de diretórios, e os nomes que começam com underline são internos/reservados. O contêiner meta/sessions, por exemplo, contém uma lista simples das conexões ativas deste nó.</p>
+<p>A partir do servidor funcionando é possível criar novos contêineres e mantê-los, adicionando, atualizando e removendo itens. A partir dessas modificações outros clientes podem receber notícias dessas modificações e tomar suas próprias decisões.</p>
+<p>Vamos criar e popular um contêiner inicial de transações com  um GUID zerado, e a partir dele vamos adicionando novas &ldquo;transações&rdquo;. Também iremos permitir o monitoramento dessas transações.</p>
+<pre><code>try
+{
+    tio::Connection conn;
+    conn.Connect(server, port);
+
+    if (args.find(&quot;--build&quot;) != args.end())
+    {
+        tio::containers::list&lt;string&gt; transactionsBuilder;
+        transactionsBuilder.create(&amp;conn, &quot;transactions&quot;, &quot;volatile_list&quot;);
+        transactionsBuilder.push_back(&quot;{00000000-0000-0000-0000-0000000000000&quot;);
+    }
+    else if (args.find(&quot;--add&quot;) != args.end())
+    {
+        tio::containers::list&lt;string&gt; transactionsAdd;
+        transactionsAdd.create(&amp;conn, &quot;transactions&quot;, &quot;volatile_list&quot;);
+        string newTransaction = NewGuid();
+        if( newTransaction.size())
+            transactionsAdd.push_back(newTransaction);
+        else
+            cout &lt;&lt; &quot;Error creating transaction\n&quot;;
+    }
+    else if (args.find(&quot;--monitor&quot;) != args.end())
+    {
+        tio::containers::list&lt;string&gt; transactionsMonitor;
+        transactionsMonitor.open(&amp;conn, &quot;transactions&quot;);
+        transactionsMonitor.subscribe([](auto container, auto containerEvt, auto key, auto value)
+                {
+                int eventCode = stoi(containerEvt);
+
+                switch (eventCode)
+                {
+                case TIO_COMMAND_PING:
+                cout &lt;&lt; &quot;Ping!\n&quot;;
+                break;
+
+                case TIO_EVENT_SNAPSHOT_END:
+                cout &lt;&lt; &quot;Snapshot end\n&quot;;
+                break;
+
+                case TIO_COMMAND_PUSH_BACK:
+                cout &lt;&lt; &quot;New transaction &quot; &lt;&lt; value &lt;&lt; &quot; inserted\n&quot;;
+                break;
+
+                default:
+                cout &lt;&lt; &quot;Unknown event &quot; &lt;&lt; hex &lt;&lt; eventCode &lt;&lt; &quot; with key &quot; &lt;&lt; dec &lt;&lt; key &lt;&lt; &quot; and with value &quot; &lt;&lt; value;
+                break;
+                }
+                });
+        while (true)
+        {
+            conn.WaitForNextEventAndDispatch(0);
+            Sleep(1000);
+        }
+    }
+    else
+    {
+        tio::containers::list&lt;string&gt; transactionsReader;
+        transactionsReader.open(&amp;conn, &quot;transactions&quot;);
+        for( size_t transactionIdx = 0; transactionIdx &lt; transactionsReader.size(); ++transactionIdx )
+            cout &lt;&lt; &quot;Transaction &quot; &lt;&lt; transactionsReader.at(transactionIdx) &lt;&lt; endl;
+    }
+
+    break; // just testing and developing...
+}
+catch (tio::tio_exception&amp; e)
+{
+    Log(&quot;Connection error: %s&quot;, e.what());
+    break;
+}
+catch (std::runtime_error&amp; e)
+{
+    Log(&quot;Runtime error: %s&quot;, e.what());
+    break;
+}
+catch (...)
+{
+    Log(&quot;Catastrophic error&quot;);
+    break;
+}
+</code></pre>
+<p>Após executar esse código passando o argumento &ldquo;&ndash;build&rdquo; e atualizarmos o IntelihubExplorer poderemos ver o novo contêiner e seu conteúdo. É possível ler o código rodando o mesmo programa sem passar o argumento &ldquo;&ndash;build&rdquo;.</p>
+<p>Agora imagine que exista um cliente da tiocoin que está monitorando as transações deste servidor para verificar a partir de qual momento uma transação foi aceita (supondo que este contêiner possui as transações aceitas):</p>
+<p>Voilà! Agora temos um sistema inicial com um contêiner que irá manter os IDs de supostas transações de nossa moeda digital. Está compilando e está rodando, e em cima disso poderemos ir adicionando as funcionalidades.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Esta%20palestra%20tem%20como%20objetivo%20ensinar%20o%20que%20s%c3%a3o%20moedas%20digitais%2c%20como%20o%20bitcoin%2c%20e%20cada%20passo%20necess%c3%a1rio%20o%20algoritmo%20e...%20http%3a%2f%2fwww.caloni.com.br%2fpalestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/visualizando-qstring-no-visual-studio/">Visualizando QString no Visual Studio<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/estrelas-alem-do-tempo/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Estrelas Além do Tempo</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

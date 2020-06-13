@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Primeiros passos no VMware Workstation</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Primeiros passos no VMware Workstation"/>
+  <meta itemprop="description"
+        content="Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Primeiros passos no VMware Workstation"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/primeiros-passos-no-vmware-workstation/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-07-10T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Primeiros passos no VMware Workstation"/>
+  <meta name="twitter:description"
+        content="Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Primeiros passos no VMware Workstation</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/primeiros-passos-no-vmware-workstation.md" title="History">
+    2008-07-10
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/primeiros-passos-no-vmware-workstation.md" title="GitHub">1006</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Como uma ferramenta essencial que uso todos os dias da minha vida de programador, sou obrigado a falar neste blogue sobre a VMware, ferramenta que tem me salvado algumas centenas de horas de depuração, testes e alguns cabelos brancos (a mais).</p>
+<p>Para os que não sabem, o VMware é um software de virtualização que permite rodar diversos sistemas operacionais secundários (chamados de convidados, ou guests) em cima do sistema operacional primário (chamado de hospedeiro, ou host). Para isso ele utiliza uma técnica muito interessante conhecida como virtualização, onde o desempenho da máquina virtual chega bem próximo da máquina nativa em que estamos rodando, ainda mais se instalados os apetrechos de otimização (vide VMware Tools) dentro dos sistemas operacionais convidados.</p>
+<p>O VMware, diferente de alguns outros programas de virtualização, não é gratuito. No entanto, o tempo despendido pela equipe da VMware em tornar esta a solução a de melhor qualidade (opinião pessoal de quem já mexeu com Virtual PC e pouco de VirtualBox) está bem cotado, sendo que seu preço é acessível pelo desenvolvedor médio. Pior que o preço da VMware com certeza será o dos sistemas operacionais convidados, se estes forem da Microsoft, que obriga cada instância do Windows, seja hospedeiro ou convidado, a possuir uma licença separada. Se rodar um Windows XP como hospedeiro e um Vista e 2000 como convidados vai desembolsar pelo menos o quíntuplo da licença da VMware.</p>
+<p>No entanto, não entremos em mais detalhes financeiros. Os detalhes técnicos são mais interessantes.</p>
+<p>A instalação é simples e indolor, sendo constituída de cinco ou seis botões de next. O resto, e mais importante, é a instalação de um sistema operacional dentro de sua primeira máquina virtual. Outro assistente existe nessa fase para guiá-lo através de suas escolhas que irão configurar sua futura máquina.</p>
+<p>Um pouco sobre redes</p>
+<p>Use bridged networking. É criada uma conexão real através de uma ponte feita em cima de uma placa de rede da máquina real. É usado um IP diferente da máquina real e se comporta como uma outra máquina qualquer na rede.</p>
+<p>Use NAT. As conexões são criadas usando o IP do sistema operacional hospedeiro. Para isto acontecer é usado o conhecido esquema de NAT, onde um único IP externo pode representar n IPs internos de uma rede (nesse caso, a rede virtual formada pelas máquinas virtuais de uma mesma máquina real).</p>
+<p>Use host-only networking. O IP usado nessa conexão é diferente da máquina real, mas só é enxergada por ela e por outras VMs localizadas na mesma máquina hospedeira. Muito útil para isolar um teste de vírus, quando se precisa de uma rede mas não podemos usar a rede da empresa inteira.</p>
+<p>Imagine uma VM (Virtual Machine) como uma máquina de verdade, onde podemos dar boot, formatar HDs (virtuais ou reais), colocar e remover dispositivos. Tendo isso em mente, fica simples entender o que funciona por dentro de sua console, ou seja, a tela onde vemos a saída da virtualização.</p>
+<p>Um pouco sobre discos virtuais</p>
+<p>Os HDs que criamos para nossas VMs são arquivos lógicos localizados em nosso HD real. A mágica em que o sistema operacional virtual acessa o disco virtual como se fosse de verdade é feita pela VMware, inclusive a doce ilusão que ele cotém 80 GB, enquanto seu arquivo-repositório ocupa meros 5 GB no disco. Nas edições novas do software, é possível mapear um HD virtual e exibi-lo na máquina real.</p>
+<p>Se você dispõe do CD de instalação de um sistema operacional, por exemplo, Windows XP, basta inseri-lo no CD virtual de sua VM. Ela aceita também imagens ISO, se for o caso. Lembre-se apenas que ele terá que ser &ldquo;bootável&rdquo;, do contrário é necessário um disquete de boot.</p>
+<p>Um pouco sobre BIOS</p>
+<p>A sua VM emula todo o comportamento de uma máquina real. Ela, portanto, contém uma BIOS, feita pela VMware. Essa BIOS possui as mesmas opções interessantes de ordem de boot (primeiro o disquete, depois o HD, etc) e escolha de dispositivo de boot (tecla ESC).</p>
+<p>A instalação do sistema operacional segue os mesmos passos que a instalação do sistema operacional de qualquer máquina de verdade.</p>
+<p>As teclas mágicas</p>
+<p>Entrar o foco na VM. Digite Ctrl + G. Todos seus movimentos de teclado e mouse só irão funcionar dentro da máquina virtual, exceto o Ctrl + Alt + Del, exclusividade do sistema de autenticação do Windows.</p>
+<p>Tirar o foco da VM. Digite Ctrl + Alt. Todos seus movimentos de teclado e mouse passam a ser do SO hospedeiro.</p>
+<p>Ctrl + Alt + Del dentro da VM. Use Ctrl + Alt + Insert. Ele terá o mesmo efeito que um CAD, independente em que tela estiver em sua VM.</p>
+<p>Após feita a instalação, você terá um sistema operacional rodando dentro de um sistema operacional. Isso não é legal?</p>
+<p>Snapshots</p>
+<p>A primeira coisa a fazer em sua VM com SO recém-instalado é criar um snapshot, ou seja, salvar o estado atual de sua máquina virtual. Ao fazer isso, se fizer alguma coisa dentro da VM que possa se arrepender depois, basta voltar para o estado que salvou anteriormente. A VMware permite criar quantos snapshots precisar (basta ter espaço em disco). Ela permite que você crie novas máquinas virtuais a partir de um estado de uma VM já criada, o que pode economizar todo o tempo de montar do zero outra VM ou copiar o disco virtual.</p>
+<ul>
+<li>
+<p>Abrir os seus e-mails suspeitos. Não tenha mais medo de sujar seu computador com e-mails de conteúdo duvidoso. Crie um estado seguro em sua VM através de um snapshot (fotografia de estado da máquina virtual) e execute os anexos mais absurdos. Depois basta voltar para o estado seguro.</p>
+</li>
+<li>
+<p>Testes que costumam alterar o estado da máquina. Driver, GINA ou serviço novo? Que tal usar uma VM para fazer os testes iniciais e parar de reformatar o Windows?</p>
+</li>
+</ul>
+<p>As VMs possibilitam um mundo de utilidades que o mundo ainda está descobrindo. Para nós, desenvolvedores, a maior vantagem de tudo isso é termos nossos ambientes de testes mais bizarros facilmente configurados no conforto de uma caixinha de areia.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Como%20uma%20ferramenta%20essencial%20que%20uso%20todos%20os%20dias%20da%20minha%20vida%20de%20programador%2c%20sou%20obrigado%20a%20falar%20neste%20blogue...%20http%3a%2f%2fwww.caloni.com.br%2fprimeiros-passos-no-vmware-workstation%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/segunda-versao-do-houaiss2babylon/">Segunda versão do Houaiss2Babylon<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/projeto-modelo/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Projeto-modelo</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

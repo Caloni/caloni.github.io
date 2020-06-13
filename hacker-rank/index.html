@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Some things I learned in a Hacker Rank exercise</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Some things I learned in a Hacker Rank exercise"/>
+  <meta itemprop="description"
+        content="A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Some things I learned in a Hacker Rank exercise"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/hacker-rank/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2019-08-08T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Some things I learned in a Hacker Rank exercise"/>
+  <meta name="twitter:description"
+        content="A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Some things I learned in a Hacker Rank exercise</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/hacker-rank.md" title="History">
+    2019-08-08
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/hacker-rank.md" title="GitHub">814</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp; Run the code, as well as running several test cases.</p>
+<p>Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</p>
+<p>My first attempt was naive, but worked for test cases where there were no duplicated numbers, a detail I overlooked in the description and happenned the very first test (lucky me it is possible to download the test cases, input and output, giving in return some of the points accumulated solving other problems).</p>
+<pre><code>/*
+ * Complete the runningMedian function below.
+ */
+vector&lt;double&gt; runningMedian(ofstream&amp; fout, vector&lt;int&gt; a) {
+    vector&lt;double&gt; ret;
+    set&lt;int&gt; oa;
+
+    for( int n: a ) {
+        oa.insert(n);
+        auto oaMidIt = oa.size() == 1 ? oa.begin()
+            : next(oa.begin(), oa.size() / 2 - (oa.size() % 2 == 0 ? 1 : 0) );
+        auto oaMidIt2 = next(oaMidIt);
+        double median;
+        if( oa.size() % 2 == 1 ) {
+            median = *oaMidIt;
+        }
+        else {
+            median = ( *oaMidIt + *oaMidIt2 ) / 2.0;
+        }
+        fout &lt;&lt; median &lt;&lt; &quot; &quot; &lt;&lt; n &lt;&lt; &quot;\n&quot;;
+        ret.push_back(median);
+    }
+
+    return ret;
+}
+</code></pre>
+<p>So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.</p>
+<pre><code>BEGIN --&gt; 12,   4,   5,   3,   8,   7 &lt;-- END
+          ^     ^
+          |     |-- SORTED_END
+        MEDIAN          ^
+                        |-- NEW
+
+BOOL ODD = TRUE;
+
+{
+    DOUBLE MEDIAN = ODD ? MEDIAN : (MEDIAN + MEDIAN+1) / 2
+    NEW = SORTED_END
+    RECURSIVE/ITERATIVE_INSERT(BEGIN, SORTED_END, MEDIAN, NEW)
+    ODD = ! ODD
+    SORTED_END++
+
+} WHILE(  SORTED_END != END )
+</code></pre>
+<p>I still wasn&rsquo;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.</p>
+<pre><code>INSERT(BEG, END, NEW, MED, ODD) {
+    MED = SZ/2 - (SZ_ODD ? 0 : 1)
+
+    1, 2, 3, 5, 6     (4)
+          -
+          &lt; ?
+    RIGHT OR LEFT
+</code></pre>
+<p>I was still trying in the window, thought, until in one of these iteractions with the compiler/debugger I achieved a simples, clearer solution, using only offsets from the vector instead of iterators.</p>
+<pre><code>/*my playground
+vector&lt;int&gt; test = { 12, 4, 5, 3, 8, 7, 5, 5 };
+for (size_t new_element = 1; new_element &lt; test.size(); ++new_element)
+    insert_new_element(test, new_element);
+return 0;*/
+
+//...
+
+void insert_new_element(vector&lt;int&gt;&amp; a, size_t new_element)
+{
+    size_t begin = 0;
+    size_t end = new_element;
+    size_t sz = end - begin;
+    size_t median= begin + sz / 2 - (sz % 2 ? 0 : 1);
+
+    while( sz &gt; 1 ) 
+    {
+        if( a[new_element] &lt; a[median] ) 
+            end = median;
+        else
+            begin = median + 1;
+        sz = end - begin;
+        median = median == begin? begin : begin + sz / 2 - (sz % 2 ? 0 : 1);
+    }
+
+    size_t insert_offset = a[new_element] &lt; a[median] ? median : median + 1;
+    int element = a[new_element];
+    a.erase(a.begin() + new_element);
+    a.insert(a.begin() + insert_offset, element);
+}
+</code></pre>
+<p>This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C++ solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.</p>
+<pre><code>void insert_new_element(vector&lt;int&gt;&amp; a, size_t new_element)
+{
+    //...
+
+    size_t insert_offset = a[new_element] &lt; a[median] ? median : median + 1;
+    int element = a[new_element];
+    //a.erase(a.begin() + new_element);
+    //a.insert(a.begin() + insert_offset, element);
+    memmove(&amp;a[insert_offset + 1], &amp;a[insert_offset], (new_element - insert_offset) * sizeof(int));
+    a[insert_offset] = element;
+}
+</code></pre>
+<p>And it worked. Now what I learned looking the other solutions.</p>
+<p>There are incredible tools in C++, even since 98 or 11, that are frequently overlooked, but it is important to notice that the language has a framework for processing: containers, algorithms and so on. By example, looking for other solutions I learned about the characteristics of multiset and priorityqueue (spoiler: both have a ordering predicate and are logarithmic). There are smart functions in algorithm, too, as lowerbound.</p>
+<p>A lot of solutions simply ignored the skeleton provided by the site and began its own code from scratch, eliminating the &ldquo;request&rdquo; that the numbers must be stored first in a vector. Sometimes, when there as skeleton in our life, we use them as guidelines, forgetting that &ldquo;there is no spoon&rdquo;.</p>
+<p>I hope you learned something, too. You can see my Hacker Rank attempts in the site (nickname caloni) or my GitHub repository.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/ccpp">ccpp</a>  <a href="/tags/puzzle">puzzle</a>  <a href="/tags/english">english</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20couple%20of%20days%20ago%20I%20subscribed%20to%20Hacker%20Hank%2c%20a%20website%20specialized%20in%20provide%20interview%20exercises.%20The%20site%20is%20as%20a...%20http%3a%2f%2fwww.caloni.com.br%2fhacker-rank%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/20-30-40/">20:30:40<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/passaros-de-verao/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Pássaros de Verão</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

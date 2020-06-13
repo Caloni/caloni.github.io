@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Antidebug: ocupando a DebugPort</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Antidebug: ocupando a DebugPort"/>
+  <meta itemprop="description"
+        content="Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Antidebug: ocupando a DebugPort"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/antidebug-ocupando-a-debugport/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-08-23T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Antidebug: ocupando a DebugPort"/>
+  <meta name="twitter:description"
+        content="Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Antidebug: ocupando a DebugPort</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/antidebug-ocupando-a-debugport.md" title="History">
+    2007-08-23
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/antidebug-ocupando-a-debugport.md" title="GitHub">701</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um recurso interno do Windows chamado de LPC (Local Procedure Call). O sistema cria uma &ldquo;porta mágica&rdquo; de comunicação específica para a depuração e os eventos trafegam por meio dela.</p>
+<p>Entre esses eventos podemos citar os seguintes:</p>
+<ul>
+<li>
+<p><em>Breakpoints</em> disparados</p>
+</li>
+<li>
+<p>Exceções lançadas</p>
+</li>
+<li>
+<p>Criação/saída de <em>threads</em></p>
+</li>
+<li>
+<p><em>Load</em>/<em>unload</em> de DLLs</p>
+</li>
+<li>
+<p>Saída do processo</p>
+</li>
+</ul>
+<p>No caso de se conectar em um processo já existente, é chamada a função da API DebugActiveProcess. A partir dessa chamada, se retornado sucesso, o processo que depura agora está liberado para ficar chamando continuamente a função API WaitForDebugEvent. E o código se resume a isto:</p>
+<pre><code>void DebugLoop()
+{
+    bool exitLoop = false;
+
+    while( ! exitLoop )
+    {
+        DEBUG_EVENT debugEvt;
+
+        // Wait for some debug event.
+        WaitForDebugEvent(&amp;debugEvt, INFINITE);
+
+        // Let us see what it is about.
+        switch( debugEvt.dwDebugEventCode )
+        {
+            // This one...
+
+            // That one...
+
+            // Process is going out. We get out the loop and go away.
+            case EXIT_PROCESS_DEBUG_EVENT:
+            exitLoop = true;
+            break;
+        }
+
+        // We need to unfreeze the thread who sent the debug event.
+        // Otherwise, it stays frozen forever!
+        ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
+    }
+} 
+</code></pre>
+<p>O detalhe interessante desse processo de comunicação depurador/depurado é que um processo só pode ser depurado por apenas UM depurador. Ou seja, enquanto houver um processo depurando outro, os outros processos só ficam na vontade.</p>
+<p>Partindo desse princípio, podemos imaginar uma proteção baseada nessa exclusividade, criando um processo protetor que conecta no processo protegido e o &ldquo;depura&rdquo;:</p>
+<pre><code>/** @brief Antidebug protection based on DebugPort aquisition.
+* @author Wanderley Caloni (wanderley@caloni.com.br)
+* @date 2007-08
+*/
+#include &lt;windows.h&gt;
+
+/* Every debugger needs a debugging loop. In this loop it catches
+debugging events sent by the operating system.
+*/
+DWORD DebugLoop()
+{
+    DWORD ret = ERROR_SUCCESS;
+    bool exitLoop = false;
+
+    while( ! exitLoop )
+    {
+        DEBUG_EVENT debugEvt;
+
+        WaitForDebugEvent(&amp;debugEvt, INFINITE);
+
+        switch( debugEvt.dwDebugEventCode )
+        {
+            // Process going out. We get out the loop and leave.
+            case EXIT_PROCESS_DEBUG_EVENT:
+            exitLoop = true;
+
+            break;
+        }
+
+        // Necessary, since the current thread is frozen.
+        ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
+    }
+
+    return ret;
+}
+
+/* Attachs to the protected process againt debugging. Actually, we protect it
+againt debugging being its debugger.
+*/
+DWORD AntiAttach(DWORD pid)
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    if( pid )
+    {
+        BOOL dbgActProc;
+
+        dbgActProc = DebugActiveProcess(pid);
+
+        if( dbgActProc )
+            DebugLoop();
+        else
+            ret = GetLastError();
+    }
+    else
+        ret = ERROR_INVALID_HANDLE;
+
+    return ret;
+}
+
+/* In the beginning, God said: 'int main!'
+*/
+int main(int argc, char* argv[])
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    if( argc &gt; 1 )
+    {
+        DWORD pid = atoi(argv[1]);
+        ret = AntiAttach(pid);
+    }
+
+    return (int) ret;
+} 
+</code></pre>
+<p>Os passos para testar o código acima são:</p>
+<ol>
+<li>
+<p>Compilar o código.</p>
+</li>
+<li>
+<p>Executar o notepad (ou qualquer outra vítima).</p>
+</li>
+<li>
+<p>Obter seu PID (Process ID).</p>
+</li>
+<li>
+<p>Executar o protetor passando o PID como parâmetro.</p>
+</li>
+<li>
+<p>Tentar &ldquo;atachar&rdquo; no processo através do Visual C++.</p>
+</li>
+</ol>
+<p>Após o processo de attach, a porta de debug é ocupada, e a comunicação entre depurador e depurado é feita através do LPC. Abaixo uma pequena ilustração de como as coisas ocorrem:</p>
+<p>Basicamente o processo fica recebendo eventos de debug (através da fila de mensagens LPC) continuamente até o evento final, o de final de processo. Note que se alguém tentar derrubar o processo que depura o processo depurado cai junto.</p>
+<p>O ponto forte desse tipo de proteção é que não afeta a compreensão e a legibilidade do código. De fato o próprio código que &ldquo;protege&rdquo; está em outro processo. O fraco, eu diria, é a sua alta visibilidade. Todo mundo que tentar atacar verá dois processos serem criados; e isso já faz pensar&hellip;</p>
+<p>Por isso é necessário pensar bem na implementação. Particularmente uma coisa a ser bem arquitetada é a união entre depurador e depurado. Quanto melhor essas duas peças forem encaixadas, tão mais difícil será para o atacante separá-las. Uma idéia adicional é utilizar a mesma técnica na direção oposta, ou seja, o processo depurado se atachar no depurador.</p>
+<p>Dessa vez não vou afirmar que, uma vez entendido o problema, a solução torna-se óbvia. Isso porque ainda não pensei o suficiente para achar uma solução óbvia. Idéias?</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Quando%20um%20depurador%20inicia%20um%20processo%20para%20ser%20depurado%20ou%2c%20o%20caso%20abordado%20por%20este%20artigo%2c%20se%20conecta%20em%20um%20processo...%20http%3a%2f%2fwww.caloni.com.br%2fantidebug-ocupando-a-debugport%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/todolist/">ToDoList<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/erro-de-compilacao-funcoes-muito-novas-na-win32-api/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Erro de compilação: funções muito novas na Win32 API</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

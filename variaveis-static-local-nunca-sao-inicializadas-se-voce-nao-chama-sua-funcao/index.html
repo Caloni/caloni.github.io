@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Uma dúvida muito comum dos programadores iniciantes em C/C&#43;&#43; diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função"/>
+  <meta itemprop="description"
+        content="Uma dúvida muito comum dos programadores iniciantes em C/C&#43;&#43; diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Uma dúvida muito comum dos programadores iniciantes em C/C&#43;&#43; diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2018-02-20T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função"/>
+  <meta name="twitter:description"
+        content="Uma dúvida muito comum dos programadores iniciantes em C/C&#43;&#43; diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao.md" title="History">
+    2018-02-20
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao.md" title="GitHub">744</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Uma dúvida muito comum dos programadores iniciantes em C/C++ diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora de qualquer escopo, ela seria inicializada antes do main ser chamado, como diz este trecho de alguém que pesquisou a respeito:</p>
+<blockquote>
+<p>&ldquo;C++ Primer says. Each local static variable is initialized before the first time execution passes through the object&rsquo;s definition. Local statics are not destroyed when a function ends; they are destroyed when program terminates.&rdquo; - Someone that google it for but did not get it</p>
+</blockquote>
+<p>Mas no caso de variáveis static declaradas dentro de uma função isso não acontece, e ela pode ser inicializada a qualquer momento. Basta alguém chamar a função onde ela foi definida.</p>
+<pre><code>#include &lt;iostream&gt;
+
+int func2()
+{
+    std::cout &lt;&lt; &quot;Func2 called\n&quot;;
+    return 21;
+}
+
+int func()
+{
+    static int st_x = func2();
+    return st_x * 2;
+}
+
+int main()
+{
+    std::cout &lt;&lt; &quot;Passing by...\n&quot;;
+    std::cout &lt;&lt; &quot;Func returns &quot; &lt;&lt; func() &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Exiting...\n&quot;;
+}
+
+c:\Projects\caloni\projects&gt;cl /EHsc static_local_sample.cpp
+Microsoft (R) C/C++ Optimizing Compiler Version 19.12.25827 for x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+static_local_sample.cpp
+Microsoft (R) Incremental Linker Version 14.12.25827.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:static_local_sample.exe
+static_local_sample.obj
+
+c:\Projects\caloni\projects&gt;
+
+
+c:\Projects\caloni\projects&gt;static_local_sample.exe
+Passing by...
+Func2 called
+Func returns 42
+Exiting...
+
+c:\Projects\caloni\projects&gt;
+</code></pre>
+<p>Note que mesmo trocando static int para static const int a mesma coisa acontece. Apenas conseguimos forçar a inicialização antes do main quando há alguma variável global (static ou não) que chame a função.</p>
+<pre><code>#include &lt;iostream&gt;
+
+int func2()
+{
+    std::cout &lt;&lt; &quot;Func2 called\n&quot;;
+    return 21;
+}
+
+int func()
+{
+    static int st_x = func2();
+    return st_x * 2;
+}
+
+static const int g_x = func();
+
+int main()
+{
+    std::cout &lt;&lt; &quot;Passing by...\n&quot;;
+    std::cout &lt;&lt; &quot;Func returns &quot; &lt;&lt; func() &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Exiting...\n&quot;;
+}
+
+c:\Projects\caloni\projects&gt;cl /EHsc static_local_sample.cpp
+Microsoft (R) C/C++ Optimizing Compiler Version 19.12.25827 for x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+static_local_sample.cpp
+Microsoft (R) Incremental Linker Version 14.12.25827.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:static_local_sample.exe
+static_local_sample.obj
+
+c:\Projects\caloni\projects&gt;static_local_sample.exe
+Func2 called
+Passing by...
+Func returns 42
+Exiting...
+
+c:\Projects\caloni\projects&gt;
+</code></pre>
+<p>O problema disso é que é possível que duas threads chamem func() &ldquo;ao mesmo tempo&rdquo;, gerando uma dupla inicialização caso a implementação da libc não seja thread-safe. E a menos que o padrão especifique que essa inicialização deva ser thread safe, melhor fazer as coisas direito.</p>
+<p>Mas, a título de curiosidade, é bom saber que o Visual Studio 2017 essa parte da libc já possui um mecanismo de proteção, como o sugestivo nome tlsindex já indica:</p>
+<pre><code>c:\Projects\caloni\projects&gt;cl /EHsc /Zi static_local_sample.cpp
+Microsoft (R) C/C++ Optimizing Compiler Version 19.12.25827 for x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+static_local_sample.cpp
+Microsoft (R) Incremental Linker Version 14.12.25827.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:static_local_sample.exe
+/debug
+static_local_sample.obj
+
+c:\Projects\caloni\projects&gt;windbg static_local_sample.exe
+
+static_local_sample!func [c:\projects\caloni\projects\static_local_sample.cpp @ 10]:
+   10 000fe410 55              push    ebp
+   10 000fe411 8bec            mov     ebp,esp
+   10 000fe413 6aff            push    0FFFFFFFFh
+   10 000fe415 686c801800      push    offset static_local_sample!wcschr+0x1cc7 (0018806c)
+   10 000fe41a 64a100000000    mov     eax,dword ptr fs:[00000000h]
+   10 000fe420 50              push    eax
+   10 000fe421 a180901a00      mov     eax,dword ptr [static_local_sample!__security_cookie (001a9080)]
+   10 000fe426 33c5            xor     eax,ebp
+   10 000fe428 50              push    eax
+   10 000fe429 8d45f4          lea     eax,[ebp-0Ch]
+   10 000fe42c 64a300000000    mov     dword ptr fs:[00000000h],eax
+   11 000fe432 a11cb51a00      mov     eax,dword ptr [static_local_sample!_tls_index (001ab51c)] ((( Thread Local Storage? )))
+   11 000fe437 648b0d2c000000  mov     ecx,dword ptr fs:[2Ch]
+   11 000fe43e 8b1481          mov     edx,dword ptr [ecx+eax*4]
+   11 000fe441 a128b01a00      mov     eax,dword ptr [static_local_sample!st_x+0x4 (001ab028)]
+   11 000fe446 3b8204010000    cmp     eax,dword ptr [edx+104h]
+   11 000fe44c 7e3b            jle     static_local_sample!func+0x79 (000fe489) ((( compara para ver se chama inicialização ou não )))
+
+static_local_sample!func+0x3e [c:\projects\caloni\projects\static_local_sample.cpp @ 11]:
+   11 000fe44e 6828b01a00      push    offset static_local_sample!st_x+0x4 (001ab028)
+   11 000fe453 e8a736ffff      call    static_local_sample!ILT+2810(__Init_thread_header) (000f1aff)
+   11 000fe458 83c404          add     esp,4
+   11 000fe45b 833d28b01a00ff  cmp     dword ptr [static_local_sample!st_x+0x4 (001ab028)],0FFFFFFFFh
+   11 000fe462 7525            jne     static_local_sample!func+0x79 (000fe489)
+
+static_local_sample!func+0x54 [c:\projects\caloni\projects\static_local_sample.cpp @ 11]:
+   11 000fe464 c745fc00000000  mov     dword ptr [ebp-4],0
+   11 000fe46b e8bb37ffff      call    static_local_sample!ILT+3110(?func2YAHXZ) (000f1c2b) ((( note a chamada a func2 )))
+   11 000fe470 a324b01a00      mov     dword ptr [static_local_sample!st_x (001ab024)],eax
+   11 000fe475 c745fcffffffff  mov     dword ptr [ebp-4],0FFFFFFFFh
+   11 000fe47c 6828b01a00      push    offset static_local_sample!st_x+0x4 (001ab028)
+   11 000fe481 e89443ffff      call    static_local_sample!ILT+6165(__Init_thread_footer) (000f281a)
+   11 000fe486 83c404          add     esp,4
+
+static_local_sample!func+0x79 [c:\projects\caloni\projects\static_local_sample.cpp @ 12]:
+   12 000fe489 a124b01a00      mov     eax,dword ptr [static_local_sample!st_x (001ab024)] ((( a partir da segunda chamada tudo começa aqui )))
+   12 000fe48e d1e0            shl     eax,1
+   13 000fe490 8b4df4          mov     ecx,dword ptr [ebp-0Ch]
+   13 000fe493 64890d00000000  mov     dword ptr fs:[0],ecx
+   13 000fe49a 59              pop     ecx
+   13 000fe49b 8be5            mov     esp,ebp
+   13 000fe49d 5d              pop     ebp
+   13 000fe49e c3              ret
+</code></pre>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Uma%20d%c3%bavida%20muito%20comum%20dos%20programadores%20iniciantes%20em%20C%2fC%2b%2b%20diz%20respeito%20%c3%a0s%20vari%c3%a1veis%20static%20que%20s%c3%a3o%20declaradas%20dentro...%20http%3a%2f%2fwww.caloni.com.br%2fvariaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/caloni-palestrando-sobre-bitcoins-antes-de-virar-modinha/">Caloni Palestrando Sobre Bitcoins Antes De Virar (Muito) Modinha<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/viva-a-vida-e-uma-festa/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Viva: A Vida é uma Festa</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

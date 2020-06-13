@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Golang e C</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Golang e C"/>
+  <meta itemprop="description"
+        content="É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Golang e C"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/golang-e-c/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2020-04-05T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Golang e C"/>
+  <meta name="twitter:description"
+        content="É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Golang e C</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/golang-e-c.md" title="History">
+    2020-04-05
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/golang-e-c.md" title="GitHub">1033</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>É muito difícil configurar a linguagem Go no ambiente Windows para compilar código C. O único ambiente de compilação que o projeto leva a sério são os ports do GCC, e não o Visual Studio, que seria a ferramenta nativa. Dessa forma, realizei boa parte das travessuras desse artigo em Linux, usando o WSL com a distro Ubuntu ou CentOS. Deve funcionar em qualquer Unix da vida.</p>
+<p>A linguagem Go na versão mais nova precisa que seja definida através da cgo, o backend C do ambiente de build da linguagem, uma função trampolim, que é uma função escrita em C que irá chamar uma função escrita em Go. Essa função pode ser passada como parâmetro de callback para uma biblioteca C que quando a biblioteca C chamar esse ponteiro de função ele irá atingir a função trampolim, que por sua vez, chama a função Go, que é onde queremos chegar depois de todo esse malabarismo.</p>
+<p>Em resumo: o main em Go chama C.setcallback (função C exportada) passando o endereço do seu callback (em cgo) e em uma segunda chamada ou nessa mesma pede para chamar esse callback. O módulo em C pode ou não chamar essa função nessa thread ou mais tarde, através do ponteiro de função que estocou (gcallback). Ao chamá-la, ativará a função GoCallbackcgo, que por sua vez chamará GoCallback, essa sim, já no módulo Go (embora ambas estejam no mesmo executável, já que C e Go podem ser linkados juntos de maneira transparente.</p>
+<pre><code>+----------+
+|   main   |
++----------+
+      |
++----------------+
+| C.set_callback |
++----------------+
+      |
++-----------------+
+| C.call_callback |
++-----------------+
+      |
++---------------------------+
+| g_callback (func pointer) |
++---------------------------+
+      |
++----------------+
+| GoCallback_cgo |
++----------------+
+      |
++------------+
+| GoCallback |
++------------+
+</code></pre>
+<p>O módulo em Go precisa de um forward declaration para a função cgo e precisa exportar a função Go que será chamada por ela através do importantíssimo comentário export antes da função (se retirado este comentário a solução para de funcionar):</p>
+<pre><code>package main
+
+import (
+    &quot;unsafe&quot;
+    &quot;fmt&quot;
+)
+
+//#cgo CFLAGS: -I.
+//#cgo LDFLAGS: -L.
+////#cgo pkg-config: some-lib-that-uses-pkg-config
+//#include &quot;golang_c.h&quot;
+//void GoCallback_cgo(int result, void* vpointer, const char* cstring, struct STRUCT* cstruct); // Forward declaration
+import &quot;C&quot;
+
+//export GoCallback
+func GoCallback(result int, vpointer unsafe.Pointer, cstring *C.char, cstruct *C.struct_STRUCT) {
+    vpointer_to_gostring := C.GoString((*C.char)(vpointer))
+    gostring := C.GoString(cstring)
+    key := &quot;empty&quot;
+    value := &quot;empty&quot;
+    if cstruct != nil {
+        key = C.GoString(cstruct.key)
+        value = C.GoString(cstruct.value)
+    }
+    fmt.Printf(&quot;Go: callback called; result:[%d], vpointer:[%s], cstring:[%s], cstruct:[%p], cstruct.key:[%s], cstruct.value:[%s]\n&quot;,
+        result, vpointer_to_gostring, gostring, cstruct, key, value)
+}
+
+func main() {
+    string := &quot;some string&quot;
+    var vpointer *C.char = C.CString(&quot;some string as vpointer&quot;)
+
+    fmt.Printf(&quot;Go: setting callback at %p\n&quot;, unsafe.Pointer(C.GoCallback_cgo));
+    C.set_callback((C.Callback)(unsafe.Pointer(C.GoCallback_cgo)))
+
+    fmt.Printf(&quot;Go: calling callback at %p passing result:[%d], vpointer:[%p], cstring:[%s]\n&quot;, unsafe.Pointer(C.GoCallback_cgo), 5, unsafe.Pointer(vpointer), C.CString(string))
+    var result = C.call_callback(5, unsafe.Pointer(vpointer), C.CString(string))
+    fmt.Printf(&quot;Go: callback returned %d\n&quot;, result)
+}
+</code></pre>
+<p>O módulo trampolim de Go é muito simples. Além de incluir o mesmo header em C para os tipos especificados ali, ela faz uma foward declaration da função do módulo Go anterior e chama esta função, repassando a chamada para o mundo Go.</p>
+<pre><code>package main
+
+/*
+#include &quot;golang_c.h&quot;
+
+// The gateway functions
+//
+
+void GoCallback_cgo(int result, void* vpointer, const char* cstring, struct STRUCT* cstruct) {
+    void GoCallback(int result, void* vpointer, const char* cstring, struct STRUCT* cstruct);
+    GoCallback(result, vpointer, cstring, cstruct);
+}
+*/
+import &quot;C&quot;
+</code></pre>
+<p>Mais uma vez há algo extremamente importante nos detalhes: a chamada import &ldquo;C&rdquo; logo após o código dentro dos comentários desse módulo.</p>
+<p>O resto é C padrão. O header define os tipos (inclusive do callback) e as funções exportadas:</p>
+<pre><code>struct STRUCT {
+    const char* key;
+    const char* value;
+};
+
+typedef int (*Callback)(int /*result*/, void* /*vpointer*/, const char* /*cstring*/, struct STRUCT* /*cstruct*/);
+
+void set_callback(Callback callback);
+int call_callback(int result, void* vpointer, const char* cstring);
+</code></pre>
+<p>A parte C apenas implementa as funções:</p>
+<pre><code>#include &quot;golang_c.h&quot;
+#include &lt;stdio.h&gt;
+
+Callback g_callback = NULL;
+
+void set_callback(Callback callback) {
+    printf(&quot;C: callback set to %p\n&quot;, callback);
+    g_callback = callback;
+}
+
+int call_callback(int result, void* vpointer, const char* cstring) {
+    struct STRUCT s = { &quot;key&quot;, &quot;value&quot; };
+    if( g_callback ) {
+        printf(&quot;C: calling callback at %p passing result:[%d], vpointer:[%p], cstring:[%s], cstruct:[%p]\n&quot;, g_callback, result, vpointer, cstring, &amp;s);
+        result = g_callback(result, vpointer, cstring, &amp;s);
+        printf(&quot;C: callback at %p called; result:[%d]\n&quot;, g_callback, result);
+    } else {
+        printf(&quot;C: no callback to call\n&quot;);
+    }
+    return result;
+}
+</code></pre>
+<p>E para exportar essas funções basta um arquivo def no projeto:</p>
+<pre><code>LIBRARY
+    EXPORTS
+        set_callback
+        call_callback
+</code></pre>
+<p>O CMakeLists.txt deste projeto pode apenas especificar qual o tipo de biblioteca. Não há nada de especial na parte C. Ou seja, funciona com qualquer código que você saiba as assinaturas das funções.</p>
+<pre><code>cmake_minimum_required(VERSION 2.6)
+PROJECT(GOLANG_C)
+ADD_LIBRARY(GOLANG_C SHARED golang_c.c golang_c.def)
+</code></pre>
+<p>Após compilar ambas as soluções na mesma pasta (considerando que foi criada uma subpasta onde estão esses fontes) basta executar o binário Go e ver a mágica funcionando. No meu caso, tive que executar tudo no WSL. Ainda preciso ver como configura essa bagaça de Go no Windows.</p>
+<pre><code>C:\Users\caloni\blog\static\sources\golang_c&gt;bash
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c$ mkdir build &amp;&amp; cd build
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$ cmake ..
+-- The C compiler identification is GNU 7.5.0
+-- The CXX compiler identification is GNU 7.5.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/caloni/blog/static/sources/golang_c/build
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$ make
+Scanning dependencies of target GOLANG_C
+[ 50%] Building C object CMakeFiles/GOLANG_C.dir/golang_c.c.o
+[100%] Linking C shared library libGOLANG_C.so
+[100%] Built target GOLANG_C
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$ go build ..
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$ ls
+CMakeCache.txt  CMakeFiles  Makefile  cmake_install.cmake  golang_c  libGOLANG_C.so
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$ ./golang_c
+Go: setting callback at 0x486470
+C: callback set to 0x486470
+Go: calling callback at 0x486470 passing result:[5], vpointer:[0x24937e0], cstring:[%!s(*main._Ctype_char=0x2493a10)]
+C: calling callback at 0x486470 passing result:[5], vpointer:[0x24937e0], cstring:[some string], cstruct:[0x7fffea681e80]
+Go: callback called; result:[5], vpointer:[some string as vpointer], cstring:[some string], cstruct:[0x7fffea681e80], cstruct.key:[key], cstruct.value:[value]
+C: callback at 0x486470 called; result:[0]
+Go: callback returned 0
+caloni@SUSE:/mnt/c/Users/caloni/blog/static/sources/golang_c/build$                                                                         
+</code></pre>
+<p>Criei um repositório com os fontes deste artigo. Bom proveito =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=%c3%89%20muito%20dif%c3%adcil%20configurar%20a%20linguagem%20Go%20no%20ambiente%20Windows%20para%20compilar%20c%c3%b3digo%20C.%20O%20%c3%banico%20ambiente%20de%20compila%c3%a7%c3%a3o%20que...%20http%3a%2f%2fwww.caloni.com.br%2fgolang-e-c%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/code-jam-2020/">Code Jam 2020<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/mbconf/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Mbconf</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

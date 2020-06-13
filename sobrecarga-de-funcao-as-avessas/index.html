@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Sobrecarga de função às avessas</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="
+Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Sobrecarga de função às avessas"/>
+  <meta itemprop="description"
+        content="
+Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Sobrecarga de função às avessas"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="
+Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2012-05-20T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Sobrecarga de função às avessas"/>
+  <meta name="twitter:description"
+        content="
+Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Sobrecarga de função às avessas</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/sobrecarga-de-funcao-as-avessas.md" title="History">
+    2012-05-20
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/sobrecarga-de-funcao-as-avessas.md" title="GitHub">533</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <blockquote>
+<p>Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo t@z) e o finado CThings. No final, consegui matar a marmota, chegar a 80 milhas por hora e voltar para o presente. Enjoy it!</p>
+</blockquote>
+<p>Alguém já se perguntou se é possível usar sobrecarga de função quando a diferença não está nos parâmetros recebidos, mas no tipo de retorno? Melhor dizendo, imagine que eu tenha o seguinte código:</p>
+<pre><code>GUID guid;
+wstring guidS;
+
+CreateNewGUID(guidS); // chama void CreateNewGUID(wstring&amp;)
+CreateNewGUID(guid); // chama void CreateNewGUID(GUID&amp;) (o compilador sabe disso)
+// Codigo-fonte disponivel no GitHub https://github.com/Caloni/Caloni.com.br.
+</code></pre>
+<p>É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:</p>
+<pre><code>GUID guid;
+wstring guidS;
+
+guidS = CreateNewGUID(); // chama wstring CreateNewGUID()
+guid = CreateNewGUID(); // chama GUID CreateNewGUID() (o compilador sabe disso?)
+</code></pre>
+<p>Voltando às teorias de C++, veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama:</p>
+<pre><code>    error C2556: 'GUID CreateNewGUID(void)' :
+    overloaded function differs only by return type from 'std::wstring CreateNewGUID(void)'
+</code></pre>
+<p>Correto. O tipo de retorno não é uma propriedade da função que exclua a ambigüidade. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).</p>
+<p>Pois bem. Não podemos fazer isso utilizando funções ordinárias. Então o jeito é criar nosso próprio &ldquo;tipo de função&rdquo; que dê conta do recado:</p>
+<pre><code>struct CreateNewGUID
+{
+   // o que vai aqui?
+}; 
+</code></pre>
+<p>Pronto. Agora podemos &ldquo;chamar&rdquo; a nossa função criando uma nova instância e atribuindo o &ldquo;retorno&rdquo; a wstring ou à nossa GUID struct:</p>
+<pre><code>guidS = CreateNewGUID(); // instancia um CreateNewGUID
+guid = CreateNewGUID(); // instancia um CreateNewGUID. A diferença está no &quot;retorno&quot; 
+</code></pre>
+<p>Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:</p>
+<pre><code>struct CreateNewGUID
+{
+   operator wstring () { ... } // a conversão é a &quot;chamada da função&quot;.
+
+   operator GUID () { ... } // E como existem duas conversões... sobrecarga!
+}; 
+</code></pre>
+<p>E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas:</p>
+<pre><code>// instancia um CreateNewGUID e chama CreateNewGUID::operator wstring()
+guidS = CreateNewGUID();
+
+// instancia um CreateNewGUID e chama CreateNewGUID::operator GUID()
+guid = CreateNewGUID(); 
+</code></pre>
+<p>Eis o fonte completo:</p>
+<pre><code>#include &lt;windows.h&gt;
+#include &lt;objbase.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+struct CreateNewGUID
+{
+   operator wstring ()
+   {
+      GUID guid = operator GUID();
+      OLECHAR buf[40] = { };
+      ::StringFromGUID2(guid, buf, sizeof(buf));
+      return wstring(buf);
+   }
+
+   operator GUID ()
+   {
+      GUID guid = { };
+      ::CoCreateGuid(&amp;guid);
+      return guid;
+   }
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+   wstring guidS;
+   GUID guid;
+
+   // instancia um CreateNewGUID e chama CreateNewGUID::operator wstring()
+   guidS = CreateNewGUID();
+
+   // instancia um CreateNewGUID e chama CreateNewGUID::operator GUID()
+   guid = CreateNewGUID();
+
+   wcout &lt;&lt; L&quot;Pra nao dizer que esse exemplo nao imprime nada:\n&quot;
+         &lt;&lt; guidS &lt;&lt; L'\n';
+
+   return 0;
+} 
+</code></pre>
+<p>Voltando à pergunta original: penso que, com criatividade e C++, nada é impossível =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Navegando%20pelo%20Archive.org%2c%20que%20possibilita%20viajar%20no%20tempo%20e%20encontrar%20coisas%20enterradas%20que%20seria%20melhor%20deixar%20por...%20http%3a%2f%2fwww.caloni.com.br%2fsobrecarga-de-funcao-as-avessas%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-corvo/">O Corvo<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/consumo-abusivo-de-memoria/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Consumo abusivo de memória</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

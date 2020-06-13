@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Winmock</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Winmock"/>
+  <meta itemprop="description"
+        content="Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Winmock"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/winsock-mock/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2020-04-10T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Winmock"/>
+  <meta name="twitter:description"
+        content="Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Winmock</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/winsock-mock.md" title="History">
+    2020-04-10
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>6 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/winsock-mock.md" title="GitHub">1249</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em C são funções com nome bem definido e assinatura flexível (você não precisa declarar a assinatura da função, ou pode mudar no meio do caminho).</p>
+<p>Criei este pequeno projeto de mock da winsock para exemplificar. Ele utiliza um recurso interessante da winsock, um define chamado INCLWINSOCKAPIPROTOTYPES, que pode desabilitar a publicação das assinaturas das funções de socket do header winsock2.h. E por que isso é importante? Porque essas assinaturas já possuem a informação que essas funções deverão ser importadas de uma DLL (no caso a Ws232.dll). Isso muda o nome da função C. Além disso, a convenção de chamada da API do Windows é baseada em Pascal, e não cdecl, sendo a desvantagem não existir número de argumentos variáveis na pilha. Adiante veremos como isso é útil para simplificar nosso código de mock.</p>
+<p>Em primeiro lugar vamos montar um projeto para iniciar um client socket para exemplificar o uso da winsock. Na verdade, de qualquer UNIX socket.</p>
+<pre><code>#include &quot;client.h&quot;
+#include &lt;stdio.h&gt;
+
+#pragma comment(lib, &quot;Ws2_32.lib&quot;)
+
+int main() {
+  struct CONNECTION* conn = NULL;
+  if (winmock_connect(&quot;caloni.com.br&quot;, 80, &amp;conn) == 0)
+  {
+    char buffer[100];
+    unsigned int timeout = 10;
+    if (winmock_send(conn, &quot;ping?&quot;, sizeof(&quot;ping?&quot;)-1) &gt; 0)
+    {
+      if (winmock_receive(conn, buffer, sizeof(&quot;pong!&quot;)-1, &amp;timeout) &gt; 0)
+      {
+        if (memcmp(buffer, &quot;pong!&quot;, sizeof(&quot;pong!&quot;)-1) == 0)
+        {
+          printf(&quot;everything is just fine\n&quot;);
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<p>Esse código pode ser testado diretamente do Blogue do Caloni. Só que não. Ele não está apto no momento a retornar o conhecido ack do IRC. Um dia talvez. Mas no momento não. As funções com o prefixo winmock estão no projeto C client que usa as funções de socket para se comunicar com o servidor. Alguns snippets:</p>
+<pre><code>int winmock_connect(const char* host, short port, struct CONNECTION** connection)
+{
+    /*...*/
+  conn.socket = (SOCKET) socket(AF_INET, SOCK_STREAM, 0);
+  if (conn.socket &lt; 0)
+  {
+    printf(&quot;Can't create socket\n&quot;);
+    return -1;
+  }
+
+  sprintf(port_string, &quot;%d&quot;, port);
+  memset(&amp;hints, 0, sizeof(hints));
+  hints.ai_family = AF_INET;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
+  result = getaddrinfo(host, port_string, &amp;hints, &amp;addr_result);
+
+  if (addr_result == NULL ) {
+    printf(&quot;Can't resolve server name.\n&quot;);
+    return -1;
+  }
+  serv_addr = *(struct sockaddr_in*) addr_result-&gt;ai_addr;
+  freeaddrinfo(addr_result);
+
+  if (connect(conn.socket,(struct sockaddr *) &amp;serv_addr,sizeof(serv_addr)) &lt; 0)
+    /*...*/
+
+
+int winmock_send(struct CONNECTION* connection, const void* buffer, unsigned int len) {
+  int ret = send(connection-&gt;socket, (const char*)buffer, len, 0);
+    /*...*/
+
+
+int winmock_receive(struct CONNECTION* connection, void* buffer, int len, const unsigned* timeout_in_seconds) {
+    /*...*/
+      ret = select(0, &amp;recvset, NULL, NULL, (timeout_in_seconds ? &amp;tv : NULL));
+    /*...*/  
+    ret = recv(connection-&gt;socket, char_buffer + received, len - received, 0);
+</code></pre>
+<p>As funções C do winsock/socket, connect, send, recv, select, etc, são apenas funções C cujos nomes são conhecidíssimos. Elas são linkadas com programas que usam alguma biblioteca de socket. Nada impede que nós mesmos sobrescrevamos essas funções para implementá-las nós mesmos em nosso programa. É isso o que nosso projeto de unittest integrado faz, usando o define já citado para evitar que as funções winsock tomem o lugar.</p>
+<pre><code>add_subdirectory(&quot;${PROJECT_SOURCE_DIR}/submodules/googletest&quot; &quot;submodules/googletest&quot;)
+
+macro(package_add_test TESTNAME)
+    add_executable(${TESTNAME} ${ARGN})
+    target_link_libraries(${TESTNAME} gtest gmock gtest_main ${TESTNAME}_lib)
+    gtest_discover_tests(${TESTNAME} WORKING_DIRECTORY ${PROJECT_DIR} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY &quot;${PROJECT_DIR}&quot;)
+    set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
+endmacro()
+
+add_definitions(-DINCL_WINSOCK_API_PROTOTYPES=0)
+package_add_test(client_test client_unittest.cpp)
+add_library(client_test_lib STATIC client_mock.c ../client/client.c)
+target_include_directories(client_test PRIVATE)
+</code></pre>
+<p>A linha mais importante é &ldquo;adddefinitions(-DINCLWINSOCKAPIPROTOTYPES=0)&quot;, que irá manter as assinaturas do header da winsock longe da compilação.</p>
+<pre><code>/* winsock2.h */
+/*...*/
+#ifndef INCL_WINSOCK_API_PROTOTYPES
+#define INCL_WINSOCK_API_PROTOTYPES 1
+#endif
+
+#ifndef INCL_WINSOCK_API_TYPEDEFS
+#define INCL_WINSOCK_API_TYPEDEFS 0
+#endif
+
+/*...*/
+#if INCL_WINSOCK_API_PROTOTYPES
+WINSOCK_API_LINKAGE
+_Must_inspect_result_
+SOCKET
+WSAAPI
+accept(
+    _In_ SOCKET s,
+    _Out_writes_bytes_opt_(*addrlen) struct sockaddr FAR * addr,
+    _Inout_opt_ int FAR * addrlen
+    );
+#endif /* INCL_WINSOCK_API_PROTOTYPES */
+
+#if INCL_WINSOCK_API_TYPEDEFS
+typedef
+_Must_inspect_result_
+SOCKET
+(WSAAPI * LPFN_ACCEPT)(
+    _In_ SOCKET s,
+    _Out_writes_bytes_opt_(*addrlen) struct sockaddr FAR * addr,
+    _Inout_opt_ int FAR * addrlen
+    );
+#endif /* INCL_WINSOCK_API_TYPEDEFS */
+</code></pre>
+<p>Tanto a INCLWINSOCKAPIPROTOTYPES quanto a INCLWINSOCKAPITYPEDEFS podem ser muito úteis para incluir algumas coisas do header, mas não todas. E como os protótipos das funções winsock não estão disponíveis, podemos implementar as nossas:</p>
+<pre><code>#if !INCL_WINSOCK_API_PROTOTYPES
+SOCKET socket(int af, int type, int protocol)
+{
+  return socket_mock(af, type, protocol);
+}
+
+int send(SOCKET s,  const char FAR* buf,  int len,  int flags)
+{
+  return send_mock(s, buf, len, flags);
+}
+
+int select(  int nfds,  fd_set FAR* readfds,  fd_set FAR* writefds,  fd_set FAR* exceptfds,  const struct timeval FAR* timeout)
+{
+  return select_mock(nfds, readfds, writefds, exceptfds, timeout);
+}
+
+int recv(  SOCKET s,  char FAR* buf,  int len,  int flags)
+{
+  return recv_mock(s, buf, len, flags);
+}
+#endif /* !INCL_WINSOCK_API_PROTOTYPES */
+</code></pre>
+<p>Com isso o linker irá usar nossas funções em vez da lib de winsock, e na execução podemos simular eventos e operações de rede. Para flexibilizar para que cada teste monte seu ambiente transformamos a implementação em chamadas de ponteiros de função que podem ser trocadas. Por padrão preenchemos esses ponteiros com uma função que não faz nada. Note que com a convenção de chamadas de C não precisamos especificar os argumentos e funções com diferentes tipos e números de parâmetros podem chamar a mesma função.</p>
+<pre><code>#include &quot;client_mock.h&quot;
+
+int stub_mock() { return 0; }
+
+SOCKET(*socket_mock)(int af, int type, int protocol) = stub_mock;
+int (*send_mock)(SOCKET s, const char FAR* buf, int len, int flags) = stub_mock;
+int (*select_mock)(int nfds, fd_set FAR* readfds, fd_set FAR* writefds, fd_set FAR* exceptfds, const struct timeval FAR* timeout) = stub_mock;
+int (*recv_mock)(SOCKET s, char FAR* buf, int len, int flags) = stub_mock;
+</code></pre>
+<p>Agora é possível escrever um sistema de simulação do Blogue do Caloni que retorna o ack que precisamos para que o teste funcione.</p>
+<p>extern &ldquo;C&rdquo; {
+}</p>
+<p>using namespace std;</p>
+<p>static string lastsend;</p>
+<p>extern &ldquo;C&rdquo; {</p>
+<p>int select_default(int nfds, fd_set FAR* readfds, fd_set FAR* writefds, fd_set FAR* exceptfds, const struct timeval FAR* timeout)
+{
+return 1;
+}</p>
+<p>int getaddrinfo_default(PCSTR pNodeName, PCSTR pServiceName, const ADDRINFOA* pHints, PADDRINFOA* ppResult)
+{
+static struct addrinfo addr_result = {};
+static struct sockaddr sock_addr = { };
+addr_result.ai_addr = &amp;sock_addr;
+*ppResult = &amp;addr_result;
+return 0;
+}</p>
+<p>int send_default(SOCKET s, const char FAR* buf, int len, int flags)
+{
+string msg(buf, len);
+last_send = msg;
+return len;
+}</p>
+<p>int recv_default(SOCKET s, char FAR* buf, int len, int flags)
+{
+char pong[] = &ldquo;pong!&quot;;</p>
+<pre><code>if (last_send == &quot;ping?&quot;)
+{
+  if (len == sizeof(&quot;pong!&quot;) - 1 )
+  {
+    strcpy(buf, pong);
+    return len;
+  }
+}
+
+return 0;
+</code></pre>
+<p>}
+}</p>
+<p>class clientTest : public ::testing::Test {
+protected:
+clientTest() {
+getaddrinfo_mock = getaddrinfo_default;
+select_mock = select_default;
+send_mock = send_default;
+recv_mock = recv_default;
+};</p>
+<p>~clientTest() override {
+}</p>
+<p>void SetUp() override {
+}</p>
+<p>void TearDown() override {
+}</p>
+<p>// your stuff
+};</p>
+<p>TESTF(clientTest, ConnectSendReceive)
+{
+struct CONNECTION* conn = NULL;
+if (winmock_connect(&ldquo;caloni.com.br&rdquo;, 80, &amp;conn) == 0)
+{
+char buffer[100];
+unsigned int timeout = 10;
+if (winmock_send(conn, &ldquo;ping?&quot;, sizeof(&ldquo;ping?&quot;)-1) &gt; 0)
+{
+if (winmock_receive(conn, buffer, sizeof(&ldquo;pong!&quot;)-1, &amp;timeout) &gt; 0)
+{
+if (memcmp(buffer, &ldquo;pong!&quot;, sizeof(&ldquo;pong!&quot;)-1) == 0)
+{
+printf(&ldquo;everything is just fine\n&rdquo;);
+}
+}
+}
+}
+}</p>
+<p>Uma observação importante sobre getaddrinfo: ele não possui esse salvaguarda de define e irá dar erro no linker de redefinição. Porém, apenas se incluirmos o header onde ele é definido. Podemos nos proteger com o mesmo define no código-fonte original do client:</p>
+<pre><code>#include &lt;winsock2.h&gt;
+#if INCL_WINSOCK_API_PROTOTYPES
+#include &lt;ws2tcpip.h&gt;
+#endif
+</code></pre>
+<p>Durante a compilação do unittest warnings como os abaixo aparecerão, mas não se preocupe, pois sabemos o que estamos fazendo.</p>
+<pre><code>client.c(75,22): warning C4013: 'getaddrinfo' undefined; assuming extern returning int
+client.c(84,13): warning C4013: 'connect' undefined; assuming extern returning int
+client.c(98,16): warning C4013: 'send' undefined; assuming extern returning int
+client.c(144,13): warning C4013: 'recv' undefined; assuming extern returning int
+</code></pre>
+<p>Para se divertir brincando de rede de mentirinha, baixe o projeto completo.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/projects">projects</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Testar%20sistemas%20com%20rede%20simulada%20pode%20ser%20muito%20complexo%20ou%20muito%20simples.%20Se%20for%20feito%20em%20C%20ou%20se%20os%20endpoints%20forem...%20http%3a%2f%2fwww.caloni.com.br%2fwinsock-mock%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/temporal/">Temporal<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/callback-hell/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Callback Hell</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

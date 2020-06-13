@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Acessando memória física no WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Acessando memória física no WinDbg"/>
+  <meta itemprop="description"
+        content="Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Acessando memória física no WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/acessando-memoria-fisica-no-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-05-01T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Acessando memória física no WinDbg"/>
+  <meta name="twitter:description"
+        content="Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Acessando memória física no WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/acessando-memoria-fisica-no-windbg.md" title="History">
+    2008-05-01
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/acessando-memoria-fisica-no-windbg.md" title="GitHub">888</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte integrante do sistema operacional. Podemos saber mais sobre isso lendo o artigo do Strauss sobre gerenciamento de memória no Windows.</p>
+<p>Porém, existem situações, como a que passei essa semana, onde é preciso saber e alterar o conteúdo da memória de verdade, mesmo. Quando eu falo &ldquo;de verdade mesmo&rdquo; estou falando em acessar a memória através do seu endereçamento real, que conta do zero até o final da sua memória RAM, sem divisão de processos e sem proteções de acesso.</p>
+<p>Para isso é que serve um depurador de verdade, mesmo.</p>
+<p>No modo real, onde vivem sistemas como o MS-DOS e programas como o Turbo C, a memória é acessada através do par de coordenadas conhecido como segmento e offset. Entre outros motivos, isso acontece porque em um determinado momento da história o 8086 possuía 16 bits em seus registradores, mas conseguia endereçar até seiscentos e quarenta quilobytes, o que resulta em seiscentos e quarenta vezes mil e vinte e quatro, ou seja, seiscentos e cinquenta e cinco mil, trezentos e sessenta bytes, um número dez vezes maior do que sessenta e cinco mil, quinhentos e trinta e seis, ou dois elevado a dezesseis, o maior número representado por dezesseis bits.</p>
+<p>Dessa forma, foi necessário o uso de mais 4 bits para fazer a coisa funcionar, pois como podemos notar logo abaixo, a representação do último byte de 640 KB exige isso:</p>
+<pre><code>   10   16   16   16   16   (decimal)
+   A    0    0    0    0    (hexadecimal)
+   1010 0000 0000 0000 0000 (binário)
+</code></pre>
+<p>Para conseguir esses 4 bits adicionais foram usados dois registradores em conjunto, o segmento e o offset. Funciona assim: o segmento é multiplicado por 16 (ou deslocado 4 bits à esquerda) e logo depois é somado com o offset, resultando no endereçamento desejado:</p>
+<pre><code>   segmento:      0x   9022
+   offset:        0x   1514
+
+
+                  0x   9022
+                  0x    1514 (+)
+   endereço real: 0x   91734
+</code></pre>
+<p>Ou seja, para acessar o byte de número 595764, ou 0x91734, podemos usar o segmento 0x9022 com o offset 0x1514. A soma desses dois com o segmento deslocado irá resultado no endereço flag, ou seja, aquele que obtemos se contarmos a memória do zero até o final da RAM.</p>
+<p>Na época, a RAM não costumava ser de valores como 2GB ou até 4GB, mas em KB mesmo. Isso explica a limitação do 8086 em endereçar até 640 KB.</p>
+<p>Se nós repararmos bem, veremos que esse método implica em conseguirmos acessar o mesmo byte com um conjunto de segmentos e offsets diferentes, já que a soma pode ser resultado de operandos diversos. Esse é o chamado efeito de overlapping da memória segmentada, onde os programadores em assembly daquela época tinham que tomar alguns cuidados básicos para não atravessar a memória dos outros. No nosso exemplo acima, por exemplo, seria bem mais fácil chamar nosso bytezinho de segmento 0x9000, offset 0x1734.</p>
+<pre><code>   0x  9000
+   0x   1734 (+)
+   0x  91734
+</code></pre>
+<p>É verdade! Então, o WinDbg possui alguns comandos extendidos e formas de representar essa memória real, atualmente limitada não mais em 640 KB, mas até onde seus pentes de RAM agüentarem. Os mais comuns são os que imitam os nossos conhecidos dumps de memória: db, dc, dd&hellip; Temos daí as extensões !db, !dc, !dd&hellip; (note a exclamação do início).</p>
+<pre><code>windbg -kl $$ kernel debugging local
+
+
+lkd&gt; !db 91734
+#   91734 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91744 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91754 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91764 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91774 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91784 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+#   91794 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+$$ o sinal de # no início denota memória real
+</code></pre>
+<p>Simples, assim.</p>
+<p>Infelizmente, o WinDbg não nos permite ler certas regiões da memória por conta do cacheamento feito pelo processador. Para permitir a leitura em todas as condições, existem  três flags que podem ser utilizados:</p>
+<ul>
+<li>c lê da memória cacheada</li>
+<li>uc lê da memória não-cacheada</li>
+<li>wc lê da memória de escrita combinada</li>
+</ul>
+<p>Nesse caso é possível, embora fique por sua conta e risco, ler qualquer memória não-cacheada usando-se a flag uc.</p>
+<p>É possível fazer mais brincadeiras usando os comandos comuns do WinDbg e uma notação diferente da memória. No entanto, é preciso tomar alguns cuidados quando mexer com isso. É recomendado o uso de uma máquina-vítima para esses testes, e não depuração local como estou fazendo.</p>
+<pre><code>   notação  descrição                     exemplo
+
+
+   %        endereços de 32 ou 64 bits    %6400000   (primeiro byte de 100 MB)
+   &amp;        endereço em modo real 8086    &amp;9000:1734 (segmento 9000, offset 1734)
+   #        endereço em modo real 8086    #4C        (endereço da int 0x13)
+</code></pre>
+<p>É isso aí. Não espero que você use muitas vezes essa forma de acessar memória. Só que eu usei e&hellip; nunca se sabe =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Como%20muitos%20devem%20saber%2c%20acessar%20mem%c3%b3ria%20virtual%20no%20WinDbg%20%c3%a9%20coisa%20de%20crian%c3%a7a%2c%20assim%20como%20em%20todo%20depurador%20decente.%20Se...%20http%3a%2f%2fwww.caloni.com.br%2facessando-memoria-fisica-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/read-the-functional-manual/">Read The Functional Manual<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Bazaar e Fedora 8: a saga</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

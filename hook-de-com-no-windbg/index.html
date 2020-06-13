@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Hook de COM no WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Hook de COM no WinDbg"/>
+  <meta itemprop="description"
+        content="Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Hook de COM no WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/hook-de-com-no-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-09-18T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Hook de COM no WinDbg"/>
+  <meta name="twitter:description"
+        content="Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Hook de COM no WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/hook-de-com-no-windbg.md" title="History">
+    2007-09-18
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>7 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/hook-de-com-no-windbg.md" title="GitHub">1412</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Continuando com o tema hooks no WinDbg, vamos aqui &ldquo;hookear&rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de engenharia reversa que apresentei há um tempo atrás [1], mas com as opções de pause, rewind, replay e câmera lenta habilitadas.</p>
+<p>Antes de começar, se você não sabe nada sobre COM, não deveria estar aqui, mas aqui, aqui e aqui.</p>
+<p>Pra começar, vamos dar uma olhada na representação da interface IUnknown em UML e em memória:</p>
+<p>Como podemos ver, para implementar o polimorfismo, os endereços das funções virtuais de uma classe são colocados em uma tabela, a chamada vtable, famosa tanto no COM quanto no C++. Existe uma tabela para cada classe-base polimórfica, e não para cada objeto. Se fosse para cada objeto não faria sentido deixar esses endereços &ldquo;do lado de fora&rdquo; do leiaute. E não seria nada simples e elegante fazer uma cópia desse objeto.</p>
+<p>Assim, quando você chama uma função virtual de um objeto, o código em assembly irá chamar o endereço que estiver na posição correspondente ao método chamado dentro da vtable. Se você chama AddRef, por exemplo, que é o segundo método na tabela, será chamado o endereço da posição número dois. Com isso, mesmo desconhecendo de que tipo é o objeto a função certa será chamada, porque existe um ponteiro para essa tabela no início da interface.</p>
+<p>Sabendo de tudo isso, agora sabemos como teoricamente proceder para colocar uns breakpoints nessas chamadas:</p>
+<p>Note que o breakpoint não é colocado dentro da tabela, o que seria absurdo. Uma tabela são dados e dados geralmente não são executados (eu disse geralmente). Porém, usamos a tabela para saber onde está o começo da função para daí colocar a parada nesse endereço, que por fazer parte do código da função é (quem diria!) executado.</p>
+<p>Agora vamos sair da teoria e tentar fazer as coisas mais ou menos parecidas na prática.</p>
+<p>O nosso sorteado desse artigo foi o IMalloc, a interface de alocação de memória do COM, que existe desde a época em que não se sabia direito pra que esse tal de COM iria servir. O IMalloc é definido como se segue:</p>
+<pre><code>MIDL_INTERFACE(&quot;00000002-0000-0000-C000-000000000046&quot;)
+IMalloc : public IUnknown
+{
+    public:
+    virtual void *STDMETHODCALLTYPE Alloc( 
+    /* [in] */ SIZE_T cb) = 0;
+
+    virtual void *STDMETHODCALLTYPE Realloc( 
+    /* [in] */ void *pv,
+    /* [in] */ SIZE_T cb) = 0;
+
+    virtual void STDMETHODCALLTYPE Free( 
+    /* [in] */ void *pv) = 0;
+
+    virtual SIZE_T STDMETHODCALLTYPE GetSize( 
+    /* [in] */ void *pv) = 0;
+
+    virtual int STDMETHODCALLTYPE DidAlloc( 
+    void *pv) = 0;
+
+    virtual void STDMETHODCALLTYPE HeapMinimize(void) = 0;
+};
+</code></pre>
+<p>Nesse experimento, como iremos interceptar quando alguém aloca ou desaloca memória, nossos alvos são os métodos Alloc e Free. Para saber onde eles estão na tabela, é só contar, começando pelos métodos do IUnknown, que é de quem o IMalloc deriva. Se houvessem mais derivações teríamos que contar da primeira interface até a última. Portanto: QueryInterface um, AddRef dois, Release três, Alloc quatro, Realloc cinco, Free seis. OK. Contar foi a parte mais fácil.</p>
+<p>Agora iremos precisar interceptar primeiro a função que irá retornar essa interface, pois do contrário não saberemos onde fica a vtable. Nesse caso, a função é a ole32!CoGetMalloc. Muitas vezes você irá usar a ole32!CoCreateInstance(Ex) ou a CoGetClassObject diretamente na DLL que pretende interceptar. Outras vezes, você receberá o ponteiro em alguma ocasião diversa. O importante é conseguir o ponteiro de alguma forma.</p>
+<p>Nesse exemplo iremos obter o ponteiro através de um aplicativo de teste trivial, ignorando todas aquelas proteções antidebugging que podem estar presentes no momento da reversa, feitos por alguém que lê meu blog (quanta pretensão!):</p>
+<pre><code>/** @brief A stupid sample for show WinDbg COM hooking!
+* @author Wanderley Caloni (wanderley@caloni.com.br)
+*/
+#include &lt;windows.h&gt;
+#include &lt;objbase.h&gt;
+#include &lt;objidl.h&gt;
+ 
+int main()
+{
+    CoInitialize(NULL); // initialize the COM library
+
+    IMalloc* malloc = 0; //IMalloc interface pointer
+
+    // if we get the interface...
+    if( SUCCEEDED(CoGetMalloc(1, &amp;malloc)) )
+    {
+        // allocate 4KB (use your HP hyper-plus to make the necessary reckons)
+        if( void* pAlloc = malloc-&gt;Alloc(0x1000) )
+        {
+            malloc-&gt;Free(pAlloc); // everthing allocated, must be released =)
+        }
+
+        malloc-&gt;Release(); // decrement the reference counter for the COM object we created
+    }
+
+    CoUninitialize(); // we don't need the COM library anymore
+} 
+</code></pre>
+<p>Vamos fazer de conta que é desnecessário dizer como se compila o fonte acima.</p>
+<pre><code>cl /c imalloc-hook.cpp
+link imalloc-hook.obj ole32.lib
+</code></pre>
+<p>WinDbg. Na opção &ldquo;File, Open Executable&rdquo; selecionamos a nossa vítima, cujo nome você escolhe na hora de compilar o fonte acima. Aqui, ele irá chamar imalloc-hook.exe. A seguir, colocamos um breakpoint na função da ole32, mandamos rodar, e esperamos a parada do código:</p>
+<pre><code>0:000&gt; bp ole32!CoGetMalloc
+0:000&gt; bl
+0 e 774ddcf8     0001 (0001)  0:**** ole32!CoGetMalloc
+0:000&gt; g
+Breakpoint 0 hit
+ModLoad: 76360000 7637d000   C:WINDOWSsystem32IMM32.DLL
+...
+ModLoad: 746e0000 7472b000   C:WINDOWSsystem32MSCTF.dll
+eax=0012ff7c ebx=00000000 ecx=775e67f0 edx=775e67f0 esi=00000001 edi=00403374
+eip=774ddcf8 esp=0012ff70 ebp=0012ffc0 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+ole32!CoGetMalloc:
+774ddcf8 8bff            mov     edi,edi
+</code></pre>
+<p>Maravilha. Alguém chamou a função que queríamos (quem será?). Agora podemos dar uma olhada na pilha e no protótipo da CoGetMalloc:</p>
+<pre><code>HRESULT CoGetMalloc(DWORDdwMemContext, LPMALLOC *ppMalloc);
+0:000&gt; dd esp L3
+0012ff70
+0040101d000000010012ff7c ;retorno - dwMemContext - ppMalloc
+0:000&gt; dd poi(esp+8) L1
+0012ff7c  00000000
+</code></pre>
+<p>Como podemos ver nos parâmetros da pilha, o nosso chamador passou certinho o valor 1 no campo reservado e um ponteiro no segundo parâmetro para uma área onde, se der tudo certo, será escrito o endereço de um IMalloc, que podemos chamar carinhosamente de this. De início vemos que a variável está zerada. Agora vamos executar a função até a saída e examinar os resultados.</p>
+<pre><code>0:000&gt; bp /1 /c @$csp @$ra;g ; esse é o resultado do comando &quot;Debug, Step Out&quot;
+Breakpoint 1 hit
+eax=00000000 ebx=00000000 ecx=775e6034 edx=775e67f0 esi=00000001 edi=00403374
+eip=0040101d esp=0012ff7c ebp=0012ffc0 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+IMalloc+0x101d:
+0040101d 85c0            test    eax,eax
+0:000&gt; dd 0012ff7c L1     ; o endereço da variável
+0012ff7c  775e6034        ; o endereço da interface
+0:000&gt; dd 775e6034 L1     ; onde está a vtable?
+775e6034  775e600c        ; o endereço da vtable
+0:000&gt; dd 775e600c
+775e600c  77562cfb 774dcf29 774dcf29 774dd00d ; a vtable ! ! !
+775e601c  774dd665 774dcfe8 774dd400 77562d46 ; a vtable ! ! !
+775e602c  77562d6e 775e6034 775e600c 774c0000 ; a vtable ! ! !
+775e603c  00000000 00000000 00154d70 774cbff4
+775e604c  00000000 00000000 00000000 00000000
+...
+</code></pre>
+<p>E não é que tudo deu certo? A variável foi preenchida, e partir dela demos uma espiadela nos endereços das funções da vtable. Nós pegamos o valor da variável que foi preenchida (o endereço da interface) e obtemos os seus primeiros 4 bytes (o endereço da vtable) e listamos o seu conteúdo (a própria vtable!). Agora basta usarmos o resultados de nossas contagens lá em cima e colocarmos os breakpoints nas funções corretas. E mandar rodar. E analisar os resultados.</p>
+<pre><code>0:000&gt; bp 774dd00d &quot;.echo IMalloc::Alloc&quot;
+0:000&gt; bp 774dcfe8 &quot;.echo IMalloc::Free&quot;
+0:000&gt; g
+IMalloc::Alloc
+eax=775e6034 ebx=00000000 ecx=775e600c edx=774dd00d esi=00000001 edi=00403374
+eip=774dd00d esp=0012ff70 ebp=0012ffc0 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+ole32!IsValidIid+0xe4:
+774dd00d 8bff            mov     edi,edi
+0:000&gt; dd esp L3
+0012ff70  00401031 775e6034 00001000 ; o this é nosso, e foi pedido para alocar 4KB (0x1000)
+0:000&gt; bp /1 /c @$csp @$ra;g ; Step Out para pegar o retorno
+Breakpoint 3 hit
+eax=001597f0 ebx=00000000 ecx=7c9106eb edx=00150608 esi=00000001 edi=00403374
+eip=00401031 esp=0012ff7c ebp=0012ffc0 iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000206
+IMalloc+0x1031:
+00401031 85c0            test    eax,eax
+0:000&gt; reax
+eax=001597f0 ; esse é o endereço da memória alocada
+g
+IMalloc::Free
+eax=774dcfe8 ebx=00000000 ecx=775e6034 edx=775e600c esi=00000001 edi=00403374
+eip=774dcfe8 esp=0012ff70 ebp=0012ffc0 iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000206
+ole32!IsValidIid+0xbf:
+774dcfe8 8bff            mov     edi,edi
+0:000&gt; dd esp L3
+0012ff70  00401041 775e6034 001597f0 ; nosso this e endereço alocado (pedindo pra desalocar)
+g ; é isso aí
+</code></pre>
+<p>Note que a função pode eventualmente ser chamada internamente (pelo próprio objeto) ou até por outro objeto que não estamos interessados em interceptar (lembre-se que os métodos de uma classe são compartilhados por todos os objetos). Por isso é importante sempre dar uma olhada no primeiro parâmetro, que é o this que obtemos primeiramente.</p>
+<p>Com isso termina o nosso pequeno experimento de como é possível interceptar chamadas COM simplesmente contando e usando o WinDbg. OK, talvez um pouquinho a mais, mas nada de quebrar a cabeça.</p>
+<p>Para saber mais: Engenharia Reversa para Principiantes.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Continuando%20com%20o%20tema%20hooks%20no%20WinDbg%2c%20vamos%20aqui%20%26ldquo%3bhookear%26rdquo%3b%20e%20analisar%20as%20chamadas%20de%20m%c3%a9todos%20de%20um%20objeto...%20http%3a%2f%2fwww.caloni.com.br%2fhook-de-com-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/">A mobilidade das variáveis no printf<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/aquisicao-de-recurso-e-inicializacao/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Aquisição de recurso é inicialização</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

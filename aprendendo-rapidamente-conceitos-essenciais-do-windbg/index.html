@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Aprendendo rapidamente conceitos essenciais do WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Aprendendo rapidamente conceitos essenciais do WinDbg"/>
+  <meta itemprop="description"
+        content="Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Aprendendo rapidamente conceitos essenciais do WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/aprendendo-rapidamente-conceitos-essenciais-do-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-05-23T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Aprendendo rapidamente conceitos essenciais do WinDbg"/>
+  <meta name="twitter:description"
+        content="Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Aprendendo rapidamente conceitos essenciais do WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/aprendendo-rapidamente-conceitos-essenciais-do-windbg.md" title="History">
+    2008-05-23
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/aprendendo-rapidamente-conceitos-essenciais-do-windbg.md" title="GitHub">600</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil, quando se começa a usar, mas mesmo assim conheço muitos programadores que relutam em depurar passo-a-passo, preferindo a depuração por meio de &ldquo;MessageBoxes&rdquo; ou saídas na tela. Imagine, então, a dificuldade que não é para quem conseguiu às duras penas aprender a tornar um hábito a primeira passada do código novo em folha através do F10 começar a fazer coisas como configurar símbolos e digitar comandos exdrúxulos em uma tela em modo texto. Para piorar a questão, existem aqueles que defendem o uso unificado de uma ferramenta que faça tudo, como um telefone celular. Eu discordo. Quando a vantagem competitiva de uma ferramenta sobre outra é notável, nada pior que ficar preso em um ambiente legalzinho que faz o mínimo para você, mas não resolve o seu problema de deadlock.</p>
+<p>Foi pensando nessa dificuldade que foi escrita uma apresentação nota dez por Robert Kuster que explica todas as minúcias importantes para todo programador iniciante e experiente na arte de &ldquo;WinDbgear&rdquo;. &ldquo;WinDbg. From A to Z!&rdquo; é uma ferramenta tão útil quanto o próprio WinDbg, pois explica desde coisas simples que deve-se saber desde o início, como configurar símbolos, quanto assuntos mais avançados, como depuração remota. Até para quem já está no nível avançado vale a pena recapitular algumas coisas que já foram ditas no  AWD.</p>
+<p>Mesmo tentando ser sucinto, o assunto ocupou um conjunto de 111 transparências que demoram de uma a duas horas de leitura cuidadosa, se você não fizer testes durante o trajeto. Entre as coisas que eu li e reli, segue uma lista importante para nunca ser esquecida (entre parênteses o número das transparências que considero mais importantes):</p>
+<ul>
+<li>
+<p>O que é são as bibliotecas de depuração do Windows e como elas podem te ajudar (6 e 9)</p>
+</li>
+<li>
+<p>O que são símbolos de depuração (11, 12, 14)</p>
+</li>
+<li>
+<p>Como funciona a manipulação de exceções e como depurar (18, 19, 85)</p>
+</li>
+<li>
+<p>Como configurar seu depurador para funcionar globalmente (20)</p>
+</li>
+<li>
+<p>Tipos de comandos no WinDbg (22)</p>
+</li>
+<li>
+<p>Configurando símbolos e fontes no WinDbg (24, 25)</p>
+</li>
+<li>
+<p>Interagindo com as janelas do WinDbg (33)</p>
+</li>
+<li>
+<p>Informações sobre processos, pilhas e memória (29, 41, 43, 45, 66)</p>
+</li>
+<li>
+<p>Informações sobre <em>threads</em> e <em>locks</em> (31, 55)</p>
+</li>
+<li>
+<p>Comandos úteis com _strings _e memórias (66)</p>
+</li>
+<li>
+<p>Avaliando expressões no WinDb: MASM e C++ (70, 71)</p>
+</li>
+<li>
+<p>Usando _breakpoints _no WinDbg (básico) (81)</p>
+</li>
+<li>
+<p>Usando _breakpoints _no WinDbg (complicado) (83, 84)</p>
+</li>
+<li>
+<p>Depuração remota (muito útil!) (87)</p>
+</li>
+<li>
+<p>Escolhendo a melhor ferramenta para o problema (fantástico!) (108)</p>
+</li>
+</ul>
+<p>Além da enchurrada de informações, o autor ainda explica a teoria com comandos digitados no próprio WinDbg, dando um senso bem mais prático à ferramenta. Ou seja, é útil tanto para os que aprendem por definições abstratas e lista de comandos quanto os que preferem já colocar a mão na massa e massacrar o bom e velho notepad.exe.</p>
+<p>No final, duas dicas importantíssimas do autor para quem deseja se aventurar nesse mundo: leia a documentação do WinDbg (que também é ótima, apesar de bem mais extensa) e aprenda assembly (simplesmente essencial para resolver muitos problemas).</p>
+<p>Se você ainda não teve tempo de se dedicar à depuração avançada em Windows e pensa que nunca terá, dedique duas horinhas divididas em períodos de 15 minutos por dia para explorar esse fantástico tutorial, que com certeza, se bem aplicado, reduzirá exponencialmente seu tempo de resolução de problemas.</p>
+<p>Eu recomendo.</p>
+<p>Existe uma tradução para inglês desse texto no saite do próprio Robert Kuster, que usou-o como uma espécie de introdução.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Todo%20o%20poder%20e%20flexibilidade%20do%20pacote%20Debugging%20Tools%20da%20Microsoft%20pode%20ser%20ofuscado%20pela%20sua%20complexidade%20e%20curva%20de...%20http%3a%2f%2fwww.caloni.com.br%2faprendendo-rapidamente-conceitos-essenciais-do-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/how-to-run-anything-as-a-service/">How to run anything as a service<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/mousetool-clique-automatico-do-seu-rato/"><span class="icon"><i class="fa fa-arrow-left"></i></span>MouseTool: clique automático do seu rato</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

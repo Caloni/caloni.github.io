@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Antidebug: interpretação baseada em exceção (parte 2)</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Antidebug: interpretação baseada em exceção (parte 2)"/>
+  <meta itemprop="description"
+        content="No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Antidebug: interpretação baseada em exceção (parte 2)"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-2/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-08-09T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Antidebug: interpretação baseada em exceção (parte 2)"/>
+  <meta name="twitter:description"
+        content="No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Antidebug: interpretação baseada em exceção (parte 2)</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/antidebug-interpretacao-baseada-em-excecao-parte-2.md" title="History">
+    2007-08-09
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>6 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/antidebug-interpretacao-baseada-em-excecao-parte-2.md" title="GitHub">1080</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</p>
+<p>O upgrade apresentado aqui continua utilizando o lançamento de exceções intrinsecamente, mas agora não depende mais da divisão do código em minifunções e chamá-las aos poucos. Em invés disso, temos apenas que pegar traços de código e colocá-los em torno de uma macro milagrosa que fará tudo o que quisermos. Isso, claro, depois de algumas marteladas que serão explicadas aqui.</p>
+<pre><code>// Go back to place pre-defined by the restoration point.
+void LongJmp(restorePoint)
+{
+    // Here we will generate an exception to make things difficult.
+    // @todo Make a breakpoint exception and catch it.
+
+    // 3. We return to the if without using the stack, but from the restoration point.
+    GoBackToTheStartFunction(restorePoint);
+}
+
+// Here everything begins.
+int Start()
+{
+    // Obs.: follow the agreement flow according to the numbers.
+
+    // 1. First pass: we define a restoration point to the return of LongJmp.
+    // 4. Second pass: we go back from the LongJmp function, but this time we get into the else.
+    if( RestorePointDefined() == Defined )
+    {
+        // 2. We call the function that will return to the if.
+        LongJmp( if );
+    }
+    else
+    {
+        // 5. Call the real function, our true target.
+        CallTheUsefulFunction();
+    }
+
+    // 6. End of execution.
+    return 0;
+} 
+</code></pre>
+<p>A solução acima está apresentada em pseudo-código para tornar mais claro o conceito. Note que existe uma espécie de &ldquo;retorno invisível&rdquo;, não baseado em retorno de pilha, envolvido. Para implementá-lo, contudo, podemos nos ajeitar com o velho e bom padrão C ANSI, com as rotinas setjmp (passo 1) e longjmp (passo 3). Para entender a implementação dessa funções na plataforma 8086 precisamos ter primeiro uma visão básica da estrutura de chamada de funções baseada em pilha.</p>
+<p>Registradores são variáveis reservadas do processador que podem ser utilizadas pelo código assembly da plataforma envolvida. Stack frame (estrutura da pilha) nada mais é que a hierarquia de chamadas das funções, o &ldquo;quem chamou quem&rdquo; em uma execução qualquer. Call e ret são instruções em assembly para chamar uma função (call) e sair de uma função (ret), respectivamente. Ambas alteram o stack frame.</p>
+<p>Imagine que você tem uma função, CallFunc, e outra função, Func, e que uma chame a outra. Para analisarmos apenas a chamada de função, e apenas isso, vamos considerar que Func não recebe nenhum parâmetro e não retorna nenhum valor. O código em C fica, então, assim:</p>
+<p>void Func()
+{
+return;
+}</p>
+<p>void CallFunc()
+{
+Func();
+}</p>
+<p>Simples, não? Por esse mesmo motivo o disassembly terá que ser igualmente simples. Em CallFunc ele deverá conter a chamada da função (call) e em Func o retorno da chamada (ret). O resto que eventualmente aparecer está relacionado aos controles da versão Debug.</p>
+<p>Func:
+00411F73 previnstruction ; ESP = 0012FD38 (four bytes stacked up)
+00411F74 ret ; *ESP = 00411FA3 (return address)</p>
+<p>CallFunc:
+00411F9C previnstruction
+00411F9E call Func (411424h) ; ESP = 0012FD3C
+00411FA3 nextinstruction</p>
+<p>A partir do assembly acima podemos concluir no mínimo duas coisas: 1. a pilha &ldquo;cresce&rdquo; para baixo, pois seu valor decrementou de quadro (0012FD3C para 0012FD38 são 4 byte a menos) e 2. o valor de retorno da função chamada é o endereço da próxima instrução após a chamada (call), no caso 00411FA3.</p>
+<p>Ora, da mesma forma que conseguimos acompanhar essa simples execução, o atacante também o fará. Por isso que no meio dessa chamada iremos colocar o lançamento de uma exceção e, no retorno, faremos não do modo convencional apresentado, mas por uma outra técnica que, ao invés de utilizar a instrução ret, seta &ldquo;manualmente&rdquo; o valor do registrador ESP (estado da pilha) e &ldquo;pula&rdquo; para a próxima instrução de CallFunc.</p>
+<p>Func:
+00411F60 throwexception
+00411F61 &hellip;
+00411F73 catchexception
+00411F74 mov ESP, 0012FD3C ; ESP = 0012FD3C, como em CallFunc
+00411F75 jmp 00411FA3 ; &ldquo;pula&rdquo; para CallFunc::nextinstruction</p>
+<p>Toda essa esculhambada em assembly não precisa ser necessariamente feita em linguagem de baixo nível. Foi apenas uma maneira que encontrei pra ilustrar as diferenças entre retorno baseado em pilha e alteração no fluxo do código. Como já foi dito, para a sorte e o bem-estar de todos, essa mesma técnica pode ser implementada com funções C da biblioteca ANSI:</p>
+<pre><code>jmp_buf env; // Contains the next instruction (stack state).
+
+void Func()
+{
+    // 3. Return using the &quot;nonconventional&quot; way
+    longjmp(env, 1);
+}
+
+void CallFunc()
+{
+    // 1. If we're setting, returns 0.
+    // 2. If we're returning, returns a value different from 0.
+    if( setjmp(env) == 0 )
+        Func();
+
+    int x = 10; // 4. Next instruction.
+} 
+</code></pre>
+<p>Essa foi a técnica adicionada à solução do lançamento de exceções. O código final ficou mais claro:</p>
+<pre><code>/** The only purpose of this function is to generate an exception.
+*/
+DWORD LongJmp(jmp_buf* env)
+{
+    __try
+    {
+        __asm int 3
+    }
+        __except( EXCEPTION_EXECUTE_HANDLER )
+    {
+        longjmp(*env, 1);
+    }
+
+    return ERROR_SUCCESS;
+}
+
+/** And God said: 'int main!'
+*/
+int main()
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    while( cin )
+    {
+        string line;
+
+        cout &lt;&lt; &quot;Type something\n&quot;;
+        getline(cin, line);
+
+        jmp_buf env;
+
+        if( setjmp(env) == 0 )
+        {
+            LongJmp(&amp;env);
+        }
+        else
+        {
+            cout &lt;&lt; line &lt;&lt; endl;
+        }
+    }
+
+    return (int) ret;
+} 
+</code></pre>
+<p>À primeira vista parece um desperdício o if estar diretamente no código (lembre-se que vamos utilizar a mesma estrutura condicional em várias e várias partes do código. Para tornar mais claro seu uso, resumir a chamada protegida e permitir que a proteção seja desabilitada em debug, vamos criar uma macro:</p>
+<pre><code>/** Use this macro instead LongJmp
+*/
+#define ANTIDEBUG(code)
+{
+    jmp_buf env;
+
+    if( setjmp(env) == 0 )
+    {
+        LongJmp(&amp;env);
+    }
+    else
+    {
+        code;
+    }
+}
+
+/** And God said: 'int main!'
+*/
+int main()
+{
+    DWORD ret = ERROR_SUCCESS;
+
+    while( cin )
+    {
+        string line;
+
+        cout &lt;&lt; &quot;Type something\n&quot;;
+        getline(cin, line);
+
+        ANTIDEBUG(( cout &lt;&lt; line &lt;&lt; endl ));
+    }
+
+    return (int) ret;
+} 
+</code></pre>
+<p>Veja que como agora permitimos a seleção do anti-debug por chamada, fica mais fácil escolher quais os pontos a serem protegidos e quais não devem/podem por conta de perfomance ou outro detalhe obscuro que sempre existe na vida de um programador C++.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=No%20primeiro%20artigo%20vimos%20como%20%c3%a9%20poss%c3%advel%20%26ldquo%3benganar%26rdquo%3b%20o%20depurador%20atrav%c3%a9s%20de%20exce%c3%a7%c3%b5es%20e%20assim%20fazer%20o%20atacante...%20http%3a%2f%2fwww.caloni.com.br%2fantidebug-interpretacao-baseada-em-excecao-parte-2%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/gina-x-credential-provider/">GINA x Credential Provider<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/historia-do-windows-parte-351/"><span class="icon"><i class="fa fa-arrow-left"></i></span>História do Windows - parte 3.51</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

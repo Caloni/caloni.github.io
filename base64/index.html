@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Base64</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
+&quot;Salve Caloni,
+
+Já leio o seu site a algum tempo. Realmente acho..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Base64"/>
+  <meta itemprop="description"
+        content="No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
+&quot;Salve Caloni,
+
+Já leio o seu site a algum tempo. Realmente acho..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Base64"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/base64/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
+&quot;Salve Caloni,
+
+Já leio o seu site a algum tempo. Realmente acho..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2011-03-09T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Base64"/>
+  <meta name="twitter:description"
+        content="No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
+&quot;Salve Caloni,
+
+Já leio o seu site a algum tempo. Realmente acho..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Base64</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/base64.md" title="History">
+    2011-03-09
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/base64.md" title="GitHub">559</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:</p>
+<pre><code>&quot;Salve Caloni,
+
+Já leio o seu site a algum tempo. Realmente acho complicado, alguns eu nem entendo =D.  Mais eh o seguinte, eu estou montando um projeto, mas eu não entendo nada de trabalhar com binários. Então pesquisei na internet, e achei um algoritmo que pode me ajudar, na lógica. É o base64 mas eu não entendi como ele converte e desconverte em binário. Será que vc pode me ajudar, obrigado!!&quot;
+</code></pre>
+<p>Não é a primeira pessoa que pede informações sobre algo específico demais para explicar (para isso existe a Wikipedia e o Google, não?). No meio da minha escrita, percebi que já havia escrito sobre os fundamentos do conhecimento por trás da criação do Base64, conhecimento esse, acredito eu, todo programador que quer sair do lugar com os próprios pés deve ter.</p>
+<ul>
+<li>
+<p>Básico do básico: assembly</p>
+</li>
+<li>
+<p>Básico do básico: binário &lt;&ndash; Luiz, você está procurando por esse!</p>
+</li>
+<li>
+<p>Básico do básico: tipos</p>
+</li>
+<li>
+<p>Básico do básico: ponteiros</p>
+</li>
+</ul>
+<p>Bônus:</p>
+<ul>
+<li>
+<p>Como ofuscar strings</p>
+</li>
+<li>
+<p>Passagem por valor e emails com anexo</p>
+</li>
+<li>
+<p>Como funcionam as strings</p>
+</li>
+</ul>
+<p>REALMENTE para iniciantes:</p>
+<ul>
+<li>
+<p>Configurando seus projetos no Visual Studio</p>
+</li>
+<li>
+<p>Como criar uma LIB no Visual Studio</p>
+</li>
+</ul>
+<p>Acredito que tudo que um programador precisa saber é o básico. O problema é que esse básico cresce a cada ano, mas, de qualquer forma, continua sendo necessário voltar às raízes de vez em quando, e se existe algo que ele nunca deve esquecer, é isso.</p>
+<p>Até porque na programação, 90% não se cria, se copia.</p>
+<p>Imaginemos o cenário para a criação do Base64:</p>
+<p>Alguns meios de comunicação, notadamente envio de e-mails e a navegação web, por incrível que pareça, trabalham em um protocolo totalmente em modo texto. É até fácil de entender, pois quando essas tecnologias nasceram as limitações de velocidade e estabilidade das conexões permitiam apenas o envio de texto puro de uma ponta a outra.</p>
+<p>Isso quer dizer que, na prática, os anexos de um e-mail e as imagens de uma página trafegam, pelo protocolo definido, em modo texto.</p>
+<p>Como isso é possível?</p>
+<p>A solução não é tão obscura quanto possa parecer. Se um programador médio tivesse esse problema e nenhuma solução existisse ainda, ele faria o que sempre fez para resolver problemas desse tipo: codificar a mensagem na forma permitida. Isso já é feito com o próprio texto, que é apenas uma interpretação de tabelas de caracteres.</p>
+<p>Tudo que é necessário fazer é o contrário, mas usando a mesma lógica: montar uma tabela de caracteres válidos e traduzir para um conteúdo binário, sendo que todas as combinações possíveis devem caber nessa tabela.</p>
+<p>A forma mais básica binária de comunicação é um byte, constituído por 8 bits, que combinados darão 2^8 entradas em nossa tabela, que precisaria de 256 caracteres diferentes. Como isso ultrapassa o limite dos protocolos que estamos lidando, que em sua maioria utilizam a tabela ascii básica, que possui 128 posições, sendo que algumas posições não possuem caracteres imprimíveis, decidiu-se usar o múltiplo anterior: 64 posições, o que nos dá a chance de codificar 6 bits de cada vez (2^6).</p>
+<p>Esse padrão de codificação se chama Base64. Se quiser mais detalhes, basta ler a RFC, que é pequena e muito simples de se ler.</p>
+<p>Agora, como codificar essa solução? Só entendendo o básico, é claro.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=No%20meio%20dos%20meus%20artigos%20pendentes%2c%20encontrei%20esse%2c%20de%20Luiz%20Rocha%2c%20que%20fala%20sobre%20a%20dificuldade%20de%20entender%20o%20que%20seria...%20http%3a%2f%2fwww.caloni.com.br%2fbase64%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/reorganizando-meus-feeds-de-novo/">Reorganizando meus feeds (de novo)<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/esposa-de-mentirinha/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Esposa de Mentirinha</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

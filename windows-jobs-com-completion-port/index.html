@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Windows Jobs com Completion Port</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.
+Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Windows Jobs com Completion Port"/>
+  <meta itemprop="description"
+        content="Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.
+Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Windows Jobs com Completion Port"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/windows-jobs-com-completion-port/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.
+Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-09-23T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Windows Jobs com Completion Port"/>
+  <meta name="twitter:description"
+        content="Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.
+Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Windows Jobs com Completion Port</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/windows-jobs-com-completion-port.md" title="History">
+    2008-09-23
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/windows-jobs-com-completion-port.md" title="GitHub">812</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Ou &ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&rdquo;.</p>
+<p>Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos um sistema de referências cruzadas eficiente. Outro dia demorei cerca de duas horas para conseguir criar um job.aspx), anexar o processo desejado e, a pior parte, esperar que todos os processos (o principal e seus filhos e netos) terminassem.</p>
+<p>Além da pouca documentação.aspx), parece que não são muitas as pessoas que fazem isso e publicam na web, ou eu não sei procurar direito.</p>
+<p>Mas, pra início de conversa, o que é um job mesmo?</p>
+<p>Um job é um objeto &ldquo;novo&rdquo; no kernel do Windows 2000 em diante, e se prontifica a suprir a carência que havia anteriormente de controle sobre o que os processos podem fazer e por quanto tempo.</p>
+<p>A abstração mais coerente que eu consigo tirar de um job é como um trabalho a ser executada por um ou mais processos. O objeto job controla a criação, o término e as exceções que ocorrem dentro dele mesmo.</p>
+<p>Entre as funções mais úteis de um job estão limitar o tempo de execução do conjunto de processos, o número de handles/arquivos/outros objetos abertos, limite de memória RAM ocupada e a possibilidade de terminar todos os processos de uma só vez.</p>
+<p>Para informações básicas de como criar um job e anexar processos recomendo o ótimo artigo de Jeffrey Richter.</p>
+<p>No final desse artigo ele chega a citar o controle mais refinado dos processos através de uma completion port.aspx), que permitirá receber eventos que ocorrem dentro de um job durante sua vida útil. Apesar de citar, não há código de exemplo que faça isso.</p>
+<p>Bom, agora há:</p>
+<pre><code>#define _WIN32_WINNT 0x0500 // Jobs só existem do 2000 em diante
+#include &lt;windows.h&gt;
+
+/** @brief Função que cria um processo a partir de cmdLine
+ * e coloca-o dentro de um job. A função aguarda o término
+ * do processo e de qualquer subprocesso criado por este.
+ */
+DWORD CreateJobAndWait(LPSTR cmdLine)
+{
+   // primeiro, criamos um job sem nome
+   HANDLE job = CreateJobObject(NULL, NULL);
+
+   if( job )
+   {
+      STARTUPINFO si = { sizeof(si) };
+      PROCESS_INFORMATION pi;
+
+      // depois, criamos um processo suspenso (travado)
+      if( CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 
+         CREATE_SUSPENDED | CREATE_NEW_CONSOLE, NULL, NULL, &amp;si, &amp;pi) )
+      {
+         // atribuímos esse processo ao nosso jobo
+         AssignProcessToJobObject(job, pi.hProcess);
+
+         // rodamos o processo
+         ResumeThread(pi.hThread);
+
+         // essa é uma completion i/o port genérica
+         // (ou seja, não relacionada com nenhum arquivo
+         // ou outra completion port)
+         HANDLE port = CreateIoCompletionPort(INVALID_HANDLE_VALUE, 
+                 NULL, 0, 0);
+
+         if( port )
+         {
+            JOBOBJECT_ASSOCIATE_COMPLETION_PORT jobPort;
+
+            jobPort.CompletionKey = 0; // ver variável key abaixo
+            jobPort.CompletionPort = port; // nossa completion port vai aqui!
+
+            // definimos a c.p. em nosso job
+            if( SetInformationJobObject(job, 
+                        JobObjectAssociateCompletionPortInformation, 
+                        &amp;jobPort, sizeof(jobPort)) )
+            {
+               ULONG_PTR key = 0; // ver membro CompletionKey acima
+               LPOVERLAPPED overlap = 0;
+               DWORD tranferred = 0;
+
+               // nosso loop de mensagens com completion port
+               while( GetQueuedCompletionStatus(port, &amp;tranferred, 
+                  &amp;key, &amp;overlap, INFINITE) )
+               {
+                  // transferred especifica a mensagem
+                  DWORD msg = *(LPDWORD) &amp;tranferred;
+
+                  // significa que não existem mais processos rodando
+                  if( msg == JOB_OBJECT_MSG_ACTIVE_PROCESS_ZERO )
+                     break; // saímos fora
+               }
+            }
+
+            CloseHandle(port); // fecha tudo
+         }
+
+         CloseHandle(pi.hThread); // fecha tudo
+         CloseHandle(pi.hProcess); // fecha tudo
+      }
+
+      CloseHandle(job); // fecha tudo
+   }
+
+   return 0;
+}
+
+int main(int argc, char* argv[])
+{
+   if( argc == 2 )
+      CreateJobAndWait(argv[1]);
+}
+</code></pre>
+<p>O exemplo acima cria um processo baseado em uma linha de comando e espera pelo término do processo criado e de todos os subprocessos criados a partir do primeiro processo. Note que mesmo que o primeiro processo termine, a Completion Port só receberá o evento que todos os processos acabaram depois que o último subprocesso terminar.</p>
+<p>Dessa forma, ao compilarmos o código:</p>
+<pre><code>C:\Tests\CreateJob&gt;cl Createjob.cpp
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Createjob.cpp
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:Createjob.exe
+Createjob.obj
+</code></pre>
+<p>E rodarmos mais um prompt de comando através de nosso programa (o texto em azul significa nossa nova janela de prompt):</p>
+<pre><code>C:\Tests\CreateJob&gt;Createjob.exe cmd        (travado)
+</code></pre>
+<p>Microsoft Windows XP [versão 5.1.2600] (C) Copyright 1985-2001 Microsoft Corp. C:\Tests\CreateJob&gt;notepad C:\Tests\CreateJob&gt;exit</p>
+<pre><code>C:\Tests\CreateJob&gt;                         (continua travado)
+                                            (fechando notepad)
+
+
+C:\Tests\CreateJob&gt;                         (deve destravar)
+</code></pre>
+<p>Mesmo ao fecharmos o prompt criado, o programa só será finalizado ao fecharmos o Bloco de Notas iniciado pelo segundo prompt.</p>
+<p>Além desse evento, que era o que eu estava procurando, esse método permite obter outros eventos bem interessantes:</p>
+<ul>
+<li>JOB_OBJECT_MSG_NEW_PROCESS. Um novo processo foi criado dentro do job.</li>
+<li>JOB_OBJECT_MSG_EXIT_PROCESS. Um processo existente dentro do job foi terminado.</li>
+<li>JOB_OBJECT_MSG_PROCESS_MEMORY_LIMIT. O limite de memória de um processo já foi alcançado.</li>
+<li>JOB_OBJECT_MSG_END_OF_PROCESS_TIME. O limite de tempo de processamento de um processo já foi alcançado.</li>
+</ul>
+<p>Enfim, jobs não terminam por aí. Dê mais uma olhada no MSDN e veja se encontra mais alguma utilidade interessante para o nosso amigo job. Eu encontrei e fiquei feliz.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Ou%20%26ldquo%3bComo%20esperar%20o%20t%c3%a9rmino%20de%20todos%20os%20processos-filho%20criados%20a%20partir%20de%20um%20conjunto%20de%20processos%26rdquo%3b.%0aDessa...%20http%3a%2f%2fwww.caloni.com.br%2fwindows-jobs-com-completion-port%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/v/">V<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/reuna-seus-comandos-mais-usados-no-windbg-com-cmdtree/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Reúna seus comandos mais usados no WinDbg com .cmdtree</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

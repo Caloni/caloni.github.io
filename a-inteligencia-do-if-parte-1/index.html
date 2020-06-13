@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - A inteligência do if - parte 1</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="A inteligência do if - parte 1"/>
+  <meta itemprop="description"
+        content="No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="A inteligência do if - parte 1"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-06-18T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="A inteligência do if - parte 1"/>
+  <meta name="twitter:description"
+        content="No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">A inteligência do if - parte 1</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/a-inteligencia-do-if-parte-1.md" title="History">
+    2007-06-18
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/a-inteligencia-do-if-parte-1.md" title="GitHub">512</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o endereço da próxima instrução que será executada. A essa manipulação damos o nome de salto.</p>
+<p>O salto simples e direto permite a organização do código em subrotinas e assim seu reaproveitamento, o que economiza memória, mas computacionalmente é inútil, já que pode ser implementado simplesmente pela repetição das subrotinas. O que eu quero dizer é que, do ponto de vista da execução, a mesma seqüência de instruções será executada. Pense no fluxo de execução de uma rotina que chama várias vezes a mesma subrotina.</p>
+<pre><code>ascii art:
+
+subroutine                       
++-----------------------+        
+| code                  |        
+| ...                   |        
+| code                  |        
+| return                |        
++-----------------------+        
+                                 
+routine                          
++----------------+        
+|code            |        
+|call subroutine |        
+|code            |        
+|call subroutine |        
+|code            |        
+|call subroutine |        
++----------------+        
+</code></pre>
+<p>Ela é, na prática, equivalente à uma rotina que contém várias cópias da subrotina na memória, uma seguida da outra.</p>
+<pre><code>ascii art:
+
+routine             
++--------------+    
+| code         |    
++--------------+    
+subroutine          
++--------------+    
+| subroutine   |    
+| code         |    
+| ...          |    
+| code         |    
++--------------+    
+| code         |    
++--------------+    
+subroutine      
++--------------+
+| subroutine   |
+| code         |
+| ...          |
+| code         |
++--------------+
+| code         |
++--------------+
+subroutine      
++--------------+
+| subroutine   |
+| code         |
+| ...          |
+| code         |
++--------------+
+</code></pre>
+<p>A grande sacada computacional, motivo pelo qual hoje os computadores hoje são tão úteis para os seres humanos, é a invenção de um conceito chamado salto condicional. Ou seja, não é um salto certo, mas um salto que será executado caso a condição sob a qual ele está subordinado for verdadeira.</p>
+<pre><code>code
+call sub *if cond true* (cond jump)
+code
+call sub *if cond true* (cond jump)
+code
+call sub *if cond true* (cond jump)
+code
+...
+code
+</code></pre>
+<p>Os saltos condicionais, vulgarmente conhecidos como if&rsquo;s, permitiram às linguagens de programação possuírem construções de execução mais sofisticadas: laços, iterações e seleção de caso. Claro que no fundo elas não passam de um conjunto formado por saltos condicionais e incondicionais.</p>
+<p>O while e seu bloco não passa de um salto no final do bloco para o começo de um if.</p>
+<pre><code>while( condition)  
+{                 
+    code;        
+}               
+               
+begin_while:
+if( condition )
+{             
+    code;    
+    goto begin_while;
+}                   
+</code></pre>
+<p>O for não passa de um contador que é incrementado a cada passada por esse mesmo if do while. Quer dizer, do bloco de código que se segue.</p>
+<pre><code>for( i = 0; i &lt; 10; ++i )      
+{                              
+    code;                      
+}                              
+                               
+i = 0;                         
+begin_for:                     
+if( i &lt; 10 )                   
+{                  
+    code;          
+    ++i;           
+    goto begin_for;
+}                  
+</code></pre>
+<p>E um switch-case nada mais é que vários ifs seguidos, unidos por um else (que torna a comparação exclusiva).</p>
+<pre><code>switch( value )                
+{                              
+    case 0:                    
+        code;                  
+        break;                 
+                               
+    case 1:                    
+        code;
+        break;
+
+    default:
+        code;
+        break;
+}
+
+if( valor == 0 ) 
+    code;        
+else             
+if( valor == 1 ) 
+    code;        
+else             
+    code;        
+</code></pre>
+<p>Em um próximo artigo veremos como o salto condicional pode ser implementado apenas com operações matemáticas (afinal, é só isso que temos).</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=No%20n%c3%advel%20mais%20baixo%2c%20podemos%20dizer%20que%20as%20instru%c3%a7%c3%b5es%20de%20um%20computador%20se%20baseiam%20simplesmente%20em%20c%c3%a1lculos%20matem%c3%a1ticos%20e...%20http%3a%2f%2fwww.caloni.com.br%2fa-inteligencia-do-if-parte-1%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/">Introdução ao Debugging Tools for Windows<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/hello-world/"><span class="icon"><i class="fa fa-arrow-left"></i></span>O bom filho à casa retorna</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

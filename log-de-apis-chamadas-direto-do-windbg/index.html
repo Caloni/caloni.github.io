@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Log de chamadas API direto do WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada,..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Log de chamadas API direto do WinDbg"/>
+  <meta itemprop="description"
+        content="Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada,..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Log de chamadas API direto do WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/log-de-apis-chamadas-direto-do-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada,..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2016-01-21T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Log de chamadas API direto do WinDbg"/>
+  <meta name="twitter:description"
+        content="Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada,..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Log de chamadas API direto do WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/log-de-apis-chamadas-direto-do-windbg.md" title="History">
+    2016-01-21
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/log-de-apis-chamadas-direto-do-windbg.md" title="GitHub">724</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Há muito tempo atrás eu havia falado sobre como a ferramenta logger.exe, do Debugging Tools for Windows, poderia ser usada para gerar um arquivo de log com centenas de APIs detalhadas em sua chamada, como parâmetros de entrada, retorno e tempo. Bom, testando isso hoje, me veio à lembrança o artigo e também a constatação que o logger é muito instável. Tão instável que não consegui logar as APIs que desejava nas inúmeras tentativas que fiz. Isso em um Windows XP!</p>
+<p>Felizmente, as funções do logger também estão em uma DLL estilo plugin do próprio WinDbg, que pode ser chamada facilmente e que &ndash; surpresa! &ndash; internamente ao depurador funciona. Melhor ainda, não é necessário criar um processo para realizar o log, mas pode ser atachado em um processo já em execução, o que facilita bastante seu uso em serviços, por exemplo.</p>
+<p>Vamos testar aqui o log da nossa cobaia de plantão, o amigo Notepad (ou Bloco de Notas), exibindo um texto que demonstra com perfeição uma das minhas características mais bizarras: confundir expressões e frases prontas.</p>
+<p>Nota: Lembrando que estaremos testando em Windows XP 32 bits com um WinDbg igualmente 32 bits. Inicialmente comecei a testar a versão 64, mas ela também deu xabu. Aparentemente coisas periféricas do Debugging Tools nunca são muito bem testadas.</p>
+<pre><code>Cirandinha que bate bate
+Cirandinha de Sao Tome
+Quando Dona Chica virou os olhos
+Acumulhou milhas maritimas
+</code></pre>
+<p>O texto ainda não foi salvo em nenhum arquivo. Iremos salvá-lo, mas antes, vamos executar o WinDbg e ver como o Notepad realiza essa operação.</p>
+<pre><code>windbg -pn notepad.exe
+</code></pre>
+<p>A extensão/plugin que me referia é o Logexts.dll. Você pode instalar o log de API em um momento, habilitá-lo em outro, e até desabilitá-lo depois. Ou seja, é um processo ótimo para realizar inspeção pontual de chamadas API. Caso, claro, ele não exploda em um desses momentos.</p>
+<pre><code>(9c4.f04): Break instruction exception - code 80000003 (first chance)
+eax=7ffd9000 ebx=00000001 ecx=00000002 edx=00000003 esi=00000004 edi=00000005
+eip=7c90120e esp=003bffcc ebp=003bfff4 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000246
+*** ERROR: Symbol file could not be found.  Defaulted to export symbols for 
+C:\WINDOWS\system32\ntdll.dll - 
+ntdll!DbgBreakPoint:
+7c90120e cc              int     3
+0:001&gt; !logexts.logi 
+
+Windows API Logging Extensions  v3.01
+Parsing the manifest files...
+Location: C:\Temp\DbgTools(x86)\winext\manifest\main.h
+   Parsing file &quot;main.h&quot; ...
+   Parsing file &quot;winerror.h&quot; ...
+   Parsing file &quot;kernel32.h&quot; ...
+   ...
+   Parsing file &quot;dsound.h&quot; ...
+Parsing completed.
+Logexts injected. Output: &quot;C:\Documents and Settings...&quot;
+0:001&gt; g
+ModLoad: 50000000 50056000   C:\Temp\DbgTools(x86)\winext\logexts.dll
+Parsing the manifest files...
+Location: C:\Temp\DbgTools(x86)\winext\manifest\main.h
+   Parsing file &quot;main.h&quot; ...
+   Parsing file &quot;winerror.h&quot; ...
+   Parsing file &quot;kernel32.h&quot; ...
+   ...
+   Parsing file &quot;dsound.h&quot; ...
+Parsing completed.
+(9c4.664): Break instruction exception - code 80000003 (first chance)
+eax=7ffd9000 ebx=00000001 ecx=00000002 edx=00000003 esi=00000004 edi=00000005
+eip=7c90120e esp=003bffcc ebp=003bfff4 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000246
+ntdll!DbgBreakPoint:
+7c90120e cc              int     3
+0:001&gt; !logexts.loge
+Logging already initialized. Output &quot;C:\Documents and Settings\...&quot;
+Logging enabled.
+0:001&gt; g
+ModLoad: 77b40000 77b62000   C:\WINDOWS\system32\appHelp.dll
+ModLoad: 76fd0000 7704f000   C:\WINDOWS\system32\CLBCATQ.DLL
+...
+(9c4.41c): Break instruction exception - code 80000003 (first chance)
+eax=7ffd9000 ebx=00000001 ecx=00000002 edx=00000003 esi=00000004 edi=00000005
+eip=7c90120e esp=00f1ffcc ebp=00f1fff4 iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=0038  gs=0000             efl=00000246
+ntdll!DbgBreakPoint:
+7c90120e cc              int     3
+0:004&gt; !logexts.logd
+Logging disabled.
+0:004&gt; .detach
+Detached
+</code></pre>
+<p>Depois de gerarmos o que precisamos, podemos desatachar do processo e analisar o resultado: um arquivo LGV. Para abrir esse arquivo existe uma outra ferramenta chamada logviewer. Para evitar procurar em dezenas de milhares de chamadas, há uma opção de filtrar com apenas o que queremos (no caso, CreateFile e WriteFile).</p>
+<p>Depois de filtrado, podemos abrir a linha que nos interessa para ver como o programa utilizou a API (quais parâmetros, o retorno, etc). Nesse caso, por exemplo, houve uma falha antes na abertura do mesmo arquivo, mas isso porque houve uma tentativa de abrir um arquivo que já existe (abertura com direito de apenas leitura). Essa chamada foi feita pela DLL do diálogo comum de abertura/salvamento de arquivo do Windows (comdlg32.dll), e não pelo notepad.exe.</p>
+<p>Como já havia dito no artigo original sobre o logview, você pode criar seu próprio header com as definições das funções de um módulo e o WinDbg graciosamente irá gerar um log de chamadas, incluindo medidas de performance. Esses dados abertos pelo logviewer podem ser exportados também para modo texto. E temos mais uma maneira de perfcounter chulé para eventualidades.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=H%c3%a1%20muito%20tempo%20atr%c3%a1s%20eu%20havia%20falado%20sobre%20como%20a%20ferramenta%20logger.exe%2c%20do%20Debugging%20Tools%20for%20Windows%2c%20poderia%20ser...%20http%3a%2f%2fwww.caloni.com.br%2flog-de-apis-chamadas-direto-do-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/hancock/">Hancock<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/m-o-vampiro-de-dusseldorf/"><span class="icon"><i class="fa fa-arrow-left"></i></span>M, O Vampiro de Dusseldorf</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

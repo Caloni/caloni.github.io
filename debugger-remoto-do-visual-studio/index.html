@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Debugger remoto do Visual Studio</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Debugger remoto do Visual Studio"/>
+  <meta itemprop="description"
+        content="Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Debugger remoto do Visual Studio"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/debugger-remoto-do-visual-studio/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2017-06-13T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Debugger remoto do Visual Studio"/>
+  <meta name="twitter:description"
+        content="Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Debugger remoto do Visual Studio</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/debugger-remoto-do-visual-studio.md" title="History">
+    2017-06-13
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>5 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/debugger-remoto-do-visual-studio.md" title="GitHub">973</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Então você está quebrando a cabeça para descobrir por que seu código não faz o que deveria fazer? Então você é desses que acha que é melhor ficar imaginando com um bloquinho de papel na mão do que colocar logo a mão na massa e ver exatamente o código passando pelo processador? Talvez você mude de ideia ao ver como é ridiculamente fácil depurar código em uma máquina remota, seja uma VM ou a máquina do cliente. Neste post vou ensinar a maneira mais antiga e a mais nova que conheço de usar o depurador do Visual Studio. Vamos usar a versão 2003 e a versão 2017 RC.</p>
+<p>Há muito tempo atrás eu falei sobre o depurador remoto do C++ Builder, na época a ferramenta que eu mais utilizava para programar. Hoje disparado é o Visual Studio, já faz mais de uma década. Desde o VS2003 tem sido muito simples depurar remotamente. Tão simples que eu realmente esqueci que talvez algumas pessoas não saibam o quanto é útil essa ferramenta no dia-a-dia.</p>
+<p>É possível depurar qualquer executável, tendo seu código-fonte ou não. A diferença é que sem código você terá que olhar o assembly e se for compilado como release você pode olhar o código mas ele não fará muito sentido em alguns momentos (onde estão minhas variáveis locais?). O melhor dos mundos, é claro, é depurar um executável que você tenha os símbolos, o código e esteja compilado em debug. Daí o código irá falar com você da maneira mais fácil.</p>
+<p>É simples de achar essa opção no projeto em qualquer Visual Studio. Vá nas opções do projeto, Linker e irá encontrar em algum lugar sobre a geração do PDB. Não tenha medo de explorar as opções do projeto. Elas refletem como o XML do projeto muda (sim, é um XML). Se estiver querendo saber exatamente como ele muda, use um controle de fonte e vá experimentando.</p>
+<p>Para depurar pelo Visual Studio 2003 há um programa chamado msvcmon.exe que deve ser copiado e executado na máquina-alvo. Ele é um executável que pode ser copiado para qualquer lugar. Junto dele devem estar duas DLLs: a natdbgdm.dll e a natdbgtlnet.dll. Se você tiver o VS2003 instalado deve achar esses arquivos em algum lugar, ou no pior dos casos no CD de instalação. Por via das dúvidas sempre há um link amigo na internet para ajudar alguém a achar o que precisa.</p>
+<p>Copiados esses arquivos na máquina-alvo é necessário copiar também o executável. Afinal de contas, ele irá executar remotamente! O arquivo PDB, no entanto, você só precisa guardar com você. Lembre-se que toda recompilação em Debug altera de maneira significativa o PDB, então não recompile seu projeto enquanto estiver depurando. Se for fazê-lo, troque o executável na máquina-alvo.</p>
+<p>A primeira execução de toda ferramenta, seu help, irá nos mostrar o seguinte no msvcmon:</p>
+<pre><code>C:\Tools\msvcmon-vs2003&gt;msvcmon /?
+Microsoft (R) Visual C++ Remote Debug Monitor(x86) Version 7.10.3077
+Copyright (C) Microsoft Corporation 1987-2002. All rights reserved.
+
+Usage: msvcmon.exe [options]
+
+Options:
+
+-?
+        Display options
+
+-anyuser             (tcp/ip only)
+        Allow any user to debug through msvcmon
+
+-maxsessions number  (tcp/ip only)
+        Change the number of concurrent debug sessions allowed
+
+-nowowwarn
+        Do not warn when running under WOW64
+
+-s pipe_suffix_name  (pipe only)
+        Create main pipe with suffix pipe_suffix_name appended to pipe name
+
+-tcpip
+        Operate in tcp-ip mode
+
+-timeout seconds     (tcp/ip only)
+        Termination timeout - reset on every connection request
+        (use -1 for no timeout)
+
+-u xyz\abc           (pipe only)
+        Allow &quot;abc&quot; user/group in domain &quot;xyz&quot; to connect
+
+C:\Tools\msvcmon-vs2003&gt;
+</code></pre>
+<p>Minhas opções favoritas são -tcpip -anyuser -timeout -1, o que libera o acesso a qualquer usuário direto por TCP/IP e o timeout da execução é infinito. All access no limits =)</p>
+<pre><code>C:\Tools\msvcmon-vs2003&gt;msvcmon -tcpip -anyuser -timeout -1
+Microsoft (R) Visual C++ Remote Debug Monitor(x86) Version 7.10.3077
+Copyright (C) Microsoft Corporation 1987-2002. All rights reserved.
+Maximum number of concurrent sessions:20
+
+**TCP-IP Mode**
+
+WARNING: TCP-IP mode is not a secure way to debug your application. For better
+security use msvcmon in pipe mode or the default port in the processes
+dialog to debug your application.
+
+To use the default port you will need to install the full set of remote
+debugging components. For further information see 'Remote Debug Setup' in Help.
+
+*WARNING- infinite timeout value set. Msvcmon will not timeout and exit*
+Waiting for Connections - everyone is allowed access
+</code></pre>
+<p>Agora no Visual Studio 2003 vá em Debug, Processes (ou Ctrl+Alt+P para os íntimos) e escolha a opção de Transport como TCP/IP, digite o IP&hellip; explore sua ferramenta, poxa!</p>
+<p>Depois de conectar remotamente por essa janela o console do msvcmon irá mostrar que usuário se logou:</p>
+<pre><code>*WARNING- infinite timeout value set. Msvcmon will not timeout and exit*
+Waiting for Connections - everyone is allowed access
+        A Debug session has been started for user: Caloni
+</code></pre>
+<p>Para configurar o início da depuração remota pelo próprio projeto você terá que ir nas opções de debug dele e mexer em Remote Settings. Para começar os problemas é sempre bom lembrar que projetos compilados como debug precisam das DLLs de runtime do Visual Studio que sejam debug. Mas você já sabe disso.</p>
+<p>Depois que tudo isso estiver OK é só iniciar seus processos remotamente em modo de depuração ou atachar pela primeira janela que vimos.</p>
+<p>Agora você deve estar se perguntando: &ldquo;mas esse VS é muito velho! e os mais novos?&rdquo;</p>
+<p>Bom, desde o VS 2010 e até o VS2017 RC essa ferramenta está disponível na pasta de instalação, mudou um pouco de cara e você pode encontrar procurando por &ldquo;remote&rdquo;. No Caso do VS mais novo que tenho em mãos aqui, o 2017 RC, existe já uma pasta pronta para copiar e colar na máquina-alvo, em Common7, IDE, Remote Debugger. Há duas pastas disponíveis: x86 e x64. Dependendo do tipo de compilação que deseja realizar (e de qual o seu executável) copie uma das duas, rode o executável da pasta e apenas configure.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Ent%c3%a3o%20voc%c3%aa%20est%c3%a1%20quebrando%20a%20cabe%c3%a7a%20para%20descobrir%20por%20que%20seu%20c%c3%b3digo%20n%c3%a3o%20faz%20o%20que%20deveria%20fazer%3f%20Ent%c3%a3o%20voc%c3%aa%20%c3%a9%20desses...%20http%3a%2f%2fwww.caloni.com.br%2fdebugger-remoto-do-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/a-garota-ocidental/">A Garota Ocidental - Entre o Coração e a Tradição<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/mulher-do-pai/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Mulher do Pai</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

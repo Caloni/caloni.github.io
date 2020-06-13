@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - O velho problema do project out of date do Visual Studio</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="O velho problema do project out of date do Visual Studio"/>
+  <meta itemprop="description"
+        content="Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="O velho problema do project out of date do Visual Studio"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/o-velho-problema-do-project-out-of-date-do-visual-studio/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2017-02-20T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="O velho problema do project out of date do Visual Studio"/>
+  <meta name="twitter:description"
+        content="Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">O velho problema do project out of date do Visual Studio</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/o-velho-problema-do-project-out-of-date-do-visual-studio.md" title="History">
+    2017-02-20
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/o-velho-problema-do-project-out-of-date-do-visual-studio.md" title="GitHub">381</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &ldquo;o projeto está desatualizado: deseja compilar novamente?&quot;. Mas como assim? Eu acabei de compilar, não faz nem cinco segundos. Está quentinho, saiu do forno agora.</p>
+<p>Quando vem aquela fatídica mensagem do Visual Studio indicando que algo de errado não está certo: &ldquo;This project is out of date. Would you like to build it?&rdquo; (again?)</p>
+<p>Às vezes o Visual Studio cria umas esquisitices que se perpetuam por todas as versões. Isso tem algum sentido. Funciona mais ou menos assim a lógica do &ldquo;project out of date&rdquo;: se existir algum arquivo cuja data/hora eu não consigo verificar eu considero que o projeto está desatualizado. Por que? Pode ser que esse arquivo tenha que ser gerado automaticamente. Pode ser que houve erro de acesso. Pode ser várias coisas, mas ainda assim faz sentido.</p>
+<p>Exceto quando o arquivo realmente não existe.</p>
+<p>E isso é bem comum de acontecer em um projeto com algum refactory. Você acabou movendo alguns arquivos compartilhados entre projetos, mas em algum desses projetos o arquivo ainda está sendo apontado para o path errado, onde ele não mais existe. No entanto, por se tratar de um arquivo não-necessário para a compilação (ex: um header) não há erros na compilação. Apenas nessa detecção do Visual Studio.</p>
+<p>O problema é que não existe nenhuma dica do que está errado em condições normais de temperatura e pressão. Para conseguiu olhar mais detalhes temos que ir em Tools, Options e configurar mais saída para o build. Pelo menos como detailed. Isso fica em Options, Project and Solutions, Build and Run.</p>
+<p>A partir daí teremos mais saída na janela de output do build. Logo no começo (talvez pela equipe do VS saber que isso é bem comum) há uma dica de quais arquivos exige o rebuild (você pode fazer isso apenas clicanco em build do projeto que sempre acusa como out of date):</p>
+<pre><code>1&gt;----- Up-To-Date check: Project: myproject, Configuration: Debug Win32 -----
+1&gt;Prtoject not up to date because build input 'C:\Projects\headers\header_missing.hpp' is missing.
+</code></pre>
+<p>Depois de detectado o arquivo faltante, é só removê-lo ou atualizar o path. Esse erro não deve mais acontecer e agora você só precisa compilar uma vez e sair depurando.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Acho%20que%20todo%20mundo%20j%c3%a1%20passou%20por%20isso.%20Voc%c3%aa%20compila%20todo%20o%20projeto%20bonitinho%20e%20no%20final%2c%20ao%20depurar%2c%20ele%20faz%20aquela...%20http%3a%2f%2fwww.caloni.com.br%2fo-velho-problema-do-project-out-of-date-do-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/silencio/">Silêncio<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/personal-shopper/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Personal Shopper</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

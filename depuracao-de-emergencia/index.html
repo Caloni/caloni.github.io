@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Depuração de emergência</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Depuração de emergência"/>
+  <meta itemprop="description"
+        content="O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Depuração de emergência"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/depuracao-de-emergencia/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2011-07-26T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Depuração de emergência"/>
+  <meta name="twitter:description"
+        content="O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Depuração de emergência</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/depuracao-de-emergencia.md" title="History">
+    2011-07-26
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/depuracao-de-emergencia.md" title="GitHub">695</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O programa está rodando no servidor do cliente, que é acessível por sessão remota do Windows, mas de repente ele capota. Existem aí duas possibilidades fora o debug remoto (que, nesse caso, não é possível):</p>
+<ol>
+<li>
+<p>Analisar um dump gerado.</p>
+</li>
+<li>
+<p>Depurar localmente o problema.</p>
+</li>
+</ol>
+<p>Para a primeira opção, basta abrir o Gerenciador de Tarefas, localizar o processo e gerar o dump através do menu de contexto.</p>
+<p>Com o dump e o Windbg em mãos, basta analisá-lo. Porém, se o seu processo é 32 bits e o servidor é 64 bits (geralmente é), o dump gerado será de 64 bits, EMBORA seja de um process 32. Ou seja, ao abri-lo, o sistema vai mostrar as threads de manipulação do SO para sistemas 32 (todos com o nosso amigo wow64cpu).</p>
+<pre><code>Microsoft (R) Windows Debugger Version 6.12.0002.633 AMD64
+ Copyright (c) Microsoft Corporation. All rights reserved.
+
+
+Loading Dump File [C:\Tests\CrashOnServer.DMP]
+ User Mini Dump File with Full Memory: Only application data is available
+
+
+Executable search path is:
+ Windows 7 Version 7600 MP (2 procs) &lt;span style=&quot;color: #ff0000;&quot;&gt;Free x64&lt;/span&gt;
+ Product: WinNt, suite: SingleUserTS
+ Machine Name:
+ Debug session time: Tue Jul 26 09:26:23.000 2011 (UTC - 3:00)
+ System Uptime: 0 days 0:35:47.425
+ Process Uptime: 0 days 0:00:42.000
+ ...........WARNING: MSVCR100D overlaps MSVCP100D
+
+
+*** ERROR: Symbol file could not be found. Defaulted to export symbols for ntdll.dll -
+ *** ERROR: Symbol file could not be found. Defaulted to export symbols for wow64cpu.dll -
+ wow64cpu!TurboDispatchJumpAddressEnd+0x690:
+ 00000000`745d2dd9 c3 ret
+ 0:000&gt; kv
+ Child-SP RetAddr : Args to Child : Call Site
+ 00000000`001ce6c8 00000000`745d282c :  : wow64cpu!TurboDispatchJumpAddressEnd+0x690
+ *** ERROR: Symbol file could not be found. Defaulted to export symbols for wow64.dll -
+ 00000000`001ce6d0 00000000`7464d07e :  : wow64cpu!TurboDispatchJumpAddressEnd+0xe3
+ 00000000`001ce790 00000000`7464c549 :  : wow64!Wow64SystemServiceEx+0x1ce
+ 00000000`001ce7e0 00000000`76deae27 :  : wow64!Wow64LdrpInitialize+0x429
+ 00000000`001ced30 00000000`76de72f8 :  : ntdll!LdrGetKnownDllSectionHandle+0x1a7
+ 00000000`001cf230 00000000`76dd2ace :  : ntdll!RtlInitCodePageTable+0xe8
+ 00000000`001cf2a0 00000000`00000000 : : ntdll!LdrInitializeThunk+0xe
+
+
+Para entrar dentro do Inception, é necessário usar a extensão wow64exts e usar o comando &quot;.effmach x86&quot;.
+
+
+0:000&gt; .load wow64exts
+ 0:000&gt; .effmach x86
+ Effective machine: x86 compatible (x86)
+ 0:000:x86&gt; kv
+ ChildEBP RetAddr Args to Child
+ ..
+ 0035ec98 0035ecac 0035ecfc 0035ecac 0035ecfc ntdll_76f80000!KiUserExceptionDispatcher+0xf (FPO: [2,0,0])
+ *** WARNING: Unable to verify checksum for CrashOnServer.exe
+ WARNING: Frame IP not in any known module. Following frames may be wrong.
+ 0035f0bc 01181ca9 0035f198 0035f19c 00000000 0x35ecac
+ 0035f190 01181b7d 009d80a0 5fb4d717 00000000 CrashOnServer!Log::LogError+0x29
+ 0035fb08 01186f1f 00000001 009d1410 009d1c68 CrashOnServer!main+0x12d
+ 0035fb58 01186d4f 0035fb6c 76543677 7efde000 CrashOnServer!__tmainCRTStartup+0x1bf
+ 0035fb60 76543677 7efde000 0035fbac 76fb9f02 CrashOnServer!mainCRTStartup+0xf
+ 0035fb6c 76fb9f02 7efde000 771dc110 00000000 kernel32!BaseThreadInitThunk+0xe
+ 0035fbac 76fb9ed5 01181316 7efde000 00000000 ntdll_76f80000!__RtlUserThreadStart+0x70
+ 0035fbc4 00000000 01181316 7efde000 00000000 ntdll_76f80000!_RtlUserThreadStart+0x1b
+</code></pre>
+<p>Após esse último passo, siga para o último passo desse tutorial. Ou escolha a segunda opção:</p>
+<p>Para depurar localmente, supondo que seja um executável simples, você precisa dos seguintes itens:</p>
+<ul>
+<li>
+<p>Pasta do WinDbg copiado (a Debugging Tools instalada pelo SDK, ou sua pastinha particular guardada no PenDrive).</p>
+</li>
+<li>
+<p>Símbolos dos binários envolvidos (em sincronia com os binários que iremos analisar).</p>
+</li>
+<li>
+<p>Fontes da compilação dos binários (a versão exata seria ideal; grave o revno do controle de fonte pra facilitar).</p>
+</li>
+</ul>
+<p>Os fontes, no caso de uma conexão por Terminal Server, podem ser disponibilizados através do mapeamento de drives entre as máquinas. Os símbolos, no entanto, por serem usados extensivamente pelo WinDbg, é recomendável que estejam locais na máquina depurada, pois do contrário você terá que tomar uma quantidade excessiva de cafés para executar meia-dúzia de instruções.</p>
+<p>Supondo que temos tudo isso, só precisamos executar alguns passos básicos para o setup:</p>
+<pre><code>&lt;span style=&quot;font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px; white-space: pre;&quot; class=&quot;Apple-style-span&quot;&gt;.symfix 
+.sympath+ 
+.reload
+&lt;/span&gt;&lt;span style=&quot;font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px; white-space: pre;&quot; class=&quot;Apple-style-span&quot;&gt;.srcpath 
+&lt;/span&gt;&lt;span style=&quot;font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px; white-space: pre;&quot; class=&quot;Apple-style-span&quot;&gt;.reload /f CrashOnServer.exe&lt;/span&gt;
+
+
+0:000&gt; .symfix c:\tools\symbols
+ 0:000&gt; .sympath+ C:\Projetos\Caloni\Posts\Debug
+ Symbol search path is: srv*;C:\Projetos\Caloni\Posts\Debug
+ Expanded Symbol search path is: SRV*c:\tools\symbols*http://msdl.microsoft.com/download/symbols;c:\projetos\caloni\posts\debug
+ 0:000&gt; .reload
+ Reloading current modules
+ ......
+ 0:000&gt; .srcpath C:\Projetos\Caloni\Posts
+ Source search path is: C:\Projetos\Caloni\Posts
+ 0:000&gt; .reload /f CrashOnServer.exe
+ *** WARNING: Unable to verify checksum for CrashOnServer.exe
+ 0:000&gt; lm
+ start end module name
+ 00000000`01170000 00000000`01193000 CrashOnServer C (private pdb symbols) C:\Projetos\Caloni\Posts\Debug\CrashOnServer.pdb
+ 00000000`745d0000 00000000`745d8000 wow64cpu (deferred)
+ 00000000`745e0000 00000000`7463c000 wow64win (deferred)
+ 00000000`74640000 00000000`7467f000 wow64 (deferred)
+ 00000000`76da0000 00000000`76f4c000 ntdll (pdb symbols) c:\tools\symbols\ntdll.pdb\\ntdll.pdb
+ 00000000`76f80000 00000000`77100000 ntdll32 (deferred)
+</code></pre>
+<p>Por último, execute o seguinte comando na tela de comandos do WinDbg:</p>
+<pre><code>.hh
+</code></pre>
+<p>E boa sorte =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20programa%20est%c3%a1%20rodando%20no%20servidor%20do%20cliente%2c%20que%20%c3%a9%20acess%c3%advel%20por%20sess%c3%a3o%20remota%20do%20Windows%2c%20mas%20de%20repente%20ele%20capota....%20http%3a%2f%2fwww.caloni.com.br%2fdepuracao-de-emergencia%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/cuidado-com-variaveis-temporarias/">Cuidado com variáveis temporárias<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/harry-potter-e-as-reliquias-da-morte-parte-2/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Harry Potter e as Relíquias da Morte Parte 2</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

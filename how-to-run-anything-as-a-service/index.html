@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - How to run anything as a service</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="How to run anything as a service"/>
+  <meta itemprop="description"
+        content="The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="How to run anything as a service"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/how-to-run-anything-as-a-service/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-05-27T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="How to run anything as a service"/>
+  <meta name="twitter:description"
+        content="The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">How to run anything as a service</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/how-to-run-anything-as-a-service.md" title="History">
+    2008-05-27
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/how-to-run-anything-as-a-service.md" title="GitHub">304</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.</p>
+<p>Today I&rsquo;ve figured out a pretty interesting shortcut to achieve it.</p>
+<p>An Alex Ionescu article talks about this command line application used to create, initiate and remove services. Even not being the article focus, I found the information pretty useful, since I didn&rsquo;t know such app. Soon some ideas starting to born in my mind:</p>
+<p>&ldquo;What if I used this guy to run notepad?&rdquo;</p>
+<p>Well, the Notepad is the default test victim. Soon, the following line would prove possible to run it in the system account:</p>
+<pre><code>sc create Notepad binpath= &quot;%systemroot%NOTEPAD.EXE&quot; type= interact type= own
+</code></pre>
+<p>However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &ldquo;knows&rdquo; it is now a superpowerful service, the service initialization time is expired and SCM kills the process.</p>
+<pre><code>&gt;net start notepad
+The service is not responding to the control function.
+
+More help is available by typing NET HELPMSG 2186.
+</code></pre>
+<p>As would say my friend Thiago, &ldquo;not good&rdquo;.</p>
+<p>&ldquo;Yet however&rdquo;, SCM doesn&rsquo;t kill the child processes from the service-process. Bug? Feature? Workaround? Whatever it is, it can be used to initiate our beloved msvcmon:</p>
+<pre><code>set binpath=%systemroot%system32cmd.exe /c c:Toolsmsvcmon.exe -tcpip -anyuser -timeout -1
+sc create Msvcmon binpath= &quot;%binpath%&quot; type= interact type= own
+</code></pre>
+<p>Now, when we start Msvcmon service, the process cmd.exe will be create, that on the other hand will run the msvcmon.exe target process. Cmd in this case will only wait for its imminent death.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/english">english</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=The%20biggest%20advantage%20running%20an%20application%20as%20a%20service%2c%20interactive%20or%20not%2c%20is%20to%20allow%20its%20start%20before%20a%20logon%20be...%20http%3a%2f%2fwww.caloni.com.br%2fhow-to-run-anything-as-a-service%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/como-criar-uma-lib-no-visual-studio/">Como criar uma LIB no Visual Studio<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/aprendendo-rapidamente-conceitos-essenciais-do-windbg/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Aprendendo rapidamente conceitos essenciais do WinDbg</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

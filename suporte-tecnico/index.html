@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Suporte técnico</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Suporte técnico"/>
+  <meta itemprop="description"
+        content="Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Suporte técnico"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/suporte-tecnico/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2010-11-05T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Suporte técnico"/>
+  <meta name="twitter:description"
+        content="Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Suporte técnico</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/suporte-tecnico.md" title="History">
+    2010-11-05
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/suporte-tecnico.md" title="GitHub">590</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte mensagem:</p>
+<p>Erro de automação? (&ldquo;Mensagem do cliente - A classe não dá suporte para automação&rdquo;)</p>
+<p>Abaixo um exemplo simples para ter uma ideia em JS:</p>
+<pre><code>var win = window.open('minha_url_do_coracao.htm');
+win.focus(); // aqui dá o erro
+</code></pre>
+<p>A primeira coisa que se faz nesse caso é pesquisar no Google por pessoas que já tiveram esse problema. A maioria dizia ser necessária registrar novamente as DLLs do navegador/shell, coisa que fizemos à exaustão e não resolveu o problema. Também imaginamos haver relação com a versão da SDocVw.dll que estava alocada na lista de assemblies .NET cacheados, o chamado GAC. Ou seja, já estávamos viajando geral.</p>
+<p>No meio dos procedimentos batidos que todos fazem a lista abaixo resume bem:</p>
+<ul>
+<li>Restaurar instalação do Internet Explorer.</li>
+<li>Atualizar Internet Explorer.</li>
+<li>Rodar Windows Update.</li>
+<li>Registrar novamente DLLs do Shell (ShDocVw.dll, etc).</li>
+</ul>
+<p>No meio das análises não-tão-batidas que foram feitas estavam os seguintes itens:</p>
+<ul>
+<li>Log de operações pelo Process Monitor da abertura do browser até o erro.</li>
+<li>Dump gerado no momento da mensagem de erro.</li>
+<li>Comparação de registro exportado com máquina sadia.</li>
+</ul>
+<p>Nada parecia resolver o impasse, a não ser reinstalar o Windows, coisa que o cliente não queria. Dessa forma, A última tentativa não-enlouquecida de tentar descobrir a causa do problema foi usar uma VM e importar o registro exportado da máquina defeituosa.</p>
+<p>Que não revelou a anomalia.</p>
+<p>Partindo disso, imaginei que o que ocorria era que havia algo faltando no registro danificado, e não algo a mais. Dessa forma, realizei a seguinte operação:</p>
+<ul>
+<li>Exportei o registro da máquina saudável.</li>
+<li>Transformei a exportação em exclusão total das chaves.</li>
+<li>Importei ambos os registros no esquema &ldquo;apaga tudo cria tudo de novo&rdquo;.</li>
+</ul>
+<p>Problema reproduzido.</p>
+<p>Agora restava saber qual chave exata estava faltando e o que isso impactava no comportamento do browser.</p>
+<p>O registro exportado da VM possuía cerca de 30.000 linhas com chaves e sub-chaves. Se fosse feita a importação por partes, dividindo-se sempre pela metade e testando o acesso à página todas as vezes, teríamos no máximo que fazer uns 15 testes.</p>
+<p>Foi esse o procedimento seguido:</p>
+<ol>
+<li>Criar snapshot com o estado inalterado do registro.</li>
+<li>Apagar metade do registro original exportado (máquina real).</li>
+<li>Arrastar metade do registro original e importá-lo (apaga chaves).</li>
+<li>Importar registro danificado do cliente (já na VM).</li>
+<li>Se deu erro de novo, repassar os passos 2 a 3.</li>
+<li>Se não deu erro, testar os passos 3 e 4 com a outra metade.</li>
+</ol>
+<p>Essa série de passos foi reproduzida em menos de uma hora até chegarmos a apenas uma linha no registro:</p>
+<pre><code>[-HKEY_CLASSES_ROOT\CLSID\{C5598E60-B307-11D1-B27D-006008C3FBFB}]
+</code></pre>
+<p>Que se revelou pertencer à DLL dispex.dll:</p>
+<p>&ldquo;dispex.dll is a module that contains COM interfaces used by Visual Basic scripts&rdquo;</p>
+<p>Pesquisando soluções de restauração achei esse KB que explica que existe um aplicativo chamado McRepair que teoricamente conserta a bagunça.</p>
+<p>Não conserta.</p>
+<p>Porém, ao usar o Method 1 (registrar novamente a DLL) o problema foi resolvido. Exportei o registro antes e depois da operação e por algum motivo a máquina do cliente estava com o GUID das interfaces IDispatchEx e IObjectIdentity adulteradas:</p>
+<pre><code>Antes: C5598E60-B307-11D1-B27D-006008C3FBFB}
+Depois: 10E2414A-EC59-49D2-BC51-5ADD2C36FEBC}
+</code></pre>
+<p>Realizei o mesmo teste com nossa DLL que gerou o problema inicial e descobri que não houve mudanças nessa parte do registro por conta dela.</p>
+<p>Fica assim indefinida a origem do &ldquo;corrompimento&rdquo; dessa parte do registro, apesar de localizada.</p>
+<p>Esse artigo é pra mostrar que não é só de ifs e elses que vive um programador =)</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=M%c3%a1quina%20com%20parte%20do%20registro%20corrompida%2c%20notadamente%20alguma%20sub-chave%20de%20HKEYCLASSESROOT.%20Resultado%3a%20ao%20rodar%20um%20script...%20http%3a%2f%2fwww.caloni.com.br%2fsuporte-tecnico%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/jose-e-pilar/">José e Pilar<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-atleta/"><span class="icon"><i class="fa fa-arrow-left"></i></span>O Atleta</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Depurando até o último segundo</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Como depurar um programa que dá pau logo no final do desligamento de uma máquina?
+No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Depurando até o último segundo"/>
+  <meta itemprop="description"
+        content="Como depurar um programa que dá pau logo no final do desligamento de uma máquina?
+No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Depurando até o último segundo"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/depurando-ate-o-ultimo-segundo/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Como depurar um programa que dá pau logo no final do desligamento de uma máquina?
+No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2009-03-31T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Depurando até o último segundo"/>
+  <meta name="twitter:description"
+        content="Como depurar um programa que dá pau logo no final do desligamento de uma máquina?
+No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Depurando até o último segundo</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/depurando-ate-o-ultimo-segundo.md" title="History">
+    2009-03-31
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>2 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/depurando-ate-o-ultimo-segundo.md" title="GitHub">388</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Como depurar um programa que dá pau logo no final do desligamento de uma máquina?</p>
+<p>No cenário em que isso se passa não existem usuários logados no momento, o que significa a impossibilidade de rodar qualquer programa em uma sessão prévia e mantê-lo no ar após o logoff. A não ser que se trate de um serviço.</p>
+<p>O nosso programa é justamente um serviço, e por isso ele continua rodando até o final, ou bem perto dele. A primeira ideia que vem à mente é instalar o Msvcmon - depurador remoto do Visual Studio - como um serviço, como aliás já foi demonstrado neste blogue.</p>
+<p>Essa é uma boa ideia, de fato. Contudo, não podemos esquecer que a ordem de descarregamento dos serviços pode não favorecer o nosso depurador remoto e ele ir embora antes que consigamos &ldquo;atachar&rdquo; nosso VC no programa faltoso. Além do mais, a própria rede, que é disponibilizada com a ajuda de serviços, pode não estar no ar, mesmo que o Msvcmon esteja.</p>
+<p>Tudo bem, vamos dizer que você é um expert em configuração de dependências de serviços e conseguiu fazer com que a rede, o Msvcmon e o programa faltoso sejam os últimos serviços - com exceção dos drivers - a serem descarregados. Bravo!</p>
+<p>Contudo, isso não vai adiantar de muita coisa se for necessário parar a execução por um breve momento e analisar a pilha por, digamos,  cinco segundos. Esse é o tempo que o sistema - que continua rodando - precisa para desligar a máquina.</p>
+<p>Agora o problema é outro: não há tempo para análise durante a depuração, pois o sistema continua rodando. Nesse caso, teremos que ser mais radicais e parar o próprio sistema para que possamos depurar calmamente o problema. Isso implica em termos que utilizar um depurador de kernel (WinDbg), pois só ele tem poderes de congelar o sistema inteiro.</p>
+<p>Mas, ainda assim, precisamos de um depurador de user para fazer análises mais profundas ou, pelo menos, mais simples, com a ajuda de símbolos e tudo mais. Nesse caso é necessário usar um depurador de user que redireciona o controle para o depurador de kernel. A transição user mode &raquo; kernel mode pode ser feita com apenas algumas configurações antes do reboot.</p>
+<p>E, após toda essa bagunça, podemos depurar, no conforto de uma VM, o bendito programa matador.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Como%20depurar%20um%20programa%20que%20d%c3%a1%20pau%20logo%20no%20final%20do%20desligamento%20de%20uma%20m%c3%a1quina%3f%0aNo%20cen%c3%a1rio%20em%20que%20isso%20se%20passa%20n%c3%a3o...%20http%3a%2f%2fwww.caloni.com.br%2fdepurando-ate-o-ultimo-segundo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/a-fila-das-threads/">A fila das threads<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/provas-de-conceito-yes/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Provas de conceito... yes!</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

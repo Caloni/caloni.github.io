@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Typedef arcaico</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Typedef arcaico"/>
+  <meta itemprop="description"
+        content="A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Typedef arcaico"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/typedef-arcaico/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2010-04-20T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Typedef arcaico"/>
+  <meta name="twitter:description"
+        content="A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Typedef arcaico</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/typedef-arcaico.md" title="History">
+    2010-04-20
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>6 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/typedef-arcaico.md" title="GitHub">1250</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>A API do Windows geralmente prima pela excelência em maus exemplos. A Notação Húngara e o Typedef Arcaico são duas técnicas que, por motivos históricos, são usados a torto e a direito pelos códigos de exemplo.</p>
+<p>Já foi escrito muita coisa sobre os prós e contras da notação húngara. Já o typedef arcaico, esse pedacinho imprestável de código, ficou esquecido, e hoje em dia traz mais dúvidas na cabeça dos principiantes em C++ do que deveria. Para tentar desobscurecer os mitos e fatos, vamos tentar explicar o que significa essa construção tão atípica, mas comum no dia-a-dia.</p>
+<p>Vejamos um exemplo típico desse pequeno Frankenstein semântico:</p>
+<pre><code>typedef struct _MINHASTRUCT {
+   int x;
+   int y;
+}
+MINHASTRUCT, *LPMINHASTRUCT;
+</code></pre>
+<p>Bom, eu nem sei por onde começar. Talvez pelo conceito de typedef.</p>
+<p>Um typedef, basicamente, é um apelido. Você informa um tipo e define &ldquo;outro tipo&rdquo;.</p>
+<pre><code>typedef tipo apelido;
+</code></pre>
+<p>O tipo é tudo que fica entre o typedef e o novo nome, que deve ser um identificador válido na linguagem. Por exemplo, a empresa onde trabalho fez um typedef informal do meu nome:</p>
+<pre><code>typedef Wanderley Caloni Wandeco;
+</code></pre>
+<p>Se, futuramente, eu sair da empresa e entrar outro &ldquo;Wanderley alguma-coisa&rdquo;, será possível usar o apelido novamente, bastando alterar o typedef:</p>
+<pre><code>typedef Wanderley Cardoso Wandeco;
+</code></pre>
+<blockquote>
+<p>Bom, &ldquo;outro tipo&rdquo; é forma de dizer. Isso é uma descrição errônea em muitos livros. De fato, o compilador enxerga o mesmo tipo com outro nome, daí chamarmos o typedef de apelido, mesmo.</p>
+</blockquote>
+<pre><code>/** @file dois_apelidos.cpp */
+#include &lt;iostream&gt;
+
+using namespace std;
+
+struct Struct
+{
+   int x;
+   int y;
+};
+
+typedef Struct Struct1;
+typedef Struct Struct2;
+
+int main()
+{
+   Struct1 s1;
+   Struct2 s2;
+
+   cout &lt;&lt; typeid(s1).name() &lt;&lt; endl;
+   cout &lt;&lt; typeid(s2).name() &lt;&lt; endl;
+}
+
+
+C:\Tests&gt;cl /EHsc dois_apelidos.cpp
+...
+/out:dois_apelidos.exe
+dois_apelidos.obj
+
+C:\Tests&gt;dois_apelidos.exe
+
+struct Struct struct Struct
+</code></pre>
+<p>Tipos simples são fáceis de entender porque possuem seus símbolos no mesmo lugar:</p>
+<pre><code>int x;
+char c;
+long p;
+</code></pre>
+<p>Já os tipos um pouco mais complicados permite alguma mudança aqui e acolá:</p>
+<pre><code>int* x;
+char * y;
+long * p;
+</code></pre>
+<p>Essa liberdade da linguagem, mesmo sendo um recurso útil, pode ser bem nocivo dependendo de quem olha o código:</p>
+<pre><code>int x, y; // dois inteiros
+int * x, y; // um ponteiro para inteiro e um inteiro
+int x, *y; // um inteiro e um ponteiro para inteiro
+int *x, y; // um ponteiro para inteiro e um inteiro
+</code></pre>
+<p>Em algumas formas da sintaxe, além de ser inevitável, gera bastante desconfiança:</p>
+<pre><code>// Um ponteiro para função que recebe dois inteiros e não retorna nada.
+typedef void (* FP )(int, int);
+
+// Um ponteiro para função que recebe dois inteiros e não retorna nada.
+void (*)(int, int);
+
+// Um cast para ponteiro para função que recebe dois inteiros e não retorna nada.
+( ( void (*)(int, int) ) pf )(x, y);
+
+#include &lt;iostream&gt;
+
+void func(int x, int y)
+{
+   std::cout &lt;&lt; x &lt;&lt; '-' &lt;&lt; y &lt;&lt; '\n';
+}
+
+int main()
+{
+   void* pf = func;
+   ( ( void (*)(int, int) ) pf )(3, 14);
+}
+</code></pre>
+<p>Antigamente, as structs eram construções em C que definiam um agregado de tipos primitivos (ou outras structs) e que poderiam gerar variáveis desse tipo em qualquer lugar, desde que informado seu nome e que se tratasse de uma struct:</p>
+<pre><code>/** @file structs.cpp */
+struct MyStruct { int x, y; };
+
+void func1()
+{
+   struct MyStruct ms;
+   //...
+}
+
+void func2(struct MyStruct msa)
+{
+   //...
+}
+
+int main()
+{
+   struct MyStruct ms;
+   func2(ms);
+}
+</code></pre>
+<p>Para evitar toda essa digitação, os programadores usavam um pequeno truque criando um apelido para a estrutura, e usavam o apelido no lugar da struct (apesar de ambas representarem a mesma coisa).</p>
+<pre><code>struct MyStruct { int x, y; };
+typedef struct MyStruct MS;
+</code></pre>
+<p>ou</p>
+<pre><code>typedef struct MyStruct { int x, y; } MS;
+struct MyStruct ms1; // ainda prolixo
+MS ms2; // mais simples
+</code></pre>
+<p>Com a definição da linguagem C++ padrão, e mais moderna, essa antiguidade foi removida, apesar de ainda suportada. Era possível usar apenas o nome do struct como seu tipo:</p>
+<pre><code>/** @file structs.cpp */
+struct MyStruct { int x, y; };
+
+void func1()
+{
+   /*struct*/ MyStruct ms;
+   //...
+}
+
+void func2(/*struct*/ MyStruct msa)
+{
+   //...
+}
+
+int main()
+{
+   /*struct*/ MyStruct ms;
+   func2(ms);
+}
+</code></pre>
+<p>Porém, isso vai um pouco além de quando a Microsoft começou a fazer código para seu sistema operacional. Naquela época, o padrão ainda estava se formando e existia mais ou menos um consenso de como seria a linguagem C++ (sem muitas alterações do que de fato a linguagem C já era). De qualquer forma, a linguagem C imperava bem mais que C++. Dessa forma, já era bem formada a ideia de como declarar uma struct: a forma antiga.</p>
+<pre><code>typedef struct _MINHASTRUCT {
+   int x;
+   int y;
+}
+MINHASTRUCT, *LPMINHASTRUCT;
+</code></pre>
+<p>Além do uso controverso do sublinhado para nomear entidades (que no padrão foi recomendado que se reservasse aos nomes internos da biblioteca-padrão) e do uso de MAÍUSCULASNONOME (historicamente atribuído a nomes definidos no pré-processador), o uso do typedef atracado a um struct era muito difundido. E ficou ainda mais depois que a API do Windows foi publicada com essas definições.</p>
+<p>Ora, do mesmo jeito que é feito há vinte anos: sem typedefs. O próprio paradigma da linguagem, independente de padrões de APIs, de sistemas operacionais ou de projetos específicos já orienta o programador para entender o que o espera na leitura de um código-fonte qualquer. Qualquer pessoa que aprendeu o básico do básico sobre ponteiros e structs consegue ler o código abaixo:</p>
+<pre><code>// Papai, o que que é isso?
+// Ora, filho, apenas uma definição de estrutura!
+//
+struct MinhaStruct {
+   int x;
+   int y;
+};
+
+// muitas linhas abaixo...
+
+void func(MinhaStruct* ms)
+{
+   // asterisco significa ponteiro para MinhaStruct!
+}
+
+int main()
+{
+   MinhaStruct ms;
+   func(&amp;ms);
+}
+</code></pre>
+<p>Agora, para entender a forma antiga, ou você se baseou no copy&amp;paste dos modelos Microsoftianos, ou seja, decoreba, ou você é PhD em Linguagem C/C++ e padrões históricos de linguagens legadas. Se não é, deveria começar o curso agora.</p>
+<pre><code>// Papai, o que que é isso?
+// Ora, filho, apenas uma definição de sinônimo da struct
+// _MINHASTRUCT, cujo nome não é usado, para dois nomes
+// em maiúsculas, apesar se não serem defines, com uma
+// nomenclatura de ponteiro que eu nunca vi na vida (obs: 
+// papai programa em um sistema não-Windows).
+//
+typedef struct _MINHASTRUCT {
+   int x;
+   int y;
+}
+MINHASTRUCT, *LPMINHASTRUCT;
+
+// muitas linhas abaixo...
+
+void func(LPMINHASTRUCT ms)
+{
+   // o que diabos é um LP, mesmo?
+}
+
+int main()
+{
+   MINHASTRUCT ms;
+   func(&amp;ms);
+}
+</code></pre>
+<p>Da mesma forma, o uso de uma estrutura simples de tipos mantém a lista de nomes do seu projeto limpa e clara. Compare o visualizador de classes em projetos Windows com algo mais C++ para ter uma ideia.</p>
+<p>É claro, essa é apenas uma sugestão. Existem vantagens em sua utilização. Existe alguma vantagem no modo antigo? Existe: a Microsoft usa, e talvez mais pessoas usem. Basta a você decidir qual deve ser o melhor caminho.</p>
+<p>De acordo com o leitor  Adriano dos Santos Fernandes, a obrigatoriedade do nome struct após seu nome continua valendo para a linguagem C padrão, assim como no compilador GCC ocorre um erro ao tentar omiti-la. Apenas na linguagem C++ essa obrigatoriedade não existe mais.</p>
+<p>Eu não fiz meus testes, mas confio no diagnóstico de nosso amigo. A maior falha do artigo, no entanto, é usar a linguagem C como base, quando na verdade ele deveria falar sobre o uso desses typedefs em C++. Esse erro também foi corrigido no original.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=A%20API%20do%20Windows%20geralmente%20prima%20pela%20excel%c3%aancia%20em%20maus%20exemplos.%20A%20Nota%c3%a7%c3%a3o%20H%c3%bangara%20e%20o%20Typedef%20Arcaico%20s%c3%a3o%20duas...%20http%3a%2f%2fwww.caloni.com.br%2ftypedef-arcaico%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/por-que-long-pointer/">Por que Long Pointer<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/mary-e-max-uma-amizade-diferente/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Mary e Max uma Amizade Diferente</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

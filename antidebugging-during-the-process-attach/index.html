@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Antidebugging during the process attach</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Antidebugging during the process attach"/>
+  <meta itemprop="description"
+        content="Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Antidebugging during the process attach"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/antidebugging-during-the-process-attach/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-08-05T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Antidebugging during the process attach"/>
+  <meta name="twitter:description"
+        content="Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Antidebugging during the process attach</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/antidebugging-during-the-process-attach.md" title="History">
+    2008-08-05
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/antidebugging-during-the-process-attach.md" title="GitHub">726</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Today was a great day for reverse engineering and protection analysis. I&rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first program site - from a enthusiastic of the good for all Win32 Assembly - I&rsquo;ve found the source code for one more antidebugging technique, what bring us back to our series of antidebugging techniques.</p>
+<p>The purpose of this protection is to detect if some debugger tries to attach into our running process. The attach to process operation is pretty common in all known debugger, as WinDbg and Visual Studio. Different from the DebugPort protection, this solution avoids the attach action from the debuggee program. In this case the protection can make choices about what to do on the event of attach (terminate the process, send an e-mail, etc).</p>
+<p>The code I&rsquo;ve found does nothing more than to make use of the attach process function that&rsquo;s always called: the ntdll!DbgUiRemoteBreakin. Being always called, we can just to put our code there, what is relatively easy to do:</p>
+<pre><code>#include &lt;windows.h&gt;
+#include &lt;iostream&gt;
+#include &lt;assert.h&gt;
+
+using namespace std;
+
+/** This function is triggered when a debugger try to attach into our process.
+*/
+void AntiAttachAbort()
+{
+    // this is a test application, remember?
+    MessageBox(NULL, &quot;Espertinho, hein?&quot;, &quot;AntiAttachDetector&quot;, MB_OK | MB_ICONERROR);
+
+    // this is the end
+    TerminateProcess(GetCurrentProcess(), -1);
+}
+
+/** This function installs  a trigger that is activated when a debugger try to attach.
+@see AntiAttachAbort.
+*/
+void InstallAntiAttach()
+{
+    PVOID attachBreak = GetProcAddress(
+        GetModuleHandle(&quot;ntdll&quot;), // this dll is ALWAYS loaded
+        &quot;DbgUiRemoteBreakin&quot;); // this function is ALWAYS called on the attach event
+
+    assert(attachBreak); // attachBreak NEVER can be null
+
+    // opcodes to run a jump to the function AntiAttachAbort
+    BYTE jmpToAntiAttachAbort[] =
+    { 0xB8, 0xCC, 0xCC, 0xCC, 0xCC,   // mov eax, 0xCCCCCCCC
+    0xFF, 0xE0 };                     // jmp eax
+
+    // we change 0xCCCCCCCC using a more useful address
+    *reinterpret_cast&lt;PVOID*&gt;(&amp;jmpToAntiAttachAbort[1]) = AntiAttachAbort;
+
+    DWORD oldProtect = 0;
+
+    if( VirtualProtect(attachBreak, sizeof(jmpToAntiAttachAbort), 
+        PAGE_EXECUTE_READWRITE, &amp;oldProtect) )
+    {
+        // if we can change the code page protection we put a jump to our code
+        CopyMemory(attachBreak, 
+            jmpToAntiAttachAbort, sizeof(jmpToAntiAttachAbort));
+
+        // restore old protection
+        VirtualProtect(attachBreak, sizeof(jmpToAntiAttachAbort), 
+            oldProtect, &amp;oldProtect);
+    }
+}
+
+/** In the beginning, God said: 'int main!'
+*/
+int main()
+{
+    InstallAntiAttach();
+    cout &lt;&lt; &quot;Try to attach, if you can...&quot;;
+    cin.get();
+} 
+</code></pre>
+<p>To compile the code above, just call the compiler and linker normally. Obs.: We need the user32.lib in order to call MessageBox API:</p>
+<pre><code>cl /c antiattach.cpp
+link antiattach.obj user32.lib
+
+
+antiattach.exe
+Try to attach, if you can...
+</code></pre>
+<p>After the program has been running, every try to attach will show a detection message and program termination.</p>
+<pre><code>windbg -pn antiattach.exe
+
+
+&lt;a href=&quot;/images/mdRqvjp.png&quot; title=&quot;Detecção de attach&quot;&gt;&lt;img src=&quot;/images/mdRqvjp.png&quot; alt=&quot;Detecção de attach&quot;&gt;&lt;/img&gt;&lt;/a&gt;
+</code></pre>
+<p>Yes, I know. Sometimes we have to use &ldquo;brute force codding&rdquo; and make obscure codes, like this:</p>
+<pre><code>// opcodes to run a jump to the function AntiAttachAbort
+BYTE jmpToAntiAttachAbort[] =
+{ 0xB8, 0xCC, 0xCC, 0xCC, 0xCC,   // mov eax, 0xCCCCCCCC
+0xFF, 0xE0 };                     // jmp eax
+
+// we change 0xCCCCCCCC using a more useful address
+*reinterpret_cast&lt;PVOID*&gt;(&amp;jmpToAntiAttachAbort[1]) = AntiAttachAbort; 
+</code></pre>
+<p>There are a lot of ways to do the same thing. The example above is what is normally called in the crackers community as a shellcode, what is a pretty name for &ldquo;byte array that is really the assembly code that does interesting things&rdquo;. Shellcode for short =).</p>
+<p>Alternative ways to do this are:</p>
+<ol>
+<li>
+<p>To declare a naked function in Visual Studio, to create an empty function just after, do some math to calculate the size of the function to be copied into another place (aware of Edit and Continue option).</p>
+</li>
+<li>
+<p>To create a structure whose members are masked opcodes. This way, is possible in the constructor to receive the values and use it as a &ldquo;mobile function&rdquo;.</p>
+</li>
+</ol>
+<p>Both have pros and cons. The cons are related with the environment dependency. In the first alternative is necessary to configure the project to disable &ldquo;Edit and Continue&rdquo; option, whilst in the second one is necessary to align 1 byte the structure.</p>
+<p>Anyway, given the implementation, the main advantage is to isolate the code in only two functions - AntiAttachAbort and InstallAntiAttach - an API local hook (in the same process) that should never be called in production code. Besides, there are C++ ways to do such thing like &ldquo;live assembly&rdquo;. But this is matter for other future and exciting articles.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Today%20was%20a%20great%20day%20for%20reverse%20engineering%20and%20protection%20analysis.%20I%26rsquo%3bve%20found%20two%20great%20programs%20to%20to%20these...%20http%3a%2f%2fwww.caloni.com.br%2fantidebugging-during-the-process-attach%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/aprendizado-em-kernel-mode/">Aprendizado em kernel mode<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/antidebugging-using-the-debugport/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Antidebugging using the DebugPort</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

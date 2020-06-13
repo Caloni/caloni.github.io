@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Como fazer merge de projetos distintos no Bazaar</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Como fazer merge de projetos distintos no Bazaar"/>
+  <meta itemprop="description"
+        content="O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Como fazer merge de projetos distintos no Bazaar"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/como-fazer-merge-de-projetos-distintos-no-bazaar/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-06-16T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Como fazer merge de projetos distintos no Bazaar"/>
+  <meta name="twitter:description"
+        content="O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Como fazer merge de projetos distintos no Bazaar</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/como-fazer-merge-de-projetos-distintos-no-bazaar.md" title="History">
+    2008-06-16
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/como-fazer-merge-de-projetos-distintos-no-bazaar.md" title="GitHub">719</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.</p>
+<p>No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?</p>
+<p>Até que veio o dia de juntar.</p>
+<p>O processo de merge de um controle de fonte supõe que os branches começaram em algum ponto em comum; do contrário não há como o controlador saber as coisas que mudaram em paralelo. Pois é achando a modificação ancestral, pai de ambos os branches, que ele irá medir a dificuldade de juntar as versões novamente. Se não existe ancestral, não existe análise. Como exemplificado na figura:</p>
+<p>Acontece que existe um plugin esperto que consegue migrar revisões (commits) entre branches sem qualquer parentesco. Não me pergunte como ele faz isso. Mas ele faz. E foi assim que resolvemos o problema dos branches órfãos.</p>
+<p>Para instalar o plugin do rebase, basta baixá-lo e copiar sua pasta extraída com um nome válido no Python (rebase, por exemplo). A partir daí os comandos do plugin estão disponíveis no prompt do Bazaar, assim como a instalação de qualquer plugin que cria novos comandos.</p>
+<pre><code>&gt;bzr help commands
+add             Add specified files or directories.
+annotate        Show the origin of each line in a file.
+bind            Convert the current branch into a checkout of the supplied branch.
+branch          Create a new copy of a branch.
+...
+push            Update a mirror of this branch.
+rebase          Re-base a branch. [rebase]
+rebase-abort    Abort an interrupted rebase [rebase]
+rebase-continue Continue an interrupted rebase after resolving conflicts [rebase]
+rebase-todo     Print list of revisions that still need to be replayed as part of the  [rebase]
+reconcile       Reconcile bzr metadata in a branch.
+reconfigure     Reconfigure the type of a bzr directory.
+register-branch Register a branch with launchpad.net. [launchpad]
+remerge         Redo a merge.
+remove          Remove files or directories.
+remove-tree     Remove the working tree from a given branch/checkout.
+renames         Show list of renamed files.
+replay          Replay commits from another branch on top of this one. [rebase]
+resolve         Mark a conflict as resolved.
+revert          Revert files to a previous revision.
+...
+whoami          Show or set bzr user id.
+</code></pre>
+<p>O comando que usamos foi o replay, que não é comando principal do plugin, mas que resolve esse problema de maneira quase satisfatória. Como era tudo o que tínhamos, valeu a pena.</p>
+<p>O processo que usei foi de usar esse comando n vezes para buscar revisões de um branch e colocar no outro. Um grande problema com ele é que ao encontrar merges no branch origem ele se perde e o usuário tem que fazer as modificações &ldquo;na mão&rdquo;. Deu um pouco de trabalho, mas conseguimos migrar nossos commits mais importantes e deixar o projeto inteiro, Linux+Windows, em um branch só.</p>
+<pre><code>C:\Tests&gt;bzr init linux
+
+C:\Tests&gt;cd linux
+
+C:\Tests\linux&gt;copy con lnx
+linux
+^Z
+        1 arquivo(s) copiado(s).
+
+C:\Tests\linux&gt;bzr add
+added lnx
+
+C:\Tests\linux&gt;bzr commit -m &quot;Linux 1&quot;
+Committing to: C:/Tests/linux/
+added lnx
+Committed revision 1.
+
+C:\Tests\linux&gt;copy con lnx2
+linux2
+^Z
+        1 arquivo(s) copiado(s).
+
+C:\Tests\linux&gt;bzr add
+added lnx2
+
+C:\Tests\linux&gt;bzr commit -m &quot;Linux 2&quot;
+Committing to: C:/Tests/linux/
+added lnx2
+Committed revision 2.
+
+C:\Tests\linux&gt;cd ..
+
+C:\Tests&gt;bzr init windows
+
+C:\Tests&gt;cd windows
+
+C:\Tests\windows&gt;copy con win1
+windows
+^Z
+        1 arquivo(s) copiado(s).
+
+C:\Tests\windows&gt;bzr add
+added win1
+
+C:\Tests\windows&gt;bzr commit -m &quot;Windows 1&quot;
+Committing to: C:/Tests/windows/
+added win1
+Committed revision 1.
+
+C:\Tests\windows&gt;copy con win2
+windows2
+^Z
+        1 arquivo(s) copiado(s).
+C:\Tests\windows&gt;bzr add
+added win2
+
+C:\Tests\windows&gt;bzr commit -m &quot;Windows 2&quot;
+Committing to: C:/Tests/windows/
+added win2
+Committed revision 2.
+
+C:\Tests\linux&gt;cd ..
+
+C:\Tests&gt;cd linux
+
+C:\Tests\linux&gt;bzr replay ..\windows -r1..2
+All changes applied successfully.
+Committing to: C:/Tests/linux/
+added win1
+Committed revision 3.
+All changes applied successfully.
+Committing to: C:/Tests/linux/
+added win2
+Committed revision 4.
+
+
+C:\Tests\linux&gt;bzr log
+------------------------------------------------------------
+revno: 4
+committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+branch nick: windows
+timestamp: Mon 2008-06-16 07:17:10 -0300
+message:
+  Windows 2
+------------------------------------------------------------
+revno: 3
+committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+branch nick: windows
+timestamp: Mon 2008-06-16 07:16:52 -0300
+message:
+  Windows 1
+------------------------------------------------------------
+revno: 2
+committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+branch nick: linux
+timestamp: Mon 2008-06-16 07:16:24 -0300
+message:
+  Linux 2
+------------------------------------------------------------
+revno: 1
+committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+branch nick: linux
+timestamp: Mon 2008-06-16 07:16:01 -0300
+message:
+  Linux 1
+
+C:\Tests\linux&gt;ls
+lnx  lnx2  win1  win2
+
+C:\Tests\linux&gt;
+</code></pre>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20problema%20foi%20o%20seguinte%3a%20N%c3%b3s%20iniciamos%20o%20controle%20de%20fonte%20pelo%20Bazaar%20na%20parte%20Linux%20do%20projeto%2c%20j%c3%a1%20que%20ela%20n%c3%a3o%20iria...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-fazer-merge-de-projetos-distintos-no-bazaar%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/alinhamento-de-memoria-portavel/">Alinhamento de memória portável<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/primeiro-ano-do-novo-calonicombr/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Primeiro ano do novo Caloni.com.br</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

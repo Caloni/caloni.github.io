@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Shareando Ponteiros</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Shareando Ponteiros"/>
+  <meta itemprop="description"
+        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Shareando Ponteiros"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/shareando-ponteiros/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2014-09-03T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Shareando Ponteiros"/>
+  <meta name="twitter:description"
+        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Shareando Ponteiros</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/shareando-ponteiros.md" title="History">
+    2014-09-03
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>7 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/shareando-ponteiros.md" title="GitHub">1289</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar, certo? E já que é pra começar, eu gostaria muito de saber de você, programador miserável, que passou poucas e boas nesses 10 anos de padrão 98 brincando com templates quando eles ainda estavam em beta: se fosse para melhorar um aspecto da sua vida de código, qual seria? Qual é aquela coisa que te atormenta como insetos vidrados no seu monitor noite adentro?</p>
+<p>Que tal alocação de memória e ponteiros? Vamos matar dois coelhos com um template só?</p>
+<p>&ldquo;Ah, mas tem que usar alguma biblioteca bizarra com milhões de dependências e que vai quebrar todo o fonte aqui da empresa. Sem contar que vai ter que passar de novo pelos unit tests, vai dar erro de compilação, a LIB XPTO não funciona sem dar três pulinhos virado para a cafeteira e&hellip;&rdquo;</p>
+<p>Cada caso é um caso, existe o melhor dos mundos e o pior. Mas (quase) todos têm solução. Mesmo que tudo que você tenha disponível seja um bartante e um clipe, podemos tentar alguma mágica/gambiarra/adaptação técnica. Vamos ver os casos mais comuns:</p>
+<p>Um cenário perfeito para começar. A única coisa que você precisa fazer em seus novos projetos e refatorações é incluir um único cabeçalho:</p>
+<pre><code>#include &lt;memory&gt;
+</code></pre>
+<p>E pronto! Se abriu um mundo mágico onde as alocações serão compartilhadas entre funções sem se perder quem deleta o quê. Não precisa nem checar se o ponteiro é nulo, basta alocar direto e jogar para dentro do nosso mais novo smart pointer da STL:</p>
+<pre><code>#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+struct Person
+{
+    Person() { std::cout &lt;&lt; &quot;Person created\n&quot;; }
+    ~Person() { std::cout &lt;&lt; &quot;Person destroyed\n&quot;; }
+    std::string name;
+    std::string surname;
+    int age;
+    std::string phone;
+};
+
+typedef std::shared_ptr&lt;Person&gt; PersonRef;
+
+PersonRef CreatePerson()
+{
+    return PersonRef(new Person);
+}
+
+void GetName(PersonRef person)
+{
+    person-&gt;name = &quot;Carl&quot;;
+}
+
+void GetSurName(PersonRef person)
+{
+    person-&gt;surname = &quot;Sagan&quot;;
+}
+
+void GetAge(PersonRef person)
+{
+    person-&gt;age = 79;
+}
+
+void GetPhone(PersonRef person)
+{
+    person-&gt;phone = &quot;+01 042 4242-4242&quot;;
+}
+
+void PrintPerson(PersonRef person)
+{
+    std::cout &lt;&lt; &quot;Name: &quot; &lt;&lt; person-&gt;name &lt;&lt; &quot; &quot; &lt;&lt; person-&gt;surname
+        &lt;&lt; &quot;\nAge: &quot; &lt;&lt; person-&gt;age
+        &lt;&lt; &quot;\nPhone: &quot; &lt;&lt; person-&gt;phone
+        &lt;&lt; std::endl;
+}
+
+void CreateAndPrintPerson()
+{
+    PersonRef person = CreatePerson();
+    GetName(person);
+    GetSurName(person);
+    GetAge(person);
+    GetPhone(person);
+    PrintPerson(person);
+}
+
+int main()
+{
+    CreateAndPrintPerson();
+}
+</code></pre>
+<p>E pronto: você nunca mais vai precisar se preocupar com quem deleta o ponteiro, nem quantas cópias desse ponteiro andam por aí. O sharedptr da STL, assim como a versão que já tem faz um tempo no boost, mantém um contador de referência para cada cópia do objeto que mantém o mesmo ponteiro &ldquo;dentro de si&rdquo;. Só quando esse contador chegar a zero, ou seja, não há mais ninguém referenciando essa região da memória, o ponteiro é deletado.</p>
+<p>O std::sharedptr funciona desde o SP1 do Visual Studio 2010. Sem Service Pack ou em versões mais antigas pode haver disponível no namespace tr1, resquício de quando esse novo padrão ainda estava em definição.</p>
+<p>Vou imaginar que você usa o Visual Studio 2003, um dos primeiros da safra &ldquo;.NET&rdquo;, que, mais uma vez, NÃO TEM QUALQUER RELAÇÃO COM C++ .NET.</p>
+<p>Bem, nesse caso, &ldquo;welcome&hellip; to the desert&hellip; of the double&rdquo;:</p>
+<pre><code>&lt;code&gt;------ Build started: Project: VS2003, Configuration: Debug Win32 ------
+Compiling...
+usando-shared-ptr.cpp
+shared-ptr.cpp(15) : error C2039: 'shared_ptr' : is not a member of 'std'
+shared-ptr.cpp(15) : error C2143: syntax error : missing ';' before '&lt;'
+shared-ptr.cpp(18) : error C2146: syntax error : missing ';' before identifier 'CreatePerson'
+shared-ptr.cpp(18) : error C2501: 'PersonRef' : missing storage-class or type specifiers
+shared-ptr.cpp(20) : error C2064: term does not evaluate to a function taking 1 arguments
+shared-ptr.cpp(20) : warning C4508: 'CreatePerson' : function should return a value; 'void' return type assumed
+shared-ptr.cpp(23) : error C2146: syntax error : missing ')' before identifier 'person'
+shared-ptr.cpp(23) : error C2182: 'GetName' : illegal use of type 'void'
+shared-ptr.cpp(23) : error C2059: syntax error : ')'
+shared-ptr.cpp(24) : error C2143: syntax error : missing ';' before '{'
+shared-ptr.cpp(24) : error C2447: '{' : missing function header (old-style formal list?)
+shared-ptr.cpp(28) : error C2146: syntax error : missing ')' before identifier 'person'
+shared-ptr.cpp(28) : error C2182: 'GetSurName' : illegal use of type 'void'
+shared-ptr.cpp(28) : error C2059: syntax error : ')'
+shared-ptr.cpp(29) : error C2143: syntax error : missing ';' before '{'
+shared-ptr.cpp(29) : error C2447: '{' : missing function header (old-style formal list?)
+shared-ptr.cpp(33) : error C2146: syntax error : missing ')' before identifier 'person'
+shared-ptr.cpp(33) : error C2182: 'GetAge' : illegal use of type 'void'
+shared-ptr.cpp(33) : error C2059: syntax error : ')'
+shared-ptr.cpp(34) : error C2143: syntax error : missing ';' before '{'
+shared-ptr.cpp(34) : error C2447: '{' : missing function header (old-style formal list?)
+shared-ptr.cpp(38) : error C2146: syntax error : missing ')' before identifier 'person'
+shared-ptr.cpp(38) : error C2182: 'GetPhone' : illegal use of type 'void'
+shared-ptr.cpp(38) : error C2059: syntax error : ')'
+shared-ptr.cpp(39) : error C2143: syntax error : missing ';' before '{'
+shared-ptr.cpp(39) : error C2447: '{' : missing function header (old-style formal list?)
+shared-ptr.cpp(43) : error C2146: syntax error : missing ')' before identifier 'person'
+shared-ptr.cpp(43) : error C2182: 'PrintPerson' : illegal use of type 'void'
+shared-ptr.cpp(43) : error C2059: syntax error : ')'
+shared-ptr.cpp(44) : error C2143: syntax error : missing ';' before '{'
+shared-ptr.cpp(44) : error C2447: '{' : missing function header (old-style formal list?)
+shared-ptr.cpp(53) : error C2146: syntax error : missing ';' before identifier 'person'
+shared-ptr.cpp(53) : error C2065: 'person' : undeclared identifier
+shared-ptr.cpp(54) : error C3861: 'person': identifier not found, even with argument-dependent lookup
+shared-ptr.cpp(55) : error C3861: 'person': identifier not found, even with argument-dependent lookup
+shared-ptr.cpp(56) : error C3861: 'person': identifier not found, even with argument-dependent lookup
+shared-ptr.cpp(57) : error C3861: 'person': identifier not found, even with argument-dependent lookup
+shared-ptr.cpp(58) : error C3861: 'person': identifier not found, even with argument-dependent lookup
+VS2003 - 37 error(s), 1 warning(s)
+&lt;/code&gt;
+</code></pre>
+<p>Pois é, 37 erros. Depois perguntam por que as pessoas ficam com medo de programar em C++&hellip;</p>
+<p>Porém, a correção é mais simples do que parece: baixar o boost e trocar o nome do namespace.</p>
+<pre><code>#include &lt;boost/shared_ptr.hpp&gt;
+
+//...
+
+typedef boost::shared_ptr&lt;Person&gt; PersonRef;
+
+//...
+</code></pre>
+<p>ATENÇÃO! Nos meus testes a única versão funcionando com o VS2003 foi a 1.47. Mas já é alguma coisa</p>
+<p>Não existe situação difícil que não possa piorar. Porém, mesmo nesse caso ainda há algo a se fazer, já que smart pointer utilizam mecanismos existentes na linguagem C++ desde os primórdios (ou bem próximo disso). Tudo que você precisa para criar seu próprio sharedptr é do construtor padrão, do destrutor padrão, do construtor de cópia e dos operadores de atribuição e ponteiro. E, claro, não se esqueça de usar template se for permitido. Se não for, a coisa complica, mas não se torna impossível.</p>
+<pre><code>#pragma once
+
+// Não façam isso em casa! Usem modelo de smart pointers já construídos (como o do boost).
+template&lt;typename T&gt;
+class shared_ptr
+{
+public:
+    shared_ptr() : m_p(), m_counter()
+    {
+    }
+
+    shared_ptr(T* p) 
+        : m_p(p), m_counter(new int(1)) 
+    {
+    }
+
+    shared_ptr(const shared_ptr&amp; left)
+        : m_p(left.m_p), m_counter(left.m_counter)
+    {
+        if( m_counter )
+            ++*m_counter;
+    }
+
+    shared_ptr&amp; operator = (const shared_ptr&amp; left)
+    {
+        if( m_p )
+        {
+            if( --*m_counter == 0 )
+            {
+                delete m_counter;
+                delete m_p;
+                m_counter = 0;
+                m_p = 0;
+            }
+        }
+        if( m_counter = left.m_counter )
+            ++*m_counter;
+        m_p = left.m_p;
+    }
+
+    ~shared_ptr()
+    {
+        if( --*m_counter == 0 )
+        {
+            delete m_counter;
+            delete m_p;
+            m_counter = 0;
+            m_p = 0;
+        }
+    }
+
+    T* operator -&gt; ()
+    {
+        return m_p;
+    }
+
+private:
+    int* m_counter;
+    T* m_p;
+};
+
+
+#include &quot;shared_ptr.h&quot;
+
+//...
+
+typedef shared_ptr&lt;Person&gt; PersonRef;
+
+//...
+</code></pre>
+<p>E é isso. A lição de hoje é: quem quer, arruma um jeito. Quem não quer, uma desculpa.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Apesar%20de%20j%c3%a1%20ter%20palestrado%20algumas%20vezes%20sobre%20Boost%20e%20STL%2c%20acho%20que%20eu%20nunca%20escrevi%20muito%20sobre%20esses%20assuntos%20no...%20http%3a%2f%2fwww.caloni.com.br%2fshareando-ponteiros%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/kung-fu-futebol-clube/">Kung-Fu Futebol Clube<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/blue-exorcist/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Blue Exorcist</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

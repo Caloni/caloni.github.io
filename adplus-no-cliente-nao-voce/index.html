@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - AdPlus no cliente, não você!</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="AdPlus no cliente, não você!"/>
+  <meta itemprop="description"
+        content="O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="AdPlus no cliente, não você!"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/adplus-no-cliente-nao-voce/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2009-08-10T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="AdPlus no cliente, não você!"/>
+  <meta name="twitter:description"
+        content="O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">AdPlus no cliente, não você!</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/adplus-no-cliente-nao-voce.md" title="History">
+    2009-08-10
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/adplus-no-cliente-nao-voce.md" title="GitHub">529</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O AdPlus é uma das poderosas ferramentas do pacote Debugging Tools for Windows. Se trata basicamente de um script que serve para realizar múltiplas fotografias no estado de um programa em execução usando para isso os depuradores do próprio pacote. Quando alguma coisa estiver errada, principalmente um crash ou travamento, ele paralisa a execução e gera um dump final com toda a história contada desde o começo.</p>
+<p>Ele pode ser usado na situação mais comum: o programa trava/quebra em um cliente específico e/ou em um momento específico que pode acontecer em cinco segundos ou daqui a quinze horas. Como você não pode ficar monitorando o tempo todo a execução do programa (haja indexadores no PerfMon!) então você precisa de alguém que monitore por você. Como seres humanos costumam ter deficit de atenção muito facilmente você vai lá no cliente (ou pede para alguém ir) e executa o AdPlus, que dá conta do recado:</p>
+<pre><code>AdPlus.vbs -crash -sc notepad.exe
+</code></pre>
+<p>Esse notepad, viu! Sempre ele!</p>
+<p>Bom, vamos fazer alguma brincadeira de desmontar para ver seu funcionamento. Com o notepad recém-aberto por esse comando, vamos abrir outro depurador em modo de visualização e alterar alguma chamada-chave para quebrar propositadamente:</p>
+<pre><code>windbg -pv -pn notepad.exe
+a user32!MessageBoxW
+jmp 0
+.detach
+q
+</code></pre>
+<p>Após isso só precisamos abrir um arquivo qualquer que não existe:</p>
+<p>Depois desse lapso de memória o AdPlus irá gerar dois &ldquo;dumpões&rdquo; e um &ldquo;dumpinho&rdquo; para você:</p>
+<p>O dumpinho é a exceção de first chance, que ele iria gerar de qualquer forma se houvesse uma exceção capturada pelo programa. É apenas um minidump.</p>
+<p>Os outros dois dumpões são o momento da exceção second chance, o que quer dizer que é antes da casa cair, e o segundo é quando a casa já caiu e o processo pegou suas coisas e já tá indo embora.</p>
+<p>A partir do second chance podemos visualizar a cagada feita pelo nosso WinDbg de passagem.</p>
+<pre><code>windbg -z PID-0__Spawned0__2nd_chance_AccessViolation__full_0854_2009-07-28_09-03-54-723_0d34.dmp
+
+
+This dump file has an exception of interest stored in it.
+The stored exception information can be accessed via .ecxr.
+(d34.7b0): Access violation - code c0000005 (first/second chance not available)
+eax=0007cfb8 ebx=80004005 ecx=7e37a622 edx=0000000a esi=00000208 edi=003604e2
+eip=00000000 esp=0007cfa0 ebp=0007d9e4 iopl=0         nv up ei ng nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000286
+00000000 ??              ???
+k
+
+
+ChildEBP RetAddr
+WARNING: Frame IP not in any known module. Following frames may be wrong.
+0007cf9c 763ab8a8 0x0
+0007d9e4 763ab90c comdlg32!CDMessageBox+0x76
+0007da04 7638beee comdlg32!InvalidFileWarningNew+0x54
+0007e278 763873cf comdlg32!CFileOpenBrowser::OKButtonPressed+0x9f0
+0007e4b8 763872d7 comdlg32!CFileOpenBrowser::ProcessEdit+0x192
+0007e4f8 7638277f comdlg32!CFileOpenBrowser::OnCommandMessage+0x1d3
+0007e738 7e368734 comdlg32!OpenDlgProc+0x2f5
+0007e764 7e373ce4 user32!InternalCallWinProc+0x28
+</code></pre>
+<p>Se você não é desenvolvedor apenas empacote essa pasta com os dumps e envie para o culpado (ou quem você gostar menos).</p>
+<p>Existem alguns outros parâmetros bem comuns e que podem ser muito úteis para outras situações:</p>
+<ul>
+<li>
+<p>Quando o programa já está rodando e não pode ser parado senão tudo está perdido (adplus -crash -pn processo.exe).</p>
+</li>
+<li>
+<p>Quando o programa não vai capotar, mas vai travar/parar de responder (adplus -hang -sc processo.exe).</p>
+</li>
+<li>
+<p>Quando existem muitos outros processos com o mesmo nome (adplus -crash -p [PID]).</p>
+</li>
+</ul>
+<p>Existem outros mais, mas apenas decorando esses e guardando a pasta do Debugging Tools no PenDrive já garante sucesso em 90% dos casos em que o cliente xingar o suporte.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20AdPlus%20%c3%a9%20uma%20das%20poderosas%20ferramentas%20do%20pacote%20Debugging%20Tools%20for%20Windows.%20Se%20trata%20basicamente%20de%20um%20script%20que...%20http%3a%2f%2fwww.caloni.com.br%2fadplus-no-cliente-nao-voce%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/what-ive-been-doing-in-the-last-10-years/">What I&#39;ve been doing in the last 10 years<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/cuidado-com-a-copia-de-arquivos-na-vmware/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Cuidado com a cópia de arquivos na VMWare</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Você sabe o que está usando no seu código?</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Quando se mexe com C&#43;&#43; em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Você sabe o que está usando no seu código?"/>
+  <meta itemprop="description"
+        content="Quando se mexe com C&#43;&#43; em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Você sabe o que está usando no seu código?"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/voce-sabe-o-que-esta-usando-no-seu-codigo/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Quando se mexe com C&#43;&#43; em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2015-07-28T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Você sabe o que está usando no seu código?"/>
+  <meta name="twitter:description"
+        content="Quando se mexe com C&#43;&#43; em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Você sabe o que está usando no seu código?</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/voce-sabe-o-que-esta-usando-no-seu-codigo.md" title="History">
+    2015-07-28
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/voce-sabe-o-que-esta-usando-no-seu-codigo.md" title="GitHub">694</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Quando se mexe com C++ em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de um binário saber quais os fontes envolvidos em sua construção, a não ser que você os amarre através de um sistema automatizado de build onde todos os binários devem ser obrigatoriamente compilados (e suas dependências, claro).</p>
+<p>Porém, há maneiras mais descentralizadas de se trabalhar. Alguém poderia simplesmente colocar a versão em cada CPP e atualizá-la, assim como comentários de histórico, toda vez que alguma mudança for feita:</p>
+<pre><code>/** Estou começando esse meu CPP.
+*
+* @desc Esse CPP fará mágicas nunca antes tentadas,
+* e portanto tende a ser perigoso para os padawans
+* mais chegados em um coletor de lixo.
+*
+* @version 0.0.1
+*
+* @remark Estou usando Version Semantics logo acima.
+*/
+</code></pre>
+<p>OK, esse já é um modelo interessante, embora totalmente descartável se você já usa um sistema de build atrelado a um controle de fonte, já que você automaticamente já terá um número mágico para relacionar seus binários: o revno de seu commit (ou seus commits, no caso de mais de um repositório).</p>
+<p>Uma versão um pouco mais&hellip; &ldquo;binária&rdquo;, seria inserir uma string no próprio fonte com essa versão, e talvez até o nome de seu módulo/lib/etc:</p>
+<p>static const char* LIBVERSION = &ldquo;minhalib 0.0.1&rdquo;;</p>
+<p>Dessa forma, por pior que seja a situação do controle de seus binários, sempre haverá a possibilidade de procurar a string lá dentro.</p>
+<p>Ops, esqueci que nesses compiladores modernos o que você não usa não será incluído no binário final. Isso quer dizer que se quisermos que essas strings de identificação de dependências apareça no binário compilado precisamos pelo menos dar a impressão de que ele esteja sendo usado:</p>
+<pre><code>class Using
+{
+public:
+    Using(const char* name)
+    {
+        static const char* st_UsingCollection = name;
+    }
+};
+
+static const Using st_Using(&quot;using minhalib 0.0.1&quot;);
+</code></pre>
+<p>Agora uma variável estática do módulo deverá ser inicializada como um objeto da classe Using e irá jogar em uma variável estática dentro do construtor. Se ela será usada fica a dúvida do compilador, que deixa tudo como está. Ou seja, ganhamos nossa string no binário:</p>
+<pre><code>#include &quot;Using.h&quot;
+
+static const Using st_Using(&quot;using minhalib 0.0.1&quot;);
+
+int main()
+{
+}
+</code></pre>
+<p>Uma solução mais genérica pode ser aplicada utilizando as famigeradas macros e&hellip;</p>
+<p>O quê?!?!?!??! VOCÊ DISSE MACROS?!???!? TÁ MALUCO??!??!</p>
+<p>Sim. Macros. São inofensivas se você usar direito.</p>
+<p>E se reclamar vai ter goto.</p>
+<pre><code>// Using.h
+#pragma once 
+#define USING_FILE(version) static const Using st_Using ## __LINE__(&quot;using file &quot; __FILE__ &quot; &quot; version)
+#define USING_CLASS(name, version) static const Using st_Using ## __LINE__(&quot;using class &quot; #name &quot; &quot; version)
+#define USING_LIB(name, version) static const Using st_Using ## __LINE__(&quot;using lib &quot; #name &quot; &quot; version)
+#define USING_FUNCTION(version) static const Using st_Using ## __LINE__(&quot;using function &quot; __FUNCTION__ &quot; &quot; version)
+
+class Using
+{
+public:
+    Using(const char* name)
+    {
+        static const char* st_UsingCollection = name;
+    }
+};
+</code></pre>
+<p>A ideia é que qualquer pedaço de código, seja um conjunto de CPPs que você chama de LIB, ou um CPP que você compila em diferentes projetos (talvez em cópias diferentes ainda sendo usadas), ou até aquela função-chave, ou classe-chave. Na verdade, quando eu digo pedaço de código, é pedaço mesmo. Está livre para você imaginar e rotular o que quiser. Depois você consegue dar uma geral no resultado:</p>
+<pre><code>// File1.cpp
+#include &quot;Using.h&quot;
+
+USING_LIB(extralib, &quot;0.0.1&quot;);
+
+void ImportantFunction()
+{
+    USING_FUNCTION(&quot;0.3.1&quot;);
+}
+
+// File2.cpp
+#include &quot;Using.h&quot;
+
+USING_FILE(&quot;0.0.1&quot;);
+
+// File3.cpp
+#include &quot;Using.h&quot;
+
+USING_CLASS(ImportantClass, &quot;1.3.4&quot;);
+class ImportantClass
+{
+public:
+};
+
+#include &quot;Using.h&quot;
+
+USING_LIB(lib1, &quot;0.0.1&quot;);
+</code></pre>
+<p>Com esse simples mecanismo que não gasta mais do que algumas chamadas de assembly no início da lib (antes do main) e o espaço ocupado na memória pelas strings somadas (menos de 1KB, provavelmente) você tem em suas mãos uma poderosa ferramenta de análise de como os binários estão sendo gerados pela sua equipe remota, ou por qual configuração foi usada na máquina de build para gerar aquela DLL com aquele problema antigo, ou porque algo que funcionava parou de funcionar e nada foi mexido (isso nunca acontece, não é mesmo?).</p>
+<p>O código dessa brincadeira está no meu repositório de samples do GitHub.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Quando%20se%20mexe%20com%20C%2b%2b%20em%20m%c3%baltiplos%20fontes%20logo%20vem%20aquela%20bagun%c3%a7a%20do%20versionamento%20e%20do%20compartilhamento%20de%20c%c3%b3digo....%20http%3a%2f%2fwww.caloni.com.br%2fvoce-sabe-o-que-esta-usando-no-seu-codigo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/south-park/">South Park<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/existem-programadores-ccpp-no-rio-de-janeiro/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Existem programadores C/C&#43;&#43; no Rio de Janeiro?</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

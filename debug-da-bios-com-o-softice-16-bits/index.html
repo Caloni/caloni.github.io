@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Debug da BIOS com o SoftIce 16 bits</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Debug da BIOS com o SoftIce 16 bits"/>
+  <meta itemprop="description"
+        content="Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Debug da BIOS com o SoftIce 16 bits"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/debug-da-bios-com-o-softice-16-bits/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-10-02T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Debug da BIOS com o SoftIce 16 bits"/>
+  <meta name="twitter:description"
+        content="Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Debug da BIOS com o SoftIce 16 bits</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/debug-da-bios-com-o-softice-16-bits.md" title="History">
+    2007-10-02
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/debug-da-bios-com-o-softice-16-bits.md" title="GitHub">616</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Para quem ainda acha que não desceu demais o nível, existe um ótimo artigo de ShalomZ, do Code Project, sobre como construir seu próprio sistema operacional. É simples, direta e empolgante a maneira com que ele explica e trata os detalhes básicos, desde quando o computador é ligado até quando o boot loader carrega e entrega o controle de execução. Eu mesmo fiz o teste com a imagem que foi disponibilizada para download e funcionou direitinho. Agora esse meu artigo se dispõe a explicar como você pode fazer para depurar o processo de load do seu primeiro sistema operacional.</p>
+<p>Primeiro, precisamos de uma ferramenta fundamental para esse tipo de depuração: o SoftIce versão 16 bits. Desconheço algum outro depurador de sistema em 16 bits, mas se você souber de algum, pode usá-lo com esse tutorial com as devidas adaptações.</p>
+<p>Passado o desafio inicial de encontrar essa versão do SoftIce e saber usá-la, o resto é fácil:</p>
+<ol>
+<li>Crie uma nova VMWare, Virtual PC, VMSbrubles configurada para bootar pelo disquete.</li>
+<li>Formate dois disquetes de MS-DOS, FreeDos, Sbrubles-DOS.</li>
+<li>Copie o setor de <em>boot</em> disponível no artigo do CP para o disquete usando o programa disponível em um dos disquetes.</li>
+<li>Copie o SoftIce no outro disquete.</li>
+<li>Efetue o <em>boot</em> com o disquete do SoftIce.</li>
+<li>Execute o SoftIce (é só rodar, ele permanece residente e é ativado com Ctrl + D).</li>
+<li>Coloque um <em>breakpoint</em> na int 0x13 (disco) na função 2 (leitura) (faz-se assim: bpint 13 ah=2).</li>
+<li>Troque o disquete do Softice pelo disquete com o setor de <em>boot</em> do artigo do CP.</li>
+<li>Efetue novamente o <em>boot</em> na máquina em modo &ldquo;quente&rdquo; (usando o próprio SoftIce, comando boot).</li>
+<li>A execução deve ser paralisada exatamente no ponto onde o código da BIOS lê o setor de boot do seu disquete.</li>
+<li>Digite p ret e em seguida F10 ou T e seja feliz.</li>
+</ol>
+<p>Pelo softice 16 bits conseguimos parar a execução nas interrupções da BIOS e ainda especificar qual das funções será executada, definida no registrador AH (mais detalhes sobre layout de memória do 8086 no artigo do DQ).</p>
+<p>Quando o código da BIOS é executado, ele precisa, entre outras coisas, fazer três:</p>
+<ol>
+<li>Encontrar o dispositivo padrão de <em>boot.</em></li>
+<li>Ler o primeiro setor desse dispositivo para o endereço 0x7C00.</li>
+<li>Entregar a execução para o código em 0x7C00.</li>
+</ol>
+<p>O item 2 é justamente o que utiliza essa interrupção para ler do disco. Eu prefiri colocar o breakpoint no item 2, mas nada impediria de você colocá-lo no item 3 e já iniciar a depuração no código do boot loader. Mas, como eu já passei por problemas encontrados no código da BIOS que impediam o sistema de entregar a execução para o setor de boot, já dei a dica de lambuja caso você também tenha a oportunidade de se divertir em um cliente depurando a BIOS de algum laptop desajustado.</p>
+<p>Pela imagem acima sabemos que após o boot foi executada a interrupção 0x13, função 2 e que se trata de leitura em disquete, pois o conteúdo do registrador DL está em 0 (veja a referência das interrupções da BIOS em Ralf Brown&rsquo;s Interrupt List).</p>
+<p>É mais ou menos o step out do SoftIce 32. Ou seja, ele avança a execução até a função retornar. No caso do SoftIce 16, ele irá avançar até o próximo ret/iret. Por isso que também precisamos executar a próxima instrução (o próprio ret) para cair onde queremos. É nesse ponto que o &ldquo;nosso&rdquo; código começa a executar e onde conseguimos colocar breakpoints &ldquo;de verdade&rdquo; (lembre-se que o código da BIOS está em uma memória de somente leitura, pelo menos durante a execução).</p>
+<ul>
+<li>Building your own operating system - ShalomZ</li>
+<li>Ralf Brown&rsquo;s Interrupt List</li>
+<li>Gerenciamento de memória 386 - Daniel Quadros</li>
+</ul>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Para%20quem%20ainda%20acha%20que%20n%c3%a3o%20desceu%20demais%20o%20n%c3%advel%2c%20existe%20um%20%c3%b3timo%20artigo%20de%20ShalomZ%2c%20do%20Code%20Project%2c%20sobre%20como...%20http%3a%2f%2fwww.caloni.com.br%2fdebug-da-bios-com-o-softice-16-bits%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/cronograma/">Cronogramas<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/developer-you-need-to-know-english/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Developer: you need to know English!</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

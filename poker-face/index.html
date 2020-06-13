@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Poker Face</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Poker Face"/>
+  <meta itemprop="description"
+        content="O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Poker Face"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/poker-face/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2014-05-06T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Poker Face"/>
+  <meta name="twitter:description"
+        content="O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Poker Face</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/poker-face.md" title="History">
+    2014-05-06
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/poker-face.md" title="GitHub">731</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops aninhados (a versão large fica para outro post). Na verdade, estou aqui para expressar minha gratidão ao campeonato por ter aprendido mais uma bela lição vendo o código do primeiro colocado do primeiro round, vulgo Kaizero, um coreano que deu uma solução simples, rápida e prática para um problema de probabilidade tão error-prone que até os juízes do Google deram uma lambuja de alguns testes errados (sem contar que houve apenas a categoria small), e me fez pensar em quantas vezes pensamos em demasiado tentando encontrar a solução perfeita para algo que simplesmente&hellip; não precisa.</p>
+<p>Basta um hack e commit.</p>
+<p>O problema reza que existem dois algoritmos para embaralhar uma sequência numérica (de 0 a N): o bom e o ruim. Ambos traçam um loop do iníco ao fim pegando aleatoriamente um elemento da lista e trocando de lugar com o elemento que está sendo varrido no momento.</p>
+<p>A diferença entre o bom e o ruim é que o bom pega aleatoriamente apenas os elementos DEPOIS do elemento que está sendo varrido, enquanto o algoritmo ruim pega qualquer um dos elementos SEMPRE. Isso aparentemente e intuitivamente não parece interferir na aleatoriedade do embaralhamento, mas se levarmos ao extremo de embaralhar repetidas vezes somando a lista resultante percebemos uma tendência gritante do algoritmo ruim em manter o ordenamento inicial, ou pelo menos na média sempre tender para números menores no início e números maiores no fim, como pode ser visto nesse teste que fiz, gerado pelo Excel:</p>
+<p>O que eu tentei fazer durante meu fim-de-semana retrasado e o feriado foi encontrar um detector de aleatoriedade (aliás, encontrei um bem interessante chamado ent), tanto &ldquo;na mão&rdquo; quanto pesquisando. O que eu não imaginava foi que o teste que eu tinha feito no início usando uma simples planilha Excel era a solução óbvia (naquelas de é óbvio só depois que você vê). E foi essa a solução adotada por Kaizero.</p>
+<pre><code>/** @author Kaizero
+@desc Versão comentada (em português) e desofuscada do código do 
+Code Jam 2014, 1A, problema 3 (Proper Shuffle)
+por Wanderley Caloni (wanderley@caloni.com.br).
+*/
+#pragma warning(disable:4996) // warning, pra que te quero...
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;time.h&gt;
+
+using namespace std;
+
+// as variáveis monossilábicas...
+int w[1001], C[1001][1001], O[1001];
+
+// Note que uma delas (C) é uma tabela gigantesca:
+
+// 1     2    3     4   ...  1001
+// 2
+// 3
+// ...
+// 1001
+
+// tabela verdade?
+bool v[1001];
+
+struct A
+{	
+    int ord, R;
+
+    bool operator &lt;(const A &amp;p)const
+    {
+        return R &lt; p.R;
+    }
+}
+p[1000];
+
+int main()
+{
+    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
+    freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);
+
+    int i, TC, T, n, j;
+
+    srand((unsigned)time(NULL)); // mexendo o saco de bingo...
+
+    // a parte mais demorada: construir um contador gigante estilo 
+    // Excel com 3 milhões de iterações
+    for (i = 0; i &lt; 3000000; i++)
+    {
+        // 1. Preenchemos o array sequencial.
+        for (j = 0; j &lt; 1000; j++)
+        {
+            w[j] = j;
+        }
+
+        // 2. Realizamos o algorimo ruim.
+        for (j = 0; j &lt; 1000; j++)
+        {
+            swap(w[j], w[rand() % 1000]);
+        }
+
+        // 3. Pesamos o resultado do algoritmo ruim.
+        for (j = 0; j &lt; 1000; j++)
+        {
+            C[j][w[j]]++;
+        }
+    }
+
+    // agora a parte &quot;fácil&quot;...
+
+    // ler número de casos de teste (sempre 120)
+    scanf(&quot;%d&quot;, &amp;TC);
+    for (T = 1; T &lt;= TC; T++) // iterar por cada linha
+    {
+        scanf(&quot;%d&quot;, &amp;n);
+        p[T].ord = T; // guardando sua posição
+
+        // lendo os números de todos os casos
+        for (i = 0; i &lt; n; i++)
+        {
+            scanf(&quot;%d&quot;, &amp;O[i]);
+            p[T].R += C[i][O[i]]; // mas gravando o peso de cada posição (cálculo de 3M)
+        }
+    }
+
+    // ordenando pelo peso de cada posição
+    sort(p + 1, p + TC + 1);
+    for (i = 1; i &lt;= 60; i++)
+        v[p[i].ord] = true; // metade tem que ser bom (a melhor metade)
+
+    for (i = 1; i &lt;= TC; i++)
+    {
+        printf(&quot;Case #%d: &quot;, i);
+        if (v[i])printf(&quot;GOOD\n&quot;);
+        else printf(&quot;BAD\n&quot;);
+    }
+}
+</code></pre>
+<p>O que ele basicamente faz é acumular os resultados de três milhões de embaralhamentos feitos pelo algoritmo ruim e inferir através dos resultados que metade é bom e metade é ruim. O ruim fica do lado desbalanceado da sequência.</p>
+<p>Tão óbvio, tão simples, tão elegante.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=O%20segundo%20round%20da%20segunda%20fase%20do%20Code%20Jam%20passou%20nesse%20s%c3%a1bado.%20Disl%c3%a9xico%20que%20sou%2c%20consegui%20fazer%20apenas%208%20pontos%20%c2%bf...%20http%3a%2f%2fwww.caloni.com.br%2fpoker-face%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-espetacular-homem-aranha-2-a-ameaca-de-electro/">O Espetacular Homem-Aranha 2 A Ameaça de Electro<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/presente-de-grego/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Presente de Grego</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - SS</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Uma das coisas mais cretinas e difíceis para os iniciantes em C&#43;&#43; é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="SS"/>
+  <meta itemprop="description"
+        content="Uma das coisas mais cretinas e difíceis para os iniciantes em C&#43;&#43; é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="SS"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/ss/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Uma das coisas mais cretinas e difíceis para os iniciantes em C&#43;&#43; é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2014-06-03T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="SS"/>
+  <meta name="twitter:description"
+        content="Uma das coisas mais cretinas e difíceis para os iniciantes em C&#43;&#43; é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">SS</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/ss.md" title="History">
+    2014-06-03
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/ss.md" title="GitHub">614</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para reforma, pois ela é extremamente error-prone e não-intuitiva. Porém, se a printf é não-intuitiva, o que dizer &lt; &lt; daqueles &laquo; sinais &laquo; de &laquo; flechinhas apontando para cout? Bem melhor, não?</p>
+<pre><code>#include &lt;iostream&gt;
+
+int main()
+{
+    int x = 0x00000001;
+    int y = 4;
+    int z = x &lt;&lt; y; // isso desloca 4 bits para a &quot;esquerda&quot;
+    std::cout &lt;&lt; z // WHAT??
+        &lt;&lt; &quot;\nestranho...&quot; &lt;&lt; std::endl; // WHAT^^2!?!?!?!??!?!
+}
+</code></pre>
+<p>A resposta é, pra variar, depende. Se você combinar com seu cérebro que o operador de shift que você aprendeu em C para cout não tem a mesma semântica, OK. No fundo eu acredito que os criadores dessa sobrecarga de operador pensaram sinceramente que hoje em dia quase ninguém conhece os operadores de shift binário, então tudo bem reaproveitá-lo de uma maneira mais miguxa.</p>
+<p>Porém, isso depende da maneira com que você usa streams C++. Vai haver momentos de sua vida que você vai se questionar por que tiraram todo o controle, a elegância e simplicidade de um bom printf, quando os homens eram homens e sabiam configurar jumpers para instalar a nova placa EISA.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+
+int main()
+{
+    int x = 0x00AB3451;
+    printf(&quot;int x = 0x%08X;\n&quot;, x); // nao eh tao legivel, mas da conta do recado
+    std::cout &lt;&lt; &quot;int x = 0x&quot; &lt;&lt; std::hex &lt;&lt; x &lt;&lt; &quot;;&quot; &lt;&lt; std::endl; // pois eh, parece que melhoramos mesmo com streams...
+}
+</code></pre>
+<p>A questão dos streams fica mais complicada quando precisamos realizar atividades corriqueiras no código, como retornar uma string formatada, ou até mesmo transformar um inteiro em string.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt; // digam oi para nosso novo amiguinho!
+
+std::string FuncaoCorriqueira(int x, int y)
+{
+    std::ostringstream ss; // credo, que tipo eh esse?
+    ss &lt;&lt; (x + y);
+    return ss.str();
+}
+
+int main()
+{
+    std::cout &lt;&lt; FuncaoCorriqueira(20, 42);
+}
+</code></pre>
+<p>Já pensou termos que criar uma função dessas sempre que quisermos converter números em string? Ou pior, ter que fazer o que fizemos dentro dessa função: declarar um ostringstream (um cout com buffer interno de string), usá-lo como cout e obter seu buffer interno através do método str. Tudo isso para converter um número para string.</p>
+<p>Quando uma tarefa muito comum exige mais de dois passos para ser realizada é de bom tom criarmos algum código reutilizável, certo? Um código que trará de uma vez por todas a solução final!</p>
+<pre><code>#include &lt;sstream&gt;
+
+struct ss
+{
+    template&lt;typename T&gt;
+    ss&amp; operator &lt;&lt; (const T&amp; t)
+    {
+        _ss &lt;&lt; t; 
+        return *this;
+    }
+    
+    operator std::string ()
+    { 
+        return _ss.str();
+    }
+
+    std::ostringstream _ss;
+};
+</code></pre>
+<p>O código acima serve bem ao nosso propósito de formatar strings em uma linha como um cout, mas retornar uma string no lugar. Ele é simples, ele é direto, ele tem defeitos que não vem ao caso (como não suportar endl), mas pode ser usado de maneira&hellip; simples e direta!</p>
+<pre><code>#include &quot;ss.h&quot;
+#include &lt;iostream&gt;
+
+int main()
+{
+    for( int i = 0; i &lt; 5; ++i )
+    {
+        std::string s = ss() &lt;&lt; &quot;Teste numero &quot; &lt;&lt; i;
+        std::cout &lt;&lt; s &lt;&lt; std::endl;
+    }
+}
+</code></pre>
+<p>OK, o código de exemplo foi idiota, mas você pegou a ideia. Tudo que precisamos fazer para reutilizar essa pequena classe é definí-la (ss() resolve) e usá-la. Seu conversor de string retorna o buffer interno de ostringstream para nós como num passe de mágica.</p>
+<p>Obs.: Com certeza deve existir uma centena de bibliotecas que implementam algo do gênero, só que melhor. Essa é a típica fica isolante para continuar trabalhando.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Uma%20das%20coisas%20mais%20cretinas%20e%20dif%c3%adceis%20para%20os%20iniciantes%20em%20C%2b%2b%20%c3%a9%20conseguir%20formatar%20strings%20de%20maneira%20f%c3%a1cil%2c%20r%c3%a1pida...%20http%3a%2f%2fwww.caloni.com.br%2fss%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/sherlock-jr/">Sherlock Jr.<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-cheiro-do-ralo/"><span class="icon"><i class="fa fa-arrow-left"></i></span>O Cheiro do Ralo</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

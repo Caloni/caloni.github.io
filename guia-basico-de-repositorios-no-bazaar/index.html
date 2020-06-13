@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Guia básico de repositórios no Bazaar</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Alguns conceitos-chave antes de trabalhar com o Bazaar são:
+
+Revision (Revisão). Um snapshot dos arquivos que você está trabalhando.
+Working Tree (Árvore de Trabalho). Um diretório contendo seus..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Guia básico de repositórios no Bazaar"/>
+  <meta itemprop="description"
+        content="Alguns conceitos-chave antes de trabalhar com o Bazaar são:
+
+Revision (Revisão). Um snapshot dos arquivos que você está trabalhando.
+Working Tree (Árvore de Trabalho). Um diretório contendo seus..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Guia básico de repositórios no Bazaar"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/guia-basico-de-repositorios-no-bazaar/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Alguns conceitos-chave antes de trabalhar com o Bazaar são:
+
+Revision (Revisão). Um snapshot dos arquivos que você está trabalhando.
+Working Tree (Árvore de Trabalho). Um diretório contendo seus..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2008-06-10T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Guia básico de repositórios no Bazaar"/>
+  <meta name="twitter:description"
+        content="Alguns conceitos-chave antes de trabalhar com o Bazaar são:
+
+Revision (Revisão). Um snapshot dos arquivos que você está trabalhando.
+Working Tree (Árvore de Trabalho). Um diretório contendo seus..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Guia básico de repositórios no Bazaar</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/guia-basico-de-repositorios-no-bazaar.md" title="History">
+    2008-06-10
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>4 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/guia-basico-de-repositorios-no-bazaar.md" title="GitHub">844</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Alguns conceitos-chave antes de trabalhar com o Bazaar são:</p>
+<ul>
+<li>Revision (Revisão). Um snapshot dos arquivos que você está trabalhando.</li>
+<li>Working Tree (Árvore de Trabalho). Um diretório contendo seus arquivos controlados por versão e subdiretórios.</li>
+<li>Branch (Ramificação). Um grupo ordenado de revisões que descreve o histórico de um grupo de arquivos.</li>
+<li>Repository (Repositório). Um depósito de revisões.</li>
+</ul>
+<p>Agora vamos brincar um pouco com os conceitos.</p>
+<p>O uso mais simples que existe no Bazaar é o controle de uma pasta sozinha, conhecida como uma Standalone Tree. Como toda Working Tree, ela possui um repositório relacionado, que no caso está dentro dela mesmo, na pasta oculta &ldquo;.bzr&rdquo;.</p>
+<p>Pra criar uma Standalone Tree, tudo que precisamos é usar o comando init de dentro da pasta a ser controlada, quando é criado um repositório local. Adicionamos arquivos para o repositório com o comando add, e finalizamos nossa primeira versão com o comando commit.</p>
+<pre><code>C:\Tests&gt;cd project1
+
+C:\Tests\project1&gt;bzr init
+
+C:\Tests\project1&gt;bzr add
+added AUTHORS
+added COPYING
+added COPYRIGHT
+added ChangeLog
+added ChangeLog.2
+added FAQ
+...
+added winboard/extends/infboard/main.c
+added winboard/extends/infboard/msvc.mak
+added winboard/extends/infboard/support.c
+
+C:\Tests\project1&gt;bzr commit -m &quot;Comentario sobre a revisao&quot;
+Committing to: C:/Tests/project1/
+added AUTHORS
+added COPYING
+added COPYRIGHT
+added ChangeLog
+added ChangeLog.2
+added FAQ
+...
+added winboard/extends/infboard/main.c
+added winboard/extends/infboard/msvc.mak
+added winboard/extends/infboard/support.c
+Committed revision 1.
+
+C:\Tests\project1&gt;
+</code></pre>
+<p>Feito. A partir daí temos um repositório onde podemos realizar o comando commit sempre que quisermos marcar um snapshot em nosso código-fonte.</p>
+<p>Se quisermos fazer uma alteração muito grande em nosso pequeno projeto seria melhor termos outro diretório onde trabalhar antes de realizar o commit na versão estável. Para isso podemos usar o comando branch, que cria uma nova pasta com todo o histórico da pasta inicial até esse ponto. Os históricos em um branch estão duplicados em ambas as pastas, e portanto são independentes. Você pode apagar a pasta original ou a secundária que terá o backup inteiro no novo branch.</p>
+<pre><code>C:\Tests\project1&gt;cd ..
+
+C:\Tests&gt;bzr branch project1 project1-changing
+Branched 1 revision(s).
+
+C:\Tests&gt;cd project1-changing
+
+C:\Tests\project1-changing&gt;
+</code></pre>
+<p>Criar um novo branch totalmente duplicado pode se tornar um desperdício enorme de espaço em disco (e tempo). Para isso foi criado o conceito de Shared Repository, que basicamente é um diretório acima dos branchs que trata de organizar as revisões em apenas um só lugar, com a vantagem de otimizar o espaço. Nesse caso, antes de criar o projeto, poderíamos usar o comando init-repo na pasta mãe de nosso projeto, e depois continuar com o processo de init dentro da pasta do projeto.</p>
+<pre><code>C:\&gt;bzr init-repo Tests
+
+C:\&gt;cd Tests
+
+C:\Tests&gt;bzr init project1
+
+
+C:\Tests&gt;cd project1
+
+
+C:\Tests\project1&gt;bzr add
+added AUTHORS
+added COPYING
+added COPYRIGHT
+added ChangeLog
+added ChangeLog.2
+added FAQ
+...
+added winboard/extends/infboard/main.c
+added winboard/extends/infboard/msvc.mak
+added winboard/extends/infboard/support.c
+
+C:\Tests\project1&gt;bzr commit -m &quot;Comentario sobre a revisao&quot;
+Committing to: C:/Tests/project1/
+added AUTHORS
+added COPYING
+added COPYRIGHT
+added ChangeLog
+added ChangeLog.2
+added FAQ
+...
+added winboard/extends/infboard/main.c
+added winboard/extends/infboard/msvc.mak
+added winboard/extends/infboard/support.c
+Committed revision 1.
+
+C:\Tests\project1&gt;
+</code></pre>
+<p>Se compararmos o tamanho, veremos que o repositório compartilhado é que detém a maior parte dos arquivos, enquanto agora o &ldquo;.bzr&rdquo; que está na pasta do projeto possui apenas dados de controle. A mesma coisa irá acontecer com qualquer branch criado dentro da pasta de repositório compartilhado.</p>
+<p>Mas já criamos nossos dois branches cheios de arquivos, certo? Certo. Como já fizemos isso, devemos criar uma nova pasta como repositório compartilhado e criar dois novos branches dentro dessa pasta, cópias dos dois branches gordinhos:</p>
+<pre><code>C:\Tests&gt;bzr init-repo project1-repo
+
+C:\Tests&gt;bzr branch project1 project1-repo\project1
+Branched 1 revision(s).
+
+C:\Tests&gt;bzr branch project1-changing project1-repo\project-changing
+Branched 1 revision(s).
+
+C:\Tests&gt;
+</code></pre>
+<p>Isso irá recriar esses dois branches como os originais, mas com a metade do espaço em disco, pois seus históricos estarão compartilhados na pasta project1-repo.</p>
+<p>O SubVersion é um sistema de controle centralizado. O Bazaar consegue se comportar exatamente como o SubVersion, além de permitir carregar o histórico inteiro consigo. Quem decide como usá-lo é apenas você, pois cada usuário do sistema tem a liberdade de escolher a melhor maneira.</p>
+<p>Os comandos para usar o Bazaar à SubVersion são os mesmos do SubVersion: checkout e commit. No entanto, um checkout irá fazer com que seu commit crie a nova revisão primeiro no seu servidor (branch principal) e depois localmente. Se você não deseja criar um histórico inteiro localmente, pode criar um checkout leve (parâmetro &ndash;lightweight), que apenas contém arquivos de controle. No entanto, se o servidor de fontes não estiver disponível, você não será capaz de ações que dependam dele, como ver o histórico ou fazer commits.</p>
+<pre><code>C:\Tests\client&gt;bzr checkout ..\server\project1
+
+C:\Tests\client&gt;cd project1
+
+C:\Tests\client\project1&gt;echo &quot;New changes&quot; &gt;&gt; FAQ
+
+C:\Tests\client\project1&gt;bzr commit -m &quot;New changes comment&quot;
+Committing to: C:/Tests/server/project1/
+modified FAQ
+Committed revision 2.
+
+C:\Tests\client\project1&gt;bzr log -l 1 ..\..\server\project1
+------------------------------------------------------------
+revno: 2
+committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+branch nick: project1
+timestamp: Sun 2008-06-08 19:52:17 -0300
+message:
+  New changes comment
+
+C:\Tests\client\project1&gt;
+</code></pre>
+<p>Na verdade, o Bazaar vai além, e permite que um branch/checkout específico seja conectado e desconectado em qualquer repositório válido. Para isso são usados os comandos bind e unbind. Um branch conectado faz commits remotos e locais, enquanto um branch unbinded faz commits apenas locais. É possível mudar esse comportamento com o parâmetro &ndash;local, e atualizar o branch local com o comando update.</p>
+<ul>
+<li>
+<p>Bazaar User Guide</p>
+</li>
+<li>
+<p>Bazaar User Reference</p>
+</li>
+</ul>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Alguns%20conceitos-chave%20antes%20de%20trabalhar%20com%20o%20Bazaar%20s%c3%a3o%3a%0a%20Revision%20%28Revis%c3%a3o%29.%20Um%20snapshot%20dos%20arquivos%20que%20voc%c3%aa%20est%c3%a1...%20http%3a%2f%2fwww.caloni.com.br%2fguia-basico-de-repositorios-no-bazaar%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/primeiro-ano-do-novo-calonicombr/">Primeiro ano do novo Caloni.com.br<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/declaracao-x-definicao/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Declaração x definição</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

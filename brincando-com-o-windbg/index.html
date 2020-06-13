@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Brincando com o WinDbg</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Brincando com o WinDbg"/>
+  <meta itemprop="description"
+        content="No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Brincando com o WinDbg"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/brincando-com-o-windbg/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-10-30T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Brincando com o WinDbg"/>
+  <meta name="twitter:description"
+        content="No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Brincando com o WinDbg</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/brincando-com-o-windbg.md" title="History">
+    2007-10-30
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>9 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/brincando-com-o-windbg.md" title="GitHub">1822</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um aplicativo qualquer, com o detalhe que não teremos o código-fonte.</p>
+<p>Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá-lo pelo próprio WinDbg ou conectar o depurador (attach) em um programa já em execução. Podemos especificar o que faremos direto na linha de comando ou pela sua interface.</p>
+<p>Pela linha de comando:</p>
+<pre><code>windbg notepad.exe
+windbg -pn notepad.exe (ou -p pid)
+</code></pre>
+<p>Pela interface:</p>
+<p>Para variar, iremos depurar o Bloco de Notas, o maravilhoso editor de textos da Microsoft e plataforma de testes para serviços, GINAs e drivers. Para começar, poderemos usar quaisquer das opções anteriores, o que nos levará para uma saída parecida com a seguinte:</p>
+<pre><code>Microsoft (R) Windows Debugger  Version 6.7.0005.1
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+CommandLine: notepad.exe
+Symbol search path is: SRV*C:Symbols*http://msdl.microsoft.com/downloads/symbols
+Executable search path is:
+ModLoad: 01000000 01014000   notepad.exe
+ModLoad: 7c900000 7c9b0000   ntdll.dll
+ModLoad: 7c800000 7c8f5000   C:WINDOWSsystem32kernel32.dll
+ModLoad: 763b0000 763f9000   C:WINDOWSsystem32comdlg32.dll
+ModLoad: 77f60000 77fd6000   C:WINDOWSsystem32SHLWAPI.dll
+ModLoad: 77dd0000 77e6b000   C:WINDOWSsystem32ADVAPI32.dll
+ModLoad: 77e70000 77f01000   C:WINDOWSsystem32RPCRT4.dll
+ModLoad: 77f10000 77f57000   C:WINDOWSsystem32GDI32.dll
+ModLoad: 7e410000 7e4a0000   C:WINDOWSsystem32USER32.dll
+ModLoad: 77c10000 77c68000   C:WINDOWSsystem32msvcrt.dll
+ModLoad: 773d0000 774d3000   C:WINDOWSWinSxSx86_Microsoft.Windows.Common-Controls_Sbrubles
+ModLoad: 7c9c0000 7d1d5000   C:WINDOWSsystem32SHELL32.dll
+ModLoad: 73000000 73026000   C:WINDOWSsystem32WINSPOOL.DRV
+(df8.e28): Break instruction exception - code 80000003 (first chance)
+eax=001a1eb4 ebx=7ffd5000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4
+eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+ntdll!DbgBreakPoint:
+7c901230 cc              int     3
+</code></pre>
+<p>Não se preocupe, nada aconteceu de errado. Essa é apenas a maneira do WinDbg de dizer &ldquo;oi, estou aqui, positivo e operando&rdquo;.</p>
+<p>Vamos destrinchar as informações iniciais para evitar confusão:</p>
+<pre><code>Microsoft (R) Windows Debugger  Version 6.7.0005.1 &lt;- versão do WinDbg
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+CommandLine: notepad.exe &lt;-- linha de comando usada
+Symbol search path is: SRV*C:Symbols*http://msdl.microsoft.com/downloads/symbols &lt;-- onde estão os símbolos?
+Executable search path is:
+ModLoad: 01000000 01014000   notepad.exe &lt;-- informações sobre cada módulo carregado (ModLoad)
+ModLoad: 7c900000 7c9b0000   ntdll.dll
+ModLoad: 7c800000 7c8f5000   C:WINDOWSsystem32kernel32.dll
+...
+(df8.e28): Break instruction exception - code 80000003 (first chance) &lt;-- exceção de breakpoint (início da depuração)
+
+eax=001a1eb4 ebx=7ffd5000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4 &lt;-- estado dos registradores
+eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+
+ntdll!DbgBreakPoint: &lt;-- paramos aqui
+7c901230 cc              int     3
+</code></pre>
+<p>Muito bem. Agora vamos explicar resumidamente o que cada parte significa:</p>
+<ul>
+<li>
+<p>Version: versão que está sendo executada do WinDbg (duh).</p>
+</li>
+<li>
+<p>CommandLine: linha de comando que foi usada ao executar o depurador.</p>
+</li>
+<li>
+<p>ModLoad: sempre que um módulo é carregado no processo (DLLs ou o próprio executável) o WinDbg informa os endereços inicial e final de carregamente e o nome do módulo. Para rever a lista de módulos carregados usa-se o comando lm.</p>
+</li>
+<li>
+<p>pid.tid: Break instruction exception - code 8000003 (first chance)_. Qualquer informação específica de uma <em>thread</em> é informada dessa maneira no WinDbg. No caso, foi a exceção de <em>breakpoint</em> (parada na execução) acionada no começo da depuração (e é por isso que o notepad ainda não está aparecendo).</p>
+</li>
+</ul>
+<p>Explicado o começo, o resto é fácil. Para continuar a execução do bloco de notas basta usarmos o comando g (Go), ou pressionar F5, ou ir no menu &ldquo;Debug, Go&rdquo;, ou ainda apertar este botão:</p>
+<p>Na maioria dos comandos mais comums você terá todas essas opções ao seu dispor. Na maioria dos comandos mais incomuns tudo o que você terá será o prompt de comando do WinDbg e a ajuda, acionada por F1 ou pelo comando .hh tópico. Geralmente os comandos do WinDbg possuem milhares de parâmetros, e é considerada atitude sábia olhar de vez em quando o que alguns desses parâmetros significam para que, aos poucos, aprenda-se alguns truques até a chegada da iluminação completa, onde seu espírito irá fluir livremente pela memória de todos os processos do sistema.</p>
+<p>Por enquanto, basta apertar g e .</p>
+<blockquote>
+<p>A tempo: após executar g e mais um monte daquelas mensagens cheias de caracteres irão aparecer. Não se preocupe. Elas realmente não são importantes no momento, mas é importante saber o básico, que é &ldquo;o WinDbg está avisando você de tudo o que ocorre&rdquo;. No momento certo, saberemos usar as informações na tela quando houver necessidade.</p>
+</blockquote>
+<p>Vamos fazer algo não tão esperto para ver como o bloco de notas reage. Tente abrir um arquivo com um nome inexistente:</p>
+<p>Como podemos ver, o Bloco de Notas exibe uma mensagem de erro indicando que o arquivo cujo nome você digitou não existe, pede para você verificar a &ldquo;orografia&rdquo; e tudo o mais. O importante aqui não é que você não sabe digitar nomes de arquivos, mas sim que a função que o notepad usa para exibir sua mensagem de erro é a conhecida API MessageBox, cujo protótipo é o seguinte:</p>
+<pre><code>int WINAPI MessageBox(
+    HWND hWnd,            // handle para o propretário da janela
+    LPCTSTR lpText,       // ponteiro para string que contém o texto a ser exibido
+    LPCTSTR lpCaption,    // ponteiro para string que contém o título a ser exibido
+    UINT uType            // personaliza a janela com ícones, comportamento, etc
+    );
+</code></pre>
+<p>Algumas coisas a serem notadas nessa API:</p>
+<ul>
+<li>Como (quase) toda API no Windows, a convenção de chamada é WINAPI, o que significa que quem chama empilha todos os parâmetros na pilha. Eu estou falando apenas de Windows 32 bits.</li>
+<li>A função recebe 4 parâmetros e, de acordo com a convenção de chamada, podemos supor que esses parâmetros são empilhados na seguinte ordem (invertida): uType, lpCaption, lpText, hWnd, endereço-de-retorno.</li>
+<li>As <em>strings</em> para as quais os dois parâmetros do meio apontam são do tipo LPCTSTR, o que significa que, além de constantes, podem ser ANSI ou UNICODE, dependendo da versão que estamos utilizando.</li>
+</ul>
+<blockquote>
+<h4 id="ansi-x-unicode">ANSI x UNICODE</h4>
+</blockquote>
+<p>O sistema operacional utiliza internamente a codificação UNICODE. Contudo, para manter compatibilidade com versões anteriores de outros SOs, como Windows 95, 98 e ME, as APIs são desenvolvidas em duplas, com versões UNICODE (final W), que repassam a chamada diretamente para o sistema operacional, e ANSI (final A), que fazem a conversão de strings para daí (normalmente) chamar sua irmã em UNICODE.</p>
+<p>Sabendo que tudo converge para UNICODE, vamos colocar um singelo breakpoint nessa função API. Para parar a execução do notepad, podemos digitar &ldquo;Ctrl + Break&rdquo; ou ir no menu &ldquo;Debug, break&rdquo; ou ainda&hellip; bem, você pegou o espírito da coisa.</p>
+<pre><code>bp user32!MessageBoxW
+g
+</code></pre>
+<blockquote>
+<h4 id="faça-do-modo-inteligente">Faça do modo inteligente</h4>
+</blockquote>
+<p>Note que utilizei o prefixo user32! para especificar que a função está no módulo user32.dll, mas não seria necessário já que o WinDbg procura por qualquer função digitada na sua lista de funções exportadas e símbolos atuais. Contudo, fazer isso torna as coisas mais rápidas e evita perder tempo à toa.</p>
+<p>Agora podemos efetuar a mesma operação de abrir um arquivo inexistente no bloco de notas que a execução irá parar no início da função MessageBoxW da API:</p>
+<pre><code>Breakpoint 0 hit
+eax=0007cfb8 ebx=80004005 ecx=7e41ce0b edx=00000008 esi=00000208 edi=001b0296
+eip=7e46630a esp=0007cfa0 ebp=0007d9e4 iopl=0         nv up ei ng nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000286
+USER32!MessageBoxW:
+7e46630a 8bff            mov     edi,edi
+</code></pre>
+<p>Vamos exibir o estado da pilha atual (no registrador esp) no formato de double words, a palavra padrão em sistemas 32 bits:</p>
+<pre><code>0:000&gt; dd esp ; Dump de Double words
+0007cfa0  763db810 001b0296 0007cfb8 0007d5d0 &lt;-- parâmetros do MessageBox (em vermelho)
+0007cfb0  00000030 00000187 00720041 00750071 &lt;-- parâmetros do MessageBox (em vermelho)
+0007cfc0  00760069 0020006f 006e0069 00780065
+0007cfd0  00730069 00650074 0074006e 002e0065
+</code></pre>
+<p>A primeira coluna (cujo primeiro valor é 0007cfa0) exibe o endereço da pilha, sendo que o resto das colunas são os valores encontrados a partir do topo da pilha. Sabendo que a pilha cresce &ldquo;ao contrário&rdquo;, de valores maiores de endereço para menores, os parâmetros empilhados invertidos aparecem agora na ordem do protótipo da função. Complicado? Nem tanto. Os parâmetros são empilhados na ordem inversa do protótipo em C, como tínhamos observado: uType, lpCaption, lpText, hWnd e por fim endereço-de-retorno, que é empilhado ao ser executada a instrução call.</p>
+<pre><code>push uType               ; topo da pilha (esp) = 007cfb0, decrementado em 4 bytes (= double word)
+push lpCaption           ; esp = 007cfac (007cfb0 - 4), decrementado novamente...
+push lpText              ; esp = 007cfa8 (007cfac - 4)
+push hWnd                ; esp = 007cfa4 (007cfa8 - 4)
+call user32!MessageBoxW  ; push eip, esp = 007cfa4 - 4 = 007cfa0
+</code></pre>
+<p>Ao chegar em user32!MessageBoxW o estado da pilha reflete o protótipo, pois é o inverso do inverso (a pilha cresce &ldquo;para baixo&rdquo;, porém os parâmetros são empilhados do último para o primeiro).</p>
+<pre><code>0007cfa0  763db810 001b0296 0007cfb8 0007d5d0
+0007cfb0  00000030 
+
+0007cfa0   ret    hWnd  lpText lpCaption
+0007cfb0  uType
+</code></pre>
+<p>Para referenciarmos os parâmetros através do WinDbg, de forma genérica, tudo que precisamos é adicionar 4 bytes para pularmos de parâmetro em parâmetro:</p>
+<pre><code>esp = ret
+esp + 4 = hWnd
+esp + 8 = lpText
+esp + c = lpCaption
+esp + 10 =  uType
+</code></pre>
+<p>Baseado nesse princípio básico, podemos agora exibir o conteúdo de cada parâmetro passado usando o comando d (Dump) do WinDbg, aliado ao comando poi (pointer), que deferencia um determinado endereço (&ldquo;o apontado de&rdquo;).</p>
+<pre><code>0:000&gt; du poi(esp+8) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+8 (lpText)
+0007cfb8  &quot;Arquivo inexistente.txt.File not&quot;
+0007cff8  &quot; found..Please verify the correc&quot;
+0007d038  &quot;t file name was given.&quot;
+0:000&gt; du poi(esp+c) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+c (lpCaption)
+0007d5d0  &quot;Open&quot;
+</code></pre>
+<p>Note que se estivéssemos tentando exibir uma string Ansi iríamos usar o comando da. O WinDbg possui inúmeros comandos parecidos que começam com d, cuja lista pode ser consultada pelo comando .hh d.</p>
+<p>Como último passo em nosso passeio, vamos especificar alguns comandos para serem executados quando o breakpoint do MessageBox for acionado. O que iremos fazer aqui é trocar a mensagem de erro e seguir em frente (um breakpoint que não pára).</p>
+<p>Para trocar a mensagem de erro usamos o comando e (Edit), semelhante ao d.</p>
+<p>Para continuar a execução, como já vimos, usamos o comando g (Go), e é nessas horas que apenas o comando do prompt pode nos salvar:</p>
+<pre><code>0:004&gt; bp user32!MessageBoxW &quot;ezu poi(esp+8) \&quot;Obrigado por utilizar o maravilhoso Bloco de Notas!\&quot;; g&quot;
+breakpoint 0 redefined
+</code></pre>
+<p>O comando bp (BreakPoint) permite que sejam especificados comandos para serem executados automaticamente sempre que o breakpoint for ativado. Por isso, ao passar em user32!MessageBoxW colocamos dois comandos (separados por ponto-e-vírgula): ezu, que Edita uma string Unicode com outra string terminada em Zero, e o comando g, que já estamos carecas de saber. O resultado é óbvio, mas divertido de ver:</p>
+<p>Repare que colocamos esse breakpoint diretamente na função API, ou seja, qualquer outro ponto do notepad em que ele tiver vontade de chamar a mesma API irá ativar o mesmo breakpoint e exibir a mesma mensagem, o que pode ser um pouco importuno da parte dele. Um bom exercício pós-leitura seria tratar as condições em que a mensagem será trocada, talvez se baseando na mensagem recebida. Mas isso já é lição de casa, e paramos por aqui.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=No%20primeiro%20artigo%20sobre%20o%20WinDbg%20usamos%20o%20aplicativo%20Logger%20para%20verificar%20as%20fun%c3%a7%c3%b5es%20APIs%20que%20s%c3%a3o%20chamadas%20por%20um...%20http%3a%2f%2fwww.caloni.com.br%2fbrincando-com-o-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/desenvolvendo-em-linha-de-comando/">Desenvolvendo em linha de comando<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/protecao-dos-membros-protected/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Proteção dos membros protected</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

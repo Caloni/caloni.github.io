@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Ponteiros de método: conceito fundamental</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar..."/>
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta itemprop="name" content="Ponteiros de método: conceito fundamental"/>
+  <meta itemprop="description"
+        content="Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar..."/>
+  <meta itemprop="image"
+        content=""/>
+
+  
+  <meta property="og:title" content="Ponteiros de método: conceito fundamental"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/ponteiros-de-metodo-conceito-fundamental/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar..."/>
+  <meta property="og:site_name" content="Blogue do Caloni"/>
+  <meta property="article:published_time"
+        content="2007-11-05T00:00:00&#43;00:00"/>
+  <meta property="article:section" content="post"/>
+
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="Ponteiros de método: conceito fundamental"/>
+  <meta name="twitter:description"
+        content="Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content="
+                     /images/movies.png
+                   "/>
+
+  
+  <link href="" rel="alternate" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" title="Go to Home" href="/">
+        <img alt="Brand" src="/brand.svg">
+        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+      </a>
+
+      
+      <label class="button navbar-burger is-white" for="navbar-burger-state">
+        <span></span>                               
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+
+    <div class="navbar-menu">
+      <div class="navbar-end" style="padding: 10px;">
+      <big><b>
+       <a title="posts dessa categoria" href="/categories/blog">blog</a>  <a title="posts dessa categoria" href="/categories/cinema">cinema</a>  <a title="posts dessa categoria" href="/categories/code">code</a> 
+       <a href="/caloni"><span class="icon"><i class="fa fa-user"></i></a> <a href="index.xml"><span class="icon"><i class="fa fa-rss"></i></a>
+      </big></b>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">Ponteiros de método: conceito fundamental</p>
+
+        <p class="subtitle">
+<i>
+
+    <a href="https://github.com/Caloni/post/commits/master/ponteiros-de-metodo-conceito-fundamental.md" title="History">
+    2007-11-05
+    </a>
+
+<span class="icon"><i class="fa fa-clock-o"></span></i>3 </i>
+ <span class="icon"><i class="fa fa-pencil"></i></span><a href="https://github.com/Caloni/post/blob/master/ponteiros-de-metodo-conceito-fundamental.md" title="GitHub">570</a>
+</p>
+
+        <div class="taglist">
+            <i>Este ainda é um rascunho publicado prematuramente e está sujeito a mudanças substanciais.</i>
+
+        </div>
+
+        
+
+        
+          <div class="content">
+            
+              <p>Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar até quem está acostumado com a aritmética de ponteiros avançada. Não é pra menos: é praticamente uma definição à parte, com algumas limitações e que deixa a desejar os quase sempre criativos programadores da linguagem, que vira e mexe estão pedindo mudanças no C++0x.</p>
+<p>Três regras iniciais que devem ser consideradas para usarmos ponteiros para métodos são:</p>
+<ul>
+<li>
+<p>A semântica para lidar com ponteiros de método é totalmente diferente de ponteiros de função.</p>
+</li>
+<li>
+<p>Ponteiros de método de classes distintas nunca se misturam.</p>
+</li>
+<li>
+<p>Para chamarmos um ponteiro de método precisamos sempre de um objeto da classe para a qual ele aponta.</p>
+</li>
+</ul>
+<p>Visto isso, passemos a um exemplo simples, um chamador de métodos aleatórios, que ilustra o princípio básico de utilização:</p>
+<pre><code>#include &lt;windows.h&gt;
+#include &lt;iostream&gt;
+#include &lt;time.h&gt;
+
+using namespace std;
+
+// declaramos que existe uma classe com esse nome
+class FuzzyCall;
+
+// ponteiro para métodos da classe acima
+typedef void (FuzzyCall::*FP_Fuzzy)();
+
+/** Classe que faz chamada de um método aleatório. */
+class FuzzyCall
+{
+public:
+
+    FuzzyCall()
+    {
+        srand(GetTickCount()); // chacoalha o saco de bingo
+    }
+
+   FP_Fuzzy GiveMeAMethod() { return m_methods[rand() % 3]; }
+
+private:
+    void MethodOne()   { cout &lt;&lt; &quot;One!\n&quot;; }
+    void MethodTwo()   { cout &lt;&lt; &quot;Two!\n&quot;; }
+    void MethodThree() { cout &lt;&lt; &quot;Three!\n&quot;; }
+
+    static FP_Fuzzy m_methods[3];
+};
+
+/** Array com os métodos que podem ser chamados aleatoriamente. */
+FP_Fuzzy FuzzyCall::m_methods[3] = { &amp;MethodOne, &amp;MethodTwo, &amp;MethodThree };
+
+/** Recebe um ponteiro para um método de FuzzyCall e chama com um objeto local. */
+void passThrough(FP_Fuzzy pMethod)
+{
+    FuzzyCall fuzzyObject; // esse é o objeto local
+    ( fuzzyObject.*pMethod )(); // essa é a chamada
+}
+
+/** No princípio Deus disse: 'int main!'
+*/
+int main()
+{
+    FuzzyCall fuzzyObject1;
+    FP_Fuzzy pMethod;
+
+    // pegamos um método da classe qualquer
+    pMethod = fuzzyObject1.GiveMeAMethod();
+
+    // e passamos para uma outra função
+    passThrough(pMethod);
+} 
+</code></pre>
+<p>Como podemos ver, para o typedef de ponteiros de método é necessário especificar o escopo da classe. Com isso o compilador já sabe que só poderá aceitar endereços de métodos pertencentes à mesma classe com o mesmo protótipo.</p>
+<p>Na hora de atribuir, usamos o operador de endereço e o nome do método (com escopo, se estivermos fora da classe). É importante notar que, diferente de ponteiros de função, o operador de endereço é obrigatório. Do contrário:</p>
+<pre><code>error C4867: 'FuzzyCall::MethodOne': function call missing argument list;
+use '&amp;FuzzyCall::MethodOne' to create a pointer to member
+</code></pre>
+<p>E, por fim, a chamada. Como é a chamada de um método, é quase intuitiva a necessidade de um objeto para chamá-la. Do contrário não teríamos um this para alterar o objeto em qualquer método não-estático, certo? Daí a necessidade do padrão C++ especificar dois operadores especialistas para esse fim, construídos a partir da combinação de operadores já existentes em C:</p>
+<pre><code>FuzzyCall fuzzyObject; // esse é o objeto local
+FuzzyCall* pFuzzy = &amp;fuzzyObject; // ponteiro para esse mesmo objeto
+
+( fuzzyObject.*pMethod )(); // [objeto] .* [ponteiro de método]
+( fuzzyObject-&gt;*pMethod )(); // [ponteiro para objeto] -&gt;* [ponteiro de método] 
+</code></pre>
+<p>Esses operadores obrigam o programador a sempre ter um objeto e um ponteiro. Daí não tem como errar. Infelizmente, devido à ordem de precedência, temos que colocar os parênteses em torno da expressão para chamar o método. Pelo menos fica equivalente ao que precisávamos fazer antes da padronização da linguagem C.</p>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            
+    
+    
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
+    
+    <a href="https://twitter.com/intent/tweet?text=Diferente%20de%20ponteiros%20de%20fun%c3%a7%c3%a3o%20%28fun%c3%a7%c3%b5es%20globais%20ou%20est%c3%a1ticas%29%20-%20que%20s%c3%a3o%20a%20grosso%20modo%20ponteiros%20como%20qualquer%20um%20-%20os...%20http%3a%2f%2fwww.caloni.com.br%2fponteiros-de-metodo-conceito-fundamental%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
+
+
+        </div>
+
+        <div class="navigation-bottom">
+            <span style="float: right;"><a href="http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/">Ponteiro de método: qual this é usado?<span class="icon"><i class="fa fa-arrow-right"></i></span></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/desenvolvendo-em-linha-de-comando/"><span class="icon"><i class="fa fa-arrow-left"></i></span>Desenvolvendo em linha de comando</a></span>
+
+        </div>
+
+      </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni 2020. Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>
