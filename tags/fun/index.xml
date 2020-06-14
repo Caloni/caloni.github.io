@@ -1,0 +1,125 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fun on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/fun/</link>
+    <description>Recent content in fun on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Tue, 07 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/fun/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Meu Try Lock de Pelúcia</title>
+  <link>http://www.caloni.com.br/try-lock-de-pelucia/</link>
+  <pubDate>2020-04-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/try-lock-de-pelucia/</guid>
+  <description>Alguns implementam mutex pero no mucho, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo que pode ou não rodar multithread.
+Já isso me lembra o try lock de pelúcia de um driver de uma empresa que trabalhei certa vez. Como havia situações onde o lock não era nunca liberado, e a thread estava rodando em um nível de interrupção que não poderia mais voltar, ou ela agendava uma execução menos prioritária ou obtia o lock.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Dixit (Jogo)</title>
+  <link>http://www.caloni.com.br/dixit-jogo/</link>
+  <pubDate>2019-05-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/dixit-jogo/</guid>
+  <description>Uma festa com karaokê e jogos de mesa. O que pode surgir de interessante em um cenário millenial como esse? Um jogo de cartas que em sua simplicidade revela um intrincado sistema que soluciona todos os problemas que outros jogos de mesa costumam ter.
+Dixit é um jogo de cartas ilustradas que os competidores ficam em mãos e usam em toda rodada. Em cada rodada um deles vira o &amp;ldquo;narrador&amp;rdquo; e usa uma frase para descrever a carta que escolheu.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Minecraft: O Jogo</title>
+  <link>http://www.caloni.com.br/minecraft-game/</link>
+  <pubDate>2019-01-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/minecraft-game/</guid>
+  <description>Fundamentado em bases materialistas, a partir das quais Karl Marx se orgulharia, Minecraft é uma luta por recursos e sobrevivência. E por ser simples e fácil de jogar, as crianças adoram. Isso e porque também tem skins na aparência dos players.
+Mas qual o objetivo em Minecraft? Ele um jogo pensado como um mundo de blocos onde o que muda são as propriedades físicas desses blocos e o que é possível fazer com eles.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Para a Cúpula Filho Da Puta</title>
+  <link>http://www.caloni.com.br/para-a-cupula-filho-da-puta/</link>
+  <pubDate>2017-08-25</pubDate>
+  
+  <guid>http://www.caloni.com.br/para-a-cupula-filho-da-puta/</guid>
+  <description>O Facebook me lembrou de uma imagem antiga do cartunista do Oatmeal que traduzi para o português há cinco anos. Continua atual, será?</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Programa, Mãe Foca!</title>
+  <link>http://www.caloni.com.br/programa-mae-foca/</link>
+  <pubDate>2016-08-30</pubDate>
+  
+  <guid>http://www.caloni.com.br/programa-mae-foca/</guid>
+  <description>A história das metodologias de desenvolvimento de software segue mais ou menos as oscilações naturais do próprio software: caminha em direção ao caos (e as sessões de refactory buscam desacelerar essa inevitável tendência). Assim como aquela classe que parecia perfeita assim que foi feita, uma metodologia irá se desmanchar frente à lei da mediocridade. Você não consegue software bom com programadores ruins seguindo a melhor metodologia do planeta.
+Então a solução nunca parece ser a metologia, já que programadores ruins não melhorarão seguindo qualquer metologia que seja.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Real Programmers Don&#39;t Use Java</title>
+  <link>http://www.caloni.com.br/real-programmers-dont-use-java/</link>
+  <pubDate>2014-02-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
+  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, a satiric text that influenced and encouraged me into the path of &amp;ldquo;C/C++ enlightenment&amp;rdquo;, most even than K&amp;amp;R&amp;rsquo;s book. Since then I thought that being a &amp;ldquo;Real Programmer&amp;rdquo; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;ldquo;Quiche Eater&amp;rdquo; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>eXtreme Go Horse</title>
+  <link>http://www.caloni.com.br/extreme-go-horse/</link>
+  <pubDate>2012-09-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/extreme-go-horse/</guid>
+  <description>O Go Horse Power (GHP) foi criado por um blogue hoje extinto. As premissas dessa nova metodologia de desenvolvimento era que o projeto fosse feito da maneira mais rápida possível.
+Contudo, eles não contavam com a versão turbinada do desleixo humano.
+A eXtreme Go Horse (XGP) é o suprassumo das metodologias do mercado brasileiro de desenvolvimento. Quem nunca trabalhou em uma empresa gerida por essas regras? (Bom, pelo menos XGH pelo jeito tem até controle de fonte, algo que era até meio raro uns anos atrás):</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Programadores de verdade não usam Java</title>
+  <link>http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/</link>
+  <pubDate>2009-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/</guid>
+  <description>Quando era um newbie (e um wanna-be) gostava de ler o &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, um texto humorístico que mais me influenciou e encorajou a caminho da iluminação C/C++ do que o livro de K&amp;amp;R. A partir dele, supunha eu, ser um &amp;ldquo;programador de verdade&amp;rdquo; era ser tudo. Ser um Quiche Eater (Comedor de Torta) não era nada. Programadores de verdade é que resolvem os problemas de verdade! Quiche Eaters são os losers que estudam os conceitos acadêmicos da ciência da computação e nunca fazem um maldito programa que preste (conhece alguém assim?</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>

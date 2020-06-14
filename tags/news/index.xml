@@ -1,0 +1,29 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>news on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/news/</link>
+    <description>Recent content in news on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Tue, 16 Aug 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/news/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Electrum: uma opção simples e rápida de manter bitcoins seguros</title>
+  <link>http://www.caloni.com.br/electrum-uma-opcao-simples-e-rapida-de-manter-bitcoins-seguros/</link>
+  <pubDate>2016-08-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/electrum-uma-opcao-simples-e-rapida-de-manter-bitcoins-seguros/</guid>
+  <description>Estava já há algum tempo pesquisando as melhores ferramentas para organizar carteiras bitcoin. E quando se fala em ter seus próprios bitcoins, a segurança deve ser prioridade número zero. Isso porque, diferente de bancos, quando você se dispõe a gerenciar seu próprio cofre, é você, e apenas você, o único responsável pela sua integridade.
+Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não seja necessário. Algum hacker ou programa malicioso instalado na sua máquina (como um keylogger) pode facilmente obter essa informação.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>

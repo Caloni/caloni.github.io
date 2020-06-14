@@ -1,0 +1,45 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kernel on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/kernel/</link>
+    <description>Recent content in kernel on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Tue, 29 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/kernel/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Ativando Ubuntu No Windows 10</title>
+  <link>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</link>
+  <pubDate>2017-08-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</guid>
+  <description>Pensei que o Ubuntu já estivesse na Windows Store disponível para qualquer gamer instalar (não sei por que um gamer faria isso). Mas não. Ainda é necessário fazer os passos de desenvolvedor expert de Windows para ativar esta opção.
+Primeiro, vá nas configurações e ative o Developer Mode:
+Depois vá em Adicionar/Remover Programas e ative o Windows Subsystem for Linux (Beta):
+Reinicie a máquina, abra o prompt de comando, digite bash e enter.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Aprendizado em kernel mode</title>
+  <link>http://www.caloni.com.br/aprendizado-em-kernel-mode/</link>
+  <pubDate>2008-08-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/aprendizado-em-kernel-mode/</guid>
+  <description>Hoje terminei minha primeira leitura de Memory Dump Analysis Vol. 1, e qual não foi a minha surpresa ao encontrar entre os últimos posts justamente o que eu estava precisando: um guia de livros que se deve ler para começar a programar em kernel mode.
+O melhor de tudo nem é a lista de livros, cujos títulos já estão batidos na minha cabeça de tanto meu amigo Ferdinando comentar a respeito.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>

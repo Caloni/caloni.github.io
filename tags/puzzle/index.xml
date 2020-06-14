@@ -1,0 +1,98 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>puzzle on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/puzzle/</link>
+    <description>Recent content in puzzle on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/puzzle/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Code Jam 2020</title>
+  <link>http://www.caloni.com.br/code-jam-2020/</link>
+  <pubDate>2020-04-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/code-jam-2020/</guid>
+  <description>O Code Jam esse ano terminou rápido para mim. Estou enferrujado? Nem tanto. Apenas dei menos atenção ao evento no seu início, mas apesar de me concentrar nas últimas 11 horas não tive um resultado satisfatório, obtendo 24 pontos ao total, o que não me dá direito para o torneio, que exige pelo menos 30.
+Minha abordagem nesse problema foi o básico de ir lendo os valores e verificando para cada novo elemento da linha se havia repetição nos valores já lidos da mesma linha.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Some things I learned in a Hacker Rank exercise</title>
+  <link>http://www.caloni.com.br/hacker-rank/</link>
+  <pubDate>2019-08-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/hacker-rank/</guid>
+  <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
+Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Code Jam 2019 Qualification Round</title>
+  <link>http://www.caloni.com.br/code-jam-2019-qualification-round/</link>
+  <pubDate>2019-04-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/code-jam-2019-qualification-round/</guid>
+  <description>Estou viajando e com poucas horas de acesso a um computador, mas os dois primeiros desafios do Code Jam esse ano foram tão simples que sequer precisaram de meia-hora. Isso para um chinês, campeões em campeonatos de programação, deve ser equivalente a cinco minutos com um código C enxuto. Mas estou apenas aprendendo.
+Resuminho: o problema é receber um número e retornar dois números cuja soma seja igual ao primeiro. A única restrição é que nesses números não poderá ter o algarismo quatro.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Rank and File</title>
+  <link>http://www.caloni.com.br/rank-and-file-code-jam/</link>
+  <pubDate>2016-04-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/rank-and-file-code-jam/</guid>
+  <description>Passou o Round 1A do Code Jam, e para variar, fui muito mal, só respondendo a primeira questão. A segunda me fez ficar pensando um tempo desproporcional sobre como encaixar as diferentes linhas e colunas para achar a linha restante.
+Basicamente, o problema pede que, dado um quadrado de tamanho N, e 2*N-1 linhas fornecidas (que podem ser linhas ou colunas), imprimir a Nésima linha. A regra das linhas é que ela possui números crescentes.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Que geleia de mocotó</title>
+  <link>http://www.caloni.com.br/que-geleia-de-mocoto/</link>
+  <pubDate>2014-04-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/que-geleia-de-mocoto/</guid>
+  <description>A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o C++, que passei a usar para essa fase. É burrice aliada a pressão. Duas horas e meia para entender um problema é o tipo de coisa que me deixa pensando mais no tempo do que no problema.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Geleia de Código</title>
+  <link>http://www.caloni.com.br/geleia-de-codigo/</link>
+  <pubDate>2014-04-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/geleia-de-codigo/</guid>
+  <description>Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais válido) e por aí vai o mimimi. Dessa forma, sempre passei ileso de eventos como o atual Google Code Jam, que pretende levar a categoria de código ofuscado para um novo patamar.
+No entanto, esse ano apareceram dois motivos que me levaram a gastar cinco minutos de paciência com as historinhas bestas da equipe do Google.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>

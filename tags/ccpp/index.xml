@@ -1,0 +1,138 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ccpp on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/ccpp/</link>
+    <description>Recent content in ccpp on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Wed, 22 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/ccpp/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Cast Operator</title>
+  <link>http://www.caloni.com.br/cast-operator/</link>
+  <pubDate>2020-04-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/cast-operator/</guid>
+  <description>O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.
+struct T {explicit operator uint64_t(){return 10;}};int main(){T t;t(); // error: term does not evaluate to a function taking 0 argumentsuint64_t i = (uint64_t) t; // i == 10} O operador de cast só funciona se um cast estiver envolvido.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Some things I learned in a Hacker Rank exercise</title>
+  <link>http://www.caloni.com.br/hacker-rank/</link>
+  <pubDate>2019-08-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/hacker-rank/</guid>
+  <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
+Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Como Achar Erros no Printf via Dump</title>
+  <link>http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/</link>
+  <pubDate>2018-01-25</pubDate>
+  
+  <guid>http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/</guid>
+  <description>Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques pontuais e uma análise simples da stack, da variável e do código envolvido é possível chegar em um veredito sem muitas controversas se foi isso mesmo que gerou o crash. No caso peguei hoje um caso assim.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>C, C&#43;&#43;, Engenharia Reversa e Todo o Resto</title>
+  <link>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</link>
+  <pubDate>2015-04-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</guid>
+  <description>&amp;ldquo;C++ é divertido, mas não paga minhas contas&amp;rdquo;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C++, e com uma equipe peso-pesado.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Entendendo a Compilação</title>
+  <link>http://www.caloni.com.br/entendendo-a-compilacao/</link>
+  <pubDate>2015-01-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/entendendo-a-compilacao/</guid>
+  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa &amp;ndash; eu disse: PRECISA &amp;ndash; conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Uma nova linguagem</title>
+  <link>http://www.caloni.com.br/uma-nova-linguagem/</link>
+  <pubDate>2013-12-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
+  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;ldquo;frescurento&amp;rdquo; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
+Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Ode ao C&#43;&#43;</title>
+  <link>http://www.caloni.com.br/ode-ao-c/</link>
+  <pubDate>2008-04-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
+  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;ldquo;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;ldquo;derivado&amp;rdquo; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>A mobilidade das variáveis no printf</title>
+  <link>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</link>
+  <pubDate>2007-09-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
+  <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
+O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
+// SPrintf.cpp : Guess how many// lines we need to create // a bug in C++?</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43;0x parcial no novo GCC 4.3</title>
+  <link>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</link>
+  <pubDate>2007-07-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
+  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C++, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C++ já há algum tempo.
+Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>

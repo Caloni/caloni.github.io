@@ -1,0 +1,58 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>work on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/work/</link>
+    <description>Recent content in work on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Sat, 13 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/work/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Historical Price</title>
+  <link>http://www.caloni.com.br/historical-price/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/historical-price/</guid>
+  <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades.</description>
+  <details>
+  
+      
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Leak de Memória</title>
+  <link>http://www.caloni.com.br/leak-de-memoria/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/leak-de-memoria/</guid>
+  <description>Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.
+Essa memória é alocada para um objeto acessível por uma interface.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Azure Missing Lines</title>
+  <link>http://www.caloni.com.br/azure-missing-lines/</link>
+  <pubDate>2020-06-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/azure-missing-lines/</guid>
+  <description>É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.
+Para se autenticar no repositório remoto, é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+    
+  </channel>
+</rss>
