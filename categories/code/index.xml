@@ -6,9 +6,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/code/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Historical Price</title>
+  <link>http://www.caloni.com.br/historical-price/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/historical-price/</guid>
+  <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades.</description>
+  <details>
+  
+  </details>
+</item>
+
      
         <item>
   <title>O Bug Mais Bizarro Que Já Resolvi</title>
