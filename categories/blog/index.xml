@@ -42,40 +42,12 @@ Este vinho produzido na região é um reserva de 2014 que passou por maturação
 
      
         <item>
-  <title>Azure Missing Lines</title>
-  <link>http://www.caloni.com.br/azure-missing-lines/</link>
-  <pubDate>2020-06-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/azure-missing-lines/</guid>
-  <description>É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.
-Para se autenticar no repositório remoto, é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Sempre Aposte no Texto</title>
   <link>http://www.caloni.com.br/sempre-aposte-no-texto/</link>
   <pubDate>2020-06-01</pubDate>
   
   <guid>http://www.caloni.com.br/sempre-aposte-no-texto/</guid>
   <description>Achei o link para o artigo que estava procurando. Always Bet on Text é o título. Ele diz o que eu acredito com outras palavras: texto é a telepatia que funciona no tempo e espaço. É imbatível comparado com tecnologias mais novas. Seu sistema de símbolos permite uma troca tão rica de informação entre duas e mais mentes que é provável que ele seja o método preferencial escolhido pela organização da nossa galáxia.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Transmission</title>
-  <link>http://www.caloni.com.br/transmission/</link>
-  <pubDate>2020-06-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/transmission/</guid>
-  <description>Dia de fazer funcionar o download automágico de legendas depois que o Transmission baixou meu Netflix caseiro. O download funcionou, mas não foi dos melhores, pois o sincronismo e o encoding veio errado, e o rename de _pb para o nome do arquivo não está acontecendo rodando pelo transmission-daemon. Fora isso tá com tudo em cima.
-No final do dia a correção era mais simples que imaginava: eu só precisava desabilitar duas flags: o uso de sufixo no nome do arquivo salvo e a flag que força todo arquivo a ser salvo como utf8 (os arquivos em português do Brasil são salvos no encoding do Windows, o ISO-8859-1 ou Windows 1252 para os mais íntimos).</description>
   <details>
   
   </details>
@@ -102,20 +74,6 @@ No final do dia a correção era mais simples que imaginava: eu só precisava de
   
   <guid>http://www.caloni.com.br/bode-caloni-cast-live/</guid>
   <description>Alguns caras em uma noite de quinta-feira falando sobre aleatoriedades que giram em torno de cinema, social justice (justiça social), anime e o melhor filme de todos: The Room. O primeiro bodecast live do grupo C/C++ Brasil foi sucesso de participantes e fracasso de público (só veio o Matheus e o Elias). Descobrimos que o Gianni, fundador do grupo do Telegram, tem o péssimo costume de largar os filmes pela metade.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Bug no Calonibot Rodando Como Serviço</title>
-  <link>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</link>
-  <pubDate>2020-05-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
-  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero&amp;hellip;
-Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço.</description>
   <details>
   
   </details>
@@ -159,34 +117,6 @@ Parei de cultivar meu fermento natural todos os dias. O objetivo de mantê-lo at
   
   <guid>http://www.caloni.com.br/cinammon/</guid>
   <description>Seguindo as instruções deste vídeo do YouTube (ou em texto aqui) tentei fazer este Cinammon, mas falhei quase miseravelmente. A parte mais difícil foi enrolar, e acho que a grossura de 1cm foi demais. O pão cresceu muito e deixou pouco recheio. Deve haver uma cobertura sem cream cheese, difícil de achar por aqui. E por último, talvez usar menos fermento da próxima vez.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Minha palestra sobre Windbg</title>
-  <link>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</link>
-  <pubDate>2020-04-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
-  <description>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).
-Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Callback Hell</title>
-  <link>http://www.caloni.com.br/callback-hell/</link>
-  <pubDate>2020-04-09</pubDate>
-  
-  <guid>http://www.caloni.com.br/callback-hell/</guid>
-  <description>Foi aprendendo sobre kernel do Windows que eu descobri que a linguagem C suporta todas as abstrações que um homem crescido precisa para desenvolver sistemas. Também aprendi que você precisa ser um homem crescido para saber usar direito.
-A linguagem C possui 32 palavras-chave e nenhuma parafusadeira elétrica. Existe um motivo para isso: fazer tudo na mão desenvolve o caráter. Se não desenvolve, pelo menos escancara a má pessoa que você é.</description>
   <details>
   
   </details>
@@ -271,19 +201,6 @@ Preparo do Merengue Francês: bater as claras em neve adicionando açúcar aos p
   <description>Tirado do vídeo do canal do YouTube Pão da Casa.
 500g de farinha (9 pães), 5g fermento seco, 50g fermento natural, 300ml de água (60%), 10g sal, 5g açúcar, 1 colher de chá de gordura.
 Sovar por uns 15 min até ficar elástico. Descansar por 10 a 15 min. Após isso fazer uma dobra como um livro que se fecha em quatro, e depois uma bola, descansando na geladeira por 12 horas enquanto cresce (muito).</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Top Filmes 2019</title>
-  <link>http://www.caloni.com.br/top-filmes-2019/</link>
-  <pubDate>2019-12-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/top-filmes-2019/</guid>
-  <description>Apesar de sempre mudar no futuro e sempre gerar acaloradas, intermináveis e fúteis discussões entre cinéfilos, as famigeradas listas dos melhores ajudam a colocar uma certa época ou gênero em perspectiva, nos permitindo avaliar melhor através desses exemplos a coleção completa. Claro que cada um terá sua lista e a defenderá até o fim, mas é justamente essa a graça de conversar sobre arte: cada pessoa tem sua experiência muito particular sobre o todo.</description>
   <details>
   
   </details>
@@ -708,20 +625,6 @@ Preparo: misture a água com a farinha até formar uma pasta e modele como um qu
 
      
         <item>
-  <title>Film Theory and Criticism</title>
-  <link>http://www.caloni.com.br/film-theory-and-criticism/</link>
-  <pubDate>2019-06-17</pubDate>
-  
-  <guid>http://www.caloni.com.br/film-theory-and-criticism/</guid>
-  <description>Este é um livro-referência sobre crítica cinematográfica que você encontra em respostas do Quora sobre onde aprender mais sobre o assunto. Aliás, falando sobre a profissão, a resposta do crítico Mark Hughes é bem completa, além de desanimadora para os interessados em ingressar na área. Mas voltemos à teoria.
-Esta na verdade é uma coletânea, ou uma antologia, atualizada de tempos em tempos pelos seus autores, Leo Braudy e Marshall Cohen.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Dixit (Jogo)</title>
   <link>http://www.caloni.com.br/dixit-jogo/</link>
   <pubDate>2019-05-20</pubDate>
@@ -769,19 +672,6 @@ Dixit é um jogo de cartas ilustradas que os competidores ficam em mãos e usam 
   
   <guid>http://www.caloni.com.br/the-one-thing/</guid>
   <description>The ONE Thing é um livro que comecei a ler inspirado na dica do Robin Wieruch, que já leu um ou dois livros que eu também já li. Este é um clássico da auto-ajuda empresarial e começa ensinando umas poucas e boas para o leitor comum, mas é particularmente inspirador para quem já sabe que as lições de Gary Keller servem mais para ele do que para qualquer outro ser humano no planeta.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como a geração de Sai de Baixo se encontra com a geração Não me Toque</title>
-  <link>http://www.caloni.com.br/sai-de-baixo/</link>
-  <pubDate>2019-02-13</pubDate>
-  
-  <guid>http://www.caloni.com.br/sai-de-baixo/</guid>
-  <description>A coletiva de imprensa para &amp;ldquo;Sai de Baixo: O Filme&amp;rdquo; pode ser resumida da seguinte maneira: uma trupe de militantes mimimi fazendo perguntas sobre sentimentos e o elenco do filme respondendo à altura sem sair do salto; muito pelo contrário, com muita propriedade: &amp;ldquo;temos que dizer uma coisa que todo pobre concorda e se identifica: ser pobre é ruim!&amp;quot;. Parecia um quadro de humor combinado. E que rendeu (a mim pelo menos) ótimas risadas.</description>
   <details>
   
   </details>
@@ -873,19 +763,6 @@ Mas qual o objetivo em Minecraft? Ele um jogo pensado como um mundo de blocos on
 
      
         <item>
-  <title>Top Filmes 2018</title>
-  <link>http://www.caloni.com.br/top-filmes-2018/</link>
-  <pubDate>2018-12-31</pubDate>
-  
-  <guid>http://www.caloni.com.br/top-filmes-2018/</guid>
-  <description>Como usar esta lista: Antes de enumerar os 9 (nove) filmes que, acredito, mereçam constar em uma lista de consideração pelo Cinema, explico que listas nunca são exaustivas, nunca são permanentes e nunca são objetivas, mas subjetivas, dependendo do tempo-espaço e da pessoa que a compila. Essa que segue tenta fugir um pouco do lugar-comum, mas que irá falhar miseravelmente porque cinéfilos e críticos costumam enxergar a beleza no mesmo lugar.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>12 Regras Para a Vida, por Jordan Peterson</title>
   <link>http://www.caloni.com.br/12-rules-for-life-jordan-b-peterson/</link>
   <pubDate>2018-12-30</pubDate>
@@ -905,20 +782,6 @@ Mas qual o objetivo em Minecraft? Ele um jogo pensado como um mundo de blocos on
   
   <guid>http://www.caloni.com.br/cali-2018/</guid>
   <description>Vale a pena fazer uma viagem aos EUA nessa época de 4 temers pra um trump? Er&amp;hellip; financeiramente não. Mas como o timing é tudo e é preciso conhecer pelo menos uma vez na vida, e experiências são melhores que coisas, eu diria que vale, sim. Vivenciar outra cultura, valores, como as coisas funcionam de forma diferente, etc, acaba se pagando com o tempo. E no caso dessa viagem feita a carro com um casal de amigos, algo que não costumamos fazer, foi uma outra novidade que valeu a pena ter vivido.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>A Maneira Errada de Começar um Projeto é com Visual Studio</title>
-  <link>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</link>
-  <pubDate>2018-12-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
-  <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
-&amp;gt;git diff&amp;gt;Binary files a/source.cpp and b/source.cpp differ Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.</description>
   <details>
   
   </details>
@@ -947,20 +810,6 @@ Como viagem Floripa é uma cidade que se divide em ilha e continente. Na ilha h�
   <guid>http://www.caloni.com.br/carne-louca/</guid>
   <description>Ingredientes: Para a carne 1kg de lagarto, 1 cebola grande, 2 folhas de louro, 4 dentes de alho, 1 colher rasa de sete pimentas ou jamaica ou outra. Para o molho 1kg de tomate, 2 cebolas grandes, pimentão.
 Preparo: Para fazer a carne louca esquentar azeite e jogar a carne em cubos com o louro e a cebola, pegar pressão e manter em fogo baixíssimo por 30 minutos; após tirar do fogo verificar a carne e ir colocando de 15 em 15 minutos até ficar mole; quando estiver mole separar o caldo que foi gerado para o molho e desfiar a carne com as mãos ou garfo.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>The Photoplay</title>
-  <link>http://www.caloni.com.br/the-photoplay/</link>
-  <pubDate>2018-08-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/the-photoplay/</guid>
-  <description>The Photoplay, A Psychological Study, é considerado o primeiro livro que levou a sério a linguagem cinematográfica como uma nova forma de arte. Ele realiza duas manobras interessantíssimas para a época: retira a impressão que Cinema é apenas um teatro para as massas e eleva as fotos em movimento como uma nova forma de estética que atinge seu status de arte justamente por se destacar do mundo.
-Hugo Münsterberg foi mais conhecido na área de psicologia aplicada, tendo escrito dezenas de livros na área.</description>
   <details>
   
   </details>
@@ -1041,35 +890,6 @@ O vídeo do filósofo Alysson Augusto, baseado no texto de Leandro C.</descripti
   <guid>http://www.caloni.com.br/por-dentro-do-roteiro-tom-stempel/</guid>
   <description>O livro de Tom Stempel, acadêmico e crítico cinematográfico, parece ter sido feito com um olho nos negócios e outro no entretenimento. Isso porque para Stempel o importante em um roteiro não é seguir uma estrutura estética agradável, nem mover a história em uma trama que te prenda, mas fazer os personagens serem tão reais que você os seguirá para onde quer que seja. Mesmo em um blockbuster.
 Isso é porque para ele Titanic, de James Cameron, não é um exemplo a ser seguido porque é, perdoe o trocadilho, superficial, ou os Episódios I, II e III da saga Star Wars são exemplos de roteiros ruins simplesmente porque não são escritos para convencer ninguém, mas apenas bater cartão no universo de George Lucas.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Stanford Encyclopedia of Philosophy Para Kindle</title>
-  <link>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</link>
-  <pubDate>2018-07-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</guid>
-  <description>A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.
-Para realizar esta operação será necessário usar as seguintes ferramentas:
- wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Manipulando Mouse e Teclado no Windows</title>
-  <link>http://www.caloni.com.br/manipulando-mouse-e-teclado-no-windows/</link>
-  <pubDate>2018-07-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/manipulando-mouse-e-teclado-no-windows/</guid>
-  <description>Uma forma extremamente bem comportada que o Windows tem para manipular entrada de mouse e teclado são as funções API BlockInput/SendInput [1][2]. Enquanto uma bloqueia todos os eventos de input vindo de todos os lugares do sistema, o outro consegue enviar inputs apenas por software. Imagine a peça que você pode pregar em seus amigos.
-No entanto, estas funções não são para amadores. É preciso entender o que são threads, por exemplo, pois apenas a thread que chamou BlockInput pode depois chamar SendInput com sucesso.</description>
   <details>
   
   </details>
@@ -1186,27 +1006,6 @@ Como conhecimento catalogado sua grande vantagem é servir como um guia, mais ou
 
      
         <item>
-  <title>Dunkirk</title>
-  <link>http://www.caloni.com.br/dunkirk-especial/</link>
-  <pubDate>2018-01-08</pubDate>
-  
-  <guid>http://www.caloni.com.br/dunkirk-especial/</guid>
-  <description>Dunkirk, filme sobre um evento histórico do diretor Christopher Nolan, simplifica a narrativa humana buscando a essência da coletividade: o que causa um grupo ser maior que a soma dos seus indivíduos? Mas simples não quer dizer simplista, e Nolan sabe muito bem disso. Ele começa apresentando um soldado francês fugindo do exército alemão em busca de resgate. Seus colegas são mortos ou feridos nas últimas jardas onde uma operação gigantesca de retirada de tropas está sendo conduzida pelos britânicos.</description>
-  <details>
-  
-      
-          Dunkirk
-          (United Kingdom, Netherlands, France, United States, 2017).
-           Dirigido por Christopher Nolan.
-           Escrito por Christopher Nolan.
-           Com Fionn Whitehead, Damien Bonnard, Aneurin Barnard, Lee Armstrong, James Bloor, Barry Keoghan.
-      
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>CCPPBRSP 14 Postergado</title>
   <link>http://www.caloni.com.br/ccppbrsp14-postergado/</link>
   <pubDate>2017-11-21</pubDate>
@@ -1262,28 +1061,6 @@ As inscrições pagas estão abertas! O valor único por participante é de R$ 5
 
      
         <item>
-  <title>Entrevista com Darren Aronofsky</title>
-  <link>http://www.caloni.com.br/entrevista-darren-aronofsky/</link>
-  <pubDate>2017-09-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/entrevista-darren-aronofsky/</guid>
-  <description>&amp;ldquo;Talvez nós tenhamos interpretado erroneamente a Bíblia por muito tempo.&amp;rdquo; Essa foi a frase-chave de uma coletiva com Darren Aronofsky que envolveu todas as interpretações polêmicas a respeito de seu novo filme, &amp;ldquo;Mãe!&amp;quot;, que apresenta uma alegoria que inevitavelmente cai nas preocupações ecológicas atuais. Com a presença apenas do diretor, foi uma entrevista ágil, com boas perguntas e com uma presença de espírito de Aronofsky em cada resposta.
-Darren Aronofsky é um diretor bem peculiar.</description>
-  <details>
-  
-      
-          Mother!
-          (United States, 2017).
-           Dirigido por Darren Aronofsky.
-           Escrito por Darren Aronofsky.
-           Com Jennifer Lawrence, Javier Bardem, Ed Harris, Michelle Pfeiffer, Brian Gleeson, Domhnall Gleeson.
-      
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Escopo Fechado: Receita De Fracasso</title>
   <link>http://www.caloni.com.br/escopo-fechado-receita-de-fracasso/</link>
   <pubDate>2017-09-12</pubDate>
@@ -1311,41 +1088,12 @@ Sinto muito, mas não trabalhamos dessa forma. Já tivemos várias experiências
 
      
         <item>
-  <title>Ativando Ubuntu No Windows 10</title>
-  <link>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</link>
-  <pubDate>2017-08-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</guid>
-  <description>Pensei que o Ubuntu já estivesse na Windows Store disponível para qualquer gamer instalar (não sei por que um gamer faria isso). Mas não. Ainda é necessário fazer os passos de desenvolvedor expert de Windows para ativar esta opção.
-Primeiro, vá nas configurações e ative o Developer Mode:
-Depois vá em Adicionar/Remover Programas e ative o Windows Subsystem for Linux (Beta):
-Reinicie a máquina, abra o prompt de comando, digite bash e enter.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Décimo-Terceiro Encontro CCPPBrasil (Post Mortem)</title>
   <link>http://www.caloni.com.br/13-encontro-ccppbrasil-post-mortem/</link>
   <pubDate>2017-08-06</pubDate>
   
   <guid>http://www.caloni.com.br/13-encontro-ccppbrasil-post-mortem/</guid>
   <description>Mais um encontro que deu certo. No interior de SP em um sábado meio friozinho e meio calor houve o décimo-terceiro encontro de nossa comunidade C/C++ Brasil, em um espaço e coffee-break fornecidos pela empresa Diebold em Indaiatuba. Houve cinco palestras e o dia passou bem rápido. Parabéns a todos os envolvidos pelo sucesso do encontro.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>CppTests</title>
-  <link>http://www.caloni.com.br/cpptests/</link>
-  <pubDate>2017-07-25</pubDate>
-  
-  <guid>http://www.caloni.com.br/cpptests/</guid>
-  <description>Iniciei um novo projeto no GitHub que tem por objetivo ser minha prancheta de trabalhos para minha palestra no próximo encontro ccpp. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?</description>
   <details>
   
   </details>
@@ -1559,20 +1307,6 @@ Apesar do nome &amp;ldquo;propriedade privada&amp;rdquo;, é necessário que sua
 
      
         <item>
-  <title>Entrando na zona com Windows</title>
-  <link>http://www.caloni.com.br/entrando-na-zona-com-windows/</link>
-  <pubDate>2017-03-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/entrando-na-zona-com-windows/</guid>
-  <description>Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.
-Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;ldquo;flow&amp;rdquo;, ou estar na zona. Agora é a vez do Windows.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Mastery: The Keys to Success and Long-Term Fulfillment</title>
   <link>http://www.caloni.com.br/livro-mastering-the-key-to-success-and-long-term-fulfillment/</link>
   <pubDate>2017-03-14</pubDate>
@@ -1580,19 +1314,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <guid>http://www.caloni.com.br/livro-mastering-the-key-to-success-and-long-term-fulfillment/</guid>
   <description>O livro de George Leonard é um curto e didático passeio através dos mistérios que tornam o ser humano cada vez mais habituado ao seu &amp;ldquo;eudaimonia&amp;rdquo; aristotélico, ou seja, o estado de plenitude do ser que está ao alcance de todos que se derem a liberdade da melhora contínua em qualquer coisa que fizermos nesse mundo.
 Ele parte do princípio que para melhorarmos em qualquer aspecto de nossa vida, seja uma habilidade em um esporte ou na cozinha ou até na faxina, é necessário amar a prática do dia-a-dia e se esforçar de vez em quando para atingir cada vez níveis mais altos, em uma graduação torta, mas constante, de auto-melhora progressiva e agradável.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Atalhos no terminal do Linux/Unix</title>
-  <link>http://www.caloni.com.br/atalhos-no-terminal-do-linux-unix-cygwin/</link>
-  <pubDate>2017-02-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/atalhos-no-terminal-do-linux-unix-cygwin/</guid>
-  <description>Há pouca coisa que você pode fazer para manipular a linha de comando que está digitando em um terminal do Windows. Isso faz sentido. O terminal da Microsoft é apenas um resquício do MS-DOS, que foi herdado pelas inúmeras versões do Windows para que desenvolvedores e suporte pudessem executar alguns comandos não disponíveis pelo clique de um mouse. Já no Unix a história é inversa. Durante tantas décadas sendo usado, o sistema Unix, hoje, em sua mais nova reencarnação, Linux, foi acumulando diferentes teclas de atalho para conseguirmos refazer, desfazer e fazer melhor a montagem dos comandos digitados na linha de comando.</description>
   <details>
   
   </details>
@@ -1613,40 +1334,12 @@ Ele parte do princípio que para melhorarmos em qualquer aspecto de nossa vida, 
 
      
         <item>
-  <title>Convertendo Windows de UEFI para MBR</title>
-  <link>http://www.caloni.com.br/convertendo-windows-de-uefi-para-mbr/</link>
-  <pubDate>2017-02-13</pubDate>
-  
-  <guid>http://www.caloni.com.br/convertendo-windows-de-uefi-para-mbr/</guid>
-  <description>Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &amp;ldquo;gratuitas&amp;rdquo; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o próprio Windows pode corrigir os problemas oriundos da conversão do boot UEFI/GPT. Depois, é claro, que você usar uma outra ferramenta esperta open-source =)
-Entre as diferentes distros do Linux há uma chamada SystemRescueCD que é cheia dos paranauê para manutenção de micros.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Native Floripa 2017: Palestras</title>
   <link>http://www.caloni.com.br/native-floripa-2017-palestras/</link>
   <pubDate>2017-02-09</pubDate>
   
   <guid>http://www.caloni.com.br/native-floripa-2017-palestras/</guid>
   <description>Já está disponível na grade de palestras do Native Floripa 2017 o conteúdo que será ministrado nos dois dias do final de semana dias 18 e 19 de março de 2017 em Florianópolis, na Associação Catarinense de Empresas de Tecnologia (Rodovia SC 401, Km 4, Bairro Saco Grande, Florianópolis, SC, CEP 88032-000, Telefone (48) 2107-2700). As palestras englobam trabalhos acadêmicos, teoria da computação, demonstração de bibliotecas e práticas comuns no dia-a-dia, treinamentos em engenharia reversa, embarcados e internet das coisas, e toda coleção de linguagens bizarras que você poderá conhecer.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>UEFI: dê adeus à MBR</title>
-  <link>http://www.caloni.com.br/uefi-de-adeus-a-mbr/</link>
-  <pubDate>2017-02-09</pubDate>
-  
-  <guid>http://www.caloni.com.br/uefi-de-adeus-a-mbr/</guid>
-  <description>Após depurar a BIOS e a MBR, eis que surge a UEFI: os GUIDs para SOs instalados no seu HD. Quantas siglas, não é mesmo?
-A BIOS (Basic Input/Output System, Sistema Básico de Entrada e Saída) é o sistema-base que se comunica com o hardware diretamente e faz a ponte entre várias interrupções e o sistema operacional (se houver um). Uma das funções iniciais da BIOS era encontrar qual a MBR (Master Boot Record, Registro do Boot Mestre) válida para entregar o controle de um pedaço de código de 512 bytes (um pouco menos) cuja função clássica era procurar em uma tabela de quatro entradas dentro dela mesma qual o SO que está ativo.</description>
   <details>
   
   </details>
@@ -1661,19 +1354,6 @@ A BIOS (Basic Input/Output System, Sistema Básico de Entrada e Saída) é o sis
   <guid>http://www.caloni.com.br/por-onde-voce-acessa-este-blogue/</guid>
   <description>Sério, esta é uma pergunta relevante neste momento. Ao menos para mim. Estou cansado de tentar manter duas áreas distintas do conhecimento, que venho arquivando por anos, e estou pensando em publicar sobre absolutamente qualquer coisa relacionada com meu dia-a-dia por aqui, o que irá envolver necessariamente assuntos que não girem em torno de programação e nem em C++.
 (Claro que assuntos onde fui longe demais, como Cinema, já possuem seu cantinho para os aficionados.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Entrando na zona com Vim</title>
-  <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
-  <pubDate>2017-01-05</pubDate>
-  
-  <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
-  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;ldquo;zona&amp;rdquo;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
   <details>
   
   </details>
@@ -1701,32 +1381,6 @@ A BIOS (Basic Input/Output System, Sistema Básico de Entrada e Saída) é o sis
   <guid>http://www.caloni.com.br/o-mundo-de-sofia/</guid>
   <description>Este foi o livro meio unanimidade dos fóruns de filosofia quando questionado qual o melhor começo para a área, que dê uma visão global, histórica e funcional do que é, afinal de contas, filosofia. Bem, e também o começo mais divertido, o que para uma área como essa deve se resumir aos quadrinhos do Existencial Comics e o livro de Jostein Gaarder.
 Esta é uma ficção infanto-juvenil, que poderia muito bem constar no currículo de qualquer escola que leve a sério ensinar seus alunos a pensar.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Guardando senhas com Vim</title>
-  <link>http://www.caloni.com.br/guardando-senhas-com-vim/</link>
-  <pubDate>2016-10-05</pubDate>
-  
-  <guid>http://www.caloni.com.br/guardando-senhas-com-vim/</guid>
-  <description>Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Usando GVim com projetos do Visual Studio</title>
-  <link>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</link>
-  <pubDate>2016-09-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
-  <description>A vida dos programadores C/C++ Windows &amp;ndash; e que geralmente precisam do Visual Studio &amp;ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
   <details>
   
   </details>
@@ -1830,40 +1484,12 @@ O seu primeiro vídeo explica como gerar um dump de processo. Porém, longe de s
 
      
         <item>
-  <title>Crash no Windows Explorer</title>
-  <link>http://www.caloni.com.br/crash-no-windows-explorer/</link>
-  <pubDate>2016-03-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/crash-no-windows-explorer/</guid>
-  <description>Quem nunca se deparou com um sistema Windows em que o Explorer travasse ou crashasse de vez em quando? O problema com esse tipo de problema (recursividade&amp;hellip;) é que ele pode ocorrer por infinitos motivos. Tão infinitos quanto os shell extensions, aquelas DLLs irritantes que são carregadas automaticamente por todo processo explorer.exe, e que portanto podem gerar infinitas maneiras de travar seu shell.
-Um que estava me incomodando já há algum tempo era um deadlock que acabava em restart do Explorer (isso é automático no Windows 10).</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Não Atualize seu Sistema</title>
   <link>http://www.caloni.com.br/nao-atualize-seu-sistema/</link>
   <pubDate>2016-01-28</pubDate>
   
   <guid>http://www.caloni.com.br/nao-atualize-seu-sistema/</guid>
   <description>De quem é o interesse que você atualize constantemente seu sistema? Muito provavelmente não é seu. Sistemas &amp;ndash; operacionais ou não &amp;ndash; costumam ser escritos por programadores, que não fogem muito do que você conhece como ciclo de desenvolvimento, o que quer dizer que o sistema que atualiza sempre estará sempre testando suas novas features no seu dispositivo (computador, celular, tablet), verificando as mais nova correções e, claro, lhe fornecendo o que há de mais novo e mais difícil de contornar no que diz respeito a bugs, já que quase não haverá páginas no Stack Overflow te dizendo o que fazer sobre o bug que foi instalado em todas as máquinas do mundo há cinco minutos.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Exportando repositórios antigos do Bazaar para Git</title>
-  <link>http://www.caloni.com.br/exportando-repositorios-antigos-do-bazaar-para-git/</link>
-  <pubDate>2016-01-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/exportando-repositorios-antigos-do-bazaar-para-git/</guid>
-  <description>Enquanto estudava sobre controle de fontes distribuído, experimentei e usei os projetos Mercurial e Bazaar, precursores desse modelo que funcionavam bem em Windows. Havia o Git, mas por conta da sua evolução assimétrica, o ambiente da Microsoft havia ficado para trás.
-Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e funcionando razoavelmente bem em ambientes Windows (64 ou 32), sobraram apenas os repositórios do Mercurial e do Bazaar.</description>
   <details>
   
   </details>
@@ -1884,20 +1510,6 @@ Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e 
 
      
         <item>
-  <title>Como ser um hacker</title>
-  <link>http://www.caloni.com.br/como-ser-um-hacker/</link>
-  <pubDate>2015-11-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-ser-um-hacker/</guid>
-  <description>Talvez as pessoas estejam com preguiça de ler. Talvez estejam apenas inundadas por tanta informação que temos hoje. Talvez seja apenas falta de foco pelas interrupções consecutivas de novos &amp;ldquo;espertofones&amp;rdquo; ou nossas redes sociais viciantes, pois oferecem muito a troco de nada.
-O fato é: se você precisa perguntar para alguém (no caso, eu) o que é preciso fazer para se tornar um hacker, algo como um guia passo-a-passo, eu vou encarar o desafio numa boa, pensar por alguns dias, semanas e talvez meses, e chegar à conclusão que a pessoa que precisa que alguém lhe ensine está percorrendo o caminho errado.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Fundamentos</title>
   <link>http://www.caloni.com.br/fundamentos/</link>
   <pubDate>2015-10-21</pubDate>
@@ -1905,19 +1517,6 @@ O fato é: se você precisa perguntar para alguém (no caso, eu) o que é precis
   <guid>http://www.caloni.com.br/fundamentos/</guid>
   <description>Um amigo meu costumava dizer que qualquer conhecimento precisa ter bases sólidas. &amp;ldquo;Os fundamentos&amp;rdquo;, dizia ele. Sem os fundamentos, o prédio do conhecimento vai abaixo em pouco tempo. Mas com eles, construídos de cimento armado, reforçados e com alicerces bem planejados, não há informação demais suficiente para abalar o prédio do conhecimento.
 Esse meu amigo demorou um pouco mais que o que as pessoas costumam demorar para entender o conceito de if na programação.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>É o fonte, idiota!</title>
-  <link>http://www.caloni.com.br/e-o-fonte-idiota/</link>
-  <pubDate>2015-09-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/e-o-fonte-idiota/</guid>
-  <description>Saiu um artigo recente no The Old New Thing (thanks Strauss pelo tuíte) que fala sobre não misturar runtimes do C de diferentes versões do compilador (especialmente se essas versões estão separadas pelo tempo em nada mais nada menos que dezenove anos!). Concordo. Aliás, a cultura Microsoftiana do uso de binários carece em C/C++ de um fundamento que facilite o reúso e compartilhamento de código exatamente por essa incompatibilidade inerente de uma biblioteca, se não em constante evolução, em constante aprimoramento pontual (como a STL).</description>
   <details>
   
   </details>
@@ -2063,20 +1662,6 @@ Na verdade, eu nem tenho ideia de como são os outros encontros e eventos de com
 
      
         <item>
-  <title>Guia de alocação (nos clientes)</title>
-  <link>http://www.caloni.com.br/guia-alocacao-nos-clientes/</link>
-  <pubDate>2015-03-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/guia-alocacao-nos-clientes/</guid>
-  <description>Se você trabalha com T.I. (nem precisa ser programação) e mora em São Paulo (ou qualquer outro lugar com pessoas paranoicas) então talvez em algum momento da sua carreira teve que ficar alocado (como uma memória que contém um vírus) em algum de seus clientes (ou da empresa onde trabalha/ou). Usando seus apetrechos pessoais dentro de uma mochila para zarpar no final do dia sem deixar rastros.
-Não é muito elegante deixar seus logins, seu perfil, seus favoritos e histórico no navegador que está usando, além de ser uma falha de segurança, já que trocar a senha de um perfil no Windows é procedimento natural , além da própria segurança do SO deixar a desejar em alguns momentos.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>CCPPBrasil 11 Brasil (Inscrições)</title>
   <link>http://www.caloni.com.br/11-encontro-ccpp-brasil-inscricoes/</link>
   <pubDate>2015-02-19</pubDate>
@@ -2172,20 +1757,6 @@ Ultimamente ando fuçando nas minhas mensagens do GMail procurando por posts que
 
      
         <item>
-  <title>Integrando BitBucket/GitHub com Trello</title>
-  <link>http://www.caloni.com.br/integrando-bitbucketgithub-com-trello/</link>
-  <pubDate>2014-07-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/integrando-bitbucketgithub-com-trello/</guid>
-  <description>Eu nem acredito que estou escrevendo sobre desenvolvimento web, mas como foi algo que me fez dedicar algumas horas do meu fim-de-semana, e não encontrei facilmente uma solução já feita, acredito que pode ser útil para mais alguém que usa Trello e GitHub (ou BitBucket).
-Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>TDC 2014: Segurança</title>
   <link>http://www.caloni.com.br/tdc-2014-seguranca/</link>
   <pubDate>2014-07-16</pubDate>
@@ -2243,47 +1814,6 @@ Porém, mais do que explicar o que é informação, o livro de Gonick consegue f
 
      
         <item>
-  <title>Dando cabo do WinDbg</title>
-  <link>http://www.caloni.com.br/dando-cabo-do-windbg/</link>
-  <pubDate>2014-06-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/dando-cabo-do-windbg/</guid>
-  <description>Na semana passada falei sobre a ideia de comentar algumas mudanças entre o Windows XP e o novo mundo Vista/7/8/ que fizeram com que adaptássemos algum código que obviamente não funcionaria mais. Falamos sobre a famigerada GINA (ou famiGINADA), e agora apenas vou comentar brevemente sobre o sistema de boot, que também mudou.
-Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora de usar o WinDbg.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Real Programmers Don&#39;t Use Java</title>
-  <link>http://www.caloni.com.br/real-programmers-dont-use-java/</link>
-  <pubDate>2014-02-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
-  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, a satiric text that influenced and encouraged me into the path of &amp;ldquo;C/C++ enlightenment&amp;rdquo;, most even than K&amp;amp;R&amp;rsquo;s book. Since then I thought that being a &amp;ldquo;Real Programmer&amp;rdquo; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;ldquo;Quiche Eater&amp;rdquo; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Uma nova linguagem</title>
-  <link>http://www.caloni.com.br/uma-nova-linguagem/</link>
-  <pubDate>2013-12-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
-  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;ldquo;frescurento&amp;rdquo; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
-Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Mais um CPP MVP</title>
   <link>http://www.caloni.com.br/mais-um-cpp-mvp/</link>
   <pubDate>2013-10-02</pubDate>
@@ -2298,20 +1828,6 @@ Graças à indicação de meu amigo Strauss (segundo MVP brasileiro seguido de F
 
      
         <item>
-  <title>Depuração na nuvem com o novo Visual Studio</title>
-  <link>http://www.caloni.com.br/depuracao-na-nuvem/</link>
-  <pubDate>2013-04-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/depuracao-na-nuvem/</guid>
-  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;ldquo;na nuvem&amp;rdquo;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
-Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Décimo Encontro de Programadores de C e C&#43;&#43;</title>
   <link>http://www.caloni.com.br/10-encontro-de-programadores-de-c-c-2/</link>
   <pubDate>2013-03-28</pubDate>
@@ -2319,49 +1835,6 @@ Já é conhecido que será possível inserir comentários no código-fonte com o
   <guid>http://www.caloni.com.br/10-encontro-de-programadores-de-c-c-2/</guid>
   <description>Ando tendo alguns problemas de postagem no meu blog, por isso o aviso não foi feito com mais antecedência. Peço desculpas aos organizadores do evento, pois sei que todo tipo de divulgação é útil.
 Chegamos em mais um evento do grupo C/C++ Brasil, dessa vez honrando a parte &amp;ldquo;Brasil&amp;rdquo; do nome. Sim, nosso próximo evento será fora de Sampa, mas ainda próximo, no Rio de Janeiro! Até onde eu sei, o primeiro que se tem notícia.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>eXtreme Go Horse</title>
-  <link>http://www.caloni.com.br/extreme-go-horse/</link>
-  <pubDate>2012-09-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/extreme-go-horse/</guid>
-  <description>O Go Horse Power (GHP) foi criado por um blogue hoje extinto. As premissas dessa nova metodologia de desenvolvimento era que o projeto fosse feito da maneira mais rápida possível.
-Contudo, eles não contavam com a versão turbinada do desleixo humano.
-A eXtreme Go Horse (XGP) é o suprassumo das metodologias do mercado brasileiro de desenvolvimento. Quem nunca trabalhou em uma empresa gerida por essas regras? (Bom, pelo menos XGH pelo jeito tem até controle de fonte, algo que era até meio raro uns anos atrás):</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Novos atalhos aprendidos no Vim</title>
-  <link>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</link>
-  <pubDate>2012-06-09</pubDate>
-  
-  <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
-  <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
-A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should not try to learn every command an editor offers.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Coletando dumps automaticamente</title>
-  <link>http://www.caloni.com.br/coletando-dumps-automaticamente/</link>
-  <pubDate>2012-05-17</pubDate>
-  
-  <guid>http://www.caloni.com.br/coletando-dumps-automaticamente/</guid>
-  <description>Value Description Type Default value     DumpFolder [1] REGEXPANDSZ %LOCALAPPDATA%\CrashDumps   DumpCount [2] REGDWORD 10   DumpType [3] REGDWORD 1   CustomDumpFlags [4] REGDWORD [5]    Chave: HKEYLOCALMACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps.
- [1] The path where the dump files are to be stored. If you do not use the default path, then make sure that the folder contains ACLs that allow the crashing process to write data to the folder.</description>
   <details>
   
   </details>
@@ -2397,19 +1870,6 @@ O evento de C++ na Microsoft (e organizada pelo nosso grupo C/C++ Brasil) aconte
 
      
         <item>
-  <title>RValue é o novo LValue</title>
-  <link>http://www.caloni.com.br/rvalue-e-o-novo-lvalue/</link>
-  <pubDate>2012-01-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/rvalue-e-o-novo-lvalue/</guid>
-  <description>As grandes discussões filosóficas que participei durante meu estudo da linguagem C, e mais tarde de C++, muitas vezes convergiam para o significado místico daquela figura que nós da gramática da linguagem conhecemos como lvalue, ou l-value, ou left-value. Enfim, a definição de uma expressão que representa um lugar na memória e, portanto, pode ocupar o lado esquerdo de uma atribuição/cópia/passagem de argumentos qualquer. Porém, os &amp;ldquo;grandes&amp;rdquo; embates daquela época hoje parecem brincadeira de criança, como a diferença sutil entre ++x e x++ ou convergência de tipos em templates.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Vida e Software</title>
   <link>http://www.caloni.com.br/vida-e-software/</link>
   <pubDate>2011-10-22</pubDate>
@@ -2417,20 +1877,6 @@ O evento de C++ na Microsoft (e organizada pelo nosso grupo C/C++ Brasil) aconte
   <guid>http://www.caloni.com.br/vida-e-software/</guid>
   <description>Desenvolver software está bem longe de ser uma ciência exata e muito próxima de ser uma ciência humana. Eu, pessoalmente, considero um ramo esotérico, onde vale muito mais ter a atitude de reconhecer que não temos muito controle sobre como as coisas funcionam do que querer ter as rédeas de algo desgovernado.
 Não sei bem o motivo. Talvez por existirem muitas camadas o software não consegue ser normalizado como as propriedades físicas dos blocos que montam um prédio ou um transatlântico.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Coders at Work: Reflections on the Craft of Programming</title>
-  <link>http://www.caloni.com.br/coders-at-work/</link>
-  <pubDate>2011-10-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/coders-at-work/</guid>
-  <description>&amp;ldquo;Personally I have never believed that it is possible to be a good coder without being a good programmer nor a good programmer without being a good designer, communicator, and thinker.&amp;rdquo; - Jamie Zawinski
- Como Joel e Atwood disseram, a leitura de Coders At Work é tão útil quanto ler o código dos outros, só que em um estilo mais condensado, que se aproveita das décadas de experiência dessa gente para aprimorarmos nossos processos de desenvolvimento e, muitas vezes, a forma de pensarmos sobre software.</description>
   <details>
   
   </details>
@@ -2521,63 +1967,6 @@ Vejamos o texto original (auto-plágio):</description>
 
      
         <item>
-  <title>Novo branch para projetos do Caloni.com.br</title>
-  <link>http://www.caloni.com.br/novo-branch-para-projetos-do-caloni-com-br/</link>
-  <pubDate>2011-05-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/novo-branch-para-projetos-do-caloni-com-br/</guid>
-  <description>Reestruturei meus projetos caseiros e coloquei todos em um branch no repositório do Assembla. A partir dele começarei a reestruturas os códigos de exemplo do saite, o deve facilitar o acesso. Para usuários do Bazaar, como eu, basta puxar o branch usando seu endereço:
-bzr get http://subversion.assembla.com/svn/caloni/trunk Para os usuários do Subversion, ou qualquer outro controle de fonte que consiga ler um branch feito em SVN, google for it.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Bazaar com Subversion</title>
-  <link>http://www.caloni.com.br/bazaar-com-subversion/</link>
-  <pubDate>2011-03-23</pubDate>
-  
-  <guid>http://www.caloni.com.br/bazaar-com-subversion/</guid>
-  <description>Para pessoas que ficaram viciadas em commits curtos e todo o histórico do fonte na própria máquina, foi uma surpresa descobrir que com o uso do plugin bzr-svn (já incluso no pacote de instalação), consigo ainda utilizar o Bazaar, mesmo que agora esteja trabalhando com um branch do Subversion.
-Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na máquina local, como se fosse um branch do próprio Bazaar, e permite a criação de branches desconectados para pequenos commits e o merge final para o servidor SVN.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Houaiss no Kindle</title>
-  <link>http://www.caloni.com.br/houaiss-no-kindle/</link>
-  <pubDate>2011-03-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/houaiss-no-kindle/</guid>
-  <description>O blogue de José Ribeiro Pena Neto, aparentemente recém-criado, conseguiu utilizar minha solução de conversão do dicionário Houaiss para Babylon em algo mais incrívei ainda: converter, em alguns passos, a base de dados do Houaiss para o Amazon Kindle.
-De uma maneira simples e efetiva, ele cita o passo-a-passo para a conversão da base Houaiss para o formato Babylon e, a partir disso, reconverter para o formato usado pelo gratuito e multiplataforma Stardict.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Loucuras multithreading</title>
-  <link>http://www.caloni.com.br/loucuras-multithreading/</link>
-  <pubDate>2011-03-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/loucuras-multithreading/</guid>
-  <description>Estava eu depurando um sistema cliente/servidor com um tantão de threads e me veio à cabeça na volta pra casa como que um programador iniciante entenderia aquela bagunça de dar F10 em uma função e cair no meio de outra, dar outro F10 na outra e voltar pra primeira.
-Loucura, não?
-Nem tanto. O multithreading de um sistema operacional está aí pra isso. O que ocorre, no caso de depurações em uma única IDE, é que os breakpoints temporários que são definidos ao usar o comando de step into/over podem ser ativados em paralelo, simultaneamente.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Reorganizando meus feeds (de novo)</title>
   <link>http://www.caloni.com.br/reorganizando-meus-feeds-de-novo/</link>
   <pubDate>2011-03-10</pubDate>
@@ -2638,19 +2027,6 @@ Um dia desses conversando com o Rodrigo Strauss, falando sobre como é interessa
 
      
         <item>
-  <title>Trabalhando em múltiplos ambientes</title>
-  <link>http://www.caloni.com.br/trabalhando-em-multiplos-ambientes/</link>
-  <pubDate>2010-12-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/trabalhando-em-multiplos-ambientes/</guid>
-  <description>Existem diversas maneiras de se trabalhar com o Bazaar. Eu já havia definido como fazer na máquina de desenvolvedor para modificar o mesmo código-fonte em projetos paralelos, onde basicamente tenho um branch principal conectado no servidor (assim todo commit vai pra lá) e crio branches paralelos e desconectados para fazer quantos commits eu tenho vontade durante o desenvolvimento. Após todas as mudanças e testes básicos, atualizo o branch principal (com mudanças dos meus colegas) e faço o merge com o branch paralelo onde fiz todas as mudanças.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Pós-II Seminário Portabilidade e Performance</title>
   <link>http://www.caloni.com.br/pos-ii-seminario-portabilidade-e-performance/</link>
   <pubDate>2010-12-21</pubDate>
@@ -2670,78 +2046,6 @@ Um dia desses conversando com o Rodrigo Strauss, falando sobre como é interessa
   
   <guid>http://www.caloni.com.br/ii-seminario-portabilidade-e-performance/</guid>
   <description>Aqui estamos nós de novo. Mais uma vez a Tempo Real Eventos irá organizar esse evento de final de ano. E mais uma vez, junto dos meus amigos, irei palestrar sobre um item indispensável no nécessaire de todo escovador de bits: assembly gerado pelo compilador. Vamos falar brevemente sobre o funcionamento de um código assembly 32 bits e passar para a análise dos compiladores modernos e o que eles fazem para tornar o código ainda mais rápido do que o próprio fonte em C++.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Então você ainda não usa controle de fonte?</title>
-  <link>http://www.caloni.com.br/entao-voce-ainda-nao-usa-controle-de-fonte/</link>
-  <pubDate>2010-11-02</pubDate>
-  
-  <guid>http://www.caloni.com.br/entao-voce-ainda-nao-usa-controle-de-fonte/</guid>
-  <description>Não há nada de errado nisso. Projetos robustos com uma equipe moderada ¿ 5 a 10 programadores ¿ precisam desse tipo de organização, e tornam a resolução dos problemas do dia-a-dia mais problemática sem esse controle. A questão reside para o programador solitário ou a equipe minúscula ¿ 2 a 4 programadores. Esses geralmente questionam o custo-benefício de terem o trabalho de configurar e manter mais um sistema. Além disso, isso implica em uma mudança de grandes proporções em cada membro da equipe: uma mudança cultural.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Atualizando HouaissParaBabylon no saite</title>
-  <link>http://www.caloni.com.br/atualizando-houaissparababylon-no-saite/</link>
-  <pubDate>2010-10-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/atualizando-houaissparababylon-no-saite/</guid>
-  <description>O último comentário no meu último artigo sobre o conversor Houaiss para Babylon me fez lembrar de algo muito importante: eu não atualizei o branch do saite com a última versão. Deve ser por isso que as pessoas estão tendo problemas com o uso do código. Resolvo isso já:
-Essa é a versão 1.2 descrita no meu último artigo sobre o projeto.
-De qualquer forma, qual não foi minha surpresa quando tentei recompilar o projeto e ocorreram erros no atlcom.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Foto dos melhores momentos</title>
-  <link>http://www.caloni.com.br/foto-dos-melhores-momentos/</link>
-  <pubDate>2010-08-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/foto-dos-melhores-momentos/</guid>
-  <description>Mais um quebra-cabeças antes da nossa palestra, esse &amp;ldquo;baseado em fatos reais&amp;rdquo;.
-A história é a seguinte: o cliente instalou uma versão nova do produto em algumas máquinas que, ato contínuo, começaram a apresentar telas azuis constantemente. Como essas máquinas tinham que ser usadas pelos funcionários, a administradora rapidamente desinstalou essa versão buguenta, e logo em seguida pediu por uma correção.
-Até aí tudo bem. O problema maior era que ninguém havia capturado dump de nada.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Não é minha culpa</title>
-  <link>http://www.caloni.com.br/nao-e-minha-culpa/</link>
-  <pubDate>2010-08-08</pubDate>
-  
-  <guid>http://www.caloni.com.br/nao-e-minha-culpa/</guid>
-  <description>Recebi a dica de meu amigo kernel-mode sobre o aplicativo NotMyFault, escrito como ferramenta do livro Windows Internals e que basicamente gera telas azuis para análise.
-Como os problemas gerados pela ferramenta são todos de kernel, resolvi escrever meu próprio conjunto de bugs para o pessoal da userland. E como nada na vida se cria, tudo se copia, tenho o orgulho de apresentar a vocês o NotMyFaultEither!
-Seu uso é bem simples.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Novas diferenças no Bazaar</title>
-  <link>http://www.caloni.com.br/novas-diferencas-no-bazaar/</link>
-  <pubDate>2010-08-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/novas-diferencas-no-bazaar/</guid>
-  <description>Novidade incrível nas novas versões do Bazaar. Dando continuidade à sua versão boiola gráfica, agora é possível configurar quantos visualizadores de diferenças você quiser. Na hora de ver a diferença em algum código-fonte, você pode optar pelo enrustido embutido ou, no caso, o meu favorito, WinMerge.
-E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela discussão se devemos usar tabs ou três espaços para indentar o código.</description>
   <details>
   
   </details>
@@ -2777,76 +2081,6 @@ Mas nem por isso deixei de terminar uma primeira versão do aplicativo que irei 
 
      
         <item>
-  <title>Analogicamente perfeito</title>
-  <link>http://www.caloni.com.br/analogicamente-perfeito/</link>
-  <pubDate>2010-05-19</pubDate>
-  
-  <guid>http://www.caloni.com.br/analogicamente-perfeito/</guid>
-  <description>É possível explicar tudo no mundo da informática através de analogias? Pela minha singela experiência de professor informal, eu acredito que sim. Durante esses dois anos, explanei diversos assuntos e, em todos eles, difíceis ou não, consegui um certo grau de sucesso graças ao uso de metáforas e parábolas.
-De memória (ou buscando no meu blogue) consigo lembrar alguns tópicos e a forma como os expliquei. Em alguns até fiz um artigo sobre o assunto:</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Using TodoList and Microsoft Project together</title>
-  <link>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</link>
-  <pubDate>2010-04-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</guid>
-  <description>The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.
-The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Convivendo entre TodoList e Microsoft Project</title>
-  <link>http://www.caloni.com.br/convivendo-entre-todolist-e-microsoft-project/</link>
-  <pubDate>2010-03-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/convivendo-entre-todolist-e-microsoft-project/</guid>
-  <description>O próximo artigo sobre escovação de bits ainda está no forno. Tirar férias (de 40 dias) é uma escassez de ideias! No momento, posso explicar a facilidade que tive para continuar usando o TodoList para gerenciar minha equipe e ainda assim sincronizar nossas tarefas em um cronograma do Microsoft Project.
-As razões de eu usar o TodoList são meio óbvias: ele faz tudo que eu preciso para organizar minhas tarefas do dia-a-dia e é portátil.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Bazaar gráfico</title>
-  <link>http://www.caloni.com.br/bazaar-grafico/</link>
-  <pubDate>2010-02-25</pubDate>
-  
-  <guid>http://www.caloni.com.br/bazaar-grafico/</guid>
-  <description>Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!
-Ele é leve, vem enrustido embutido na última versão e pode economizar alguns page ups/downs no prompt do DOS. Ah, sim, antes que comentem, eu não uso o Tortoise for Bazaar porque instalar shell extensions, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Correção de bugs instantânea</title>
-  <link>http://www.caloni.com.br/correcao-de-bugs-instantanea/</link>
-  <pubDate>2010-02-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/correcao-de-bugs-instantanea/</guid>
-  <description>Um programador tarimbado sabe que a melhor situação da vida dele para corrigir um bug é quando esse bug acontece em sua máquina de desenvolvimento, na versão Debug e ainda passo-a-passo. Como nessa situação a correção é um verdadeiro &amp;ldquo;passeio no parque&amp;rdquo; (ou na mesa do café) ela tende a quase nunca acontecer. Isso é Murphy Aplicado.
-Para quem programa para sistemas, então, só o fato de acontecer no mesmo processo toda vez que ele for executado já é o máximo (quem já programou serviços, plugins, GINAs e afins sabe do que eu estou falando).</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>House</title>
   <link>http://www.caloni.com.br/house/</link>
   <pubDate>2010-01-25</pubDate>
@@ -2855,19 +2089,6 @@ Para quem programa para sistemas, então, só o fato de acontecer no mesmo proce
   <description>Depois da analogia entre depuração e CSI, nada como fazer o mesmo com o seriado estilo House.
 Quais as semelhanças com a profissão de programador-depurador?
 Em primeiro lugar, a busca por pistas. Se algo está errado com o programa, vivemos criando teorias mirabolantes a respeito do porquê tal função estar retornando zero. No entanto, como não temos tanta capacidade adivinhatória assim, geralmente nossos palpites estão errados, e o fundo do poço irá nos mostrar uma outra função que nem estava ainda na história.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Devaneio nerd rápido sobre profecias</title>
-  <link>http://www.caloni.com.br/devaneio-nerd-rapido-sobre-profecias/</link>
-  <pubDate>2009-12-30</pubDate>
-  
-  <guid>http://www.caloni.com.br/devaneio-nerd-rapido-sobre-profecias/</guid>
-  <description>Para quem já analisou os dados de uma tela azul sabe que, quando o Windows acha um culpado (vulgo driver) a data de sua compilação é exibida em um formato conhecido como DateStamp ou TimeStamp. Nesse formato o que temos é um número hexadecimal que segue o formato de tempo do Unix, que no caso é o número de segundos desde o dia primeiro de Janeiro de 1970. Isso, por curiosidade, nos dá uma margem de 140 anos antes dos número se repetirem se usarmos 32 bits nessa contagem.</description>
   <details>
   
   </details>
@@ -2905,69 +2126,12 @@ Primeiro, meus motivos primários:
 
      
         <item>
-  <title>What I&#39;ve been doing in the last 10 years</title>
-  <link>http://www.caloni.com.br/what-ive-been-doing-in-the-last-10-years/</link>
-  <pubDate>2009-08-17</pubDate>
-  
-  <guid>http://www.caloni.com.br/what-ive-been-doing-in-the-last-10-years/</guid>
-  <description>This week I dedicate myself to update my resumè and I have the brilliant idea of put into it my technical historical, what resuming is a list of things I did or was involved with during my brief ten years stay in the programming world.
-So I thought: &amp;ldquo;this could be useful to the people read me&amp;rdquo;. Why not? Perhaps you got some doubt waiting to be solved and is unable to find a guy who knows something about this.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Cuidado com a cópia de arquivos na VMWare</title>
-  <link>http://www.caloni.com.br/cuidado-com-a-copia-de-arquivos-na-vmware/</link>
-  <pubDate>2009-07-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/cuidado-com-a-copia-de-arquivos-na-vmware/</guid>
-  <description>Quebrei a cabeça com uma DLL de hook que não estava funcionando para usuários comuns. No entanto, para qualquer administrador funcionava.
-Isso acontece porque quando se arrasta uma DLL recém-compilada para a VMWare ela possui um mecanismo que primeiro cria esse arquivo no temporário do usuário atual e depois move esse arquivo para o lugar onde você de fato arrastou.
-Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui direitos de uso apenas do usuário e dos administradores do sistema.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>À procura de vida extraterrestre</title>
   <link>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</link>
   <pubDate>2009-07-20</pubDate>
   
   <guid>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</guid>
   <description>Faz uns bons dez anos que eu instalei pela primeira vez em meu Pentium 133 MHz o seti@home, um programinha que se propunha a localizar vida extraterrena através de emissões de rádio capturadas pelas nossas potentes antenas de Arecibo. Ele dizia fazer isso durante o tempo ocioso do meu processador. Como eu sou uma pessoa que costuma costumava confiar bastante nas pessoas, além de ser fã incondicional do filme Contato, instalei sem medo.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Programadores de verdade não usam Java</title>
-  <link>http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/</link>
-  <pubDate>2009-06-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/</guid>
-  <description>Quando era um newbie (e um wanna-be) gostava de ler o &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, um texto humorístico que mais me influenciou e encorajou a caminho da iluminação C/C++ do que o livro de K&amp;amp;R. A partir dele, supunha eu, ser um &amp;ldquo;programador de verdade&amp;rdquo; era ser tudo. Ser um Quiche Eater (Comedor de Torta) não era nada. Programadores de verdade é que resolvem os problemas de verdade! Quiche Eaters são os losers que estudam os conceitos acadêmicos da ciência da computação e nunca fazem um maldito programa que preste (conhece alguém assim?</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como compilar em somente um passo</title>
-  <link>http://www.caloni.com.br/como-compilar-em-somente-um-passo/</link>
-  <pubDate>2009-05-25</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-compilar-em-somente-um-passo/</guid>
-  <description>Uma das primeiras perguntas do teste do Joel é saber se você pode compilar todo o projeto em apenas um passo. Essa é uma questão essencial e um desafio para muitas equipes. Perdem-se horas sagradas para gerar um novo Release.
-Compilação automática geralmente está disponível nas ferramentas de desenvolvimento. Se você estiver usando o Visual Studio, por exemplo, é possível fazer isso com uma linha:
-devenv minha-solução.sln /Rebuild Release Se não for exatamente o que você precisa, basta fazer uma pesquisa de quinze minutos e encontrar os parâmetros corretos.</description>
   <details>
   
   </details>
@@ -3010,20 +2174,6 @@ Esse artigo é só para constar em minha lista de referência para o aprendizado
   <description>Uma prova de conceito bem feita segue todos os passos em uma forma micro para entender e provar como as coisas irão funcionar no código de produção: a forma macro.
 A consequência interessante disso é que, uma vez que a prova de conceito deva ser um miniprojeto das principais partes de um software, desenvolvê-la significa programar todas as partes que realmente importam, ou seja, centrais para o funcionamento.
 Portanto, conclui-se que desenvolver provas de conceito é a coisa mais divertida do Universo.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>WinDbg.info</title>
-  <link>http://www.caloni.com.br/windbginfo/</link>
-  <pubDate>2009-02-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/windbginfo/</guid>
-  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;ldquo;WinDbg. From A to Z&amp;rdquo;.
-Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)</description>
   <details>
   
   </details>
@@ -3132,84 +2282,12 @@ Entre os próximos artigos estão um bug na função PathIsDirectory.aspx), algu
 
      
         <item>
-  <title>Aprendizado em kernel mode</title>
-  <link>http://www.caloni.com.br/aprendizado-em-kernel-mode/</link>
-  <pubDate>2008-08-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/aprendizado-em-kernel-mode/</guid>
-  <description>Hoje terminei minha primeira leitura de Memory Dump Analysis Vol. 1, e qual não foi a minha surpresa ao encontrar entre os últimos posts justamente o que eu estava precisando: um guia de livros que se deve ler para começar a programar em kernel mode.
-O melhor de tudo nem é a lista de livros, cujos títulos já estão batidos na minha cabeça de tanto meu amigo Ferdinando comentar a respeito.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Entrevista com o Caloni no &#39;Do ZERO ao MESTRE&#39;</title>
   <link>http://www.caloni.com.br/entrevista-com-o-caloni-no-do-zero-ao-mestre/</link>
   <pubDate>2008-07-24</pubDate>
   
   <guid>http://www.caloni.com.br/entrevista-com-o-caloni-no-do-zero-ao-mestre/</guid>
   <description>Há muito pouco tempo atrás surgiu um blogue de um programador com o desejo de aprender C++ em seis meses. Ele entrou em contato comigo para divulgar seu trabalho, e lhe disse que na internet seu trabalho se divulga por si só. E é verdade. No entanto, não contente, ele me pediu para responder um questionário no estilo entrevista. Não sei se o resultado foi satisfatório, mas pelo menos foi curioso.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>VirtualBox</title>
-  <link>http://www.caloni.com.br/virtualbox/</link>
-  <pubDate>2008-07-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/virtualbox/</guid>
-  <description>O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.
-Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;ldquo;seamless mode&amp;rdquo; - , que estará integrado na versão 7 da VMWare.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Pesquisas sobre a GINA</title>
-  <link>http://www.caloni.com.br/pesquisas-sobre-a-gina/</link>
-  <pubDate>2008-07-02</pubDate>
-  
-  <guid>http://www.caloni.com.br/pesquisas-sobre-a-gina/</guid>
-  <description>Já sabemos o que é uma GINA. Afinal, todo mundo já viu uma antes. E sabemos que hoje em dia ela está morta.
-No entanto, algumas pequenas mudanças foram feitas nela no Windows XP que ainda almaldiçoam o código de quem tenta reproduzir a famosa GINA da Microsoft. Nem todos chegam no final e morrem tentando.
-Eu sou um deles.
-Uma explicação sobre como funciona o processo de logon (local e remoto) e os componentes envolvidos está no artigo &amp;ldquo;How Interactive Logon Works&amp;rdquo; da Technet.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como estou trabalhando com o Bazaar</title>
-  <link>http://www.caloni.com.br/como-estou-trabalhando-com-o-bazaar/</link>
-  <pubDate>2008-06-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-estou-trabalhando-com-o-bazaar/</guid>
-  <description>Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor Rafael, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para Dummies de como é possível organizar um ou mais projetos de forma a favorecer o refactoring e a liberdade de uso.
-Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os branches. O branch principal tem o mesmo nome do projeto.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como fazer merge de projetos distintos no Bazaar</title>
-  <link>http://www.caloni.com.br/como-fazer-merge-de-projetos-distintos-no-bazaar/</link>
-  <pubDate>2008-06-16</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-fazer-merge-de-projetos-distintos-no-bazaar/</guid>
-  <description>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.
-No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?</description>
   <details>
   
   </details>
@@ -3231,21 +2309,6 @@ No dia 14 de junho de 2007 foram publicadas as boas vindas, e desde então o nú
 
      
         <item>
-  <title>Launchpad e a democracia do código-fonte</title>
-  <link>http://www.caloni.com.br/launchpad-e-a-democracia-do-codigo-fonte/</link>
-  <pubDate>2008-06-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/launchpad-e-a-democracia-do-codigo-fonte/</guid>
-  <description>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.
-Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.
-O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch).</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Resultado do Seminário CCPP</title>
   <link>http://www.caloni.com.br/resultado-do-seminario-ccpp/</link>
   <pubDate>2008-06-03</pubDate>
@@ -3260,55 +2323,12 @@ Começo esse artigo agradecendo a todos os que direta e indiretamente participar
 
      
         <item>
-  <title>How to run anything as a service</title>
-  <link>http://www.caloni.com.br/how-to-run-anything-as-a-service/</link>
-  <pubDate>2008-05-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
-  <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
-Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Busca do Google com atalhos</title>
-  <link>http://www.caloni.com.br/busca-do-google-com-atalhos/</link>
-  <pubDate>2008-05-19</pubDate>
-  
-  <guid>http://www.caloni.com.br/busca-do-google-com-atalhos/</guid>
-  <description>Eu adoro atalhos de teclado. Desde meus primeiros anos usando computadores, atalhos têm se tornado minha obsessão. Sempre faço minha pesquisa pessoal de tempos em tempos, colecionando e usando novos atalhos descobertos. Por um bom tempo eu evitei ter que usar o mouse, treinando-me para lembrar de todas as seqüências de teclas que conhecia.
-Eu não tenho nada contra o uso do mouse nem as pessoas que o usam. Eu apenas não sou tão entusiástico em usar o mouse.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Read The Functional Manual</title>
   <link>http://www.caloni.com.br/read-the-functional-manual/</link>
   <pubDate>2008-05-07</pubDate>
   
   <guid>http://www.caloni.com.br/read-the-functional-manual/</guid>
   <description>Percebi essa semana que talvez boa parte da população informática que não progride em suas habilidades, mas gostaria muito, pode ser impedida pela falta de hábito em ler a ajuda do programa | da linguagem | do sistema com calma para encontrar o que procura. Independente do que você é, e para onde quer chegar, saiba que nem tudo na vida pode ser perguntado ao seu colega de baia. Senão você não evolui!</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Bazaar e Fedora 8: a saga</title>
-  <link>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</link>
-  <pubDate>2008-04-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</guid>
-  <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
-Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;ldquo;urgentes&amp;rdquo;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
-Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.</description>
   <details>
   
   </details>
@@ -3345,49 +2365,6 @@ Jeff fez uma divertida comparação entre todas as etapas de uma análise forens
 
      
         <item>
-  <title>Ode ao C&#43;&#43;</title>
-  <link>http://www.caloni.com.br/ode-ao-c/</link>
-  <pubDate>2008-04-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;ldquo;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;ldquo;derivado&amp;rdquo; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Crash Dump Analysis</title>
-  <link>http://www.caloni.com.br/crash-dump-analysis-o-livro/</link>
-  <pubDate>2008-04-17</pubDate>
-  
-  <guid>http://www.caloni.com.br/crash-dump-analysis-o-livro/</guid>
-  <description>Para quem acabou de terminar o Advanced Windows Debugging (como eu) e não consegue ler no computador os complicados artigos de Dmitry Vostokov (como eu), &amp;ldquo;seus problemas acabaram-se&amp;rdquo;: acabou de ser lançado o Memory Dump Analysis Volume 1 em hardware! Em modelos portáveis (paperback) e desktop (hardcover).
-Se você perder um pouco de tempo lendo o índice online, perceberá que boa parte do conteúdo (se não todo) está em seu sítio, disponível gratuitamente.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Linux e o DHCP</title>
-  <link>http://www.caloni.com.br/linux-e-o-dhcp/</link>
-  <pubDate>2008-04-09</pubDate>
-  
-  <guid>http://www.caloni.com.br/linux-e-o-dhcp/</guid>
-  <description>Quando procuramos no google por &amp;ldquo;linux dhcp&amp;rdquo;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
-Muito bem. E a outra ponta da história?
-[Testes feitos em um Fedora 8, não me pergunte mais detalhes]
-O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>EPA-CCPP 4: nossa comunidade ganhando forma</title>
   <link>http://www.caloni.com.br/epa-ccpp-4-nossa-comunidade-ganhando-forma/</link>
   <pubDate>2008-03-29</pubDate>
@@ -3410,33 +2387,6 @@ E por falar em qualidade, as palestras dessa vez foram ricas em informação e d
   <guid>http://www.caloni.com.br/quarto-encontro-c/</guid>
   <description>Para os desavisados de plantão, irá acontecer no dia 29 de março de 2008 o quarto encontro de programadores e aficionados C++. Mais detalhes no link anterior. Em suma, as palestras são estas:
 Você já pensou em programar componentes de hardware? Ou melhor: com uma linguagem de alto nível?? Sim, é possível, e de acordo com o Daniel, muito comum (ele usa mais que o próprio assembly). Nessa palestras teremos as dicas de como entrar nesse mundo não-tão-selvagem, e que merece toda a atenção dos que se importam com um dos trunfos da linguagem C: portabilidade.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Backup de pobre</title>
-  <link>http://www.caloni.com.br/backup-de-pobre/</link>
-  <pubDate>2008-03-28</pubDate>
-  
-  <guid>http://www.caloni.com.br/backup-de-pobre/</guid>
-  <description>O backup - ato de fazer cópia(s) de segurança de dados considerados importantes -, como tudo na vida, para se tornar efetivo e transformador deve antes se tornar um hábito.
-Hábitos, por definição, ao serem realizados repetidamente muitas vezes, podem se tornar poderosos catalisadores de tarefas, sejam elas cozinhar um bolo, compilar um programa ou fazer backups. Por isso é muito importante que o backup, antes de ser 100% seguro, seja 100% previsível e habitual.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como rodar qualquer coisa como serviço</title>
-  <link>http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/</link>
-  <pubDate>2008-03-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/</guid>
-  <description>A maior vantagem de se rodar um aplicativo como serviço, interativo ou não, é permitir que ele seja iniciado antes que seja feito um logon na máquina. Um exemplo que acontece comigo é a necessidade de depurar a GINA. Para isso, preciso que o depurador remoto do Visual Studio seja iniciado antes do logon. A solução mais fácil e rápida é rodar o Msvcmon, a parte servidora da depuração, como um serviço.</description>
   <details>
   
   </details>
@@ -3485,21 +2435,6 @@ Para ajudar os autores da internet a informarem ao seu público qual o nível de
 
      
         <item>
-  <title>Temas no WinDbg</title>
-  <link>http://www.caloni.com.br/temas-no-windbg/</link>
-  <pubDate>2008-01-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
-  <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
-O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
-reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>Como ter um melhor blogue em 2008</title>
   <link>http://www.caloni.com.br/como-ter-um-melhor-blogue-em-2008/</link>
   <pubDate>2008-01-08</pubDate>
@@ -3521,61 +2456,6 @@ reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o Wi
   <description>O ano de 2008 promete. Pelo menos no começo.
 Está marcado para dia 19 desse mês em São Paulo o terceiro encontro de programadores C++, cujas informações mais atualizadas você poderá acompanhar em nossa wiki. A grade de eventos, pelo menos por enquanto, é essa:
  09:30 a 10:00 - Introdução e Apresentação dos Membros do Encontro 10:00 a 11:00 - C++ com WxWidgets por Ivo Nascimento 11:00 a 11:30 - Debate 11:30 a 11:45 - Coffee break 11:45 a 12:45 - C++0x - Novas características de suporte a projetos de bibliotecas genéricas por Pedro Lamarão 12:45 a 13:15 - Debate 13:15 a 14:30 - Almoço 14:30 a 15:30 - Threads no CPP ISO - Wanderley Caloni 15:30 a 16:00 - Debate 16:00 a 16:15 - Coffee break 16:1 a 17:00 - Fórum sobre a Organização do Grupo de Usuários e da C/C++ Conference Brasil 17:30 a 00:00 - C/C++ Beer Meeting!</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como ser um melhor desenvolvedor em 2008</title>
-  <link>http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-em-2008/</link>
-  <pubDate>2008-01-02</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-em-2008/</guid>
-  <description>Aproveitando que está se aproximando meu prazo final para minhas resoluções de seis meses atrás, e o DQ já fez o checklist dele, vou dar uma espiada na minha lista de desejos atual e fazer uma nova lista para 2008.
-Comecei, fiz vários exercícios, mas ainda não acabei todas as aulas. Descobri que a memória pode ser muito mais bem treinada do que realmente é, e existem técnicas bem pensadas que fazem isso sem muito mais esforço do que apenas tempo despendido.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>SDelete</title>
-  <link>http://www.caloni.com.br/sdelete/</link>
-  <pubDate>2007-11-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/sdelete/</guid>
-  <description>Minha vida tem que ser portátil. Existem pelo menos três lugares diferentes onde costumo ficar com um computador (não o mesmo). Por causa disso, os dados mais relevantes e que precisam fazer parte do meu sistema biológico eu carrego comigo pra cima e pra baixo em meu PenDrive/MP3Player.
-Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sensíveis, e busco sempre manter todos os arquivos sensíveis encriptados ou com uma senha específica do programa que o abre.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Desenvolvendo em linha de comando</title>
-  <link>http://www.caloni.com.br/desenvolvendo-em-linha-de-comando/</link>
-  <pubDate>2007-11-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/desenvolvendo-em-linha-de-comando/</guid>
-  <description>Desde uns tempos para cá o Visual Studio tem se tornado uma das ferramentas mais pesadas de desenvolvimento já criadas. Como se não bastasse, a compilação de pequenos trechos de código é algo desnecessariamente complicado no ambiente. Por esse motivo estou ganhando o costume de usar a linha de comando para esse tipo de tarefa. Afinal de contas, na maioria das vezes a única coisa que eu preciso fazer é abrir o atalho &amp;ldquo;Visual Studio Command Prompt&amp;rdquo; e digitar uma linha:</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>A Linguagem de Programação C</title>
-  <link>http://www.caloni.com.br/the-c-programming-language/</link>
-  <pubDate>2007-10-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/the-c-programming-language/</guid>
-  <description>O clássico de Ritchie e Kernighan, criadores da linguagem C, não foi meu primeiro livro de programação. E nem deveria ser. Não o recomendo para iniciantes, pois é necessário possuir algun conhecimento e prática para realmente aproveitar os conceitos desse livro.
-Então, o que ler antes disso? Existem tantos livros bons para iniciantes (e tantos livros péssimos). Eu comecei com C Completo e Total, de Herbert Schildt. Não me arrependi. O autor vai descrevendo C para quem já tentou fazer algumas coisas, já programou outras e está afim de tirar as principais dúvidas sobre essa linguagem que tantos abominam por ser difícil, e tantos idolatram por ser poderosa.</description>
   <details>
   
   </details>
@@ -3644,61 +2524,6 @@ Sabe aquele senso comum de que adolescente não sabe o que quer da vida? Pois é
   
   <guid>http://www.caloni.com.br/todolist/</guid>
   <description>Vou aproveitar que o recente blogue do meu amigo resolveu falar um pouco sobre administração de tempo e citar a ferramenta que venho utilizando há quase um ano para tentar organizar minhas idéias, minhas tarefas e minha vida. Assim como o Kabloc, eu estava em sérias dificuldades para tentar fazer e organizar todas as coisas que eu tinha em mente. Ainda continuo com dificuldades para fazer, mas o mais importante é que agora eu tenho um roadmap de para onde eu quero ir.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>C&#43;&#43;0x parcial no novo GCC 4.3</title>
-  <link>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</link>
-  <pubDate>2007-07-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
-  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C++, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C++ já há algum tempo.
-Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Como ser um melhor desenvolvedor nos próximos seis meses</title>
-  <link>http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-nos-proximos-seis-meses/</link>
-  <pubDate>2007-07-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-nos-proximos-seis-meses/</guid>
-  <description>Graças ao meu amigo Thiago estive acompanhando uma série de posts de gente renomada sobre o tema deste artigo. Eles fazem parte de uma nova modalidade entre os blogueiros (pelo menos para mim) chamada de tagging. Funciona assim: você escreve sobre algo (por exemplo, &amp;ldquo;como ser um melhor cozinheiro em 6 meses&amp;rdquo;) e manda uma tag para que outras pessoas também escrevam sobre o mesmo assunto, o que pode ser feito referenciando o sítio dessas pessoas.</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Desejo insano de programar no kernel</title>
-  <link>http://www.caloni.com.br/desejo-insano-de-programar-no-kernel/</link>
-  <pubDate>2007-07-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/desejo-insano-de-programar-no-kernel/</guid>
-  <description>Muitas vezes meus amigos (um em particular) me perguntam por que não me interesso em programar em kernel mode, como se isso fosse um objetivo a ser alcançado por qualquer programador em user mode. Bom, não é.
-Claro que sempre me empenho em entender como o sistema funciona, nos menores detalhes e sempre que posso, o que nem sempre me leva para o kernel mode (entender como a CLR funciona, por exemplo).</description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
-  <title>Google shortcuts</title>
-  <link>http://www.caloni.com.br/google-shortcuts/</link>
-  <pubDate>2007-07-06</pubDate>
-  
-  <guid>http://www.caloni.com.br/google-shortcuts/</guid>
-  <description>I do love shortcuts. Since my very first years using computers, shortcuts had become my obsession. I research them through the time, collecting them, using them. For a long time I avoid myself from touching the mouse, trainning to remember all keystroke sequences I know.
- I have nothing against using the mouse neither the people that do it. I&amp;rsquo;m just not very much enthusiastic in using mice. For sometime, I even believed that the cursor pointer was getting me annoyed, so I developed a program to get rid of it from the screen (using a shortcut, of course).</description>
   <details>
   
   </details>

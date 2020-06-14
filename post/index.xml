@@ -1283,6 +1283,8 @@ As piadas são todas manjadas, mas é delicioso de assistir. Devia ser um espet�
 Criei este pequeno projeto de mock da winsock para exemplificar.</description>
   <details>
   
+      
+  
   </details>
 </item>
 
@@ -6707,6 +6709,8 @@ Este não é um filme com atores de verdade, mas com comediantes. Nota-se o amad
 Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
   <details>
   
+      
+  
   </details>
 </item>
 
@@ -8064,6 +8068,8 @@ Seu protagonista, Xavier (Romain Duris), é um jovem tímido, de pais separados 
 O uso mais simples dessa importante construção da linguagem é pular de um ponto para outro do código em que esses pontos não estão diretamente relacionados, como geralmente ocorre, como sair de um laço, não entrar em um if ou selecionar um case do switch (lembrando que no caso do case do switch ele é no fundo um goto disfarçado).</description>
   <details>
   
+      
+  
   </details>
 </item>
 
@@ -8220,6 +8226,8 @@ Dixit é um jogo de cartas ilustradas que os competidores ficam em mãos e usam 
 (defgeneric thing(x y));; BAR inhherits FOO(defclass foo()())(defmethod thing ((x foo) (y foo))(format t &amp;quot;Both are of type FOO~%&amp;quot;))(def method thing ((x bar) (y foo))(format t &amp;quot;X is a BAR, Y is a FOO.</description>
   <details>
   
+      
+  
   </details>
 </item>
 
@@ -8233,6 +8241,8 @@ Dixit é um jogo de cartas ilustradas que os competidores ficam em mãos e usam 
   <description>Como programadores há um vício em nossas cabeças que é estar constantemente buscando a bala de prata, ou seja, a solução final e única para todos os nossos problemas de implementação. Com o tempo e alguma experiência descobrimos que tal coisa não existe, mas até lá nos encantamos com esse ou aquele framework, e claro, com essa ou aquela linguagem.
 As linguagens que são criadas depois da revolução dos computadores pessoais querem facilitar a vida do programador médio embutindo soluções já testadas por programadores de verdade e evitando a todo custo que o código incorra em erros comuns.</description>
   <details>
+  
+      
   
   </details>
 </item>
@@ -14257,6 +14267,8 @@ Isso é porque para ele Titanic, de James Cameron, não é um exemplo a ser segu
 Para realizar esta operação será necessário usar as seguintes ferramentas:
  wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente.</description>
   <details>
+  
+      
   
   </details>
 </item>
@@ -50220,6 +50232,8 @@ O que mais impressiona nesse novo filme é o número de tiradas feitas sobre o f
 O &amp;ldquo;conceito&amp;rdquo; é bem simples: executo o programa, ele exibe um campo texto para digitar o que estou fazendo, digito enter ou clico no botão de OK e ele fecha.</description>
   <details>
   
+      
+  
   </details>
 </item>
 
@@ -55516,6 +55530,8 @@ Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sens
   <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
   <details>
+  
+      
   
   </details>
 </item>

@@ -34,6 +34,8 @@ struct T {explicit operator uint64_t(){return 10;}};int main(){T t;t();
 Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
   <details>
   
+      
+  
   </details>
 </item>
 
