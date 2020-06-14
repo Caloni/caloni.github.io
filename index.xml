@@ -37,7 +37,7 @@
   <pubDate>2020-06-13</pubDate>
   
   <guid>http://www.caloni.com.br/fazenda-sao-joao/</guid>
-  <description>A torra foi feita na quinta, quarto dia de junho, e eu recebi na noite de segunda e foi o café da manhã da terça. Moído na hora para coado, vinte e poucos gramas, e passado na Aeopress com cerca de um minuto de infusão, seguindo da já tradicional virada antes de abaixa o êmbolo, este café ultra-fresco trouxe para mim, diferente de sua ficha, notas cítricas, lembrando limão. O sabor com certeza é tânico, algo que adoro e que me traz um vício desgraçado.</description>
+  <description>A torra foi feita na quinta, quarto dia de junho, e eu recebi na noite de segunda e foi o café da manhã da terça. Moído na hora para coado, vinte e poucos gramas, e passado na Aeopress com cerca de um minuto de infusão, seguindo da já tradicional virada antes de abaixar o êmbolo, este café ultra-fresco trouxe para mim, diferente de sua ficha, notas cítricas, lembrando limão. O sabor com certeza é tânico, algo que adoro e que me traz um vício desgraçado.</description>
   <details>
   
       
@@ -54,6 +54,8 @@
   <guid>http://www.caloni.com.br/historical-price/</guid>
   <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades.</description>
   <details>
+  
+      
   
   </details>
 </item>
@@ -88,6 +90,22 @@
   <guid>http://www.caloni.com.br/awk/</guid>
   <description>Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.</description>
   <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Batalha</title>
+  <link>http://www.caloni.com.br/batalha/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/batalha/</guid>
+  <description>Em 1836 ocorre a Batalha do Seival, onde hoje fica o município de Candiota, RS. Esse conflito militar ocorreu quando os revolucionários da Revolução Farroupilha venceram o exército do Império Brasileiro e ensejaram a sonhada República Riograndense. Bons tempos. Em um dos melhores momentos da Guerra dos Farrapos.
+Este vinho produzido na região é um reserva de 2014 que passou por maturação em barricas de carvalho francês. A complexidade e elegância desse Cabernet Sauvigon é incomparável na região.</description>
+  <details>
+  
+      
   
   </details>
 </item>

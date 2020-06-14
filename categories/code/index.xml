@@ -19,6 +19,35 @@
   <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades.</description>
   <details>
   
+      
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Awk</title>
+  <link>http://www.caloni.com.br/awk/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/awk/</guid>
+  <description>Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.</description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Leak de Memória</title>
+  <link>http://www.caloni.com.br/leak-de-memoria/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/leak-de-memoria/</guid>
+  <description>Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.
+Essa memória é alocada para um objeto acessível por uma interface.</description>
+  <details>
+  
   </details>
 </item>
 
