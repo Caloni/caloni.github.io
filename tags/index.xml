@@ -167,19 +167,6 @@
 
      
         <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-05-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
-  <description></description>
-  <details>
-  
-  </details>
-</item>
-
-     
-        <item>
   <title>events</title>
   <link>http://www.caloni.com.br/tags/events/</link>
   <pubDate>2020-05-14</pubDate>
@@ -198,6 +185,19 @@
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/tags/debug/</guid>
+  <description></description>
+  <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-05-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
   <details>
   
