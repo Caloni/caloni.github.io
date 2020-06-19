@@ -6,9 +6,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/draft/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Printf</title>
+  <link>http://www.caloni.com.br/printf/</link>
+  <pubDate>2020-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/printf/</guid>
+  <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+</item>
+
      
         <item>
   <title>O Bug Mais Bizarro Que Já Resolvi</title>

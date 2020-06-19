@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>http://www.caloni.com.br/tags/draft/</loc>
+    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/posts/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
@@ -259,11 +264,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/tags/debug/</loc>
-    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/draft/</loc>
     <lastmod>2020-05-10T00:00:00+00:00</lastmod>
   </url>
   
