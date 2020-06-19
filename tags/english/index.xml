@@ -18,11 +18,6 @@
   <guid>http://www.caloni.com.br/hacker-rank/</guid>
   <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
 Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
-  <details>
-  
-      
-  
-  </details>
 </item>
 
      
@@ -33,9 +28,6 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   
   <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
   <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, a satiric text that influenced and encouraged me into the path of &amp;ldquo;C/C++ enlightenment&amp;rdquo;, most even than K&amp;amp;R&amp;rsquo;s book. Since then I thought that being a &amp;ldquo;Real Programmer&amp;rdquo; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;ldquo;Quiche Eater&amp;rdquo; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -47,9 +39,6 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <guid>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</guid>
   <description>The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.
 The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -61,9 +50,6 @@ The reasons why I am using TodoList are kind of obvious: it does everything I ne
   <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
   <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
 Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -75,11 +61,6 @@ Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</d
   <guid>http://www.caloni.com.br/mousetool/</guid>
   <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
-  <details>
-  
-      
-  
-  </details>
 </item>
 
      

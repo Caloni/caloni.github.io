@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2019-05-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,168 +145,9 @@
 <p>Esse mindset propost tem como objetivo impedir que você pense que as outras soluções são mágicas porque se você consegue pensar em C ela é real. Se tem algo que a linguagem C não é esse algo é mágica. C é uma simples abstração de uma máquina virtual que se relaciona de maneira muito íntima com as implementações em assembly de várias arquiteturas. Mágica é algo que te impede de enxergar em que momento uma solução se encontra com o hardware. C nunca irá te impedir de fazer isso.</p>
 <p>Dito isto, vamos analisar algumas balas de prata e entender como em C isso é implementado para revelar a mágica.</p>
 <p>A Orientação a Objetos se divide em algumas features. Algumas não vale a pena falar aqui, como tratar tudo como objeto. C já faz isso através de structs. Você pode montar uma struct que possua métodos, inclusive, através de ponteiros para função. E esses métodos já são sobrecarregáveis e virtuais.</p>
-<pre><code>struct MyClass
-{
-    int x, y;
-    void (*method)(int);
-};
-
-void method(int x)
-{
-}
-
-struct MyClass NewMyClass()
-{
-    struct MyClass ret = { 0, 0 };
-    ret.method = &amp;method;
-    return ret;
-}
-
-int main()
-{
-    struct MyClass obj = NewMyClass();
-    obj.method(10);
-}
-</code></pre>
 <p>A sobrecarga se torna algo trivial, bem documentada através dos nomes das funções que você está chamando. Tudo fica às claras, nada implícito, nada disse que me disse. Se eu chamo um método NewMyClass2 é óbvio que estou construindo uma segunda versão baseada na primeira, e posso inclusive comparar para ver se os métodos são originais ou sobrescritos com obj.method == &amp;method, por exemplo. Além disso, é possível realizar composições de tipos onde alguns métodos são sobrescritos enquanto outros são compostos por chamadas duplas, triplas. Não há qualquer limitação ao polimorfismo exceto o que você define.</p>
-<pre><code>struct MyClass
-{
-    int x, y;
-    void (*method)(int);
-};
-
-void method(int x)
-{
-}
-
-struct MyClass NewMyClass()
-{
-    struct MyClass ret = { 0, 0 };
-    ret.method = &amp;method;
-    return ret;
-}
-
-void method2(int x)
-{
-}
-
-struct MyClass NewMyClass2()
-{
-    struct MyClass ret = NewMyClass();
-    ret.method = &amp;method2;
-    return ret;
-}
-
-int main()
-{
-    struct MyClass obj = NewMyClass2();
-    obj.method(10);
-}
-</code></pre>
 <p>Os métodos são &ldquo;estáticos&rdquo; por default (não há contexto), o que aliás facilita programação funcional, mas você pode buscar contexto onde te interessa, passando como parâmetro toda a &ldquo;classe&rdquo;, seja por valor ou referência, ou passando até uma versão parcial dela. Há inúmeras maneiras de construir um objeto em C, pois ele não está restrito às regras de sintaxe da definição da linguagem, uma vez que é você que define. Além disso, como você deve ter percebido, para declarar tipos de structs é necessário o uso dessa palavra-chave, mas a linguagem C já possui um sistema de typedef para trocar convenientemente qualquer definição de tipo como um nome único.</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-typedef struct SCalc
-{
-    int (*sum)(int, int);
-    int (*mult)(struct SCalc*, int, int);
-
-} Calc;
-
-int calc_sum(int x, int y)
-{
-    return x + y;
-}
-
-int calc_mult(Calc* calc, int x, int y)
-{
-    int ret = 0;
-    int i;
-    for( i = 0; i &lt; x; ++i )
-        ret = calc-&gt;sum(ret, y);
-    return ret;
-}
-
-Calc CalcNew()
-{
-    Calc calc;
-    calc.sum = &amp;calc_sum;
-    calc.mult = &amp;calc_mult;
-    return calc;
-}
-
-int main()
-{
-    Calc calc = CalcNew();
-    int x = 10, y = 32;
-    int z = calc.sum(x, y);
-    int k = calc.mult(&amp;calc, z, y);
-    printf(&quot;%d + %d = %d, %d * %d = %d\n&quot;, x, y, z, z, y, k);
-}
-
-10 + 32 = 42, 42 * 32 = 1344
-</code></pre>
 <p>Note que podemos ao redefinir a função de soma a de multiplicação também é alterada, mesmo não alterando seu funcionamento (mas alterando uma função que ela usa).</p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-typedef struct SCalc
-{
-    int (*sum)(int, int);
-    int (*mult)(struct SCalc*, int, int);
-
-} Calc;
-
-int calc_sum(int x, int y)
-{
-    return x + y;
-}
-
-int calc_mult(Calc* calc, int x, int y)
-{
-    int ret = 0;
-    int i;
-    for( i = 0; i &lt; x; ++i )
-        ret = calc-&gt;sum(ret, y);
-    return ret;
-}
-
-Calc CalcNew()
-{
-    Calc calc;
-    calc.sum = &amp;calc_sum;
-    calc.mult = &amp;calc_mult;
-    return calc;
-}
-
-
-int calc_cat(int x, int y)
-{
-    char buf[100];
-    int ret;
-    sprintf(buf, &quot;%d%d&quot;, x, y);
-    ret = atoi(buf);
-    return ret;
-}
-
-Calc BizarreCalcNew()
-{
-    Calc calc = CalcNew();
-    calc.sum = &amp;calc_cat;
-    return calc;
-}
-
-int main()
-{
-    Calc calc = BizarreCalcNew();
-    int x = 1, y = 1;
-    int z = calc.sum(x, y);
-    int k = calc.mult(&amp;calc, z, y);
-    printf(&quot;%d + %d = %d, %d * %d = %d\n&quot;, x, y, z, z, y, k);
-}
-
-10 + 32 = 1032, 1032 * 32 = 2147483647
-</code></pre>
 <p>Este é apenas um exemplo besta de polimorfismo, além de um exemplo trivial de como OO em C é infinitamente mais rico e mais complexo. Está nas mãos do programador definir até onde vai a solução proposta. E é bom saber que não existe bala de prata.</p>
 
             
@@ -315,20 +156,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-        
-        
-            <a href="https://github.com/Caloni/coo" style="text-decoration: underline;">coo()</a>
-        
-        
-        
-        
-        <a href="https://github.com/Caloni/blog/blob/master/data/post/c-resolve-tudo.toml" style="text-decoration: underline;">references</a>
-    
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Como%20programadores%20h%c3%a1%20um%20v%c3%adcio%20em%20nossas%20cabe%c3%a7as%20que%20%c3%a9%20estar%20constantemente%20buscando%20a%20bala%20de%20prata%2c%20ou%20seja%2c%20a%20solu%c3%a7%c3%a3o...%20http%3a%2f%2fwww.caloni.com.br%2fc-resolve-tudo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-01-24T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,34 +143,11 @@
 <p>Na época eu estava às voltas com o leiaute do famoso teclado russo (percebeu a origem do nome do programa?). Eu havia estudado cirílico e estava na hora de pôr em prática no computador. Mas, como quase nunca treinava, quando tentava procurar uma palavra no Babylon ou arriscar uma expressão nas conversas com minha amiga de Moscou me perdia completamente para encontrar as letras. A necessidade é a mãe da invenção e foi aí que começou o desenvolvimento.</p>
 <p>Um alfabeto é uma das muitas maneiras de representar as palavras de uma língua por escrito. Uma palavra escrita é um conjunto de letras que representa os sons que usamos para falar essa palavra. Cada som usado é chamado de fonema.</p>
 <p>Assim sendo, embora o alfabeto russo seja diferente do alfabeto latino muitos fonemas são compartilhados. Isso quer dizer que podemos pegar algumas letras do cirílico e traduzir diretamente para algumas letras do nosso alfabeto, e outras letras não. Exemplos de letras que podemos fazer isso:</p>
-<pre><code>¿ == B
-¿ == V
-¿ == G
-¿ == D
-...
-</code></pre>
 <p>Porém, após a tradução de uma letra no teclado, a posição dela geralmente não é a mesma posição do nosso teclado. Daí temos uma letra de nosso alfabeto em outro lugar. Se for feita uma tradução aproximada entre os dois alfabetos, nossas letras em um teclado russo ficariam dispostas assim:</p>
 <p>Bem diferente do QWERT ASDFG que estamos acostumados, não?</p>
 <p>Ao digitar usando esse pseudo-leiaute o treino do leiaute do teclado russo estaria sendo feito mesmo escrevendo com o alfabeto latino. Legal, não? Poderia programar com as letras todas trocadas, porque a saída final é a mesma. Basta treinar os dedos para acertarem as mesmas letras nos novos lugares. Assim, quando precisasse escrever no alfabeto cirílico saberia melhor onde cada letra fica.</p>
 <p>A idéia é simples, e o código também não é nada complexo. Só preciso de um EXE e uma DLL. No EXE chamo uma função exportada pela DLL que por sua vez instala um hook de mensagens:</p>
-<pre><code>g_hHook = SetWindowsHookEx(WH_GETMESSAGE, HookProc, GetModuleHandle(MODULE_NAME), 0);
-</code></pre>
 <p>Nas chamadas da função de callback da DLL, manipulo a mensagem WMCHAR, que corresponde à digitação de caracteres, para trocar os caracteres originais do teclado pelos caracteres que deveriam existir no recém-inventado formato latino-russo, totalmente fora dos padrões e normas de segurança existentes:</p>
-<pre><code>switch( pMsg-&gt;message )
-{
-    case WM_CHAR:
-    {
-        LPTSTR ptzChar =
-        _tcschr(g_tzRussAlphabet, (TCHAR) pMsg-&gt;wParam);
-
-        if( ptzChar )
-        {
-            size_t offset = ptzChar - g_tzRussAlphabet;
-            pMsg-&gt;wParam = (WPARAM) g_tzPortAlphabet[offset];
-        }
-    }
-} 
-</code></pre>
 <p>Simples assim. E temos um keylogger que troca caracteres! É impressionante como as coisas mais simples podem se transformar nos momentos mais divertidos de um programador em um feriado.</p>
 <ul>
 <li>Endereço do artigo (e fontes) no Code Project</li>
@@ -182,11 +159,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=%c3%80s%20vezes%20na%20vida%20a%20vontade%20de%20fazer%20alguma%20coisa%20besta%20acaba%20sendo%20mais%20forte%20do%20que%20o%20senso%20de%20rid%c3%adculo.%20Ent%c3%a3o%2c%20resolvi...%20http%3a%2f%2fwww.caloni.com.br%2fkeychanger-de-crianca%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

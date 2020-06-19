@@ -9,9 +9,7 @@
   <meta name="author" content="" />
   <meta name="description"
         content="Em C&#43;&#43; não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-class MyClass
-{
-public:..."/>
+OK, foi apenas um exemplo..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -19,9 +17,7 @@ public:..."/>
   <meta itemprop="name" content="Sem reflection"/>
   <meta itemprop="description"
         content="Em C&#43;&#43; não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-class MyClass
-{
-public:..."/>
+OK, foi apenas um exemplo..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -34,13 +30,11 @@ public:..."/>
         content=""/>
   <meta property="og:description"
         content="Em C&#43;&#43; não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-class MyClass
-{
-public:..."/>
+OK, foi apenas um exemplo..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2011-05-18T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -50,9 +44,7 @@ public:..."/>
   <meta name="twitter:title" content="Sem reflection"/>
   <meta name="twitter:description"
         content="Em C&#43;&#43; não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-class MyClass
-{
-public:..."/>
+OK, foi apenas um exemplo..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -151,53 +143,10 @@ public:..."/>
           <div class="content">
             
               <p>Em C++ não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:</p>
-<pre><code>class MyClass
-{
-public:
-        void Method1();
-        void Method2();
-        void Method3();
-};
-
-int main()
-{
-        MyClass c;
-        if( auto m = typeid(c).methods.getaddresof(&quot;Method1&quot;) )
-                m();
-}
-</code></pre>
 <p>OK, foi apenas um exemplo tosco de como seria um reflection em C++.</p>
 <p>Porém, existem algumas maneiras de contornar esse problema. A solução, é claro, depende de qual problema você está tentando resolver.</p>
 <p>Vamos supor, por exemplo, que você queira cadastrar funções para serem chamadas de maneira uniforme pelo prompt de comando. Vamos chamar nossa classe tratadora de CommandPrompt.</p>
-<pre><code>typedef void (Method*)(vector&lt;string&gt;&amp; args);
-
-class CommandPrompt
-{
-public:
-        void Add(string name, Method m); // adiciona novo método
-        void Interact(ostream&amp; os, istream&amp; is); // começa interação com usuário
-};
-</code></pre>
 <p>Internamente, para armazenar as funções de acordo com o nome dado, basta criarmos um mapeamento entre esses dois tipos e fazemos a amarração necessária para o método principal de parseamento:</p>
-<pre><code>typedef map&lt;string, Method&gt; MethodList; // uma variável desse tipo armazena todas as funções
-
-void CommandPrompt::Interact(ostream&amp; os, istream&amp; is)
-{
-        while( is )
-        {
-                string func;
-                vector&lt;string&gt; args;
-
-                if( ParseLine(is, func, args) )
-                {
-                        // se a função desejada está em nossa lista,
-                        // podemos chamá-la, mesmo sem conhecer qual é
-                        if( Method m = m_funcs[func] )
-                                m(args);
-                }
-        }
-}
-</code></pre>
 <p>Essa solução não é exatamente um reflection, mas apenas parte do que o verdadeiro reflection possibilita. Existem outras funcionalidades, como traits, que a STL já consegue se virar razoavelmente bem, por exemplo.</p>
 
             
@@ -206,11 +155,9 @@ void CommandPrompt::Interact(ostream&amp; os, istream&amp; is)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Em%20C%2b%2b%20n%c3%a3o%20temos%20%28ainda%29%20a%20possibilidade%20de%20listarmos%2c%20por%20exemplo%2c%20a%20lista%20de%20m%c3%a9todos%20de%20um%20determinado%20tipo%2c%20a%20fim%20de...%20http%3a%2f%2fwww.caloni.com.br%2fsem-reflection%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

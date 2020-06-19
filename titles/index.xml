@@ -47,6 +47,27 @@ A impressão básica de uma string passada como argumento com printf deve ser fe
 
      
         <item>
+  <title>Estômago</title>
+  <link>http://www.caloni.com.br/estomago/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/estomago/</guid>
+  <description>Este é um filme no auge da retomada do cinema brasileiro e quando os esquerdistas estavam sem ódio no coração com o lulinha da paz. Por isso a prisão não é horrível, mas podia ser melhor. Alguns insetos na comida e só isso. Este roteiro caminha em dois tempos distintos na história de Raimundo Nonato (João Miguel), um nordestino que vem para São Paulo ou outra grande metrópole do sul mostrar como em um filme há tanta desigualdade e desrespeito pelos serumaninhos.</description>
+  <details>
+  
+      
+          Estomago: A Gastronomic Story
+          (Brazil, Italy, 2007).
+           Dirigido por Marcos Jorge.
+           Escrito por Fabrizio Donvito, Marcos Jorge, Lusa Silvestre.
+           Com João Miguel, Fabiula Nascimento, Babu Santana, Carlo Briani, Zeca Cenovicz, Paulo Miklos.
+      
+  
+  </details>
+</item>
+
+     
+        <item>
   <title>Fazenda São João</title>
   <link>http://www.caloni.com.br/fazenda-sao-joao/</link>
   <pubDate>2020-06-13</pubDate>
@@ -261,6 +282,21 @@ Para se autenticar no repositório remoto, é claro que a ferramenta irá se int
   <description>Dia de fazer funcionar o download automágico de legendas depois que o Transmission baixou meu Netflix caseiro. O download funcionou, mas não foi dos melhores, pois o sincronismo e o encoding veio errado, e o rename de _pb para o nome do arquivo não está acontecendo rodando pelo transmission-daemon. Fora isso tá com tudo em cima.
 No final do dia a correção era mais simples que imaginava: eu só precisava desabilitar duas flags: o uso de sufixo no nome do arquivo salvo e a flag que força todo arquivo a ser salvo como utf8 (os arquivos em português do Brasil são salvos no encoding do Windows, o ISO-8859-1 ou Windows 1252 para os mais íntimos).</description>
   <details>
+  
+  </details>
+</item>
+
+     
+        <item>
+  <title>Flow</title>
+  <link>http://www.caloni.com.br/flow/</link>
+  <pubDate>2020-05-31</pubDate>
+  
+  <guid>http://www.caloni.com.br/flow/</guid>
+  <description> Passei os recortes para o arquivo toml; Instalei o app PIEL Survey para testar o ESM; Lidos os recortes.  </description>
+  <details>
+  
+      
   
   </details>
 </item>
@@ -947,7 +983,7 @@ A parte do mundo que ele se concentra é o Japão, em que o filme estrutura uma 
   
   <guid>http://www.caloni.com.br/cast-operator/</guid>
   <description>O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.
-struct T {explicit operator uint64_t(){return 10;}};int main(){T t;t(); // error: term does not evaluate to a function taking 0 argumentsuint64_t i = (uint64_t) t; // i == 10} O operador de cast só funciona se um cast estiver envolvido.</description>
+O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo.</description>
   <details>
   
   </details>
@@ -1857,7 +1893,8 @@ Aqui as piadas que a reunião de amigos fez brotar aparecem, mas quando as vemos
   
   <guid>http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/</guid>
   <description>Continuando minhas aventuras em tentar ser mais rápido que o Hugo, fiz uma versão que gera um html porco com os parágrafos obtidos no parser porco de markdown, rodando em cima dos meus 2740 posts. Este é o código novo:
-void WriteFileToHtml(File&amp;amp; file){string htmlFileName = string(file.fileName);htmlFileName.replace(htmlFileName.size() - 2, 2, &amp;quot;html&amp;quot;);ofstream ofs(htmlFileName);if (ofs){ofs &amp;lt;&amp;lt; &amp;quot;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;&amp;quot; &amp;lt;&amp;lt; htmlFileName &amp;lt;&amp;lt; &amp;quot;&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;\n&amp;quot;;for (size_t i = 0; i &amp;lt; file.</description>
+Lembrando o resultado do Hugo no post passado:
+Agora executando o meu programinha caseiro (b.bat é uma batch que executa todos os posts usando o comando for do Windows; ptime é uma versão Windows do time do Linux, que mede performance na execução de um programa).</description>
   <details>
   
   </details>
@@ -1898,7 +1935,7 @@ void WriteFileToHtml(File&amp;amp; file){string htmlFileName = string(file.fil
   
   <guid>http://www.caloni.com.br/projeto-hu-cpp/</guid>
   <description>Utilizo o Hugo como renderizador do meu saite já faz um tempo. Depois que juntei os posts do finado Cine Tênis Verde e do meu blogue técnico a soma dos textos ultrapassou a marca dos dois mil. Atualmente levo cerca de quinze segundos para renderizar todo o saite antes de publicá-lo.
-C:\Users\caloni\Projects\caloni&amp;gt;hugoBuilding sites …| EN-------------------+-------Pages | 2765Paginator pages | 0Non-page files | 0Static files | 1748Processed images | 0Aliases | 0Sitemaps | 1Cleaned | 0Total in 16527 msC:\Users\caloni\Projects\caloni&amp;gt; Não é uma marca ruim, considerando que estamos com quase três mil textos, e embora o leiaute do saite seja muito simples, é justamente o que eu desejo para rápido carregamento e busca.</description>
+Não é uma marca ruim, considerando que estamos com quase três mil textos, e embora o leiaute do saite seja muito simples, é justamente o que eu desejo para rápido carregamento e busca.</description>
   <details>
   
   </details>
@@ -5658,7 +5695,7 @@ Ele apresenta o grande drama de classe média branca estadunidense que vive na a
   
   <guid>http://www.caloni.com.br/vcpkg-openssl-cnf/</guid>
   <description>Mais uma aventura em vcpkg. Dessa vez o projeto openssl, a biblioteca de SSL open-source multiplataforma. O vcpkg divide esse port por SO, sendo o openssl-windows o port que alterei. A alteração foi enviada como PR para a Microsoft, mas no momento está apenas no repo da BitForge.
-commit 5506984bcd69a9fba9f86f9952d6ca6518f2c746Author: Wanderley Caloni &amp;lt;wanderley.caloni@bitforge.com.br&amp;gt;Date: Tue Sep 17 13:34:39 2019 -0300Including config file openssl.cnf in installation.diff --git a/ports/openssl-windows/portfile.cmake b/ports/openssl-windows/portfile.</description>
+O que acontece é que alguns comandos executados no openssl.exe compilado e instalado do vcpkg precisam conter o arquivo de configuração disponível, como o genrsa:</description>
   <details>
   
   </details>
@@ -8239,7 +8276,7 @@ Dixit é um jogo de cartas ilustradas que os competidores ficam em mãos e usam 
   
   <guid>http://www.caloni.com.br/c-resolve-tudo-clos/</guid>
   <description>Continuando nossa série, conforme sugerido pelo @colemaker do grupo C/C++/42/Império do Brasil, a próxima ideia a ser implementada em C é o sistema polimórfico de chamadas do Lisp orientado a objetos. Esse sistema permite realizar a seguinte manobra:
-(defgeneric thing(x y));; BAR inhherits FOO(defclass foo()())(defmethod thing ((x foo) (y foo))(format t &amp;quot;Both are of type FOO~%&amp;quot;))(def method thing ((x bar) (y foo))(format t &amp;quot;X is a BAR, Y is a FOO.</description>
+O aspecto-chave aqui, conforme eu descobri, é implementar a estratégia de prioridades entre as sobrecargas dos métodos de acordo com os tipos passados. Analisando bem por cima devemos sempre priorizar os métodos com os tipos mais específicos e ir realizando underpromotion até chegarmos no menos específico (se houver).</description>
   <details>
   
       
@@ -8770,7 +8807,7 @@ Ela é fã de musicais. Nas horas vagas da fábrica, onde trabalha sem parar par
   <guid>http://www.caloni.com.br/const-int-pointer-var/</guid>
   <description>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
 Quem diz o asterisco fazer parte do tipo e não da variável tem razão. Pensando dessa forma ele tem que ficar próximo do tipo.
-const int* var Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade.</description>
+Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade. Ou seja, int pointer var significa que pointer var equivale a um int (constante ou não, mas preciso dessa variável não-const para o exemplo).</description>
   <details>
   
   </details>
@@ -10012,7 +10049,7 @@ Já como o filme, o que dizer? É o Tim Burtiniano de sempre, seja nos anos 80, 
   <guid>http://www.caloni.com.br/debug-remoto-visual-studio-2010-superior/</guid>
   <description>Já escrevi sobre debug remoto no finado C++ Builder, sobre como usar o msvcmon.exe no VS 2003 e o msvsmon.exe no 2010+. Sobre como depurar um serviço quando a máquina está para desligar, e até sobre depurar através de um servidor de símbolos. Está na hora de tornar a depuração mais simples para programadores de serviços Win32.
 Resumo dos comandos:
-Busca do pacote de debug:c:\&amp;gt;dir /s /b &amp;quot;Remote Debugger&amp;quot;Executável:C:\Tools\Remote Debugger\x64\msvsmon.</description>
+Hoje em dia, às vésperas do Visual Studio 2019, espero que todo mundo use pelo menos o Visual Studio 2010 porque a partir dessa versão tornou-se muito fácil depurar remotamente, pois um pacote feito para isso já é instalado junto do Visual Studo.</description>
   <details>
   
   </details>
@@ -11672,7 +11709,8 @@ A história das estrelas, ou ranking de filmes, começa em 1928 quando a crític
   
   <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
   <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
-&amp;gt;git diff&amp;gt;Binary files a/source.cpp and b/source.cpp differ Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.</description>
+Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.
+Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária.</description>
   <details>
   
   </details>
@@ -13634,7 +13672,7 @@ O vídeo do filósofo Alysson Augusto, baseado no texto de Leandro C.</descripti
   
   <guid>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</guid>
   <description>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Quer ver?
-/** Interpreta argumentos da linha de comando (versão raiz).</description>
+Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos:</description>
   <details>
   
   </details>
@@ -16038,7 +16076,7 @@ A história começa quando uma mãe em dor por oito meses pela morte violenta de
   
   <guid>http://www.caloni.com.br/contra-o-array-de-100-bytes-eh-suficiente/</guid>
   <description>Desde o C++ moderno (pós-03) o uso de arrays de tamanho fixo estão se tornando depreciados. E por um bom motivo: você nunca sabe realmente qual o tamanho que você precisa para um array de bytes até você saber. Daí a próxima grande questão é: &amp;ldquo;como gerenciar essa memória dinâmica de forma efetiva?&amp;quot;. E a resposta moderna sempre é: &amp;ldquo;não faça isso você mesmo&amp;rdquo;. Eis o porquê:
-#include &amp;lt;string.h&amp;gt;#include &amp;lt;iostream&amp;gt;char* LegacyFunction(){ char* ret = (char*) malloc(100);strcpy(ret, &amp;quot;old old string&amp;quot;);return ret;}void WideStringFunction(wchar_t* mbString){std::wcout &amp;lt;&amp;lt; mbString &amp;lt;&amp;lt; L&#39;\n&#39;;}int main(){char* legacyString = LegacyFunction();size_t legacyLen = strlen(legacyString);wchar_t* convertedString = new wchar_t[legacyLen+1]; // espalhando a merda de alocar dinamicamentembstowcs(convertedString, legacyString, legacyLen+1);WideStringFunction(convertedString);free(legacyString);free(convertedString); // espalhando a merda de desalocar manualmente} Quando lidamos com funções legadas elas se misturam de tal maneira com código novo que a merda da alocação/desalocação dinâmica manual vai se espalhando também.</description>
+Quando lidamos com funções legadas elas se misturam de tal maneira com código novo que a merda da alocação/desalocação dinâmica manual vai se espalhando também.</description>
   <details>
   
   </details>
@@ -17087,8 +17125,9 @@ Em conteúdo também. A narração dos pensamentos e sentimentos do herói é a 
   
   <guid>http://www.caloni.com.br/se-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe/</guid>
   <description>Nos últimos dias me deparei com o seguinte (pseudo-)código:
-int main(int argc, const char **argv){MyClass obj;HRESULT hr = obj.init();if ( SUCCEEDED(hr) ){if ( args have &amp;quot;cmd1&amp;quot; ){hr = obj.cmd1();}else if ( args have &amp;quot;cmd2&amp;quot; ){hr = obj.cmd2();}... // você entendeu a ideia}} Dentro de MyClass a seguinte estrutura:
-class MyClass{public:HRESULT m_result = S_OK;HRESULT init();HRESULT cmd1();HRESULT cmd2();// você pegou a ideia}; Então eu me pergunto: qual a função da classe em um código desses?</description>
+Dentro de MyClass a seguinte estrutura:
+Então eu me pergunto: qual a função da classe em um código desses?
+Bjarne Stroustrup desde o começo, em seu livro The C++ Programming Language, sugere que C++ não é uma linguagem unicamente orientada a objetos, mas multi-paradigmas. Hoje, em 2017, ela é uma linguagem genérica e até funcional. Na época poderia ser usada como orientada a objetos, mas também como estruturada e imperativa comum.</description>
   <details>
   
   </details>
@@ -21038,8 +21077,8 @@ Iniciando com a premissa de uma equipe formada por um jovem gênio cientista, se
   
   <guid>http://www.caloni.com.br/forma-simples-de-baixar-atualizacoes-remotamente-de-um-cliente-para-um-servidor/</guid>
   <description>A forma mais simples e rápida para subir um servidor de arquivos é usar o file server embutido do python:
-# 2python -m SimpleHTTPServer# 3python -m http.server Para que não seja necessário instalar o Python no servidor é possível transformar essa chamada em um executável, com todas suas dependências embutidas:
-import SimpleHTTPServerimport SocketServerPORT = 8000Handler = SimpleHTTPServer.SimpleHTTPRequestHandlerhttpd = SocketServer.TCPServer((&amp;quot;&amp;quot;, PORT), Handler)print &amp;quot;serving at port&amp;quot;, PORThttpd.</description>
+Para que não seja necessário instalar o Python no servidor é possível transformar essa chamada em um executável, com todas suas dependências embutidas:
+Esse script pode ser compilado pela ferramenta py2exe, instalável pelo próprio Python. É necessário criar um arquivo setup.py na mesma pasta do script e através desse script gerar uma pasta dist com o script &amp;ldquo;compilado&amp;rdquo; e pronto para ser executado.</description>
   <details>
   
   </details>
@@ -22174,7 +22213,7 @@ As expressões de Betty são as melhores partes do filme.</description>
   
   <guid>http://www.caloni.com.br/warning-de-nivel-4/</guid>
   <description>Você já colocou aquele seu projeto favorito em /W4? Por padrão, o Visual Studio cria seus projetos com o nível de warnings e 3, porque o nível 4 é muito, muito chato. No entanto, algumas vezes ele serve para que seu código não fique apenas correto, mas bem documentado e apresentável. Vamos tentar?
-1&amp;gt;------ Build started: Project: tioserver, Configuration: Debug x64 ------1&amp;gt; pch.cpp1&amp;gt; using Boost version 1_621&amp;gt; tioclient.</description>
+OK, este foi o nível 3 do tioserver, o projeto principal do tiodb, uma ferramenta para manter contêineres assináveis na memória e acessíveis via socket.</description>
   <details>
   
   </details>
@@ -25419,7 +25458,7 @@ A história é sobre o concurso público mais disputado no país: juiz federal. 
   <guid>http://www.caloni.com.br/dbaccess/</guid>
   <description>Bancos de dados são uma dor de cabeça para o desenvolvedor acessar. Quase tão motivation killer que as configurações do .NET. Se for um programador em C++ para Windows, então, desista.
 O DBAccess é mais um dos códigos-fonte desenterrados dos meus backups. Esse eu usei já em vários projetos, porque é simples e rápido de usar.
-class DBAccess{public:/// Factory para base de dados específica./// @param database Pode ser &amp;quot;sqlite&amp;quot; ou &amp;quot;oledb&amp;quot;.</description>
+Sua função é abstrair a abertura de um banco de dados, sua execução e sua saída.</description>
   <details>
   
   </details>
@@ -29144,7 +29183,7 @@ Bradley Cooper é Adam Jones, um chef de cozinha que se tornou notório em Paris
   <guid>http://www.caloni.com.br/templates-em-c-no-lugar-de-macros/</guid>
   <description>A grande vantagem dos templates é manter o tipo de seus argumentos. Infelizmente, eles não existem na linguagem C, mas podem ser usados em construções C feitas com a linguagem C++, como ocorre com quem desenvolve device drivers para Windows.
 Imagine, por exemplo, a estrutura LISTENTRY.aspx), que é uma tentativa de generalizar não só o tipo de uma lista ligada, como seu posicionamento:
-typedef struct _LIST_ENTRY {struct _LIST_ENTRY *Flink;struct _LIST_ENTRY *Blink;} LIST_ENTRY, *PLIST_ENTRY; A lógica por trás de LISTENTRY é que esse membro pode ser inserido em qualquer lugar da estrutura que representará um elemento.</description>
+A lógica por trás de LISTENTRY é que esse membro pode ser inserido em qualquer lugar da estrutura que representará um elemento.</description>
   <details>
   
   </details>
@@ -29215,7 +29254,7 @@ Em C++, fazer uma função template é muito simples:</description>
   
   <guid>http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/</guid>
   <description>No post anterior implementamos &amp;ldquo;métodos&amp;rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).
-ClasseCpp obj;obj.</description>
+Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém.</description>
   <details>
   
   </details>
@@ -32903,8 +32942,8 @@ Tendo como seu núcleo dramático a relação entre Ig (Daniel Radcliffe) e Merr
   
   <guid>http://www.caloni.com.br/logs-em-servicos-e-outras-coisas/</guid>
   <description>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &amp;ldquo;passou por aqui&amp;rdquo; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:
-Log(&amp;quot;Quero um log mais simples possível (de preferência &amp;quot;, 15, &amp;quot; vezes mais simples)&amp;quot;); Vou tentar defender meu ponto de vista.
-Esse artigo do Dr.</description>
+Vou tentar defender meu ponto de vista.
+Esse artigo do Dr. Dobbs explica de uma maneira bem completa como fazer uma lib de log leve e configurável.</description>
   <details>
   
   </details>
@@ -33487,8 +33526,8 @@ Bom, divago. Em determinado momento de Whiplash, um personagem pergunta para o p
   
   <guid>http://www.caloni.com.br/convencao-de-chamada/</guid>
   <description>Pergunta de um leitor:
-void func(){}int main(){func(&amp;quot;sbrubles&amp;quot;);return 0;} Resposta do Autor: Por que C é zoado :P
-OK, a verdade é que não existem (existiam?) muitas regras de sintaxe a serem respeitadas na linguagem pelo compilador. Antigamente, se não fosse colocado nenhum tipo de retorno era como se ele fosse int por default. Da mesma forma, se não colocar parâmetros vale tudo. É como se fossem os três pontinhos do printf.</description>
+Resposta do Autor: Por que C é zoado :P
+OK, a verdade é que não existem (existiam?) muitas regras de sintaxe a serem respeitadas na linguagem pelo compilador. Antigamente, se não fosse colocado nenhum tipo de retorno era como se ele fosse int por default. Da mesma forma, se não colocar parâmetros vale tudo. É como se fossem os três pontinhos do printf. Afinal, você não ia querer ficar repetindo os parâmetros no .</description>
   <details>
   
   </details>
@@ -34453,8 +34492,8 @@ Aqui a dupla Daniel Radcliffe (da série Harry Potter, caso você tenha vivido e
   <guid>http://www.caloni.com.br/11-encontro-ccpp-brasil-cfp/</guid>
   <description>Acho que já está na hora de nos reencontrarmos, né?
 A comunidade CCPP Brasil está preparando mais um daqueles eventos em que conversaremos sobre nossa maior paixão: B, BCPL, C e C++!
-#include &amp;lt;ccpp-people.h&amp;gt;int main(){std::cout &amp;lt;&amp;lt; &amp;quot;Hello, C/C++ Brasil!\n&amp;quot;;} Então vamos aos detalhes:
-   Chave Valor     Data 2015-03-28   Local Micro$oft Brasil   Palestras undefined    Ops, deu um errinho de link acima.</description>
+Então vamos aos detalhes:
+   Chave Valor     Data 2015-03-28   Local Micro$oft Brasil   Palestras undefined    Ops, deu um errinho de link acima. Acho que é porque ainda não temos as palestras.</description>
   <details>
   
   </details>
@@ -37063,7 +37102,7 @@ A necessidade de contar uma história de terror com uma família se mudando para
   
   <guid>http://www.caloni.com.br/ss/</guid>
   <description>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para reforma, pois ela é extremamente error-prone e não-intuitiva. Porém, se a printf é não-intuitiva, o que dizer &amp;lt; &amp;lt; daqueles &amp;laquo; sinais &amp;laquo; de &amp;laquo; flechinhas apontando para cout? Bem melhor, não?
-#include &amp;lt;iostream&amp;gt;int main(){int x = 0x00000001;int y = 4;int z = x &amp;lt;&amp;lt; y; // isso desloca 4 bits para a &amp;quot;esquerda&amp;quot;std::cout &amp;lt;&amp;lt; z // WHAT?</description>
+A resposta é, pra variar, depende.</description>
   <details>
   
   </details>
@@ -38409,8 +38448,7 @@ No entanto, os esforços do diretor James Marsh (Project Nim) e sua equipe em co
   <pubDate>2014-02-27</pubDate>
   
   <guid>http://www.caloni.com.br/houaiss-para-babylon-em-python/</guid>
-  <description>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:
-#!/usr/bin/python2# -*- coding: utf-8 -*-## Coloque esse script na pasta com os arquivos dhx.# O resultado estarÃ¡ em iso-8859-1### Segui o tutorial em /conversor-de-houaiss-para-babylon-parte-1#import osfiles = os.</description>
+  <description>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:</description>
   <details>
   
   </details>
@@ -38860,7 +38898,8 @@ Dirigido por Leos Carax na década de 80, do recentemente aclamado Holy Motors, 
   <guid>http://www.caloni.com.br/remove_if-ate-remove-so-que-diferente/</guid>
   <description>A surpresa de hoje foi descobrir (vejam só) que o removeif, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove elementos, mas os sobrescreve.
 Imagine uma função que usa removeif para remover todas as idades de potenciais lolitas:
-void RemoveIfLolita(vector&amp;lt;int&amp;gt;&amp;amp; ages){remove_if(ages.begin(), ages.end(), &amp;amp; { return age &amp;lt; 18; } );} Ou até sua contraparte usando um array C:</description>
+Ou até sua contraparte usando um array C:
+Um uso trivial pode não cuspir um resultado trivial, ou seja, os elementos não serão removidos como se espera:</description>
   <details>
   
   </details>
@@ -44805,7 +44844,8 @@ A ideia da trama gira em torno de seus contos e a morte misteriosa de Poe, encon
   
   <guid>http://www.caloni.com.br/consumo-abusivo-de-memoria/</guid>
   <description>Era um belo dia em um ambiente de processamento fictício de filas fictícias e threads fictícias. Eis um belo código com filas, threads e processamentos feitos em stop-motion:
-#include &amp;lt;windows.h&amp;gt; // critical section, create thread...#include &amp;lt;list&amp;gt; // nossa lista interna#include &amp;lt;time.h&amp;gt; // randomizaçãostruct Queue // uma fila (duh){size_t bufferSize; // cada item é um buffer de tamanho fixoDWORD wait; // antes de processar, aguardemos esse tempo fixoCRITICAL_SECTION cs; // stl é thread-safe, pero no muchostd::list&amp;lt;char*&amp;gt; items; // os itens!</description>
+Se olharmos de perto o processamento e a memória consumida por esse processo, veremos que no início existe um boom de ambos, mas após um momento de pico, o processamento praticamente pára, mas a memória se mantém:
+Depois de pesquisar por meus tweets favoritos, fica fácil ter a receita para verificarmos isso usando nosso depurador favorito: WinDbg!</description>
   <details>
   
   </details>
@@ -49325,7 +49365,7 @@ Vejamos o texto original (auto-plágio):</description>
   
   <guid>http://www.caloni.com.br/novo-branch-para-projetos-do-caloni-com-br/</guid>
   <description>Reestruturei meus projetos caseiros e coloquei todos em um branch no repositório do Assembla. A partir dele começarei a reestruturas os códigos de exemplo do saite, o deve facilitar o acesso. Para usuários do Bazaar, como eu, basta puxar o branch usando seu endereço:
-bzr get http://subversion.assembla.com/svn/caloni/trunk Para os usuários do Subversion, ou qualquer outro controle de fonte que consiga ler um branch feito em SVN, google for it.</description>
+Para os usuários do Subversion, ou qualquer outro controle de fonte que consiga ler um branch feito em SVN, google for it.</description>
   <details>
   
   </details>
@@ -49506,8 +49546,9 @@ Ou talvez se coloque. Afinal de contas, Fox não compromete em nada esse projeto
   
   <guid>http://www.caloni.com.br/sem-reflection/</guid>
   <description>Em C++ não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-class MyClass{public:void Method1();void Method2();void Method3();};int main(){MyClass c;if( auto m = typeid(c).methods.getaddresof(&amp;quot;Method1&amp;quot;) )m();} OK, foi apenas um exemplo tosco de como seria um reflection em C++.
-Porém, existem algumas maneiras de contornar esse problema.</description>
+OK, foi apenas um exemplo tosco de como seria um reflection em C++.
+Porém, existem algumas maneiras de contornar esse problema. A solução, é claro, depende de qual problema você está tentando resolver.
+Vamos supor, por exemplo, que você queira cadastrar funções para serem chamadas de maneira uniforme pelo prompt de comando.</description>
   <details>
   
   </details>
@@ -50206,7 +50247,7 @@ Porém, ainda utilizo o Google Reader por uma série de motivos:
   
   <guid>http://www.caloni.com.br/base64/</guid>
   <description>No meio dos meus artigos pendentes, encontrei esse, de Luiz Rocha, que fala sobre a dificuldade de entender o que seria Base64:
-&amp;quot;Salve Caloni,Já leio o seu site a algum tempo. Realmente acho complicado, alguns eu nem entendo =D. Mais eh o seguinte, eu estou montando um projeto, mas eu não entendo nada de trabalhar com binários. Então pesquisei na internet, e achei um algoritmo que pode me ajudar, na lógica.</description>
+Não é a primeira pessoa que pede informações sobre algo específico demais para explicar (para isso existe a Wikipedia e o Google, não?). No meio da minha escrita, percebi que já havia escrito sobre os fundamentos do conhecimento por trás da criação do Base64, conhecimento esse, acredito eu, todo programador que quer sair do lugar com os próprios pés deve ter.</description>
   <details>
   
   </details>
@@ -51574,7 +51615,7 @@ Com esse filme percebemos a dedicação de sua esposa para com a carreira do mar
   <description>Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte mensagem:
 Erro de automação? (&amp;ldquo;Mensagem do cliente - A classe não dá suporte para automação&amp;rdquo;)
 Abaixo um exemplo simples para ter uma ideia em JS:
-var win = window.open(&#39;minha_url_do_coracao.htm&#39;);win.focus(); // aqui dá o erro A primeira coisa que se faz nesse caso é pesquisar no Google por pessoas que já tiveram esse problema.</description>
+A primeira coisa que se faz nesse caso é pesquisar no Google por pessoas que já tiveram esse problema.</description>
   <details>
   
   </details>
@@ -52250,7 +52291,7 @@ Um detalhe musical: enquanto ela escuta músicas mais animadas (e é curioso que
   <guid>http://www.caloni.com.br/como-ofuscar-strings/</guid>
   <description>Já fiz ofuscamento e embaralhamento de dados acho que umas três ou quatro vezes. Dessa vez, parti para o batidíssimo esquema de fazer o pré-processamento de um header com defines que irão virar estruturas reaproveitadas por uma função padrão que desofusca e ofusca aquela tripa de bytes em algo legível: a string original.
 Vamos ver um exemplo:
-#define MY_STR &amp;quot;Essa é minha string do coração&amp;quot; Conseguimos capturar os três elementos desse define (um descartável) por um simples scanf:</description>
+Conseguimos capturar os três elementos desse define (um descartável) por um simples scanf:</description>
   <details>
   
   </details>
@@ -52994,9 +53035,9 @@ Partindo de uma introdução artificial, ou sintética, mas que é efetiva porqu
   
   <guid>http://www.caloni.com.br/const-e-volatile/</guid>
   <description>Padrão C (ISO/IEC 9899:1990)
-6.5.3 type-qualifierconstvolatilePadrão C++ (ISO/IEC 14882:1998)cv-qualifierconstvolatile Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida do programa.
+Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida do programa.
 Uma variável const não pode ser alterada pelo programa durante sua execução, apenas durante sua inicialização:
-const float pi = 3.14; // até onde sabemos, pi não irá mudar neste Universo No exemplo acima, o valor de pi não pode mais ser alterado.</description>
+No exemplo acima, o valor de pi não pode mais ser alterado. Só que repare que ele foi, em determinado momento, alterado com um valor constante: na sua inicialização.</description>
   <details>
   
   </details>
@@ -53052,7 +53093,7 @@ const float pi = 3.14; // até onde sabemos, pi não irá mudar neste Universo 
   
   <guid>http://www.caloni.com.br/enum/</guid>
   <description>Padrão C (ISO/IEC 9899:1990)
-6.5.2.2 enum-specifierenumPadrão C++ (ISO/IEC 14882:1998)type-specifierenum-specifierenum-specifierenum Uma enumeração faz duas coisas: define um novo tipo, parecido com um inteiro, e cria uma lista de constantes com nomes significativos. A definição técnica do tipo de um enum é mais complicada, mas basicamente ele é um novo int.
+Uma enumeração faz duas coisas: define um novo tipo, parecido com um inteiro, e cria uma lista de constantes com nomes significativos. A definição técnica do tipo de um enum é mais complicada, mas basicamente ele é um novo int.
 Como funciona: definimos uma lista com cada elemento tendo um valor inteiro, geralmente único. Todos os nomes usados na lista passam a fazer parte do espaço de nomes atual e funcionam como constantes com o seu valor definido no início.</description>
   <details>
   
@@ -53068,7 +53109,7 @@ Como funciona: definimos uma lista com cada elemento tendo um valor inteiro, ger
   <guid>http://www.caloni.com.br/modificadores-e-qualificadores-de-tipo/</guid>
   <description>@caloni poderia pensar em fazer um artigo sobre os modificadores de tipo em c? os mais complexo, acho eu: volatile, enum, union, extern, etc
 Uma coisa de cada vez: existem modificadores (ou qualificadores) de tipo e especificadores de tipo. Volatile e extern se encaixam na primeira categoria, enum e union na segunda. Veremos um pouco desses dois lados da linguagem em doses paliativas.
-6.5.2.2 enum-specifier&amp;lt;a href=&amp;quot;/enum&amp;quot;&amp;gt;enum&amp;lt;/a&amp;gt;6.5.3 type-qualifier&amp;lt;a href=&amp;quot;/const-e-volatile&amp;quot;&amp;gt;const&amp;lt;/a&amp;gt;&amp;lt;a href=&amp;quot;/const-e-volatile&amp;quot;&amp;gt;volatile&amp;lt;/a&amp;gt;6.</description>
+Um modificador de tipo é opcional na definição de um tipo e deve estar sempre relacionado com a declaração de alguma variável.</description>
   <details>
   
   </details>
@@ -53246,7 +53287,8 @@ Dessa forma, o que dizer do estilizado Tim Burton e seu remake live-action do li
   
   <guid>http://www.caloni.com.br/por-que-long-pointer/</guid>
   <description>Esse artigo continua a explicação sobre os typedefs arcaicos, já que ainda falta explicar por que diabos os ponteiros da Microsoft começam com LP. Tentei explicar para minha pupila que, por ser código dos anos 80, as pessoas usavam LP para tudo, pois os CDs ainda não estavam tão difundidos.
-&amp;lt;span style=&amp;quot;color: #808000;&amp;quot;&amp;gt;/** @brief Para instanciar um Bozo. @date 1982-02-21 */ typedef struct _BOZO { char helloMsg[100]; /* definir para &amp;quot;alô, criançada, o bozo chegou.</description>
+Não colou. Então vou tentar explicar do jeito certo.
+Antigamente, as pessoas mandavam cartas umas para as outras. Carta, para você, caro leitor de quinze anos, era um e-mail implementado em hardware.</description>
   <details>
   
   </details>
@@ -53483,7 +53525,7 @@ Por outro lado, ao passar um parâmetro por referência, estamos enviando um e-m
   
   <guid>http://www.caloni.com.br/importando-tipos-de-outros-projetos/</guid>
   <description>A engenharia reversa das entranhas do kernel não tem limites se você sabe o que está fazendo. No entanto, algumas facilidades do depurador podem ajudar a minimizar o tempo que gastamos para analisar uma simples estrutura. Por exemplo, o Process Environment Block de um processo específico.
-windbg -klMicrosoft (R) Windows Debugger Version 6.9.0003.113 X86Copyright (c) Microsoft Corporation. All rights reserved.Connected to Windows XP 2600 x86 compatible target, ptr64 FALSESymbol search path is: SRV*c:\tools\symbols*http://msdl.</description>
+O comando !peb traz inúmeras informações sobre essa estrutura. Mas talvez estivéssemos interessados em coisas não mostradas por esse comando, mas que existem na estrutura.</description>
   <details>
   
   </details>
@@ -53541,7 +53583,7 @@ Primeiro, meus motivos primários:
   <guid>http://www.caloni.com.br/o-boot-no-windows-kernel/</guid>
   <description>Finalmente chegamos em um pouco onde podemos usar o WinDbg.
 Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rodando antes do próprio sistema operacional, teremos um sistema sem processos e sem threads, pois ele irá parar assim que o executivo puder enviar o sinal de início pela porta serial, após carregar na memória os módulos básicos.
-windbg -k com:pipe,port=\\.\pipe\com_1 -bMicrosoft (R) Windows Debugger Version 6.11.0001.404 AMD64Copyright (c) Microsoft Corporation.</description>
+Todos os módulos carregados antes dessa fase são os drivers que tiveram seu Start definido em zero no registro.</description>
   <details>
   
   </details>
@@ -53667,8 +53709,9 @@ Em dois projetos usando Visual C++ 2008 e Borland C++ Builder 5 (última versão
   
   <guid>http://www.caloni.com.br/polimorfismo-estatico/</guid>
   <description>Para explicar polimorfismo, nada como ver as coisas como elas eram. Se você fosse um programador C de vinte anos atrás e criasse as seguintes funções:
-int soma(int x, int y);double soma(double x, double y);int main(){int zi = soma(2, 3);double zd = soma(2.5, 3.4);return 0;} Imediatamente o compilador iria acusar os seguintes erros:
-overload.coverload.c(2) : warning C4028: formal parameter 1 different from declarationoverload.</description>
+Imediatamente o compilador iria acusar os seguintes erros:
+Isso acontece porque em C os identificadores são únicos por escopo. Esse é o motivo por que o seguinte código também está errado:
+De volta aos anos 90, isso também está errado em C++. Até por uma questão de lógica: como o compilador pode saber a qual variável estamos nos referindo se usarmos o mesmo nome para duas delas?</description>
   <details>
   
   </details>
@@ -53682,8 +53725,9 @@ overload.coverload.c(2) : warning C4028: formal parameter 1 different from decl
   
   <guid>http://www.caloni.com.br/static-polymorphism/</guid>
   <description>To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-int soma(int x, int y);double soma(double x, double y);int main(){int zi = soma(2, 3);double zd = soma(2.5, 3.4);return 0;} Immediately the compiler would blame you about the following errors:
-overload.coverload.c(2) : warning C4028: formal parameter 1 different from declarationoverload.</description>
+Immediately the compiler would blame you about the following errors:
+This happens because in C the identifiers are unique into the scope. This is the reason why the following code is wrong also:
+Back to the 90&amp;rsquo;s, this is also wrong in C++.</description>
   <details>
   
   </details>
@@ -53738,7 +53782,7 @@ No entanto, quando esses dados viram algo de útil em um determinado contexto, n
   <guid>http://www.caloni.com.br/como-compilar-em-somente-um-passo/</guid>
   <description>Uma das primeiras perguntas do teste do Joel é saber se você pode compilar todo o projeto em apenas um passo. Essa é uma questão essencial e um desafio para muitas equipes. Perdem-se horas sagradas para gerar um novo Release.
 Compilação automática geralmente está disponível nas ferramentas de desenvolvimento. Se você estiver usando o Visual Studio, por exemplo, é possível fazer isso com uma linha:
-devenv minha-solução.sln /Rebuild Release Se não for exatamente o que você precisa, basta fazer uma pesquisa de quinze minutos e encontrar os parâmetros corretos.</description>
+Se não for exatamente o que você precisa, basta fazer uma pesquisa de quinze minutos e encontrar os parâmetros corretos.</description>
   <details>
   
   </details>
@@ -53753,7 +53797,8 @@ devenv minha-solução.sln /Rebuild Release Se não for exatamente o que você 
   <guid>http://www.caloni.com.br/meu-roteiro-c/</guid>
   <description>Como não consigo mais ter ideias para artigos, resolvi catalogar todas as coisas que já falei nesse blogue e, o mais importante, todas as coisas que ainda não falei nesse blogue (e espero um dia falar ou talvez nunca fale), começando por C++, que era o intuito original (só que não é mais, porque eu uso mais a Win32 API que a STL):
   História
- A linguagem BCPL O código-objeto A linguagem B A &amp;ldquo;função&amp;rdquo; char O primeiro printf da história A linguagem C A linguagem C++ As influências    Conceitos</description>
+  Conceitos
+  Linguagem</description>
   <details>
   
   </details>
@@ -54151,7 +54196,7 @@ Entre os próximos artigos estão um bug na função PathIsDirectory.aspx), algu
   
   <guid>http://www.caloni.com.br/processleaker/</guid>
   <description>O artigo anterior mostrava como detectar o leak de um processo gerado pela retenção e não-liberação de handles para o Windows Explorer. O problema fora causado por um serviço malcriado. No entanto, a título de demonstração, criei um pequeno programinha sem-vergonha para fazer as coisas parecerem difíceis. No entanto o programa é bem fácil:
-#include &amp;lt;windows.h&amp;gt;#include &amp;lt;stdio.h&amp;gt;int main(){DWORD pid;while( scanf(&amp;quot;%d&amp;quot;, &amp;amp;pid) == 1 ){HANDLE proc = OpenProcess(SYNCHRONIZE, FALSE, pid);}} Para usá-lo, basta abrir um Gerenciador de Tarefas com opção de exibir o PID dos processos.</description>
+Para usá-lo, basta abrir um Gerenciador de Tarefas com opção de exibir o PID dos processos.</description>
   <details>
   
   </details>
@@ -54165,7 +54210,7 @@ Entre os próximos artigos estão um bug na função PathIsDirectory.aspx), algu
   
   <guid>http://www.caloni.com.br/os-processos-fantasma/</guid>
   <description>Estava eu outro belo dia tentando achar um problema em um driver que controla criação de processos quando, por acaso, listo os processos na máquina pelo depurador de kernel, após ter dado alguns logons e logoffs, quando me vem a seguinte lista de processos do Windows Explorer:
-PROCESS 815f0da0 SessionId: 0 Cid: 0694 Peb: 7ffd8000 ParentCid: 0100DirBase: 0d6e9000 ObjectTable: 00000000 HandleCount: 0.Image: explorer.exePROCESS 8164bda0 SessionId: 0 Cid: 03b0 Peb: 7ffdf000 ParentCid: 0100DirBase: 02673000 ObjectTable: 00000000 HandleCount: 0.</description>
+Analisando pelo Gerenciador de Tarefas, podemos detectar que o único processo de pé possui o PID (Process ID) do último elemento de nossa lista, curiosamente o único com um contador de handles diferente de zero.</description>
   <details>
   
   </details>
@@ -54535,7 +54580,7 @@ O uso mais simples que existe no Bazaar é o controle de uma pasta sozinha, conh
   
   <guid>http://www.caloni.com.br/declaracao-x-definicao/</guid>
   <description>Uma diferença que eu considero crucial na linguagem C/C++ é a questão da declaração/definição (em inglês, declaration/definition). É a diferença entre esses dois conceitos que permite, por exemplo, que sejam criadas estruturas prontas para serem conectadas a listas ligadas:
-struct Element{int x;int y;Element* next; /* olha eu mesmo aqui! */}; Por outro lado, e mais importante ainda, é ela que permite que as funções sejam organizadas em unidades de tradução (cpps) distintas para depois se unirem durante o link, mesmo que entre elas exista uma relação de dependência indissociável:</description>
+Por outro lado, e mais importante ainda, é ela que permite que as funções sejam organizadas em unidades de tradução (cpps) distintas para depois se unirem durante o link, mesmo que entre elas exista uma relação de dependência indissociável:</description>
   <details>
   
   </details>
@@ -54676,7 +54721,8 @@ Mas que mané WinDbg? Que mané atachar? Nessa hora nós temos bem menos do que 
   
   <guid>http://www.caloni.com.br/como-tratar-um-merge-no-bazaar/</guid>
   <description>Hoje fizemos um merge de duas versões que entraram em conflito em nosso projeto-piloto usando bzr. Isso geralmente ocorre quando alguma coisa mudou no mesmo arquivo em lugares muito próximos um do outro. Veremos um exemplo de código para ter uma idéia de quão fácil é o processo:
-#include &amp;lt;stdio.h&amp;gt;void InitFunction(){printf(&amp;quot;InitFunction&amp;quot;);}void DoAnotherJob(){char buf[100] = &amp;quot;&amp;quot;;fgets(buf, sizeof(buf), stdin);printf(&amp;quot;New line: %s&amp;quot;, buf);}void TerminateFunction(){printf(&amp;quot;TerminateFunction&amp;quot;);}int main(){InitFunction();while( !</description>
+A execução do programa contém uma saída parecida com as linhas abaixo:
+Parece que está faltando algumas quebras de linha. Além de que sabemos que nossos arquivos de entrada poderão conter até 200 caracteres por linha, o que pode gerar um desastre em nosso buffer de 100 bytes.</description>
   <details>
   
   </details>
@@ -55099,7 +55145,7 @@ Para ajudar os autores da internet a informarem ao seu público qual o nível de
   <guid>http://www.caloni.com.br/funky-do-while/</guid>
   <description>It&amp;rsquo;s a known habit to use do-while constructions when there&amp;rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.
 Let&amp;rsquo;s imagine a trace macro that&amp;rsquo;s enabled in debug mode, whilst kept in silence in release builds:
-#ifdef NDEBUG#define MYTRACE( message ) /* nothing */#else#define MYTRACE( message ) \{ \char buffer[500]; \sprintf(buffer, \&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;, \__FILE__, \__LINE__, \message); \OutputDebugString(buffer); \}#endif /* NDEBUG */  Nothing much, but it seems to work.</description>
+Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&amp;rsquo;t work.</description>
   <details>
   
   </details>
@@ -55249,7 +55295,7 @@ RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Rob
   <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
   <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
 O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
-reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
+Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
   <details>
   
   </details>
@@ -55319,7 +55365,7 @@ Comecei, fiz vários exercícios, mas ainda não acabei todas as aulas. Descobri
   <guid>http://www.caloni.com.br/gambi-do-dia-swap-com-apenas-duas-variaveis/</guid>
   <description>Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C++ de sua preferência. Boa leitura!
 Essa interessantíssima questão veio do meu amigo Kabloc: como trocar o valor entre duas variáveis do tipo int sem utilizar uma variável intermediária? O algoritmo ordinário para um swap entre tipos inteiros é:
-/** Troca o valor entre duas variáveis inteiras.</description>
+Uma das soluções que eu conheço é utilizar o operador de ou exclusivo, o conhecido XOR.</description>
   <details>
   
   </details>
@@ -55432,9 +55478,10 @@ Abra o Builder. Um projeto padrão é criado. Agora no menu File, vá em New, Fo
   
   <guid>http://www.caloni.com.br/interacao-entre-controles-no-c-builder/</guid>
   <description>Para essa proeza precisaremos de:
-Dois TButtonsUm TEditUm TListBox Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento chama-se design).
+Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento chama-se design).
 Agora no evento default do Button1 (duplo-clique nele) colocaremos o seguinte código:
-void __fastcall TForm1::Button1Click(TObject *Sender){if( !Edit1-&amp;gt;Text.IsEmpty() ){ListBox1-&amp;gt;AddItem(Edit1-&amp;gt;Text, 0);Edit1-&amp;gt;Text = &amp;quot;&amp;quot;;}}  Percebeu?</description>
+Percebeu? Não? Então rode e note o que acontece quando você aperta o botão.
+Agora iremos fazer algo mais interessante ainda com o segundo botão.</description>
   <details>
   
   </details>
@@ -55448,7 +55495,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender){if( !Edit1-&amp;gt;Text.
   
   <guid>http://www.caloni.com.br/conceitos-basicos-na-programacao-com-c-builder/</guid>
   <description>No projeto que é criado quando iniciamos a IDE três arquivos-fonte são gerados: Project1.cpp, Unit1.cpp e Unit1.h. Desses três, vamos analisar o primeiro:
-#include &amp;lt;vcl.h&amp;gt;WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int){try{Application-&amp;gt;Initialize();Application-&amp;gt;CreateForm(__classid(TForm1), &amp;amp;Form1);Application-&amp;gt;Run();}//...return 0;}  Sim, existe um WinMain e ele não está escondido! Nele você pode fazer o que quiser. A IDE apenas auxilia você a gerenciar seus forms. Note que também existe a inclusão de um cabeçalho chamado vcl.</description>
+Sim, existe um WinMain e ele não está escondido! Nele você pode fazer o que quiser. A IDE apenas auxilia você a gerenciar seus forms. Note que também existe a inclusão de um cabeçalho chamado vcl.h (obrigatório), o que nos leva diretamente para a base de toda a programação Delphi/Builder.</description>
   <details>
   
   </details>
@@ -55560,7 +55607,7 @@ The program main purpose is to avoid clicking the mouse, simulating a click ever
   
   <guid>http://www.caloni.com.br/detectando-hooks-globais-no-windbg/</guid>
   <description>Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um hook global:
-bp user32!SetWindowsHookExA &amp;quot;j poi(esp+4*4) &#39;g&#39; ; &#39;.echo *** GLOBAL HOOK ***; g&#39;&amp;quot; Vamos analisar cada um dos subcomandos novos um a um.
+Vamos analisar cada um dos subcomandos novos um a um.
 No WinDbg é possível definir um ou mais comandos que são executados quando um breakpoint é acionado. Esses comandos ficam entre aspas duplas e podem conter as mesmas coisas que digitamos na linha de comando.</description>
   <details>
   
@@ -55629,7 +55676,8 @@ Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá
   
   <guid>http://www.caloni.com.br/protecao-dos-membros-protected/</guid>
   <description>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:
-#include &amp;lt;iostream&amp;gt;using namespace std;class Base{protected:int m_protected;};class Derived : public Base{public:int GetProtected();int GetAnotherProtected();};class AnotherDerived : public Base{};int Derived::GetProtected(){return m_protected; // tudo bem.</description>
+Esse é o motivo fundamental do porquê não podermos fazer isso:
+Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &amp;ldquo;.</description>
   <details>
   
   </details>
@@ -55808,7 +55856,7 @@ In short, the Windows code responsible to call DllMain for each loaded/unloaded 
   <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
   <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
 O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
-// SPrintf.cpp : Guess how many// lines we need to create // a bug in C++?</description>
+Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir):</description>
   <details>
   
   </details>
@@ -56132,7 +56180,7 @@ Atualmente temos duas maneiras de fazer asserções: usando a função assert (a
   
   <guid>http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/</guid>
   <description>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;struct FEEDER_RECORD_HEADER{char MessageID[FIELD_SIZE_MSGID];char MessageIndex[10];};// error C2143: syntax error : missing &#39;)&#39; before &#39;.&#39;char MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER.MessageIndex) + 1];// error C2070: &#39;&#39;: illegal sizeof operandchar MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER::MessageIndex) + 1];  In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work.</description>
+In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work. The compiler error is not even clear. The member access operator (the point sign) needs to have as its left some variable or constant of the same type of the struct.</description>
   <details>
   
   </details>
@@ -56160,7 +56208,8 @@ Claro que sempre me empenho em entender como o sistema funciona, nos menores det
   
   <guid>http://www.caloni.com.br/precedence-difference/</guid>
   <description>Once upon a time my old friend Kabloc wrote this little and &amp;ldquo;harmless&amp;rdquo; function in order to print the multiplication table:
-#include &amp;lt;stdio.h&amp;gt;int main(){int f1,f2,s=0;for(f1=1;(f1==11&amp;amp;&amp;amp;s!=5)?s=5,f1=0,putchar(10):(f1&amp;lt;=10)?f1=f1:f1=12,f1&amp;lt;=11;f1++)for(f2=1+s;f2&amp;lt;=5+s;f2++)printf(&amp;quot;%dx%d=%d%c&amp;quot;,f2,f1,f1*f2,(f2==5+s)?10:9);return 0;}  Despite the fact the result is a strong candidate to &amp;ldquo;The International Obfuscated C Code Contest&amp;rdquo;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.</description>
+Despite the fact the result is a strong candidate to &amp;ldquo;The International Obfuscated C Code Contest&amp;rdquo;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.
+Asked to solve the problem, given my congenital inclination to random subjects involving C++, I decided to fix the things up in my old-n-good Visual Studio 2003.</description>
   <details>
   
   </details>

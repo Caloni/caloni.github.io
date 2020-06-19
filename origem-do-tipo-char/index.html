@@ -34,7 +34,7 @@ No princípio&hellip; não, não, não. Antes do princípio, quando C era consid
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2015-01-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -147,13 +147,7 @@ No princípio&hellip; não, não, não. Antes do princípio, quando C era consid
 <p>O bom de B estava em sua rica expressividade. Sua gramática extremamente simples. Tão simples que o manual da linguagem consistia de apenas 30 páginas. Isso é menos do que as 32 palavras reservadas de C.</p>
 <p>As instruções eram definidas em termos de if&rsquo;s e goto&rsquo;s e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo &ndash; geralmente a word da plataforma &ndash; que utilizada em expressões definiam seu tipo; esse padrão de bits era chamado rvalue.</p>
 <p>Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o char da época ocupava tanto quanto o int. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:</p>
-<pre><code>c = char(string, i); // the i-th character of the string is returned
-</code></pre>
 <p>Sim! Char era uma função, um conversor de &ldquo;tipos&rdquo;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C:</p>
-<pre><code>int getchar( void ); // read a character from stdin
-int putchar( int c ); // writes a character to stdout
-void *memset( void *dest, int c, size_t count ); // sets buffers to a specified character
-</code></pre>
 <p>Links interessantes para filólogos de plantão:</p>
 <ul>
 <li>Dennis Ritchie Home Page</li>
@@ -167,11 +161,9 @@ void *memset( void *dest, int c, size_t count ); // sets buffers to a specified 
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Programadores%20C%20e%20C%2b%2b%2c%20preparem-se%20para%20explodir%20as%20cabe%c3%a7as%21%0aNo%20princ%c3%adpio%26hellip%3b%20n%c3%a3o%2c%20n%c3%a3o%2c%20n%c3%a3o.%20Antes%20do%20princ%c3%adpio%2c...%20http%3a%2f%2fwww.caloni.com.br%2forigem-do-tipo-char%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

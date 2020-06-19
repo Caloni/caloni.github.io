@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-07-25T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -156,14 +156,6 @@
 <li>variable_templates_test. Mais algo já velho, que demonstro aqui com minha superlib de log.</li>
 </ul>
 <p>A otimização no if através do uso da palavra-chave constexpr possibilita a criação de diferentes instâncias da chamada que não contém o if, mas um dos dois branches dependendo do tipo ser integral ou não.</p>
-<pre><code>void f(const T&amp; value)
-{
-  if constexpr(is_integral&lt;T&gt;())
-    cout &lt;&lt; &quot;Integer\n&quot;;
-  else
-    cout &lt;&lt; &quot;Non Integer\n&quot;;
-}
-</code></pre>
 <p>Para que a compilação dessa opção funcione no Visual Studio 2017 15.3 é necessário inserir o parâmetro /std:c++latest nas opções do projeto em C/C++, Command Line, Additional Options.</p>
 <p>Todos (ou a maioria) deles ainda está em teste. Acabei de baixar o preview 5, conforma um dos membros da ML dos MVPs C++ me informou que saiu quentinha do forno. Em breve novidades.</p>
 
@@ -173,11 +165,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Iniciei%20um%20novo%20projeto%20no%20GitHub%20que%20tem%20por%20objetivo%20ser%20minha%20prancheta%20de%20trabalhos%20para%20minha%20palestra%20no%20pr%c3%b3ximo...%20http%3a%2f%2fwww.caloni.com.br%2fcpptests%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

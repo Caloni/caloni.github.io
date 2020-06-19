@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2015-06-05T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,33 +139,8 @@
           <div class="content">
             
               <p>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &ldquo;passou por aqui&rdquo; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:</p>
-<pre><code>Log(&quot;Quero um log mais simples possível (de preferência &quot;, 15, &quot; vezes mais simples)&quot;);
-</code></pre>
 <p>Vou tentar defender meu ponto de vista.</p>
 <p>Esse artigo do Dr. Dobbs explica de uma maneira bem completa como fazer uma lib de log leve e configurável. O que eu peguei desse exemplo foi a forma mais C++ de formatar as linhas, deixando para trás o estilão printf que depois de variadic templates já está datado.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;sstream&gt;
-
-inline void Log(std::ostringstream&amp; os)
-{
-    std::cout &lt;&lt; os.str() &lt;&lt; std::endl;
-}
-
-template&lt;typename First, typename...Rest &gt;
-void Log(std::ostringstream&amp; os, First parm1, Rest...parm)
-{
-    os &lt;&lt; parm1;
-    Log(os, parm...);
-}
-
-template&lt;typename...Rest &gt;
-void Log(Rest...parm)
-{
-    std::ostringstream os;
-    LogHeader(os);
-    Log(os, parm...);
-}
-</code></pre>
 <p>Por que eu acho a minha versão mais legal (não valendo falar que foi porque eu fiz):</p>
 <ul>
 <li>É mais simples ainda, tem poucas linhas e pode ser copiada sem peso na consciência. Pode até estar em um header que o overhead é mínimo.</li>
@@ -174,13 +149,6 @@ void Log(Rest...parm)
 </ul>
 <p>Encapsular a saída e o comportamento de um serviço hoje em dia é algo banal. Há diversos programas que fazem isso para você, sendo desnecessário programar toda aquela parte de comunicação com o Windows. O cara do DriverEntry (vulgo o kernel-mode programmer motta-focka Fernando) fez um aplicativo que faz isso, que é simples de usar e continua funcionando no Windows 8.1. Atualmente uso um outro encontrado pelo igualmente fodástico Rodrigo Strauss: o Non Sucking Service Manager (seu nome já explica por que defendo utilizar o mínimo possível das firulas da Microsoft).</p>
 <p>Além de ser extremamente flexível e não ter falhado nas vezes que o utilizei, o NSSM consegue redirecionar a saída do aplicativo que encapsula como um serviço para um arquivo e rotacionar o arquivo por tamanho ou data (ou reexecução do serviço). Abaixo uma receitinha básica para configurar seu aplicativo:</p>
-<pre><code>nssm.exe install MyService C:\Path\MyService.exe &lt;args&gt;
-nssm set MyService AppStdout C:\Path\Logs\MyService.log
-nssm set MyService AppStderr C:\Path\Logs\MyService.log
-nssm set MyService AppRotateFiles 1
-nssm set MyService AppRotateOnline 1
-nssm set MyService AppRotateBytes 10485760
-</code></pre>
 <p>(para quem está se perguntando, 10485760 bytes são 10 MB.)</p>
 <p>Com essa forma de fazer serviços, há uma dupla vantagem:</p>
 <ul>
@@ -192,22 +160,6 @@ nssm set MyService AppRotateBytes 10485760
 <li>Você pode executar programas-filho que o redirect para o log vai funcionar do mesmo jeito.</li>
 </ul>
 <p>Acho que cada um deve escrever no seu header o que achar melhor para depurar seus programas. No entanto, acho válido compartilhar quais são as informações que tem sido úteis para mim:</p>
-<pre><code>inline void LogHeader(std::ostringstream&amp; os)
-{
-    SYSTEMTIME st;
-    char buffer[48] = &quot;&quot;;
-
-    GetLocalTime(&amp;st);
-
-    sprintf_s(buffer, &quot;%04d-%02d-%02d %02d:%02d:%02d %04X.%04X %08X &quot;,
-        st.wYear, st.wMonth, st.wDay,
-        st.wHour, st.wMinute, st.wSecond,
-        GetCurrentProcessId() &amp; 0xFFFF, GetCurrentThreadId() &amp; 0xFFFF,
-        GetLastError());
-
-    os &lt;&lt; buffer;
-}
-</code></pre>
 
             
 
@@ -215,11 +167,9 @@ nssm set MyService AppRotateBytes 10485760
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=J%c3%a1%20uso%20logs%20h%c3%a1%20muito%20tempo.%20Me%20lembro%20muito%20bem%20que%20quando%20programava%20em%20BASIC%20o%20%26ldquo%3bpassou%20por%20aqui%26rdquo%3b%20j%c3%a1%20era...%20http%3a%2f%2fwww.caloni.com.br%2flogs-em-servicos-e-outras-coisas%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

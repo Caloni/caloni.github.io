@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-05-20T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,86 +139,14 @@
           <div class="content">
             
               <p>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &ldquo;ficar bonito&rdquo;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</p>
-<pre><code>struct MinhaEstrutura
-{
-};
-
-class MinhaClasse
-{
-};
-
-int main()
-{
-    MinhaEstrutura me;
-    MinhaClasse mc;
-}
-</code></pre>
 <p>Ele compila e roda sem problemas:</p>
 <p>&ldquo;Estruturalmente&rdquo; falando, MinhaEstrutura e MinhaClasse são idênticas, pois são os detalhes de sintaxe que diferem, e diferem pouco. Abrindo o jogo, a única diferença que poderá ser sentida em usar um ou outro é que structs possuem seus membros públicos por padrão e classes possuem seus membros privados por padrão. Apenas isso. O resto, nada muda.</p>
 <p>Isso pode ser visto quando adicionamos um construtor para nossos tipos de teste:</p>
-<pre><code>struct MinhaEstrutura
-{
-    MinhaEstrutura() {}
-};
-
-class MinhaClasse
-{
-    MinhaClasse() {}
-};
-
-int main()
-{
-    MinhaEstrutura me;
-    MinhaClasse mc;
-}
-</code></pre>
 <p>Antes não havia problemas para MinhaClasse porque o construtor padrão criado para ela é público por default. Porém, explicitando no código um construtor e deixando sua privacidade ligada por padrão temos esse erro que NÃO ocorre em MinhaEstrutura.</p>
 <p>Mas, então, posso criar todas minhas classes usando a palavra-chave struct?</p>
 <p>Isso mesmo! Nada lhe obriga tecnicamente a usar class. Porém, assim como nada lhe obriga a usar uma linha para cada comando na linguagem ¿ afinal, todos poderiam estar na mesma linha separados por ponto-e-vírgula ¿ o uso da palavra struct para classes no sentido de &ldquo;objetos que possuem inteligência, métodos, herança, polimorfismo e outras firulas&rdquo; não se enquadra nas boas práticas dos programadores C++.</p>
 <p>Geralmente uma struct é uma forma de concatenar tipos primitivos e só. Algumas liberdades além disso geralmente são permitidas, mas desencorajadas, como um construtor que inicia os membros da struct com valores-default.</p>
-<pre><code>#include &lt;iostream&gt;
-
-struct MinhaEstrutura
-{
-    MinhaEstrutura()
-    {
-        x = 0;
-        y = 2;
-        c = 'C';
-    }
-
-    int x;
-    int y;
-    char c;
-};
-
-int main()
-{
-    MinhaEstrutura me;
-    std::cout &lt;&lt; &quot;x: &quot; &lt;&lt; me.x &lt;&lt; &quot;, y: &quot; &lt;&lt; me.y &lt;&lt; &quot;, c: &quot; &lt;&lt; me.c &lt;&lt; std::endl;
-}
-</code></pre>
 <p>E, por que não, uma sobrecarga do operador de stream para imprimirmos diretamente os valores de MinhaEstrutura para a saída com apenas um comando?</p>
-<pre><code>#include &lt;iostream&gt;
-
-struct MinhaEstrutura
-{
-    MinhaEstrutura() { x = 0; y = 2; c = 'C'; }
-    int x; int y; char c;
-};
-
-std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os, const MinhaEstrutura&amp; me)
-{
-    std::cout &lt;&lt; &quot;x: &quot; &lt;&lt; me.x &lt;&lt; &quot;, y: &quot; &lt;&lt; me.y &lt;&lt; &quot;, c: &quot; &lt;&lt; me.c;
-    return os;
-}
-
-int main()
-{
-    MinhaEstrutura me;
-    std::cout &lt;&lt; me &lt;&lt; std::endl;
-}
-</code></pre>
 <p>Enfim, não há nenhum limite que se aplica à uma struct além do bom senso. A criação da palavra class não foi por falta do que fazer. Ela diz claramente que estamos definindo um objeto que contém usos mais adequados à orientação a objetos de C++ do que a programação estruturada de C, e vice-versa. É uma forma de tornar o código mais legível, mas nada do outro mundo. Sabemos, no final das contas, que o compilador trata as duas (quase) da mesma maneira.</p>
 <p>Qual será a próxima batalha épica? Você escolhe!</p>
 <p><a href="https://www.youtube.com/watch?v=zn7-fVtT16k">https://www.youtube.com/watch?v=zn7-fVtT16k</a></p>
@@ -229,11 +157,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Uma%20d%c3%bavida%20besta%20e%20importante%20ao%20mesmo%20tempo%20que%20muitos%20iniciantes%20em%20C%2b%2b%20possuem%20%c3%a9%20saber%20qual%20a%20diferen%c3%a7a%20entre%20um...%20http%3a%2f%2fwww.caloni.com.br%2festruturas-vs-classes-fight%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

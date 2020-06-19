@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-08-30T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,45 +140,13 @@
             
               <p>Já fiz ofuscamento e embaralhamento de dados acho que umas três ou quatro vezes. Dessa vez, parti para o batidíssimo esquema de fazer o pré-processamento de um header com defines que irão virar estruturas reaproveitadas por uma função padrão que desofusca e ofusca aquela tripa de bytes em algo legível: a string original.</p>
 <p>Vamos ver um exemplo:</p>
-<pre><code>#define MY_STR &quot;Essa é minha string do coração&quot;
-</code></pre>
 <p>Conseguimos capturar os três elementos desse define (um descartável) por um simples scanf:</p>
-<pre><code>scanf(&quot;#define %s \&quot;%[^\&quot;]&quot;, def, str);
-</code></pre>
 <p>A função scanf retorna o número de argumentos capturados. Então se a coisa funcionou é só comparar com 2.</p>
 <p>Depois de capturado, imprimimos na saída (o arquivo pós-processado) uma estrutura que irá conter nosso amigo embaralhado:</p>
-<pre><code>printf(&quot;struct ST_%s { byte key; size_t bufferSize; byte buffer[%d] }\n&quot;
-    &quot; %s = { %d, %d, { &quot;;
-
-for( ; ; ) printf(Cada byte ofuscado);
-
-printtf(&quot; } };\n&quot;);
-</code></pre>
 <p>Pronto. Agora o usuário da string precisa abri-la usando uma macro esperta que irá chamar uma função esperta para desofuscar a string e entregar o ponteiro de buffer devidamente &ldquo;casteado&rdquo;:</p>
-<pre><code>#include &quot;header-pos-processado.h&quot;
-
-#define ABRE_VAR(var, type) (type) OpenVar( (GENERIC_STRUCT) var)
-
-int main()
-{
-    char* str = ABRE_VAR(MY_STR, char*);
-}
-</code></pre>
 <p>Uma vez que a abertura se faz &ldquo;inplace&rdquo;, ou seja, a memória da própria variável da estrutura original é alterada, pode-se fechar a variável novamente, se quiser, após o uso.</p>
-<pre><code>FECHA_VAR(MY_STR);
-</code></pre>
 <p>A GENERICSTRUCT do exemplo se trata apenas de um esqueleto para que todas as estruturas das 500 strings ofuscadas sejam entendidas a partir de um modelo. Sim, essa é uma solução usando linguagem C apenas, então não posso me dar ao luxo daqueles templates frescurentos.</p>
-<pre><code>struct GENERIC_STRUCT
-{
-    byte key;
-    size_t bufferSize;
-    byte buffer[1];
-};
-</code></pre>
 <p>Como a string é ofuscada? Sei lá, use um XOR:</p>
-<pre><code>for( size_t i = 0; i &lt; bufferSize; ++i )
-    buffer[i] ^= key;
-</code></pre>
 <p>Dessa forma abrir ou fechar a variável pode ser feito usando a mesma função.</p>
 <p>Alguém aí gostaria de uma explicação didática sobre o operador XOR?</p>
 <p>PS: Acho que, além das minhas palestras, meus artigos estão também parecendo um brainstorm.</p>
@@ -189,11 +157,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=J%c3%a1%20fiz%20ofuscamento%20e%20embaralhamento%20de%20dados%20acho%20que%20umas%20tr%c3%aas%20ou%20quatro%20vezes.%20Dessa%20vez%2c%20parti%20para%20o%20batid%c3%adssimo...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-ofuscar-strings%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

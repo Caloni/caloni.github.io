@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-01-14T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,8 +140,6 @@
             
               <p>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).</p>
 <p>O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:</p>
-<pre><code>reg delete HKCU\Software\Microsoft\WinDbg
-</code></pre>
 <p>Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.</p>
 <p>Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:</p>
 <ul>
@@ -157,8 +155,6 @@
 </ul>
 <p>Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.</p>
 <p>Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).</p>
-<pre><code>reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg
-</code></pre>
 <p>Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)</p>
 
             
@@ -167,11 +163,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Desde%20a%20vers%c3%a3o%206.4.7.2%20que%20o%20WinDbg%20fornece%20uma%20subpasta%20chamada%20Themes%2c%20onde%20l%c3%a1%20est%c3%a3o%20diversos%20workspaces%20configurados....%20http%3a%2f%2fwww.caloni.com.br%2ftemas-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

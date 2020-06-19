@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-02-06T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,35 +145,9 @@
 <p>Depois de compilar o protoc e colocá-lo no devido lugar, há uma questão importante: a versão em Java usa um gerenciador de build do Apache que funciona muito naquelas para Windows, dando erro nos testes e na instalação. Minha solução foi simplesmente usar a segunda opção descrita no README: compilar o Descriptor.proto e com ele gerar todos os .java necessários para sua compilação. Com isso fica até mais simples montar no projeto Android uma solução mais enxuta, apenas com as classes necessárias (no meu caso, pelo menos o JsonFormat e dependências).</p>
 <p>A grande vantagem do Android Studio é que ele já escaneia os diretórios do projeto, sendo apenas necessário copiar os fontes e ele já integra no projeto. A partir daí os imports funcionam e ele compila tudo junto. Resolvido.</p>
 <p>Para a parte do mock eu recomendo usar o sistema de variáveis do Gradle. Ele mantém uma lista de variáveis em um formato específico no arquivo app/build.gradle:</p>
-<pre><code>buildTypes {
-    debug {
-        buildConfigField &quot;boolean&quot;, &quot;is_server_mock&quot;, IsServerMock
-        buildConfigField &quot;String&quot;, &quot;server_mock_data&quot;, ServerMockData
-    }
-}
-</code></pre>
 <p>Você pode jogar direto o valor que deseja, mas há uma solução ainda mais elegante que usa um arquivo apartado chamado local.properties, onde é ideal não jogar no controle de fonte, e de onde todo desenvolvedor pode customizar. No caso de ServerMockData, ele pode ser um json com sua mensagem protobuf já certinha para uso, como se esses fossem os dados do server:</p>
-<pre><code>    ServerMockData = '&quot;{\\&quot;session\\&quot;:\\&quot;mock\\&quot;,\\&quot;item\\&quot;:[{\\&quot;itemData\\&quot;:{\\&quot;sbrurles\\&quot;:[{\\&quot;id\\&quot;:10,\\&quot;name\\&quot;:\\&quot;Something\\&quot;,\\&quot;number\\&quot;:\\&quot;282\\&quot;}&quot;}}]}\\n&quot;'
-</code></pre>
 <p>Isso pode estar errado (parênteses demais), mas você entendeu a ideia. É possível jogar um json nesse arquivo e depois o Android e o Gradle irão jogá-lo diretament em uma classe estática, a BuildConfig:</p>
-<pre><code>public final class BuildConfig {
-  public static final boolean DEBUG = Boolean.parseBoolean(&quot;true&quot;);
-  public static final String BUILD_TYPE = &quot;debug&quot;;
-  public static final String FLAVOR = &quot;&quot;;
-  public static final int VERSION_CODE = 35;
-  // Fields from build type: debug
-  public static final boolean is_server_mock = true;
-  public static final String server_mock_data = &quot;{\&quot;session\&quot;:\&quot;mock\&quot;,\&quot;item\&quot;:[{\&quot;itemData\&quot;...&quot;;
-}
-</code></pre>
 <p>A partir dessa string é possível obter rapidamente a mensagem equivalente:</p>
-<pre><code>if( ! BuildConfig.is_server_mock )
-{
-    ServerData.Builder builder = ServerData.newBuilder();
-    JsonFormat.parser().merge(BuildConfig.server_mock_data, builder);
-    ServerData data = builder.build();
-}
-</code></pre>
 <p>DICA: O Android Studio tem um botão esperto em sua interface onde, depois de alterado o local.properties, é possível refazer o BuildConfig.</p>
 <p>E com isso podemos ter o protocol buffers e um sistema de mock simples e prático para a depuração e testes locais com nosso app que vai revolucionar o mundo =)</p>
 
@@ -183,11 +157,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20comunica%c3%a7%c3%a3o%20oferecida%20pelo%20Protocol%20Buffers%2c%20uma%20maneira%20otimizada%20de%20codificar%20mensagens%20em%20alto%20n%c3%advel%2c%20%c3%a9%20uma%20das...%20http%3a%2f%2fwww.caloni.com.br%2fandroid-protobuf-mock-configuravel%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-07-06T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,18 +145,7 @@
 <p>Until some time ago the web was not so good for shortcut users. So came out Google, plenty of web applications supporting shortcuts and giving me a true reason to use webmail and web RSS reader without pressing constantly the tab key. But there was a lack for its web search engine. Fortunately, there WAS.</p>
 <p>Even being in test, I began to use the new keyboard shortcuts in Google search, available in the Google Experimental Search website. Until now there is shortcuts for next result (J), previous result (K), opening the search (O or Enter) and putting the cursor in the search box (/). It is just like Gmail and Google Reader. I was so excited with the idea that I changed the Google search plugin inside Firefox by myself. And now I&rsquo;m going to tell how to do it (note: Windows only).</p>
 <p>Probably your search plugin will be in one of these two folder bellow. Try one of them:</p>
-<pre><code>%programfiles%Mozilla Firefoxsearchplugins
-%appdata%MozillaFirefoxProfiles*.defaultsearchplugins
-</code></pre>
 <p>The search plugin file has the name google.xml and you can edit it using notepad or another simple text editor. Bellow is the point where you must insert the new line that will get the plugin able to show the shortcuts inside Google.</p>
-<pre><code>&lt;Url type=&quot;text/html&quot; method=&quot;GET&quot; template=&quot;http://www.google.com/search&quot;&gt;
-&lt;Param name=&quot;q&quot; value=&quot;{searchTerms}&quot;/&gt;
-&lt;...&gt;
-&lt;Param name=&quot;esrch&quot; value=&quot;BetaShortcuts&quot;/&gt; &lt;!-- Google Shortcuts Here --&gt;
-&lt;!-- Dynamic parameters --&gt;
-&lt;...&gt;
-&lt;/Url&gt;
-</code></pre>
 <p>That&rsquo;s all. Now you can get all the best: the best search engine with shortcuts. How can we be even more productive?</p>
 
             
@@ -165,11 +154,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=I%20do%20love%20shortcuts.%20Since%20my%20very%20first%20years%20using%20computers%2c%20shortcuts%20had%20become%20my%20obsession.%20I%20research%20them...%20http%3a%2f%2fwww.caloni.com.br%2fgoogle-shortcuts%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

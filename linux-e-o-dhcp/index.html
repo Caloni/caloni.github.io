@@ -34,7 +34,7 @@ Muito bem. E a..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-04-09T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,21 +146,9 @@ Muito bem. E a..."/>
 <p>Muito bem. E a outra ponta da história?</p>
 <p>[Testes feitos em um Fedora 8, não me pergunte mais detalhes]</p>
 <p>O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network. Nele devemos, em uma configuração simplista, colocar uma única linha:</p>
-<pre><code>NETWORKING=yes
-</code></pre>
 <p>Tive alguns problemas com a entrada NETWORKINGIPV6, ou algo do gênero. A comunicação com o servidor DHCP da rede simplesmente não funcionava com essa linha, deixando o computador sem IP durante o boot. Má configuração do servidor? Pode até ser. Porém, não quis entrar nesses meandros.</p>
 <p>Por isso, se houver a linha sobre IPV6 e você tiver problemas, comente-a temporariamente.</p>
 <p>O passo seguinte é configurar a interface de rede, que é no fim das contas a representação da sua placa. Para isso temos alguns arquivos em /etc/sysconfig/network-scripts no formato ifcfg-nome-da-interface. Se você digitar ifconfig na linha de comando terá os nomes de interface disponíveis. No meu caso, eth0.</p>
-<pre><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0
-
-
-DEVICE=eth0
-BOOTPROTO=dhcp
-ONBOOT=yes
-
-
-:wq
-</code></pre>
 <p>Note que o valor BOOTPROTO é realmente BOOTPROTO, com um O no final. Tive alguns problemas de soletrar também nesse caso, o que me gerou mais alguns reboots mal-sucedidos.</p>
 <p>Bem, o que isso faz? Basicamente, manda o Linux utilizar o protocolo DHCP, procurando na rede algum servidor que lhe dê algum IP válido. Só isso. O resto ele faz dinamicamente.</p>
 <p>Inclusive alterar automaticamente o arquivo /etc/resolv.conf. Nele estão definidas algumas coisas como o domínio de nomes que estamos e os IPs de onde buscar a resolução de nomes.</p>
@@ -173,11 +161,9 @@ ONBOOT=yes
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20procuramos%20no%20google%20por%20%26ldquo%3blinux%20dhcp%26rdquo%3b%2c%20o%20que%20vem%20em%20resposta%20s%c3%a3o%20diversas%20dicas%2c%20tutoriais%2c...%20http%3a%2f%2fwww.caloni.com.br%2flinux-e-o-dhcp%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

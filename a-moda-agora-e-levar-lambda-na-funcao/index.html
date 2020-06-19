@@ -34,7 +34,7 @@ O que esse nome quer dizer basicamente é que agora é..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-03-28T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,91 +146,11 @@ O que esse nome quer dizer basicamente é que agora é..."/>
 <p>O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.</p>
 <p>Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &ldquo;pain in the ass&rdquo;.</p>
 <p>Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:</p>
-<pre><code>#include &quot;Common.h&quot;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-
-void NewYearMail(Employee&amp; employee)
-{
-    // isso só tem duas linhas, mas poderia ter... 10!
-    employee.age += 1;
-    SendMail(employee);
-}
-
-int main()
-{
-    std::vector&lt;Employee&gt; employees; // um bando de empregados
-    GetAnniversaryEmployees(employees);
-    std::for_each(employees.begin(), employees.end(), NewYearMail);
-}
-</code></pre>
 <p>Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.</p>
 <p>Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):</p>
-<pre><code>#include &quot;Common.h&quot;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-
-int main()
-{
-    struct NewYearMail { void operator()(Employee&amp; employee)
-    {
-        employee.age += 1;
-        SendMail(employee);
-    }}; // note o final com chaves-duplas, fechando a função e a struct
-
-    std::vector&lt;Employee&gt; employees; // um bando de empregados
-    GetAnniversaryEmployees(employees);
-    std::for_each(employees.begin(), employees.end(), NewYearMail());
-}
-</code></pre>
 <p>Apesar disso gerar INTERNALCOMPILERERROR em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar&hellip;</p>
 <p>Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo. Por exemplo:</p>
-<pre><code>#include &quot;Common.h&quot;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-
-int main()
-{
-    std::vector&lt;Employee&gt; employees; // um bando de empregados
-    GetAnniversaryEmployees(employees);
-
-    std::for_each(employees.begin(), employees.end(), &amp;
-    {
-        employee.age += 1;
-        SendMail(employee);
-    }); // note o final com chave e parêntese, fechando a função e a chamada do for_each
-}
-</code></pre>
 <p>&ldquo;Caraca, mas o que é esse código alienígena?&quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C++ e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.</p>
-<pre><code>#include &lt;algorithm&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    int arrayDeInts[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
-    std::for_each( // estou chamando uma função aqui
-        &amp;arrayDeInts[0], &amp;arrayDeInts[10], // começo e final (begin e end para STL)
-        [&amp;] // opa! sintaxe nova. os [] dizem que começa uma função lambida e 
-            //o &amp; diz que posso acessar todo mundo
-
-        (int umInt) // depois dos []s vem o formato de recebimento de parâmetros de uma função
-            // (no caso, como é um array de ints, o parâmetro para o for_each tem que ser um int)
-
-        { // iniciamos a função dentro da chamada do for_each
-
-            std::cout &lt;&lt; umInt &lt;&lt; ' '; // podemos acessar umInt, arrayDeInts 
-            // e qualquer variável da função ou objeto (se fosse um objeto)
-
-        } // finalizamos a função dentro da chamada do for_each
-
-    ); // e precisamos fechar a chamada do for_each depois dessa suruba toda
-
-}
-</code></pre>
 <p>E não é só isso. Tem muito mais esquisitices de onde veio essa.</p>
 
             
@@ -239,11 +159,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20nova%20moda%20de%20programar%20C%2b%2b%20nos%20%c3%baltimos%20anos%20com%20certeza%20%c3%a9%20usar%20lambda.%20Mas%2c%20afinal%2c%20o%20que%20%c3%a9%20lambda%3f%20Bom%2c%20pra%20come%c3%a7ar%2c...%20http%3a%2f%2fwww.caloni.com.br%2fa-moda-agora-e-levar-lambda-na-funcao%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

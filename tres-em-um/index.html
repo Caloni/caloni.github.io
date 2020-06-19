@@ -34,7 +34,7 @@ Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e 
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-10-09T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,44 +145,11 @@ Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e 
               <p>Que vergonha passar tanto tempo sem postar nada. Parece que não fiz nada que valesse a pena comentar por aqui.</p>
 <p>Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e reuniões de alinhamento depois, sobrou um tempinho pra programar. Aprendi algumas coisas que tinha o desejo de saber há tanto tempo&hellip; Agora eu sei, quem diria, criar linques suspensos nas janelas Win32! Que novidade, não? Pois é, isso exige, de acordo com o SDK, algumas artimanhas pra fazer funcionar. Para quem está de Visual Studio 2008/2010 na mão basta seguir os passos seguintes.</p>
 <p>Definir que estamos programando para XP ou superior:</p>
-<pre><code>#define _WIN32_WINNT 0x0600
-</code></pre>
 <p>Inserir suporte a linques na biblioteca de controles comuns:</p>
-<pre><code>INITCOMMONCONTROLSEX icc = { sizeof(icc), ICC_LINK_CLASS }; 
-InitCommonControlsEx(&amp;icc);
-</code></pre>
 <p>Usar o CreateWindow com a classe certa, fazer markup html dentro do título e cuidar das mensagens de click e enter no controle:</p>
-<pre><code>CreateWindowEx(0, WC_LINK, 
-    L&quot;&lt;a href=\&quot;http://www.caloni.com.br\&quot;&gt;This site rocks!&lt;/a&gt;&quot;, 
-    WS_VISIBLE | WS_CHILD | WS_TABSTOP, ...);
-
-//...
-
-    case WM_NOTIFY:
-        switch( ((LPNMHDR)lParam)-&gt;code )
-        {
-        case NM_CLICK:
-        case NM_RETURN:
-        {
-            PNMLINK pNMLink = (PNMLINK)lParam;
-            LITEM item = pNMLink-&gt;item;
-            if( (((LPNMHDR)lParam)-&gt;hwndFrom == st_linkHwnd[hWndDlg]) )
-            {
-                // codigo util
-            }
-</code></pre>
 <p>Você que não está fazendo subclassing de janelas existe outra técnica que você pode utilizar: arrastar-e-soltar o controle do seu ToolBox. Qual é a graça?</p>
 <p> Outra coisa que aprendi foi como enviar mensagens ao usuário para impedir que este reinicie a máquina em momentos importantes:</p>
 <p>A partir do Vista temos uma nova API para fazer isso. E é muito simples:</p>
-<pre><code>BOOL WINAPI ShutdownBlockReasonCreate( 
-  __in  HWND hWnd, 
-  __in  LPCWSTR pwszReason 
-);   
-
-BOOL WINAPI ShutdownBlockReasonDestroy( 
-  __in  HWND hWnd 
-);
-</code></pre>
 <p>Quando ao receber a famigerada WMQUERYENDSESSION, basta retornar FALSE. O Windows faz o resto.</p>
 <p>PS: E com uma ajudinha do Windows Internals ainda fiquei sabendo que dá pra se colocar na frente da fila para receber essa mensagem.</p>
 
@@ -192,11 +159,9 @@ BOOL WINAPI ShutdownBlockReasonDestroy(
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Que%20vergonha%20passar%20tanto%20tempo%20sem%20postar%20nada.%20Parece%20que%20n%c3%a3o%20fiz%20nada%20que%20valesse%20a%20pena%20comentar%20por%20aqui.%0aNa...%20http%3a%2f%2fwww.caloni.com.br%2ftres-em-um%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

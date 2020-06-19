@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2018-01-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,50 +139,9 @@
           <div class="content">
             
               <p>Os clássicos argv/argc são úteis quando os parâmetros de um programa são conhecidos e geralmente obrigatórios (até a ordem pode ser obrigatória). Isso funciona muito bem para C. Porém, há a possibilidade de STLzar esses argumentos de forma simples, usando a lógica UNIX de fazer as coisas e transformando tudo em um map de string para string. E tudo isso cabe em uma função pequena que você pode copiar e levar com você em seu cinto de utilidades:</p>
-<pre><code>/** Interpreta argumentos da linha de comando.
-
-@author Wanderley Caloni &lt;caloni@intelitrader.com.br&gt;
-@date 2015-06
-@version 1.0.0
-*/
-#pragma once
-#include &lt;map&gt;
-#include &lt;string&gt;
-
-typedef std::map&lt;std::string, std::string&gt; Args;
-
-inline void ParseCommandLine(int argc, char* argv[], Args&amp; args)
-{
-    for (int i = 1; i &lt; argc; ++i)
-    {
-        std::string cmd = argv[i];
-        std::string arg;
-        if (i &lt; argc - 1 &amp;&amp; argv[i + 1][0] != '-')
-        {
-            arg = argv[i + 1];
-            ++i;
-        }
-        args[cmd] = arg;
-    }
-}
-</code></pre>
 <p>Com a função ParseCommandLine disponível assim que você adicionar este header (eu chamo de args.h) basta no início do seu main chamá-lo passando o argv e o argc recebidos:</p>
-<pre><code>int main(int argc, char* argv[])
-{
-    Args args;
-    ParseCommandLine(argc, argv, args);
-    // ...
-</code></pre>
 <p>O resultado é que a variável args irá conter um mapa entre parâmetros e valores. Se seu programa for chamado com, por exemplo, a seguinte linha de comando:</p>
-<pre><code>&gt;program.exe --name Agatha --surname Christie --enable-log
-</code></pre>
 <p>A variável args irá conter três elementos: &ldquo;&ndash;name&rdquo;, &ldquo;&ndash;surname&rdquo; e &ldquo;&ndash;enable-log&rdquo;. Nos dois primeiros ele irá entregar os valores respectivos &ldquo;Agatha&rdquo; e &ldquo;Christie&rdquo; se indexado (args[&quot;&ndash;name&rdquo;], por exemplo). No terceiro elemento o valor é uma string vazia. Apenas a existência dele é o flag. Costumo usar isso para conseguir depurar por parâmetro:</p>
-<pre><code>if( args.find(&quot;--debug&quot;) != args.end() )
-{
-    while( ! IsDebuggerPresent() )
-        Sleep(1000);
-}
-</code></pre>
 <p>De maneira geral argv/argc já estão divididos quando o programa começa. O que o ParseCommandLine faz é apenas entregar os parâmetros formatados da maneira usual para tratarmos rapidamente as opções passadas dinamicamente para o programa.</p>
 
             
@@ -191,11 +150,9 @@ inline void ParseCommandLine(int argc, char* argv[], Args&amp; args)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Os%20cl%c3%a1ssicos%20argv%2fargc%20s%c3%a3o%20%c3%bateis%20quando%20os%20par%c3%a2metros%20de%20um%20programa%20s%c3%a3o%20conhecidos%20e%20geralmente%20obrigat%c3%b3rios%20%28at%c3%a9%20a...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-parsear-argc-argv-para-um-map-stl%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

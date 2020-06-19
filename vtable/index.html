@@ -34,7 +34,7 @@ Não encontro uma analogia simples, assim, de cabeça...."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2011-03-01T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,73 +146,13 @@ Não encontro uma analogia simples, assim, de cabeça...."/>
 <p>Não encontro uma analogia simples, assim, de cabeça. Então vou contar no cru, mesmo. Talvez seja até mais divertido.</p>
 <p>A vtable foi um mecanismo criado para implementar o polimorfismo em C++ quando falamos de ponteiros para classes base cujos métodos virtuais foram sobrescritos por uma classe derivada.</p>
 <p>A coisa fica mais simples quando explicamos que em C++ você só paga pelo que usa. Se você declarar uma classe que não tenha nenhum método virtual, os objetos dessa classe não precisarão de uma vtable. No entanto, você não conseguirá sobrescrever um método dessa classe através de uma derivada:</p>
-<pre><code>#include &lt;iostream&gt;
-
-class C
-{
-public:
-        void method()
-    {
-        std::cout &lt;&lt; &quot;C::method\n&quot;;
-    }
-};
-
-class D : public C
-{
-public:
-        void method()
-    {
-        std::cout &lt;&lt; &quot;D::method\n&quot;;
-    }
-};
-
-void func(C* c)
-{
-        c-&gt;method(); 
-}
-
-int main()
-{
-        D d;
-        func(&amp;d); // passa endereço de C &quot;dentro de D&quot;
-}
-
- 
-
-
-
-Saída
-=====
-
-
-C::method
-</code></pre>
 <p>No exemplo acima, a chamada feita em func irá chamar o método da classe C, mesmo que a classe D tenha sobrescrito esse método. O programador semi-experiente deve pensar &ldquo;lógico, ela não é virtual!&quot;, e está certo, assim como qualquer pessoa que decora essas formulazinhas de vestibular.</p>
 <p>Para criarmos polimorfismo de verdade, precisamos declarar o método em C como virtual:</p>
-<pre><code>class C
-{
-public:
-        virtual void method();
-};
-</code></pre>
 <p>Agora sim, a chamada em func irá ser para D::method.</p>
 <p>Pergunte para o programador semi-experiente em C++ por que as coisas são assim e provavelmente ele irá falar algo sobre vtable, mesmo que não saiba exatamente como ela funciona.</p>
 <p>A vtable é uma tabela que guarda o endereço dos métodos virtuais de uma classe. Se uma classe derivada sobrescrever um ou mais métodos de sua classe base, ela terá uma outra vtable com os endereços dos métodos &ldquo;corrigidos&rdquo;.</p>
 <p>Dessa forma, algo um pouco diferente ocorre na chamada c-&gt;method() quando estamos lidando com classes polimórficas: o início de um objeto dessa classe terá um ponteiro para a vtable de sua classe. Quando um método virtual é chamado, em vez do compilador gerar uma chamada estática para o endereço do método da classe cujo tipo estamos usando, ele irá redirecionar essa chamada para uma posição na vtable para onde esse objeto aponta. No caso de um objeto do tipo D, a entrada para method em sua vtable apontará não para C::method, mas para D::method, uma função com a mesma assinatura contida na classe base C e que, portanto, a sobrescreve.</p>
 <p>Façamos um pequeno teste para comprovar o que falamos. Vamos escancarar a chamada feita a partir de uma instância de D e a partir de uma instância de C. Nada que um WinDbg não resolva de braços cruzados:</p>
-<pre><code>int main()
-{
-        D d;
-        C c;
-
-        func(&amp;d);
-        func(&amp;c);
-}
-
-
-cl /Zi vtable3.cpp
-windbg vtable3.exe
-</code></pre>
 
             
 
@@ -220,11 +160,9 @@ windbg vtable3.exe
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Acho%20que%20na%20breve%20hist%c3%b3ria%20desse%20blogue%20nunca%20contei%20a%20hist%c3%b3ria%20do%20vtable.%20No%20m%c3%a1ximo%20fizemos%20um%20hookzinho%20nos%20m%c3%a9todos%20de...%20http%3a%2f%2fwww.caloni.com.br%2fvtable%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

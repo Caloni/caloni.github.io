@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-06-20T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -151,39 +151,8 @@
 </ul>
 <p>Existem ainda outras ferramentas, mas estas são as principais que costumo utilizar. Para saber como usá-las de acordo com suas necessidades recomendo a leitura de um pequeno tutorial para o WinDbg que vem junto da instalação, o kerneldebuggingtutorial.doc. Ele é apenas a introdução dos principais comandos e técnicas. Depois de ter dominado o básico, pode partir para o arquivo de ajuda, que detalha de forma completa todos os comandos, técnicas e ferramentas de todo o pacote: o debugger.chm. A maioria dos comandos que precisava encontrei usando essa ajuda ou em alguns blogs muito bons. Acredite: no WinDbg, você quase sempre vai encontrar o comando que precisa.</p>
 <p>Já baixei e instalei. E agora, o que eu faço? Para exemplificar um uso prático dessas ferramentas vamos usar o Loggerpara descobrir quais funções API estão sendo chamadas constantemente por um cavalo de tróia, uma coisa um tanto comum em ataques a bancos. Para tornar as coisas mais reais ainda vamos utilizar o código-fonte de um suposto cavalo de tróia usado em minhas apresentações:</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;shlwapi.h&gt;
-
-int WINAPI WinMain(HINSTANCE, HINSTANCE, PSTR, int)
-{
-    CHAR wndTxt[MAX_PATH];
-
-    while( true )
-    {
-        HWND fgWin = GetForegroundWindow();
-        wndTxt[0] = 0;
-
-        if( GetWindowText(fgWin, wndTxt, sizeof(wndTxt)) )
-        {
-            if( StrStrI(wndTxt, &quot;Fict Bank&quot;) )
-            {
-                MessageBox(fgWin, &quot;Hello! Would you like to be under attack?&quot;,
-                    &quot;Free Trojan&quot;, MB_OK | MB_ICONINFORMATION);
-                break;
-            }
-        }
-    }
-
-    ExitProcess(ERROR_SUCCESS);
-} 
-</code></pre>
 <p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do Visual Studio:</p>
-<pre><code>cl /c freetrojan.cpp
-link freetrojan.obj user32.lib shlwapi.lib
-</code></pre>
 <p>O logger.exe possui uma extensão que pode ser usada pelo WinDbg para usar os mesmos comandos a partir do depurador. Mas para tornar as coisas mais fáceis nesse primeiro contato iremos iniciar o programa através do próprio executável:</p>
-<pre><code>logger freetrojan.exe
-</code></pre>
 <p>Irá aparecer uma janela onde selecionamos o conjunto de APIs que serão capturadas. Podemos manter todas as categorias selecionadas e mandar rodar usando o botão &ldquo;Go&rdquo;.</p>
 <p>Aguarde o programa executar por um tempo para termos um pouco de dados para analisar. Em minhas análises reais eu geralmente deixo ele atacar, seja no sítio real do banco ou em uma armadilha. Depois do ataque posso confirmar qual a API que ele utilizou. Se quiser fazer isso nesse teste basta criar uma janela que contenha o texto &ldquo;Fict Bank&rdquo; em seu título. Após isso, podemos finalizar o processo pelo Gerenciador de Tarefas:</p>
 <p>Mesmo após finalizá-lo ele continuará na lista de processos, como se tivesse travado. Na verdade, a parte injetada do Logger mantém o processo no ar, em um estado semi-morto (ou semi-vivo). Depois de finalizar o Logger fechando sua janela principal ambos os processos terminam e podemos ler o resultado da captura em uma pasta chamada LogExts criada por padrão no Desktop ouÁrea de Trabalho. Podemos dar uma olhada nos resultados através do visualizador de logs gerados, o Logviewer.</p>
@@ -211,11 +180,9 @@ link freetrojan.obj user32.lib shlwapi.lib
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20WinDbg%20%c3%a9%20uma%20ferramenta%20obrigat%c3%b3ria%20em%20uma%20das%20minhas%20mais%20divertidas%20tarefas%20aqui%20na%20Open%3a%20engenharia%20reversa%20de...%20http%3a%2f%2fwww.caloni.com.br%2fintroducao-ao-debugging-tools-for-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

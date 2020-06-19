@@ -34,7 +34,7 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-13T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -151,22 +151,10 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
 <p>Com essa configuração temos a vantagem de ter o sistema congelado só pra nós, ao mesmo tempo que conseguimos depurar nosso processo fujão, passo-a-passo.</p>
 <p>A única desvantagem é não ter uma GUI tão poderosa quando o &ldquo;WinDbg fonte colorido, tooltips, etc&rdquo;. Pra quem não liga pra essas frescuras, é possível depurar processos de maneira produtiva utilizando esse cenário.</p>
 <p>Para ativar qualquer programa que irá rodar nesse modo, basta usar o aplicativo gflags:</p>
-<pre><code>gflags /p /enable servico.exe /debug &quot;c:\path\ntsd.exe -d&quot;
-</code></pre>
 <p>É preciso dar uma lida bem profunda na ajuda do Debugging Tools para entender como as coisas estão funcionando nessa configuração milagrosa que estamos usando. Procure por &ldquo;Controlling the User-Mode Debugger from the Kernel Debugger&rdquo;. Também é possível ouvir falar parcamente sobre isso no livro Advanced Windows Debugging na parte &ldquo;Redirecting a User Mode Debugger Through a Kernel&rdquo;. A vantagem é que vem de brinde uma bela figura para pendurar em um quadro no escritório (embora eu possa jurar que já vi essa figura na ajuda do WinDbg):</p>
 <p>Como podemos notar, o controlador de tudo é o kernel debugger. Assim que o depurador de processo entra em ação, ele se comunica com o depurador de kernel que entra no modo user mode prompt, pedindo entrada para ser redirecionada ao depurador de processo. Existem alguns caminhos para sair de um estado e entrar em outro, como o comando .breakin e o .sleep.</p>
 <p>É necessário recomentar: estamos nos comunicando com um depurador e o seu processo depurado em um sistema totalmente travado. Isso quer dizer que o acesso a coisas como código-fonte e símbolos é extremamente limitado, porém não impossível. Apenas mantenha-os localmente na máquina-vítima, pois uma comunicação pela rede não irá funcionar.</p>
 <p>A depuração com a linha atual no código-fonte demarcando onde estamos também não é possível, uma vez que o WinDbg da ponta de cá apenas faz o papel de garoto de recados para o &ldquo;depurador de verdade&rdquo; do outro lado (no nosso exemplo, o ntsd). Isso quer dizer que a forma mais &ldquo;fácil&rdquo; de ir passo-a-passo é usar o comando p (step) ou t (trace), além de habilitar o uso de fonte em 100%.</p>
-<pre><code>input&gt; .srcpath c:\maquina-vitima\src
-input&gt; l+* $$ habilita uso de código-fonte no ntsd
-...
-0:000&gt; p
-&gt;  15: int main() $$ número da linha seguido do fonte
-&gt;  16: {
-0:000&gt; bp myFunction
-0:000&gt; g
-0:000&gt;
-</code></pre>
 <p>Um tipo de problema que só pode ser depurado dessa maneira enfatiza a importância do uso de unit tests, além de um controle de qualidade mais aguçado antes de liberar uma versão para o cliente.</p>
 
             
@@ -175,11 +163,9 @@ input&gt; l+* $$ habilita uso de código-fonte no ntsd
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Existem%20algumas%20situa%c3%a7%c3%b5es%20onde%20um%20depurador%20WYSIWYG%20%c3%a9%20artigo%20de%20luxo.%0aImagine%20o%20seguinte%3a%20temos%20um%20servi%c3%a7o%20que%20inicia...%20http%3a%2f%2fwww.caloni.com.br%2fkernel-mode-user-mode%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-07-27T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,66 +142,15 @@
 <p>Em primeiro lugar, como vimos anteriormente, a ponta server do depurador é um programa que você executa com alguns parâmetros e ele fica escutando em uma porta. Simples assim. Para que isso funcione antes do logon é necessário instalar esse programa como um serviço. Tanto no caso de depuradores mais antigos (msvCmon) quando nos mais novos (msvSmon) há sempre um executável com alguns parâmetros passados via linha de comando.</p>
 <p>O depurador do Visual Studio mais novo fica em sua pasta de instalação Program Files, etc, Microsoft Visual Studio, 2017, Enterprise, Common7, IDE, Remote Debugger ou derivados. Dentro dessa pasta há subpastas para cada arquitetura, x64 ou x86. É essa pasta que deve ser copiada para a máquina que será depurada. Se você estiver depurando um processo 32 bits, use o x86; do contrário, vá de x64.</p>
 <p>No caso do msvsmon, se executado com /? (padrão entre programas Windows) ele abre um pequeno help com a ajuda necessária para executar os parâmetros corretos. No caso o comando maroto é o seguinte:</p>
-<pre><code>msvsmon.exe /timeout 999999 /anyuser /silent /noauth
-</code></pre>
 <p>E para transformar em um serviço podemos usar o NSSM, já visto em outros artigos.</p>
-<pre><code>nssm.exe install Msvsmon msvsmon.exe /timeout 999999 /anyuser /silent /noauth
-</code></pre>
 <p>Isso cria um serviço de start automático que irá iniciar o debugger na ponta server quietinho, sem janelas, só escutando e esperando o Visual Studio atachar.</p>
 <p>Para este exemplo vamos usar um programa console que será convertido, assim como o msvsmon, em serviço, e uma DLL que ele carrega, chamando dois métodos; um de start, outro de stop. Nosso objetivo aqui é começar a depurar a DLL logo em seu início, na chamada do start.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;windows.h&gt;
-
-int main()
-{
-    if( HMODULE dll = LoadLibraryA(&quot;DLL&quot;) )
-    {
-        void (*start)(), (*stop)();
-        *((FARPROC*)&amp;start) = GetProcAddress(dll, &quot;DLL_Start&quot;);
-        *((FARPROC*)&amp;stop) = GetProcAddress(dll, &quot;DLL_Stop&quot;);
-        if( start )
-            start();
-        std::cout &lt;&lt; &quot;Type &lt;enter&gt; to exit\n&quot;;
-        std::cin.get();
-        if( stop )
-            stop();
-        FreeLibrary(dll);
-    }
-    else std::cout &lt;&lt; &quot;DLL not found\n&quot;;
-}
-</code></pre>
 <p>As funções de start e stop não fazem nada, apenas imprimem um passou-por-aqui:</p>
-<pre><code>#include &quot;DLL.h&quot;
-#include &lt;iostream&gt;
-
-void DLL_Start()
-{
-    std::cout &lt;&lt; &quot;DLL started\n&quot;;
-}
-
-void DLL_Stop()
-{
-    std::cout &lt;&lt; &quot;DLL stopped\n&quot;;
-}
-</code></pre>
 <p>Todo o projeto está no GitHub para baixar e compilar você mesmo.</p>
 <p>Depois de copiar Service.exe e DLL.dll para a máquina-alvo (e não se esquecer de instalar as dependências) instalar da mesma forma com que foi instalado o msvsmon:</p>
-<pre><code>nssm.exe install Service service.exe
-</code></pre>
 <p>Agora ache o IP da máquina-alvo e vá em Debug, Attach to Process (Ctrl+Alt+P) no Visual Studio, modo remoto e digite o IP.</p>
-<pre><code>cmd /k ipconfig | find &quot;192&quot;
-</code></pre>
 <p>Lembre-se de iniciar o serviço.</p>
 <p>Após esse teste podemos modificar a DLL para aguardar por um depurador:</p>
-<pre><code>#include &lt;windows.h&gt;
-
-void DLL_Start()
-{
-    while( ! IsDebuggerPresent() )
-        Sleep(1000);
-    std::cout &lt;&lt; &quot;DLL started\n&quot;;
-}
-</code></pre>
 <p>Depois que houver o attach você irá continuar a execução. Portanto, coloque um breakpoint logo depois. E depois que isso funcionar já é possível iniciar sua depuração antes da tela de login. Os serviços executarão, e sua DLL estará aguardando um debugger ser atachado. Se houver necessidade é possível deixar esse modo de espera configurável, por timeout, etc.</p>
 
             
@@ -210,11 +159,9 @@ void DLL_Start()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20post%20anterior%20sobre%20debug%20eu%20havia%20me%20focado%20mais%20na%20depura%c3%a7%c3%a3o%20de%20processos%20remotos%20no%20Visual%20Studio%202003%20de%20maneira...%20http%3a%2f%2fwww.caloni.com.br%2fforma-mais-simples-de-depurar-processos-antes-do-logon%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

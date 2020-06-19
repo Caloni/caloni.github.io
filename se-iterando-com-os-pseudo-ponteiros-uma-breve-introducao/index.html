@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-06-24T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -160,34 +160,6 @@
 </li>
 <li>
 <p>Dois ponteiros podem ser subtraídos para sabermos a distância entre dois elementos.</p>
-<p>template<!-- raw HTML omitted -->
-T VaiSomandoVaiSomando(T begin, T end)
-{
-T current = begin;
-T next = begin + 1;</p>
-<pre><code>while( next != end )
-{
-    *next = *current + *next;
-    ++current;
-    ++next;
-}
-
-return current;
-</code></pre>
-<p>}</p>
-<p>#include <!-- raw HTML omitted -->
-#include <!-- raw HTML omitted --></p>
-<p>int main()
-{
-int aInts[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };</p>
-<pre><code>std::vector&lt;int&gt; vInts;
-for( int i = 0; i &lt; 10; ++i )
-    vInts.push_back(i);
-
-std::cout &lt;&lt; *VaiSomandoVaiSomando(&amp;aInts[0], &amp;aInts[10]) &lt;&lt; std::endl;
-std::cout &lt;&lt; *VaiSomandoVaiSomando(vInts.begin(), vInts.end()) &lt;&lt; std::endl;
-</code></pre>
-<p>}</p>
 </li>
 </ul>
 <p>Da mesma forma, operações como cópia, movimentação, ordenação, caotização, pode ser feito usando dois ponteiros/iteradores de dois contêiners distintos, desde que algumas regras básicas sejam seguidas, como um iterador deve sempre apontar para algo válido (ou disponibilizar alguma abstração que insira novos elementos em um contêiner menor). Veremos essas regras em um próximo post sobre o tema. Apontarei para ele aqui.</p>
@@ -198,11 +170,9 @@ std::cout &lt;&lt; *VaiSomandoVaiSomando(vInts.begin(), vInts.end()) &lt;&lt; st
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Como%20j%c3%a1%20vimos%20algumas%20vezes%2c%20a%20STL%20n%c3%a3o%20prima%20por%20interfaces%20intuitivas%2c%20preferindo%20abstra%c3%a7%c3%b5es%20que%20criem%20um%20leque%20de...%20http%3a%2f%2fwww.caloni.com.br%2fse-iterando-com-os-pseudo-ponteiros-uma-breve-introducao%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

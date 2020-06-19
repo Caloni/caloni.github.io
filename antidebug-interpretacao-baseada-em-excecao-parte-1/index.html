@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-07-20T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,243 +140,11 @@
             
               <p>Um depurador utiliza breakpoints para &ldquo;paralisar&rdquo; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como int 3. Essa instrução gera uma exceção - exceção de breakpoint - que é capturada pelo sistema operacional e repassada para o código de tratamento dessa exceção. Em programas sendo depurados esse código está localizado no depurador. Em programas &ldquo;livres&rdquo; esse código normalmente não existe e ao acontecer essa exceção o aplicativo simplesmente &ldquo;capota&rdquo;.</p>
 <p>A idéia principal na proteção baseada em exceção é tomarmos conta dessas exceções durante a execução do aplicativo. Fazendo isso podemos nos aproveitar desse fato e, no código responsável por tratar a exceção, executar o código protegido. A solução discutida aqui é parecido com um interpretador de scripts. Consiste basicamente de duas threads. A primeira thread lê uma seqüência de instruções e manda a segunda thread executá-las passo a passo. Para fazer isso a segunda thread usa um conjunto de pequenas funções com blocos de código bem definidos. Em pseudocódigo isso ficaria assim:</p>
-<pre><code>// the well-defined functions are functional blocks of code and have
-// the same signature, allowing the creation of a pointer array to them
-void WellDefinedFunction1( args );
-void WellDefinedFunction2( args );
-void WellDefinedFunction3( args );
-//...
-void WellDefinedFunctionN( args );
-
-// this thread stays forever waiting execution commands from some
-// well-defined function. the parameter that it receives is the function number
-void ExecutionThread()
-{
-    // 2. ad aeternum
-    while( true )
-    {
-        // 5. it runs some well-defined function by number
-        ExecuteWellDefinedFunction( functionNumber );
-    }
-}
-
-// the well-defined functions script is an integer array indicating 
-// the number for the next function that is going to be called
-int FunctionsToBeCalled[] = { 3, 4, 1, 2, 34, 66, 982, n };
-
-int Start()
-{
-    // 1. we create the thread that is going to run commands
-    CreateThread( ExecutionThread );
-
-    // 3. for each script item (each function number)
-    for( int i = 0; i &lt; sizeof(FunctionsToBeCalled); ++i )
-    {
-        // 4. tells the thread to run the function number N
-        TellExecutionThreadToExecuteWellDefinedFunction( FunctionToBeCalled[i] );
-    }
-
-    // 6. end of execution.
-    return 0;
-} 
-</code></pre>
 <p>A proteção ainda não está aí. Mas fará parte intrínseca da thread de execução. Tudo que precisamos fazer é adicionar um tratamento de exceções e fazer chover ints 3. As exceções disparadas pela int 3 são capturadas por uma segunda função que antes de retornar o controle executa a próxima instrução enfileirada:</p>
-<pre><code>// filter exceptions that were thrown by the thread below
-DWORD ExceptionFilterButExecuteWellDefinedFunction()
-{
-    // 5. run some well-defined function by number
-    ExecuteWellDefinedFunction( number );
-
-    return EXCEPTION_EXECUTE_HANDLER; // goes to except code
-}
-
-// this thread stays forever waiting execution commands from a 
-// well-defined function. its &quot;parameter&quot; is the function number
-void ExecutionThread()
-{
-    // 2. ad aeternum
-    while( true )
-    {
-        __try
-        {
-            __asm int 3 // breakpoint exception
-
-            // it stops the debugger if we have an attached debugger in
-            // the process, or throws an exception if there is no one
-        }
-        __except( ExceptionFilterButExecuteWellDefinedFunction() )
-        {
-            // it does nothing. here is NOT where is the code (obvious, huh?)
-        }
-
-        Sleep( someTime ); // give some time
-    }
-} 
-</code></pre>
 <p>O algoritmo da thread de execução continua o mesmo. Só que o ponto onde cada instrução é executada depende do lançamento de uma exceção. Note que essa exceção tem que ocorrer para que a chamada da próxima instrução ocorra. Isso é fundamental, pois dessa forma ninguém pode simplesmente retirar o int 3 do código para evitar o lançamento da exceção. Se fizer isso, então mais nenhuma instrução será executada.</p>
 <p>Na prática, se alguém tentar depurar um programa desse tipo vai ter que enfrentar dezenas ou centenas de lançamento de exceções até descobrir o que está acontecendo. Claro que, como em toda a proteção de software, ela não é definitiva; tem por função dificultar o trabalho de quem tenta entender o software. Isso não vai parar aqueles que são realmente bons no que fazem.</p>
 <p>O preço pago por essa proteção fica na visibilidade e compreensão do código-fonte comprometidos pelo uso da técnica. A programação fica baseada em uma máquina de estados e as funções ficam limitadas a algum tipo de padronização no comportamento. Quando mais granular for o pseudoscript, ou seja, quanto menores forem os blocos de código contido nas minifunções, mais difícil de entender o código será.</p>
 <p>O exemplo abaixo recebe entrada por um prompt de comandos e mapeia a primeira palavra digitada para o índice de uma função que deve ser chamada. O resto da linha digitada é passado como parâmetro para essa função. A thread de interpretação lê a entrada do usuário e escreve em uma variável-string global, ao mesmo tempo que a thread de execução espera essa string ser preenchida para executar a ação. Foi usado o pool dessa variável para o código ficar mais simples, mas o ideal seria algum tipo de sincronismo, como eventos, por exemplo.</p>
-<pre><code>/** @brief Sample demonstrating how to implemente antidebug in a code exception based.
-@date jul-2007
-@author Wanderley Caloni
-*/
-#include &lt;windows.h&gt;
-
-#include &lt;iostream&gt;
-#include &lt;map&gt;
-#include &lt;sstream&gt;
-
-#include &lt;string&gt;
-#include &lt;stdlib.h&gt;
-
-using namespace std;
-
-// show available commands
-bool Help(const string&amp;)
-{
-
-   cout &lt;&lt; &quot;AntiDebug Test Program\n&quot;
-      &lt;&lt; &quot; Echo string to be printed\n&quot;
-      &lt;&lt; &quot; System command [params]\n&quot;
-      &lt;&lt; &quot; Quit\n\n&quot;;
-   return true;
-}
-
-// run system/shell command
-bool System(const string&amp; cmd)
-{
-   system(cmd.c_str());
-   return true;
-}
-
-// print string to output
-bool Echo(const string&amp; str)
-{
-   cout &lt;&lt; str &lt;&lt; endl;
-   return true;
-}
-
-// quit program
-bool Quit(const string&amp;)
-{
-   exit(0);
-   return false;
-}
-
-// minifunctions array
-bool (* (g_miniFuncs[]) )(const string&amp;) = { Help, System, Echo, Quit };
-
-// &quot;minifunction -&gt; index&quot; mapping
-map&lt;string, int&gt; g_miniFuncIdx;
-
-// start minifunctions mapping
-void InitializeMiniFuncIdx()
-{
-   g_miniFuncIdx[&quot;Help&quot;] = 0;
-   g_miniFuncIdx[&quot;System&quot;] = 1;
-   g_miniFuncIdx[&quot;Echo&quot;] = 2;
-   g_miniFuncIdx[&quot;Quit&quot;] = 3;
-}
-
-// last line read from input
-string g_currentLine;
-
-// how much time are we going to wait for the next line?
-const DWORD g_waitTime = 1000;
-
-// run minifunctions
-DWORD FilterException()
-{
-   DWORD ret = EXCEPTION_CONTINUE_EXECUTION;
-
-   if( ! g_currentLine.empty() )
-   {
-      istringstream line(g_currentLine);
-      g_currentLine.clear();
-
-      string function;
-      string params;
-
-      line &gt;&gt; function;
-
-      getline(line, params);
-
-      // 5. run some well-defined function by number
-      if( ! g_miniFuncs[g_miniFuncIdxfunction]  )
-         ret = EXCEPTION_CONTINUE_SEARCH;
-   }
-
-   return ret;
-}
-
-DWORD WINAPI AntiDebugThread(PVOID)
-{
-   InitializeMiniFuncIdx(); // start minifunction mapping
-
-   // 2. ad aeternum (or almost)
-   while( true )
-
-   {
-      //FilterException();
-
-      __try // the extern try waits for an exit command
-      {
-         __try // the intern try stays generating exceptions continuously
-         {
-            __asm int 3
-         }
-         // FilterException is the function who runs minifunctions
-         __except( FilterException() )
-         {
-                // we can put some fake code here
-         }
-      }
-      __except( EXCEPTION_EXECUTE_HANDLER )
-      {
-         break; // get out from ad aeternum (to the limbo?)
-      }
-
-      Sleep(g_waitTime);
-   }
-
-   return ERROR_SUCCESS;
-}
-
-/** and God said: 'int main!'
-*/
-int main()
-{
-
-   DWORD ret = ERROR_SUCCESS;
-   DWORD tid = 0;
-   HANDLE antiDebugThr;
-
-   // 1. we create the thread that is going to run the commands
-   antiDebugThr = CreateThread(NULL, 0, AntiDebugThread, NULL, 0, &amp;tid);;
-
-   if( antiDebugThr )
-   {
-      // 3. for each item in the script (function numbers)
-      while( cin )
-      {
-         cout &lt;&lt; &quot;Type something\n&quot;;
-
-         // 4. tells the thread to run the function number N
-         getline(cin, g_currentLine);
-
-         if( WaitForSingleObject(antiDebugThr, g_waitTime * 2) != WAIT_TIMEOUT )
-            break;
-      }
-
-      GetExitCodeThread(antiDebugThr, &amp;ret);
-      CloseHandle(antiDebugThr), antiDebugThr = NULL;
-   }
-
-   // 6. end of execution.
-   return (int) ret;
-} 
-</code></pre>
 <p>O ponto forte da proteção é que a pessoa precisa entender o que está acontecendo para tomar alguma atitude inteligente para solucionar o &ldquo;problema&rdquo;. O ponto fraco é que após entendido o problema a solução torna-se fácil de visualizar. Tão fácil que eu nem pretendo citar aqui.</p>
 <p>Futuramente veremos uma maneira de tornar as coisas mais legíveis e usáveis no dia-a-dia de um programador de software de segurança.</p>
 
@@ -386,11 +154,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20depurador%20utiliza%20breakpoints%20para%20%26ldquo%3bparalisar%26rdquo%3b%20momentaneamente%20a%20execu%c3%a7%c3%a3o%20do%20programa%20sendo%20depurado....%20http%3a%2f%2fwww.caloni.com.br%2fantidebug-interpretacao-baseada-em-excecao-parte-1%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

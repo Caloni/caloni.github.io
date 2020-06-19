@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2015-08-19T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,30 +146,15 @@
 <p>Será o benedito? Ou o co-piloto?</p>
 <p>Pesquisando nos fóruns da vida, antro dos desesperados, achei/lembrei de um comando muito útil no WinDbg que não apenas diz se os símbolos estão &ldquo;mismatch&rdquo;, ou seja, os símbolos ou o PDB não está combinando com o EXE, mas também por quê.</p>
 <p>Bom, para saber se está mismatch é aquela fórmula de bolo:</p>
-<pre><code>ntdll!LdrpDoDebuggerBreak+0x2b:
-77e13bad cc              int     3
-0:000&gt; .symfix
-No downstream store given, using C:\Tools\DbgTools(x86)\sym
-0:000&gt; !sym noisy
-noisy mode - symbol prompts on
-0:000&gt; .reload /f Module.exe
-SYMSRV:  C:\Tools\DbgTools(x86)\sym\Module.pdb\7CD3DD6A80254CE29E8A2E8D7C26BF1B2\Module.pdb not found
-SYMSRV:  http://msdl.microsoft.com/download/symbols/Module.pdb/7CD3DD6A80254CE29E8A2E8D7C26BF1B2/Module.pdb not found
-DBGHELP: C:\Users\Caloni\Projects\Project\Source\_Output\bin\Debug\Module.pdb - mismatched pdb
-DBGHELP: Couldn't load mismatched pdb for C:\Users\Caloni\Projects\Project\Source\_Output\bin\Debug\Module.exe
-*** WARNING: Unable to verify checksum for Module.exe
-*** ERROR: Module load completed but symbols could not be loaded for Module.exe
-DBGHELP: Module - no symbols loaded
-</code></pre>
 <p>Para saber o que está errado, o famigerado !IToldYouSo</p>
 <p>Mano, como assim?!?!? Eu acabei de compilar esse binário, eu já apaguei 15 vezes as pastas de Debug e Release, eu já rebootei mais do que o Windows me obriga a rebootar por causa das falhas de segurança.</p>
 <p>Pois, então, desesperançado, crio um projeto novo para comparar as configurações, e voltamos 13 anos atrás, naquele fatídico dia, e entendo por que o nome do PDB temporário não é igual. Bom, na verdade não entendo, mas intuo que tenha alguma relação:</p>
 <p>E, de fato. Solução? Copie as configurações usuais do &ldquo;novo&rdquo; Visual Studio comparando com o velho.</p>
 <p>Abaixo a chamada do suporte em inglês, se alguém achar o mesmo problema em algum fórum e quiser &ldquo;espalhar a palavra&rdquo;.</p>
 <blockquote>
-<p>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &ldquo;right&rdquo; value can&rsquo;t be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one&rsquo;s problem as well =)</p>
+<p>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &ldquo;right&rdquo; value can&rsquo;t be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one&rsquo;s problem as well =)
+Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da Intelitrader, e mesmo tendo já atualizado meu perfil MVP há anos, continuo sendo funcionário da UOL Diveo/Broker =/</p>
 </blockquote>
-<p>Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da Intelitrader, e mesmo tendo já atualizado meu perfil MVP há anos, continuo sendo funcionário da UOL Diveo/Broker =/</p>
 
             
 
@@ -177,11 +162,9 @@ DBGHELP: Module - no symbols loaded
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Era%20uma%20vez%2c%20h%c3%a1%2013%20anos%20atr%c3%a1s%2c%20um%20tal%20de%20Visual%20Studio%20.NET%2c%20que%20iria%20trazer%20a%20felicidade%20para%20n%c3%b3s%2c%20meros%20mortais...%20http%3a%2f%2fwww.caloni.com.br%2fo-estranho-caso-do-pdb-mal-formado%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

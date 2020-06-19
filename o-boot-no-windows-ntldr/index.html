@@ -34,7 +34,7 @@ O nosso amigo NT Loader pode..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2009-11-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -156,41 +156,6 @@ O nosso amigo NT Loader pode..."/>
 <p>Escolheu seu boot, é a partir daí que ele acha o executável do kernel: ntoskrnl.exe. Ele deve estar na pasta system32 (em ambientes 32 bits). Também é nesse momento que é carregada a HAL (hal.dll) e isola-se o hardware do software a partir daí. As DLLs que esses dois componentes dependem são identificadas e carregadas na memória.</p>
 <p>Agora é hora de abrir o registro. Quer dizer, parte dele. Dentro da pasta system32/config deve estar a hive SYSTEM, que é onde ficam os drivers que devem ser carregados a partir daí em vários níveis. Inicialmente são carregados os que possuem o valor Start igual a zero, como o driver Atapi (controlador de disco):</p>
 <p>A partir daí vários componentes do kernel serão carregados progressivamente. Só que a partir do momento que é chamada a rotina interna KiInitializeKernel o NTLDR não tem mais nada pra fazer: o kernel, em sua forma básica e primitiva, está carregado.</p>
-<pre><code>windbg notepad
-$$&gt;a&lt;&lt;a href=&quot;/carregando-dlls-arbitrarias-pelo-windbg-parte-2&quot;&gt;scripts\loadlibrary.txt&lt;/a&gt; ntoskrnl.exe
-
-
-0:000&gt; lm m nt*
-start    end        module name
-00400000 00629000   ntoskrnl   (pdb symbols)          c:\tools\symbols\ntkrnlmp.pdb\46DFBE2D3E484140A0909F7519B1700A2\ntkrnlmp.pdb
-7c900000 7c9b6000   ntdll      (pdb symbols)          c:\tools\symbols\ntdll.pdb\6992F4DAF4B144068D78669D6CB5D2072\ntdll.pdb
-0:000&gt; x ntoskrnl!KiInit*
-005ef332 ntoskrnl!KiInitializePcr = &lt;no type information&gt;
-005eefc0 ntoskrnl!KiInitQueuedSpinLocks = &lt;no type information&gt;
-005ef1de ntoskrnl!KiInitSystem = &lt;no type information&gt;
-00439ded ntoskrnl!KiInitializeTSS = &lt;no type information&gt;
-005eadd2 ntoskrnl!KiInitializeKernel = &lt;no type information&gt;
-0043aefb ntoskrnl!KiInitializeAbios = &lt;no type information&gt;
-005e4add ntoskrnl!KiInitMachineDependent = &lt;no type information&gt;
-0058faa4 ntoskrnl!KiInitializePAT = &lt;no type information&gt;
-005dde52 ntoskrnl!KiInitializeTSS2 = &lt;no type information&gt;
-004105e5 ntoskrnl!KiInitializeUserApc = &lt;no type information&gt;
-00415619 ntoskrnl!KiInitializeContextThread = &lt;no type information&gt;
-0043afdb ntoskrnl!KiInitializeAbiosGdtEntry = &lt;no type information&gt;
-005dde01 ntoskrnl!KiInitializeMachineType = &lt;no type information&gt;
-005e51f7 ntoskrnl!KiInitializeMTRR = &lt;no type information&gt;
-
-0:000&gt; u ntoskrnl!KiInitializeKernel
-ntoskrnl!KiInitializeKernel:
-005eadd2 6a28            push    28h
-005eadd4 68c0784300      push    offset ntoskrnl!KiDebugRegisterContextOffsets+0x3c (004378c0)
-005eadd9 e8a510e2ff      call    ntoskrnl!_SEH_prolog (0040be83)
-005eadde e8b531ffff      call    ntoskrnl!KiSetProcessorType (005ddf98)
-005eade3 e8cfffffff      call    ntoskrnl!KiSetCR0Bits (005eadb7)
-005eade8 e8d334ffff      call    ntoskrnl!KiIsNpxPresent (005de2c0)
-005eaded 8845e7          mov     byte ptr [ebp-19h],al
-005eadf0 64a11c000000    mov     eax,dword ptr fs:[0000001Ch]
-</code></pre>
 <p>Veremos nos próximos capítulos como podemos nos aproveitar do ntoskrnl.exe para poder depurar o código a partir daí. Até lá.</p>
 
             
@@ -199,11 +164,9 @@ ntoskrnl!KiInitializeKernel:
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Minhas%20an%c3%a1lises%20est%c3%a3o%20demorando%20muito%20para%20ser%20feitas.%20Talvez%20seja%20a%20hora%20de%20revelar%20o%20pouco%20que%20sei%20%28e%20pesquisei%29%20sobre...%20http%3a%2f%2fwww.caloni.com.br%2fo-boot-no-windows-ntldr%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

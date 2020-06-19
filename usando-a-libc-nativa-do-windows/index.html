@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-11-21T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -159,15 +159,6 @@
 <p>Compile e <em>link</em> (Build, Build Solution)</p>
 </li>
 </ol>
-<pre><code>#define _CRT_SECURE_NO_DEPRECATE
-#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-
-int main()
-{
-    printf(&quot;oi, mundo!&quot;);
-} 
-</code></pre>
 <p>Pronto, após esses passos temos um projeto ordinário que compila um executável console ordinário que não depende de runtimes novas com exatos (pelo menos aqui) 57.344 bytes.</p>
 <p>Agora a parte divertida =).</p>
 <p>Desde o Windows 95, existe uma DLL com a maioria das funções da LIBC disponíveis para link dinâmico. Só que, com o uso padrão do Visual C++, é usada sempre a biblioteca que vem junto com o ambiente, com suas trocentas funções (e conseqüentes bytes enche-lingüiça). Porém, é possível utilizar diretamente a msvcrt.dll distribuída no diretório do sistema se criarmos uma LIB de importação para ela.</p>
@@ -178,13 +169,6 @@ int main()
 <li>
 <p>Utilizando essa versão da DLL e o <em>prompt</em> de comando do Visual Studio, execute:</p>
 </li>
-</ol>
-<pre><code>REM
-REM Isso gera um arquivo def em estado bruto
-REM
-DUMPBIN /EXPORTS msvcrt.dll &gt; msvcrt.def
-</code></pre>
-<ol start="3">
 <li>
 <p>Utilizando o editor do seu coração, retire as linhas desnecessárias (aquelas do início do comando)</p>
 </li>
@@ -198,11 +182,6 @@ DUMPBIN /EXPORTS msvcrt.dll &gt; msvcrt.def
 <p>Ainda no ambiente console do VC execute o seguinte comando:</p>
 </li>
 </ol>
-<pre><code>REM
-REM Isso gera um arquivo .lib para importar as funções da DLL
-REM
-LIB /DEF:msvcrt.def
-</code></pre>
 <p>Ótimo. Geramos a LIB que precisávamos e agora só falta integrar com o projeto. Para isso, mais alguns passos:</p>
 <ol>
 <li>
@@ -224,20 +203,6 @@ LIB /DEF:msvcrt.def
 <p>Compile e linke!</p>
 </li>
 </ol>
-<pre><code>------ Rebuild All started: Project: NativeC, Configuration: Release Win32 ------
-Deleting intermediate and output files for project 'NativeC', configuration 'Release|Win32'
-Compiling...
-NativeC.cpp
-Linking...
-Generating code
-Finished generating code
-Embedding manifest...
-Build Time 0:00
-Build log was saved at &quot;file://c:ProjectsTempNativeCReleaseBuildLog.htm&quot;
-NativeC - 0 error(s), 0 warning(s)
-========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
-Size: 2.944 bytes.
-</code></pre>
 <p>E agora o tamanho final de nosso executável passou para espantosos 2KB! Isso a princípio parece ótimo e dá vontade de usar em todos os projetos, mas existe um porém ainda não resolvido: as limitações da falta de um runtime. Para isso que existe a próxima seção.</p>
 <p>Essa é uma solução bem bobinha que não tem nada a ver com uma solução profissional 100% garantida e com suporte técnico 24 horas. Algumas coisas não vão funcionar, como inicialização de variáveis estáticas, exceções, redirecionamento de entrada/saída, etc. Contudo, para projetos simples e pequenos, isso não deverá ser um problema. No entanto, eu não garanto qualquer coisa que advier de compilações inspiradas neste artigo.</p>
 <ul>
@@ -255,11 +220,9 @@ Size: 2.944 bytes.
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Por%20padr%c3%a3o%2c%20todo%20projeto%20no%20Visual%20Studio%20depende%20da%20LIBC.%20Isso%20quer%20dizer%20que%2c%20mesmo%20que%20voc%c3%aa%20n%c3%a3o%20use%20nem%20um%20m%c3%adsero...%20http%3a%2f%2fwww.caloni.com.br%2fusando-a-libc-nativa-do-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

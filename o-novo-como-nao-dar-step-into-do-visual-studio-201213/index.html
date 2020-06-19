@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-08-01T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,35 +140,7 @@
             
               <p>Toda vez que instalo um Visual Studio novo e começo a depurar sempre surge a necessidade de fazê-lo calar a boca nos step intos da STL, Boost, ATL e coisas que sei que não vai dar pau. (Obviamente, quando dá pau, preciso ir no disassembly e cutucar a STL para ela me entregar qual o problema com o meu contêiner.)</p>
 <p>Nas edições antigas da IDE (até o 2010) existia uma configuração no registro para isso. Desde o Visual Studio 2012 isso mudou, e agora existe um arquivo em %programfiles(x86)%\Microsoft Visual Studio 11(ou12).0\Common7\Packages\Debugger\Visualizers chamado default.natstepfilter (gostei do detalhe do &ldquo;nat&rdquo;: &ldquo;nat thou step into, little bestard!&quot;). Ele é um XML que já vem preenchido com algumas opções interessante:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;StepFilter xmlns=&quot;http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010&quot;&gt;
-  &lt;Function&gt;&lt;Name&gt;__security_check_cookie&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;__abi_winrt_.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;_ObjectStublessClient.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;_Invoke@12&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;_RTC_Check(Esp|StackVars)&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;_chkstk&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;ATL::CComPtrBase.*::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;ATL::CComPtrBase.*::operator-&amp;gt;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;ATL::CHeapPtrBase.*::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;ATL::CHeapPtrBase.*::operator-&amp;gt;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;ATL::CComBSTR::operator&amp;amp;&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;std::forward&amp;lt;.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;std::move&amp;lt;.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;Platform::EventSource::Invoke.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;std::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;boost::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-&lt;/StepFilter&gt;
-</code></pre>
 <p>Podemos simplesmente adicionar mais duas opções para o parzinho STL/Boost:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;StepFilter xmlns=&quot;http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010&quot;&gt;
-
-  &lt;Function&gt;&lt;Name&gt;std::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-  &lt;Function&gt;&lt;Name&gt;boost::.*&lt;/Name&gt;&lt;Action&gt;NoStepInto&lt;/Action&gt;&lt;/Function&gt;
-
-&lt;/StepFilter&gt;
-</code></pre>
 <p>A boa nova, pelo menos para o Visual Studio 2013, é que agora é possível, se quisermos, entrar nas funções que serão ignoradas:</p>
 <p>Eu não sei qual vai ser a próxima novidade do step into, mas para mim, já está bem ótimo.</p>
 <p>(Fonte da informação: Andy Pennell&rsquo;s Blog).</p>
@@ -179,11 +151,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Toda%20vez%20que%20instalo%20um%20Visual%20Studio%20novo%20e%20come%c3%a7o%20a%20depurar%20sempre%20surge%20a%20necessidade%20de%20faz%c3%aa-lo%20calar%20a%20boca%20nos...%20http%3a%2f%2fwww.caloni.com.br%2fo-novo-como-nao-dar-step-into-do-visual-studio-201213%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

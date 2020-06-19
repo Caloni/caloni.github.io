@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-01-13T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,29 +140,7 @@
             
               <p>Um template &ndash; ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito &ndash; é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).</p>
 <p>Em C++, fazer uma função template é muito simples:</p>
-<pre><code>#include &lt;iostream&gt;
-
-using namespace std;
-
-template&lt;typename T&gt;
-bool Compare(T&amp; var1, T&amp; var2)
-{
-    return var1 &lt; var2;
-}
-
-int main()
-{
-    int x = 24, y = 42;
-    double dx = 100.0, dy = 10.0;
-
-    cout &lt;&lt; &quot;x is &quot; &lt;&lt; ( Compare(x, y) ? &quot;lesser&quot; : &quot;bigger&quot; ) &lt;&lt; &quot; than y\n&quot;;
-    cout &lt;&lt; &quot;dx is &quot; &lt;&lt; ( Compare(dx, dy) ? &quot;lesser&quot; : &quot;bigger&quot; ) &lt;&lt; &quot; than dy\n&quot;;
-}
-</code></pre>
 <p>Continuando nosso tema de fazer as mesmas coisas em C, templates não é tão simples, pois não existe de fato na linguagem. Templates são interpretados pelo compilador, que gera um esqueleto de algoritmo que é usado para preencher código de todos os tipos utilizados. Em C isso era feito usando macros. Porém, macros não fazem parte da linguagem C. É apenas uma ferramenta chamada pré-processador que substitui texto antes do programa ser compilado. É através do pré-processador que, por exemplo, os headers são incluídos em um código-fonte. Isso já foi explicado em um artigo bem velhinho, e mais recentemente em uma palestra.</p>
-<pre><code>// qual o tipo de x e y? qualquer um que faça comparação
-#define MACRO(x, y) x &lt; y
-</code></pre>
 <p>Eu não recomendaria usar macros em C++, assim como não recomendo em C. Porém, em C é a única opção para reciclar algoritmos de maneira estática. Exceto se você usar ponteiros de função, o que adiciona pouco overhead, mas se perde, assim como a técnica de macro, a informação dos tipos. A própria libc contém uma função, qsort, que é &ldquo;genérica&rdquo; através do uso de ponteiros sem tipo (void*) e ponteiro de função. A função ordena elementos de uma lista, mas para isso depende da função de comparação que é passada por parâmetro. Essa função recebe dois void* que deve comparar. Além disso, o leiaute na memória tem que ser fixo, contínuo, pois é assim que a função consegue mover os elementos. Ou seja, bem limitado.</p>
 <p>Dessa forma, não pretendo ensinar a usar &ldquo;templates&rdquo; em C, mas a usá-los em C++ com foco em C. Um amigo conhecido de vocês, o Fernando/DriverEntry, utilizou essa técnica com maestria em alguns códigos kernel-mode que ele desenvolveu, e é uma maneira válida de se aproveitar de uma linguagem mais &ldquo;alto nível&rdquo; como C++ em ambientes limitados como o código que trabalha com o S.O.. Como a API do kernel lida com abstrações em C, seus objetos necessariamente não são objetos no sentido C++, mas os famigerados &ldquo;ponteiros opacos&rdquo;.</p>
 <p>Mais sobre isso em um próximo post.</p>
@@ -173,11 +151,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20template%20%26ndash%3b%20ou%2c%20como%20%c3%a9%20na%20tradu%c3%a7%c3%a3o%20da%20primeira%20edi%c3%a7%c3%a3o%20de%20The%20C%2b%2b%20Programming%20Language%2c%20de%20Bjarne%20Stroustrup%2c...%20http%3a%2f%2fwww.caloni.com.br%2fgabaritos%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

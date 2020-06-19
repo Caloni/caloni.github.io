@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2009-04-07T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,187 +143,13 @@
 <p>Por isso mesmo que eu tive que inventar algumas analogias no mínimo interessantes a respeito do assunto. Sem analogias, não sei como falaria sobre essas coisas de forma amena e &ldquo;explicável&rdquo;.</p>
 <p>A primeira &ldquo;parábola&rdquo; conta a história da fila das threads em direção ao guichê das CPUs.</p>
 <p>O exemplo abaixo cria três threads, todas iniciando na mesma função. O objetivo de todas elas é incrementar um contador até que seu valor chegue a 10. Todas param quando esse objetivo é alcançado.</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
-
-#define MAX_GLOBAL_COUNTER 10
-
-int g_globalCounter = 0;
-
-DWORD WINAPI IncrementGlobalCounter(PVOID)
-{
-    DWORD tid = GetCurrentThreadId();
-
-    while( g_globalCounter &lt; MAX_GLOBAL_COUNTER )
-    {
-        int temp = g_globalCounter;
-        temp = temp + 1;
-        g_globalCounter = temp;
-        printf(&quot;Counter: %d\t\tThread: %d\n&quot;, temp, tid);
-    }
-    return 0;
-}
-
-int main()
-{
-    HANDLE threads[3];
-    DWORD tids[3];
-
-    for( int i = 0; i &lt; 3; ++i )
-    {
-        threads[i] = CreateThread(NULL, 0, IncrementGlobalCounter, 0, 0, &amp;tids[i]);
-        printf(&quot;Thread %i: %d\n&quot;, i, tids[i]);
-    }
-
-    WaitForMultipleObjects(3, threads, TRUE, INFINITE);
-}
-</code></pre>
 <p>Esta é a saída:</p>
-<pre><code>Thread 0: 3508
-Thread 1: 1744
-Thread 2: 3128
-Counter: 1              Thread: 3508
-Counter: 2              Thread: 3508
-Counter: 3              Thread: 3508
-Counter: 4              Thread: 3508
-Counter: 5              Thread: 3508
-Counter: 6              Thread: 3508
-Counter: 7              Thread: 3508
-Counter: 8              Thread: 3508
-Counter: 9              Thread: 3508
-Counter: 10             Thread: 3508
-</code></pre>
 <p>Pelo jeito, a primeira thread não deu chance para as outras. Isso acontece por causa do pequeno espaço de tempo que é necessário para realizar a tarefa de incrementar uma variável. Tempo esse tão pequeno que nem foi suficiente para a primeira thread dar lugar para as outras duas threads e ir para o final da fila.</p>
 <p>Quando uma thread quer realizar algum processamento, ela precisa entrar na fila das threads ativas, que aguardam pela CPU que irá atendê-las. Nessa fila ela pega uma senha e aguarda a sua vez. Só que cada um que é atendido pela CPU tem um tempo máximo de atendimento, que nós chamamos de quantum, ou time slice. Se o tempo máximo estoura, ou a thread não tem mais nada pra fazer, ela sai do guichê de atendimento e volta a ficar inativa, ou volta para o final da fila, aguardando por mais processamento.</p>
 <p>Uma thread pode opcionalmente ir para o final da fila por conta própria. Para isso, basta que ela chame a função Sleep.aspx) da API passando qualquer valor em milissegundos; até mesmo zero. Se passar um valor diferente de zero, ela irá para outra fila de espera, a fila das inativas, até o tempo determinado estourar. Depois ela volta para a fila das threads ativas. Se passar zero, ela vai direto para a fila das ativas.</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
-
-#define MAX_GLOBAL_COUNTER 10
-
-int g_globalCounter = 0;
-
-DWORD WINAPI IncrementGlobalCounter(PVOID)
-{
-    DWORD tid = GetCurrentThreadId();
-
-    while( g_globalCounter &lt; MAX_GLOBAL_COUNTER )
-    {
-        int temp = g_globalCounter;
-        temp = temp + 1;
-        g_globalCounter = temp;
-        printf(&quot;Counter: %d\t\tThread: %d\n&quot;, temp, tid);
-        Sleep(0); // vou para o final da fila
-    }
-    return 0;
-}
-
-int main()
-{
-    HANDLE threads[3];
-    DWORD tids[3];
-
-    for( int i = 0; i &lt; 3; ++i )
-    {
-        threads[i] = CreateThread(NULL, 0, IncrementGlobalCounter, 0, 0, &amp;tids[i]);
-        printf(&quot;Thread %i: %d\n&quot;, i, tids[i]);
-    }
-
-    WaitForMultipleObjects(3, threads, TRUE, INFINITE);
-}
- 
-
-
-
-Thread 0: 2284
-Thread 1: 4080
-Thread 2: 3572
-Counter: 1              Thread: 2284
-Counter: 2              Thread: 4080
-Counter: 3              Thread: 3572
-Counter: 4              Thread: 2284
-Counter: 5              Thread: 4080
-Counter: 6              Thread: 3572
-Counter: 7              Thread: 2284
-Counter: 8              Thread: 4080
-Counter: 9              Thread: 3572
-Counter: 10             Thread: 2284
-</code></pre>
 <p>Agora cada thread, depois de incrementar uma vez o contador, volta para o final da fila. Dessa forma vemos uma thread de cada vez incrementando o mesmo contador.</p>
 <p>Peraí. O mesmo contador? Isso não pode gerar problemas de duas threads tentando incrementar o mesmo contador ao mesmo tempo?</p>
 <p>Não vou mentir; pode sim. Para isso acontecer, basta irmos para o final da fila antes de incrementarmos, mas após pegarmos o valor atual do contador. Note que a saída muda completamente.</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
-
-#define MAX_GLOBAL_COUNTER 10
-
-int g_globalCounter = 0;
-
-DWORD WINAPI IncrementGlobalCounter(PVOID)
-{
-    DWORD tid = GetCurrentThreadId();
-
-    while( g_globalCounter &lt; MAX_GLOBAL_COUNTER )
-    {
-        int temp = g_globalCounter;
-        temp = temp + 1;
-        Sleep(0); // vou para o final da fila antes de contar
-        g_globalCounter = temp;
-        printf(&quot;Counter: %d\t\tThread: %d\n&quot;, temp, tid);
-    }
-    return 0;
-}
-
-int main()
-{
-    HANDLE threads[3];
-    DWORD tids[3];
-
-    for( int i = 0; i &lt; 3; ++i )
-    {
-        threads[i] = CreateThread(NULL, 0, IncrementGlobalCounter, 0, 0, &amp;tids[i]);
-        printf(&quot;Thread %i: %d\n&quot;, i, tids[i]);
-    }
-
-    WaitForMultipleObjects(3, threads, TRUE, INFINITE);
-}
- 
-
-
-
-Thread 0: 2136
-Thread 1: 4024
-Thread 2: 2584
-Counter: 1              Thread: 2136
-Counter: 1              Thread: 4024
-Counter: 1              Thread: 2584
-Counter: 2              Thread: 2136
-Counter: 2              Thread: 4024
-Counter: 2              Thread: 2584
-Counter: 3              Thread: 2136
-Counter: 3              Thread: 4024
-Counter: 3              Thread: 2584
-Counter: 4              Thread: 2136
-Counter: 4              Thread: 4024
-Counter: 4              Thread: 2584
-Counter: 5              Thread: 2136
-Counter: 5              Thread: 4024
-Counter: 5              Thread: 2584
-Counter: 6              Thread: 2136
-Counter: 6              Thread: 4024
-Counter: 6              Thread: 2584
-Counter: 7              Thread: 2136
-Counter: 7              Thread: 4024
-Counter: 7              Thread: 2584
-Counter: 8              Thread: 2136
-Counter: 8              Thread: 4024
-Counter: 8              Thread: 2584
-Counter: 9              Thread: 2136
-Counter: 9              Thread: 4024
-Counter: 9              Thread: 2584
-Counter: 10             Thread: 2136
-Counter: 10             Thread: 4024
-</code></pre>
 <p>Esse problema ocorre pelo seguinte motivo: quando uma thread guarda o valor do contador na variável temp e volta para o final da fila, ela deixa de armazenar o contador atualizado para apenas depois que todas as outras threads passarem na sua frente. Só que as outras threads também pegam o mesmo valor do contador, pois ele ainda não foi alterado. Quando chega a hora da segunda passada no guichê das CPUs, todas as threads incrementaram o mesmo valor do contador.</p>
 <p>O exemplo acima forçou essa situação, mas é preciso lembrar que isso pode acontecer mesmo sem o Sleep. É possível que o tempo da thread se esgote e ela pare de ser atendida  justo na hora que iria salvar a variável temp no contador global. Dessa forma, ela vai para o final da fila à força e, quando voltar a ser atendida, uma outra thread já terá incrementado o mesmo valor.</p>
 <p>Esse problema pode ser facilmente resolvido se utilizarmos um sistema de bloqueio entre threads do mesmo processo. Uma outra história para contar da próxima vez.</p>
@@ -334,11 +160,9 @@ Counter: 10             Thread: 4024
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Em%20um%20ambiente%20multithreading%2c%20diversas%20threads%20disputam%20%26ldquo%3ba%20tapas%26rdquo%3b%20a%20aten%c3%a7%c3%a3o%20do%20processador%20%28CPU%29.%20Certo%3f...%20http%3a%2f%2fwww.caloni.com.br%2fa-fila-das-threads%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

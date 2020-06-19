@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-08-29T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -141,49 +141,11 @@
               <p>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &ldquo;link estático&rdquo;) ou ele chama a função kernel32!GetProcAddress explicitamente [1].</p>
 <p>Para conseguir saber as funções das quais um executável obtém o endereço através da primeira técnica podemos utilizar o mundialmente famoso Dependency Walker. Ele nos mostrará quais DLLs ele utiliza e quais funções por DLL ele quer o endereço. Ele também nos avisa sobre as DLLs que estão utilizando delay load, uma técnica inventada no Visual Studio para que os executáveis não dependam estaticamente de APIs muito novas que podem não existir em versões do Windows mais antigas. Com o Depends também é possível fazer hook de chamadas de API utilizando a opção profiling (F7), mas não costuma funcionar muito bem com trojans, pois eles capotam antes que alguma coisa interessante ocorra.</p>
 <p>O importante do Dependency Walker para o WinDbg é que com um editor é possível copiar todas as funções exibidas em sua interface para um editor, usar um pouco de regular expressions e criar uma batelada de breakpoints no WinDbg:</p>
-<pre><code>...
-bp user32!GetDC &quot;.echo GetDC; g&quot;
-bp user32!GetDesktopWindow &quot;.echo GetDesktopWindow; g&quot;
-bp user32!GetDlgCtrlID &quot;.echo GetDlgCtrlID; g&quot;
-bp user32!GetDlgItem &quot;.echo GetDlgItem; g&quot;
-bp user32!GetDlgItemTextW &quot;.echo GetDlgItemTextW; g&quot;
-bp user32!GetFocus &quot;.echo GetFocus; g&quot;
-...
-</code></pre>
 <p>O comando &ldquo;bp&rdquo; cria um breakpoint no endereço requisitado. O que está entre aspas são os comandos que você deseja executar quando o breakpoint for disparado. No caso, para todas as funções será impresso o seu nome (comando &ldquo;.echo&rdquo;) e a execução irá continuar (comando &ldquo;g&rdquo;). Ao rodar o programa, as chamadas das funções são mostradas na saída do depurador:</p>
-<pre><code>..
-GetDesktopWindow
-GetDC
-GetFocus
-GetDlgItem
-GetDC
-GetDlgItem
-GetDC
-GetDlgItem
-GetDC
-GetDlgItemTextW
-...
-</code></pre>
 <p>Lindo, não? Porém ainda podem estar sendo chamadas as funções obtidas pela segunda técnica, a do GetProcAddress. Para esse caso devemos ir um pouquinho mais fundo e rodar o executável duas vezes. Na primeira, coletamos as funções que são obtidas por essa técnica através do seguinte comando:</p>
-<pre><code>bp kernel32!GetProcAddress &quot;da poi(esp + 8); g&quot;
-</code></pre>
 <p>O comando &ldquo;da&rdquo; exibe o conteúdo de uma string em C (caracteres ANSI e terminada em zero) na memória. A memória no caso é o &ldquo;apontado do valor contido no segundo parâmetro da pilha&rdquo;. Complicado? Nem tanto: lembre-se que o ESP aponta sempre pro endereço de retorno da função chamadora e os parâmetros são sempre empilhados na ordem inversa da declaração em C. Logo, se o protótipo de GetProcAddress é:</p>
-<pre><code>ARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
-</code></pre>
 <p>O último parâmetro empilhado (ESP+4) é o hModule, e o penúltimo (ESP+8) é o lpProcName, que é o lugar onde é passado o nome da função.</p>
 <p>Devemos lembrar de colocar esse breakpoint bem no início da execução e rodar o executável uma vez. Com isso coletamos o conjunto de nomes de funções usadas para chamar GetProcAddress:</p>
-<pre><code>..
-746e29f8  &quot;ImmReleaseContext&quot;
-746e2a30  &quot;ImmNotifyIME&quot;
-746e2934  &quot;CtfImmEnterCoInitCountSkipMode&quot;
-746e2978  &quot;CtfImmLeaveCoInitCountSkipMode&quot;
-746e29bc  &quot;ImmGetDefaultIMEWnd&quot;
-746e2a64  &quot;ImmSetConversionStatus&quot;
-746e2aa0  &quot;ImmGetConversionStatus&quot;
-746e2adc  &quot;ImmGetProperty&quot;
-746e2b10  &quot;ImmGetOpenStatus&quot;
-...
-</code></pre>
 <p>Daí é só organizar a lista obtida em ordem alfabética, acabar com duplicidades e criar o mesmo tipo de breakpoint que foi usado para as funções estáticas (pode ser sem o nome da DLL porque, embora não recomendado, o WinDbg se vira para encontrar os símbolos). Depois de criados os comandos, rodamos novamente o executável e, logo no início, já colocamos todos os breakpoints das funções coletadas.</p>
 <p>Essa é uma maneira rústica, porém eficaz e rápida de obter a lista de execução da API utilizada por um programa [2].</p>
 <p>[1] Uma variação do método GetProcAddress é a técnica de delay load usado pelo Visual C++. Porém, como o Dependency Walker nos mostra também as DLLs que estão linkadas usando essa técnica se torna dispensável um tratamento ad hoc.</p>
@@ -199,11 +161,9 @@ GetDlgItemTextW
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Basicamente%20existem%20duas%20maneiras%20de%20um%20execut%c3%a1vel%20obter%20o%20endere%c3%a7o%20de%20uma%20fun%c3%a7%c3%a3o%20API%20do%20Windows%3a%20ou%20ele%20usa%20uma%20lib%20de...%20http%3a%2f%2fwww.caloni.com.br%2fhook-de-api-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

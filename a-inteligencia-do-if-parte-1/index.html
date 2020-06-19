@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-06-18T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,123 +140,12 @@
             
               <p>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o endereço da próxima instrução que será executada. A essa manipulação damos o nome de salto.</p>
 <p>O salto simples e direto permite a organização do código em subrotinas e assim seu reaproveitamento, o que economiza memória, mas computacionalmente é inútil, já que pode ser implementado simplesmente pela repetição das subrotinas. O que eu quero dizer é que, do ponto de vista da execução, a mesma seqüência de instruções será executada. Pense no fluxo de execução de uma rotina que chama várias vezes a mesma subrotina.</p>
-<pre><code>ascii art:
-
-subroutine                       
-+-----------------------+        
-| code                  |        
-| ...                   |        
-| code                  |        
-| return                |        
-+-----------------------+        
-                                 
-routine                          
-+----------------+        
-|code            |        
-|call subroutine |        
-|code            |        
-|call subroutine |        
-|code            |        
-|call subroutine |        
-+----------------+        
-</code></pre>
 <p>Ela é, na prática, equivalente à uma rotina que contém várias cópias da subrotina na memória, uma seguida da outra.</p>
-<pre><code>ascii art:
-
-routine             
-+--------------+    
-| code         |    
-+--------------+    
-subroutine          
-+--------------+    
-| subroutine   |    
-| code         |    
-| ...          |    
-| code         |    
-+--------------+    
-| code         |    
-+--------------+    
-subroutine      
-+--------------+
-| subroutine   |
-| code         |
-| ...          |
-| code         |
-+--------------+
-| code         |
-+--------------+
-subroutine      
-+--------------+
-| subroutine   |
-| code         |
-| ...          |
-| code         |
-+--------------+
-</code></pre>
 <p>A grande sacada computacional, motivo pelo qual hoje os computadores hoje são tão úteis para os seres humanos, é a invenção de um conceito chamado salto condicional. Ou seja, não é um salto certo, mas um salto que será executado caso a condição sob a qual ele está subordinado for verdadeira.</p>
-<pre><code>code
-call sub *if cond true* (cond jump)
-code
-call sub *if cond true* (cond jump)
-code
-call sub *if cond true* (cond jump)
-code
-...
-code
-</code></pre>
 <p>Os saltos condicionais, vulgarmente conhecidos como if&rsquo;s, permitiram às linguagens de programação possuírem construções de execução mais sofisticadas: laços, iterações e seleção de caso. Claro que no fundo elas não passam de um conjunto formado por saltos condicionais e incondicionais.</p>
 <p>O while e seu bloco não passa de um salto no final do bloco para o começo de um if.</p>
-<pre><code>while( condition)  
-{                 
-    code;        
-}               
-               
-begin_while:
-if( condition )
-{             
-    code;    
-    goto begin_while;
-}                   
-</code></pre>
 <p>O for não passa de um contador que é incrementado a cada passada por esse mesmo if do while. Quer dizer, do bloco de código que se segue.</p>
-<pre><code>for( i = 0; i &lt; 10; ++i )      
-{                              
-    code;                      
-}                              
-                               
-i = 0;                         
-begin_for:                     
-if( i &lt; 10 )                   
-{                  
-    code;          
-    ++i;           
-    goto begin_for;
-}                  
-</code></pre>
 <p>E um switch-case nada mais é que vários ifs seguidos, unidos por um else (que torna a comparação exclusiva).</p>
-<pre><code>switch( value )                
-{                              
-    case 0:                    
-        code;                  
-        break;                 
-                               
-    case 1:                    
-        code;
-        break;
-
-    default:
-        code;
-        break;
-}
-
-if( valor == 0 ) 
-    code;        
-else             
-if( valor == 1 ) 
-    code;        
-else             
-    code;        
-</code></pre>
 <p>Em um próximo artigo veremos como o salto condicional pode ser implementado apenas com operações matemáticas (afinal, é só isso que temos).</p>
 
             
@@ -265,11 +154,9 @@ else
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20n%c3%advel%20mais%20baixo%2c%20podemos%20dizer%20que%20as%20instru%c3%a7%c3%b5es%20de%20um%20computador%20se%20baseiam%20simplesmente%20em%20c%c3%a1lculos%20matem%c3%a1ticos%20e...%20http%3a%2f%2fwww.caloni.com.br%2fa-inteligencia-do-if-parte-1%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

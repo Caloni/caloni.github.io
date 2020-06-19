@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-02-13T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,143 +140,15 @@
             
               <p>It&rsquo;s a known habit to use do-while constructions when there&rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.</p>
 <p>Let&rsquo;s imagine a trace macro that&rsquo;s enabled in debug mode, whilst kept in silence in release builds:</p>
-<pre><code>#ifdef NDEBUG
-
-#define MYTRACE( message ) /* nothing */
-
-#else
-
-#define MYTRACE( message )        \
-    {                              \
-        char buffer[500];           \
-        sprintf(buffer,             \
-            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
-            __FILE__,                \
-            __LINE__,                \
-            message);                \
-        OutputDebugString(buffer);  \
-    }
-
-#endif /* NDEBUG */ 
-</code></pre>
 <p>Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&rsquo;t work.</p>
-<pre><code>if( exploded() )
-    MYTRACE(&quot;Oh, my God&quot;);
-else
-    MYTRACE(&quot;That's right&quot;); 
-
-
-
-error C2181: illegal else without matching if
-</code></pre>
 <p>Why&rsquo;s that? In order to answer this question, we need to look closer into the result code from the preprocessor, just replacing the macro for its piece of code:</p>
-<pre><code>if( exploded() )
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;Oh, my God&quot;);
-        OutputDebugString(buffer);
-    };
-else
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;That's right&quot;);
-        OutputDebugString(buffer);
-    };
-</code></pre>
 <p>So, that&rsquo;s why. When we call a macro, generally we use the funcion-call syntax, putting a semicolon in the end. This is the right way to call a function, but in the macro case, it&rsquo;s a disaster, because it creates two commands instead of one (an empty semicolon, despite doing nothing, it&rsquo;s a valid command). So that&rsquo;s what the compiler does:</p>
-<pre><code>if( instruction )
-{
-    /* a lot of comands */
-
-} /* here I would expect an else or new instruction */
-
-; /* a new command! okay, no else this time */
-
-
-else /* wait! what this else is doing here without an if?!?! */
-{
-    /* more commands */
-}
-</code></pre>
 <p>Think about the empty command as if it was a real command, what is the easier way to realize the compiler error:</p>
-<pre><code>if( error() )
-{
-    printf(&quot;error&quot;);
-}
-</code></pre>
 <p>printf(&ldquo;here we go&rdquo;);</p>
-<pre><code>else /* llegal else without matching if! */
-{
-    printf(&quot;okay&quot;);
-}
-</code></pre>
 <p>For this reason, the tradicional way to skip this common error is to use a valid construction who asks for a semicolon in the end. Fortunately, language C has such construction, and it is&hellip; right, the do-while!</p>
-<pre><code>do
-{
-    /* multiple commands here */
-}
-while( expression )
-</code></pre>
 <p>;</p>
-<pre><code> /* I expect a semicolon here, in order
-                         to end the do-while instruction */
-</code></pre>
 <p>So we can rewrite our trace macro the right way, even being a funcky one:</p>
-<pre><code>#ifdef NDEBUG
-
-#define MYTRACE( message ) /* nothing */
-
-#else
-
-#define MYTRACE( message )        \
-    do                             \
-    {                              \
-        char buffer[500];           \
-        sprintf(buffer,             \
-            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
-            __FILE__,                \
-            __LINE__,                \
-            message);                \
-        printf(buffer);             \
-    }                              \
-    while( 0 )
-
-#endif /* NDEBUG */ 
-</code></pre>
 <p>Using a do-while (with a false expression inside the test to execute the block just once) the if-else construction is allowed and working properly:</p>
-<pre><code>if( exploded() )
-    do
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;Oh, my God&quot;);
-        OutputDebugString(buffer);
-    }
-    while( 0 );
-else
-    do
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;That's right&quot;);
-        OutputDebugString(buffer);
-    }
-    while( 0 );
-</code></pre>
 
             
 
@@ -284,11 +156,9 @@ else
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=It%26rsquo%3bs%20a%20known%20habit%20to%20use%20do-while%20constructions%20when%20there%26rsquo%3bs%20a%20need%20to%20define%20a%20macro%20that%20has%20more%20than...%20http%3a%2f%2fwww.caloni.com.br%2ffunky-do-while%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -34,7 +34,7 @@ O objetivo da FormatMessage é formatar uma string,..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-10-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -148,16 +148,6 @@ O objetivo da FormatMessage é formatar uma string,..."/>
 <p>Para que seja criada a mensagem final, uma definição de mensagem é requirida como entrada, que pode vir do próprio chamador ou da já mencionada tabela de erros de algum módulo qualquer. No caso de querermos a descrição de um erro de sistema (em winerror.h, retornado por GetLastError ou similares) a definição da mensagem já está embutida no sistema, bastando para nós passarmos o código.</p>
 <p>É importante lembrar que, como estamos falando de uma descrição de erro, ou seja, de um texto, este pode vir em diversos idiomas, sendo que é nossa obrigação também definir para qual idioma desejamos traduzir nosso código de erro, sendo também nossa obrigação, no caso de mensagens específicas do nosso programa, fornecer o modelo da mensagem nos idiomas que formos suportar.</p>
 <p>O resto da função funciona mais ou menos como o sprintf, cuspindo a mensagem-modelo em uma saída formatada de acordo com os parâmetros de entrada.</p>
-<pre><code>DWORD WINAPI FormatMessage(
-   __in      DWORD dwFlags,
-   __in_opt  LPCVOID lpSource,
-   __in      DWORD dwMessageId,
-   __in      DWORD dwLanguageId,
-   __out     LPTSTR lpBuffer,
-   __in      DWORD nSize,
-   __in_opt  va_list *Arguments
-);
-</code></pre>
 <p>As flags do parâmetro dwFlags mudam radicalmente o funcionamento da rotina, o que me lembra de outra figura bizarra: o realloc da biblioteca padrão.</p>
 <p>No caso do FormatMessage, a variável dwFlags se divide em dois para especificar dois grupos de opções distintos. A parte maior contém as opções armazenadas tradicionalmente como um mapa de bits, enquanto o byte menos significativo define como será tratada a saída final, com respeito às novas linhas e qual será a largura máxima de uma linha na saída.</p>
 <p>O parâmetro mais polêmico é o que possui vários significados. No caso de lpSource, existem dois significados possíveis:</p>
@@ -189,85 +179,8 @@ O objetivo da FormatMessage é formatar uma string,..."/>
 <p>Ainda existe &ldquo;de bônus&rdquo; outras strings para preencher limitações que o próprio printf possui, como %%, %t, etc.</p>
 <p>Como os programadores habituados com ataques de stack overrun devem deduzir, uma mensagem-modelo mal intencionada pode conter sequências de inserção que não existem na formatação habitual, forçando o vazamento de bytes na string final, o que pode forçar ataques planejados. Como o próprio artigo diz, usar um código de erro arbitrário retornado por uma API qualquer e usar FormatMessage sem a flag FORMATMESSAGEIGNOREINSERTS pode levar a resultados desastrosos.</p>
 <p>Esse também é um bônus da MSDN, que te presenteia com exemplos de código tão fantasiosos quanto a própria função, veja o primeiro exemplo, por exemplo:</p>
-<pre><code>#include windows.h
-#include stdio.h
-
-void main(void)
-{
-    LPWSTR pMessage = L%1!.s! %4 %5!s!;
-    DWORD_PTR pArgs[] = { (DWORD_PTR)4, (DWORD_PTR)2, (DWORD_PTR)LBill,   %1!.s! refers back to the first insertion string in pMessage
-         (DWORD_PTR)LBob,                                                 %4 refers back to the second insertion string in pMessage
-         (DWORD_PTR)6, (DWORD_PTR)LBill };                                %5!s! refers back to the third insertion string in pMessage
-    const DWORD size = 100+1;
-    WCHAR buffer[size];
-
-    if (!FormatMessage(FORMAT_MESSAGE_FROM_STRING  FORMAT_MESSAGE_ARGUMENT_ARRAY,
-                       pMessage, 
-                       0,
-                       buffer, 
-                       size, 
-                       (va_list)pArgs))
-    {
-        wprintf(LFormat message failed with 0x%xn, GetLastError());
-        return;
-    }
-
-     Buffer contains   Bi Bob   Bill.
-    wprintf(LFormatted message %sn, buffer);
-}
-</code></pre>
 <p>Depois ele chega a reimplementar o exemplo usando valist, o que é muito interessante, mas&hellip; bom, deixa pra lá. Vamos fazer nosso próprio teste.</p>
 <p>Esse é o uso clássico: precisamos de uma descrição de um código de erro para o usuário; um código Win32. A chamada para esse tipo de uso pode ser encapsulada em uma função mais simples:</p>
-<pre><code>#define _CRT_SECURE_NO_WARNINGS // quanta frescura...
-#include &lt;tchar.h&gt;
-#include &lt;windows.h&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-wstring GetErrorDescription(DWORD errNumber)
-{
-    wstring ret;
-    bool msgOk = false;
-    LPVOID lpMsgBuf = NULL;
-
-    if( FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER // aloque pra mim (não sei o tamanho)
-        | FORMAT_MESSAGE_FROM_SYSTEM // descrição do erro está no sistema
-        | FORMAT_MESSAGE_IGNORE_INSERTS, // ignora os inserts pra não sofrer com hackerzinhos
-        NULL, // sem fonte:
-        errNumber, // a fonte é o código de erro
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // idioma padrão
-        (LPTSTR)&amp;lpMsgBuf,// isso é um ponteiro para um ponteiro para um buffer que será alocado
-        0, // nada disso
-        NULL // e nem disso
-        ) &gt; 0 ) // maior que zero quer dizer &quot;beleza!&quot;
-    {
-        if( lpMsgBuf ) // só pra...
-        {
-            ret = (PCWSTR) lpMsgBuf; // ok, vamos usar essa string
-            msgOk = true;
-            LocalFree(lpMsgBuf); // não precisamos mais da memória alocada
-        }
-    }
-
-    if( ! msgOk ) // alguma coisa não deu certo
-    {
-        wchar_t msgBuf[100]; // o suficiente
-        _snwprintf(msgBuf, 100, L&quot;Unknown error (code %d)&quot;, errNumber);
-        ret = msgBuf;
-    }
-
-    return ret;
-}
-
-int CALLBACK wWinMain(HINSTANCE, HINSTANCE, PWSTR errNumberStr, int)
-{
-    int errNumber = _wtoi(errNumberStr);
-    wstring errDesc = GetErrorDescription(errNumber);
-    MessageBox(NULL, errDesc.c_str(), L&quot;GetLastError&quot;, MB_OK | MB_ICONINFORMATION);
-    return errNumber;
-}
-</code></pre>
 <p>Existem milhares de forma de usar essa função, como você deve ter percebido pelos parâmetros. Não seja tímido: se você conhece algum truquezinho esperto e quer compartilhar com os usuários da FormatMessage, essa é a hora!</p>
 
             
@@ -276,11 +189,9 @@ int CALLBACK wWinMain(HINSTANCE, HINSTANCE, PWSTR errNumberStr, int)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=J%c3%a1%20foi%20comentado%20em%20alguns%20c%c3%adrculos%20de%20%c3%b3timos%20programadores%20que%20a%20fun%c3%a7%c3%a3o%20da%20Win32%20API%20FormatMessage%20%c3%a9%20uma%20das%20criaturas...%20http%3a%2f%2fwww.caloni.com.br%2fformatmessage-para-dumies%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

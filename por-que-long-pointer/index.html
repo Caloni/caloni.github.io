@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-04-21T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,22 +139,6 @@
           <div class="content">
             
               <p>Esse artigo continua a explicação sobre os typedefs arcaicos, já que ainda falta explicar por que diabos os ponteiros da Microsoft começam com LP. Tentei explicar para minha pupila que, por ser código dos anos 80, as pessoas usavam LP para tudo, pois os CDs ainda não estavam tão difundidos.</p>
-<pre><code>&lt;span style=&quot;color: #808000;&quot;&gt;/** @brief Para instanciar um Bozo. @date 1982-02-21 */ 
-typedef struct _BOZO { 
-   char helloMsg[100]; /* definir para &quot;alô, criançada, o bozo chegou...&quot; */ 
-   float currentTime; /* definir para 5e60 */ 
-}
- BOZO, &lt;span style=&quot;text-decoration: underline;&quot;&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;*LP&lt;/span&gt;&lt;/span&gt;BOZO;&lt;/span&gt;
-
-
-&lt;span style=&quot;color: #339966;&quot;&gt;/** @brief Para instanciar um Pokemon. @date 1996-03-01 */&lt;/span&gt; 
-&lt;span style=&quot;color: #0000ff;&quot;&gt;typedef&lt;/span&gt; &lt;span style=&quot;color: #0000ff;&quot;&gt;struct&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;_PIKACHU&lt;/span&gt; 
-&lt;span style=&quot;color: #ff00ff;&quot;&gt;{&lt;/span&gt; 
-&lt;span style=&quot;color: #0000ff;&quot;&gt; char&lt;/span&gt; &lt;span style=&quot;color: #808080;&quot;&gt;helloMsg&lt;/span&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #00ccff;&quot;&gt;100&lt;/span&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;]&lt;/span&gt;; &lt;span style=&quot;color: #339966;&quot;&gt;// setar para &quot;pika, pika pikachuuuuuuu...&quot;&lt;/span&gt; 
-&lt;span style=&quot;color: #0000ff;&quot;&gt; int &lt;/span&gt;&lt;span style=&quot;color: #808080;&quot;&gt;pokemonID&lt;/span&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #339966;&quot;&gt;// setar para &lt;/span&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;24&lt;/span&gt; 
-&lt;span style=&quot;color: #ff00ff;&quot;&gt;}
-&lt;/span&gt;&lt;span style=&quot;color: #808080;&quot;&gt;PIKACHU&lt;/span&gt;&lt;span style=&quot;color: #ff00ff;&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color: #ff0000;&quot;&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;*CD&lt;/span&gt;&lt;/span&gt;PIKACHU&lt;span style=&quot;color: #ff00ff;&quot;&gt;;&lt;/span&gt;
-</code></pre>
 <p>Não colou. Então vou tentar explicar do jeito certo.</p>
 <p>Antigamente, as pessoas mandavam cartas umas para as outras. Carta, para você, caro leitor de quinze anos, era um e-mail implementado em hardware.</p>
 <p>Para mandar um e-mail, usamos o nome da pessoa e o domínio em que seu e-mail é endereçado, ex: <a href="mailto:nome-da-pessoa@dominio.com.br">nome-da-pessoa@dominio.com.br</a>. Para mandar uma carta usamos duas informações básicas: o nome da rua e o número da casa.</p>
@@ -170,17 +154,9 @@ typedef struct _BOZO {
 <p>&ldquo;Juquinha, seu moleque safado, entrega essa carta no Segmento 0xAC89, Offset 0x496E. E vê se anda logo!&rdquo;</p>
 <p>Essa frase era muito usada nos anos 80, com seus 16 bits e tudo mais.</p>
 <p>Com toda essa analogia, fica fácil perceber que o Windows não cabe em uma rua só. Seus aplicativos precisam de muitas ruas para rodar. Isso exige que todos seus ponteiros sejam long, pois do contrário o Juquinha estará entregando as cartas sempre nos endereços errados. Dessa forma, foi estipulado o typedef arcaico padrão para todos os tipos da API que usasse LP (Long Pointer) como prefixo:</p>
-<pre><code>typedef unsigned long WORD, *LPDWORD;
-typedef const char* LPCSTR;
-typedef &lt;coloque-seu-tipo-aqui&gt; APELIDO, *LPAPELIDO;
-</code></pre>
 <p>E é por isso que, historicamente, todos os ponteiros para os apelidos da API Win32 possuem sua contraparte LP.</p>
 <p>Com a era 32 bits (e mais atualmente 64 bits) os endereços passaram a ser flat, ou seja, apontam para qualquer lugar na memória. Se eu quisesse continuar minha analogia falaria que é o equivalente a uma coordenada GPS, também muito na moda, e que pode apontar para qualquer lugar do planeta. Eu, por exemplo, já trabalhei perto das coordenadas -23.563596,-46.653885, o que eu costumo dizer que fica bem próximo do Paraíso =).</p>
 <p>De uns anos pra cá, existem novos typedefs nos headers que permitem o uso dos apelidos Win32 apenas com um P inicial.</p>
-<pre><code>typedef unsigned long WORD, *LPDWORD, *PDWORD;
-typedef const char *LPCSTR, *PCSTR;
-typedef &lt;coloque-seu-tipo-aqui&gt; APELIDO, *LPAPELIDO, *PAPELIDO;
-</code></pre>
 <p>A escolha é livre. Assim como com o typedef arcaico.</p>
 
             
@@ -189,11 +165,9 @@ typedef &lt;coloque-seu-tipo-aqui&gt; APELIDO, *LPAPELIDO, *PAPELIDO;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Esse%20artigo%20continua%20a%20explica%c3%a7%c3%a3o%20sobre%20os%20typedefs%20arcaicos%2c%20j%c3%a1%20que%20ainda%20falta%20explicar%20por%20que%20diabos%20os%20ponteiros%20da...%20http%3a%2f%2fwww.caloni.com.br%2fpor-que-long-pointer%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

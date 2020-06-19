@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2018-08-30T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,40 +140,6 @@
             
               <p>Sim, eu acho que já resumi o suficiente meu parseador de argv/argc no meu último artigo sobre o tema. Sim, eu também acho que a versão com STL bonitinha (mas ordinária). A questão agora não são as dependências, mas o uso no dia-a-dia: precisa ter o argc nessa equação?</p>
 <p>A resposta é não. Pois, como sabemos, o padrão C/C++ nos informa que o argv é um array de ponteiros de strings C que termina em nulo. Sabemos que ele termina, então o argc é apenas um helper para sabermos de antemão onde ele termina. Mas quando precisamos, por exemplo, passar o argv/argc para uma thread Windows, que aceita apenas um argumento mágico, talvez minha versão antiga não seja tão eficaz, pois isso vai exibir que eu aloque memória de um struct que contenha ambas as variáveis, etc. Por que não simplesmente utilizar apenas o argv?</p>
-<pre><code>#include &lt;string.h&gt;
-#include &lt;stdio.h&gt;
-
-/** Interpreta argumentos da linha de comando (versão raiz truzona).
-
-@author Wanderley Caloni &lt;wanderley.caloni@bitforge.com.br&gt;
-@date 2018-08
-*/
-const char* GetArg(char* argv[], const char* arg)
-{
-    while( *++argv )
-    {
-        if( strcmp(*argv, arg) == 0 )
-        {
-            if( *(argv+1) )
-                return *(argv+1);
-            else
-                return &quot;&quot;;
-        }
-    }
-    return NULL;
-}
-
-int main(int argc, char* argv[])
-{
-    printf(&quot;Type enter to start...&quot;);
-    getchar();
-
-    if( GetArg(argv, &quot;--debug&quot;) )
-        printf(&quot;Waiting for debugger...\n&quot;);
-    if( const char* command = GetArg(argv, &quot;--command&quot;) )
-        printf(&quot;Command %s received\n&quot;, command);
-}
-</code></pre>
 <p>Nessa versão elminamos a necessidade do argc e de brinde ganhamos a possibilidade de usar um único ponteiro como start de um parseamento de argumentos.</p>
 
             
@@ -182,11 +148,9 @@ int main(int argc, char* argv[])
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Sim%2c%20eu%20acho%20que%20j%c3%a1%20resumi%20o%20suficiente%20meu%20parseador%20de%20argv%2fargc%20no%20meu%20%c3%baltimo%20artigo%20sobre%20o%20tema.%20Sim%2c%20eu%20tamb%c3%a9m...%20http%3a%2f%2fwww.caloni.com.br%2fgetarg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

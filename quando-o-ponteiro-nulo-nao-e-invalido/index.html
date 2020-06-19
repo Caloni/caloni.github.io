@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-02-29T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,8 +140,6 @@
             
               <p>Pois bem. O mesmo amigo que me recomendou que escrevesse sobre o assunto do ponteiro nulo achou um livro sobre armadilhas em C com um exemplo que demonstra exatamente o contrário: dependendo da plataforma, ponteiros nulos são sim válidos.</p>
 <p>Nesse caso, se tratava de um programa que iria rodar em um microprocessador, daqueles que o DQ costuma programar. Pois bem. Quando o dito cujo ligava era necessário chamar uma rotina que estava localizada exatamente no endereço 0. Para fazer isso, o código era o seguinte:</p>
-<pre><code>( * (void(*)()) 0 ) ();
-</code></pre>
 <p>Nada mais simples: um cast do endereço 0 (apesar de normalmente inválido, 0 pode ser convertido para endereço) para ponteiro de função que não recebe parâmetros e não retorna nada, seguido de deferência (&ldquo;o apontado de&rdquo;) e chamada (a dupla final de parênteses).</p>
 <p>É bem o que o autor diz depois de jogar esta expressão: &ldquo;expressions like these strike terror into the hearts of C programmers&rdquo;. É lógico que isso não é bem verdade para as pessoas que acompanham este blogue =)</p>
 
@@ -151,11 +149,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Pois%20bem.%20O%20mesmo%20amigo%20que%20me%20recomendou%20que%20escrevesse%20sobre%20o%20assunto%20do%20ponteiro%20nulo%20achou%20um%20livro%20sobre...%20http%3a%2f%2fwww.caloni.com.br%2fquando-o-ponteiro-nulo-nao-e-invalido%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

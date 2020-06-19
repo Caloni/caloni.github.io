@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-02-27T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,40 +139,6 @@
           <div class="content">
             
               <p>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:</p>
-<pre><code>#!/usr/bin/python2
-# -*- coding: utf-8 -*-
-
-#
-# Coloque esse script na pasta com os arquivos dhx.
-# O resultado estarÃ¡ em iso-8859-1
-#
-
-#
-# Segui o tutorial em /conversor-de-houaiss-para-babylon-parte-1
-#
-
-import os
-
-files = os.listdir('.')
-
-for arq in files:
-    if not arq.endswith('dhx'):
-        continue
-
-    print 'Abrindo &quot;%s&quot;' % arq
-    origin = open(arq, 'r')
-    target = open('%s.txt' % arq, 'w+')
-
-    char = origin.read(1)
-    while char:
-        byte = ord(char) + 0x0B
-        new_char = chr(byte % 256)
-        target.write(new_char)
-        char = origin.read(1)
-
-    origin.close()
-    target.close()
-</code></pre>
 
             
 
@@ -180,11 +146,9 @@ for arq in files:
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/projects">projects</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/projects">projects</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20Fabio%20Montefuscolo%20expandiu%20mais%20ainda%20o%20acesso%20do%20conversor%20Houaiss%20para%20Babylon%20implementando%20uma%20vers%c3%a3o%20em%20Python%2c...%20http%3a%2f%2fwww.caloni.com.br%2fhouaiss-para-babylon-em-python%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -9,18 +9,7 @@
   <meta name="author" content="" />
   <meta name="description"
         content="Padrão C (ISO/IEC 9899:1990)
-6.5.3 type-qualifier
- const
- volatile
-
-
-Padrão C&#43;&#43; (ISO/IEC 14882:1998)
-
-cv-qualifier
- const
- volatile
-
-Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
+Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -28,18 +17,7 @@ Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
   <meta itemprop="name" content="Const e Volatile"/>
   <meta itemprop="description"
         content="Padrão C (ISO/IEC 9899:1990)
-6.5.3 type-qualifier
- const
- volatile
-
-
-Padrão C&#43;&#43; (ISO/IEC 14882:1998)
-
-cv-qualifier
- const
- volatile
-
-Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
+Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -52,22 +30,11 @@ Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
         content=""/>
   <meta property="og:description"
         content="Padrão C (ISO/IEC 9899:1990)
-6.5.3 type-qualifier
- const
- volatile
-
-
-Padrão C&#43;&#43; (ISO/IEC 14882:1998)
-
-cv-qualifier
- const
- volatile
-
-Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
+Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-06-04T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -77,18 +44,7 @@ Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
   <meta name="twitter:title" content="Const e Volatile"/>
   <meta name="twitter:description"
         content="Padrão C (ISO/IEC 9899:1990)
-6.5.3 type-qualifier
- const
- volatile
-
-
-Padrão C&#43;&#43; (ISO/IEC 14882:1998)
-
-cv-qualifier
- const
- volatile
-
-Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
+Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -187,65 +143,19 @@ Chamamos de qualificador de tipo as palavrinhas mágicas..."/>
           <div class="content">
             
               <p>Padrão C (ISO/IEC 9899:1990)</p>
-<pre><code>6.5.3 type-qualifier
- const
- volatile
-
-
-Padrão C++ (ISO/IEC 14882:1998)
-
-cv-qualifier
- const
- volatile
-</code></pre>
 <p>Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida do programa.</p>
 <p>Uma variável const não pode ser alterada pelo programa durante sua execução, apenas durante sua inicialização:</p>
-<pre><code>const float pi = 3.14; // até onde sabemos, pi não irá mudar neste Universo
-</code></pre>
 <p>No exemplo acima, o valor de pi não pode mais ser alterado. Só que repare que ele foi, em determinado momento, alterado com um valor constante: na sua inicialização. Isso quer dizer que pi:</p>
 <ul>
-<li>
-<p>é uma variável no programa representada por um local na memória endereçável pelo programa;</p>
-</li>
-<li>
-<p>não é um define do pré-processador que irá virar uma constante literal (3.14, por exemplo).</p>
-<p>// eu posso endereçar uma constante,
-// desde que qualifique corretamente meu ponteiro
-const float* ppi = &amp; pi;</p>
-</li>
+<li>é uma variável no programa representada por um local na memória endereçável pelo programa;</li>
+<li>não é um define do pré-processador que irá virar uma constante literal (3.14, por exemplo).</li>
 </ul>
 <p>Teoricamente a região da memória que contiver uma variável const pode ser qualificada pelo sistema operacional como somente-leitura, mas isso não é uma obrigação. É obrigação do compilador avisar sobre tentativas de alteração da variável no meio do programa, mas nem sempre é possível enxergar que a memória não é alterável. Dessa forma, resultados imprevisíveis podem ocorrer.</p>
 <p>Eu costumo usar variáveis const no lugar de defines. Além de ganhar na tipagem as constantes não precisam ser necessariamente globais, nem acessíveis por outros módulos. Um outro uso muito comum é criar variáveis locais que você sabe que não devem ser alteráveis por ninguém, como o tamanho de matrizes primitivas.</p>
-<pre><code>namespace Math
-{
-    const float Pi = 3.14;
-}
-
-//...
-
-int func1(int x)
-{
-    float calc = x * Math::Pi;
-    return calc;
-}
-
-//...
-
-int func2(int y)
-{
-    const size_t PathSize = MAX_PATH * 2;
-    //...
-    char path[PathSize];
-    //...
-}
-</code></pre>
 <p>O significado do volatile teoricamente muda de implementação para implementação, mas na prática é uma forma de definir uma variável que está sendo acessada por outros programas/threads/entidades espíritas que podem alterar o seu valor sem seu programa notar quando.</p>
 <p>O exemplo clássico da API Win32 é o InterlockedIncrement, que realiza operações atômicas em valores inteiros. Para fazer isso é necessário usar um recurso interno disponível pelo processador que irá modificar a memória sem intrusão de outras threads/processadores.</p>
 <p>Variáveis volatile geralmente interagem de alguma forma com o sistema em que rodam, e são representadas por ponteiros para memória retornada por esse sistema ou documentada como sendo de uso específico.</p>
 <p>É possível que exista uma variável que não pode ser modificada pelo seu programa, mas é modificada pelo sistema, de forma que ela é uma mutante!</p>
-<pre><code>/// endereça o relógio do sistema, atualizado a cada 1/100 milissegundos
-const volatile int* g_systemClock = (const volatile int*) 0x7689B9D4;
-</code></pre>
 <p>A definição de gsystemClock é de uma memória que não pode ser alterada; só que ela é, pelo sistema. Então a variável também é volatile. No entanto, independente de ser const ou volatile, o tipo nunca será alterado, apenas qualificado. São duas coisas diferentes na linguagem.</p>
 
             
@@ -254,11 +164,9 @@ const volatile int* g_systemClock = (const volatile int*) 0x7689B9D4;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Padr%c3%a3o%20C%20%28ISO%2fIEC%209899%3a1990%29%0a6.5.3%20type-qualifier%0dconst%0dvolatile%0dPadr%c3%a3o%20C%2b%2b%20%28ISO%2fIEC%2014882%3a1998%29%0dcv-qualifier%0dconst...%20http%3a%2f%2fwww.caloni.com.br%2fconst-e-volatile%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

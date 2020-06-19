@@ -9,11 +9,7 @@
   <meta name="author" content="" />
   <meta name="description"
         content="The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;
-
-struct FEEDER_RECORD_HEADER
-{
-   char..."/>
+In this first try (even being a nice one) we can clearly see by instinct that the..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -21,11 +17,7 @@ struct FEEDER_RECORD_HEADER
   <meta itemprop="name" content="What happens inside the sizeof operator"/>
   <meta itemprop="description"
         content="The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;
-
-struct FEEDER_RECORD_HEADER
-{
-   char..."/>
+In this first try (even being a nice one) we can clearly see by instinct that the..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -38,15 +30,11 @@ struct FEEDER_RECORD_HEADER
         content=""/>
   <meta property="og:description"
         content="The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;
-
-struct FEEDER_RECORD_HEADER
-{
-   char..."/>
+In this first try (even being a nice one) we can clearly see by instinct that the..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-07-16T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -56,11 +44,7 @@ struct FEEDER_RECORD_HEADER
   <meta name="twitter:title" content="What happens inside the sizeof operator"/>
   <meta name="twitter:description"
         content="The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;
-
-struct FEEDER_RECORD_HEADER
-{
-   char..."/>
+In this first try (even being a nice one) we can clearly see by instinct that the..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -159,31 +143,11 @@ struct FEEDER_RECORD_HEADER
           <div class="content">
             
               <p>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:</p>
-<pre><code>static const size_t FIELD_SIZE_MSGID = 15;
-
-struct FEEDER_RECORD_HEADER
-{
-   char MessageID[FIELD_SIZE_MSGID];
-   char MessageIndex[10];
-};
-
-// error C2143: syntax error : missing ')' before '.'
-char MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER.MessageIndex) + 1];
-
-// error C2070: '': illegal sizeof operand
-char MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER::MessageIndex) + 1]; 
-</code></pre>
 <p>In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work. The compiler error is not even clear. The member access operator (the point sign) needs to have as its left some variable or constant of the same type of the struct. Since the operand is the type itself, there is no deal.</p>
 <p>The second test is more feasible. Even the compiler can alert us. We have accessed the right member in the right struct but in the wrong way. As we&rsquo;re not using a static member or, in other words, a class variable, we can&rsquo;t access the member by scope. We need an object. But in order to have an object we are supposed to have to create one, and this is exactly what is not allowed in our solution.</p>
 <p>This kind of problem reminds me about a curious feature inside the sizeof operator: it doesn&rsquo;t evaluate the expressions used as operands. How&rsquo;s that? Well, as the sizeof main purpose is to provide us the memory size filled by the expression, it simply doesn&rsquo;t make sense to execute the expression. We just need to note that the language we&rsquo;re talking about defends eficiency and clarity as main principles. If you want to execute the expression, we do it without using sizeof operator.</p>
 <p>So, now we know that everything put inside a sizeof is not going to be executed in fact. It works somewhat like the c++ &ldquo;dead zone&rdquo;: is the place where - talking about executable code - nothing runs. That means we can build a object inside sizeof that nothing is going to happen, except for the expression size. Let&rsquo;s look the resulting assembly:</p>
-<pre><code>_sz = sizeof( (new FEEDER_RECORD_HEADER)-&gt;MessageID ); // this...
-mov dword ptr [sz], 0Fh ; ... is translated into this
-</code></pre>
 <p>Another way to do the same thing (for those who can&rsquo;t bear the use of operator new delete, seeing the code as a memory leak):</p>
-<pre><code>sz = sizeof( ((FEEDER_RECORD_HEADER*)0)-&gt;MessageID ); // this...
-mov dword ptr [sz], 0Fh ; ... is translated into this
-</code></pre>
 <p>Conclusion: the operator new is called and nothing happens. We got what we wanted. That shows us one more time that the little details built inside a language layout are only very important in the exact time we need them.</p>
 
             
@@ -192,11 +156,9 @@ mov dword ptr [sz], 0Fh ; ... is translated into this
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=The%20question%3a%20how%20to%20get%20the%20size%20of%20a%20struct%20member%20without%20declaring%20it%20as%20a%20variable%20in%20memory%3f%20In%20pseudocode%3a%0astatic...%20http%3a%2f%2fwww.caloni.com.br%2fwhat-happens-inside-the-sizeof-operator%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

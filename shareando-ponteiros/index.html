@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-09-03T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,203 +143,15 @@
 <p>&ldquo;Ah, mas tem que usar alguma biblioteca bizarra com milhões de dependências e que vai quebrar todo o fonte aqui da empresa. Sem contar que vai ter que passar de novo pelos unit tests, vai dar erro de compilação, a LIB XPTO não funciona sem dar três pulinhos virado para a cafeteira e&hellip;&rdquo;</p>
 <p>Cada caso é um caso, existe o melhor dos mundos e o pior. Mas (quase) todos têm solução. Mesmo que tudo que você tenha disponível seja um bartante e um clipe, podemos tentar alguma mágica/gambiarra/adaptação técnica. Vamos ver os casos mais comuns:</p>
 <p>Um cenário perfeito para começar. A única coisa que você precisa fazer em seus novos projetos e refatorações é incluir um único cabeçalho:</p>
-<pre><code>#include &lt;memory&gt;
-</code></pre>
 <p>E pronto! Se abriu um mundo mágico onde as alocações serão compartilhadas entre funções sem se perder quem deleta o quê. Não precisa nem checar se o ponteiro é nulo, basta alocar direto e jogar para dentro do nosso mais novo smart pointer da STL:</p>
-<pre><code>#include &lt;memory&gt;
-#include &lt;string&gt;
-#include &lt;iostream&gt;
-
-struct Person
-{
-    Person() { std::cout &lt;&lt; &quot;Person created\n&quot;; }
-    ~Person() { std::cout &lt;&lt; &quot;Person destroyed\n&quot;; }
-    std::string name;
-    std::string surname;
-    int age;
-    std::string phone;
-};
-
-typedef std::shared_ptr&lt;Person&gt; PersonRef;
-
-PersonRef CreatePerson()
-{
-    return PersonRef(new Person);
-}
-
-void GetName(PersonRef person)
-{
-    person-&gt;name = &quot;Carl&quot;;
-}
-
-void GetSurName(PersonRef person)
-{
-    person-&gt;surname = &quot;Sagan&quot;;
-}
-
-void GetAge(PersonRef person)
-{
-    person-&gt;age = 79;
-}
-
-void GetPhone(PersonRef person)
-{
-    person-&gt;phone = &quot;+01 042 4242-4242&quot;;
-}
-
-void PrintPerson(PersonRef person)
-{
-    std::cout &lt;&lt; &quot;Name: &quot; &lt;&lt; person-&gt;name &lt;&lt; &quot; &quot; &lt;&lt; person-&gt;surname
-        &lt;&lt; &quot;\nAge: &quot; &lt;&lt; person-&gt;age
-        &lt;&lt; &quot;\nPhone: &quot; &lt;&lt; person-&gt;phone
-        &lt;&lt; std::endl;
-}
-
-void CreateAndPrintPerson()
-{
-    PersonRef person = CreatePerson();
-    GetName(person);
-    GetSurName(person);
-    GetAge(person);
-    GetPhone(person);
-    PrintPerson(person);
-}
-
-int main()
-{
-    CreateAndPrintPerson();
-}
-</code></pre>
 <p>E pronto: você nunca mais vai precisar se preocupar com quem deleta o ponteiro, nem quantas cópias desse ponteiro andam por aí. O sharedptr da STL, assim como a versão que já tem faz um tempo no boost, mantém um contador de referência para cada cópia do objeto que mantém o mesmo ponteiro &ldquo;dentro de si&rdquo;. Só quando esse contador chegar a zero, ou seja, não há mais ninguém referenciando essa região da memória, o ponteiro é deletado.</p>
 <p>O std::sharedptr funciona desde o SP1 do Visual Studio 2010. Sem Service Pack ou em versões mais antigas pode haver disponível no namespace tr1, resquício de quando esse novo padrão ainda estava em definição.</p>
 <p>Vou imaginar que você usa o Visual Studio 2003, um dos primeiros da safra &ldquo;.NET&rdquo;, que, mais uma vez, NÃO TEM QUALQUER RELAÇÃO COM C++ .NET.</p>
 <p>Bem, nesse caso, &ldquo;welcome&hellip; to the desert&hellip; of the double&rdquo;:</p>
-<pre><code>&lt;code&gt;------ Build started: Project: VS2003, Configuration: Debug Win32 ------
-Compiling...
-usando-shared-ptr.cpp
-shared-ptr.cpp(15) : error C2039: 'shared_ptr' : is not a member of 'std'
-shared-ptr.cpp(15) : error C2143: syntax error : missing ';' before '&lt;'
-shared-ptr.cpp(18) : error C2146: syntax error : missing ';' before identifier 'CreatePerson'
-shared-ptr.cpp(18) : error C2501: 'PersonRef' : missing storage-class or type specifiers
-shared-ptr.cpp(20) : error C2064: term does not evaluate to a function taking 1 arguments
-shared-ptr.cpp(20) : warning C4508: 'CreatePerson' : function should return a value; 'void' return type assumed
-shared-ptr.cpp(23) : error C2146: syntax error : missing ')' before identifier 'person'
-shared-ptr.cpp(23) : error C2182: 'GetName' : illegal use of type 'void'
-shared-ptr.cpp(23) : error C2059: syntax error : ')'
-shared-ptr.cpp(24) : error C2143: syntax error : missing ';' before '{'
-shared-ptr.cpp(24) : error C2447: '{' : missing function header (old-style formal list?)
-shared-ptr.cpp(28) : error C2146: syntax error : missing ')' before identifier 'person'
-shared-ptr.cpp(28) : error C2182: 'GetSurName' : illegal use of type 'void'
-shared-ptr.cpp(28) : error C2059: syntax error : ')'
-shared-ptr.cpp(29) : error C2143: syntax error : missing ';' before '{'
-shared-ptr.cpp(29) : error C2447: '{' : missing function header (old-style formal list?)
-shared-ptr.cpp(33) : error C2146: syntax error : missing ')' before identifier 'person'
-shared-ptr.cpp(33) : error C2182: 'GetAge' : illegal use of type 'void'
-shared-ptr.cpp(33) : error C2059: syntax error : ')'
-shared-ptr.cpp(34) : error C2143: syntax error : missing ';' before '{'
-shared-ptr.cpp(34) : error C2447: '{' : missing function header (old-style formal list?)
-shared-ptr.cpp(38) : error C2146: syntax error : missing ')' before identifier 'person'
-shared-ptr.cpp(38) : error C2182: 'GetPhone' : illegal use of type 'void'
-shared-ptr.cpp(38) : error C2059: syntax error : ')'
-shared-ptr.cpp(39) : error C2143: syntax error : missing ';' before '{'
-shared-ptr.cpp(39) : error C2447: '{' : missing function header (old-style formal list?)
-shared-ptr.cpp(43) : error C2146: syntax error : missing ')' before identifier 'person'
-shared-ptr.cpp(43) : error C2182: 'PrintPerson' : illegal use of type 'void'
-shared-ptr.cpp(43) : error C2059: syntax error : ')'
-shared-ptr.cpp(44) : error C2143: syntax error : missing ';' before '{'
-shared-ptr.cpp(44) : error C2447: '{' : missing function header (old-style formal list?)
-shared-ptr.cpp(53) : error C2146: syntax error : missing ';' before identifier 'person'
-shared-ptr.cpp(53) : error C2065: 'person' : undeclared identifier
-shared-ptr.cpp(54) : error C3861: 'person': identifier not found, even with argument-dependent lookup
-shared-ptr.cpp(55) : error C3861: 'person': identifier not found, even with argument-dependent lookup
-shared-ptr.cpp(56) : error C3861: 'person': identifier not found, even with argument-dependent lookup
-shared-ptr.cpp(57) : error C3861: 'person': identifier not found, even with argument-dependent lookup
-shared-ptr.cpp(58) : error C3861: 'person': identifier not found, even with argument-dependent lookup
-VS2003 - 37 error(s), 1 warning(s)
-&lt;/code&gt;
-</code></pre>
 <p>Pois é, 37 erros. Depois perguntam por que as pessoas ficam com medo de programar em C++&hellip;</p>
 <p>Porém, a correção é mais simples do que parece: baixar o boost e trocar o nome do namespace.</p>
-<pre><code>#include &lt;boost/shared_ptr.hpp&gt;
-
-//...
-
-typedef boost::shared_ptr&lt;Person&gt; PersonRef;
-
-//...
-</code></pre>
 <p>ATENÇÃO! Nos meus testes a única versão funcionando com o VS2003 foi a 1.47. Mas já é alguma coisa</p>
 <p>Não existe situação difícil que não possa piorar. Porém, mesmo nesse caso ainda há algo a se fazer, já que smart pointer utilizam mecanismos existentes na linguagem C++ desde os primórdios (ou bem próximo disso). Tudo que você precisa para criar seu próprio sharedptr é do construtor padrão, do destrutor padrão, do construtor de cópia e dos operadores de atribuição e ponteiro. E, claro, não se esqueça de usar template se for permitido. Se não for, a coisa complica, mas não se torna impossível.</p>
-<pre><code>#pragma once
-
-// Não façam isso em casa! Usem modelo de smart pointers já construídos (como o do boost).
-template&lt;typename T&gt;
-class shared_ptr
-{
-public:
-    shared_ptr() : m_p(), m_counter()
-    {
-    }
-
-    shared_ptr(T* p) 
-        : m_p(p), m_counter(new int(1)) 
-    {
-    }
-
-    shared_ptr(const shared_ptr&amp; left)
-        : m_p(left.m_p), m_counter(left.m_counter)
-    {
-        if( m_counter )
-            ++*m_counter;
-    }
-
-    shared_ptr&amp; operator = (const shared_ptr&amp; left)
-    {
-        if( m_p )
-        {
-            if( --*m_counter == 0 )
-            {
-                delete m_counter;
-                delete m_p;
-                m_counter = 0;
-                m_p = 0;
-            }
-        }
-        if( m_counter = left.m_counter )
-            ++*m_counter;
-        m_p = left.m_p;
-    }
-
-    ~shared_ptr()
-    {
-        if( --*m_counter == 0 )
-        {
-            delete m_counter;
-            delete m_p;
-            m_counter = 0;
-            m_p = 0;
-        }
-    }
-
-    T* operator -&gt; ()
-    {
-        return m_p;
-    }
-
-private:
-    int* m_counter;
-    T* m_p;
-};
-
-
-#include &quot;shared_ptr.h&quot;
-
-//...
-
-typedef shared_ptr&lt;Person&gt; PersonRef;
-
-//...
-</code></pre>
 <p>E é isso. A lição de hoje é: quem quer, arruma um jeito. Quem não quer, uma desculpa.</p>
 
             
@@ -348,11 +160,9 @@ typedef shared_ptr&lt;Person&gt; PersonRef;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Apesar%20de%20j%c3%a1%20ter%20palestrado%20algumas%20vezes%20sobre%20Boost%20e%20STL%2c%20acho%20que%20eu%20nunca%20escrevi%20muito%20sobre%20esses%20assuntos%20no...%20http%3a%2f%2fwww.caloni.com.br%2fshareando-ponteiros%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

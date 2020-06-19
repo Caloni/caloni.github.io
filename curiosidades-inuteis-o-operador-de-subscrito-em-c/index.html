@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-12-27T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,25 +145,9 @@
 <p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &ldquo;pointer to T&rdquo; and the other shall have enumeration or integral type. The result is an lvalue of type &ldquo;T&rdquo;. (&hellip;) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ). - C++: International Standard ISO/IEC 14882 First Edition 1998-09-01</p>
 </blockquote>
 <p>Isso traduzido em miúdos quer dizer que com duas expressões formando a construção E1 [ E2 ], sendo uma delas do tipo ponteiro para um tipo e a outra do tipo integral, o resultado é equivalente a *( (E1) + (E2) ). Como no código abaixo:</p>
-<pre><code>#include &lt;iostream&gt;
-
-int main()
-{
-    char ditado[] = &quot;Diga-me com que programas e eu te direi quem és.&quot;;
-    int indice = 8;
-
-    std::cout &lt;&lt; &quot;E a linguagem é: &quot; &lt;&lt; ditado[indice] &lt;&lt; std::endl;
-} 
-</code></pre>
 <p>A teoria comprovada na prática: temos duas expressões no formato E1 [ E2 ] sendo uma do tipo ponteiro para char e a outra do tipo int, exatamente como a regra define. O detalhe obscuro que permaneceu durante a evolução dessas duas linguagens é que a regra de acesso a elementos não define a ordem das expressões. Assim sendo, me aproveito dessa flexibilidade e inverto os elementos do subscrito:</p>
-<pre><code>   std::cout &lt;&lt; &lt;span class=&quot;string&quot;&gt;&quot;E a linguagem é: &quot;&lt;/span&gt; &lt;&lt; indice[ditado] &lt;&lt; std::endl;
-</code></pre>
 <p>Isso também compila e tem o mesmo resultado, pois também é equivalente a *( (E1) + (E2) ). No final dá na mesma. E do jeito que está a inversão nem dá tanto susto assim, pois estamos lidando com duas variáveis. A coisa começa a ficar mais IOCCC se colocarmos em vez de uma delas uma constante:</p>
-<pre><code>   std::cout &lt;&lt; &lt;span class=&quot;string&quot;&gt;&quot;E a linguagem é: &quot;&lt;/span&gt; &lt;&lt; 8[ditado] &lt;&lt; std::endl;
-</code></pre>
 <p>Isso ainda é válido, certo? Os tipos das expressões estão de acordo com a regra. Fica simples de visualizar se sempre pensarmos no &ldquo;equivalente universal&rdquo; *( (E1) + (E2) ). Até coisas bizarras como essa acabam ficando simples:</p>
-<pre><code>   std::cout &lt;&lt; 5[&lt;span class=&quot;string&quot;&gt;&quot;Isso Compila?&quot;&lt;/span&gt;] &lt;&lt; std::endl;
-</code></pre>
 <p>Nota do autor: esse tipo de &ldquo;recurso obscuro&rdquo; dificilmente passará por uma revisão de código, e com razão, dado que não é um método útil e muito menos conhecido. Sábio é saber evitar. Não acredito, porém, que o conhecimento de certos detalhes da linguagem em que se programa sejam completamente inúteis. Conhecimento nunca é demais, pois quanto mais se conhece maior é o número de ferramentas conceituais que se dispõe para resolver um certo problema. Em muitas vezes o &ldquo;conhecimento inútil&rdquo; de hoje se torna um guia sábio quando se precisa de bons conceitos sobre a coisa toda. No entanto, que não venha um boi-corneta me dizer que esse código fere as boas práticas de programação. Tenho dito.</p>
 
             
@@ -172,11 +156,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Este%20artigo%20%c3%a9%20uma%20reedi%c3%a7%c3%a3o%20de%20meu%20blogue%20antigo%2c%20guardado%20para%20ser%20republicado%20durante%20minhas%20minif%c3%a9rias.%20Esteja%20%c3%a0...%20http%3a%2f%2fwww.caloni.com.br%2fcuriosidades-inuteis-o-operador-de-subscrito-em-c%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

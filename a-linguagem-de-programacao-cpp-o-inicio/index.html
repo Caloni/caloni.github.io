@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-11-29T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,61 +140,8 @@
             
               <p>O livro-base sobre a linguagem C++ e como programar nela tem o nome pouco criativo &ldquo;The C++ Programming Language&rdquo;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhar a linguagem em 1979, quando ainda a chamada de &ldquo;C com Classes&rdquo;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula &ndash; como o novo conceito de Orientação a Objetos &ndash; que carecia do mais importante na época: velocidade (só na época?). Já linguagens mais antigas como BCPL eram bem rápidas, mas eram tão simples que pareciam mais um Assembly glorificado. Havia, portanto, a necessidade de preencher a área de computação com alguma coisa bem no meio.</p>
 <p>Stroustrup não fez tudo do zero, nem fez tudo de uma vez. A primeira necessidade era apenas criar uma abstração já existente na linguagem C, mas que ainda não havia sido integrada à sintaxe: o contexto de uma estrutura, que se assemelha a uma proto-classe, ou para alguns já é até uma classe, pois possui membros e métodos:</p>
-<pre><code>class Cpp // uma classe é uma estrutura com funções, e vice-versa
-{
-    int x; // membro primitivo, do tipo int
-    int GetX(); // declaração do método (note o () depois do nome)
-};
-
-// definição do método (ele não é copiado para cada instância da classe Cpp, mas reaproveitado)
-Cpp::GetX()
-{
-    return x; // retornando membro da classe
-}
-
-void Func(Cpp cpp)
-{
-    int y = 33 + cpp.GetX(); // obtendo um membro da classe indiretamente (abstração de comportamento, ou controle de acesso)
-}
-
-int main()
-{
-    Cpp cpp; // instanciando a classe em um objeto
-    cpp.x = 42; // setando um membro da classe
-    Func(cpp); // passagem de objeto
-}
-</code></pre>
 <p>A grande sacada é que no meio de toda essa sintaxe de chamada de método havia a passagem de um parâmetro escondido, o this, que se referia à uma instância específica da classe: um objeto.</p>
-<pre><code>Cpp::GetX() // estou recebendo this escondido aqui; o tipo de this é Cpp * const
-{
-    return this-&gt;x; // outra forma de retornar o membro da classe
-}
-</code></pre>
 <p>Isso equivaleria a uma struct em C com funções que recebessem um this adaptado:</p>
-<pre><code>struct C // uma classe em C
-{
-    int x; // membro primitivo, do tipo int
-};
-int C_GetX(C* pThis); // declaração de um método em C (note o this disfarçado)
-
-// definição do método (ele não é copiado para cada instância da classe Cpp, mas reaproveitado)
-int C_GetX(C* pThis)
-{
-    return pThis-&gt;x; // retornando membro da &quot;classe&quot;
-}
-
-void Func(C c)
-{
-    int y = 33 + C_GetX(&amp;c); // passando a &quot;instância&quot; da &quot;classe&quot;
-}
-
-int main()
-{
-    C c; // instanciando a &quot;classe&quot; em um objeto
-    c.x = 42; // setando um membro da classe
-    Func(c); // passagem de &quot;objeto&quot;
-}
-</code></pre>
 <p>Esse tipo de abstração nem é tão complicada assim. O ojetivo eram vários: conseguir proteger os membros de acesso indevido, abstrair o comportamento de um objeto. Com o tempo Stroustrup foi realmente criando algo de novo e muito mais difícil de se manter em C.</p>
 <p>Algo para um próximo post =)</p>
 
@@ -204,11 +151,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20livro-base%20sobre%20a%20linguagem%20C%2b%2b%20e%20como%20programar%20nela%20tem%20o%20nome%20pouco%20criativo%20%26ldquo%3bThe%20C%2b%2b%20Programming...%20http%3a%2f%2fwww.caloni.com.br%2fa-linguagem-de-programacao-cpp-o-inicio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-02-25T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,66 +143,19 @@
 A primeira:
 Que tal analisar o código abaixo e dizer se compila ou não. Se não compilar, explicar porquê não compila. Se compilar, o que acontecerá e por quê.&rdquo;</p>
 <p>O código é o que veremos abaixo:</p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-void func()
-{
-    *(int *)0 = 0;
-    return 0;
-}
-
-int main(int argc, char **argv)
-{
-    func();
-    return 0;
-} 
-</code></pre>
 <p>Bem, para testar a compilação basta compilar. Porém, se estivermos em uma entrevista, geralmente não existe nenhum compilador em um raio de uma sala de reunião senão seu próprio cérebro.</p>
 <p>E é nessas horas que os entrevistadores testam se você tem um bom cérebro ou um bom currículo.</p>
 <p>Por isso, vamos analisar passo a passo cada bloco de código e entender o que pode estar errado. Se não encontrarmos, iremos supor que está tudo certo.</p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-</code></pre>
 <p>Dois includes padrões, ultranormal, nada de errado aqui.</p>
-<pre><code>void func()
-{
-  *(int *)0 = 0;return 0;
-}
-</code></pre>
 <p>Duas ressalvas aqui: a primeira quanto ao retorno da função é void, porém a função retorna um inteiro. Na linguagem C, isso funciona, no máximo um warning do compilador. Em C++, isso é erro brabo de tipagem.</p>
 <p>A segunda ressalva diz respeito à linha obscura, sintaticamente correta, mas cuja semântica iremos guardar para o final, já que ainda falta o main para analisar.</p>
-<pre><code>int main(int argc, char **argv)
-{
-    func();
-    return 0;
-}
-</code></pre>
 <p>A clássica função inicial, nada de mais aqui. Retorna um int, e de fato retorn. Chama a função func, definida acima.</p>
 <p>A linha que guardamos para analisar contém uma operação de casting, atribuição e deferência, sendo o casting executado primeiro, operador unário que é, seguido pelo segundo operador unário, a deferência. Como sempre, a atribuição é uma das últimas. Descomprimida a expressão dessa linha, ficamos com algo parecido com as duas linhas abaixo:</p>
-<pre><code>int* p = (int*) 0;
-*p = 0;
-</code></pre>
 <p>Não tem nada de errado em atribuir o valor 0 a um ponteiro, que é equivalente ao define NULL da biblioteca C (e C++). De acordo com a referência GNU, é recomendado o uso do define, mas nada impede utilizar o o &ldquo;hardcoded&rdquo;.</p>
 <p>Porém, estamos escrevendo em um ponteiro nulo, o que com certeza é um comportamento não-definido de conseqüências provavelmente funestas. O ponteiro nulo é um ponteiro inválido que serve apenas para marcar um ponteiro como inválido. Se escrevermos em um endereço inválido, bem, não é preciso ler o padrão para saber o que vai acontecer =)</p>
 <p>Alguns amigos me avisaram sobre algo muito pertinente: dizer que acessar um ponteiro nulo, portanto inválido, é errado e nunca deve ser feito. Como um ponteiro nulo aponta para um endereço de memória inválido, acessá-lo irá gerar uma exceção no seu sistema operacional e fazer seu programa capotar. Um ponteiro nulo é uma maneira padrão e confiável de marcar o ponteiro como inválido, e testar isso facilmente através de um if. Mais uma vez: ponteiros nulos apontando para um endereço de memória inválido (o endereço 0) nunca devem ser acessados, apenas atribuído a ponteiros.</p>
 <p>Em código. Isso pode:</p>
-<pre><code>// atribuindo nulo
-// a um ponteiro: pode
-int* p = 0;
-
-// isso também pode
-int* p2 = p; 
-</code></pre>
 <p>Isso <strong>não pode</strong>:</p>
-<pre><code>// NUNCA acessar 
-// ponteiros nulos
-*p = 15;
-
-// isso também não pode, 
-// ler de um ponteiro nulo
-int x = *p;
-</code></pre>
 <p>Dito isso, me sinto melhor =)</p>
 
             
@@ -211,11 +164,9 @@ int x = *p;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Bom%2c%20parece%20que%20o%20%26ldquo%3bmother-fucker%26rdquo%3b%20wordpress%20ferrou%20com%20meu%20artigo%20sobre%20o%20Houaiss.%20Enquanto%20eu%20choro%20as...%20http%3a%2f%2fwww.caloni.com.br%2fcodigos-de-entrevista-o-ponteiro-nulo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

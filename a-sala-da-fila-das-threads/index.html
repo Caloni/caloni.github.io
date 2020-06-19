@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2009-04-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,58 +146,6 @@
 <p>Resumidamente, um critical section é um recurso que apenas uma thread por vez pode obter. Para que outra thread tenha acesso ao mesmo critical section, a primeira thread que o obteve deve soltá-lo. Enquanto ela não solta, as outras threads ficam paradas, esperando pela chave, na sala trancada.</p>
 <p>Do ponto de vista do programador, o critical secton é apenas uma estrutura que é usada na chamada de quatro funções básicas: para inicializar o recurso, para entrar na seção crítica.aspx), para sair da seção crítica.aspx) e para liberar o recurso.aspx) (quando aquele critical section não mais será usado).</p>
 <p>Falando assim, parece simples. Bom, na verdade é simples, mesmo. Tudo que você precisa para corrigir o programa do artigo anterior é criar um critical section e fazer com que as threads obtenham-no antes de mexer com o contador compartilhado.</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
- 
-#define MAX_GLOBAL_COUNTER 10
- 
-int g_globalCounter = 0;
-CRITICAL_SECTION g_globalCounterCS;
- 
-DWORD WINAPI IncrementGlobalCounter(PVOID)
-{
-    DWORD tid = GetCurrentThreadId();
- 
-    while( g_globalCounter &lt; MAX_GLOBAL_COUNTER )
-    {
-        // esse é o começo de nossa seção crítica
-        // só uma thread entra por vez por aqui
-        EnterCriticalSection(&amp;g_globalCounterCS);
-
-        int temp = g_globalCounter;
-        temp = temp + 1;
-        Sleep(0); // vou para o final da fila antes de contar
-        g_globalCounter = temp;
-
-        // esse é o fim de nossa seção crítica
-        // a partir dessa chamada outra thread pode entrar pelo começo
-        LeaveCriticalSection(&amp;g_globalCounterCS);
-
-        printf(&quot;Counter: %d\t\tThread: %d\n&quot;, temp, tid);
-    }
-    return 0;
-}
- 
-int main()
-{
-    HANDLE threads[3];
-    DWORD tids[3];
-
-    // precisamos inicializar nosso recurso de seção crítica	
-    InitializeCriticalSection(&amp;g_globalCounterCS);
-
-    for( int i = 0; i &lt; 3; ++i )
-    {
-        threads[i] = CreateThread(NULL, 0, IncrementGlobalCounter, 0, 0, &amp;tids[i]);
-        printf(&quot;Thread %i: %d\n&quot;, i, tids[i]);
-    }
- 
-    WaitForMultipleObjects(3, threads, TRUE, INFINITE);
-
-    // precisamos liberar o recurso de seção crítica
-    DeleteCriticalSection(&amp;g_globalCounterCS);
-}
-</code></pre>
 <p>Para finalizar, algo para pensar: se uma thread só consegue um critical section depois que outra thread soltá-lo, o que acontece se essa outra thread estiver esperando por outro critical section que uma thread que aguarda estiver segurando?</p>
 <p>Acabamos de ilustrar um procedimento muito simples para cagar completamente no código e gerar um travamento que pode demorar de horas a semanas para ser detectado e resolvido. É o conhecido deadlock. Se você não entendeu ainda, imagine que, para voltar à sala das threads, a primeira thread que saiu precisa de duas chaves; só que ela só pegou a primeira, e a segunda está dentro da sala. Para pegar a segunda chave, ela precisa entrar na sala, só que a sala está trancada pelas duas chaves!</p>
 <p>Deadlocks são sempre indesejáveis, e é por isso que existem diversas técnicas para tentar evitá-los. A mais conhecida é sempre obter os critical sections na mesma ordem. Dessa forma a obtenção de recursos é hierarquizada, o que impede que dois CSs estejam no mesmo nível de obtenção, evitando que duas threads distintas os obtenham.</p>
@@ -209,11 +157,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20falei%20sobre%20a%20fila%20das%20threads%2c%20e%20como%20cada%20thread%20espera%20pacientemente%20em%20uma%20fila%20at%c3%a9%20chegar%20sua%20vez%20de%20ser...%20http%3a%2f%2fwww.caloni.com.br%2fa-sala-da-fila-das-threads%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

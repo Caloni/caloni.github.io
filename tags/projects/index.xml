@@ -18,9 +18,6 @@
   <guid>http://www.caloni.com.br/transmission/</guid>
   <description>Dia de fazer funcionar o download automágico de legendas depois que o Transmission baixou meu Netflix caseiro. O download funcionou, mas não foi dos melhores, pois o sincronismo e o encoding veio errado, e o rename de _pb para o nome do arquivo não está acontecendo rodando pelo transmission-daemon. Fora isso tá com tudo em cima.
 No final do dia a correção era mais simples que imaginava: eu só precisava desabilitar duas flags: o uso de sufixo no nome do arquivo salvo e a flag que força todo arquivo a ser salvo como utf8 (os arquivos em português do Brasil são salvos no encoding do Windows, o ISO-8859-1 ou Windows 1252 para os mais íntimos).</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -32,9 +29,6 @@ No final do dia a correção era mais simples que imaginava: eu só precisava de
   <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
   <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero&amp;hellip;
 Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -46,11 +40,6 @@ Uma maneira de tornar a leitura de seu repo relativamente segura é entregar cre
   <guid>http://www.caloni.com.br/winsock-mock/</guid>
   <description>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em C são funções com nome bem definido e assinatura flexível (você não precisa declarar a assinatura da função, ou pode mudar no meio do caminho).
 Criei este pequeno projeto de mock da winsock para exemplificar.</description>
-  <details>
-  
-      
-  
-  </details>
 </item>
 
      
@@ -62,9 +51,6 @@ Criei este pequeno projeto de mock da winsock para exemplificar.</description>
   <guid>http://www.caloni.com.br/houaiss-para/</guid>
   <description>O projeto Houaiss2Babylon, iniciado há mais de 6 anos, já devia estar ultrapassado. Porém, cada vez mais pessoas compartilham seus usos e desusos do que foi um dia uma base de dados ofuscada e presa a apenas uma interface Windows. Agora, além de já ter sido convertido para Kindle, em Python e agora através do nodejs para o MySql!
 O jornalista e programador Arthur da Paz desenvolveu esta última novidade no programa e gentilmente compartilhou conosco direto no repositório original do HouaissParaBabylon, colaborando felizmente para que esse nome perdesse um pouco mais do sentido (Babylon já está meio ultrapassado, não?</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -74,11 +60,7 @@ O jornalista e programador Arthur da Paz desenvolveu esta última novidade no pr
   <pubDate>2014-02-27</pubDate>
   
   <guid>http://www.caloni.com.br/houaiss-para-babylon-em-python/</guid>
-  <description>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:
-#!/usr/bin/python2# -*- coding: utf-8 -*-## Coloque esse script na pasta com os arquivos dhx.# O resultado estarÃ¡ em iso-8859-1### Segui o tutorial em /conversor-de-houaiss-para-babylon-parte-1#import osfiles = os.</description>
-  <details>
-  
-  </details>
+  <description>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:</description>
 </item>
 
      
@@ -90,9 +72,6 @@ O jornalista e programador Arthur da Paz desenvolveu esta última novidade no pr
   <guid>http://www.caloni.com.br/houaiss-1-3/</guid>
   <description>Os problemas relacionados com acesso negado durante a conversão/construção do dicionário foram corrigidos na novíssima versão disponível no GitHub.
 Erroneamente imaginando que a falta de acesso tinha alguma coisa a ver com a escrita de arquivos no disco, ou até mesmo com a execução de processos, descobri depurando (o bom e velho depurador) que a origem do acesso negado estava na função AssignProcessToJobObject.aspx). Misteriosamente, no Windows 7, ao chamar essa função ocorre esse erro, independente da execução ser como administrador ou não.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -104,9 +83,6 @@ Erroneamente imaginando que a falta de acesso tinha alguma coisa a ver com a esc
   <guid>http://www.caloni.com.br/houaiss-no-kindle/</guid>
   <description>O blogue de José Ribeiro Pena Neto, aparentemente recém-criado, conseguiu utilizar minha solução de conversão do dicionário Houaiss para Babylon em algo mais incrívei ainda: converter, em alguns passos, a base de dados do Houaiss para o Amazon Kindle.
 De uma maneira simples e efetiva, ele cita o passo-a-passo para a conversão da base Houaiss para o formato Babylon e, a partir disso, reconverter para o formato usado pelo gratuito e multiplataforma Stardict.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -119,9 +95,6 @@ De uma maneira simples e efetiva, ele cita o passo-a-passo para a conversão da 
   <description>O último comentário no meu último artigo sobre o conversor Houaiss para Babylon me fez lembrar de algo muito importante: eu não atualizei o branch do saite com a última versão. Deve ser por isso que as pessoas estão tendo problemas com o uso do código. Resolvo isso já:
 Essa é a versão 1.2 descrita no meu último artigo sobre o projeto.
 De qualquer forma, qual não foi minha surpresa quando tentei recompilar o projeto e ocorreram erros no atlcom.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -133,9 +106,6 @@ De qualquer forma, qual não foi minha surpresa quando tentei recompilar o proje
   <guid>http://www.caloni.com.br/houaiss-para-babylon-12/</guid>
   <description>Os últimos comentários de Henrique Esteves (quando havia seção de comentários no blogue) sobre o HouaissParaBabylon me fizeram dar mais uma fuçada nele e ver se tento deixá-lo compatível com o Houaiss 3. Foram apenas algumas horas e acho que resolvi os probleminhas relacionados com a troca do registro de instalação e o nome dos arquivos que armazenam os verbetes.
 Apenas para constar, segue a lista de artigos sobre este projeto:</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -148,9 +118,6 @@ Apenas para constar, segue a lista de artigos sobre este projeto:</description>
   <description>Saindo mais um do forno.
 Essa nova versão do conversor do dicionário Houaiss para Babylon corrige o problema de não encontrar o Houaiss 1.0. O problema ocorria porque o conversor se baseava na localização do desinstalador para encontrar o dicionário. Na primeira versão do dicionário o desinstalador fica na pasta c:\Windows, onde obviamente não estava o dicionário.
 Nessa nova versão, além de procurar o caminho do dicionário no registro (desinstalador) e antes de pedir para o usuário o caminho correto é tentado o caminho padrão de instalação, %programfiles%\Houaiss.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -163,9 +130,6 @@ Nessa nova versão, além de procurar o caminho do dicionário no registro (desi
   <description>Depois de muitos fins-de-semana divididos em horas picadinhas de programação de lazer, está disponível em vosso saite a primeira versão para usuários do conversor do dicionário Houaiss para o aplicativo Babylon.
 Foi uma longa jornada, sim, mas espero que valha a pena para quem esperou. Também espero poder receber inúmeras respostas com dúvidas, sugestões e até mesmo mais problemas que vierem a acontecer.
 Segue um pequeno roteiro do funcionamento do programa, que é bem simples, aliás.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -177,9 +141,6 @@ Segue um pequeno roteiro do funcionamento do programa, que é bem simples, aliá
   <guid>http://www.caloni.com.br/mousetool-clique-automatico-do-seu-rato/</guid>
   <description>Bem, como a maioria de você já sabe, eu realmente não gosto de mouses. Apesar disso respeito os usuário que usam-no e até gostam dele. Essa é a razão por que estou escrevendo mais uma vez sobre isso. Dessa vez, irei mostrar um programa que eu uso todos os dias: MouseTool, para os usuários que não usam o mouse, mas gostam dele [1].
 O principal objetivo do programa é evitar de clicar no mouse, simulando um clique toda vez que o usuário pára de mover o ponteiro.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -191,11 +152,6 @@ O principal objetivo do programa é evitar de clicar no mouse, simulando um cliq
   <guid>http://www.caloni.com.br/mousetool/</guid>
   <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
-  <details>
-  
-      
-  
-  </details>
 </item>
 
      
@@ -206,9 +162,6 @@ The program main purpose is to avoid clicking the mouse, simulating a click ever
   
   <guid>http://www.caloni.com.br/todolist/</guid>
   <description>Vou aproveitar que o recente blogue do meu amigo resolveu falar um pouco sobre administração de tempo e citar a ferramenta que venho utilizando há quase um ano para tentar organizar minhas idéias, minhas tarefas e minha vida. Assim como o Kabloc, eu estava em sérias dificuldades para tentar fazer e organizar todas as coisas que eu tinha em mente. Ainda continuo com dificuldades para fazer, mas o mais importante é que agora eu tenho um roadmap de para onde eu quero ir.</description>
-  <details>
-  
-  </details>
 </item>
 
      

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-01-11T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -141,70 +141,8 @@
               <p>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &ldquo;objeto&rdquo;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &ldquo;objeto&rdquo; em C, mas ainda não chamamos um método.</p>
 <p>Hoje faremos isso.</p>
 <p>Isso é relativamente simples quando se conhece ponteiros de função, existentes tanto em C quanto em C++. Ponteiros de função são tipos que contém endereço de uma função com assinatura específica (tipo de retorno e de argumentos). Através de um ponteiro de função é possível chamar uma função e passar alguns argumentos. Como o contexto nada mais é que um argumento, será só passá-lo como parâmetro.</p>
-<pre><code>bool MinhaFuncao(int x, int y)
-{
-    return x == y;
-}
-
-int main()
-{
-    bool (*PMinhaFuncao)(int, int) = MinhaFuncao;
-    PMinhaFuncao(2, 3);
-}
-</code></pre>
 <p>No exemplo anterior não sabíamos como chamar um método de nosso &ldquo;objeto&rdquo; em C:</p>
-<pre><code>struct MinhaClasse
-{
-    int MinhaPropriedade;
-};
-
-void MinhaClasse_MeuMetodo(MinhaClasse* pThis)
-{
-   pThis-&gt;MinhaPropriedade = 42;
-   ///@todo Chamar pThis-&gt;MeuOutroMetodo();
-}
-</code></pre>
 <p>Isso se torna fácil se tivermos uma nova &ldquo;propriedade&rdquo; na nossa struct que é um ponteiro para a função que queremos chamar.</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-struct MinhaClasse
-{
-    int MinhaPropriedade;
-    void (*MeuMetodo)(MinhaClasse*);
-    void (*MeuOutroMetodo)(MinhaClasse*);
-};
-
-void MinhaClasse_MeuMetodo(MinhaClasse* pThis)
-{
-    pThis-&gt;MeuOutroMetodo(pThis);
-}
-
-void MinhaClasse_MeuOutroMetodo(MinhaClasse* pThis)
-{
-    pThis-&gt;MinhaPropriedade = 42;
-}
-
-int main()
-{
-    MinhaClasse obj;
-
-    obj.MinhaPropriedade = 0;
-
-    // precisamos iniciar os &quot;métodos&quot; em C; em C++ é automágico
-    obj.MeuMetodo = MinhaClasse_MeuMetodo; 
-    obj.MeuOutroMetodo = MinhaClasse_MeuOutroMetodo;
-
-    obj.MeuMetodo(&amp;obj);
-    printf(&quot;MinhaPropriedade = %d&quot;, obj.MinhaPropriedade);
-}
-
-output:
-
-&gt;cl /Zi cpp.cpp
-&gt;/out:cpp.exe
-&gt;cpp
-MinhaPropriedade (obj) = 42
-</code></pre>
 <p>Parece muito trabalho para algo que é feito &ldquo;automagicamente&rdquo; em C++, certo? Certo. Porém, agora sabemos o que acontece por baixo dos panos em C++ e que pode ser feito em C (ainda que &ldquo;na mão&rdquo;). Você provavelmente nunca fará esse tipo de código em C para emular C++, mas o objetivo desse código é entender como funciona, por exemplo, a vtable do C++, que permite polimorfismo.</p>
 <p>Mas esse é assunto para outro post.</p>
 
@@ -214,11 +152,9 @@ MinhaPropriedade (obj) = 42
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20post%20anterior%20falamos%20como%20a%20passagem%20de%20um%20endere%c3%a7o%20de%20uma%20struct%20consegue%20nos%20passar%20o%20contexto%20de%20um...%20http%3a%2f%2fwww.caloni.com.br%2fclasse-objeto-contexto-metodo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

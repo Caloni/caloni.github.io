@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-06-03T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,80 +139,12 @@
           <div class="content">
             
               <p>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para reforma, pois ela é extremamente error-prone e não-intuitiva. Porém, se a printf é não-intuitiva, o que dizer &lt; &lt; daqueles &laquo; sinais &laquo; de &laquo; flechinhas apontando para cout? Bem melhor, não?</p>
-<pre><code>#include &lt;iostream&gt;
-
-int main()
-{
-    int x = 0x00000001;
-    int y = 4;
-    int z = x &lt;&lt; y; // isso desloca 4 bits para a &quot;esquerda&quot;
-    std::cout &lt;&lt; z // WHAT??
-        &lt;&lt; &quot;\nestranho...&quot; &lt;&lt; std::endl; // WHAT^^2!?!?!?!??!?!
-}
-</code></pre>
 <p>A resposta é, pra variar, depende. Se você combinar com seu cérebro que o operador de shift que você aprendeu em C para cout não tem a mesma semântica, OK. No fundo eu acredito que os criadores dessa sobrecarga de operador pensaram sinceramente que hoje em dia quase ninguém conhece os operadores de shift binário, então tudo bem reaproveitá-lo de uma maneira mais miguxa.</p>
 <p>Porém, isso depende da maneira com que você usa streams C++. Vai haver momentos de sua vida que você vai se questionar por que tiraram todo o controle, a elegância e simplicidade de um bom printf, quando os homens eram homens e sabiam configurar jumpers para instalar a nova placa EISA.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;stdlib.h&gt;
-
-int main()
-{
-    int x = 0x00AB3451;
-    printf(&quot;int x = 0x%08X;\n&quot;, x); // nao eh tao legivel, mas da conta do recado
-    std::cout &lt;&lt; &quot;int x = 0x&quot; &lt;&lt; std::hex &lt;&lt; x &lt;&lt; &quot;;&quot; &lt;&lt; std::endl; // pois eh, parece que melhoramos mesmo com streams...
-}
-</code></pre>
 <p>A questão dos streams fica mais complicada quando precisamos realizar atividades corriqueiras no código, como retornar uma string formatada, ou até mesmo transformar um inteiro em string.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;sstream&gt; // digam oi para nosso novo amiguinho!
-
-std::string FuncaoCorriqueira(int x, int y)
-{
-    std::ostringstream ss; // credo, que tipo eh esse?
-    ss &lt;&lt; (x + y);
-    return ss.str();
-}
-
-int main()
-{
-    std::cout &lt;&lt; FuncaoCorriqueira(20, 42);
-}
-</code></pre>
 <p>Já pensou termos que criar uma função dessas sempre que quisermos converter números em string? Ou pior, ter que fazer o que fizemos dentro dessa função: declarar um ostringstream (um cout com buffer interno de string), usá-lo como cout e obter seu buffer interno através do método str. Tudo isso para converter um número para string.</p>
 <p>Quando uma tarefa muito comum exige mais de dois passos para ser realizada é de bom tom criarmos algum código reutilizável, certo? Um código que trará de uma vez por todas a solução final!</p>
-<pre><code>#include &lt;sstream&gt;
-
-struct ss
-{
-    template&lt;typename T&gt;
-    ss&amp; operator &lt;&lt; (const T&amp; t)
-    {
-        _ss &lt;&lt; t; 
-        return *this;
-    }
-    
-    operator std::string ()
-    { 
-        return _ss.str();
-    }
-
-    std::ostringstream _ss;
-};
-</code></pre>
 <p>O código acima serve bem ao nosso propósito de formatar strings em uma linha como um cout, mas retornar uma string no lugar. Ele é simples, ele é direto, ele tem defeitos que não vem ao caso (como não suportar endl), mas pode ser usado de maneira&hellip; simples e direta!</p>
-<pre><code>#include &quot;ss.h&quot;
-#include &lt;iostream&gt;
-
-int main()
-{
-    for( int i = 0; i &lt; 5; ++i )
-    {
-        std::string s = ss() &lt;&lt; &quot;Teste numero &quot; &lt;&lt; i;
-        std::cout &lt;&lt; s &lt;&lt; std::endl;
-    }
-}
-</code></pre>
 <p>OK, o código de exemplo foi idiota, mas você pegou a ideia. Tudo que precisamos fazer para reutilizar essa pequena classe é definí-la (ss() resolve) e usá-la. Seu conversor de string retorna o buffer interno de ostringstream para nós como num passe de mágica.</p>
 <p>Obs.: Com certeza deve existir uma centena de bibliotecas que implementam algo do gênero, só que melhor. Essa é a típica fica isolante para continuar trabalhando.</p>
 
@@ -222,11 +154,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Uma%20das%20coisas%20mais%20cretinas%20e%20dif%c3%adceis%20para%20os%20iniciantes%20em%20C%2b%2b%20%c3%a9%20conseguir%20formatar%20strings%20de%20maneira%20f%c3%a1cil%2c%20r%c3%a1pida...%20http%3a%2f%2fwww.caloni.com.br%2fss%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

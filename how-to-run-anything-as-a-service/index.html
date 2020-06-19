@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-27T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,19 +143,9 @@
 <p>An Alex Ionescu article talks about this command line application used to create, initiate and remove services. Even not being the article focus, I found the information pretty useful, since I didn&rsquo;t know such app. Soon some ideas starting to born in my mind:</p>
 <p>&ldquo;What if I used this guy to run notepad?&rdquo;</p>
 <p>Well, the Notepad is the default test victim. Soon, the following line would prove possible to run it in the system account:</p>
-<pre><code>sc create Notepad binpath= &quot;%systemroot%NOTEPAD.EXE&quot; type= interact type= own
-</code></pre>
 <p>However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &ldquo;knows&rdquo; it is now a superpowerful service, the service initialization time is expired and SCM kills the process.</p>
-<pre><code>&gt;net start notepad
-The service is not responding to the control function.
-
-More help is available by typing NET HELPMSG 2186.
-</code></pre>
 <p>As would say my friend Thiago, &ldquo;not good&rdquo;.</p>
 <p>&ldquo;Yet however&rdquo;, SCM doesn&rsquo;t kill the child processes from the service-process. Bug? Feature? Workaround? Whatever it is, it can be used to initiate our beloved msvcmon:</p>
-<pre><code>set binpath=%systemroot%system32cmd.exe /c c:Toolsmsvcmon.exe -tcpip -anyuser -timeout -1
-sc create Msvcmon binpath= &quot;%binpath%&quot; type= interact type= own
-</code></pre>
 <p>Now, when we start Msvcmon service, the process cmd.exe will be create, that on the other hand will run the msvcmon.exe target process. Cmd in this case will only wait for its imminent death.</p>
 
             
@@ -164,11 +154,9 @@ sc create Msvcmon binpath= &quot;%binpath%&quot; type= interact type= own
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/english">english</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/english">english</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=The%20biggest%20advantage%20running%20an%20application%20as%20a%20service%2c%20interactive%20or%20not%2c%20is%20to%20allow%20its%20start%20before%20a%20logon%20be...%20http%3a%2f%2fwww.caloni.com.br%2fhow-to-run-anything-as-a-service%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

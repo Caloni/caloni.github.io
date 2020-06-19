@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-08-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,9 +142,6 @@
 <p>Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o nosso padrão: o SDK é instalado em &ldquo;%programfiles%\Microsoft Platform SDK&rdquo; e o DDK em &ldquo;C:\WINDDK\3790.1830&rdquo;. Para corrigir este pequeno ato relapso eu até poderia reinstalar ambos os aplicativos no local correto, gastanto algumas horas do dia, mas existe uma outra solução mais rápida e simpática chamada de junction.</p>
 <p>Um junction é um link simbólico (symbolic link) de diretório. É praticamente um atalho, com a diferença que ele se comporta exatamente como se fosse o próprio objeto para o qual aponta: qualquer arquivo criado ou apagado usando o junction cria ou apaga um arquivo real no diretório real para o qual ele aponta. Essa característica pode ser tão útil quanto perigosa, por isso devem-se utilizar junctions com cuidado.</p>
 <p>Para criar um junction pode-se usar uma ferramenta disponível no Windows Resource Kit chamada linkd.exe. Porém, para evitar de ter que baixar todo o pacote para usar um único arquivo, existe uma outra ferramenta desenvolvida à parte por Russinovich chamada junction.exe. O comando para criar junctions é bem fácil e direto:</p>
-<pre><code>junction c:\library\mssdk &quot;c:\program files\microsoft platform sdk&quot;
-junction c:\library\ddk c:\winddk
-</code></pre>
 <p>E é isso aí. A partir de agora tanto as pastas originais quanto os junctions criados para elas respondem como se fossem a mesma coisa, porém com paths diferentes.</p>
 <blockquote>
 <p>&ldquo;Neo, sooner or later, you&rsquo;re going to realize, just as I did, that there&rsquo;s a different between knowing the path&hellip; and walking the path&hellip;&rdquo;</p>
@@ -161,11 +158,9 @@ junction c:\library\ddk c:\winddk
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Semana%20passada%20baixei%20uma%20nova%20imagem%20para%20minha%20m%c3%a1quina%20de%20desenvolvimento.%20Esse%20esquema%20do%20pessoal%20da%20engenharia...%20http%3a%2f%2fwww.caloni.com.br%2fjunctions%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

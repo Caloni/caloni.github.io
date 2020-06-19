@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2015-07-28T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,91 +140,17 @@
             
               <p>Quando se mexe com C++ em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de um binário saber quais os fontes envolvidos em sua construção, a não ser que você os amarre através de um sistema automatizado de build onde todos os binários devem ser obrigatoriamente compilados (e suas dependências, claro).</p>
 <p>Porém, há maneiras mais descentralizadas de se trabalhar. Alguém poderia simplesmente colocar a versão em cada CPP e atualizá-la, assim como comentários de histórico, toda vez que alguma mudança for feita:</p>
-<pre><code>/** Estou começando esse meu CPP.
-*
-* @desc Esse CPP fará mágicas nunca antes tentadas,
-* e portanto tende a ser perigoso para os padawans
-* mais chegados em um coletor de lixo.
-*
-* @version 0.0.1
-*
-* @remark Estou usando Version Semantics logo acima.
-*/
-</code></pre>
 <p>OK, esse já é um modelo interessante, embora totalmente descartável se você já usa um sistema de build atrelado a um controle de fonte, já que você automaticamente já terá um número mágico para relacionar seus binários: o revno de seu commit (ou seus commits, no caso de mais de um repositório).</p>
 <p>Uma versão um pouco mais&hellip; &ldquo;binária&rdquo;, seria inserir uma string no próprio fonte com essa versão, e talvez até o nome de seu módulo/lib/etc:</p>
 <p>static const char* LIBVERSION = &ldquo;minhalib 0.0.1&rdquo;;</p>
 <p>Dessa forma, por pior que seja a situação do controle de seus binários, sempre haverá a possibilidade de procurar a string lá dentro.</p>
 <p>Ops, esqueci que nesses compiladores modernos o que você não usa não será incluído no binário final. Isso quer dizer que se quisermos que essas strings de identificação de dependências apareça no binário compilado precisamos pelo menos dar a impressão de que ele esteja sendo usado:</p>
-<pre><code>class Using
-{
-public:
-    Using(const char* name)
-    {
-        static const char* st_UsingCollection = name;
-    }
-};
-
-static const Using st_Using(&quot;using minhalib 0.0.1&quot;);
-</code></pre>
 <p>Agora uma variável estática do módulo deverá ser inicializada como um objeto da classe Using e irá jogar em uma variável estática dentro do construtor. Se ela será usada fica a dúvida do compilador, que deixa tudo como está. Ou seja, ganhamos nossa string no binário:</p>
-<pre><code>#include &quot;Using.h&quot;
-
-static const Using st_Using(&quot;using minhalib 0.0.1&quot;);
-
-int main()
-{
-}
-</code></pre>
 <p>Uma solução mais genérica pode ser aplicada utilizando as famigeradas macros e&hellip;</p>
 <p>O quê?!?!?!??! VOCÊ DISSE MACROS?!???!? TÁ MALUCO??!??!</p>
 <p>Sim. Macros. São inofensivas se você usar direito.</p>
 <p>E se reclamar vai ter goto.</p>
-<pre><code>// Using.h
-#pragma once 
-#define USING_FILE(version) static const Using st_Using ## __LINE__(&quot;using file &quot; __FILE__ &quot; &quot; version)
-#define USING_CLASS(name, version) static const Using st_Using ## __LINE__(&quot;using class &quot; #name &quot; &quot; version)
-#define USING_LIB(name, version) static const Using st_Using ## __LINE__(&quot;using lib &quot; #name &quot; &quot; version)
-#define USING_FUNCTION(version) static const Using st_Using ## __LINE__(&quot;using function &quot; __FUNCTION__ &quot; &quot; version)
-
-class Using
-{
-public:
-    Using(const char* name)
-    {
-        static const char* st_UsingCollection = name;
-    }
-};
-</code></pre>
 <p>A ideia é que qualquer pedaço de código, seja um conjunto de CPPs que você chama de LIB, ou um CPP que você compila em diferentes projetos (talvez em cópias diferentes ainda sendo usadas), ou até aquela função-chave, ou classe-chave. Na verdade, quando eu digo pedaço de código, é pedaço mesmo. Está livre para você imaginar e rotular o que quiser. Depois você consegue dar uma geral no resultado:</p>
-<pre><code>// File1.cpp
-#include &quot;Using.h&quot;
-
-USING_LIB(extralib, &quot;0.0.1&quot;);
-
-void ImportantFunction()
-{
-    USING_FUNCTION(&quot;0.3.1&quot;);
-}
-
-// File2.cpp
-#include &quot;Using.h&quot;
-
-USING_FILE(&quot;0.0.1&quot;);
-
-// File3.cpp
-#include &quot;Using.h&quot;
-
-USING_CLASS(ImportantClass, &quot;1.3.4&quot;);
-class ImportantClass
-{
-public:
-};
-
-#include &quot;Using.h&quot;
-
-USING_LIB(lib1, &quot;0.0.1&quot;);
-</code></pre>
 <p>Com esse simples mecanismo que não gasta mais do que algumas chamadas de assembly no início da lib (antes do main) e o espaço ocupado na memória pelas strings somadas (menos de 1KB, provavelmente) você tem em suas mãos uma poderosa ferramenta de análise de como os binários estão sendo gerados pela sua equipe remota, ou por qual configuração foi usada na máquina de build para gerar aquela DLL com aquele problema antigo, ou porque algo que funcionava parou de funcionar e nada foi mexido (isso nunca acontece, não é mesmo?).</p>
 <p>O código dessa brincadeira está no meu repositório de samples do GitHub.</p>
 
@@ -234,11 +160,9 @@ USING_LIB(lib1, &quot;0.0.1&quot;);
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20se%20mexe%20com%20C%2b%2b%20em%20m%c3%baltiplos%20fontes%20logo%20vem%20aquela%20bagun%c3%a7a%20do%20versionamento%20e%20do%20compartilhamento%20de%20c%c3%b3digo....%20http%3a%2f%2fwww.caloni.com.br%2fvoce-sabe-o-que-esta-usando-no-seu-codigo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

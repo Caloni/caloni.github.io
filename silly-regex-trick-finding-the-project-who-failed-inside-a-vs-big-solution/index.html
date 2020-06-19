@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-02-07T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,18 +142,7 @@
 <p>Let&rsquo;s say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?</p>
 <p>Note that you need to enable &ldquo;Regular Expressions&rdquo; option in the Find Dialog (not shown here).</p>
 <p>What I&rsquo;m saying inside this regex is &ldquo;find the first number different from zero followed by a space and the letters err&rdquo;. This lead us to the first project who has at least one error:</p>
-<pre><code>------ Build started: Project: FailedProj, Configuration: Release Win32 ------
-Compiling...
-stdafx.cpp
-Compiling...
-FailedProj.cpp
-.FailedProj.cpp(2477) : error C2039: 'Blablabla' : is not a member of 'IBlabla'
-Build log was saved at &quot;file://c:Projects...ReleaseBuildLog.htm&quot;
-FailedProj - 2 error(s), 0 warning(s)
-</code></pre>
 <p>If you think &ldquo;what about when a project generates more than 9 errors? the regex wouldn&rsquo;t be able to catch this case&rdquo;, well, you&rsquo;re right. Anyway, that&rsquo;s the quicker form to search for the unsuccessful project inside a big solution. A more complex yet complete regex would be:</p>
-<pre><code>[1-9][0-9]* err
-</code></pre>
 <p>For me, the first version is enough. It is faster to type, simpler to catch and solves my problem. I hope it can solve yours =)</p>
 
             
@@ -162,11 +151,9 @@ FailedProj - 2 error(s), 0 warning(s)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=I%20know%20what%20you%20going%20to%20think%20about%20this%20one%3a%20%26ldquo%3bsilly%20trick%26rdquo%3b.%20That%26rsquo%3bs%20why%20I%20just%20put%20it%20in%20the%20title....%20http%3a%2f%2fwww.caloni.com.br%2fsilly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

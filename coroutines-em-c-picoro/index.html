@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2019-05-08T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -150,41 +150,6 @@
 <p>A linguagem C já implementa troca de contexto através das funções padrão setjmp e longjmp. Há um tipo dependente de arquitetura, jmpbuf, que é usado para guardar o contexto. O salto é feito no estilo da função fork do Unix, ou seja, não há inclusão de mais nenhuma sintaxe diferente do usual: é um if que retorna 0 (contexto principal) ou não-0 (estamos em outro contexto).</p>
 <p>O picoro organiza tudo isso em torno de uma lista ligada. Aliás, de duas listas ligadas: running e idle, onde o head de cada uma delas é usado para verificar se há corrotinas paradas ou em execução. Há algumas regras básicas para que tudo funcione. Por exemplo, uma corrotina que já foi executada até o final ou que está bloqueada pela chamada de resume não pode ser posta para rodar.</p>
 <p>Vamos começar com um exemplo simples: apenas um corrotina que recebe um inteiro e incrementa três vezes. A cada vez que ele incrementa ele devolve o controle de execução via yield. O main cria três dessas corrotinas e dá resume em cada uma delas três vezes, finalizando a execução de todas. Ao final, o counter final é de 9.</p>
-<pre><code>#include &quot;..\picoro\picoro.h&quot;
-#include &lt;stdio.h&gt;
-
-void* mycoroutine(void* arg)
-{
-    int* counter = (int*) arg;
-    (*counter) += 1;
-    yield(arg);
-    (*counter) += 1;
-    yield(arg);
-    (*counter) += 1;
-    return arg;
-}
-
-int main()
-{
-    int counter = 0;
-    int i;
-    coro coroutines[3];
-    int maxi = sizeof(coroutines) / sizeof(coro);
-
-    for (i = 0; i &lt; maxi; ++i)
-        coroutines[i] = coroutine(mycoroutine);
-
-    for (i = 0; i &lt; maxi; ++i)
-        resume(coroutines[i], &amp;counter);
-    for (i = 0; i &lt; maxi; ++i)
-        resume(coroutines[i], &amp;counter);
-    for (i = 0; i &lt; maxi; ++i)
-        resume(coroutines[i], &amp;counter);
-
-    printf(&quot;final counter: %d\n&quot;, counter);
-    return 0;
-}
-</code></pre>
 <p>É importante observar que o uso de troca de contexto pode facilmente consumir a pilha, pois ela está sendo compartilhada com muitas funções em paralelo. Para reservar espaço a <code>coroutinestart</code> aloca um array de 16 KB (fixo). Esses detalhes de implementação podem ser alterados, pois a biblioteca é tão mínima e simples de entender que construir qualquer coisa em cima dela é trivial.</p>
 
             
@@ -193,11 +158,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Tantas%20linguagens%20hoje%20em%20dia%20tentando%20implementar%20a%20abstra%c3%a7%c3%a3o%20de%20corrotinas%20e%20inserindo%20mais%20camadas%20de%20abstra%c3%a7%c3%a3o...%20http%3a%2f%2fwww.caloni.com.br%2fcoroutines-em-c-picoro%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

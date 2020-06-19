@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2020-06-18T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,61 +142,8 @@
 <p>A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação &ldquo;%s&rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda. Mas o que é direita e esquerda se o tamanho usado pela impressão vai ser exatamente o tamanho da string? Aí é que entra o especificador de tamanho, logo após o opcional sinal de menos e antes do s que determina o tipo string. Dessa forma a string de formatação final para uma string variável alinhada à esquerda em uma coluna de trinta caracteres de tamanho seria &ldquo;%-30s&rdquo;.</p>
 <p>Porém, existe um problema com essa abordagem: a string variável pode ter mais de trinta caracteres. Nesse caso existe mais uma opção &ldquo;escondida&rdquo; do printf, que é especificar esse trinta em um argumento passado junto dos valores. Para isso basta trocar o número por asterisco e passar o tamanho como se passa qualquer outro valor à função, seguindo a ordem de recebimento. Por exemplo, um printf(&quot;%-30s&rdquo;, &ldquo;minha_string&rdquo;) poderia virar printf(&quot;%-*s&rdquo;, 30, &ldquo;minha_string&rdquo;). Note que agora o tamanho trinta não está mais fixo no código e pode ser uma variável inteira.</p>
 <p>Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um controle de fonte e imprime as duas no final, alinhando o nome das branches à esquerda e o número de commits de cada uma à direita, incluindo um header.</p>
-<pre><code>struct GitBranches {
-    char name[50];
-    int commits;
-};
-
-void printf_string_align_variable_size()
-{
-    struct GitBranches branches[2];
-    char* cr;
-    size_t len1, len2, maxlen;
-
-    printf(&quot;master branch: &quot;);
-    fgets(branches[0].name, sizeof(branches[0].name), stdin);
-    if (cr = strrchr(branches[0].name, '\n'))
-        *cr = 0;
-    printf(&quot;number of commits: &quot;);
-    scanf(&quot;%d&quot;, &amp;branches[0].commits);
-    len1 = strlen(branches[0].name);
-
-    clean_stdin_buffer();
-
-    printf(&quot;slave branch: &quot;);
-    fgets(branches[1].name, sizeof(branches[1].name), stdin);
-    if (cr = strrchr(branches[1].name, '\n'))
-        *cr = 0;
-    printf(&quot;number of commits: &quot;);
-    scanf(&quot;%d&quot;, &amp;branches[1].commits);
-    len2 = strlen(branches[1].name);
-
-    maxlen = max(len1, len2);
-    printf(&quot;\n%-*s %s\n&quot;, maxlen, &quot;branches&quot;, &quot;commits&quot;);
-    printf(&quot;%-*s %d\n&quot;, maxlen, branches[0].name, branches[0].commits);
-    printf(&quot;%-*s %d\n&quot;, maxlen, branches[1].name, branches[1].commits);
-}
-</code></pre>
 <p>Executando com nomes pequenos de branches essa será a saída formatada:</p>
-<pre><code>master branch: main
-number of commits: 10
-slave branch: secondary
-number of commits: 30
-
-branches  commits
-main      10
-secondary 30
-</code></pre>
 <p>Executando com nomes maiores de branches o alinhamento ainda é respeitado:</p>
-<pre><code>master branch: small_commits_matter
-number of commits: 2
-slave branch: anti_malloquist
-number of commits: 42
-
-branches             commits
-small_commits_matter 2
-anti_malloquist      42
-</code></pre>
 <p>É assim que o printf resolve esse tipo de problema de saída formatada: de maneira simples e elegante, sem inventar moda nem querer &ldquo;revolucionar&rdquo; a computação.</p>
 
             
@@ -205,20 +152,9 @@ anti_malloquist      42
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/ccpp">ccpp</a> 
     
-        
-        
-        
-            <a href="/code/printf.c" style="text-decoration: underline;">printf()</a>
-        
-        
-        
-        <a href="https://github.com/Caloni/blog/blob/master/data/post/printf.toml" style="text-decoration: underline;">references</a>
-    
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/ccpp">ccpp</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Entre%20os%20segredos%20escondidos%20das%20fun%c3%a7%c3%b5es%20b%c3%a1sicas%20da%20lib%20padr%c3%a3o%20da%20linguagem%20C%20o%20printf%20e%20o%20scanf%20lideram%20o%20ranking.%20O...%20http%3a%2f%2fwww.caloni.com.br%2fprintf%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

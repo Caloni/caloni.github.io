@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-12-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,9 +140,6 @@
             
               <p>Algumas coisas em C parecem tão simples na programação do dia-a-dia que em alguns momentos podem existir situações confusas e misteriosas. O uso obscuro do operador sizeof, por exemplo, pode dar margens a interpretações erradas a respeito do que está acontecendo por baixo dos panos. Apesar do padrão ter sido elaborado para tentar tornar a linguagem uma coisa intuitiva e de fácil dedução, isso não acontece todas as vezes.</p>
 <p>Vamos tomar, por exemplo, o seguinte minicódigo:</p>
-<pre><code>size_t len = sizeof(&quot;A simple string&quot;);
-memcpy(buf, &quot;A simple string&quot;, len);
-</code></pre>
 <p>A pergunta ingênua: quantos bytes são copiados para buf?</p>
 <p>A resposta ingênua: er&hellip; o tamanho de &ldquo;A simple string&rdquo;?</p>
 <p>Agora vamos supor que você é um pouco mais esperto e começa a pensar: &ldquo;mas, peraí, estou passando na realidade um ponteiro para sizeof, o que quer dizer que, se meus cálculos estiverem corretos, e estivermos em uma plataforma de 32 bits, sizeof deve retornar 4, o que quer dizer que acabei de achar um bug escabroso, uhuu!&quot;.</p>
@@ -154,16 +151,7 @@ memcpy(buf, &quot;A simple string&quot;, len);
 <p>A string literal is a sequence of characters (as defined in 2.13.2) surrounded by double quotes, optionally beginning with the letter L, as in &ldquo;&hellip;&rdquo; or L&rdquo;&hellip;&quot;. (&hellip;) An ordinary string literal has type &ldquo;array of n const char&rdquo; and static storage duration (&hellip;).</p>
 <p>Os grifos são meus, para demonstrar que o operador sizeof irá retornar o número de bytes baseado no tipo do operando, e que o tipo de uma string literal é de array de caracteres com o tamanho justo para caber a string.</p>
 <p>Bem, todos sabemos o resultado das linhas abaixo:</p>
-<pre><code>char charArray[100];
-size_t len = sizeof(charArray);
-</code></pre>
 <p>Nesse caso é simples de observar que o operador sizeof irá retornar 100, que é o número em bytes para abrigar o tipo do operando, que é de &ldquo;array de 100 caracteres&rdquo;. Podemos, então, imaginar que a nossa idiomática expressão do início é no fundo um resumo das linhas que se seguem.</p>
-<pre><code>...
-static char aSimpleString[] = &quot;A simple string&quot;;
-...
-size_t len = sizeof(aSimpleString);
-memcpy(buf, aSimpleString, len); // obs: dependente da implementação
-</code></pre>
 <p>Ou seja, o tipo de nossa string é na verdade de array estático de caracteres, como se uma variável tivesse sido definida anteriormente com o conteúdo da string, que deve estar em algum lugar da memória do programa. Visto dessa forma fica bem mais simples de entender o que acontece na versão resumida.</p>
 <p>O mais encorajador desse problema do sizeof é que a resposta ingênua estava certa, ou seja, pelo menos dessa vez, o padrão conseguiu através de suas regras seguir a intuição do programador.</p>
 
@@ -173,11 +161,9 @@ memcpy(buf, aSimpleString, len); // obs: dependente da implementação
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Algumas%20coisas%20em%20C%20parecem%20t%c3%a3o%20simples%20na%20programa%c3%a7%c3%a3o%20do%20dia-a-dia%20que%20em%20alguns%20momentos%20podem%20existir%20situa%c3%a7%c3%b5es...%20http%3a%2f%2fwww.caloni.com.br%2fsizeof-de-novo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

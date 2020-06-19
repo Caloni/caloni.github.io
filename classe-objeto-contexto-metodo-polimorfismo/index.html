@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-01-12T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,129 +139,8 @@
           <div class="content">
             
               <p>No post anterior implementamos &ldquo;métodos&rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).</p>
-<pre><code>ClasseCpp obj;
-obj.Metodo(); // passando this implicitamente
-
-ClasseC obj;
-obj.Metodo = ClasseC_Metodo;
-obj.Metodo(&amp;obj); // passando this explicitamente
-</code></pre>
 <p>Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém. No entanto, quando há pelo menos um método virtual, surge a necessidade de se criar a famigerada vtable, ou seja, justamente uma tabela de ponteiros de função, que dependem da classe instanciada (base ou algumas das derivadas). Se uma classe derivada sobrescreve um método de alguma classe base, é o endereço desse método que irá existir na vtable. Já vimos isso há muito tempo atrás escovando os bits da vtable direto no assembly e na pilha.</p>
-<pre><code>#include &lt;iostream&gt;
-
-class MinhaClasse
-{
-    public:
-        void MeuMetodo()
-        {
-            MeuOutroMetodo();
-        }
-        virtual void MeuOutroMetodo()
-        {
-            MinhaPropriedade = 42;
-        }
-        int MinhaPropriedade;
-};
-
-class MinhaClasseVersao75 : public MinhaClasse
-{
-    public:
-        virtual void MeuOutroMetodo()
-        {
-            MinhaPropriedade = 75;
-        }
-};
-
-int main()
-{
-    MinhaClasse obj;
-    MinhaClasseVersao75 obj2;
-
-    obj.MeuMetodo();
-    obj2.MeuMetodo();
-
-    std::cout &lt;&lt; &quot;MinhaPropriedade (obj) = &quot; &lt;&lt; obj.MinhaPropriedade &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;MinhaPropriedade (obj2) = &quot; &lt;&lt; obj2.MinhaPropriedade &lt;&lt; std::endl;
-}
-
-layout:
-
-  C VTable      D VTable
- -----------   -----------
-| C::method | | D::method |
-|           | |           |
-|     *     | |     *     |
-|           | |           |
- -----------   -----------
-      ^             ^
-      |             |
- -----------   -----------
-|  vtable   | |  vtable   |
-|           | |           |
-|     C     | |     D     |
-|           | |           |
- -----------   -----------
-     ^              ^
-     |              |
-C c; -              |
-D d; ----------------
-</code></pre>
 <p>Como você deve imaginar, é possível também fazer isso em C. Basta mudar os endereços das variáveis do tipo ponteiro de função que estão na struct usada como contexto. Para ficar o mais próximo possível do &ldquo;modo C++&rdquo; de fazer polimorfirmo, podemos escrever hardcoded a tal vtable para os diferentes tipos de &ldquo;classe&rdquo;:</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-struct MinhaVTable;
-
-struct MinhaClasse
-{
-    const MinhaVTable* VTable;
-    int MinhaPropriedade;
-};
-
-struct MinhaVTable
-{
-    void (*MeuMetodo)(MinhaClasse*);
-    void (*MeuOutroMetodo)(MinhaClasse*);
-};
-
-void MinhaClasse_MeuMetodo(MinhaClasse* pThis)
-{
-    pThis-&gt;VTable-&gt;MeuOutroMetodo(pThis);
-}
-
-void MinhaClasse_MeuOutroMetodo(MinhaClasse* pThis)
-{
-    pThis-&gt;MinhaPropriedade = 42;
-}
-
-void MinhaClasse_MeuOutroMetodoVersao75(MinhaClasse* pThis)
-{
-    pThis-&gt;MinhaPropriedade = 75;
-}
-
-static const MinhaVTable g_minhaVTableOriginal = { MinhaClasse_MeuMetodo, MinhaClasse_MeuOutroMetodo };
-
-static const MinhaVTable g_minhaVTableVersao75 = { MinhaClasse_MeuMetodo, MinhaClasse_MeuOutroMetodoVersao75 };
-
-int main()
-{
-    MinhaClasse obj = { &amp;g_minhaVTableOriginal };
-    MinhaClasse obj2 = { &amp;g_minhaVTableVersao75 };
-
-    obj.VTable-&gt;MeuMetodo(&amp;obj);
-    obj2.VTable-&gt;MeuMetodo(&amp;obj2);
-
-    printf(&quot;MinhaPropriedade (obj) = %d\n&quot;, obj.MinhaPropriedade);
-    printf(&quot;MinhaPropriedade (obj2) = %d\n&quot;, obj2.MinhaPropriedade);
-}
-
-output:
-
-&gt;cl /Zi cpp.cpp
-&gt;/out:cpp.exe
-&gt;cpp
-MinhaPropriedade (obj) = 42
-MinhaPropriedade (obj2) = 75
-</code></pre>
 <p>A versão C ainda tem a vantagem de não precisar de uma vtable const (embora seja adequado em situações normais de temperatura e pressão). Os &ldquo;métodos&rdquo; poderiam mudar caso algum estado mudasse, alguma exceção fosse disparada, mantendo o mesmo contexto, mas um comportamento (vtable) diferente. Quem utiliza muito essa estratégia é o kernel do Windows, que mexe com estruturas que contém não apenas listas ligadas genéricas, mas funções de callback que não apenas o código da Microsoft precisa chamar, mas os próprios drivers de terceiros que se preocupam com bom comportamento e guidelines que tornam o SO rodando perfeitamente.</p>
 <p>O importante deste artigo é demonstrar como conceitos aparentemente complicados ou escondidos de uma linguagem como C++ podem ser compreendidos completamente utilizando apenas linguagem de alto nível no bom e velho C. Essa estratégia de descer camadas de abstração, como verá, funciona para linguagens de mais alto nível, como C# ou Java, pois ambas são implementadas em linguagens como C++. No fundo, engenharia de software é um universo multi-camadas transitando pela última camada que conhecemos &ndash; a física. Pelo menos a última camada que ainda conhecemos.</p>
 
@@ -271,11 +150,9 @@ MinhaPropriedade (obj2) = 75
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20post%20anterior%20implementamos%20%26ldquo%3bm%c3%a9todos%26rdquo%3b%20em%20C%20usando%20ponteiros%20de%20fun%c3%a7%c3%a3o%20dentro%20de%20structs%20que%20eram%20passadas...%20http%3a%2f%2fwww.caloni.com.br%2fclasse-objeto-contexto-metodo-polimorfismo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

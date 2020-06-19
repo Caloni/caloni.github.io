@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-06-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -147,46 +147,10 @@
 <p>Aprender a usar Doxygen é muito fácil. Ele possui uma ajuda com vários exemplos com os quais podemos começar a programar um código auto-documentado.</p>
 <p>Por ser uma ferramenta bem flexível, são permitidos inúmeros formatos para se auto-documentar o código. Vou descrever como eu faço, mas pode ser que outro formato lhe agrade mais. Para conhecê-los, dê uma olhada no manual.</p>
 <p>A primeira coisa a saber sobre comentários de documentação é que eles devem vir sempre ANTES do elemento que estamos comentando. Por exemplo, uma classe:</p>
-<pre><code>/** Nova classe de exemplo
-*
-* Essa classe é um exemplo de como utilizar o Doxygen
-*/
-class ClasseDeExemplo
-{
-   // ...
-};
-</code></pre>
 <p>Note que o comentário inicia com um duplo asterisco &ldquo;/&quot;. Isso indica ao Doxygen que vem documentação por aí.</p>
 <p>Observe que seria mais simples que o Doxygen pegasse todo e qualquer comentário e transformasse em documentação. No entanto, existem comentários que não devem ser publicados, pois são muito específicos do funcionamento interno da função. Dessa forma o programa-documentador lhe dá a liberdade de fazer comentários documentáveis e não-documentáveis.</p>
 <p>Também existe um outro formato bem popular, usado pelo pessoal do Java, que são os comentários que se iniciam com três barras:</p>
-<pre><code>///
-/// Nova classe de exemplo
-///
-/// Essa classe é um exemplo de como utilizar o Doxygen
-/// E esse comentário é equivalente ao anterior
-///
-class ClasseDeExemplo
-{
-   // ...
-};
-</code></pre>
 <p>Além desse estilo de comentário, existem campos-chave que podemos colocar. Para definir um campo-chave, uma forma válida é usar o arroba seguido do seu nome, e a descrição. Eis um exemplo cheio deles:</p>
-<pre><code>/** @brief Função de exemplo
-*
-* Essa função tem por objetivo exemplificar o uso do Doxygen
-*
-* @param firstParam Serve como primeiro parâmetro da função
-* @param[out] anotherParam Esse é outro parâmetro que recebemos
-*
-* @return Se der erro, retorna -1. Se der tudo certo, 0.
-*
-* @remarks Essa função não pode ser chamada antes de ChamaEuPrimeiro.
-*/
-int FuncaoDeExemplo(int firstParam, int anotherParam)
-{
-   // ...
-}
-</code></pre>
 <p>Vejamos:</p>
 <ul>
 <li>
@@ -213,11 +177,9 @@ int FuncaoDeExemplo(int firstParam, int anotherParam)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Coment%c3%a1rios%20s%c3%a3o%20essenciais%20em%20um%20c%c3%b3digo-fonte%20bem%20feito.%20O%20c%c3%b3digo%20pode%20at%c3%a9%20fazer%20milagres%2c%20salvar%20vidas%20e%20multiplicar...%20http%3a%2f%2fwww.caloni.com.br%2fprimeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

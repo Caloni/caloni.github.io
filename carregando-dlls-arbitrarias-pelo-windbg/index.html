@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-11-23T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -147,48 +147,9 @@
 <p>Por um motivo desconhecido a terceira opção me pareceu mais interessante =).</p>
 <p>A seqüência mais simples para carregar uma DLL através do WinDbg é chamar kernel32!LoadLibrary através de um código digitado na hora, o que podemos chamar de live assembly (algo como &ldquo;assembly ao vivo&rdquo;). Porém, essa simples seqüência contém um pouco mais que uma dúzia de passos.</p>
 <p>Primeiro devemos parar a execução, voltar para um ponto seguro do código e armazenar o local seguro em um registrador temporário (o WinDbg tem 20 deles, $t0 até $t19).</p>
-<pre><code>&lt;Ctrl + Break&gt; $$ pára a execução em um ponto qualquer
-gu $$ volta para função chamadora para evitar perda do estado dos registradores
-r$t0 = @$ip $$ armazena ponteiro de instrução em registrador temporário
-
-Diga para o WinDbg o que vem por aí
-
-Note que usamos dois pseudo-registradores ($t0, o primeiro registrador temporário do WinDbg, e $ip, o registrador que aponta para a próxima instrução que será executada), mas só um deles possue o prefixo '@'. Esse prefixo diz ao WinDbg que o que segue é um registrador. Como o comando r já é usado com registradores, é desnecessário usá-lo para $t0. Se usarmos sintaxe C++ esse prefixo é obrigatório, enquanto na sintaxe MASM não. Porém, se não usarmos esse prefixo em registradores não-comuns (como é o caso para $ip) o WinDbg primeiro tentará interpretar o texto como um número hexadecimal. Ao falhar, tentará interpretar como um símbolo. Ao falhar novamente, ele finalmente irá tratá-lo como um registrador. A diferença na velocidade faz valer a pena digitar um caractere a mais. Faça a prova!
-</code></pre>
 <p>Parada a execução em um local seguro e armazenado o IP, em seguida podemos alocar memória para entrar o código em assembly da chamada, além do seu parâmetro, no caso o path da DLL a ser carregada.</p>
-<pre><code>.dvalloc 0x1000 $$ alocamos memória para entrar o assembly e o parâmetro da chamada
-Allocated 1000 bytes starting at 00280000
-eza 0x00280000 &quot;C:tempMinhaDllInvasora.dll&quot; $$ escreve no início da memória o path da DLL
-a 0x0280000+0x100 $$ agora vamos codificar em live-assembly
-00280100 push 0x00280000 $$ empilha o parâmetro (path da DLL)
-push 0x00280000
-00280105 call kernel32!LoadLibraryA $$ chama LoadLibraryA
-call kernel32!LoadLibraryA
-0028010a int 3 $$ um breakpoint para tornar as coisas mais fáceis
-int 3
-0028010b $$ um &lt;enter&gt; em uma linha vazia termina a edição do live-assembly
-0:000&gt; $$ estamos de volta no prompt do WinDbg
-</code></pre>
 <p>Note que estamos usando a versão ANSI do LoadLibrary, aquela que termina com A. Sendo assim, escrevemos uma string ANSI como parâmetro usando o comando eza.</p>
 <p>O último passo é chamar a função previamente &ldquo;editada&rdquo;. Para isso basta mudarmos o endereço da próxima instrução para o começo de nosso código e mandar executar, pois ele irá parar automaticamente no breakpoint que definimos &ldquo;na mão&rdquo;, o int 3 digitado. Após a execução devemos voltar o ponteiro usando nosso backup no registrador $t0.</p>
-<pre><code>0:000&gt; r$ip = 0x00280000+0x100
-0:000&gt; g
-ModLoad: 10000000 10045000   C:tempMinhaDllInvasora.dll
-ModLoad: 76390000 763ad000   C:WINDOWSsystem32IMM32.DLL
-(398.d90): Break instruction exception - code 80000003 (first chance)
-eax=10000000 ebx=7ffdd000 ecx=7c801bf6 edx=000a0608 esi=001a1f48 edi=001a1eb4
-eip=0028010a esp=0007fb24 ebp=0007fc94 iopl=0         nv up ei pl zr na pe nc
-cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
-0028010a cc              int     3 $$ esse é o breakpoint que digitamos no código
-0:000&gt; r$ip = $t0 $$ mudando o IP para o ponto original
-*** WARNING: Unable to verify checksum for C:tempMinhaDllInvasora.dll
-0:000&gt; g
-ModLoad: 5cb70000 5cb96000   C:WINDOWSsystem32ShimEng.dll
-ModLoad: 6f880000 6fa4a000   C:WINDOWSAppPatchAcGenral.DLL
-ModLoad: 76b40000 76b6d000   C:WINDOWSsystem32WINMM.dll
-ModLoad: 774e0000 7761d000   C:WINDOWSsystem32ole32.dll
-...
-</code></pre>
 <p>Como pudemos ver pela saída, a DLL foi carregada e agora temos a possibilidade de chamar qualquer código que lá esteja. Como fazer isso? Provavelmente usando o mesmo método aqui aplicado. Live-assembly é o que manda 8).</p>
 
             
@@ -197,11 +158,9 @@ ModLoad: 774e0000 7761d000   C:WINDOWSsystem32ole32.dll
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Durante%20meus%20testes%20para%20a%20corre%c3%a7%c3%a3o%20de%20um%20bug%20me%20deparei%20com%20a%20necessidade%20de%20carregar%20uma%20DLL%20desenvolvida%20por%20mim%20no...%20http%3a%2f%2fwww.caloni.com.br%2fcarregando-dlls-arbitrarias-pelo-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

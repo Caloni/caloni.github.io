@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-08-23T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -158,113 +158,8 @@
 </li>
 </ul>
 <p>No caso de se conectar em um processo já existente, é chamada a função da API DebugActiveProcess. A partir dessa chamada, se retornado sucesso, o processo que depura agora está liberado para ficar chamando continuamente a função API WaitForDebugEvent. E o código se resume a isto:</p>
-<pre><code>void DebugLoop()
-{
-    bool exitLoop = false;
-
-    while( ! exitLoop )
-    {
-        DEBUG_EVENT debugEvt;
-
-        // Wait for some debug event.
-        WaitForDebugEvent(&amp;debugEvt, INFINITE);
-
-        // Let us see what it is about.
-        switch( debugEvt.dwDebugEventCode )
-        {
-            // This one...
-
-            // That one...
-
-            // Process is going out. We get out the loop and go away.
-            case EXIT_PROCESS_DEBUG_EVENT:
-            exitLoop = true;
-            break;
-        }
-
-        // We need to unfreeze the thread who sent the debug event.
-        // Otherwise, it stays frozen forever!
-        ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
-    }
-} 
-</code></pre>
 <p>O detalhe interessante desse processo de comunicação depurador/depurado é que um processo só pode ser depurado por apenas UM depurador. Ou seja, enquanto houver um processo depurando outro, os outros processos só ficam na vontade.</p>
 <p>Partindo desse princípio, podemos imaginar uma proteção baseada nessa exclusividade, criando um processo protetor que conecta no processo protegido e o &ldquo;depura&rdquo;:</p>
-<pre><code>/** @brief Antidebug protection based on DebugPort aquisition.
-* @author Wanderley Caloni (wanderley@caloni.com.br)
-* @date 2007-08
-*/
-#include &lt;windows.h&gt;
-
-/* Every debugger needs a debugging loop. In this loop it catches
-debugging events sent by the operating system.
-*/
-DWORD DebugLoop()
-{
-    DWORD ret = ERROR_SUCCESS;
-    bool exitLoop = false;
-
-    while( ! exitLoop )
-    {
-        DEBUG_EVENT debugEvt;
-
-        WaitForDebugEvent(&amp;debugEvt, INFINITE);
-
-        switch( debugEvt.dwDebugEventCode )
-        {
-            // Process going out. We get out the loop and leave.
-            case EXIT_PROCESS_DEBUG_EVENT:
-            exitLoop = true;
-
-            break;
-        }
-
-        // Necessary, since the current thread is frozen.
-        ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
-    }
-
-    return ret;
-}
-
-/* Attachs to the protected process againt debugging. Actually, we protect it
-againt debugging being its debugger.
-*/
-DWORD AntiAttach(DWORD pid)
-{
-    DWORD ret = ERROR_SUCCESS;
-
-    if( pid )
-    {
-        BOOL dbgActProc;
-
-        dbgActProc = DebugActiveProcess(pid);
-
-        if( dbgActProc )
-            DebugLoop();
-        else
-            ret = GetLastError();
-    }
-    else
-        ret = ERROR_INVALID_HANDLE;
-
-    return ret;
-}
-
-/* In the beginning, God said: 'int main!'
-*/
-int main(int argc, char* argv[])
-{
-    DWORD ret = ERROR_SUCCESS;
-
-    if( argc &gt; 1 )
-    {
-        DWORD pid = atoi(argv[1]);
-        ret = AntiAttach(pid);
-    }
-
-    return (int) ret;
-} 
-</code></pre>
 <p>Os passos para testar o código acima são:</p>
 <ol>
 <li>
@@ -295,11 +190,9 @@ int main(int argc, char* argv[])
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20um%20depurador%20inicia%20um%20processo%20para%20ser%20depurado%20ou%2c%20o%20caso%20abordado%20por%20este%20artigo%2c%20se%20conecta%20em%20um%20processo...%20http%3a%2f%2fwww.caloni.com.br%2fantidebug-ocupando-a-debugport%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2018-07-15T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -148,31 +148,13 @@
 </ul>
 <p>O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:</p>
 <p>Este batch baixa todo o conteúdo do site da Stanford em um único diretório. O processo pode demorar mais ou menos, dependendo da sua banda, mas aqui em casa (50MB) demorou cerca de meia-hora pra mais.</p>
-<pre><code>wget --recursive --domains plato.stanford.edu --page-requisites --no-parent --convert-links --restrict-file-names=windows --no-directories --html-extension https://plato.stanford.edu/contents.html 
-</code></pre>
 <p>Este batch chama dois outros batch, call calibreremovehead.bat e call calibreremovebottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.</p>
-<pre><code>for %%i in (index.html.*.html) do sed -n -i &quot;/BEGIN ARTICLE HTML/,$p&quot; %%i
-
-for %%i in (index.html.*.html) do sed -i &quot;/END ARTICLE HTML/,$d&quot; %%i
-</code></pre>
 <p>Esta batch gera os índices das entradas baseado em seus títulos, e os nomes dos arquivos serão usados para links no TOC do Calibre.</p>
-<pre><code>if exist calibre_entries.txt del calibre_entries.txt
-for %%i in (index.html.*.html) do calibre_title.bat %%i &gt;&gt; calibre_entries.txt
-sed -i -e &quot;s/&lt;em&gt;//&quot; -e &quot;s/&lt;\/em&gt;//&quot; calibre_entries.txt
-</code></pre>
 <p>Algumas entradas possuem o marcador em, que deve ser retirado antes de ordenar os títulos.</p>
-<pre><code>sed -i -e &quot;s/&lt;em&gt;//&quot; -e &quot;s/&lt;\/em&gt;//&quot; calibre_entries.txt
-</code></pre>
 <p>Se não ordenarmos por título o único índice de nosso livro será inútil.</p>
-<pre><code>sort calibre_entries.txt &gt; calibre_entries_sorted.txt
-</code></pre>
 <p>Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado doublekiller.exe, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:</p>
 <p>Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag a, no formato que o Calibre espera:</p>
-<pre><code>sed -e &quot;s/\(^.*\) \(index.*$\)/        &lt;a href=\&quot;\2\&quot;&gt;\1&lt;\/a&gt;&lt;br\/&gt;/&quot; calibre_entries_sorted.txt &gt; calibre_template_entries.html
-</code></pre>
 <p>Por fim, antes de usar o Calibre é necessário juntar os arquivos de template em um arquivo final de TOC, o calibre.html. Ao final desse processo passaremos ao Calibre em si.</p>
-<pre><code>copy /Y calibre_template_begin.html+calibre_template_entries.html+calibre_template_end.html calibre.html
-</code></pre>
 <p>Para realizar este passo basta arrastar ou abrir o arquivo html central que foi criado, e a partir dele iniciar a conversão. Note que após arrastar já será criado um zip com todos os HTMLs relacionados.</p>
 <p>Após abrir pelo Calibre ele insere na biblioteca e é só converter para MOBI (Kindle) ou EPUB (outros leitores) ou qualquer outro formato desejado. A nota final aqui é que como se trata de um arquivo gigantesco (50 MB em HTML zipado, 80 MB em MOBI) é melhor baixar a versão 64 bits do Calibre e ter muita memória RAM. Voilà!</p>
 <p>E por hoje é só. Se tudo der certo você poderá copiar e colar dentro do seu leitor todas as entradas de uma enciclopédia indispensável para quem está estudando filosofia. Enjoy.</p>
@@ -183,20 +165,9 @@ sed -i -e &quot;s/&lt;em&gt;//&quot; -e &quot;s/&lt;\/em&gt;//&quot; calibre_ent
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a>  <a href="/tags/philosophy">philosophy</a> 
     
-        
-        
-            <a href="https://github.com/Caloni/sep_to_kindle" style="text-decoration: underline;">set_to_kindle()</a>
-        
-        
-        
-        
-        <a href="https://github.com/Caloni/blog/blob/master/data/post/stanford-encyclopedia-of-philosophy-para-kindle.toml" style="text-decoration: underline;">references</a>
-    
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>]  [<a href="/tags/philosophy">philosophy</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20enciclop%c3%a9dia%20mais%20completa%20e%20de%20maior%20respeito%20da%20internet%20n%c3%a3o%20%c3%a9%20um%20enciclop%c3%a9dia%20geral%2c%20mas%20uma%20de%20filosofia.%20Est%c3%a1...%20http%3a%2f%2fwww.caloni.com.br%2fstanford-encyclopedia-of-philosophy-para-kindle%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

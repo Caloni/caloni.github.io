@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2019-04-07T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -141,162 +141,10 @@
               <p>Estou viajando e com poucas horas de acesso a um computador, mas os dois primeiros desafios do Code Jam esse ano foram tão simples que sequer precisaram de meia-hora. Isso para um chinês, campeões em campeonatos de programação, deve ser equivalente a cinco minutos com um código C enxuto. Mas estou apenas aprendendo.</p>
 <p>Resuminho: o problema é receber um número e retornar dois números cuja soma seja igual ao primeiro. A única restrição é que nesses números não poderá ter o algarismo quatro.</p>
 <p>Solução: copiar como string o número para o primeiro deles e colocar zero no segundo; sempre que houver a incidência do caractere &lsquo;4&rsquo; trocar por &lsquo;3&rsquo; no primeiro número e &lsquo;1&rsquo; no segundo (ou a soma que lhe convier).</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-void calc(string&amp; N, string&amp; A, string&amp; B)
-{
-  for( size_t i = 0; i &lt; N.size(); ++ i)
-  {
-    if( N[i] == '4' )
-    {
-      A.push_back('3');
-      B.push_back('1');
-    }
-    else
-    {
-      A.push_back(N[i]);
-      B.push_back('0');
-    }
-  }
-}
-
-int main()
-{
-  int T;
-  cin &gt;&gt; T;
-  for( int i = 0; i &lt; T; ++ i)
-  {
-    string N;
-    cin &gt;&gt; N;
-    string A, B;
-    calc(N, A, B);
-    cout &lt;&lt; &quot;Case #&quot; &lt;&lt; i+1 &lt;&lt; &quot;: &quot; &lt;&lt; stoi(A) &lt;&lt; &quot; &quot; &lt;&lt; stoi(B) &lt;&lt; endl;
-  }   
-}
-</code></pre>
 <p>Resuminho: tem que atravessar um labirinto formado por quadrados de N x N começando acima à esquerda saindo abaixo na direita. Enviar uma string com os comandos E ou S (East/South) para sair do labirinto. A pegadinha é não repetir nenhum dos comandos de uma garota que resolveu o labirinto antes.</p>
 <p>Solução: essa pegadinha é o que ironicamente resolve o problema, pois basta inverter os comandos S e E da string recebida como o caminho da garota e ele nunca se repete e sai do mesmo jeito, pois é o labirinto mais fácil do mundo.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-void calc(string&amp; P)
-{
-  for( size_t i = 0; i &lt; P.size(); ++ i)
-  {
-      P[i] = P[i] == 'S' ? 'E' : 'S';
-  }
-}
-
-int main()
-{
-  int T;
-  cin &gt;&gt; T;
-  for( int i = 0; i &lt; T; ++ i)
-  {
-    string N, P;
-    cin &gt;&gt; N &gt;&gt; P;
-    calc(P);
-    cout &lt;&lt; &quot;Case #&quot; &lt;&lt; i+1 &lt;&lt; &quot;: &quot; &lt;&lt; P &lt;&lt; endl;
-  }   
-}
-</code></pre>
 <p>Resuminho: encontrar quais números primos são usados como letras do alfabeto baseado em uma sequência em que o primeiro número é a multiplicação do primo da primeira letra pela segunda, o segundo número é a multiplicação da segunda pela terceira e assim por diante.</p>
 <p>Solução: tentei fazer na força bruta criando o dicionário de primos usado procurando o resto zero das divisões dos números e depois já com o alfabeto montado reproduzir as reproduções. Apesar do sample funcionar devo ter perdido pelo tempo ou um erro que não descobri.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;map&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-void calc(int N, vector&lt;int&gt;&amp;LS, string&amp; LSS)
-{
-    map&lt;int, char&gt; alpha;
-    int first1 = 0, first2 = 0;
-
-    for( int l: LS )
-    {
-        int na = 0;
-
-        for( auto a: alpha)
-        {
-            if( l % a.first == 0 )
-            {
-                na = l / a.first;
-                break;
-            }
-        }
-
-        if( na )
-        {
-            alpha[na] = ' ';
-            continue;
-        }
-
-        for( size_t i = 2; i &lt; N; ++i )
-        {
-            if( l % i == 0 )
-            {
-                int na1 = l / i;
-                int na2 = i;
-                if( first1 == 0 )
-                {
-                    first1 = na1;
-                    first2 = na2;
-                }
-                alpha[na1] = ' ';
-                alpha[na2] = ' ';
-                break;
-            }
-        }
-    }
-
-    const char Alphabet[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
-    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
-    'W', 'X', 'Y', 'Z' };
-
-    size_t pos = 0;
-    for( auto&amp; a: alpha )
-        a.second = Alphabet[pos++];
-
-    int first = LS[1] % first1 == 0 ? first2 : first1;
-    LSS.push_back(alpha[first]);
-
-    for( int i: LS )
-    {
-        int second = i / first;
-        char c = alpha[second];
-        LSS.push_back(c);
-        first = second;
-    }
-}
-
-int main()
-{
-    int T;
-    cin &gt;&gt; T;
-    for( int i = 0; i &lt; T; ++i)
-    {
-        vector&lt;int&gt; LS;
-        int N, L;
-        cin &gt;&gt; N &gt;&gt; L;
-        int l;
-        for( int n = 0; n &lt; L; ++ n)
-        {
-            cin &gt;&gt; l;
-            LS.push_back(l);
-        }
-        string LSS;
-        calc(N, LS, LSS);
-        cout &lt;&lt; &quot;Case #&quot; &lt;&lt; i+1 &lt;&lt; &quot;: &quot; &lt;&lt; LSS &lt;&lt; endl;
-    }
-}   
-</code></pre>
 <p>Resuminho: descobrir quais bits não estão sendo retornados em um echo (ex: manda-se &lsquo;1010&rsquo; e recebe &lsquo;010&rsquo;) com um limite de envios para o servidor (este é um problema interativo).</p>
 <p>Solução: imaginei dividir o envio pelo número de blocos defeituosos para alternar os 0s e 1s e assim ir dividindo pela metade de acordo com as respostas até ter as posições que não estão retornando. Não cheguei a terminar o código, mas a ideia geral era que como o limite de blocos defeituosos era de 15 ou N-1 (N é o número de bits) e o máximo de chutes é 5, imaginei que a divisão de 2 elevado a 5 fosse o limite da solução.</p>
 
@@ -306,11 +154,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/puzzle">puzzle</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/puzzle">puzzle</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Estou%20viajando%20e%20com%20poucas%20horas%20de%20acesso%20a%20um%20computador%2c%20mas%20os%20dois%20primeiros%20desafios%20do%20Code%20Jam%20esse%20ano%20foram...%20http%3a%2f%2fwww.caloni.com.br%2fcode-jam-2019-qualification-round%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

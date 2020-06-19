@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-12-12T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,54 +145,11 @@
 <p>Computadores trabalham muito bem com números. A própria memória só guarda valores numéricos. Porém, se é dessa forma, como conseguimos abrir o Bloco de Notas e digitar algum texto?</p>
 <p>Para entender essa &ldquo;mágica&rdquo; é necessário vir à tona o conceito de representação, um tema que ainda pode dar muito pano pra manga quando estudarmos base numérica. Por enquanto, basta saber que uma representação é um faz-de-conta em que todos concordam com o que for dito. Por exemplo: Faz de conta que a letra &lsquo;A&rsquo; é o número 65. Dessa forma, sempre que for visto o número 65, de agora em diante, será vista a letra &lsquo;A&rsquo; no lugar.</p>
 <p>Existem alguns faz-de-conta que são muito difundidos entre e humanidade informática. Um deles é chamado tabela ASCII (se pronuncia &ldquo;ásqui&rdquo;). É uma forma de todos conseguirem entender os textos de todo mundo. Abaixo podemos ver a representação de todas as letras maiúsculas na codificação ASCII:</p>
-<pre><code>Número  Letra
-======  =====
-65      A
-66      B
-67      C
-68      D
-69      E
-70      F
-71      G
-72      H
-73      I
-74      J
-75      K
-76      L
-77      M
-78      N
-79      O
-80      P
-81      Q
-82      R
-83      S
-84      T
-85      U
-86      V
-87      W
-88      X
-89      Y
-90      Z
-</code></pre>
 <p>Agora, imagine que você digitou o seguinte texto no bloco de notas:</p>
-<pre><code>CASA
-</code></pre>
 <p>Como esse texto é guardado na memória de um computador, se ele só entende números?</p>
 <p>Através da nossa já conhecida tabela ASCII! Na verdade, números são armazenados na memória, mas por representarem as letras &lsquo;C&rsquo;, &lsquo;A&rsquo;, &lsquo;S&rsquo; e &lsquo;A&rsquo;, são traduzidos de volta para o formato texto pelo Bloco de Notas, que conhece o que guardou na memória.</p>
 <p>A técnica de representação pode guardar qualquer coisa na memória como números que serão traduzidos por algum programa que consiga abrir aqueles dados. Dessa forma podemos não só armazenar texto, como imagens, vídeos, páginas web e até mesmo os próprios programas que os abrem!</p>
 <p>Na programação do dia-a-dia, as coisas funcionam da mesma forma. As tão faladas variáveis reservam um espaço de memória para guardar alguma coisa, mas só sabemos o que essa alguma coisa é através do tipo da variável:</p>
-<pre><code>// a variável idade (espaço de memória)
-// pode guardar um número (tipo)&lt;/font&gt;
-int idade; 
-
-// a variável nome (espaço de memória) pode
-// guardar o nome de alguém de até 99 letras (tipo)
-char nome[100]; 
-
-// a variável cad (espaço de memória) pode
-// guardar o cadastro de uma pessoa (tipo)
-Cadastro cad;
-</code></pre>
 <p>Esses elementos, na memória, são um bando de número que, sem os tipos, não possuem significado algum, como podemos ver na depuração do programa abaixo:</p>
 <p>Note que os números não estão aqui representados em decimal, onde se esperaria 35 e 42, pois a representação formal da memória geralmente está no formato hexadecimal, transformando esses números em 0x23 e 0x2a, respectivamente. Para entender essa diferença cabe estudar um pouco sobre base numérica, outro tema básico do programador sólido.</p>
 <p>Nada é bem aprendido se não for apreendido. Algumas tarefas programáticas que podem fixar o conceito de tipo estão listadas abaixo:</p>
@@ -223,11 +180,9 @@ Cadastro cad;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20tipo%20nada%20mais%20%c3%a9%20que%20do%20que%20uma%20forma%20%28%c3%b4%29%20de%20bolo%2c%20que%20molda%20a%20mem%c3%b3ria%20como%20acharmos%20melhor%20mold%c3%a1-la.%20Bom%2c%20para%20isso...%20http%3a%2f%2fwww.caloni.com.br%2fbasico-do-basico-tipos%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

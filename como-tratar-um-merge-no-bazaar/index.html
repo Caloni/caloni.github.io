@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-09T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,272 +139,29 @@
           <div class="content">
             
               <p>Hoje fizemos um merge de duas versões que entraram em conflito em nosso projeto-piloto usando bzr. Isso geralmente ocorre quando alguma coisa mudou no mesmo arquivo em lugares muito próximos um do outro. Veremos um exemplo de código para ter uma idéia de quão fácil é o processo:</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-void InitFunction()
-{
-    printf(&quot;InitFunction&quot;);
-}
-
-void DoAnotherJob()
-{
-    char buf[100] = &quot;&quot;;
-    fgets(buf, sizeof(buf), stdin);
-    printf(&quot;New line: %s&quot;, buf);
-}
-
-void TerminateFunction()
-{
-    printf(&quot;TerminateFunction&quot;);
-}
-
-int main()
-{
-    InitFunction();
-
-    while( ! feof(stdin) )
-    {
-        DoAnotherJob();
-    }
-
-    TerminateFunction();
-}
-</code></pre>
 <p>A execução do programa contém uma saída parecida com as linhas abaixo:</p>
-<pre><code>C:\Tests\bzrpilot&gt;bzppilot.exe
-InitFunctionuma linha
-New line: uma linha
-duas linhas
-New line: duas linhas
-tres linhas
-New line: tres linhas
-^Z
-New line: TerminateFunction
-C:\Tests\bzrpilot&gt;
-</code></pre>
 <p>Parece que está faltando algumas quebras de linha. Além de que sabemos que nossos arquivos de entrada poderão conter até 200 caracteres por linha, o que pode gerar um desastre em nosso buffer de 100 bytes. Buffer overflow!</p>
 <p>Para corrigir ambos os problemas foram criados dois branches, seguindo as melhores práticas de uso de um controle de fonte distribuído:</p>
-<pre><code>C:\Tests&gt;bzr branch bzrpilot bzrpilot-linebreak
-Branched 1 revision(s).
-
-C:\Tests&gt;bzr branch bzrpilot bzrpilot-bufferoverflow
-Branched 1 revision(s).
-</code></pre>
 <p>Feitas as correções devidas, o branch linebreak fica com a seguinte cara:</p>
-<pre><code>void InitFunction()
-{
-    printf(&quot;InitFunction\n&quot;);
-}
-
-void DoAnotherJob()
-{
-    char buf[100] = &quot;&quot;;
-    fgets(buf, sizeof(buf), stdin);
-    printf(&quot;New line: %s\n&quot;, buf);
-}
-
-void TerminateFunction()
-{
-    printf(&quot;TerminateFunction\n&quot;);
-}
-</code></pre>
 <p>Em vermelho podemos notar as linhas alteradas. Uma mudança diferente foi feita para o bug do buffer overflow, em seu branch correspondente:</p>
-<pre><code>void DoAnotherJob()
-{
-    char buf[200] = &quot;&quot;;
-    fgets(buf, sizeof(buf), stdin);
-     printf(&quot;New line: %s&quot;, buf);
-}
-</code></pre>
 <p>Agora só temos que juntar ambas as mudanças no branch principal.</p>
 <p>Com toda razão, pensa o programador que está corrigindo o bug da quebra de linha, olhando sorrateiramente a função do meio, intocada, DoAnotherJob.</p>
 <p>Então ele resolve fazer um pequeno fix &ldquo;de brinde&rdquo;, desconhecendo que mais alguém andou alterando essas linhas:</p>
-<pre><code>#define ENOUGH_BYTES 100
-
-
-void InitFunction()
-{
-    printf(&quot;InitFunction\n&quot;);
-}
-
-void DoAnotherJob()
-{
-    char buf[ENOUGH_BYTES] = &quot;&quot;;
-    fgets(buf, sizeof(buf), stdin);
-    printf(&quot;New line: %s\n&quot;, buf);
-}
-</code></pre>
 <p>Pronto. Um fonte politicamente correto! E que vai causar um conflito ao juntar essa galera. Vamos ver na seqüência:</p>
-<pre><code>C:\Tests&gt;bzr log bzrpilot-linebreak --short
-    3 Wanderley Caloni  2008-05-08
-      A little fix
-
-    2 Wanderley Caloni  2008-05-08
-      Corrected line breaks
-
-    1 Wanderley Caloni  2008-05-08
-      Our first version
-
-C:\Tests&gt;bzr log bzrpilot-bufferoverflow --short
-    2 Wanderley Caloni  2008-05-08
-      Corrigido buffer overflow
-
-    1 Wanderley Caloni  2008-05-08
-      Our first version
-
-
-C:\Tests&gt;bzr log bzrpilot --short
-    1 Wanderley Caloni  2008-05-08
-      Our first version
-
-
-C:\Tests&gt;cd bzrpilot
-
-C:\Tests\bzrpilot&gt;bzr pull ..\bzrpilot-linebreak
- M  bzppilot.cpp
-All changes applied successfully.
-Now on revision 3.
-
-C:\Tests\bzrpilot&gt;bzr pull ..\bzrpilot-bufferoverflow
-
-bzr: ERROR: These branches have diverged. Use the merge command to reconcile them.
-</code></pre>
 <p>Ops. Algo deu errado no segundo pull. O Bazaar nos diz que os branches estão diferentes, e que termos que usar o comando merge no lugar.</p>
-<pre><code>C:\Tests\bzrpilot&gt;bzr merge ..\bzrpilot-bufferoverflow
- M  bzppilot.cpp
-
-Text conflict in bzppilot.cpp
-
-1 conflicts encountered.
-</code></pre>
 <p>Usamos merge no lugar do pull e ganhamos agora um conflito no arquivo bzppilot.cpp, nosso único arquivo. Vamos ver a bagunça que fizemos?</p>
 <p>A última coisa que um controle de fonte quer fazer é confundir ou chatear o usuário. Por isso mesmo, a maioria dos conflitos que o Bazaar encontrar nos fontes serão resolvidos usando o algoritmo &ldquo;se só um mexeu, então coloca a mudança&rdquo;. A tabela do guia do usuário ilustra esse algoritmo em possibilidades:</p>
-<pre><code>Ancestral   Usuário1   Usuário2    Resultado   Comentário
-   x           x           x           x        não muda
-   x           x           y           y        usuário 2 ganhou
-   x           y           x           y        usuário 1 ganhou
-   x           y           z           ?
-</code></pre>
 <p>conflito!!!</p>
 <p>O ancestral é a última modificação em comum dos dois branches que estamos fazendo merge. Do ancestral pra frente cada um seguiu seu caminho, podendo existir quantas modificações quisermos.</p>
 <p>Como podemos ver, o conflito só ocorre se ambos os usuário mexerem na mesma parte do código ao mesmo tempo. Eu disse na mesma parte do código, e não apenas no mesmo arquivo. Isso porque se a mudança for feita no mesmo arquivo, porém em locais diferentes, o conflito é resolvido automaticamente.</p>
 <p>Em todos os conflitos de texto desse tipo, o Bazaar cria três arquivos de suporte e modifica o arquivo em conflito. Isso para cada conflito.</p>
-<pre><code>arquivo.cpp          Resultado de até onde o Bazaar conseguiu o merge
-arquivo.cpp.BASE     Versão ancestral do arquivo
-arquivo.cpp.THIS     Nosso arquivo original antes de tentar fazer merge
-arquivo.cpp.OTHER    A versão que entrou em conflito com a nossa
-</code></pre>
 <p>Podemos fazer o merge da maneira que quisermos. Se vamos usar nossa versão de qualquer jeito é só sobrescrever o arquivo.cpp pelo arquivo.cpp.THIS. Se vamos fazer troca-troca de alterações, abrimos os arquivos .THIS e .OTHER e igualamos suas diferenças, copiando-as para arquivo.cpp.</p>
 <p>Recomendo primeiramente olhar o que o Bazaar já fez. Se houver dúvidas sobre a integridade das mudanças, comparar diretamente os arquivos THIS e OTHER.</p>
 <p>Vamos dar uma olhada na versão criada pelo Bazaar:</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-#define ENOUGH_BYTES 100
-
-void InitFunction()
-{
-    printf(&quot;InitFunction\n&quot;);
-}
-
-void DoAnotherJob()
-{
-
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; TREE
-
-
-        char buf[ENOUGH_BYTES] = &quot;&quot;;
-
-=======
-
-
-        char buf[200] = &quot;&quot;;
-
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; MERGE-SOURCE
-
-
-        fgets(buf, sizeof(buf), stdin);
-        printf(&quot;New line: %s\n&quot;, buf);
-}
-
-void TerminateFunction()
-{
-        printf(&quot;TerminateFunction\n&quot;);
-}
-
-int main()
-{
-        InitFunction();
-
-        while( ! feof(stdin) )
-        {
-                DoAnotherJob();
-        }
-
-        TerminateFunction();
-}
-</code></pre>
 <p>Ora, vemos que ele já fez boa parte do trabalho para nós: as quebras de linha já foram colocadas e o novo define já está lá. Tudo que temos que fazer é trocar o define por 200 e tirar os marcadores, que é a junção das duas mudanças feitas no mesmo local, e que só um ser humano (AFAIK) consegue juntar:</p>
-<pre><code>#define ENOUGH_BYTES 200
-
-void InitFunction()
-{
-    printf(&quot;InitFunction\n&quot;);
-}
-
-void DoAnotherJob()
-{
-    char buf[ENOUGH_BYTES] = &quot;&quot;;
-    fgets(buf, sizeof(buf), stdin);
-    printf(&quot;New line: %s\n&quot;, buf);
-}
-</code></pre>
 <p>Resolvido o problema, simplesmente esquecemos das versões .BASE, .THIS e .OTHER e falamos pro Bazaar que está tudo certo.</p>
-<pre><code>C:\Tests\bzrpilot&gt;bzr resolve bzppilot.cpp
-</code></pre>
 <p>O controle de fonte apaga automaticamente os arquivos THIS, BASE e OTHER, mantendo o original como a mudança aceita.</p>
 <p>Após as correções dos conflitos, temos que fazer um commit que irá ser o filho dos dois branches que estamos juntando.</p>
-<pre><code>C:\Tests\bzrpilot&gt;bzr commit -m &quot;Tudo certo&quot;
-Committing to: C:/Tests/bzrpilot/
-modified bzppilot.cpp
-Committed revision 4.
-
-C:\Tests\bzrpilot&gt;bzr log
-------------------------------------------------------------
-revno: 4
-committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-branch nick: bzrpilot
-timestamp: Thu 2008-05-08 22:09:35 -0300
-message:
-Tudo certo
-------------------------------------------------------------
-revno: 1.1.1
-committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-branch nick: bzrpilot-bufferoverflow
-timestamp: Thu 2008-05-08 21:47:33 -0300
-message:
-Corrigido buffer overflow
-------------------------------------------------------------
-revno: 3
-committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-branch nick: bzrpilot-linebreak
-timestamp: Thu 2008-05-08 21:49:30 -0300
-message:
-A little fix
-------------------------------------------------------------
-revno: 2
-committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-branch nick: bzrpilot-linebreak
-timestamp: Thu 2008-05-08 21:44:23 -0300
-message:
-Corrected line breaks
-------------------------------------------------------------
-revno: 1
-committer: Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-branch nick: bzrpilot
-timestamp: Thu 2008-05-08 21:33:53 -0300
-message:
-Our first version
-</code></pre>
 <p>A versão do branch alternativo é 1.1.1, indicando que ele saiu da revisão número 1, é o primeiro alternativo e foi o único commit. Se houvessem mais modificações neste branch, elas seriam 1.1.2, 1.1.3 e assim por diante. Se mais alguém quisesse juntar alguma modificação da revisão 1 ela seria 1.2.1, 1.3.1, 1.4.1 e assim por diante.</p>
 <p>Um erro comum que pode acontecer é supor que o arquivo original está do jeito que deixamos e já usar o comando resolve diretamente. É preciso tomar cuidado, pois se algum conflito é detectado quer dizer que o Bazaar deixou para você alguns marcadores no fonte original, o que quer dizer que ele simplesmente não vai compilar enquanto você não resolver seus problemas.</p>
 <p>Enfim, tudo que temos que lembrar durante um merge do Bazaar é ver os conflitos ainda não resolvidos direto no fonte e alterá-los de acordo com o problema. O resto é codificar.</p>
@@ -415,11 +172,9 @@ Our first version
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Hoje%20fizemos%20um%20merge%20de%20duas%20vers%c3%b5es%20que%20entraram%20em%20conflito%20em%20nosso%20projeto-piloto%20usando%20bzr.%20Isso%20geralmente...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-tratar-um-merge-no-bazaar%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

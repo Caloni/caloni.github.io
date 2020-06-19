@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2012-03-27T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -175,12 +175,6 @@ The program &lsquo;[5212] ZeroMasQueCoisaProj.exe: Native&rsquo; has exited with
 <p>OK, não estou admitindo aqui o famigerado Rebuild All. Se você mantém projetos com mais de 200 arquivos, acho que deve repensar seus conceitos ao usar Rebuild All para tudo nessa vida.</p>
 <p>Acontece que existe uma árvore de dependências que o Visual Studio mantém para saber se seu projeto foi atualizado com tudo que tem mais de novo no que diz respeito ao File System, mas às vezes se esquece de checar o FS com o que está na solution. Por conta disso, o HeaderInutil e o CppInutil continuam dentro da árvore de dependência como zumbis.</p>
 <p>O que pode ser feito nesse caso (além do que os personagens de The Walking Dead costumam fazer) é configurar o arquivo devenv.exe.config (presente em %programfiles(x86)%\Microsoft Visual Studio 10.0\Common7\IDE) e adicionar as seguintes linhas após a seção configSections. (Esses passos estão descritos no blogue da equipe do VC.)</p>
-<pre><code>&lt;system.diagnostics&gt;
-&lt;switches&gt;
-&lt;add name=&quot;CPS&quot; value=&quot;4&quot; /&gt;
-&lt;/switches&gt;
-&lt;/system.diagnostics&gt;
-</code></pre>
 <p>Depois de modificar o arquivo, reinicie o Visual Studio e tente novamente apertar F5 no mesmo projeto, mas com o DebugView aberto.</p>
 <p>Como um amigo meu diria: &ldquo;AHÁ!!&quot;. Descobrimos o culpado.</p>
 <p>A solução? Nesse caso não tem jeito: dar um clean no projeto e build novamente para que o VS reconstrua a árvore de dependências. Porém, agora sabemos por que precisamos do Rebuild All. Não é RebuildAllMania.</p>
@@ -191,11 +185,9 @@ The program &lsquo;[5212] ZeroMasQueCoisaProj.exe: Native&rsquo; has exited with
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20Visual%20Studio%20%c3%a9%20uma%20%c3%b3tima%20ferramenta%20para%20depurar%20rapidamente%20programas%20sendo%20desenvolvidos%20e%20para%20o%20resto%20usamos%20Vim....%20http%3a%2f%2fwww.caloni.com.br%2fheader-inutil%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

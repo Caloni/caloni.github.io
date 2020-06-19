@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-03-04T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -151,38 +151,9 @@
 </li>
 </ul>
 <p>Por exemplo, o tradicional código do exemplo abaixo contém o tradicional erro de iterador inválido:</p>
-<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); ++it )
-{
-    if( it-&gt;member == 0 ) // condição para apagar elemento
-    {
-        obj.erase(it);  // a partir daqui it é inválido,
-                        // e não adianta incrementá-lo
-    }
-}
-</code></pre>
 <p>Para operações como essa, o retorno geralmente nos dá uma dica de para onde vamos na varredura do contêiner. No caso do método erase, o retorno é o próximo iterador válido, ou o final (retornado pelo método end). Um código mais esperto gera um erro mais sutil:</p>
-<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); ++it )
-{
-    if( it-&gt;member == 0 ) // condição para apagar elemento
-    {
-        it = obj.erase(it); // ótimo, atualizou it. só
-                            // que se ele for o final,
-                            // será incrementado
-    }
-}
-</code></pre>
 <p>Algo de errado irá acontecer apenas se o elemento removido for o último localizado no contêiner.</p>
 <p>Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da reutilização de algoritmos. Se fosse usado este princípio, nada disso teria acontecido:</p>
-<pre><code>struct remove_if_zero
-{
-    bool operator() (ObjElement&amp; element)
-    {
-        return element-&gt;member == 0;
-    }
-};
-
-obj.remove_if( remove_if_zero() ); // pronto!
-</code></pre>
 <p>Quando precisamos fazer algo nos elementos de um contêiner STL, é quase certo que existirá um algoritmo genérico para essa tarefa, seja no próprio contêiner ou na forma de função (header algorithm). Nunca se esqueça disso na hora de desenvolver seus próprios algoritmos e não precisará reinventar a roda todos os dias.</p>
 
             
@@ -191,11 +162,9 @@ obj.remove_if( remove_if_zero() ); // pronto!
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20bug%20que%20j%c3%a1%20encontrei%20uma%20d%c3%bazia%20de%20vezes%20entre%20os%20novatos%20da%20STL%20%c3%a9%20a%20utiliza%c3%a7%c3%a3o%20de%20iteradores%20como%20se%20eles%20n%c3%a3o%20fossem...%20http%3a%2f%2fwww.caloni.com.br%2fiteradores-nao-sao-constantes%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

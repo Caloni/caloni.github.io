@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-01T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,40 +143,11 @@
 <p>Para isso é que serve um depurador de verdade, mesmo.</p>
 <p>No modo real, onde vivem sistemas como o MS-DOS e programas como o Turbo C, a memória é acessada através do par de coordenadas conhecido como segmento e offset. Entre outros motivos, isso acontece porque em um determinado momento da história o 8086 possuía 16 bits em seus registradores, mas conseguia endereçar até seiscentos e quarenta quilobytes, o que resulta em seiscentos e quarenta vezes mil e vinte e quatro, ou seja, seiscentos e cinquenta e cinco mil, trezentos e sessenta bytes, um número dez vezes maior do que sessenta e cinco mil, quinhentos e trinta e seis, ou dois elevado a dezesseis, o maior número representado por dezesseis bits.</p>
 <p>Dessa forma, foi necessário o uso de mais 4 bits para fazer a coisa funcionar, pois como podemos notar logo abaixo, a representação do último byte de 640 KB exige isso:</p>
-<pre><code>   10   16   16   16   16   (decimal)
-   A    0    0    0    0    (hexadecimal)
-   1010 0000 0000 0000 0000 (binário)
-</code></pre>
 <p>Para conseguir esses 4 bits adicionais foram usados dois registradores em conjunto, o segmento e o offset. Funciona assim: o segmento é multiplicado por 16 (ou deslocado 4 bits à esquerda) e logo depois é somado com o offset, resultando no endereçamento desejado:</p>
-<pre><code>   segmento:      0x   9022
-   offset:        0x   1514
-
-
-                  0x   9022
-                  0x    1514 (+)
-   endereço real: 0x   91734
-</code></pre>
 <p>Ou seja, para acessar o byte de número 595764, ou 0x91734, podemos usar o segmento 0x9022 com o offset 0x1514. A soma desses dois com o segmento deslocado irá resultado no endereço flag, ou seja, aquele que obtemos se contarmos a memória do zero até o final da RAM.</p>
 <p>Na época, a RAM não costumava ser de valores como 2GB ou até 4GB, mas em KB mesmo. Isso explica a limitação do 8086 em endereçar até 640 KB.</p>
 <p>Se nós repararmos bem, veremos que esse método implica em conseguirmos acessar o mesmo byte com um conjunto de segmentos e offsets diferentes, já que a soma pode ser resultado de operandos diversos. Esse é o chamado efeito de overlapping da memória segmentada, onde os programadores em assembly daquela época tinham que tomar alguns cuidados básicos para não atravessar a memória dos outros. No nosso exemplo acima, por exemplo, seria bem mais fácil chamar nosso bytezinho de segmento 0x9000, offset 0x1734.</p>
-<pre><code>   0x  9000
-   0x   1734 (+)
-   0x  91734
-</code></pre>
 <p>É verdade! Então, o WinDbg possui alguns comandos extendidos e formas de representar essa memória real, atualmente limitada não mais em 640 KB, mas até onde seus pentes de RAM agüentarem. Os mais comuns são os que imitam os nossos conhecidos dumps de memória: db, dc, dd&hellip; Temos daí as extensões !db, !dc, !dd&hellip; (note a exclamação do início).</p>
-<pre><code>windbg -kl $$ kernel debugging local
-
-
-lkd&gt; !db 91734
-#   91734 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91744 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91754 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91764 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91774 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91784 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-#   91794 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
-$$ o sinal de # no início denota memória real
-</code></pre>
 <p>Simples, assim.</p>
 <p>Infelizmente, o WinDbg não nos permite ler certas regiões da memória por conta do cacheamento feito pelo processador. Para permitir a leitura em todas as condições, existem  três flags que podem ser utilizados:</p>
 <ul>
@@ -186,13 +157,6 @@ $$ o sinal de # no início denota memória real
 </ul>
 <p>Nesse caso é possível, embora fique por sua conta e risco, ler qualquer memória não-cacheada usando-se a flag uc.</p>
 <p>É possível fazer mais brincadeiras usando os comandos comuns do WinDbg e uma notação diferente da memória. No entanto, é preciso tomar alguns cuidados quando mexer com isso. É recomendado o uso de uma máquina-vítima para esses testes, e não depuração local como estou fazendo.</p>
-<pre><code>   notação  descrição                     exemplo
-
-
-   %        endereços de 32 ou 64 bits    %6400000   (primeiro byte de 100 MB)
-   &amp;        endereço em modo real 8086    &amp;9000:1734 (segmento 9000, offset 1734)
-   #        endereço em modo real 8086    #4C        (endereço da int 0x13)
-</code></pre>
 <p>É isso aí. Não espero que você use muitas vezes essa forma de acessar memória. Só que eu usei e&hellip; nunca se sabe =)</p>
 
             
@@ -201,11 +165,9 @@ $$ o sinal de # no início denota memória real
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Como%20muitos%20devem%20saber%2c%20acessar%20mem%c3%b3ria%20virtual%20no%20WinDbg%20%c3%a9%20coisa%20de%20crian%c3%a7a%2c%20assim%20como%20em%20todo%20depurador%20decente.%20Se...%20http%3a%2f%2fwww.caloni.com.br%2facessando-memoria-fisica-no-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

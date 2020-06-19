@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-06-30T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,111 +142,9 @@
 <p>Infelizmente não muito.</p>
 <p>O sistema de RTTI (Run Time Type Identification), a identificação de tipos em tempo de execução, seria o começo do reflection em C++. Foi um começo que não teve meio nem fim, mas existe na linguagem. Dessa forma podemos tirar algum proveito disso.</p>
 <p>Um leitor pediu para que eu falasse um pouco sobre essas coisas, especificamente como se faz para obter o nome da classe de onde estamos executando um determinado método. Para esse tipo de construção podemos usar o operado typeid, que retorna informações básicas sobre um tipo de acordo com um tipo, instância ou expressão:</p>
-<pre><code>#include &lt;iostream&gt;
-
-using namespace std;
-
-int main()
-{
-    cout &lt;&lt; typeid( int ).name() &lt;&lt; endl;
-
-    int x;
-    cout &lt;&lt; typeid( x ).name() &lt;&lt; endl;
-
-    cout &lt;&lt; typeid( 2 + 2 ).name() &lt;&lt; endl;
-}
-
- 
-
-
-
-C:\Tests&gt;cl typeid.cpp
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/out:typeid.exe
-typeid.obj
-
-C:\Tests&gt;typeid.exe
-int
-</code></pre>
 <p>Dessa forma, podemos nos aproveitar do fato que todo método não-estático possui a variável implícita this, do tipo &ldquo;ponteiro constante para T&rdquo;, onde T é o tipo da classe que contém o método sendo chamado.</p>
-<pre><code>#include &lt;iostream&gt;
-
-using namespace std;
-
-class MyClass
-{
-    public:
-        void MyMethod()
-        {
-            cout &lt;&lt; typeid(*this).name() &lt;&lt; &quot;::MyMethod&quot; &lt;&lt; endl;
-        }
-};
-
-int main()
-{
-    MyClass myc;
-
-    myc.MyMethod();
-}
-
- 
-
-
-
-C:\Tests&gt;cl typeid-class.cpp
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/out:typeid-class.exe
-typeid-class.obj
-
-C:\Tests&gt;typeid-class.exe
-</code></pre>
 <p>class MyClass::MyMethod</p>
 <p>Com classes não-polimórficas a coisa parece não ter muita utilidade. No entanto, essa mesma técnica pode ser aplicada em classes derivadas, uma vez que o operador typeid pode trabalhar em tempo de execução:</p>
-<pre><code>#include &lt;iostream&gt;
-
-using namespace std;
-
-class MyClass
-{
-    public:
-        virtual void MyMethod()
-        {
-            cout &lt;&lt; typeid(*this).name() &lt;&lt; &quot;::MyMethod&quot; &lt;&lt; endl;
-        }
-};
-
-class MyDerivatedClass1 : public MyClass { };
-
-class MyDerivatedClass2 : public MyClass { };
-
-int main()
-{
-    MyClass* myc1 = new MyDerivatedClass1;
-    MyClass* myc2 = new MyDerivatedClass2;
-
-    myc1-&gt;MyMethod();
-    myc2-&gt;MyMethod();
-}
-
- 
-
-
-
-C:\Tests&gt;cl typeid-class2.cpp
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/out:typeid-class2.exe
-typeid-class2.obj
-
-C:\Tests&gt;typeid-class2.exe
-
-class MyDerivatedClass1::MyMethod class MyDerivatedClass2::MyMethod
-</code></pre>
 <p>Apenas se lembre de ter de fato uma classe polimórfica (eu consegui isso tornando MyMethod uma função virtual). Do contrário você pode ter problemas.</p>
 
             
@@ -255,11 +153,9 @@ class MyDerivatedClass1::MyMethod class MyDerivatedClass2::MyMethod
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20termo%20e%20conceito%20de%20%26ldquo%3breflection%29%26rdquo%3b%20%28reflex%c3%a3o%29%2c%20muito%20usado%20em%20linguagens%20modernas%2c%20%c3%a9%20a%20capacidade%20de%20um...%20http%3a%2f%2fwww.caloni.com.br%2freflexao-em-c%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

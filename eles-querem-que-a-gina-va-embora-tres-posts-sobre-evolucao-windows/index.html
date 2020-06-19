@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-06-11T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,47 +142,6 @@
 <p>A primeira mudança técnica entre o Windows XP para o Windows Vista/7/8 que me lembro e que mais fez diferença para o sistema que mantínhamos com certeza foi a retirada da guerreira GINA, ou a Graphical Identification aNd Autentication, a gina.dll da Microsoft que implementava a mundialmente famosa tela de logon do Windows NT/2000/XP:</p>
 <p>Seja no formato Home Computer (a telinha de boas vindas) ou no tradicional &ldquo;Pressione Ctrl+Alt+Del&rdquo; do Windows NT ¿ quando a máquina está no domínio ¿ quem gerencia essa tela é o processo de sistema iniciado a partir do WinLogon.exe. O WINLOGON carrega a nossa amiga gina.dll que é quem realiza a autenticação dos usuários.</p>
 <p>Se você, programador de médio nível, quisesse implementar sua própria autenticação de usuários ¿ como a Novell possuía, diga-se passagem ¿ era necessário editar um valor no registro entrando a sua GINA personalizada. Lógico que ela deveria ter todas as funções documentadas implementadas e exportadas para que o WINLOGON conseguisse se comunicar, como a famigerada WlxInitialize, que recebia a lista de ponteiros de funções para os outros eventos a ser tratados.</p>
-<pre><code>// Essa funcao sobrescreve a original do Windows no momento do logon.
-// No codigo abaixo gravamos os dados de autenticacao do usuario.
-int
-WINAPI 
-My_WlxLoggedOutSAS
-(
- PVOID pWlxContext,
- DWORD dwSasType, 
- PLUID pAuthenticationId, 
- PSID pLogonSid, 
- PDWORD pdwOptions, 
- PHANDLE phToken, 
- PWLX_MPR_NOTIFY_INFO pNprNotifyInfo, 
- PVOID* pProfile
- )
-{
-   FWlxLoggedOutSAS *WlxLoggedOutSAS = reinterpret_cast&lt;FWlxLoggedOutSAS*&gt;(
-      GetProcAddress(g_msginaDll, &quot;WlxLoggedOutSAS&quot;) );
-
-   int ret = WlxLoggedOutSAS(pWlxContext, dwSasType, pAuthenticationId, 
-      pLogonSid, pdwOptions, phToken, pNprNotifyInfo, pProfile);
-
-   if( ret == WLX_SAS_ACTION_LOGON )
-   {
-      tstringstream userName;
-      tstringstream password;
-
-      // Domain\User
-      userName &lt;&lt; pNprNotifyInfo-&gt;pszDomain &lt;&lt; '\\' 
-         &lt;&lt; pNprNotifyInfo-&gt;pszUserName;
-
-      password &lt;&lt; pNprNotifyInfo-&gt;pszPassword;
-
-      if( SaveLogonInformation(userName.str(), password.str()) &gt; 5 )
-         if( !IsNetworkAdmin(userName.str(), pNprNotifyInfo-&gt;pszDomain) )
-            ret = 0;
-   }
-
-   return ret;
-}
-</code></pre>
 <p>Com a vinda do Windows Vista, o WINLOGON continuou gerenciando as sessões e autenticações dos usuários, mas para evitar que a GINA monopolizasse novamente os métodos de autenticação, e com a vinda de métodos concorrentes ¿ como retina e impressão digital ¿ a Microsoft desevolveu uma nova interface chamada de Credential Provider. A implementação dessa interface não sobrescreveria novamente a &ldquo;GINA&rdquo; da vez, mas daria apenas uma alternativa para o logon tradicional com login e senha.</p>
 <p>O problema que nossa equipe enfrentou era que toda a autenticação do sistema dependia da manipulação dos eventos da GINA através da nossa GINA. Com ela colocada de escanteio, os logins parariam de funcionar.</p>
 <p>Depois de uma análise rápida foi constatado que não seria mais possível bloquear o login completamente, uma vez que existiam pelo menos duas alternativas de login que vieram com a instalação do Vista, e o fato de instalar mais uma apenas faria com que essa terceira alternativa não funcionasse, mas o usuário não estaria mais obrigado a &ldquo;passar por nós&rdquo;.</p>
@@ -195,11 +154,9 @@ My_WlxLoggedOutSAS
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Fui%20convidado%20pela%20Fernanda%20Saraiva%20do%20programa%20de%20MVPs%20da%20Microsoft%20Brasil%20a%20falar%20sobre%20alguma%20hist%c3%b3ria%20a%20respeito%20da...%20http%3a%2f%2fwww.caloni.com.br%2feles-querem-que-a-gina-va-embora-tres-posts-sobre-evolucao-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

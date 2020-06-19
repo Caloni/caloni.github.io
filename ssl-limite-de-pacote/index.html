@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2018-05-22T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,17 +142,7 @@
 <p>O pacote SSL tem um limite de 16 KB, ou 16384 bytes. Esse é o limite que será respeitado por qualquer implementação do protocolo, o que inclui o uso de Boost.Asio e seu uso da OpenSSL. O que isso quer dizer na teoria é que você não pode trafegar sentido server=&gt;client nada maior que 16k bytes. O que isso quer dizer na prática é que sua aplicação não pode escrever mais que 16k bytes de uma vez no socket que vai dar pau.</p>
 <p>Sim, a camada de aplicação tem que estar ligada que existe SSL abaixo dela.</p>
 <p>Isso quer dizer que este snippet de código, por exemplo:</p>
-<pre><code>_sock.write_some(::boost::asio::buffer(output.data(), output.size()), err);
-</code></pre>
 <p>Não é inocente e não funciona sempre. Se sock for um socket cuja comunicação está encriptada por SSL (em outras palavras &ndash; em Boostês &ndash; ele for um sslsocket) você precisa escrever output em pequenas quantidades. Como em outra implementação inocente:</p>
-<pre><code>do
-{
-    size_t sz = std::min((size_t) LESS_THAN_16_KB, output.size());
-    _sock.write_some(::boost::asio::buffer(output.data(), sz), err);
-    output.erase(0, sz);
-}
-while (err.value() == boost::system::errc::success &amp;&amp; output.size() &gt; 0 );
-</code></pre>
 <p>Se isso não for feito e a ponta server escrever, digamos, 512KB, ou 17KB, ou qualquer coisa acima de 16KB, ela irá receber&hellip; 16 KB. E acabou. O resto se perder.</p>
 <p>Portanto, quando for mexer com SSL, esqueça OSI e esqueça TCP/IP. As coisas funcionam de uma maneira muito mais esotérica que qualquer programador de redes jamais viu, e jamais verá.</p>
 
@@ -162,11 +152,9 @@ while (err.value() == boost::system::errc::success &amp;&amp; output.size() &gt;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20protocolo%20TLS%2fSSL%20tem%20por%20objetivo%20criar%20uma%20camada%20de%20criptografia%20assim%c3%a9trica%20para%20a%20aplica%c3%a7%c3%a3o.%20E%20quando%20eu%20falo%20em...%20http%3a%2f%2fwww.caloni.com.br%2fssl-limite-de-pacote%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

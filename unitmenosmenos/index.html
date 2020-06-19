@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-09-05T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -144,32 +144,7 @@
 <p>Apenas se lembra de não incluir o módulo que contém o int main. Esse módulo deve ficar apartado do projeto principal.</p>
 <p>Depois basta incluir apenas um arquivo do projeto unit&ndash;, que é seu cpp principal.</p>
 <p>Com isso existirá um main lá dentro, definido em algum lugar. E tudo o que você precisa fazer é ir criando seus testes em outro arquivo fonte gerado para isso. O corpo e o formato dos unit cases é bem simples. Note que tudo que você fez para já sair testando seu projeto foi copiar um projeto já existente e inserir um módulo de outro projeto. Tudo compilando junto e já podemos fazer os primeiros testes do programa original (desde, claro, que ele seja testável, algo primordial):</p>
-<pre><code>// Precisamos definir uma suíte de testes.
-testSuite(DayToDayTests)
-
-// Se eu digito uma linha, ela deve estar no arquivo daytoday.txt.
-testCase(GetUmaLinha, DayToDayTests)
-{
-    //...
-    bool lineOk = TestAlgumaCoisa();
-    assertTrue(lineOk);
-}
-
-// Se eu digito duas linhas, ambas devem estar no arquivo daytoday.txt.
-testCase(GeraDuasLinhas, DayToDayTests)
-{
-    //...
-    bool lineOk = TestOutraCoisa();
-    assertTrue(lineOk);
-}
-</code></pre>
 <p>E assim por diante. O resultado é que quando você roda o executável de teste, ele execute toda a bateria e já te entregue todos os casos que você deseja testar, sem frescura:</p>
-<pre><code>......
-OK
-Total 6 test cases
-0 sec.
-Press any key to continue . . .
-</code></pre>
 <p>E voilà! Sistema de teste unitário pronto e rodando. Agora cada nova situação de erro ou que você precise validar, basta escrever um novo teste. Se esse projeto ir se tornando algo muito maior, a transição para testes unitários mais parrudos é apenas um regex. No momento, foque em codificar e testar muito bem o que está fazendo.</p>
 
             
@@ -178,11 +153,9 @@ Press any key to continue . . .
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Fazer%20o%20setup%20inicial%20de%20testes%20unit%c3%a1rios%20em%20seu%20projeto%20C%2b%2b%20pode%20ser%20algo%20enfadonho%20se%20voc%c3%aa%20precisa%20baixar%20e%20compilar...%20http%3a%2f%2fwww.caloni.com.br%2funitmenosmenos%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

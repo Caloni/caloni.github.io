@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-12-19T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,65 +140,7 @@
             
               <p>O sistema de drag and drop do C++ Builder é muito fácil de usar, integrado que está com o sistema de classes e objetos do framework. Tanto para o objeto de drag quanto para o objeto de drop tudo que temos que fazer é definirmos a propriedade DragMode para dmAutomatic como mostra a figura. Isso fará com que toda a troca de mensagens seja manipulada automaticamente pela VCL.</p>
 <p>A parte (ridídula) do código fica por conta da manipulação do evento de drop. Para aceitar um objeto, devemos tratar o evento OnDragOver. Basta isso para que a variável Accept tenha seu valor default definido para true. Podemos, entretanto, escolher se iremos ou não tratar um possível drop de um objeto. Verificando seu tipo, por exemplo:</p>
-<pre><code>void __fastcall TMain::FormDragOver(TObject *Sender, TObject *Source,
-      int X, int Y, TDragState State, bool &amp;Accept)
-{
-    Accept = true;
-}
-
-void __fastcall TMain::ListBoxDragOver(TObject *Sender, TObject *Source,
-      int X, int Y, TDragState State, bool &amp;Accept)
-{
-    Accept = dynamic_cast&lt;TWinControl*&gt;( Source ) ? true : false;
-} 
-</code></pre>
 <p>A parte mais interessante do código fica por conta da hora que o objeto é &ldquo;jogado&rdquo;, no evento OnDragDrop. Nela recebemos o ponteiro para o Sender (como sempre), que é o target object, e um Source. Geralmente para manipular o source object é necessário antes realizar um cast para um tipo mais conhecido.</p>
-<pre><code>void __fastcall TMain::ListBoxDragDrop(TObject *Sender, TObject *Source, 
-    int X, int Y)
-{
-    if( TListBox* listBox = dynamic_cast&lt;TListBox*&gt;(Sender) )
-    {
-        TWinControl* winCtrl = static_cast&lt;TWinControl*&gt;(Source);
-
-        if( listBox != winCtrl )
-        {
-            listBox-&gt;Items-&gt;Add(winCtrl-&gt;Name);
-            winCtrl-&gt;Visible = false;
-        }
-    }
-}
-
-void __fastcall TMain::FormDragDrop(TObject *Sender, TObject *Source,
-    int X, int Y)
-{
-    if( TForm* form = dynamic_cast&lt;TForm*&gt;(Sender) )
-    {
-        TControl* ctrl = 0;
-
-        if( TListBox* listBox = dynamic_cast&lt;TListBox*&gt;( Source ) )
-        {
-            for( int i = 0; i &lt; listBox-&gt;Count; ++i )
-            {
-                if( listBox-&gt;Selected[i] )
-                {
-                    ctrl = this-&gt;FindChildControl(listBox-&gt;Items-&gt;Strings[i]);
-                    listBox-&gt;Items-&gt;Delete(i);
-                    break;
-                }
-            }
-        }
-        else
-            ctrl = dynamic_cast&lt;TControl*&gt;(Source);
-
-        if( ctrl )
-        {
-            ctrl-&gt;Top = Y;
-            ctrl-&gt;Left = X;
-            ctrl-&gt;Visible = true;
-        }
-    }
-} 
-</code></pre>
 <p>E mais uma vez voilà! Pouquíssimas linhas de código e um movimentador e empilhador de controles. Dois detalhes merecem ser destacados:</p>
 <ul>
 <li>
@@ -215,11 +157,9 @@ void __fastcall TMain::FormDragDrop(TObject *Sender, TObject *Source,
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20sistema%20de%20drag%20and%20drop%20do%20C%2b%2b%20Builder%20%c3%a9%20muito%20f%c3%a1cil%20de%20usar%2c%20integrado%20que%20est%c3%a1%20com%20o%20sistema%20de%20classes%20e%20objetos...%20http%3a%2f%2fwww.caloni.com.br%2fdrag-and-drop-no-c-builder%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

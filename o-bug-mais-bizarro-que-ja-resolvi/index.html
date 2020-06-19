@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2020-05-10T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -152,41 +152,6 @@
 <p>Depois de alguns dias nesse modus operandi, em que o mundo externo não importava mais, e que eu só enxergava movs, pushs e pops na hora do café, comecei a vislumbrar a possibilidade de existir um bug no código do algoritmo de criptografia. Esse algoritmo é o Blowfish), um cifrador simétrico em bloco. Seu funcionamento é basicamente pegar um bloco de dados a serem criptografados, aplicar uma chave, e cuspir o mesmo tamanho do bloco de volta. Aplicando a mesma chave novamente obtém-se o bloco original. Não lembro como tive esse insight, mas essa alternância simétrica fazia tocar os sinos na minha cabeça de que o bug bizarro dos boots ímpares e pares poderia estar relacionado. Só não sabia ainda como.</p>
 <p>Pois bem: bora aprender como funciona esse algoritmo passo a passo, pois o código usado no sistema estava obviamente em assembly. Não é um código difícil em C, mas extenso em Assembly. De qualquer forma, tudo é possível se você está trancado em uma sala sem ninguém para importunar. Tudo que você precisa é de tempo e paciência. E café. Não se esqueça disso.</p>
 <p>Mas, enfim, não conseguirei descrever melhor o cenário em que eu estava naquela semana. Tudo que me lembro é que de fato foi uma semana de 40 ou mais horas. E tornando agora esta história que já está longa em algo mais curto, segue o commit que corrigiu essa bagaça:</p>
-<pre><code>commit 56f510... (tag: 1.49)
-Author: root &lt;root@desenv05x&gt;
-Date: Mon Apr 21 03:26:50 2008 -0300
-
-Corrigido bug na encriptacao por 
-    Blowfish em assembly.
-
-O problema ocorria por causa da 
-inversao desnecessaria do iv, e 
-existia apenas na funcao de 
-encriptacao (escritas no disco), 
-funcionando normalmente, portanto, 
-na desencriptacao (leituras 
-no disco).
-
-Esse bug provavelmente afetava 
-somente boots de sistemas que 
-tentavam escrever no disco 
-antes de entrar o driver.
-
--  xor     4[si], eax
-+  xor     [si] eax
-   add     bx, #4
-   seg     es
-   mov   eax, [bx]
--  xor     [si], eax
-+  xor     4[si], eax
-...
--  xchg    eax, 4[si]
--  bswap   eax
-   mov     [si], eax
-+  mov     eax, 4[si]
-+  bswap   eax
-+  mov     4[si], eax
-</code></pre>
 <p>O IV, ou Initialization Vector, é um array de bytes usado em algoritmos criptográficos para diminuir a previsibilidade da série de bytes resultantes do algoritmo. Sem o IV pode-se usar força bruta com várias chaves até encontrar a certa. Com o IV, que é alterado de maneira previsível, mas difícil de rastrear, a mesma chave gera séries de bytes completamente diferentes, impedindo esse tipo de ataque.</p>
 <p>O que estava acontecendo nesse caso para o boot estar intermitente era que, como comentado no commit, as escritas em disco durante o boot gravavam a série de bytes com um IV invertido. Isso na hora de ler entregaria os dados errados, obviamente, e a máquina não bootaria. Porém, pelo blowfish ser simétrico, e pelo boot ser o mesmo (com os mesmos dados no disco), uma segunda escrita feita em um segundo boot inverteria o IV já invertido, gravando os dados originalmente invertidos corretamente, e a vida seguia feliz (até a música de boas vindas do Windows).</p>
 <p>Descrevendo a descoberta desse bug hoje, 12 anos após o ocorrido, ainda não entendo como consegui descobri-lo, mas isso exigiu tanta concentração que me lembro com um prazer indescritível de ter sido capaz de fazê-lo. Todo o tempo despendindo se tornou uma marca de felicidade em minha memória, gravada em meu HD temporário desta vida. Lembrarei dela com carinho, e como ela está criptografada também, entenderei que em alguns momentos ela irá soar amarga, mas em vários outros irei ter certeza de ter sido um feito e tanto para um ser humano entender uma máquina em seus detalhes mais obscuros. Essa é a verdadeira felicidade desta profissão.</p>
@@ -197,11 +162,9 @@ antes de entrar o driver.
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/debug">debug</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/debug">debug</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=M%c3%a1quina%20IBM%20velha%20e%20empoeirada%2c%20criptografia%20blowfish%2c%20assembly%2016%20bits%2c%20programa%20residente%20e%20nenhum%20depurador...%20http%3a%2f%2fwww.caloni.com.br%2fo-bug-mais-bizarro-que-ja-resolvi%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

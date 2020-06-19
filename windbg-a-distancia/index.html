@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-03-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -144,35 +144,13 @@
 <p>O servidor de depuração nada mais é do que um processo que deixa alguma porta aberta  na máquina de testes para que o desenvolvedor consiga facilmente depurar problemas que ocorreram durantes os testes de produção. Ele pode ser facilmente configurado através da instalação do pacote Debugging Tools for Windows.</p>
 <p>Existem alguns cenários muito comuns de depuração remota que serão abordados aqui. O resto dos cenários se baseia nos exemplos abaixo, e pode ser montado com uma simples releitura dos tópicos de ajuda do WinDbg sobre o assunto (procure por dbgsrv.exe).</p>
 <p>Nesse caso podemos supor que a máquina tem total acesso e controle do desenvolvedor. Tudo o que temos que fazer é iniciar um WinDbg na máquina-vítima e outro WinDbg na máquina-programador. O WinDbg da máquina-vítima deve ser iniciado no modo-servidor, enquanto o da máquina-programador no modo-cliente.</p>
-<pre><code>windbg -server tcp:port=6666
-windbg -remote tcp:server=maquina-vitima,port=6666
-</code></pre>
 <p>A vantagem dessa técnica é que tanto o WinDbg da máquina-vítima quanto o da máquina-programador podem emitir comandos, e todos vêem os resultados. Uma possível desvantagem é que os símbolos devem estar disponíveis a partir da máquina-vítima.</p>
 <p>Se for necessário, é possível convidar mais gente pra festa, pois o WinDbg permite se transformar em uma instância servidora pelo comando .server, que possui a mesma sintaxe da linha de comando. Para a comunicação entre todos esses depuradores ambulantes um comando muito útil é o .echo.</p>
-<pre><code>windbg -server tcp:port=6667 -remote tcp:server=maquina-vitima,port=6666
-
-
-windbg -remote tcp:server=maquina-vitima,port=6666
-.server tcp:port=6667
-
-
-MAQUINA-PROGRAMADOR66\caloni (tcp 222.234.235.236:1974) connected at Mon Mar 24 11:47:55 2008
-
-
-.echo E ae, galera? Como que a gente vai consertar essa &amp;%$*&amp;?
-.echo Putz, sei lá. Acho que vou tomar mais café...
-</code></pre>
 <p>Nesse ambiente muito mais hostil, é salutar e recomendável utilizar um servidor genérico que não imprima coisa alguma na tela &ldquo;do outro lado&rdquo;. Após iniciar o depurador na máquina que está dando o problema, o programador tem virtualmente uma série de comandos úteis que podem ser executados remotamente, como iniciar novos processos, se anexar a processos já existentes, copiar novas versões de executáveis, etc.</p>
 <p>O nome do processo do lado servidor para modo usuário é dbgsrv.exe. Para o modo kernel é kdsrv.exe. Os parâmetros de execução, felizmente, são os mesmos que os do WinDbg (e CDB, NTSD e KD), o que evita ter que decorar uma nova série de comandos.</p>
 <p>Para iniciar o servidor de depuração e deixar as portas abertas para o depurador temos apenas que iniciar o processo dbgsrv.exe:</p>
-<pre><code>dbgsrv -t tcp:port=6666
-</code></pre>
 <p>Para iniciar o processo depurador, a sintaxe é quase a mesma, só que no lugar de remote especificamos premote:</p>
-<pre><code>windbg -premote tcp:server=maquina-vitima,port=6666
-</code></pre>
 <p>Caso não se saiba a porta usada para iniciar o servidor, ou queira-se listar todos os servidores disponíveis em uma determinada máquina, usa-se o comando -QR.</p>
-<pre><code>cdb -QR \\maquina-vitima
-</code></pre>
 <p>É importante notar que o dbgsrv.exe não é um depurador esperto, no sentido que ele não vai carregar os símbolos para você. Isso é importante na hora de definir qual estratégia utilizar, pois nem sempre os símbolos estarão disponíveis na máquina com problemas, e nem sempre estarão com o desenvolvedor.</p>
 <p>Uma organização mais esperta dos ambientes de teste e desenvolvimento tomaria conta de outros problemas como símbolos e fontes com o uso de outras features poderosas do Debugging Tools como servidor de símbolos e servidor de fontes. Porém, a complicação envolvida na configuração desses dois me leva a crer que eles merecem um outro artigo. E é por isso que paramos por aqui.</p>
 
@@ -182,11 +160,9 @@ MAQUINA-PROGRAMADOR66\caloni (tcp 222.234.235.236:1974) connected at Mon Mar 24 
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Acho%20que%20o%20que%20mais%20me%20impressionou%20at%c3%a9%20hoje%20a%20respeito%20do%20WinDbg%20%c3%a9%20a%20sua%20capacidade%20de%20depura%c3%a7%c3%a3o%20remota.%20N%c3%a3o%20h%c3%a1%20nada...%20http%3a%2f%2fwww.caloni.com.br%2fwindbg-a-distancia%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-06-21T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,78 +142,13 @@
 <p>Será mesmo tão simples?</p>
 <p>Vamos supor um caso bem simples e plausível, que é exatamente o mesmo do artigo do Crash Dump Analysis: um produto qualquer possui dois pontos em que ele carrega a mesma DLL. Contudo, no primeiro ponto é usado um caminho relativo, dentro da pasta DLL; na segunda chamada é usado o caminho atual. Se existir de fato duas DLLs, mesmo que idênticas, nesses lugares, então teremos duas instâncias da &ldquo;mesma DLL&rdquo; carregadas no processo.</p>
 <p>O código do aplicativo apenas tenta carregar a DLL em dois lugares distintos e exibe o endereço para onde elas foram mapeadas em nosso processo de teste:</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
-
-int main()
-{
-    HMODULE dll1 = LoadLibrary(&quot;.\\DLL\\DLL.dll&quot;);
-    HMODULE dll2 = LoadLibrary(&quot;.\\DLL.dll&quot;);
-
-    printf(&quot;First DLL: %p\nSecond DLL: %p&quot;,
-            dll1, dll2);
-
-    return 0;
-}
-</code></pre>
 <p>A DLL é uma DLL trivial:</p>
-<pre><code>#include &lt;windows.h&gt;
-
-BOOL WINAPI DllMain(HINSTANCE inst, DWORD reason, PVOID reserv)
-{
-    return TRUE;
-}
-</code></pre>
 <p>Vamos aos testes.</p>
 <p>Nesse caso, ambos os retornos serão nulos, que é o natural e esperado quando a DLL não pode ser encontrada nos lugares especificados pelo sistema e pelo aplicativo.</p>
-<pre><code>K:\Docs\Projects&gt;cl app.c
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86
-Copyright (C) Microsoft Corporation.  All rights reserved.
-app.c
-Microsoft (R) Incremental Linker Version 8.00.50727.42
-Copyright (C) Microsoft Corporation.  All rights reserved.
-/out:app.exe
-app.obj
-K:\Docs\Projects&gt;app
-First DLL: 00000000
-Second DLL: 00000000
-K:\Docs\Projects&gt;
-</code></pre>
 <p>No segundo caso, a DLL é carregada com sucesso se usado o caminho relativo, pois o caminho atual faz parte da lista de caminhos que o sistema percorre para encontrá-la. A primeira chamada deve falhar.</p>
-<pre><code>K:\Docs\Projects&gt;cl /LD dll.c
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86
-Copyright (C) Microsoft Corporation.  All rights reserved.
-dll.c
-Microsoft (R) Incremental Linker Version 8.00.50727.42
-Copyright (C) Microsoft Corporation.  All rights reserved.
-/out:dll.dll
-/dll
-/implib:dll.lib
-dll.obj
-K:\Docs\Projects&gt;app
-First DLL: 00000000
-Second DLL: 10000000
-K:\Docs\Projects&gt;
-</code></pre>
 <p>No caso problemático, a mesma DLL é carregada em dois endereços distintos da memória do mesmo processo, o que pode causar sérios problemas dependendo do código envolvido.</p>
-<pre><code>K:\Docs\Projects&gt;mkdir DLL
-K:\Docs\Projects&gt;copy dll.dll DLL
-1 arquivo(s) copiado(s).
-K:\Docs\Projects&gt;app
-First DLL: 10000000
-Second DLL: 00350000
-K:\Docs\Projects&gt;
-</code></pre>
 <p>Apesar do mundo parecer injusto, temos uma segunda regra que podemos usar para aqueles casos onde a idiotisse já foi feita:</p>
 <p>Vamos supor que estamos no meio de uma mudança bem radical no produto e queremos ter certeza que qualquer chamada à nossa DLL irá invocar unicamente a que estiver dentro do caminho do produto (caminho atual). Para esse caso o Windows permite uma saída muito interessante, que é o uso de um arquivo com o nome do aplicativo mais o sufixo &ldquo;.local&rdquo;. Se esse arquivo existir, de acordo com o MSDN.aspx), então qualquer chamada à DLL irá ter sempre a prioridade do caminho atual.</p>
-<pre><code>K:\Docs\Projects&gt;copy con app.exe.local
-^Z
-1 arquivo(s) copiado(s).
-K:\Docs\Projects&gt;app
-First DLL: 10000000
-Second DLL: 10000000
-K:\Docs\Projects&gt;
-</code></pre>
 <p>Tente evitar a replicação do mesmo arquivo em diversos lugares. Quando eu digo &ldquo;mesmo arquivo&rdquo; me refiro ao mesmo nome de DLL, embora não necessariamente a mesma versão. Isso pode evitar algumas dores de cabeça futuras. E muitas, muitas horas de depuração.</p>
 
             
@@ -222,11 +157,9 @@ K:\Docs\Projects&gt;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20dos%20%c3%baltimos%20artigos%20de%20Dmitry%20Vostokov%2c%20e%20tenho%20que%20falar%20assim%20porque%20o%20cara%20escreve%20muito%20em%20pouco%20tempo%2c%20fala...%20http%3a%2f%2fwww.caloni.com.br%2fe-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

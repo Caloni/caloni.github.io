@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-06-13T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,65 +145,9 @@
 <p>Para depurar pelo Visual Studio 2003 há um programa chamado msvcmon.exe que deve ser copiado e executado na máquina-alvo. Ele é um executável que pode ser copiado para qualquer lugar. Junto dele devem estar duas DLLs: a natdbgdm.dll e a natdbgtlnet.dll. Se você tiver o VS2003 instalado deve achar esses arquivos em algum lugar, ou no pior dos casos no CD de instalação. Por via das dúvidas sempre há um link amigo na internet para ajudar alguém a achar o que precisa.</p>
 <p>Copiados esses arquivos na máquina-alvo é necessário copiar também o executável. Afinal de contas, ele irá executar remotamente! O arquivo PDB, no entanto, você só precisa guardar com você. Lembre-se que toda recompilação em Debug altera de maneira significativa o PDB, então não recompile seu projeto enquanto estiver depurando. Se for fazê-lo, troque o executável na máquina-alvo.</p>
 <p>A primeira execução de toda ferramenta, seu help, irá nos mostrar o seguinte no msvcmon:</p>
-<pre><code>C:\Tools\msvcmon-vs2003&gt;msvcmon /?
-Microsoft (R) Visual C++ Remote Debug Monitor(x86) Version 7.10.3077
-Copyright (C) Microsoft Corporation 1987-2002. All rights reserved.
-
-Usage: msvcmon.exe [options]
-
-Options:
-
--?
-        Display options
-
--anyuser             (tcp/ip only)
-        Allow any user to debug through msvcmon
-
--maxsessions number  (tcp/ip only)
-        Change the number of concurrent debug sessions allowed
-
--nowowwarn
-        Do not warn when running under WOW64
-
--s pipe_suffix_name  (pipe only)
-        Create main pipe with suffix pipe_suffix_name appended to pipe name
-
--tcpip
-        Operate in tcp-ip mode
-
--timeout seconds     (tcp/ip only)
-        Termination timeout - reset on every connection request
-        (use -1 for no timeout)
-
--u xyz\abc           (pipe only)
-        Allow &quot;abc&quot; user/group in domain &quot;xyz&quot; to connect
-
-C:\Tools\msvcmon-vs2003&gt;
-</code></pre>
 <p>Minhas opções favoritas são -tcpip -anyuser -timeout -1, o que libera o acesso a qualquer usuário direto por TCP/IP e o timeout da execução é infinito. All access no limits =)</p>
-<pre><code>C:\Tools\msvcmon-vs2003&gt;msvcmon -tcpip -anyuser -timeout -1
-Microsoft (R) Visual C++ Remote Debug Monitor(x86) Version 7.10.3077
-Copyright (C) Microsoft Corporation 1987-2002. All rights reserved.
-Maximum number of concurrent sessions:20
-
-**TCP-IP Mode**
-
-WARNING: TCP-IP mode is not a secure way to debug your application. For better
-security use msvcmon in pipe mode or the default port in the processes
-dialog to debug your application.
-
-To use the default port you will need to install the full set of remote
-debugging components. For further information see 'Remote Debug Setup' in Help.
-
-*WARNING- infinite timeout value set. Msvcmon will not timeout and exit*
-Waiting for Connections - everyone is allowed access
-</code></pre>
 <p>Agora no Visual Studio 2003 vá em Debug, Processes (ou Ctrl+Alt+P para os íntimos) e escolha a opção de Transport como TCP/IP, digite o IP&hellip; explore sua ferramenta, poxa!</p>
 <p>Depois de conectar remotamente por essa janela o console do msvcmon irá mostrar que usuário se logou:</p>
-<pre><code>*WARNING- infinite timeout value set. Msvcmon will not timeout and exit*
-Waiting for Connections - everyone is allowed access
-        A Debug session has been started for user: Caloni
-</code></pre>
 <p>Para configurar o início da depuração remota pelo próprio projeto você terá que ir nas opções de debug dele e mexer em Remote Settings. Para começar os problemas é sempre bom lembrar que projetos compilados como debug precisam das DLLs de runtime do Visual Studio que sejam debug. Mas você já sabe disso.</p>
 <p>Depois que tudo isso estiver OK é só iniciar seus processos remotamente em modo de depuração ou atachar pela primeira janela que vimos.</p>
 <p>Agora você deve estar se perguntando: &ldquo;mas esse VS é muito velho! e os mais novos?&rdquo;</p>
@@ -215,11 +159,9 @@ Waiting for Connections - everyone is allowed access
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Ent%c3%a3o%20voc%c3%aa%20est%c3%a1%20quebrando%20a%20cabe%c3%a7a%20para%20descobrir%20por%20que%20seu%20c%c3%b3digo%20n%c3%a3o%20faz%20o%20que%20deveria%20fazer%3f%20Ent%c3%a3o%20voc%c3%aa%20%c3%a9%20desses...%20http%3a%2f%2fwww.caloni.com.br%2fdebugger-remoto-do-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

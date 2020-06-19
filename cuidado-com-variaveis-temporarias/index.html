@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2011-07-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,52 +140,9 @@
             
               <p>Um dos problemas que a linguagem C++ possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da vida dos objetos. Às  vezes a coisa fica de tal como complexa que fica até difícil explicar o porquê das coisas.</p>
 <p>Por exemplo, vejamos o singelo caso de alguém que precisa formatar uma saída de erro e para isso escolheu um stringstream:</p>
-<pre><code>#include &lt;sstream&gt;
-#include &lt;exception&gt;
-#include &lt;iostream&gt;
-
-using namespace std;
-
-void LogError(const char* msg)
-{
-    cerr &lt;&lt; &quot;** &quot; &lt;&lt; msg &lt;&lt; endl;
-}
-
-void func()
-{
-    //doSomething();
-    throw exception(&quot;sbrubles exception&quot;);
-}
-
-int main()
-{
-    try
-    {
-        func();
-    }
-    catch(exception&amp; e)
-    {
-        stringstream ss;
-        ss &lt;&lt; &quot;Error calling func: &quot; &lt;&lt; e.what() &lt;&lt; endl;
-        const char* errorMessage = ss.str().c_str();
-        LogError(errorMessage);
-    }
-}
-</code></pre>
 <p>Quando chamamos func, ele lança uma exceção que é capturada no main que, por sua vez, formata uma stream e obtém sua string (através do método str) e através dessa string obtém o ponteiro da string em C puro (através do método cstr). Porém, a mensagem resultante na saída-padrão de erro não era o esperado:</p>
 <p>Depurando diretamente, vemos que a stream, de fato, contém o que esperávamos. O único elemento errante é justamente o ponteiro obtido através da chamada dupla de métodos.</p>
 <p>O porquê isso ocorre só fica óbvio quando vemos a ajuda (ou a assinatura) da função str da classe stringstream:</p>
-<blockquote>
-<pre><code>&lt;span style=&quot;color: #ff0000;&quot;&gt;string str ( ) const;&lt;/span&gt;
-void str ( const string &amp; s );
-
-Get/set the associated string object
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code>The first version &lt;span style=&quot;text-decoration: underline; color: #ff0000;&quot;&gt;returns a copy of the string object&lt;/span&gt; currently associated with the string stream buffer.
-</code></pre>
-</blockquote>
 <p>Ora, a função str retorna uma cópia do objeto string usado internamento pelo buffer de nossa string stream. Duas coisas ocorrem em qualquer cópia de um objeto retornada por uma função:</p>
 <ul>
 <li>
@@ -196,28 +153,13 @@ Get/set the associated string object
 </li>
 </ul>
 <p>Uma vez que a chamada a str termina, é entregue uma instância de uma string que contém a string original que está sendo usada pela string stream para a expressão da chamada, que geralmente vem seguida de uma cópia:</p>
-<pre><code>//
-// 1. str retorna uma cópia;
-// 2. atribuição copia retorno para buf.
-//
-string buf = ss.str();
-</code></pre>
 <p>A variável buf no exemplo acima será, portanto, a terceira string usada aqui até então. Ao final da expressão, a string intermediária retornada por str é automaticamente destruída, por se trata de uma cópia temporária para obedecer a sintaxe de retorno da função.</p>
 <p>Agora, o que acontece se, na cópia temporária, é feita uma operação para obter seu ponteiro interno usado para armazenar sua string estilo C?</p>
 <p>Obviamente ele fica inválido após o fim da expressão!</p>
 <p>Vamos ver em câmera lenta:</p>
 <p>Nada como assembly fresquinho para refrescar os conceitos de C++ por baixo dos panos.</p>
 <p>Após uma enxurrada de programadores gerenciáveis perguntarem qual seria, então, a solução ideal, segue o snipet mais explicitado:</p>
-<pre><code>// 1. Copie a string retornada para uma variável não-temporária
-string buf = message.str();
-
-// 2. Use essa string dentro de seu escopo válido (até o final do catch, no exemplo do artigo).
-const char* text = buf.c_str();
-</code></pre>
 <p>Outro leitor sugeriu fazer toda a chamada em uma única instrução, economizando em expressividade e ainda evitando a destruição da variável temporária criada ao chamar str.</p>
-<pre><code>// 1. Matar três coelhos com uma instrução só.
-LogError(ss.str().c_str());
-</code></pre>
 <p>Particularmente, gosto de instruções simples que me permitam ver claramente o que está acontecendo de forma simples pelo depurador (até porque sei que o compilador irá otimizar tudo no final em versão Release, ainda mais se estiver quebrado em instruções simples). Porém, toda solução que evita o uso da variável temporária após a execução do método str é válida.</p>
 
             
@@ -226,11 +168,9 @@ LogError(ss.str().c_str());
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20dos%20problemas%20que%20a%20linguagem%20C%2b%2b%20possui%20para%20seus%20iniciantes%20%c3%a9%20o%20de%20n%c3%a3o%20deixar%20muito%20expl%c3%adcito%20partes%20do%20seu...%20http%3a%2f%2fwww.caloni.com.br%2fcuidado-com-variaveis-temporarias%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

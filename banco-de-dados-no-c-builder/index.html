@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-12-21T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -162,26 +162,7 @@
 </li>
 </ul>
 <p>Abaixo segue a configuração de cada um deles, ou seja, as propriedades que você deve mudar para que tudo funcione.</p>
-<pre><code>  object Database1: TDatabase
-    AliasName = 'MegaSena'
-    Connected = True
-    DatabaseName = 'MegaSena'
-    LoginPrompt = False
-  end
-  object Table1: TTable
-    Active = True
-    DatabaseName = 'MegaSena'
-    TableName = 'Resultados'
-  end
-  object DataSource1: TDataSource
-    DataSet = Table1
-  end
-</code></pre>
 <p>Após todos esses componentes não-visuais terem sido inseridos no form, nada como colocar alguma coisa que o usuário veja: um TDBGrid.</p>
-<pre><code>  object DBGrid1: TDBGrid
-    DataSource = DataSource1
-  end
-</code></pre>
 <p>Com isso, nossa janela já exibe o conteúdo da tabela em tempo de design:</p>
 <p>E é isso! Se chegamos até aqui, já sabemos o arroz com feijão de usar banco de dados com o C++ Builder. Mais para a frente podemos nos aventurar em tópicos um pouco mais avançados, como fazer buscas, navegar item a item e essas coisas que as pessoas costumam fazer com um MDB.</p>
 <ul>
@@ -195,11 +176,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Um%20banco%20de%20dados%20%c3%a9%20qualquer%20lugar%20onde%20podemos%20ler%20e%20escrever%20informa%c3%a7%c3%a3o%20geralmente%20persistente.%20Pode%20ser%20um%20arquivo...%20http%3a%2f%2fwww.caloni.com.br%2fbanco-de-dados-no-c-builder%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-12-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,49 +146,12 @@
 <p>O codepage 437 não possui ã. Nem õ.</p>
 <p>Isso, meus amigos, é chamado tecnicamente na área de &ldquo;muito louco&rdquo;.</p>
 <p>Curioso a respeito disso, resolvi observar a saída padrão do cmd.exe, para ver o que diabos vem como resultado. Para isso desenvolvi um simples output redirector tabajara:</p>
-<pre><code>#include &lt;Windows.h&gt;
-
-int main(int argc, char* argv[])
-{
-    DWORD ret = ERROR_SUCCESS;
-    SECURITY_ATTRIBUTES sa = { 0, NULL, TRUE };
-    STARTUPINFOA si = { sizeof(si) };
-    PROCESS_INFORMATION pi;
-    CHAR cmd[4096] = &quot;cmd.exe&quot;;
-    SECURITY_ATTRIBUTES saAttr;
- 
-    saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
-    saAttr.bInheritHandle = TRUE;
-    saAttr.lpSecurityDescriptor = NULL;
-
-    si.dwFlags = STARTF_USESTDHANDLES;
-    si.hStdOutput = CreateFileA(&quot;cmd.log&quot;, GENERIC_WRITE, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, 0, NULL);
-    si.hStdError = si.hStdOutput;
-
-    if( si.hStdOutput != NULL &amp;&amp; si.hStdOutput != INVALID_HANDLE_VALUE )
-    {
-        if (CreateProcessA(NULL, cmd, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &amp;si, &amp;pi))
-        {
-            WaitForSingleObject(pi.hProcess, INFINITE);
-            CloseHandle(pi.hThread);
-            CloseHandle(pi.hProcess);
-        }
-
-        CloseHandle(si.hStdOutput);
-    }
-}
-</code></pre>
 <p>Simples, bonito e prático. Quando executamos Redirector.exe ele executa um cmd.exe, com a diferença que a saída dele vai parar no arquivo cmd.log, que podemos observar com um BareTail da vida.</p>
 <p>Opa, opa, opa!</p>
 <p>O til sumiu!</p>
 <p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao ã foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &ldquo;a&rdquo;, simplesmente, sem til.</p>
 <p>Isso quer dizer que ao receber um &ldquo;ã&rdquo; o cmd.exe o reinterpreta como &ldquo;a&rdquo;, mesmo estando sob o encoding 437. Esse é o resultado de um prompt user friendly que quer seu amigo.</p>
 <p>Se analisarmos a memória do cmd.exe veremos que ele armazena as coisas em UTF-16, como qualquer programa Windows nativo unicode.</p>
-<pre><code>@echo off
-:beg
-dir /b c:\temp\quemquer*
-goto beg
-</code></pre>
 <p>E com isso constatamos que não necessariamente no Windows, What You See Is What You Get. Ou, em termos mais filosóficos, What You See Is Not What I Get.</p>
 
             
@@ -197,11 +160,9 @@ goto beg
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Qualquer%20um%20que%20j%c3%a1%20tenha%20mexido%20no%20prompt%20de%20comandos%20do%20Windows%20sabe%20que%20ele%20permite%20voc%c3%aa%20escolher%20qual%20code%20page...%20http%3a%2f%2fwww.caloni.com.br%2fcmd-e-o-encoding-fake%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-19T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,18 +143,7 @@
 <p>Até algum tempo atrás a web não era muito convidativa para usuários de atalhos. Então surgiu o Google e as suas aplicações que suportavam essa característica, o que me deu uma razão a mais para passar a usar seu cliente de e-mail e leitor de notícias sem pressionar constantemente a tecla tab. No entanto, ainda faltava a mesma funcionalidade para seu buscador. Felizmente, isso não é mais verdade.</p>
 <p>Ainda em teste, eu comecei a usar os novos atalhos de teclado na busca do Google disponíveis no saite Google Experimental Search. Até agora existem atalhos para próximo resultado (J), resultado anterior (K), abertura da busca (O ou enter) e colocação do cursor na caixa de busca (/). Eles funcionam exatamente como o Gmail e o Google Reader. Eu fiquei tão empolgado com a idéia que mudei o complemento de busca do Google de dentro do meu Firefox. E agora vou contar como isso pode ser feito facilmente (nota: minhas dicas servem para usuário de Windows apenas).</p>
 <p>Provavelmente seu complemento de busca estará em uma das duas pastas abaixo:</p>
-<pre><code>%programfiles%\Mozilla Firefox\searchplugins
-%appdata%\Mozilla\Firefox\Profiles\*.default\searchplugins
-</code></pre>
 <p>O arquivo do complemento tem o nome google.xml e você pode editá-lo usando o Bloco de Notas ou qualquer outro editor de texto simples (sem formatação). Abaixo está o ponto onde você deve inserir a nova linha que irá ativar os atalhos dentro da página de buscas do Google.</p>
-<pre><code>&lt;Url type=&quot;text/html&quot; method=&quot;GET&quot; template=&quot;http://www.google.com/search&quot;&gt;
-&lt;Param name=&quot;q&quot; value=&quot;{searchTerms}&quot;/&gt;
-&lt;...&gt;
-&lt;Param name=&quot;esrch&quot; value=&quot;BetaShortcuts&quot;/&gt; &lt;!-- Google Shortcuts Here --&gt;
-&lt;!-- Dynamic parameters --&gt;
-&lt;...&gt;
-&lt;/Url&gt;
-</code></pre>
 <p>É isso aí. Agora você pode ter o melhor dos dois mundos: o melhor buscador da internete com atalhos. Existirá maneira de se tornar ainda mais produtivo?</p>
 
             
@@ -163,11 +152,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Eu%20adoro%20atalhos%20de%20teclado.%20Desde%20meus%20primeiros%20anos%20usando%20computadores%2c%20atalhos%20t%c3%aam%20se%20tornado%20minha%20obsess%c3%a3o....%20http%3a%2f%2fwww.caloni.com.br%2fbusca-do-google-com-atalhos%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

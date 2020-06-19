@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2013-04-01T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,17 +140,6 @@
             
               <p>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &ldquo;na nuvem&rdquo;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.</p>
 <p>Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software. Porém, o que poucos sabem, é que será também possível depurar as APIs de redes sociais em tempo real. Ou seja, caso seja usado o método Twitter::Tweet(), logo após o retorno da chamada será possível aguardar por uma resposta dos usuários envolvidos:</p>
-<pre><code>Twitter::Tweet
-push ebp
-mov ebp, esp
-000007f9`bd590000 call __internal_tweet
-000007f9`bd5900ac call _checkesp
-000007f9`bd5900af ...
-000007f9`bd5900ff ...
-000007f9`bd59015f call __internal_wait_for_replies
-000007f9`bd59017f pop esp
-...
-</code></pre>
 <p>Ou seja, logo será possível além de perder horas navegando em saites de rede social perder também horas depurando os comentários e respostas das pessoas nessas redes direto do Visual Studio. É a Microsoft pensando nos programadores que gostam de perder tempo se envolver com pessoas (ainda que virtuais) e discussões acaloradas sobre tópicos irrelevantes e absurdos (ainda que virtuais).</p>
 
             
@@ -159,11 +148,9 @@ mov ebp, esp
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Uma%20das%20novidades%20do%20futuro%20Visual%20Studio%20pouco%20comentada%20ainda%20em%20f%c3%b3runs%20por%20seu%20car%c3%a1ter%20sigiloso%20e%20ainda%20em%20testes...%20http%3a%2f%2fwww.caloni.com.br%2fdepuracao-na-nuvem%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

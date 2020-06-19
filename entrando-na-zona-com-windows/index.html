@@ -34,7 +34,7 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-03-14T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -147,36 +147,7 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
 <p>O Windows 10 já vem com atalhos pré-instalados assim que você loga nele. Tem browser, navegador de arquivos, notícias, e uma caralhada de coisas inúteis que ficam se mexendo na tela, chamando sua atenção, distraindo sobre o que é mais importante.</p>
 <p>Mas é possível arrancar tudo isso e deixar na barra de tarefas pinado apenas as coisas realmente vitais para o uso do computador de trabalho, geralmente o terminal, o navegador (pesquisa, emails, etc) e o editor (não necessariamente o Vim).</p>
 <p>O terminal do Windows, o Command Prompt, ou cmd para os íntimos, sofreu algumas mudanças ultimamente. Entre elas há a transparência, o que o tornou cool, e a tela cheia (atalho Alt+Enter), o que o tornou ideal como ferramenta de navegação para programadores (melhor do que o explorer, que virou um penduricalho de atalhos inúteis também). Você pode ativá-lo já entrando na tela cheia e com o code page de sua preferência (o meu é 65001, que é o utf8) usando esse pequeno programa:</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;windows.h&gt;
-
-#pragma comment(lib, &quot;user32&quot;)
-
-int main()
-{
-    if( ! SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE | CONSOLE_WINDOWED_MODE, NULL) )
-    {
-        // Se falhas com GLE 120 (função não suportada) usar função abaixo.
-        ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
-    }
-    system(&quot;chcp 65001&quot;);
-}
-</code></pre>
 <p>Os comandos do git são muito verbose. Duas letras já seriam suficiente (o Windbg manipula seu programa com apenas uma&hellip;). Para otimizar a digitação no git crie uns aliases em seu HOME.gitconfig:</p>
-<pre><code>[user]
-    name = Wanderley Caloni
-    email = wanderley.caloni@bitforge.com.br
-[alias]
-    st = status
-    br = branch
-    ci = commit
-    co = checkout
-[core]
-    editor = c:/Programs/Vim/vim80/gvim.exe
-    autocrlf = true
-    excludesfile = C:\\Users\\Caloni\\.gitignore
-    fileMode = false
-</code></pre>
 <p>Agora, através dos atalhos Win+1, 2, 3&hellip; pode-se abrir e alternar entre os aplicativos principais do seu dia-a-dia, que devem ficar &ldquo;pinados&rdquo; na barra de tarefas. Os meus atualmente são três: terminal (1 cmd), editor (2 vim) e browser (3 chrome). Não é necessário colocar coisas como Visual Studio, já que minha navegação é feita rapidamente pelo terminal para o projeto que irei mexer. Com isso o foco fica restrito a apenas uma coisa: o que você tem que fazer hoje? =)</p>
 
             
@@ -185,11 +156,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Update%202019-03-20%3a%20Adicionando%20programa%20para%20fazer%20tela%20cheia%20no%20Windows%20e%20retirados%20detalhes%20que%20n%c3%a3o%20uso%20mais.%0aUm...%20http%3a%2f%2fwww.caloni.com.br%2fentrando-na-zona-com-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

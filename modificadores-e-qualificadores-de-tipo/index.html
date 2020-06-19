@@ -34,7 +34,7 @@ Uma coisa de cada vez: existem modificadores (ou..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-05-28T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -144,65 +144,10 @@ Uma coisa de cada vez: existem modificadores (ou..."/>
             
               <p>@caloni poderia pensar em fazer um artigo sobre os modificadores de tipo em c? os mais complexo, acho eu: volatile, enum, union, extern, etc</p>
 <p>Uma coisa de cada vez: existem modificadores (ou qualificadores) de tipo e especificadores de tipo. Volatile e extern se encaixam na primeira categoria, enum e union na segunda. Veremos um pouco desses dois lados da linguagem em doses paliativas.</p>
-<pre><code>6.5.2.2 enum-specifier
- &lt;a href=&quot;/enum&quot;&gt;enum&lt;/a&gt;
-
-6.5.3 type-qualifier
- &lt;a href=&quot;/const-e-volatile&quot;&gt;const&lt;/a&gt;
- &lt;a href=&quot;/const-e-volatile&quot;&gt;volatile&lt;/a&gt;
-
-6.5.2.1 struct-or-union
- struct
- union
-
-6.5.1 storage-class-specifier
- typedef
- extern
- static
- auto
- register
-
-
-type-specifier
- &lt;a href=&quot;/enum&quot;&gt;enum-specifier&lt;/a&gt;
-
-enum-specifier
- &lt;a href=&quot;/enum&quot;&gt;enum&lt;/a&gt;
-
-cv-qualifier
- &lt;a href=&quot;/const-e-volatile&quot;&gt;const&lt;/a&gt;
- &lt;a href=&quot;/const-e-volatile&quot;&gt;volatile&lt;/a&gt;
-
-class-key
- class
- struct
- union
-
-storage-class-specifier
- auto
- register
- static
- extern
- mutable
-
-decl-specifier
- storage-class-specifier
- typedef
-</code></pre>
 <p>Um modificador de tipo é opcional na definição de um tipo e deve estar sempre relacionado com a declaração de alguma variável. Ele determina, em termos gerais, qual será a função dessa variável. Ela pode ser modificada? Onde ela se encontra no programa? Como ela será modificada?</p>
 <p>Como exemplo rápido, temos abaixo uma variável que é atualizada pelo clock do processador e uma variável que não pode ser alterada após sua primeira atribuição:</p>
-<pre><code>volatile int* clockSecs = &lt;algum-endereço-do-sistema&gt;;
-
-
-const float pi = 3.14;
-</code></pre>
 <p>Fica meio óbvio que a primeira variável possui seu valor volátil, ou seja, muda conforme o tempo passa, e não depende do próprio código (pode mudar sem sua permissão). A segunda variável também tem um uso explícito, uma vez que o valor de pi nunca será alterado (não nesse Universo).</p>
 <p>Os especificadores de tipo possuem cada um sua peculiaridade. Os mais peculiares, que veremos nos próximos artigos, serão as enumerações e as construções bizarras de structs e unions.</p>
-<pre><code>enum Contador { um = 1, dois, tres, };
-
-
-union Atoms { struct { int part1; int part2; } parts; int64 total; };
-</code></pre>
 <p>Aqui não é um compêndio teórico sobre a linguagem. Vamos falar particularmente da programação Windows, mas esteja livre para dar seus pitacos com respeito a outros sistemas operacionais e suas implementações igualmente exdrúxulas =)</p>
 
             
@@ -211,11 +156,9 @@ union Atoms { struct { int part1; int part2; } parts; int64 total; };
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=%40caloni%20poderia%20pensar%20em%20fazer%20um%20artigo%20sobre%20os%20modificadores%20de%20tipo%20em%20c%3f%20os%20mais%20complexo%2c%20acho%20eu%3a%20volatile%2c...%20http%3a%2f%2fwww.caloni.com.br%2fmodificadores-e-qualificadores-de-tipo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

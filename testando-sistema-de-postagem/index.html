@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-04-10T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -153,33 +153,8 @@
 </ul>
 <p>De qualquer forma, posso continuar utilizando o título do artigo como base para minha pesquisa.</p>
 <p>Postar no Twitter é algo relativamente fácil. O script abaixo faz isso com dois pés no joelho:</p>
-<pre><code>def PublishToTwitter(postInfo):
-    &quot;&quot;&quot;
-    https://pypi.python.org/pypi/twitter
-    &quot;&quot;&quot;
-    t = twitter.Twitter(auth=twitter_credentials.auth)
-    
-    with open(&quot;C:\\daytoday\\caloni.github.io\\images\\&quot; + postInfo[&quot;permalink&quot;] + &quot;.jpg&quot;, &quot;rb&quot;) as imagefile:
-        imagedata = imagefile.read()
-    t_up = twitter.Twitter(domain='upload.twitter.com', auth=twitter_credentials.auth)
-    id_img1 = t_up.media.upload(media=imagedata)[&quot;media_id_string&quot;]
-    st = postInfo['title'] + '\n\n' + postInfo['tagline'] + '\n\n' + postInfo['shortlink'].encode('utf-8')
-    if len(st) &gt; 120: # giving space to image attachment
-        st = stars + ' ' + postInfo['title'] + '\n\n' + '\n\n' + postInfo['shortlink'].encode('utf-8')
-    t.statuses.update(status=st, media_ids=&quot;,&quot;.join([id_img1]))
-</code></pre>
 <p>Já postar no Facebook é mais ou menos uma tortura. As chaves de acesso costumam expirar, e para conseguir uma que não expira este tutorial é femonenal, pois economiza muito, muito tempo de pesquisa.</p>
 <p>Curiosamente, o código para postar é muito semelhante ao do Twitter, até mais simples, talvez:</p>
-<pre><code>def PublishToFacebook(postInfo):
-    &quot;&quot;&quot;
-    http://nodotcom.org/python-facebook-tutorial.html
-    &quot;&quot;&quot;
-    with open(&quot;C:\\daytoday\\caloni.github.io\\images\\&quot; + postInfo[&quot;permalink&quot;] + &quot;.jpg&quot;, &quot;rb&quot;) as imagefile:
-        imagedata = imagefile.read()
-
-    st = postInfo['title'] + '\n\n' + postInfo['paragraph'] + '\n\n' + baseUrl + postInfo['permalink']
-    post = facebook_credentials.auth.put_photo(image=imagedata, message=st)
-</code></pre>
 
             
 
@@ -187,11 +162,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Bom%2c%20depois%20de%20criar%20um%20script%20para%20basicamente%20apenas%20escrever%20o%20texto%20dos%20filmes%20que%20assisto%20e%20buscar%20uma%20imagem...%20http%3a%2f%2fwww.caloni.com.br%2ftestando-sistema-de-postagem%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

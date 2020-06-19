@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-09-18T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,97 +143,18 @@
 <p>Houve um tempo que eu mesmo pesquisei algumas soluções, e caí no velho problema de tentar conviver com diferentes versões do Visual Studio. Deixei de lado o Vim por uns anos, e passei a usar o VsVim, um plugin que roda em várias versões do Visual Studio e utiliza o vimrc de sua instalação.</p>
 <p>Hoje voltei a fuçar esse problema e depois de algumas horas tentando entender qual a dinâmica que deve ser seguida, cheguei a dois usos legítimos do make no Visual Studio: o modo legado, através do devenv, e o modo comportado, que usa a ferramenta MsBuild para encontrar o projeto e a solution que devem ser compilados.</p>
 <p>A não ser que você coloque o path das ferramentas direto nos comandos (algo que não recomendo pois as coisas no Vim começam a ficar estranhas com paths com espaços, algo abundante no Windows) é preferível que você escolha qual devenv e qual msbuild deseja utilizar e definir isso na variável de sistema path. No meu exemplo estou usando o msbuild para qualquer Visual Studio acima do 2010 (como o 2015), pois já está padronizado, e como tenho projetos no VS2003 para manter, escolhi deixar o devenv.com com ele.</p>
-<pre><code>set path=%path%;C:\Program Files (x86)\MSBuild\14.0\Bin
-set path=%path%;c:\Program Files (x86)\Microsoft Visual Studio .NET 2003\Common7\IDE
-</code></pre>
 <p>Note que essa configuração, para ficar persistente, precisa ser definida através do Painel de Controle ou Propriedades do Sistema. Google for it.</p>
 <p>Depois de configurado, qualquer projeto deve ser compilável em 2003 pela linha de comando (através do devenv.com):</p>
-<pre><code>C:\Projects\samples\FixCMake&gt;devenv.com FixCMake.sln /build Debug
-
-Microsoft (R) Development Environment  Version 7.10.3077.
-Copyright (C) Microsoft Corp 1984-2001. All rights reserved.
------- Build started: Project: FixCMake, Configuration: Debug Win32 ------
-
-Compiling...
-FixCMake.cpp
-Linking...
-
-Build log was saved at &quot;file://c:\Projects\samples\FixCMake\Debug\BuildLog.htm&quot;
-FixCMake - 0 error(s), 0 warning(s)
-
----------------------- Done ----------------------
-
-    Build: 1 succeeded, 0 failed, 0 skipped
-
-C:\Projects\samples\FixCMake&gt;
-</code></pre>
 <p>Da mesma forma, projetos 2010+ devem usar o msbuild:</p>
-<pre><code>C:\Projects\samples\ConsoleApplication5&gt;msbuild
-Microsoft (R) Build Engine version 14.0.25420.1
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-Building the projects in this solution one at a time. To enable parallel build, please add the &quot;/m&quot; switch.
-Build started 9/18/2016 6:02:19 PM.
-Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; on node 1 (default targets).
-ValidateSolutionConfiguration:
-  Building solution configuration &quot;Debug|x64&quot;.
-The target &quot;_ConvertPdbFiles&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
-The target &quot;_CollectPdbFiles&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
-The target &quot;_CollectMdbFiles&quot; listed in a BeforeTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\I
-The target &quot;_CopyMdbFiles&quot; listed in an AfterTargets attribute at &quot;C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\Impo
-Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; (1) is building &quot;C:\Projects\samples\ConsoleApplication5\C
-PrepareForBuild:
-  Creating directory &quot;x64\Debug\&quot;.
-  Creating directory &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\&quot;.
-InitializeBuildStatus:
-  Creating &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\unsuccessfulbuild&quot; because &quot;AlwaysCreate&quot; was specified.
-ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE
-  140.pdb&quot; /Gd /TP /errorReport:queue stdafx.cpp
-  stdafx.cpp
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE
-  140.pdb&quot; /Gd /TP /errorReport:queue ConsoleApplication5.cpp
-  ConsoleApplication5.cpp
-Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:&quot;C:\Projects\samples\Console
-  ib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:&quot;level='asInvoker' uiAccess='false'&quot; /manifest:embed /DEBUG /PDB:&quot;C:\Projects\sa
-  cation5.lib&quot; /MACHINE:X64 x64\Debug\ConsoleApplication5.obj
-  x64\Debug\stdafx.obj
-  ConsoleApplication5.vcxproj -&gt; C:\Projects\samples\ConsoleApplication5\x64\Debug\ConsoleApplication5.exe
-  ConsoleApplication5.vcxproj -&gt; C:\Projects\samples\ConsoleApplication5\x64\Debug\ConsoleApplication5.pdb (Full PDB)
-FinalizeBuildStatus:
-  Deleting file &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\unsuccessfulbuild&quot;.
-  Touching &quot;x64\Debug\ConsoleA.C9D4BE8C.tlog\ConsoleApplication5.lastbuildstate&quot;.
-Done Building Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.vcxproj&quot; (default targets).
-
-Done Building Project &quot;C:\Projects\samples\ConsoleApplication5\ConsoleApplication5.sln&quot; (default targets).
-
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
-
-Time Elapsed 00:00:02.31
-
-C:\Projects\samples\ConsoleApplication5&gt;
-</code></pre>
 <p>Pois é. Tirando essa facilidade, as coisas no Vim para msbuild rodam particularmente bem. Basta alterarmos o makeprg da seguinte maneira:</p>
-<pre><code>:set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true&lt;CR&gt;
-</code></pre>
 <p>As opções específicas são para gerar o path completo, as barras invertidas são por causa dessa mania do Vim de dar pau quando tem espaço em tudo.</p>
 <p>A partir dessa configuração já é possível compilar um projeto estando em sua pasta:</p>
 <p>Para o Visual Studio 2003 (ou qualquer um usando o devenv.com) é necessário mudar esse comando:</p>
-<pre><code>:set makeprg=devenv\ %\ /build\ Debug&lt;CR&gt;
-</code></pre>
 <p>Sim, temos que escolher uma configuração (o msbuild já escolhe por você). E note que ele usa o arquivo atual (%) para compilar. Isso quer dizer que isso irá exigir do usuário de Vim abrir o sln ou o vcproj e executar o :make a partir daí. De qualquer forma, ele funciona também:</p>
 <p>Note que em nenhum dos casos erros conseguirão ser capturados para irmos direto no ponto do código-fonte onde ele está. Para isso funcionar, em nosso último passo, é necessário configurar o errorformat para que ele tenha um padrão que funcione com ambas as ferramentas. Depois de testar um pouco, cheguei nesse formato:</p>
-<pre><code>set errorformat=%f(%l)%m
-</code></pre>
 <p>Ele pega também os warnings, mas fazer o quê. Você não quer conviver com warnings em seu código pelo resto da vida, né? =)</p>
 <p>E para navegar na lista é como o resultado de comandos como :vimgrep. :cnext e :cprevious vão para frente e para trás na lista, sempre pulando para o ponto no código onde está o erro.</p>
 <p>Como deu pra perceber, para conseguir usar o msbuild e o devenv ao mesmo tempo você seria obrigado a trocar o makeprg sempre que precisasse. Para facilitar seu uso, nada como fazer um mapeamento de atalhos:</p>
-<pre><code>map &lt;F7&gt; :set makeprg=devenv\ %\ /build\ Debug&lt;CR&gt;
-map &lt;S-F7&gt; :set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true&lt;CR&gt;
-</code></pre>
 <p>Para alguém curioso para ver minhas configurações do Vim (quem quiser compartilhar também, fique à vontade), segue.</p>
 
             
@@ -242,11 +163,9 @@ map &lt;S-F7&gt; :set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPath
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/tools">tools</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20vida%20dos%20programadores%20C%2fC%2b%2b%20Windows%20%26ndash%3b%20e%20que%20geralmente%20precisam%20do%20Visual%20Studio%20%26ndash%3b%20est%c3%a1%20um%20abandono...%20http%3a%2f%2fwww.caloni.com.br%2fusando-gvim-com-projetos-do-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

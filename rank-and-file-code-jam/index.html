@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2016-04-16T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -141,22 +141,6 @@
               <p>Passou o Round 1A do Code Jam, e para variar, fui muito mal, só respondendo a primeira questão. A segunda me fez ficar pensando um tempo desproporcional sobre como encaixar as diferentes linhas e colunas para achar a linha restante.</p>
 <p>Basicamente, o problema pede que, dado um quadrado de tamanho N, e 2*N-1 linhas fornecidas (que podem ser linhas ou colunas), imprimir a Nésima linha. A regra das linhas é que ela possui números crescentes.</p>
 <p>Bom, não consegui chegar numa solução para o problema errado (encaixar as linhas), mas fui, como sempre, dar uma espiada nas respostas dos competidores, em especial a do primeiro colocado. O grande barato de competições como essa é aprender com a inteligência e genialidade dos outros. Para mim, esse é um exemplo de genialidade:</p>
-<pre><code>int cnt[2501] = {}; // zerando o array
-
-int main()
-{
-    for(int i = 0; i &lt; n * (2 * n - 1); i++)
-    {
-        cin &gt;&gt; j;
-        cnt[j] ^= 1; // inverte primeiro bit do inteiro
-    }
-    printf(&quot;Case #%d:&quot;, t);
-    for(int i = 1; i &lt; 2500; i++)
-        if (cnt[i]) 
-            cout &lt;&lt; &quot; &quot; &lt;&lt; i; // se não for zero (ou seja, ímpar) imprime
-    cout &lt;&lt; endl;
-}
-</code></pre>
 <p>Obs.: O código está higienizado, pois esse pessoal usa bastante macros, etc.</p>
 <p>A solução basicamente decide isolar duas questões: achar os números que faltam nas sequência e imprimi-los na ordem. Para o primeiro, varre todas as sequências sinalizando qual deles tem a quantidade ímpar (ou seja, não está representado em todas as linhas e colunas, pois do contrário seria par). Depois ele resolve a segunda questão simplesmente imprimindo os números ímpares encontrados, já na ordem (no array de valores possíveis).</p>
 <p>Simples, rápido, eficiente. E correto.</p>
@@ -168,11 +152,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/puzzle">puzzle</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/puzzle">puzzle</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Passou%20o%20Round%201A%20do%20Code%20Jam%2c%20e%20para%20variar%2c%20fui%20muito%20mal%2c%20s%c3%b3%20respondendo%20a%20primeira%20quest%c3%a3o.%20A%20segunda%20me%20fez%20ficar...%20http%3a%2f%2fwww.caloni.com.br%2frank-and-file-code-jam%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

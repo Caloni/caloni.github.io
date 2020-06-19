@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2015-05-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,13 +145,6 @@
 <p>Já que o tal do Caloni disse que ainda não fizeram scripts para controles mais modernos. Nenhum descentralizado ainda está na lista. Os scripts são feitos em Perl, ou seja, estão disponíveis em uma linguagem um pouco mais fácil que .BAT. Ou talvez não. De qualquer forma, não parece muito difícil de entender a dinâmica do WinDbg e simplesmente gerar o que tem que gerar dentro dos PDBs.</p>
 <p>Pensando nisso, resolvi fazer uma primeira versão, em Python, de um script em que você passa alguns dados e ele processa seus PDBs. Depois você pode jogá-los em um Symbol Server e quando o WinDbg encontrá-lo através de um binário analisado, este irá conter o endereço no GitHub e um comando do Curl para baixá-lo, passando a exibi-lo imediatamente na tela do WinDbg. E nada mais lógico do que criar um repositório no GitHub para compartilhá-lo, certo?</p>
 <p>O funcionamento é muito simples, mas pede muitos parâmetros (recomendo criar um batch para armazená-los). Então vejamos:</p>
-<pre><code>gitindex.py --help
-usage: gitindex.py [-h] 
---dbgtools DBGTOOLS 
---pdbpath PDBPATH 
---projname PROJNAME 
---repo REPO
-</code></pre>
 <ul>
 <li>dbgtools é o caminho onde está o Debugging Tools for Windows;</li>
 <li>pdbpath é o caminho de onde devem ser pegos os PDBs, como um output da vida;</li>
@@ -167,11 +160,9 @@ usage: gitindex.py [-h]
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Semana%20passada%20fiquei%20sabendo%20que%20o%20v%c3%addeo%20da%20minha%20palestra%20%26ldquo%3bDepurando%20at%c3%a9%20o%20fim%20do%20mundo%26rdquo%3b%20do%20TDC%202014...%20http%3a%2f%2fwww.caloni.com.br%2fdepurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

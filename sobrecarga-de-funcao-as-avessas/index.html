@@ -34,7 +34,7 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2012-05-20T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -146,94 +146,14 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
 <p>Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo t@z) e o finado CThings. No final, consegui matar a marmota, chegar a 80 milhas por hora e voltar para o presente. Enjoy it!</p>
 </blockquote>
 <p>Alguém já se perguntou se é possível usar sobrecarga de função quando a diferença não está nos parâmetros recebidos, mas no tipo de retorno? Melhor dizendo, imagine que eu tenha o seguinte código:</p>
-<pre><code>GUID guid;
-wstring guidS;
-
-CreateNewGUID(guidS); // chama void CreateNewGUID(wstring&amp;)
-CreateNewGUID(guid); // chama void CreateNewGUID(GUID&amp;) (o compilador sabe disso)
-// Codigo-fonte disponivel no GitHub https://github.com/Caloni/Caloni.com.br.
-</code></pre>
 <p>É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:</p>
-<pre><code>GUID guid;
-wstring guidS;
-
-guidS = CreateNewGUID(); // chama wstring CreateNewGUID()
-guid = CreateNewGUID(); // chama GUID CreateNewGUID() (o compilador sabe disso?)
-</code></pre>
 <p>Voltando às teorias de C++, veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama:</p>
-<pre><code>    error C2556: 'GUID CreateNewGUID(void)' :
-    overloaded function differs only by return type from 'std::wstring CreateNewGUID(void)'
-</code></pre>
 <p>Correto. O tipo de retorno não é uma propriedade da função que exclua a ambigüidade. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).</p>
 <p>Pois bem. Não podemos fazer isso utilizando funções ordinárias. Então o jeito é criar nosso próprio &ldquo;tipo de função&rdquo; que dê conta do recado:</p>
-<pre><code>struct CreateNewGUID
-{
-   // o que vai aqui?
-}; 
-</code></pre>
 <p>Pronto. Agora podemos &ldquo;chamar&rdquo; a nossa função criando uma nova instância e atribuindo o &ldquo;retorno&rdquo; a wstring ou à nossa GUID struct:</p>
-<pre><code>guidS = CreateNewGUID(); // instancia um CreateNewGUID
-guid = CreateNewGUID(); // instancia um CreateNewGUID. A diferença está no &quot;retorno&quot; 
-</code></pre>
 <p>Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:</p>
-<pre><code>struct CreateNewGUID
-{
-   operator wstring () { ... } // a conversão é a &quot;chamada da função&quot;.
-
-   operator GUID () { ... } // E como existem duas conversões... sobrecarga!
-}; 
-</code></pre>
 <p>E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas:</p>
-<pre><code>// instancia um CreateNewGUID e chama CreateNewGUID::operator wstring()
-guidS = CreateNewGUID();
-
-// instancia um CreateNewGUID e chama CreateNewGUID::operator GUID()
-guid = CreateNewGUID(); 
-</code></pre>
 <p>Eis o fonte completo:</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;objbase.h&gt;
-
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-
-using namespace std;
-
-struct CreateNewGUID
-{
-   operator wstring ()
-   {
-      GUID guid = operator GUID();
-      OLECHAR buf[40] = { };
-      ::StringFromGUID2(guid, buf, sizeof(buf));
-      return wstring(buf);
-   }
-
-   operator GUID ()
-   {
-      GUID guid = { };
-      ::CoCreateGuid(&amp;guid);
-      return guid;
-   }
-};
-
-int _tmain(int argc, _TCHAR* argv[])
-{
-   wstring guidS;
-   GUID guid;
-
-   // instancia um CreateNewGUID e chama CreateNewGUID::operator wstring()
-   guidS = CreateNewGUID();
-
-   // instancia um CreateNewGUID e chama CreateNewGUID::operator GUID()
-   guid = CreateNewGUID();
-
-   wcout &lt;&lt; L&quot;Pra nao dizer que esse exemplo nao imprime nada:\n&quot;
-         &lt;&lt; guidS &lt;&lt; L'\n';
-
-   return 0;
-} 
-</code></pre>
 <p>Voltando à pergunta original: penso que, com criatividade e C++, nada é impossível =)</p>
 
             
@@ -242,11 +162,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Navegando%20pelo%20Archive.org%2c%20que%20possibilita%20viajar%20no%20tempo%20e%20encontrar%20coisas%20enterradas%20que%20seria%20melhor%20deixar%20por...%20http%3a%2f%2fwww.caloni.com.br%2fsobrecarga-de-funcao-as-avessas%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

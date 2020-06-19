@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2020-03-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,51 +139,8 @@
           <div class="content">
             
               <p>Continuando minhas aventuras em tentar ser mais rápido que o Hugo, fiz uma versão que gera um html porco com os parágrafos obtidos no parser porco de markdown, rodando em cima dos meus 2740 posts. Este é o código novo:</p>
-<pre><code>void WriteFileToHtml(File&amp; file)
-{
-    string htmlFileName = string(file.fileName);
-
-    htmlFileName.replace(htmlFileName.size() - 2, 2, &quot;html&quot;);
-    ofstream ofs(htmlFileName);
-
-    if (ofs)
-    {
-        ofs &lt;&lt; &quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;&quot; &lt;&lt; htmlFileName &lt;&lt; &quot;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;\n&quot;;
-        for (size_t i = 0; i &lt; file.paragraphs.size(); ++i)
-        {
-            string paragraph(file.paragraphs[i].begin, file.paragraphs[i].end);
-            ofs &lt;&lt; &quot;&lt;p&gt;&quot; &lt;&lt; paragraph &lt;&lt; &quot;&lt;/p&gt;\n\n&quot;;
-        }
-        ofs &lt;&lt; &quot;&lt;/body&gt;&lt;/html&gt;\n&quot;;
-    }
-}
-</code></pre>
 <p>Lembrando o resultado do Hugo no post passado:</p>
-<pre><code>C:\Users\caloni\Projects\caloni&gt;hugo
-Building sites …
-                   |  EN
--------------------+-------
-  Pages            | 2765
-  Paginator pages  |    0
-  Non-page files   |    0
-  Static files     | 1748
-  Processed images |    0
-  Aliases          |    0
-  Sitemaps         |    1
-  Cleaned          |    0
-
-Total in 16527 ms
-</code></pre>
 <p>Agora executando o meu programinha caseiro (b.bat é uma batch que executa todos os posts usando o comando for do Windows; ptime é uma versão Windows do time do Linux, que mede performance na execução de um programa).</p>
-<pre><code>C:\Users\caloni\Projects\caloni\content\post&gt;ptime b.bat
-
-ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
-Copyright(C) 2002, Jem Berkes &lt;jberkes@pc-tools.net&gt;
-
-===  b.bat ===
-
-Execution time: 89.573 s
-</code></pre>
 <p>Noventa segundos para 2700 posts! É uma vergonha! Programadores C++/Boost/Asio, vamos nos matar.</p>
 
             
@@ -192,11 +149,9 @@ Execution time: 89.573 s
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Continuando%20minhas%20aventuras%20em%20tentar%20ser%20mais%20r%c3%a1pido%20que%20o%20Hugo%2c%20fiz%20uma%20vers%c3%a3o%20que%20gera%20um%20html%20porco%20com%20os...%20http%3a%2f%2fwww.caloni.com.br%2fprojeto-hu-cpp-not-fast-enough%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

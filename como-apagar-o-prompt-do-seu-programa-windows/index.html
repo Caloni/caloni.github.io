@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2018-01-23T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,21 +139,6 @@
           <div class="content">
             
               <p>Geralmente se cria um projeto console/prompt quando há a necessidade de interfacear com o usuário com o uso da tela preta, saída padrão, etc. E no caso do Windows também há a possibilidade de criar um programa Win32 onde não há prompt, pois a função do programa ou é ser invisível ou criar, sabe como é, janelas. Mas nenhum dos dois possibilita ambos ao mesmo tempo. Este snippet permite que você faça isso.</p>
-<pre><code>void check_console() 
-{
-  HWND console = GetConsoleWindow(); // obtém a janela do console atual
-  if (! console) return; // se não tiver, paciência
-  unsigned long pid; // vamos pegar o pid do processo relacionado a este console
-  if (! GetWindowThreadProcessId(console, &amp;pid)) return; // se não der, paciência também
-  if (GetCurrentProcessId() != pid) return; // se não formos nós os que criamos este prompt deixa quieto
-  FreeConsole(); // somos nós que criamos: desaloca o console e já eras
-}
-
-int main()
-{
-    check_console();
-}
-</code></pre>
 <p>Para isso funcionar você criar um projeto console no Visual Studo. Essa opção está no Linker, System, Heap Reserve Size.</p>
 
             
@@ -162,11 +147,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Geralmente%20se%20cria%20um%20projeto%20console%2fprompt%20quando%20h%c3%a1%20a%20necessidade%20de%20interfacear%20com%20o%20usu%c3%a1rio%20com%20o%20uso%20da%20tela...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-apagar-o-prompt-do-seu-programa-windows%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

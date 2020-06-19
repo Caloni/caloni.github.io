@@ -17,9 +17,6 @@
   
   <guid>http://www.caloni.com.br/awk/</guid>
   <description>Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -31,9 +28,6 @@
   <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
   <description>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).
 Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -44,10 +38,8 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   
   <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
   <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
-&amp;gt;git diff&amp;gt;Binary files a/source.cpp and b/source.cpp differ Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.</description>
-  <details>
-  
-  </details>
+Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.
+Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária.</description>
 </item>
 
      
@@ -60,11 +52,6 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <description>A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.
 Para realizar esta operação será necessário usar as seguintes ferramentas:
  wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente.</description>
-  <details>
-  
-      
-  
-  </details>
 </item>
 
      
@@ -75,9 +62,6 @@ Para realizar esta operação será necessário usar as seguintes ferramentas:
   
   <guid>http://www.caloni.com.br/cpptests/</guid>
   <description>Iniciei um novo projeto no GitHub que tem por objetivo ser minha prancheta de trabalhos para minha palestra no próximo encontro ccpp. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -89,9 +73,6 @@ Para realizar esta operação será necessário usar as seguintes ferramentas:
   <guid>http://www.caloni.com.br/entrando-na-zona-com-windows/</guid>
   <description>Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.
 Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;ldquo;flow&amp;rdquo;, ou estar na zona. Agora é a vez do Windows.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -102,9 +83,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   
   <guid>http://www.caloni.com.br/atalhos-no-terminal-do-linux-unix-cygwin/</guid>
   <description>Há pouca coisa que você pode fazer para manipular a linha de comando que está digitando em um terminal do Windows. Isso faz sentido. O terminal da Microsoft é apenas um resquício do MS-DOS, que foi herdado pelas inúmeras versões do Windows para que desenvolvedores e suporte pudessem executar alguns comandos não disponíveis pelo clique de um mouse. Já no Unix a história é inversa. Durante tantas décadas sendo usado, o sistema Unix, hoje, em sua mais nova reencarnação, Linux, foi acumulando diferentes teclas de atalho para conseguirmos refazer, desfazer e fazer melhor a montagem dos comandos digitados na linha de comando.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -115,9 +93,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
   <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;ldquo;zona&amp;rdquo;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -128,9 +103,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   
   <guid>http://www.caloni.com.br/guardando-senhas-com-vim/</guid>
   <description>Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -141,9 +113,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   
   <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
   <description>A vida dos programadores C/C++ Windows &amp;ndash; e que geralmente precisam do Visual Studio &amp;ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -155,9 +124,6 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <guid>http://www.caloni.com.br/electrum-uma-opcao-simples-e-rapida-de-manter-bitcoins-seguros/</guid>
   <description>Estava já há algum tempo pesquisando as melhores ferramentas para organizar carteiras bitcoin. E quando se fala em ter seus próprios bitcoins, a segurança deve ser prioridade número zero. Isso porque, diferente de bancos, quando você se dispõe a gerenciar seu próprio cofre, é você, e apenas você, o único responsável pela sua integridade.
 Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não seja necessário. Algum hacker ou programa malicioso instalado na sua máquina (como um keylogger) pode facilmente obter essa informação.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -169,9 +135,6 @@ Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não se
   <guid>http://www.caloni.com.br/exportando-repositorios-antigos-do-bazaar-para-git/</guid>
   <description>Enquanto estudava sobre controle de fontes distribuído, experimentei e usei os projetos Mercurial e Bazaar, precursores desse modelo que funcionavam bem em Windows. Havia o Git, mas por conta da sua evolução assimétrica, o ambiente da Microsoft havia ficado para trás.
 Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e funcionando razoavelmente bem em ambientes Windows (64 ou 32), sobraram apenas os repositórios do Mercurial e do Bazaar.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -183,9 +146,6 @@ Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e 
   <guid>http://www.caloni.com.br/integrando-bitbucketgithub-com-trello/</guid>
   <description>Eu nem acredito que estou escrevendo sobre desenvolvimento web, mas como foi algo que me fez dedicar algumas horas do meu fim-de-semana, e não encontrei facilmente uma solução já feita, acredito que pode ser útil para mais alguém que usa Trello e GitHub (ou BitBucket).
 Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -197,9 +157,6 @@ Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligent
   <guid>http://www.caloni.com.br/dando-cabo-do-windbg/</guid>
   <description>Na semana passada falei sobre a ideia de comentar algumas mudanças entre o Windows XP e o novo mundo Vista/7/8/ que fizeram com que adaptássemos algum código que obviamente não funcionaria mais. Falamos sobre a famigerada GINA (ou famiGINADA), e agora apenas vou comentar brevemente sobre o sistema de boot, que também mudou.
 Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora de usar o WinDbg.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -211,9 +168,6 @@ Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora d
   <guid>http://www.caloni.com.br/depuracao-na-nuvem/</guid>
   <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;ldquo;na nuvem&amp;rdquo;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
 Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -225,9 +179,6 @@ Já é conhecido que será possível inserir comentários no código-fonte com o
   <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
   <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
 A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should not try to learn every command an editor offers.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -239,9 +190,6 @@ A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should n
   <guid>http://www.caloni.com.br/depuracao-de-emergencia-receita-de-bolo/</guid>
   <description>Continuando o papo sobre o que fazer para analisar rapidamente um crash no servidor com o pacote WinDbg, na maioria das vezes a exceção lançada pelo processo está diretamente relacionada com um acesso indevido à memória, o que tem diversas vantagens sobre problemas mais complexos:
  Possui localização precisa de onde ocorreu a violação, incluindo o nome do arquivo e a linha do código; Não corrompe a pilha ou, se corrompe, não chega a afetá-la a ponto da thread ficar irreconhecível; A thread que contém a janela de crash é a culpada imediata, então basta olhar a pilha.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -253,9 +201,6 @@ A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should n
   <guid>http://www.caloni.com.br/bazaar-com-subversion/</guid>
   <description>Para pessoas que ficaram viciadas em commits curtos e todo o histórico do fonte na própria máquina, foi uma surpresa descobrir que com o uso do plugin bzr-svn (já incluso no pacote de instalação), consigo ainda utilizar o Bazaar, mesmo que agora esteja trabalhando com um branch do Subversion.
 Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na máquina local, como se fosse um branch do próprio Bazaar, e permite a criação de branches desconectados para pequenos commits e o merge final para o servidor SVN.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -266,9 +211,6 @@ Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na m
   
   <guid>http://www.caloni.com.br/entao-voce-ainda-nao-usa-controle-de-fonte/</guid>
   <description>Não há nada de errado nisso. Projetos robustos com uma equipe moderada ¿ 5 a 10 programadores ¿ precisam desse tipo de organização, e tornam a resolução dos problemas do dia-a-dia mais problemática sem esse controle. A questão reside para o programador solitário ou a equipe minúscula ¿ 2 a 4 programadores. Esses geralmente questionam o custo-benefício de terem o trabalho de configurar e manter mais um sistema. Além disso, isso implica em uma mudança de grandes proporções em cada membro da equipe: uma mudança cultural.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -280,9 +222,6 @@ Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na m
   <guid>http://www.caloni.com.br/novas-diferencas-no-bazaar/</guid>
   <description>Novidade incrível nas novas versões do Bazaar. Dando continuidade à sua versão boiola gráfica, agora é possível configurar quantos visualizadores de diferenças você quiser. Na hora de ver a diferença em algum código-fonte, você pode optar pelo enrustido embutido ou, no caso, o meu favorito, WinMerge.
 E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela discussão se devemos usar tabs ou três espaços para indentar o código.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -294,9 +233,6 @@ E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela disc
   <guid>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</guid>
   <description>The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.
 The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -308,9 +244,6 @@ The reasons why I am using TodoList are kind of obvious: it does everything I ne
   <guid>http://www.caloni.com.br/bazaar-grafico/</guid>
   <description>Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!
 Ele é leve, vem enrustido embutido na última versão e pode economizar alguns page ups/downs no prompt do DOS. Ah, sim, antes que comentem, eu não uso o Tortoise for Bazaar porque instalar shell extensions, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -323,9 +256,6 @@ Ele é leve, vem enrustido embutido na última versão e pode economizar alguns 
   <description>Quebrei a cabeça com uma DLL de hook que não estava funcionando para usuários comuns. No entanto, para qualquer administrador funcionava.
 Isso acontece porque quando se arrasta uma DLL recém-compilada para a VMWare ela possui um mecanismo que primeiro cria esse arquivo no temporário do usuário atual e depois move esse arquivo para o lugar onde você de fato arrastou.
 Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui direitos de uso apenas do usuário e dos administradores do sistema.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -337,9 +267,6 @@ Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui 
   <guid>http://www.caloni.com.br/windbginfo/</guid>
   <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;ldquo;WinDbg. From A to Z&amp;rdquo;.
 Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -351,9 +278,6 @@ Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua
   <guid>http://www.caloni.com.br/virtualbox/</guid>
   <description>O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.
 Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;ldquo;seamless mode&amp;rdquo; - , que estará integrado na versão 7 da VMWare.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -365,9 +289,6 @@ Desenvolvido pela Sun Microsystems, as características do VirtualBox impression
   <guid>http://www.caloni.com.br/como-estou-trabalhando-com-o-bazaar/</guid>
   <description>Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor Rafael, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para Dummies de como é possível organizar um ou mais projetos de forma a favorecer o refactoring e a liberdade de uso.
 Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os branches. O branch principal tem o mesmo nome do projeto.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -379,9 +300,6 @@ Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na 
   <guid>http://www.caloni.com.br/como-fazer-merge-de-projetos-distintos-no-bazaar/</guid>
   <description>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.
 No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -394,9 +312,6 @@ No segundo momento da evolução decidimos começar a migrar os projetos para o 
   <description>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.
 Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.
 O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch).</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -409,9 +324,6 @@ O Launchpad nada mais é do que um lugar onde é possível publicar seus projeto
   <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
 Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;ldquo;urgentes&amp;rdquo;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
 Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -425,9 +337,6 @@ Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar n�
 Muito bem. E a outra ponta da história?
 [Testes feitos em um Fedora 8, não me pergunte mais detalhes]
 O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -439,10 +348,7 @@ O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso 
   <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
   <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
 O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
-reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
-  <details>
-  
-  </details>
+Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
 </item>
 
      
@@ -454,9 +360,6 @@ reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o Wi
   <guid>http://www.caloni.com.br/sdelete/</guid>
   <description>Minha vida tem que ser portátil. Existem pelo menos três lugares diferentes onde costumo ficar com um computador (não o mesmo). Por causa disso, os dados mais relevantes e que precisam fazer parte do meu sistema biológico eu carrego comigo pra cima e pra baixo em meu PenDrive/MP3Player.
 Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sensíveis, e busco sempre manter todos os arquivos sensíveis encriptados ou com uma senha específica do programa que o abre.</description>
-  <details>
-  
-  </details>
 </item>
 
      
@@ -467,9 +370,6 @@ Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sens
   
   <guid>http://www.caloni.com.br/todolist/</guid>
   <description>Vou aproveitar que o recente blogue do meu amigo resolveu falar um pouco sobre administração de tempo e citar a ferramenta que venho utilizando há quase um ano para tentar organizar minhas idéias, minhas tarefas e minha vida. Assim como o Kabloc, eu estava em sérias dificuldades para tentar fazer e organizar todas as coisas que eu tinha em mente. Ainda continuo com dificuldades para fazer, mas o mais importante é que agora eu tenho um roadmap de para onde eu quero ir.</description>
-  <details>
-  
-  </details>
 </item>
 
      

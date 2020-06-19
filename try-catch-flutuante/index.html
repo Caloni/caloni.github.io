@@ -34,7 +34,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-04-03T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -144,75 +144,8 @@
             
               <p>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue (na época que o blogue tinha comentários) e tive o prazer de conhecer no 4o. EPA-CCPP.</p>
 <p>É possível, apesar de bizarro, colocar um bloco try-catch em torno da lista de inicialização de variáveis de um construtor. Essa característica da linguagem permite que possamos capturar alguma exceção lançada por algum construtor de algum membro da classe. A construção em código ficaria no estilo abaixo:</p>
-<pre><code>Class::Class() try : initialization-list
-{
-    // Class constructor body
-}
-catch(...) // note: this IS right!
-{
-    // do something about
-    // just like &quot;throw&quot; over here
-}
-</code></pre>
 <p>Apesar dessa capacidade, não conseguimos parar o lançamento da exceção. Após seu lançamento, caímos no bloco catch abaixo do corpo do construtor e a exceção é lançada novamente, como se houvesse uma intrução throw no final do catch.</p>
 <p>O exemplo abaixo demonstra um código de uma classe que captura a exceção durante a inicialização dos membros. Na seguida o catch da função main é executada, provando que a exceção de fato não é &ldquo;salva&rdquo; no primeiro bloco.</p>
-<pre><code>#include &lt;iostream&gt;
-
-/* This class explodes */
-class Explode
-{
-    public:
-        Explode(int x) 
-        {
-            m_x = x;
-            throw x;
-        }
-
-        void print()
-        {
-            std::cout &lt;&lt; &quot;The number: &quot; &lt;&lt; m_x &lt;&lt; std::endl;
-        }
-
-    private:
-        int m_x;
-};
-
-/* This class is going to be exploded */
-class Victim
-{
-    public:
-        Victim() try : m_explode(5)
-        {
-            std::cout &lt;&lt; &quot;You're supposed to NOT seeing this...\n&quot;;
-        }
-        catch(...) 
-        { 
-            std::cerr &lt;&lt; &quot;Something BAD hapenned\n&quot;;
-            std::cerr &lt;&lt; &quot;We're going to blow up\n&quot;;
-            // just like 'throw' over here
-        }
-
-        void print()
-        {
-            m_explode.print();
-        }
-
-    private:
-        Explode m_explode;
-};
-
-int main()
-{
-    try
-    {
-        Victim vic;
-    }
-    catch(...)
-    {
-        std::cerr &lt;&lt; &quot;Something BAD BAD happenned...\n&quot;;
-    }
-}
-</code></pre>
 <p>Testei esse código nos seguintes compiladores:</p>
 <ul>
 <li>
@@ -238,10 +171,6 @@ int main()
 </li>
 </ul>
 <p>A saída esperada é a seguinte:</p>
-<pre><code>Something BAD hapenned
-We're going to blow up
-Something BAD BAD happenned...
-</code></pre>
 
             
 
@@ -249,11 +178,9 @@ Something BAD BAD happenned...
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Esse%20detalhe%20da%20linguagem%20quem%20me%20fez%20descobrir%20foi%20o%20Yorick%2c%20que%20costuma%20comentar%20no%20blogue%20%28na%20%c3%a9poca%20que%20o%20blogue...%20http%3a%2f%2fwww.caloni.com.br%2ftry-catch-flutuante%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

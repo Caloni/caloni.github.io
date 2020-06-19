@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-07-24T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,23 +140,11 @@
             
               <p>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C++, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C++ já há algum tempo.</p>
 <p>Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates. Para eles deverá ser definida a nova palavra-chave staticassert, que irá ser composta de dois parâmetros:</p>
-<pre><code>static_assert( expressão-constante, literal-em-cadeia );
-</code></pre>
 <p>Podemos usá-la tanto no lugar da função assert quanto da diretiva #error. Mas seu uso mais interessante é como limite para a instanciação de templates:</p>
-<pre><code>template&lt;typename T&gt;
-static_assert( sizeof(T) &gt;= sizeof(int), &quot;T is not big enough&quot; )
-</code></pre>
 <p>Existem outros lugares onde esse novo comando pode ser usado. Para saber quando usá-lo, lembre-se que a verificação é feita durante a compilação, diferente do assert tradicional, que é chamada em tempo de execução.</p>
 <p>Quem diria: depois de todos esse anos o pré-processador sofrerá um upgrade. O objetivo é ser compatível com o novo padrão da linguagem C, o C99. A maior novidade fica por conta do número variável de parâmetros para macros. A linha abaixo resume tudo:</p>
-<pre><code>#define TRACE(format, ...) printf(format, __VA_ARGS__)
-</code></pre>
 <p>Ou seja, não será mais necessário usar o truque dos &ldquo;parênteses duplos&rdquo; em macros de log que formatam parâmetros.</p>
 <p>Considero essa mudança a mais interessante. Com ela será possível usar um número variável de parâmetros em templates. Basicamente isso permite que um dado template aceite um número variável de parâmetros e esses parâmetros sejam &ldquo;expandidos&rdquo; em inúmeras construções dentro do escopo desse template. Nada melhor para explicar que um exemplo, como o caso da herança múltipla. Imagine um template que precisa herdar de seus parâmetros, mas não quer especificar a quantidade:</p>
-<pre><code>template&lt;typename... Bases&gt; // quantidade definida pelo usuário
-class MyTemplate : public Bases...
-{
-...
-</code></pre>
 <p>Outras pequenas correções também serão feitas para tornar a linguagem mais robusta:</p>
 <ol>
 <li>
@@ -177,11 +165,9 @@ class MyTemplate : public Bases...
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/ccpp">ccpp</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>]  [<a href="/tags/ccpp">ccpp</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20nova%20vers%c3%a3o%20do%20GCC%20implementa%20em%20car%c3%a1ter%20de%20teste%20algumas%20novas%20caracter%c3%adsticas%20da%20nova%20vers%c3%a3o%20da%20linguagem%20C%2b%2b%2c%20que...%20http%3a%2f%2fwww.caloni.com.br%2fc0x-parcial-no-novo-gcc-43%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

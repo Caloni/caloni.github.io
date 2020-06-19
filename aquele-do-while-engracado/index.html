@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-15T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,141 +142,16 @@
 <p>Por exemplo, é um hábito conhecido o uso de construções do-while quando existe a necessidade de definir uma macro que possui mais de um comando em vez de usar a igualmente conhecida { construção de múltiplos comandos entre chaves }.</p>
 <p>O que talvez não seja tão conhecido é o porquê das coisas serem assim.</p>
 <p>Vamos imaginar uma macro de logue que é habilitada em compilações debug, mas é mantida em silêncio em compilações release:</p>
-<pre><code>#ifdef NDEBUG
-
-#define MYTRACE( message ) /* nothing */
-
-#else
-
-#define MYTRACE( message )        \
-    {                              \
-        char buffer[500];           \
-        sprintf(buffer,             \
-            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
-            __FILE__,                \
-            __LINE__,                \
-            message);                \
-        OutputDebugString(buffer);  \
-    }
-
-#endif /* NDEBUG */ 
-</code></pre>
 <p>Nada de mais, e parece até funcionar. Porém, como veremos nas próximas linhas, esse é realmente um exemplo de código &ldquo;buguento&rdquo;, já que uma chamada dentro de uma construção if-else simplesmente não funciona.</p>
-<pre><code>if( exploded() )
-    MYTRACE(&quot;Oh, my God&quot;);
-else
-    MYTRACE(&quot;That's right&quot;); 
-
-
-
-error C2181: illegal else without matching if
-</code></pre>
 <p>Por que isso? Para responder a essa questão nós precisamos olhar um pouco mais de perto no resultado do preprocessador da linguagem, que apenas troca nossa macro pelo pedaço de código que ela representa:</p>
-<pre><code>if( exploded() )
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;Oh, my God&quot;);
-        OutputDebugString(buffer);
-    };
-else
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;That's right&quot;);
-        OutputDebugString(buffer);
-    };
-</code></pre>
 <p>Dessa forma, podemos ver o porquê. Quando chamamos a macro, geralmente usamos a sintaxe de chamada de função, colocando um sinal de ponto-e-vírgula logo após a chamada. Essa é a maneira correta de se chamar uma função, mas no caso de uma macro, dessa macro, é um desastre, porque ela cria dois comandos em vez de um só (um ponto-e-vírgula vazio, apesar de não fazer nada, é um comando válido). Então, isso é o que o compilador faz:</p>
-<pre><code>if( instruction )
-{
-    /* um monte de comandos */
-
-} /* aqui eu esperaria um else ou uma instrução nova */
-</code></pre>
 <p>; /* uma instrução nova! ok, sem else desa vez */</p>
-<pre><code>else /* espere ae! o que esse else está fazendo aqui sem um if?!?! */
-{
-    /* mais comandos */
-}
-</code></pre>
 <p>Pense sobre o comando vazio como se ele fosse um comando real, o que é a maneira mais fácil de entender o erro de compilação que recebemos ao compilar o código abaixo:</p>
-<pre><code>if( error() )
-{
-    printf(&quot;error&quot;);
-}
-</code></pre>
 <p>printf(&ldquo;here we go&rdquo;);</p>
-<pre><code>else /* llegal else without matching if! */
-{
-    printf(&quot;okay&quot;);
-}
-</code></pre>
 <p>Por essa razão, a maneira tradicional de escapar desse erro comum é usar uma construção válida que peça de fato um ponto-e-vírgula no final. Felizmente nós, programadores C/C++, temos essa construção, e ela é&hellip; muito bem, o do-while!</p>
-<pre><code>do
-{
-    /* múltiplos comandos aqui */
-}
-while( expression )
-</code></pre>
 <p>;</p>
-<pre><code> /* eu espero um ponto-e-vírgula aqui, para
-                         finalizar minha instrução do-while */
-</code></pre>
 <p>Assim nós podemos reescrever nossa macro de logue da maneira certa (e todas as 549.797 macros já escritas em nossa vida de programador). E, apesar de ser uma construção um tanto bizarra, ela funciona melhor do que nossa tentativa inicial:</p>
-<pre><code>#ifdef NDEBUG
-
-#define MYTRACE( message ) /* nothing */
-
-#else
-
-#define MYTRACE( message )        \
-    do                             \
-    {                              \
-        char buffer[500];           \
-        sprintf(buffer,             \
-            &quot;MYTRACE: %s(%d) %s\n&quot;,  \
-            __FILE__,                \
-            __LINE__,                \
-            message);                \
-        printf(buffer);             \
-    }                              \
-    while( 0 )
-
-#endif /* NDEBUG */ 
-</code></pre>
 <p>Ao usar um do-while (com uma expressão que retorna falso dentro do teste, de maneira que o código seja executado apenas uma vez) a construção if-else consegue funcionar perfeitamente:</p>
-<pre><code>if( exploded() )
-    do
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;Oh, my God&quot;);
-        OutputDebugString(buffer);
-    }
-    while( 0 );
-else
-    do
-    {
-        char buffer[500];
-        sprintf(buffer,
-            &quot;MYTRACE: %s(%d) %s\n&quot;,
-            __FILE__,
-            __LINE__,
-            &quot;That's right&quot;);
-        OutputDebugString(buffer);
-    }
-    while( 0 );
-</code></pre>
 
             
 
@@ -284,11 +159,9 @@ else
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Nesses%20%c3%baltimos%20dias%20andei%20conversando%20com%20um%20amigo%20que%20est%c3%a1%20estudando%20sistemas%20operacionais%20na%20faculdade.%20Melhor%20ainda%2c...%20http%3a%2f%2fwww.caloni.com.br%2faquele-do-while-engracado%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

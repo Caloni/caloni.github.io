@@ -9,14 +9,9 @@
   <meta name="author" content="" />
   <meta name="description"
         content="Nos últimos dias me deparei com o seguinte (pseudo-)código:
-int main(int argc, const char **argv)
-{
-    MyClass obj;
-    HRESULT hr = obj.init();
-
-    if ( SUCCEEDED(hr) )
-    {
-        if (..."/>
+Dentro de MyClass a seguinte estrutura:
+Então eu me pergunto: qual a função da classe em um código desses?
+Bjarne Stroustrup desde o começo,..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -24,14 +19,9 @@ int main(int argc, const char **argv)
   <meta itemprop="name" content="Se você não precisa de classe você não precisa de classe"/>
   <meta itemprop="description"
         content="Nos últimos dias me deparei com o seguinte (pseudo-)código:
-int main(int argc, const char **argv)
-{
-    MyClass obj;
-    HRESULT hr = obj.init();
-
-    if ( SUCCEEDED(hr) )
-    {
-        if (..."/>
+Dentro de MyClass a seguinte estrutura:
+Então eu me pergunto: qual a função da classe em um código desses?
+Bjarne Stroustrup desde o começo,..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -44,18 +34,13 @@ int main(int argc, const char **argv)
         content=""/>
   <meta property="og:description"
         content="Nos últimos dias me deparei com o seguinte (pseudo-)código:
-int main(int argc, const char **argv)
-{
-    MyClass obj;
-    HRESULT hr = obj.init();
-
-    if ( SUCCEEDED(hr) )
-    {
-        if (..."/>
+Dentro de MyClass a seguinte estrutura:
+Então eu me pergunto: qual a função da classe em um código desses?
+Bjarne Stroustrup desde o começo,..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-12-17T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -65,14 +50,9 @@ int main(int argc, const char **argv)
   <meta name="twitter:title" content="Se você não precisa de classe você não precisa de classe"/>
   <meta name="twitter:description"
         content="Nos últimos dias me deparei com o seguinte (pseudo-)código:
-int main(int argc, const char **argv)
-{
-    MyClass obj;
-    HRESULT hr = obj.init();
-
-    if ( SUCCEEDED(hr) )
-    {
-        if (..."/>
+Dentro de MyClass a seguinte estrutura:
+Então eu me pergunto: qual a função da classe em um código desses?
+Bjarne Stroustrup desde o começo,..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -171,59 +151,12 @@ int main(int argc, const char **argv)
           <div class="content">
             
               <p>Nos últimos dias me deparei com o seguinte (pseudo-)código:</p>
-<pre><code>int main(int argc, const char **argv)
-{
-    MyClass obj;
-    HRESULT hr = obj.init();
-
-    if ( SUCCEEDED(hr) )
-    {
-        if ( args have &quot;cmd1&quot; )
-        {
-            hr = obj.cmd1();
-        }
-        else if ( args have &quot;cmd2&quot; )
-        {
-            hr = obj.cmd2();
-        }
-        ... // você entendeu a ideia
-    }
-}
-</code></pre>
 <p>Dentro de MyClass a seguinte estrutura:</p>
-<pre><code>class MyClass
-{
-public:
-    HRESULT m_result = S_OK;
-
-    HRESULT init();
-    HRESULT cmd1();
-    HRESULT cmd2();
-    // você pegou a ideia
-};
-</code></pre>
 <p>Então eu me pergunto: qual a função da classe em um código desses?</p>
 <p>Bjarne Stroustrup desde o começo, em seu livro The C++ Programming Language, sugere que C++ não é uma linguagem unicamente orientada a objetos, mas multi-paradigmas. Hoje, em 2017, ela é uma linguagem genérica e até funcional. Na época poderia ser usada como orientada a objetos, mas também como estruturada e imperativa comum. O goto funciona até hoje.</p>
 <p>Então o erro no código acima é supor mecanicamente que como é C++ precisa ter classe. Não. O código não precisa ter uma classe. No entanto, seu código precisa ter classe. Entendeu?</p>
 <p>Ter classe é para poucos. É para programadores que se preocupam com a relação entre funcionalidade, estilo, arquitetura e todos os inúmeros elementos que tornam um código perfeito. Para ser perfeito, um código precisa levar em conta tantos elementos que apenas um programador acordado, obsessivo, fora da matrix, conseguiria observar o que deve ser feito.</p>
 <p>Uma pequena sugestão:</p>
-<pre><code>#include &lt;map&gt;
-
-int main(int argc, const char **argv)
-{
-    MyMap cmds;
-
-    if ( SUCCEEDED(init()) )
-    {
-        cmds[args]();
-    }
-}
-
-HRESULT init();
-HRESULT cmd1();
-HRESULT cmd2();
-// você pegou a ideia
-</code></pre>
 <p>É a melhor solução? Não. Só uma ideia para tornar o código simples de entender, enxuto para manter, com apenas o modelito básico. Tem até um map para evitar encher de ifs. Mas não precisaria se você tem meia-dúzia de funções.</p>
 <p>E note que eu disse funções, não classe. E é possível ter classe sem classes.</p>
 
@@ -233,11 +166,9 @@ HRESULT cmd2();
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Nos%20%c3%baltimos%20dias%20me%20deparei%20com%20o%20seguinte%20%28pseudo-%29c%c3%b3digo%3a%0aint%20main%28int%20argc%2c%20const%20char%20%2a%2aargv%29%0d%7b%0dMyClass%20obj%3b%0dHRESULT...%20http%3a%2f%2fwww.caloni.com.br%2fse-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

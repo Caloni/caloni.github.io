@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-05-06T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -143,106 +143,6 @@
 <p>O problema reza que existem dois algoritmos para embaralhar uma sequência numérica (de 0 a N): o bom e o ruim. Ambos traçam um loop do iníco ao fim pegando aleatoriamente um elemento da lista e trocando de lugar com o elemento que está sendo varrido no momento.</p>
 <p>A diferença entre o bom e o ruim é que o bom pega aleatoriamente apenas os elementos DEPOIS do elemento que está sendo varrido, enquanto o algoritmo ruim pega qualquer um dos elementos SEMPRE. Isso aparentemente e intuitivamente não parece interferir na aleatoriedade do embaralhamento, mas se levarmos ao extremo de embaralhar repetidas vezes somando a lista resultante percebemos uma tendência gritante do algoritmo ruim em manter o ordenamento inicial, ou pelo menos na média sempre tender para números menores no início e números maiores no fim, como pode ser visto nesse teste que fiz, gerado pelo Excel:</p>
 <p>O que eu tentei fazer durante meu fim-de-semana retrasado e o feriado foi encontrar um detector de aleatoriedade (aliás, encontrei um bem interessante chamado ent), tanto &ldquo;na mão&rdquo; quanto pesquisando. O que eu não imaginava foi que o teste que eu tinha feito no início usando uma simples planilha Excel era a solução óbvia (naquelas de é óbvio só depois que você vê). E foi essa a solução adotada por Kaizero.</p>
-<pre><code>/** @author Kaizero
-@desc Versão comentada (em português) e desofuscada do código do 
-Code Jam 2014, 1A, problema 3 (Proper Shuffle)
-por Wanderley Caloni (wanderley@caloni.com.br).
-*/
-#pragma warning(disable:4996) // warning, pra que te quero...
-#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;vector&gt;
-#include&lt;time.h&gt;
-
-using namespace std;
-
-// as variáveis monossilábicas...
-int w[1001], C[1001][1001], O[1001];
-
-// Note que uma delas (C) é uma tabela gigantesca:
-
-// 1     2    3     4   ...  1001
-// 2
-// 3
-// ...
-// 1001
-
-// tabela verdade?
-bool v[1001];
-
-struct A
-{	
-    int ord, R;
-
-    bool operator &lt;(const A &amp;p)const
-    {
-        return R &lt; p.R;
-    }
-}
-p[1000];
-
-int main()
-{
-    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
-    freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);
-
-    int i, TC, T, n, j;
-
-    srand((unsigned)time(NULL)); // mexendo o saco de bingo...
-
-    // a parte mais demorada: construir um contador gigante estilo 
-    // Excel com 3 milhões de iterações
-    for (i = 0; i &lt; 3000000; i++)
-    {
-        // 1. Preenchemos o array sequencial.
-        for (j = 0; j &lt; 1000; j++)
-        {
-            w[j] = j;
-        }
-
-        // 2. Realizamos o algorimo ruim.
-        for (j = 0; j &lt; 1000; j++)
-        {
-            swap(w[j], w[rand() % 1000]);
-        }
-
-        // 3. Pesamos o resultado do algoritmo ruim.
-        for (j = 0; j &lt; 1000; j++)
-        {
-            C[j][w[j]]++;
-        }
-    }
-
-    // agora a parte &quot;fácil&quot;...
-
-    // ler número de casos de teste (sempre 120)
-    scanf(&quot;%d&quot;, &amp;TC);
-    for (T = 1; T &lt;= TC; T++) // iterar por cada linha
-    {
-        scanf(&quot;%d&quot;, &amp;n);
-        p[T].ord = T; // guardando sua posição
-
-        // lendo os números de todos os casos
-        for (i = 0; i &lt; n; i++)
-        {
-            scanf(&quot;%d&quot;, &amp;O[i]);
-            p[T].R += C[i][O[i]]; // mas gravando o peso de cada posição (cálculo de 3M)
-        }
-    }
-
-    // ordenando pelo peso de cada posição
-    sort(p + 1, p + TC + 1);
-    for (i = 1; i &lt;= 60; i++)
-        v[p[i].ord] = true; // metade tem que ser bom (a melhor metade)
-
-    for (i = 1; i &lt;= TC; i++)
-    {
-        printf(&quot;Case #%d: &quot;, i);
-        if (v[i])printf(&quot;GOOD\n&quot;);
-        else printf(&quot;BAD\n&quot;);
-    }
-}
-</code></pre>
 <p>O que ele basicamente faz é acumular os resultados de três milhões de embaralhamentos feitos pelo algoritmo ruim e inferir através dos resultados que metade é bom e metade é ruim. O ruim fica do lado desbalanceado da sequência.</p>
 <p>Tão óbvio, tão simples, tão elegante.</p>
 
@@ -252,11 +152,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20segundo%20round%20da%20segunda%20fase%20do%20Code%20Jam%20passou%20nesse%20s%c3%a1bado.%20Disl%c3%a9xico%20que%20sou%2c%20consegui%20fazer%20apenas%208%20pontos%20%c2%bf...%20http%3a%2f%2fwww.caloni.com.br%2fpoker-face%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

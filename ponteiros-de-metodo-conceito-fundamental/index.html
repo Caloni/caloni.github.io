@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-11-05T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -152,74 +152,9 @@
 </li>
 </ul>
 <p>Visto isso, passemos a um exemplo simples, um chamador de métodos aleatórios, que ilustra o princípio básico de utilização:</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;iostream&gt;
-#include &lt;time.h&gt;
-
-using namespace std;
-
-// declaramos que existe uma classe com esse nome
-class FuzzyCall;
-
-// ponteiro para métodos da classe acima
-typedef void (FuzzyCall::*FP_Fuzzy)();
-
-/** Classe que faz chamada de um método aleatório. */
-class FuzzyCall
-{
-public:
-
-    FuzzyCall()
-    {
-        srand(GetTickCount()); // chacoalha o saco de bingo
-    }
-
-   FP_Fuzzy GiveMeAMethod() { return m_methods[rand() % 3]; }
-
-private:
-    void MethodOne()   { cout &lt;&lt; &quot;One!\n&quot;; }
-    void MethodTwo()   { cout &lt;&lt; &quot;Two!\n&quot;; }
-    void MethodThree() { cout &lt;&lt; &quot;Three!\n&quot;; }
-
-    static FP_Fuzzy m_methods[3];
-};
-
-/** Array com os métodos que podem ser chamados aleatoriamente. */
-FP_Fuzzy FuzzyCall::m_methods[3] = { &amp;MethodOne, &amp;MethodTwo, &amp;MethodThree };
-
-/** Recebe um ponteiro para um método de FuzzyCall e chama com um objeto local. */
-void passThrough(FP_Fuzzy pMethod)
-{
-    FuzzyCall fuzzyObject; // esse é o objeto local
-    ( fuzzyObject.*pMethod )(); // essa é a chamada
-}
-
-/** No princípio Deus disse: 'int main!'
-*/
-int main()
-{
-    FuzzyCall fuzzyObject1;
-    FP_Fuzzy pMethod;
-
-    // pegamos um método da classe qualquer
-    pMethod = fuzzyObject1.GiveMeAMethod();
-
-    // e passamos para uma outra função
-    passThrough(pMethod);
-} 
-</code></pre>
 <p>Como podemos ver, para o typedef de ponteiros de método é necessário especificar o escopo da classe. Com isso o compilador já sabe que só poderá aceitar endereços de métodos pertencentes à mesma classe com o mesmo protótipo.</p>
 <p>Na hora de atribuir, usamos o operador de endereço e o nome do método (com escopo, se estivermos fora da classe). É importante notar que, diferente de ponteiros de função, o operador de endereço é obrigatório. Do contrário:</p>
-<pre><code>error C4867: 'FuzzyCall::MethodOne': function call missing argument list;
-use '&amp;FuzzyCall::MethodOne' to create a pointer to member
-</code></pre>
 <p>E, por fim, a chamada. Como é a chamada de um método, é quase intuitiva a necessidade de um objeto para chamá-la. Do contrário não teríamos um this para alterar o objeto em qualquer método não-estático, certo? Daí a necessidade do padrão C++ especificar dois operadores especialistas para esse fim, construídos a partir da combinação de operadores já existentes em C:</p>
-<pre><code>FuzzyCall fuzzyObject; // esse é o objeto local
-FuzzyCall* pFuzzy = &amp;fuzzyObject; // ponteiro para esse mesmo objeto
-
-( fuzzyObject.*pMethod )(); // [objeto] .* [ponteiro de método]
-( fuzzyObject-&gt;*pMethod )(); // [ponteiro para objeto] -&gt;* [ponteiro de método] 
-</code></pre>
 <p>Esses operadores obrigam o programador a sempre ter um objeto e um ponteiro. Daí não tem como errar. Infelizmente, devido à ordem de precedência, temos que colocar os parênteses em torno da expressão para chamar o método. Pelo menos fica equivalente ao que precisávamos fazer antes da padronização da linguagem C.</p>
 
             
@@ -228,11 +163,9 @@ FuzzyCall* pFuzzy = &amp;fuzzyObject; // ponteiro para esse mesmo objeto
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Diferente%20de%20ponteiros%20de%20fun%c3%a7%c3%a3o%20%28fun%c3%a7%c3%b5es%20globais%20ou%20est%c3%a1ticas%29%20-%20que%20s%c3%a3o%20a%20grosso%20modo%20ponteiros%20como%20qualquer%20um%20-%20os...%20http%3a%2f%2fwww.caloni.com.br%2fponteiros-de-metodo-conceito-fundamental%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

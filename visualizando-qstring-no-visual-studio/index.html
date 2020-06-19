@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-02-20T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,42 +140,8 @@
             
               <p>O Qt não é um framework que pode apenas ser usado no QtCreator. Através de um projeto bem configurado pelo CMake, por exemplo, é possível ter um projeto que pode ser compilado e depurado tanto nas ferramentas do Qt quanto no Visual Studio. No entanto, na hora de depurar algumas coisas são difíceis de fazer. Por exemplo: como olhar o conteúdo de uma QString?</p>
 <p>O Visual Studio utiliza um mecanismo que lembra os comandos bizarros que se usa no WinDbg, mexendo com registradores e tal. Através dessa combinação é possível dizer para o depurador como interpretar determinados tipos de objetos. Ele já vem obviamente pronto para std::string, CString (ATL) e deveria vir com QString, de tão famosa que é. Mas a versão do Visual Studio 2015 não vem. O jeito então é editar diretamente o arquivo onde ficam esses padrões.</p>
-<pre><code>; AutoExp.Dat - templates for automatically expanding data
-</code></pre>
 <p>O nome do arquivo é autoexp.dat e ele fica em uma pasta no estilo Program Files, Microsoft Visual Studio, Common7, Packages, Debugger. É melhor você retirar ele dessa pasta antes de sobrescrevê-lo para não ter erro de acesso. Ao abri-lo verá que no começo há vários comentários que explicam como é o funcionamento desse padrão.</p>
-<pre><code>; type=[text]&lt;member[,format]&gt;...
-;
-; type		Name of the type (may be followed by &lt;*&gt; for template
-;			types such as the ATL types listed below).
-;
-; text		Any text.Usually the name of the member to display,
-;			or a shorthand name for the member.
-;
-; member	Name of a member to display.
-;
-; format	Watch format specifier. One of the following:
-;
-;	Letter	Description					Sample		   Display
-;	------	--------------------------	------------   -------------
-;	d,i		Signed decimal integer		0xF000F065,d   -268373915
-;	u		Unsigned decimal integer	0x0065,u	   101
-;	o		Unsigned octal integer		0xF065,o	   0170145
-;	x,X		Hexadecimal integer			61541,X		   0X0000F065
-;	l,h		long or short prefix for	00406042,hx    0x0c22
-;			  d, i, u, o, x, X
-;	f		Signed floating-point		3./2.,f		   1.500000
-;	e		Signed scientific-notation	3./2.,e		   1.500000e+000
-;	g		Shorter of e and f			3./2.,g		   1.5
-;	c		Single character			0x0065,c	   'e'
-;	s		Zero-terminated string		pVar,s		   &quot;Hello world&quot;
-;	su		Unicode string				pVar,su		   &quot;Hello world&quot;
-;
-; For details of other format specifiers see Help under:
-; &quot;format specifiers/watch variable&quot;
-</code></pre>
 <p>Felizmente (e também obviamente) o pessoal do Qt já fez uma entrada na wiki que explica como fazer para interpretar corretamente uma QString. Eles mesmos admitem que a coisa ficou difícil desde a última versão (Qt 5), mas ainda assim é possível. E, se tudo falhar, ainda é possível usar a janela de Watch:</p>
-<pre><code>(char*)str.d + str.d-&gt;offset,su
-</code></pre>
 <p>Mas não foi o caso dessa vez. Tudo funcionou perfeitamente assim que incluí os valores da Wiki logo no começo da sessão Visualizer.</p>
 
             
@@ -184,11 +150,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20Qt%20n%c3%a3o%20%c3%a9%20um%20framework%20que%20pode%20apenas%20ser%20usado%20no%20QtCreator.%20Atrav%c3%a9s%20de%20um%20projeto%20bem%20configurado%20pelo%20CMake%2c%20por...%20http%3a%2f%2fwww.caloni.com.br%2fvisualizando-qstring-no-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

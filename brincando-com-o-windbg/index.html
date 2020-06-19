@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-10-30T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -141,58 +141,10 @@
               <p>No primeiro artigo sobre o WinDbg usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um aplicativo qualquer, com o detalhe que não teremos o código-fonte.</p>
 <p>Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá-lo pelo próprio WinDbg ou conectar o depurador (attach) em um programa já em execução. Podemos especificar o que faremos direto na linha de comando ou pela sua interface.</p>
 <p>Pela linha de comando:</p>
-<pre><code>windbg notepad.exe
-windbg -pn notepad.exe (ou -p pid)
-</code></pre>
 <p>Pela interface:</p>
 <p>Para variar, iremos depurar o Bloco de Notas, o maravilhoso editor de textos da Microsoft e plataforma de testes para serviços, GINAs e drivers. Para começar, poderemos usar quaisquer das opções anteriores, o que nos levará para uma saída parecida com a seguinte:</p>
-<pre><code>Microsoft (R) Windows Debugger  Version 6.7.0005.1
-Copyright (c) Microsoft Corporation. All rights reserved.
-
-CommandLine: notepad.exe
-Symbol search path is: SRV*C:Symbols*http://msdl.microsoft.com/downloads/symbols
-Executable search path is:
-ModLoad: 01000000 01014000   notepad.exe
-ModLoad: 7c900000 7c9b0000   ntdll.dll
-ModLoad: 7c800000 7c8f5000   C:WINDOWSsystem32kernel32.dll
-ModLoad: 763b0000 763f9000   C:WINDOWSsystem32comdlg32.dll
-ModLoad: 77f60000 77fd6000   C:WINDOWSsystem32SHLWAPI.dll
-ModLoad: 77dd0000 77e6b000   C:WINDOWSsystem32ADVAPI32.dll
-ModLoad: 77e70000 77f01000   C:WINDOWSsystem32RPCRT4.dll
-ModLoad: 77f10000 77f57000   C:WINDOWSsystem32GDI32.dll
-ModLoad: 7e410000 7e4a0000   C:WINDOWSsystem32USER32.dll
-ModLoad: 77c10000 77c68000   C:WINDOWSsystem32msvcrt.dll
-ModLoad: 773d0000 774d3000   C:WINDOWSWinSxSx86_Microsoft.Windows.Common-Controls_Sbrubles
-ModLoad: 7c9c0000 7d1d5000   C:WINDOWSsystem32SHELL32.dll
-ModLoad: 73000000 73026000   C:WINDOWSsystem32WINSPOOL.DRV
-(df8.e28): Break instruction exception - code 80000003 (first chance)
-eax=001a1eb4 ebx=7ffd5000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4
-eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
-cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
-ntdll!DbgBreakPoint:
-7c901230 cc              int     3
-</code></pre>
 <p>Não se preocupe, nada aconteceu de errado. Essa é apenas a maneira do WinDbg de dizer &ldquo;oi, estou aqui, positivo e operando&rdquo;.</p>
 <p>Vamos destrinchar as informações iniciais para evitar confusão:</p>
-<pre><code>Microsoft (R) Windows Debugger  Version 6.7.0005.1 &lt;- versão do WinDbg
-Copyright (c) Microsoft Corporation. All rights reserved.
-
-CommandLine: notepad.exe &lt;-- linha de comando usada
-Symbol search path is: SRV*C:Symbols*http://msdl.microsoft.com/downloads/symbols &lt;-- onde estão os símbolos?
-Executable search path is:
-ModLoad: 01000000 01014000   notepad.exe &lt;-- informações sobre cada módulo carregado (ModLoad)
-ModLoad: 7c900000 7c9b0000   ntdll.dll
-ModLoad: 7c800000 7c8f5000   C:WINDOWSsystem32kernel32.dll
-...
-(df8.e28): Break instruction exception - code 80000003 (first chance) &lt;-- exceção de breakpoint (início da depuração)
-
-eax=001a1eb4 ebx=7ffd5000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4 &lt;-- estado dos registradores
-eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
-cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
-
-ntdll!DbgBreakPoint: &lt;-- paramos aqui
-7c901230 cc              int     3
-</code></pre>
 <p>Muito bem. Agora vamos explicar resumidamente o que cada parte significa:</p>
 <ul>
 <li>
@@ -216,13 +168,6 @@ ntdll!DbgBreakPoint: &lt;-- paramos aqui
 </blockquote>
 <p>Vamos fazer algo não tão esperto para ver como o bloco de notas reage. Tente abrir um arquivo com um nome inexistente:</p>
 <p>Como podemos ver, o Bloco de Notas exibe uma mensagem de erro indicando que o arquivo cujo nome você digitou não existe, pede para você verificar a &ldquo;orografia&rdquo; e tudo o mais. O importante aqui não é que você não sabe digitar nomes de arquivos, mas sim que a função que o notepad usa para exibir sua mensagem de erro é a conhecida API MessageBox, cujo protótipo é o seguinte:</p>
-<pre><code>int WINAPI MessageBox(
-    HWND hWnd,            // handle para o propretário da janela
-    LPCTSTR lpText,       // ponteiro para string que contém o texto a ser exibido
-    LPCTSTR lpCaption,    // ponteiro para string que contém o título a ser exibido
-    UINT uType            // personaliza a janela com ícones, comportamento, etc
-    );
-</code></pre>
 <p>Algumas coisas a serem notadas nessa API:</p>
 <ul>
 <li>Como (quase) toda API no Windows, a convenção de chamada é WINAPI, o que significa que quem chama empilha todos os parâmetros na pilha. Eu estou falando apenas de Windows 32 bits.</li>
@@ -234,64 +179,20 @@ ntdll!DbgBreakPoint: &lt;-- paramos aqui
 </blockquote>
 <p>O sistema operacional utiliza internamente a codificação UNICODE. Contudo, para manter compatibilidade com versões anteriores de outros SOs, como Windows 95, 98 e ME, as APIs são desenvolvidas em duplas, com versões UNICODE (final W), que repassam a chamada diretamente para o sistema operacional, e ANSI (final A), que fazem a conversão de strings para daí (normalmente) chamar sua irmã em UNICODE.</p>
 <p>Sabendo que tudo converge para UNICODE, vamos colocar um singelo breakpoint nessa função API. Para parar a execução do notepad, podemos digitar &ldquo;Ctrl + Break&rdquo; ou ir no menu &ldquo;Debug, break&rdquo; ou ainda&hellip; bem, você pegou o espírito da coisa.</p>
-<pre><code>bp user32!MessageBoxW
-g
-</code></pre>
 <blockquote>
 <h4 id="faça-do-modo-inteligente">Faça do modo inteligente</h4>
 </blockquote>
 <p>Note que utilizei o prefixo user32! para especificar que a função está no módulo user32.dll, mas não seria necessário já que o WinDbg procura por qualquer função digitada na sua lista de funções exportadas e símbolos atuais. Contudo, fazer isso torna as coisas mais rápidas e evita perder tempo à toa.</p>
 <p>Agora podemos efetuar a mesma operação de abrir um arquivo inexistente no bloco de notas que a execução irá parar no início da função MessageBoxW da API:</p>
-<pre><code>Breakpoint 0 hit
-eax=0007cfb8 ebx=80004005 ecx=7e41ce0b edx=00000008 esi=00000208 edi=001b0296
-eip=7e46630a esp=0007cfa0 ebp=0007d9e4 iopl=0         nv up ei ng nz na pe nc
-cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000286
-USER32!MessageBoxW:
-7e46630a 8bff            mov     edi,edi
-</code></pre>
 <p>Vamos exibir o estado da pilha atual (no registrador esp) no formato de double words, a palavra padrão em sistemas 32 bits:</p>
-<pre><code>0:000&gt; dd esp ; Dump de Double words
-0007cfa0  763db810 001b0296 0007cfb8 0007d5d0 &lt;-- parâmetros do MessageBox (em vermelho)
-0007cfb0  00000030 00000187 00720041 00750071 &lt;-- parâmetros do MessageBox (em vermelho)
-0007cfc0  00760069 0020006f 006e0069 00780065
-0007cfd0  00730069 00650074 0074006e 002e0065
-</code></pre>
 <p>A primeira coluna (cujo primeiro valor é 0007cfa0) exibe o endereço da pilha, sendo que o resto das colunas são os valores encontrados a partir do topo da pilha. Sabendo que a pilha cresce &ldquo;ao contrário&rdquo;, de valores maiores de endereço para menores, os parâmetros empilhados invertidos aparecem agora na ordem do protótipo da função. Complicado? Nem tanto. Os parâmetros são empilhados na ordem inversa do protótipo em C, como tínhamos observado: uType, lpCaption, lpText, hWnd e por fim endereço-de-retorno, que é empilhado ao ser executada a instrução call.</p>
-<pre><code>push uType               ; topo da pilha (esp) = 007cfb0, decrementado em 4 bytes (= double word)
-push lpCaption           ; esp = 007cfac (007cfb0 - 4), decrementado novamente...
-push lpText              ; esp = 007cfa8 (007cfac - 4)
-push hWnd                ; esp = 007cfa4 (007cfa8 - 4)
-call user32!MessageBoxW  ; push eip, esp = 007cfa4 - 4 = 007cfa0
-</code></pre>
 <p>Ao chegar em user32!MessageBoxW o estado da pilha reflete o protótipo, pois é o inverso do inverso (a pilha cresce &ldquo;para baixo&rdquo;, porém os parâmetros são empilhados do último para o primeiro).</p>
-<pre><code>0007cfa0  763db810 001b0296 0007cfb8 0007d5d0
-0007cfb0  00000030 
-
-0007cfa0   ret    hWnd  lpText lpCaption
-0007cfb0  uType
-</code></pre>
 <p>Para referenciarmos os parâmetros através do WinDbg, de forma genérica, tudo que precisamos é adicionar 4 bytes para pularmos de parâmetro em parâmetro:</p>
-<pre><code>esp = ret
-esp + 4 = hWnd
-esp + 8 = lpText
-esp + c = lpCaption
-esp + 10 =  uType
-</code></pre>
 <p>Baseado nesse princípio básico, podemos agora exibir o conteúdo de cada parâmetro passado usando o comando d (Dump) do WinDbg, aliado ao comando poi (pointer), que deferencia um determinado endereço (&ldquo;o apontado de&rdquo;).</p>
-<pre><code>0:000&gt; du poi(esp+8) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+8 (lpText)
-0007cfb8  &quot;Arquivo inexistente.txt.File not&quot;
-0007cff8  &quot; found..Please verify the correc&quot;
-0007d038  &quot;t file name was given.&quot;
-0:000&gt; du poi(esp+c) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+c (lpCaption)
-0007d5d0  &quot;Open&quot;
-</code></pre>
 <p>Note que se estivéssemos tentando exibir uma string Ansi iríamos usar o comando da. O WinDbg possui inúmeros comandos parecidos que começam com d, cuja lista pode ser consultada pelo comando .hh d.</p>
 <p>Como último passo em nosso passeio, vamos especificar alguns comandos para serem executados quando o breakpoint do MessageBox for acionado. O que iremos fazer aqui é trocar a mensagem de erro e seguir em frente (um breakpoint que não pára).</p>
 <p>Para trocar a mensagem de erro usamos o comando e (Edit), semelhante ao d.</p>
 <p>Para continuar a execução, como já vimos, usamos o comando g (Go), e é nessas horas que apenas o comando do prompt pode nos salvar:</p>
-<pre><code>0:004&gt; bp user32!MessageBoxW &quot;ezu poi(esp+8) \&quot;Obrigado por utilizar o maravilhoso Bloco de Notas!\&quot;; g&quot;
-breakpoint 0 redefined
-</code></pre>
 <p>O comando bp (BreakPoint) permite que sejam especificados comandos para serem executados automaticamente sempre que o breakpoint for ativado. Por isso, ao passar em user32!MessageBoxW colocamos dois comandos (separados por ponto-e-vírgula): ezu, que Edita uma string Unicode com outra string terminada em Zero, e o comando g, que já estamos carecas de saber. O resultado é óbvio, mas divertido de ver:</p>
 <p>Repare que colocamos esse breakpoint diretamente na função API, ou seja, qualquer outro ponto do notepad em que ele tiver vontade de chamar a mesma API irá ativar o mesmo breakpoint e exibir a mesma mensagem, o que pode ser um pouco importuno da parte dele. Um bom exercício pós-leitura seria tratar as condições em que a mensagem será trocada, talvez se baseando na mensagem recebida. Mas isso já é lição de casa, e paramos por aqui.</p>
 
@@ -301,11 +202,9 @@ breakpoint 0 redefined
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20primeiro%20artigo%20sobre%20o%20WinDbg%20usamos%20o%20aplicativo%20Logger%20para%20verificar%20as%20fun%c3%a7%c3%b5es%20APIs%20que%20s%c3%a3o%20chamadas%20por%20um...%20http%3a%2f%2fwww.caloni.com.br%2fbrincando-com-o-windbg%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

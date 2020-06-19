@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-10-15T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,62 +145,9 @@
 <p>Após instalado, em qualquer lugar da sua escolha, configure no seu Visual Studio Express o caminho de onde se encontra a pasta atl71 (ou a 30, ou a 21). Aproveite também para colocar a pasta do WTL e o diretório de LIBs:</p>
 <p>Isso vai fazer com que pelo menos os exemplos que vêem com o WTL compilem.</p>
 <p>No entanto, você verá o seguinte erro durante a compilação dos recursos:</p>
-<pre><code>------ Build started: Project: MTPad, Configuration: Debug Win32 ------
-Compiling resources...
-Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
-Copyright (C) Microsoft Corporation.  All rights reserved.
-Linking...
-CVTRES : fatal error CVT1100: duplicate resource.  type:MANIFEST, name:1, language:0x0409
-LINK : fatal error LNK1123: failure during conversion to COFF: file invalid or corrupt
-Build log was saved at &quot;file://c:\Lng\WTL\Samples\MTPad\Debug\BuildLog.htm&quot;
-MTPad - 2 error(s), 0 warning(s)
-========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
-</code></pre>
 <p>Para resolver esse problema, remova a inclusão do arquivo de manifesto no arquivo RC:</p>
-<pre><code>2 TEXTINCLUDE DISCARDABLE
-BEGIN
-    &quot;#include &quot;&quot;atlres.h&quot;&quot;\r\n&quot;
-    &quot;\0&quot;
-END
-
-3 TEXTINCLUDE DISCARDABLE
-BEGIN
-    &quot;CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST &quot;&quot;res\\\\MTPad.exe.manifest&quot;&quot;\r\n&quot;
-    &quot;\0&quot;
-END
-
-#endif    // APSTUDIO_INVOKED
-
-...
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST &quot;res\\MTPad.exe.manifest&quot;
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
-</code></pre>
 <p>Depois dessa alteração, deve ainda existir o seguinte erro de linquedição:</p>
-<pre><code>------ Build started: Project: MTPad, Configuration: Debug Win32 ------
-Compiling resources...
-Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
-Copyright (C) Microsoft Corporation.  All rights reserved.
-Linking...
-mtpad.obj : error LNK2019: unresolved external symbol
-   &quot;void * __stdcall ATL::__AllocStdCallThunk(void)&quot; (bla bla bla)
-mtpad.obj : error LNK2019: unresolved external symbol
-   &quot;void __stdcall ATL::__FreeStdCallThunk(void *)&quot; (bla bla bla)
-.\Debug/MTPad.exe : fatal error LNK1120: 2 unresolved externals
-Build log was saved at &quot;file://c:\Lng\WTL\Samples\MTPad\Debug\BuildLog.htm&quot;
-MTPad - 3 error(s), 0 warning(s)
-========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
-</code></pre>
 <p>Esse problema ocorre porque as funções de alocação e desalocação de memória da ATL estão em outra LIB que os exemplos da WTL desconhecem. Para resolver, basta incluir essa nova dependência:</p>
-<pre><code>#pragma comment(lib, &quot;atlthunk.lib&quot;)
-</code></pre>
 <p>E pronto! Agora temos todo o poder das 500 milhões de classes da ATL aliadas à ilimitada flexibilidade das classes de janelas da WTL.</p>
 <ul>
 <li>
@@ -217,11 +164,9 @@ MTPad - 3 error(s), 0 warning(s)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=No%20entanto%2c%20num%20belo%20dia%2c%20qual%20n%c3%a3o%20foi%20minha%20surpresa%20ao%20notar%20umas%20pastinhas%20chamadas%20atl21%2c%20atl30%20e%20atl71%20dentro%20da...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-usar-wtl-com-o-atl-do-ddk%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

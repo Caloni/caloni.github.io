@@ -9,11 +9,7 @@
   <meta name="author" content="" />
   <meta name="description"
         content="Para essa proeza precisaremos de:
-Dois TButtons
-Um TEdit
-Um TListBox
-
-Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos..."/>
+Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -21,11 +17,7 @@ Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os d
   <meta itemprop="name" content="Interação entre controles no C&#43;&#43; Builder"/>
   <meta itemprop="description"
         content="Para essa proeza precisaremos de:
-Dois TButtons
-Um TEdit
-Um TListBox
-
-Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos..."/>
+Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -38,15 +30,11 @@ Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os d
         content=""/>
   <meta property="og:description"
         content="Para essa proeza precisaremos de:
-Dois TButtons
-Um TEdit
-Um TListBox
-
-Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos..."/>
+Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-12-05T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -56,11 +44,7 @@ Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os d
   <meta name="twitter:title" content="Interação entre controles no C&#43;&#43; Builder"/>
   <meta name="twitter:description"
         content="Para essa proeza precisaremos de:
-Dois TButtons
-Um TEdit
-Um TListBox
-
-Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos..."/>
+Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -159,32 +143,10 @@ Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os d
           <div class="content">
             
               <p>Para essa proeza precisaremos de:</p>
-<pre><code>Dois TButtons
-Um TEdit
-Um TListBox
-</code></pre>
 <p>Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento chama-se design).</p>
 <p>Agora no evento default do Button1 (duplo-clique nele) colocaremos o seguinte código:</p>
-<pre><code>void __fastcall TForm1::Button1Click(TObject *Sender)
-{
-    if( !Edit1-&gt;Text.IsEmpty() )
-    {
-        ListBox1-&gt;AddItem(Edit1-&gt;Text, 0);
-        Edit1-&gt;Text = &quot;&quot;;
-    }
-} 
-</code></pre>
 <p>Percebeu? Não? Então rode e note o que acontece quando você aperta o botão.</p>
 <p>Agora iremos fazer algo mais interessante ainda com o segundo botão. Coloque no evento default o seguinte código:</p>
-<pre><code>void __fastcall TForm1::Button1Click(TObject *Sender)
-{
-    if( !Edit1-&gt;Text.IsEmpty() )
-    {
-        ListBox1-&gt;AddItem(Edit1-&gt;Text, 0);
-        Edit1-&gt;Text = &quot;&quot;;
-    }
-} 
-</code></pre>
 <p>Mais simples, impossível. E com um pouco de imaginação, o mais besta dos aplicativos pode se tornar uma utilidade do dia a dia. Até sua mãe vai adorar.</p>
 
             
@@ -193,11 +155,9 @@ Um TListBox
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Para%20essa%20proeza%20precisaremos%20de%3a%0aDois%20TButtons%0dUm%20TEdit%0dUm%20TListBox%0d%20Bom%2c%20sabemos%20j%c3%a1%20como%20colocar%20esses%20caras%20no%20form...%20http%3a%2f%2fwww.caloni.com.br%2finteracao-entre-controles-no-c-builder%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

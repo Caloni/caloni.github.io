@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-03-10T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -149,57 +149,13 @@
 </ul>
 <p>Essas ferramentas são nativas do ambiente Linux, mas podem ser instaladas no Windows através do Cygwin, do Mingw ou nativamente através das ferramentas GnuWin32.</p>
 <p>O que eu queria era processar a saída de um programa de forma que eu tivesse a lista de todas as extensões dos arquivos. Por exemplo, para a seguinte entrada:</p>
-<pre><code>c:\path\arquivo1.cpp
-c:\path\arquivo2.h
-c:\arquivo3.hpp
-c:\path\path2\arquivo4.cpp
-</code></pre>
 <p>Eu gostaria de uma saída no seguinte formato:</p>
-<pre><code>.cpp
-.h
-.hpp
-</code></pre>
 <p>Basicamente é isso.</p>
 <p>Sabendo que processamento de entrada estaria envolvido, logo pensei em utilizar o sed para a tarefa. Justiça seja feita, depois de eu perder uma hora e meia em pesquisa eu encontrei um tutorial muito bom para quem está começando a entender melhor o funcionamento do sed, e é nele que me baseei para resolver meu problema e escrever este artigo.</p>
 <p>Obs.: sim, eu conheço os tutoriais do Aurélio, e aprendi regex através do livro dele. Contudo, seu guia do sed não é tão bom quanto parece, e apesar de lê-lo de cabo a rabo, acabei precisando de ajuda extra.</p>
 <p>Para filtrar o path do arquivo, e ao mesmo tempo retirar seu nome, podemos usar o seguinte comando (fora outras trilhões de variantes):</p>
-<pre><code>programa | sed -e &quot;s/^.*\\//&quot; -e &quot;s/.*\.\(.*\)/\1/&quot;
-</code></pre>
 <p>Após esse processamento, a saída é um monte de extensões vindas de um monte de arquivos:</p>
-<pre><code>cpp
-h
-cpp
-h
-c
-h
-cpp
-h
-mak
-vcproj
-h
-cpp
-h
-cpp
-h
-cpp
-h
-cpp
-h
-c
-h
-txt
-c
-cpp
-h
-mak
-vcproj
-cpp
-h
-...
-</code></pre>
 <p>Como podemos ver e é óbvio de imaginar, muitas extensões irão se repetir. Para eliminar as repetições e ordenar a saída da saída corretamente, usamos o comando sort:</p>
-<pre><code>programa | sed -e &quot;s/^.*\\//&quot; -e &quot;s/.*\.\(.*\)/\1/&quot; | sort -u
-</code></pre>
 <ul>
 <li>
 <p>Os caracteres .*[]^$\ dão problemas se usados sem escape no sed, pois fazem parte dos comandos para procurar expressões regulares. Use-os com o caractere de escape .</p>
@@ -209,14 +165,11 @@ h
 </li>
 <li>
 <p>Para fazer o escape das barras do caminho de um arquivo temos que usar o conjunto / (obs.: caminhos em formato Unix). Para evitar esse uso enfadonho podemos substituir o caractere de divisão do comando s colocando-o na frente:</p>
-<ul>
-<li>s/path/muito/muito/muito/longo.cpp/outropath/muito/muito/longo.cpp/
-s#/path/muito/muito/muito/longo.cpp#/outropath/muito/muito/longo.cpp#</li>
+</li>
 </ul>
-</li>
-<li>
-<p>Para agrupar expressõe, use sempre &ldquo;(&rdquo; e &ldquo;)&quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.</p>
-</li>
+<p>s#/path/muito/muito/muito/longo.cpp#/outropath/muito/muito/longo.cpp#</p>
+<ul>
+<li>Para agrupar expressõe, use sempre &ldquo;(&rdquo; e &ldquo;)&quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.</li>
 </ul>
 
             
@@ -225,11 +178,9 @@ s#/path/muito/muito/muito/longo.cpp#/outropath/muito/muito/longo.cpp#</li>
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Esse%20artigo%20%c3%a9%20resultado%20de%20eu%20ter%20me%20matado%20para%20conseguir%20encontrar%20a%20forma%20correta%20de%20usar%20o%20aplicativo%20sed%20para%20fazer...%20http%3a%2f%2fwww.caloni.com.br%2fsed-grep-e-afins%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

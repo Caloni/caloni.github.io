@@ -34,7 +34,7 @@ Fiquei impressionado com a..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-08-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -145,60 +145,6 @@ Fiquei impressionado com a..."/>
               <p>Agora que a temporada das telas azuis passou estou às voltas com o nosso sistema de detecção de crashes, além de alguns dumps e logs pra relaxar de vez em quando.</p>
 <p>Fiquei impressionado com a simplicidade com que podemos capturar qualquer exceção que ocorra em um programa, independente da thread, e gravar um minidump com o contexto exato em que o problema ocorreu. O uso da função API SetUnhandledExceptionFilter aliado com a já citada na palestra MiniDumpWriteDump pode agilizar muito a correção de crashes triviais como Access Violation.</p>
 <p>A mágica é tão bela que resolvi gravar um vídeo do que ocorreu quando compilei e testei o programa abaixo. Note que o tamanho do arquivo de dump ficou em torno dos 10 KB, ridículos nessa era de barateamento de espaço.</p>
-<pre><code>/** @file OnCrash
-
-@brief Exemplo de como capturar exceções no seu programa.
-
-@author Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
-@date 2010-08
-*/
-#include &lt;windows.h&gt;
-#include &lt;dbghelp.h&gt;
-#include &lt;time.h&gt;
-
-#pragma comment(lib, &quot;dbghelp.lib&quot;)
-
-LONG WINAPI CrashHandler(_EXCEPTION_POINTERS* ExceptionInfo)
-{
-    LONG ret = EXCEPTION_CONTINUE_SEARCH;
-    MINIDUMP_EXCEPTION_INFORMATION minidumpInfo;
-
-    minidumpInfo.ClientPointers = FALSE;
-    minidumpInfo.ThreadId = GetCurrentThreadId();
-    minidumpInfo.ExceptionPointers = ExceptionInfo;
-
-    HANDLE hFile = CreateFile(&quot;OnCrash.dmp&quot;, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
-
-    if( hFile != INVALID_HANDLE_VALUE )
-    {
-        MINIDUMP_TYPE dumpType = MiniDumpNormal;
-
-        if( MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
-            hFile, MiniDumpNormal, &amp;minidumpInfo, NULL, NULL) )
-        {
-            ret = EXCEPTION_EXECUTE_HANDLER;
-        }
-
-        CloseHandle(hFile);
-    }
-
-    return ret;
-}
-
-DWORD WINAPI CrashThread(PVOID)
-{
-    int* x = 0;
-    *x = 13;
-    return 0;
-}
-
-int main()
-{
-    SetUnhandledExceptionFilter(CrashHandler);
-    HANDLE crashThread = CreateThread(NULL, 0, CrashThread, NULL, 0, NULL);
-    WaitForSingleObject(crashThread, INFINITE);
-}
-</code></pre>
 <p>Espero com isso aliviar a carga pesada de A.V.s que sempre aparece quando menos se espera. Cuidar de toneladas de código legado exige algumas pitadas de automatização nos lugares certos. Como já dizia meu primeiro chefe: se a mente não pensa&hellip;</p>
 
             
@@ -207,11 +153,9 @@ int main()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Agora%20que%20a%20temporada%20das%20telas%20azuis%20passou%20estou%20%c3%a0s%20voltas%20com%20o%20nosso%20sistema%20de%20detec%c3%a7%c3%a3o%20de%20crashes%2c%20al%c3%a9m%20de%20alguns...%20http%3a%2f%2fwww.caloni.com.br%2fgerando-dumps-automatizados%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

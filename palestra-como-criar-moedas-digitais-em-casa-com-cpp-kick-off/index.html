@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-02-19T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -148,97 +148,10 @@
 <li><strong>tioclient.dll</strong> é a biblioteca dinâmica que pode ser usada por clientes para acessar o tio.</li>
 </ul>
 <p>Podemos rodar o tio deixando ele usar os parâmetros padrão ou alterar número da porta e outros detalhes. Vamos executar da maneira mais simples:</p>
-<pre><code>C:\Projects\tiocoin\tiodb\bin\x64\Debug&gt;tio
-Tio, The Information Overlord. Copyright Rodrigo Strauss (www.1bit.com.br)
-Starting infrastructure...
-Saving files to C:/Users/Caloni/AppData/Local/Temp
-Listening on port 2605
-Up and running!
-</code></pre>
 <p>OK, tio rodando e ativo. Podemos navegar já pelos seus contêineres usando o InteliHubExplorer:</p>
 <p>Por convenção os contêineres seguem um padrão de nomes que se assemelha a uma hierarquia de diretórios, e os nomes que começam com underline são internos/reservados. O contêiner meta/sessions, por exemplo, contém uma lista simples das conexões ativas deste nó.</p>
 <p>A partir do servidor funcionando é possível criar novos contêineres e mantê-los, adicionando, atualizando e removendo itens. A partir dessas modificações outros clientes podem receber notícias dessas modificações e tomar suas próprias decisões.</p>
 <p>Vamos criar e popular um contêiner inicial de transações com  um GUID zerado, e a partir dele vamos adicionando novas &ldquo;transações&rdquo;. Também iremos permitir o monitoramento dessas transações.</p>
-<pre><code>try
-{
-    tio::Connection conn;
-    conn.Connect(server, port);
-
-    if (args.find(&quot;--build&quot;) != args.end())
-    {
-        tio::containers::list&lt;string&gt; transactionsBuilder;
-        transactionsBuilder.create(&amp;conn, &quot;transactions&quot;, &quot;volatile_list&quot;);
-        transactionsBuilder.push_back(&quot;{00000000-0000-0000-0000-0000000000000&quot;);
-    }
-    else if (args.find(&quot;--add&quot;) != args.end())
-    {
-        tio::containers::list&lt;string&gt; transactionsAdd;
-        transactionsAdd.create(&amp;conn, &quot;transactions&quot;, &quot;volatile_list&quot;);
-        string newTransaction = NewGuid();
-        if( newTransaction.size())
-            transactionsAdd.push_back(newTransaction);
-        else
-            cout &lt;&lt; &quot;Error creating transaction\n&quot;;
-    }
-    else if (args.find(&quot;--monitor&quot;) != args.end())
-    {
-        tio::containers::list&lt;string&gt; transactionsMonitor;
-        transactionsMonitor.open(&amp;conn, &quot;transactions&quot;);
-        transactionsMonitor.subscribe([](auto container, auto containerEvt, auto key, auto value)
-                {
-                int eventCode = stoi(containerEvt);
-
-                switch (eventCode)
-                {
-                case TIO_COMMAND_PING:
-                cout &lt;&lt; &quot;Ping!\n&quot;;
-                break;
-
-                case TIO_EVENT_SNAPSHOT_END:
-                cout &lt;&lt; &quot;Snapshot end\n&quot;;
-                break;
-
-                case TIO_COMMAND_PUSH_BACK:
-                cout &lt;&lt; &quot;New transaction &quot; &lt;&lt; value &lt;&lt; &quot; inserted\n&quot;;
-                break;
-
-                default:
-                cout &lt;&lt; &quot;Unknown event &quot; &lt;&lt; hex &lt;&lt; eventCode &lt;&lt; &quot; with key &quot; &lt;&lt; dec &lt;&lt; key &lt;&lt; &quot; and with value &quot; &lt;&lt; value;
-                break;
-                }
-                });
-        while (true)
-        {
-            conn.WaitForNextEventAndDispatch(0);
-            Sleep(1000);
-        }
-    }
-    else
-    {
-        tio::containers::list&lt;string&gt; transactionsReader;
-        transactionsReader.open(&amp;conn, &quot;transactions&quot;);
-        for( size_t transactionIdx = 0; transactionIdx &lt; transactionsReader.size(); ++transactionIdx )
-            cout &lt;&lt; &quot;Transaction &quot; &lt;&lt; transactionsReader.at(transactionIdx) &lt;&lt; endl;
-    }
-
-    break; // just testing and developing...
-}
-catch (tio::tio_exception&amp; e)
-{
-    Log(&quot;Connection error: %s&quot;, e.what());
-    break;
-}
-catch (std::runtime_error&amp; e)
-{
-    Log(&quot;Runtime error: %s&quot;, e.what());
-    break;
-}
-catch (...)
-{
-    Log(&quot;Catastrophic error&quot;);
-    break;
-}
-</code></pre>
 <p>Após executar esse código passando o argumento &ldquo;&ndash;build&rdquo; e atualizarmos o IntelihubExplorer poderemos ver o novo contêiner e seu conteúdo. É possível ler o código rodando o mesmo programa sem passar o argumento &ldquo;&ndash;build&rdquo;.</p>
 <p>Agora imagine que exista um cliente da tiocoin que está monitorando as transações deste servidor para verificar a partir de qual momento uma transação foi aceita (supondo que este contêiner possui as transações aceitas):</p>
 <p>Voilà! Agora temos um sistema inicial com um contêiner que irá manter os IDs de supostas transações de nossa moeda digital. Está compilando e está rodando, e em cima disso poderemos ir adicionando as funcionalidades.</p>
@@ -249,11 +162,9 @@ catch (...)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Esta%20palestra%20tem%20como%20objetivo%20ensinar%20o%20que%20s%c3%a3o%20moedas%20digitais%2c%20como%20o%20bitcoin%2c%20e%20cada%20passo%20necess%c3%a1rio%20o%20algoritmo%20e...%20http%3a%2f%2fwww.caloni.com.br%2fpalestra-como-criar-moedas-digitais-em-casa-com-cpp-kick-off%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

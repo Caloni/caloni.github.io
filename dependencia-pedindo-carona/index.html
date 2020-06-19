@@ -34,7 +34,7 @@ Foi o caso da ToolHelp32..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2011-01-04T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -151,102 +151,9 @@ Foi o caso da ToolHelp32..."/>
 <p>Um recurso muito útil para ver essas funções é o Dependency Walker, meu amigo de infância:</p>
 <p>&ldquo;Mas, Caloni, eu nem uso essa função! Como ela pode ser necessária?&rdquo;</p>
 <p>Pois é. As coisas nem sempre acabam sendo como o esperado. Se você possuir uma LIB, por exemplo, e nela existirem duas funções, como abaixo, e você se limitar a usar em seu programa apenas a primeira, todas as dependências da segunda também irão parar no executável final.</p>
-<pre><code>#include &quot;LibMod.h&quot;
-#include &lt;windows.h&gt;
-#include &lt;Tlhelp32.h&gt;
-#include &lt;stdio.h&gt;
-
-// Essa função é usada pelo nosso App
-int UsingOldApis()
-{
-    DWORD ver = GetVersion(); // API paleozoica, OK.
-    return int( (DWORD)(LOBYTE(LOWORD(ver))) );
-}
-
-// Essa função NÃO é usada pelo nosso App
-void UsingNewApis()
-{
-    // Opa: função moderninha!!
-    if( HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL) )
-    {
-        PROCESSENTRY32 procEntry;
-
-        // Tudo bem, nosso App não vai usar essa função.
-        if( Process32First(snapshot, &amp;procEntry) )
-        {
-            printf(&quot;Process list:\n&quot;);
-
-            do
-            {
-                printf(&quot;%s\n&quot;, procEntry.szExeFile);
-            }
-            while( Process32Next(snapshot, &amp;procEntry) );
-        }
-
-        CloseHandle(snapshot);
-    }
-}
- 
-
-
-#include &quot;LibMod.h&quot;
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int main()
-{
-    // Usando apenas funções paleozoicas, certo?
-    printf(&quot;Our Major OS version is %d\n&quot;, UsingOldApis() );
-    system(&quot;pause&quot;);
-}
-</code></pre>
 <p>Acontece que o nosso amigo linker gera uma lista de dependências por módulo (CPP), e não por função. Dessa forma, tudo que vier é lucro.</p>
 <p>Só que às vezes é prejuízo, também. Quando usamos um SO da época do guaraná com rolha, como o Windows NT 4, por exemplo, não conseguimos usar um programa porque este possuía uma função moderninha nunca usada, mas que estava dentro de um CPP junto de uma função comportada, usando apenas APIs documentadas no primeiro papiro da Microsoft.</p>
 <p>Sempre existe. Nesse caso, migrarmos as funções moderninhas para um segundo CPP, recompilarmos a LIB e a dependência milagrosamente desaparecerá!</p>
-<pre><code>#include &quot;LibMod.h&quot;
-#include &lt;windows.h&gt;
-#include &lt;Tlhelp32.h&gt;
-#include &lt;stdio.h&gt;
-
-// Essa função é usada pelo nosso App
-int UsingOldApis()
-{
-    DWORD ver = GetVersion(); // API paleozoica, OK.
-    return int( (DWORD)(LOBYTE(LOWORD(ver))) );
-}
-
- 
-
-
-#include &quot;LibMod.h&quot;
-#include &lt;windows.h&gt;
-#include &lt;Tlhelp32.h&gt;
-#include &lt;stdio.h&gt;
-
-// Essa função NÃO é usada pelo nosso App
-void UsingNewApis()
-{
-    // Opa: função moderninha!!
-    if( HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL) )
-    {
-        PROCESSENTRY32 procEntry;
-
-        // Tudo bem, nosso App não vai usar essa função.
-        if( Process32First(snapshot, &amp;procEntry) )
-        {
-            printf(&quot;Process list:\n&quot;);
-
-            do
-            {
-                printf(&quot;%s\n&quot;, procEntry.szExeFile);
-            }
-            while( Process32Next(snapshot, &amp;procEntry) );
-        }
-
-        CloseHandle(snapshot);
-    }
-}
-</code></pre>
 <p>Agora a aplicação poderá rodar em paz naquele que é, como diz meu amigo, um sistema operacional de ponta&hellip; da outra ponta!</p>
 
             
@@ -255,11 +162,9 @@ void UsingNewApis()
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Mesmo%20as%20vezes%20que%20voc%c3%aa%20n%c3%a3o%20queira%2c%20algumas%20depend%c3%aancias%20pedem%20carona%20e%20o%20compilador%20deixa%20entrar.%20Da%c3%ad%20mesmo%20que%20voc%c3%aa...%20http%3a%2f%2fwww.caloni.com.br%2fdependencia-pedindo-carona%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

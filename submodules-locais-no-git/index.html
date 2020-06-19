@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2017-05-28T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,13 +140,7 @@
             
               <p>Quando projetos remotos usam submodules é possível que algum deles seja acessível apenas através de chaves criptográficas. Isso exige que os sub-projetos necessários para fazer funcionar seu projeto podem estar fora do seu alcance e acesso, o que irá gerar durante seus comandos pull recursivos erros de ssh (publickey access).</p>
 <p>A solução é ler a documentação e descobrir que é possível editar o arquivo .git/config para mudar a url de um submódulo inacessível pela forma do .gitmodules. Eis um exemplo de arquivo config dentro do .git:</p>
-<pre><code>[submodule &quot;sbrubles&quot;]
-    url = git@github.com:user/project.git
-</code></pre>
 <p>Você pode localmente alterar o endereço ssh deste submodule para algo que todos têm acesso ou só você tem acesso, como uma pasta local ou o endereço https:</p>
-<pre><code>[submodule &quot;sbrubles&quot;]
-    url = https://github.com/user/project.git
-</code></pre>
 <p>Note que isso não irá interferir em nada no repositório localizado remotamente do projeto. Dessa forma diferentes membros da equipe podem usar diferentes formas de acessar um submódulo.</p>
 
             
@@ -155,11 +149,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20projetos%20remotos%20usam%20submodules%20%c3%a9%20poss%c3%advel%20que%20algum%20deles%20seja%20acess%c3%advel%20apenas%20atrav%c3%a9s%20de%20chaves...%20http%3a%2f%2fwww.caloni.com.br%2fsubmodules-locais-no-git%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

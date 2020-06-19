@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-03-24T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -150,30 +150,11 @@
 <p>O debug.com inicialmente começa a execução em um espaço de memória baixa. Podemos escrever um assembly qualquer nessa memória e começar a executar. Isso é exatamente o que iremos fazer, e a instrução escolhida será a INT13, pois iremos ler o primeiro setor do HD para a memória e começar a executá-lo. Isso é a depuração da MBR.</p>
 <p>Para fazer isso, algumas informações são necessárias, e tudo está disponível no sítio muito simpático e agradável de Ralf Brown, o cara que enumerou todas as interrupções conhecidas, além de diversas outras coisas.</p>
 <p>Como queremos ler um setor do disco, a função da interrupção que devemos chamar é a AH=02:</p>
-<pre><code>AH = 02h
-AL = number of sectors to read (must be nonzero)
-CH = low eight bits of cylinder number
-CL = sector number 1-63 (bits 0-5)
-high two bits of cylinder (bits 6-7, hard disk only)
-DH = head number
-DL = drive number (bit 7 set for hard disk)
-ES:BX -&gt; data buffer
-</code></pre>
 <p>Muito bem. Tudo que temos a fazer é preencher os registradores com os valores corretos:</p>
-<pre><code>rax 0201 ; função e número de setores (1)
-rcx 0001 ; número do cilindro e do setor (cilindro = 0, setor = 1)
-rdx 0080 ; número da cabeça (0) e do drive (HD = 0, o bit 7 deve estar levantado)
-res 0000 ; segmento em que é executada a MBR
-rbx 7e00 ; offset em que é executada a MBR
-</code></pre>
 <p>Essa é a maneira em que as coisas são. Você certamente poderia usar outro endereço, mas estamos tentando deixar a emulação de um boot o mais próximo possível  de um boot de verdade. E, tradicionalmente, o endereço de execução da MBR é em 0000:7E00. Para recordar disso, basta lembrar que o tamanho de um setor é de 0x200 bytes, e que dessa forma a MBR vai parar bem no final do endereçamento baixo (apenas offset).</p>
 <p>Essa organização é diferente do endereço inicial da BIOS, que é por padrão 0xFFFF0.</p>
 <p>Após definir corretamente os registradores, tudo que temos que fazer é escrever uma chamada à INT13 no endereço atual e executar. O conteúdo inicial do disco será escrito no endereço de memória 0000:7E00. Após isso trocamos o IP atual para esse endereço e começamos a depurar a MBR, como se estivéssemos logo após o boot da máquina.</p>
 <p>Além da MBR, muitas vezes é preciso depurar a própria BIOS para descobrir o que está acontecendo. Nesse caso, tudo que precisamos fazer é colocar o ponteiro de próxima instrução para a região de memória 0xFFFF0, que traduzido para segmento/offset fica f000:fff0 (mais explicações sobre isso talvez em um futuro artigo).</p>
-<pre><code>-rcs f000
--rip fff0
--t
-</code></pre>
 
             
 
@@ -181,11 +162,9 @@ rbx 7e00 ; offset em que é executada a MBR
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Dando%20continuidade%20a%20um%20artigo%20beeeem%20antigo%20sobre%20depura%c3%a7%c3%a3o%20da%20BIOS%20usando%20SoftIce%2c%20como%20j%c3%a1%20vimos%2c%20podemos%20igualmente...%20http%3a%2f%2fwww.caloni.com.br%2fdepuracao-da-mbr%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

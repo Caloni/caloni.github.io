@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-07-14T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -142,22 +142,6 @@
 <p>Agora a maioria dos erros que houver será descrita por uma mensagem no seguinte formato:</p>
 <p>O primeiro erro acima ocorre principalmente se não houver algum Houaiss instalado que o programa possa detectar. Resolva este problema fazendo uma busca no Buscapé.</p>
 <p>Abaixo segue a função criada para exibir essas mensagens:</p>
-<pre><code>void MessageError(DWORD err, PCSTR msg, ...)
-{
-    CHAR errBuffer[100];
-    CHAR msgBuffer[ERR_STR_BUF_SIZE];
-    va_list vaList;
-
-    va_start(vaList, msg);
-    vsprintf(msgBuffer, msg, vaList);
-    va_end(vaList);
-
-    sprintf(errBuffer, &quot; Erro de sistema número %d.&quot;, (int) err);
-    strcat(msgBuffer, errBuffer);
-
-    MessageBox(NULL, msgBuffer, STR_PROJECT_NAME, MB_OK | MB_ICONERROR);
-}
-</code></pre>
 <p>Se você notou, a função acima pode receber um número de argumentos variáveis para formatar a string da mensagem principal do erro, além de exibir seu código. Essa mágica pode ser feita usando-se o cabeçalho padrão &ldquo;stdarg.h&rdquo;. Através dele temos acesso ao tipo valist, que representa uma lista de argumentos variáveis.</p>
 <p>Pela convenção de chamada da linguagem C (e C++), quem desmonta a pilha é o chamador. Sendo assim, a função chamada não precisa conhecer o número de argumentos com que foi chamado.</p>
 <p>A função de formatação de string é uma variante do conhecidíssimo printf, na versão que recebe um tipo valist. Muito útil para formatação de logs.</p>
@@ -169,11 +153,9 @@
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Depois%20de%20v%c3%a1rios%20coment%c3%a1rios%20%28na%20%c3%a9poca%20que%20o%20saite%20tinha%20coment%c3%a1rios%29%20de%20pessoas%20tendo%20problemas%20em%20converter%20seus...%20http%3a%2f%2fwww.caloni.com.br%2fsegunda-versao-do-houaiss2babylon%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

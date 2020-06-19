@@ -34,7 +34,7 @@ Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2019-04-29T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -144,13 +144,9 @@ Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
             
               <p>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:</p>
 <p>Quem diz o asterisco fazer parte do tipo e não da variável tem razão. Pensando dessa forma ele tem que ficar próximo do tipo.</p>
-<pre><code>const int* var
-</code></pre>
 <p>Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade. Ou seja, int pointer var significa que pointer var equivale a um int (constante ou não, mas preciso dessa variável não-const para o exemplo). É por isso que pointer var igual a dez possui o mesmo valor de atribuição do que int var seguido de var igual a dez, ou seja, pointer var é sinônimo do l-value var (se var fosse um inteiro e não um ponteiro).</p>
 <p>Além disso, outro argumento pró-proximidade da variável é que declarações de múltiplas variáveis na mesma linha precisam de múltiplos asteriscos: const int pointer var1, pointer var2, pointer var3.</p>
 <p>Portanto, como ambos os lados estão certos, separar o asterisco de ambos não dá prioridade a nenhuma forma que o programador poderá interpretar essa decisão, seja como parte do tipo ou da variável. Cada programador com seu próprio estilo irá enxergar em const int pointer  var a proximidade com int ou com var de acordo com seu próprio bias (e estará certo em sua análise).</p>
-<pre><code>qualifier type * name;
-</code></pre>
 
             
 
@@ -158,11 +154,9 @@ Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=A%20melhor%20forma%20de%20declarar%20vari%c3%a1veis%20ponteiros%20%28constante%20ou%20n%c3%a3o%2c%20mas%20segue%20o%20exemplo%29%20%c3%a9%20const%20int%20pointer%20var....%20http%3a%2f%2fwww.caloni.com.br%2fconst-int-pointer-var%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

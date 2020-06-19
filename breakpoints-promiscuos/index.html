@@ -40,7 +40,7 @@ Configure uma VM para bootar em kernel..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2010-07-26T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -159,35 +159,6 @@ Configure uma VM para bootar em kernel..."/>
 <li>Defina um breakpoint em alguma DLL de user mode.</li>
 </ul>
 <p>Como meus leitores são muito espertos foi partir para o momento após rodarmos um notepad.exe:</p>
-<pre><code>kd&gt; !process 0 0 notepad.exe
-PROCESS 81681be0  SessionId: 0  Cid: 0598    Peb: 7ffd7000  ParentCid: 0200
-    DirBase: 08740260  ObjectTable: e18ee8d8  HandleCount:  29.
-    Image: notepad.exe
-
-kd&gt; .process /i 81681be0
-You need to continue execution (press 'g' &lt;enter&gt;) for the context
-to be switched. When the debugger breaks in again, you will be in
-the new process context.
-kd&gt; g
-Break instruction exception - code 80000003 (first chance)
-nt!RtlpBreakWithStatusInstruction:
-80527bdc cc              int     3
-kd&gt; .reload /user
-Loading User Symbols
-.......................
-kd&gt; bp user32!MessageBoxExW
-kd&gt; g
-Breakpoint 0 hit
-USER32!MessageBoxExW:
-001b:7e3a0838 8bff            mov     edi,edi
-kd&gt; du poi(esp+8)
-0007cfb8  &quot;naoexistetralala.txt.Arquivo não&quot;
-0007cff8  &quot; encontrado..Verifique se o nome&quot;
-0007d038  &quot; do arquivo correto foi especifi&quot;
-0007d078  &quot;cado.&quot;
-kd&gt; ezu poi(esp+8) &quot;Esse arquivo não existe! Mas é muito mané, não é mesmo?&quot;
-kd&gt; g
-</code></pre>
 <p>O screenshot diz tudo:</p>
 <p>Agora a parte mais divertida: experimente com outro notepad, ou com o explorer =)</p>
 
@@ -197,11 +168,9 @@ kd&gt; g
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Ontem%20falei%20sobre%20como%20%26ldquo%3bbrincar%26rdquo%3b%20com%20os%20breakpoints%20prom%c3%adscuos%2c%20ou%20seja%2c%20aqueles%20que%20topam%20qualquer...%20http%3a%2f%2fwww.caloni.com.br%2fbreakpoints-promiscuos%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

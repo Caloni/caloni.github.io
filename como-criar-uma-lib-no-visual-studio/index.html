@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-05-29T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -150,58 +150,13 @@
 <p>E pronto! Temos um projeto de LIB completo, funcional e&hellip; um tanto inútil. Mas, calma lá. Ainda não terminamos.</p>
 <p>Conforme o programador consegue se livrar das maldições das mil dependências, aos poucos ele vai conseguindo novas funções genéricas e encaixáveis para colocar em sua coleção de objs.  Essa com certeza não é uma tarefa fácil, mas ei, quem disse que esse trampo de programador seria fácil?</p>
 <p>Vamos imaginar que você é muito do sem imaginação (típico de pessoas que mantêm blogues) e criou duas funções lindíssimas que somam e multiplicam dois números:</p>
-<pre><code>int sum(int a, int b)
-{
-   return a + b;
-}
-
-int mult(int a, int b)
-{
-   return a * b;
-}
-</code></pre>
 <p>Não são aquelas coisas, mas são genéricas e, até certo ponto, &ldquo;úteis&rdquo; para o nosso exemplo.</p>
 <p>Agora, tudo que temos que fazer é criar dois arquivos: mymath.c e mymath.h. No mymath.c, colocamos   as funções acima exatamente como estão. No mymath.h, colocamos apenas as declarações dessas duas funções, apenas para avisar outros &ldquo;.c&rdquo; que existem duas funções que fazem coisas incríveis nessa nossa LIB.</p>
-<pre><code>/* soma dois números */
-int sum(int a, int b);
-
-
-/* multiplica dois números */
-int mult(int a, int b);
-</code></pre>
 <p>Adicionamos esses dois arquivos ao projeto (se já não estão), e voilà!</p>
-<pre><code>------ Build started: Project: MyFirstLib, Configuration: Debug Win32 ------
-Compiling...
-mymath.c
-Creating library...
-Build log was saved at &quot;file://c:\Projects\temp\MyFirstLib\Debug\BuildLog.htm&quot;
-MyFirstLib - 0 error(s), 0 warning(s)
-========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
-</code></pre>
 <p>Para usar uma LIB temos inúmeras maneiras de fazê-lo. A mais simples que eu conheço é criar um novo projeto no mesmo Solution de sua LIB. Um console, por exemplo:</p>
 <p>Se você seguiu todos os passos direitinho, e eu estou assumindo que você já sabia como criar um projeto console, sua saída da compilação talvez seja mais ou menos essa:</p>
-<pre><code>------ Build started: Project: MyFirstCmd, Configuration: Debug Win32 ------
-Compiling...
-mycmd.c
-Linking...
-mycmd.obj : error LNK2019: unresolved external symbol _mult referenced in function _main
-mycmd.obj : error LNK2019: unresolved external symbol _sum referenced in function _main
-c:\Projects\temp\MyFirstLib\Debug\MyFirstCmd.exe : fatal error LNK1120: 2 unresolved externals
-Build log was saved at &quot;file://c:\Projects\temp\MyFirstCmd\Debug\BuildLog.htm&quot;
-MyFirstCmd - 3 error(s), 0 warning(s)
-========== Build: 0 succeeded, 1 failed, 1 up-to-date, 0 skipped ==========
-</code></pre>
 <p>Dois erros! Ele não achou os símbolos mult e sum. Mas eles estão logo ali! E agora?</p>
 <p>Nada a temer: tudo que temos que fazer é falar para o Solution que o projeto myfirstcmd depende do projeto myfirstlib:</p>
-<pre><code>------ Build started: Project: MyFirstCmd, Configuration: Debug Win32 ------
-Linking...
-Embedding manifest...
-Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
-Copyright (C) Microsoft Corporation.  All rights reserved.
-Build log was saved at &quot;file://c:\Projects\temp\MyFirstCmd\Debug\BuildLog.htm&quot;
-MyFirstCmd - 0 error(s), 0 warning(s)
-========== Build: 1 succeeded, 0 failed, 1 up-to-date, 0 skipped ==========
-</code></pre>
 <p>Isso resolve o problema de organização e compilação quando temos dezenas de &ldquo;.c&rdquo; espalhados pelo projeto. Existem melhores alternativas, mais bem organizadas e estruturadas, inclusive lingüisticamente falando. No entanto, tudo tem sua hora, e só se deve preocupar-se com isso quando sua solução tiver algumas dezenas de &ldquo;.lib&rdquo;. Até lá!</p>
 
             
@@ -210,11 +165,9 @@ MyFirstCmd - 0 error(s), 0 warning(s)
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20se%20est%c3%a1%20come%c3%a7ando%20no%20ramo%2c%20alguns%20detalhes%20nunca%20v%c3%aam%20%c3%a0%20tona%20para%20o%20programador%20novato.%20Ele%20simplesmente%20vai...%20http%3a%2f%2fwww.caloni.com.br%2fcomo-criar-uma-lib-no-visual-studio%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

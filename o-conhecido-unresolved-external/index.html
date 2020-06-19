@@ -34,7 +34,7 @@ Porém, resolver um..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-07-18T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -149,8 +149,6 @@ Porém, resolver um..."/>
 <p>O erro mais comum é usar uma LIB onde não está a função que estamos usando, ou usar uma versão diferente da mesma LIB que não contém a função, ou contém, mas com assinatura (parâmetros da função) diferentes. Isso pode ser verificado no código-fonte da LIB, se disponível, ou então pelo uso do dumpbin, como já vimos anteriormente.</p>
 <p>Dica extra: às vezes você pensa que está usando uma LIB em um determinado caminho, mas o linker achou a LIB primeiro em outro lugar. Para se certificar que está verificando a mesma LIB que o linker achou, use o Process Monitor.</p>
 <p>Às vezes, porém, não estamos usando a função diretamente e não conhecemos quem a usaria. Para isso que hoje em dia os compiladores mais espertos nos dizem em que parte do código foi referenciado a tal função:</p>
-<pre><code>test.obj : error LNK2019: unresolved external symbol _func referenced in function _main
-</code></pre>
 <p>É sábio primeiro inspecionar a função que referencia, para depois entender porque ela não foi encontrada. Mesmo parecendo diferente, essa operação faz parte do primeiro passo, que é identificar a origem.</p>
 <p>Parece estúpido, mas às vezes é esse o caso. Essa é a segunda coisa a fazer porque não é tão comum quanto a primeira, visto que hoje em dia é rotina colocarmos as funções em um header e incluirmos esse cabeçalho em nosso código-fonte (em C++, praticamente obrigatório). Se houvesse discrepância entre o nome da função chamada e o nome da função existente, provavelmente teríamos um erro de compilação (&ldquo;função não encontrada&rdquo;) antes do erro de linking.</p>
 <p>Se a LIB não está cooperando, e der pouco trabalho, experimente incluir a função inteira (ou o cpp) dentro do seu projeto, para linkar diretamente. Se funcionar, então existe alguma diferença de compilação entre os dois projetos (o seu e o da LIB) para que haja uma divergência no nome procurado. Procure nas opções de projeto.</p>
@@ -162,11 +160,9 @@ Porém, resolver um..."/>
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20artigo%20anterior%20mostrou%20que%20nem%20sempre%20as%20coisas%20s%c3%a3o%20simples%20de%20resolver%2c%20mas%20que%20sempre%20existe%20um%20caminho%20a%20seguir%20e...%20http%3a%2f%2fwww.caloni.com.br%2fo-conhecido-unresolved-external%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

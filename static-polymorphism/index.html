@@ -9,8 +9,7 @@
   <meta name="author" content="" />
   <meta name="description"
         content="To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-int soma(int x, int y);
-double..."/>
+Immediately the compiler would blame..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
@@ -18,8 +17,7 @@ double..."/>
   <meta itemprop="name" content="Static Polymorphism"/>
   <meta itemprop="description"
         content="To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-int soma(int x, int y);
-double..."/>
+Immediately the compiler would blame..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -32,12 +30,11 @@ double..."/>
         content=""/>
   <meta property="og:description"
         content="To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-int soma(int x, int y);
-double..."/>
+Immediately the compiler would blame..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2009-07-10T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -47,8 +44,7 @@ double..."/>
   <meta name="twitter:title" content="Static Polymorphism"/>
   <meta name="twitter:description"
         content="To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-int soma(int x, int y);
-double..."/>
+Immediately the compiler would blame..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -147,103 +143,21 @@ double..."/>
           <div class="content">
             
               <p>To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:</p>
-<pre><code>int soma(int x, int y);
-double soma(double x, double y);
-
-int main()
-{
-    int zi = soma(2, 3);
-    double zd = soma(2.5, 3.4);
-    return 0;
-}
-</code></pre>
 <p>Immediately the compiler would blame you about the following errors:</p>
-<pre><code>overload.c
-
-
-overload.c(2) : warning C4028: formal parameter 1 different from declaration
-overload.c(2) : warning C4028: formal parameter 2 different from declaration
-overload.c(2) : error C2371: 'sum' : redefinition; different basic types
-        overload.c(1) : see declaration of 'sum'
-</code></pre>
 <p>This happens because in C the identifiers are unique into the scope. This is the reason why the following code is wrong also:</p>
-<pre><code>int main()
-{
-    int x = 0;
-    int x = 1;
-    return 0;
-}
-
- 
-
-
-
-overload.c
-overload.c(5) : error C2374: 'x' : redefinition; multiple initialization
-        overload.c(4) : see declaration of 'x'
-</code></pre>
 <p>Back to the 90&rsquo;s, this is also wrong in C++. Even for a logic issue: how the compiler can pick a variable if we&rsquo;re using the same name for both of them?</p>
 <p>Even though, there&rsquo;s a little trick to stop the ambiguity when we talk about functions: the parameters that they receives.</p>
-<pre><code>int soma(int x, int y);
-double soma(double x, double y);
-
-int main()
-{
-    int zi = soma(2, 3); // dois tipos int: chamar soma(int, int)
-    double zd = soma(2.5, 3.4); // dois tipos double: só pode ser soma(double, double)
-    return 0;
-}
-
- 
-
-
-
-C:Tests&gt;cl /c overload.cpp
-Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.6030 for 80x86
-Copyright (C) Microsoft Corporation 1984-2002. All rights reserved.
-
-overload.cpp
-
-C:Tests&gt;
-</code></pre>
 <p>This allowed in C++ the creation of static overload, that is exactly this: to call a function not just by its name, but also to match its signature, the number and the type of the received parameters. We call static because this is done just by the compiler, not creating any overhead during the execution.</p>
 <p>Among the most common uses some are as it follows:</p>
 <ul>
 <li>
 <p>Functions with the same name treating different parameters;</p>
-<ul>
-<li>
-<p>sum(int, int);</p>
-</li>
-<li>
-<p>sum(double, double);</p>
-</li>
-<li>
-<p>Obs.: This ignores, of course, the templates usefulness.</p>
-</li>
-</ul>
 </li>
 <li>
 <p>New version of the same fuction with addictional parameters;</p>
-<ul>
-<li>
-<p>export_data(void* buffer, int size);</p>
-</li>
-<li>
-<p>export_data(void* buffer, int size, unsigned long options);</p>
-</li>
-</ul>
 </li>
 <li>
 <p>Same method name to set and get the value of a class property;</p>
-<ul>
-<li>
-<p>Class::Property(int x); // setter</p>
-</li>
-<li>
-<p>int x Class::Property() const; // getter</p>
-</li>
-</ul>
 </li>
 <li>
 <p>Well, whatever your imagination and needs demand =)</p>
@@ -256,11 +170,9 @@ C:Tests&gt;
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=To%20explain%20the%20polymorphism%20nothing%20is%20better%20than%20see%20how%20stuff%20used%20to%20be.%20If%20you%20were%20a%20twenty%20old%20C%20programmer%20in...%20http%3a%2f%2fwww.caloni.com.br%2fstatic-polymorphism%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

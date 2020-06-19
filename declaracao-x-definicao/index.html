@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-06-06T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -139,13 +139,6 @@
           <div class="content">
             
               <p>Uma diferença que eu considero crucial na linguagem C/C++ é a questão da declaração/definição (em inglês, declaration/definition). É a diferença entre esses dois conceitos que permite, por exemplo, que sejam criadas estruturas prontas para serem conectadas a listas ligadas:</p>
-<pre><code>struct Element
-{
-   int x;
-   int y;
-   Element* next; /* olha eu mesmo aqui! */
-};
-</code></pre>
 <p>Por outro lado, e mais importante ainda, é ela que permite que as funções sejam organizadas em unidades de tradução (cpps) distintas para depois se unirem durante o link, mesmo que entre elas exista uma relação de dependência indissociável:</p>
 <p>Existem diversas formas de entender esses dois conceitos. Eu prefiro explicar pela mesma experiência que temos quando descobrimos a divisão hardware/software:</p>
 <ul>
@@ -154,39 +147,12 @@
 </ul>
 <p>Exatamente. Hardware é algo paupável, que você pode até chutar se quiser. Por exemplo, a sua memória RAM! No entanto, software é algo mais abstrato, que nós, seres humanos, não temos a capacidade de dar umas boas pauladas. Portanto, nos abstemos a somente xingar o maldito que fez o programa &ldquo;buggento&rdquo;.</p>
 <p>Da mesma forma, uma declaração em C/C++ nos permite moldar como será alguma coisa na memória, sem no entanto ocupar nem um mísero byte no seu programa:</p>
-<pre><code>int func(int x, int y, int z); /* tamanho em memória: zero bytes */
-
-struct Teste
-{
-    char bufao[0x100000]; /* tamanho em memória: zero bytes */
-    int intao[0xffffff];  /* tamanho em memória: zero bytes */
-};
-
-extern int x; /* tamanho em memória: adivinha! */
-</code></pre>
 <p>Por outro lado, a definição, o hardware da história, sempre ocupará alguma coisa na memória RAM, o que, de certa forma, permite que você chute uma variável (embora muitas outras também irão para o saco).</p>
-<pre><code>int func(int x, int y, int z) /* tamanho em memória:
-{
-    int ret = x + y + z; /* alguns _asm add + */
-    return ret;          /* um _asm ret */
-}
-
-Teste tst; /* tamanho em memória: 0x100000 + 0xffffff * 4 = 1048576 bytes */
-int x; /* tamanho em memória: sizeof(int) bytes */
-</code></pre>
 <p>Dessa comparação só existe uma pegadinha: uma definição também é uma declaração. Por exemplo, nos exemplos acima, além de definir func, tst e x, o código também informa ao compilador que existe uma função chamada func, que existe uma variável tst do tipo Teste e uma variável x do tipo int.</p>
 <p>Informa ao compilador? Essa é uma outra ótima maneira de pensar a respeito de declarações: elas sempre estão conversando diretamente com o compilador. Por outro lado, nunca conversam diretamente com o hardware, pois ao executar seu código compilado, as declarações não mais existem. Foi apenas um interlúdio para que o compilador conseguisse alocar memória da maneira correta.</p>
 <p>Complicado? Talvez seja, mesmo. Mas é algo que vale a pena fixar na mente. Isso, é claro, se você quiser ser um programador C/C++ mais esperto que os outros e resolver pequenos problemas de compilação que muitos perdem horas se perdendo.</p>
 <p>Então por que diabos a separação declaração/definição consegue definir coisas como listas ligadas, como no código acima? A resposta é um pouco ambígua, mas representa regra essencial na sintaxe da linguagem: após a definição do nome e do tipo de declaração envolvida podemos referenciá-la como declaração, ou seja, não ferindo a limitação de que não sabemos o tamanho de uma variável do tipo declarado. Dessa forma, é perfeitamente legal definirmos um ponteiro para uma estrutura que ainda não se sabe muita coisa, além de que é uma estrutura:</p>
-<pre><code>struct Estrutura; /* atenção: declaração apenas! */
-Estrutura* st; /* ponteiro para declaração: não sabemos o tamanho ainda */
-</code></pre>
 <p>Dessa forma, o começo de uma definição de estrutura já declara o nome da estrutura antes de terminar a declaração do tipo inteiro. Bizarro, não? De qualquer forma, isso permite a construção clássica de lista ligada:</p>
-<pre><code>struct Estrutura /* a partir daqui Estrutura já está visível */
-{
-    Estrutura* st; /* recursividade? é apenas um ponteiro! */
-};
-</code></pre>
 <p>Se vermos pelo lado prático, de qualquer forma seria impossível definir uma variável dentro dela mesma, pois isso geraria uma recursão infinita de definições, e, como sabemos, os recurso da máquina são finitos.</p>
 
             
@@ -195,11 +161,9 @@ Estrutura* st; /* ponteiro para declaração: não sabemos o tamanho ainda */
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Uma%20diferen%c3%a7a%20que%20eu%20considero%20crucial%20na%20linguagem%20C%2fC%2b%2b%20%c3%a9%20a%20quest%c3%a3o%20da%20declara%c3%a7%c3%a3o%2fdefini%c3%a7%c3%a3o%20%28em%20ingl%c3%aas%2c...%20http%3a%2f%2fwww.caloni.com.br%2fdeclaracao-x-definicao%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

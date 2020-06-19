@@ -34,7 +34,7 @@ Hábitos, por definição, ao..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2008-03-28T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -161,8 +161,6 @@ Hábitos, por definição, ao..."/>
 <p>No entanto, esse pequeno grande aplicativo sobreviveu todos esses anos, atingiu a maioridade, e hoje permite a nós, programadores de mouse, fazer nossos backups com um simples arquivo de batch e um pouco de imaginação.</p>
 <p>Aos mocinho e mocinhas presentes: os arquivos de batch, de extensão .bat ou .cmd, são, assim como o MS-DOS, coisas de veteranos do velho oeste.  São arquivos de script que contém um conjunto de comandos que pode-se digitar manualmente na tela preta. Seu objetivo principal é otimizar e facilitar a digitação de tarefas complexas e torná-las mais simples, fáceis de executar e de lembrar.</p>
 <p>O uso do programa pode ser aprendido dando-se uma olhada em sua ajuda (xcopy /?)</p>
-<pre><code>xcopy origem [destino] [opções]
-</code></pre>
 <p>Algumas opções bem úteis para efetuar cópias de segurança de arquivos modificados:</p>
 <p>/M - copia somente arquivos com atributo de arquivamento; após a cópia, desmarca atributo. Ao escrever novamente em um arquivo copiado com esse método, o arquivo volta a ter o atributo de arquivamento, e irá ser copiado novamente se especificada essa opção. Se nunca mais for mexido, não será mais copiado.</p>
 <p>/D - copia arquivos mais novos na origem. Não costumo usar pelos problemas que podem ocorrer em sistemas com horas diferentes, mas, dependendo da ocasião, pode ser útil. Também é possível especificar uma data de início da comparação.</p>
@@ -174,24 +172,7 @@ Hábitos, por definição, ao..."/>
 <p>/Z - copia arquivos da rede em modo reiniciável. Muito importante quando estiver fazendo backup pela rede. Às vezes ela pode falhar, e essa opção permite continuar após pequenas quedas de desempenho.</p>
 <p>Para a cópia do patrimônio mais valioso de um programador, os fontes, podemos usar um conjunto bem bolado das 0pções acima, além de generalizar um script para ser usado em outras situações. Inicialmente vamos definir que queremos um backup que altere o atributo de arquivamento, sobrescreva cópias antigas e que possa ser copiado pela rede sem maiores problemas. Além disso, não iremos copiar as pastas Debug e Release existentes geradas pela saída de algum compilador (ex: saída do Visual Studio), nem arquivos temporários muito grandes (ex: arquivos de navegação de símbolos).</p>
 <p>O resultado é o que vemos abaixo:</p>
-<pre><code>xcopy &lt;pasta-origem&gt; &lt;pasta-destino&gt; /M /E /C /Y /Z /EXCLUDE:sources.flt
-</code></pre>
 <p>O conteúdo de sources.flt (extensão escolhida arbitrariamente) pode ser o seguinte:</p>
-<pre><code>.obj
-.res
-.pch
-.pdb
-.tlb
-.idb
-.ilk
-.opt
-.ncb
-.sbr
-.sup
-.bsc
-\Debug\
-\Release\
-</code></pre>
 <p>Só isso já basta para um backup simples, pequeno e fácil de executar. Só precisamos copiar a chamada ao xcopy em um arquivo de extensão .bat ou .cmd e executarmos sempre que acharmos interessante termos um backup quentinho em folha. Por exemplo, podemos manter os fontes do projeto atual em um pen drive e, ao acessarmos uma máquina confiável, rodar um backup que copia os arquvos-fonte para um ambiente mais seguro e estável.</p>
 <p>Note que esse procedimento não anula a necessidade de termos um sistema de versionamento e controle de fontes. O backup é para aquelas projetos que demoram um tempinho para efetuar commit, projetos temporários ou então sistemas de controle de fonte distribuído, em que podemos ter inúmeras pastas com diversos branchs locais.</p>
 
@@ -201,11 +182,9 @@ Hábitos, por definição, ao..."/>
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=O%20backup%20-%20ato%20de%20fazer%20c%c3%b3pia%28s%29%20de%20seguran%c3%a7a%20de%20dados%20considerados%20importantes%20-%2c%20como%20tudo%20na%20vida%2c%20para%20se%20tornar...%20http%3a%2f%2fwww.caloni.com.br%2fbackup-de-pobre%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>

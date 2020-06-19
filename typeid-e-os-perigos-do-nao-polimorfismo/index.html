@@ -31,7 +31,7 @@
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2007-10-24T00:00:00&#43;00:00"/>
-  <meta property="article:section" content="post"/>
+  <meta property="article:section" content="posts"/>
 
   
   
@@ -140,82 +140,8 @@
             
               <p>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n'água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C++ pode proporcionar.</p>
 <p>Eis um exemplo singelo, sem dramatização (com dramatização == &ldquo;500 linhas de código de produção além do código abaixo&rdquo;).</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;typeinfo&gt;
-
-using namespace std;
-
-class Base
-{
-public:
-    Base()
-    {
-        cout &lt;&lt; &quot;Base()\n&quot;;
-        m_x = 0;
-    }
-
-    ~Base()
-    {
-        cout &lt;&lt; &quot;~Base()\n&quot;;
-    }
-
-    int m_x;
-};
-
-// como Base não é polimórfica (como vamos ver), Deriv paga o pato
-class Deriv : public Base
-{
-public:
-    Deriv()
-    {
-        cout &lt;&lt; &quot;Deriv()\n&quot;;
-
-        m_x = 1;
-        m_y = 0;
-    }
-
-    virtual ~Deriv() // ela é polimórfica
-    {
-        cout &lt;&lt; &quot;~Deriv()\n&quot;;
-    }
-
-    int m_y;
-};
-
-void func(Base* b) // eu não sei que é uma derivada
-{
-    cout &lt;&lt; typeid(*b).name() &lt;&lt; '\n'; // e nem o typeid número 1
-}
-
-int main()
-{
-    Base* b = new Deriv(); // o ponteiro é pra base, mas a instância é de derivada
-    func(b);
-} 
-
-
-
------
-Saída:
-Base()
-Deriv()
-class Base
-</code></pre>
 <p>O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &ldquo;ponteiro para objeto de classe não-polimórfica&rdquo;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &ldquo;não existe sobrecarga de execução sem que o programador queira&rdquo;.</p>
 <p>Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:</p>
-<pre><code>virtual ~Base() // agora sou polimórfica também!
-{
-    cout &lt;&lt; &quot;~Base()\n&quot;;
-} 
-
-
-
------
-Saída:
-Base()
-Deriv()
-class Deriv ; como desejava o programador polimórfico
-</code></pre>
 <p>Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).</p>
 
             
@@ -224,11 +150,9 @@ class Deriv ; como desejava o programador polimórfico
 
         <div class="taglist">
             
+      <a href="/categories/code">code</a> 
+      <a href="/tags/draft">draft</a> 
     
-      [<a href="/categories/code">code</a>] 
-      [<a href="/tags/draft">draft</a>] 
-    
-    <a href="https://twitter.com/intent/tweet?text=Quando%20usamos%20o%20operador%20typeid%20geralmente%20desejamos%20conhecer%20informa%c3%a7%c3%b5es%20sobre%20o%20tipo%20exato%20do%20objeto%20que%20temos%20em...%20http%3a%2f%2fwww.caloni.com.br%2ftypeid-e-os-perigos-do-nao-polimorfismo%2f from @caloni " style="text-decoration: underline;" title="Twitter">twitter</big></a>
 
 
         </div>
