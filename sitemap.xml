@@ -3,13 +3,63 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/books/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/cinderela-versao-do-seculo-xxi/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/cinema/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/malma/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/series/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/westworld-no-more/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/wine/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,28 +78,8 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/printf/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-06-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/categories/cinema/</loc>
-    <lastmod>2020-06-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -113,22 +143,12 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/tags/series/</loc>
-    <lastmod>2020-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/tags/tools/</loc>
     <lastmod>2020-06-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/voces-os-vivos/</loc>
-    <lastmod>2020-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/wine/</loc>
     <lastmod>2020-06-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -620,11 +640,6 @@
   <url>
     <loc>http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/</loc>
     <lastmod>2020-03-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/books/</loc>
-    <lastmod>2020-03-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
