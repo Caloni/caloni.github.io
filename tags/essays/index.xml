@@ -6,9 +6,41 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Tue, 19 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/essays/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>C&#43;&#43; Co Routines</title>
+  <link>http://www.caloni.com.br/cpp-co-routines/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
+  <description>Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C++.
+No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C++ tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.</description>
+</item>
+
+     
+        <item>
+  <title>Oscar</title>
+  <link>http://www.caloni.com.br/oscar/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/oscar/</guid>
+  <description>Quando o chefão do Oscar faz um discurso dizendo que agora oficialmente serão dez os indicados a melhor filme para promover representatividade, diversidade e todos os ades de quem é ista, ele não está sendo um cara legal. Ele está apenas revelando o quanto o Oscar e/ou a sociedade como um todo funciona e o que irão fazer a respeito: nada. Porque nada é o que este povo que se diz politicamente consciente está acostumado a fazer para mostrar que sabe de algo que você, alienado, não sabe, e farão algo a respeito.</description>
+</item>
+
+     
+        <item>
+  <title>Teoria, Prática e Código</title>
+  <link>http://www.caloni.com.br/teoria-pratica-codigo/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/teoria-pratica-codigo/</guid>
+  <description>Quando se está aprendendo programação é muito bom praticar escrevendo código. Muitos querem aprender a programar e não começam programando, e se você já começou colocando a mão na massa, parabéns por isso.
+Agora, para avançar nos estudos, além da prática, a teoria tem que avançar. E teoria vai além dos estudos de livros e vídeo-aulas. É possível aprender muito mais rápido lendo o código dos outros, disponível aos milhões pela internet.</description>
+</item>
+
      
         <item>
   <title>Fechado Para Reformas</title>

@@ -3,12 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+    <loc>http://www.caloni.com.br/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/</loc>
+    <loc>http://www.caloni.com.br/categories/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/cinema/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/era-uma-vez-na-anatolia/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/historias-proibidas/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/movies/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/olhos-de-gato/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tio-boomie-que-pode-recordar-suas-vidas-passadas/</loc>
+    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -18,7 +63,12 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/categories/</loc>
+    <loc>http://www.caloni.com.br/cpp-co-routines/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/ccpp/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,7 +78,12 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/categories/cinema/</loc>
+    <loc>http://www.caloni.com.br/categories/code/</loc>
+    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/essays/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
+    <loc>http://www.caloni.com.br/oscar/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,7 +103,7 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
+    <loc>http://www.caloni.com.br/teoria-pratica-codigo/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -60,16 +115,6 @@
   <url>
     <loc>http://www.caloni.com.br/tags/wine/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/ccpp/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/categories/code/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -93,17 +138,17 @@
   </url>
   
   <url>
+    <loc>http://www.caloni.com.br/estomago/</loc>
+    <lastmod>2020-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/fazenda-sao-joao/</loc>
     <lastmod>2020-06-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/historical-price/</loc>
-    <lastmod>2020-06-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/movies/</loc>
     <lastmod>2020-06-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -219,11 +264,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/conto-de-outono/</loc>
-    <lastmod>2020-05-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/essays/</loc>
     <lastmod>2020-05-19T00:00:00+00:00</lastmod>
   </url>
   

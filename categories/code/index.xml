@@ -6,9 +6,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/code/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>C&#43;&#43; Co Routines</title>
+  <link>http://www.caloni.com.br/cpp-co-routines/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
+  <description>Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C++.
+No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C++ tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.</description>
+</item>
+
      
         <item>
   <title>Printf</title>
