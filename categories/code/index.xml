@@ -28,7 +28,7 @@ No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no 
   
   <guid>http://www.caloni.com.br/printf/</guid>
   <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
 </item>
 
      
@@ -102,7 +102,7 @@ Uma maneira de tornar a leitura de seu repo relativamente segura é entregar cre
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</guid>
-  <description>Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que eu tinha em volta eram papéis com anotações que ia fazendo conforme observava algo que poderia ser uma pista. Qualquer coisa servia. Do outro lado da sala, uma estagiária recém-chegada na empresa observava de longe, talvez com uma certa curiosidade, talvez medo, aquele rapaz ligar e desligar um desktop empoeirado enquanto a cada vez que apertava o botão de Power ele olhava fixamente para a tela por uma, às vezes duas horas seguidas.</description>
+  <description>Máquina IBM velha e empoeirada. Criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que havia em volta eram papéis com anotações que ia fazendo, enquanto sempre observava algo que poderia ser uma nova pista, embora sem ter muita certeza.</description>
 </item>
 
      

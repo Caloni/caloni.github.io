@@ -28,7 +28,7 @@ No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no 
   
   <guid>http://www.caloni.com.br/printf/</guid>
   <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
 </item>
 
      

@@ -3,18 +3,53 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/bolotorta-de-banana/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/cinema/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/reading/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/recipes/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/renata-adler-vs-pauline-kael/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -38,23 +73,8 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
-    <lastmod>2020-06-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/tio-boomie-que-pode-recordar-suas-vidas-passadas/</loc>
     <lastmod>2020-06-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -115,11 +135,6 @@
   <url>
     <loc>http://www.caloni.com.br/tags/wine/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/draft/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -214,11 +229,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/tags/projects/</loc>
-    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/reading/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -328,6 +338,11 @@
   </url>
   
   <url>
+    <loc>http://www.caloni.com.br/tags/draft/</loc>
+    <lastmod>2020-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</loc>
     <lastmod>2020-05-10T00:00:00+00:00</lastmod>
   </url>
@@ -414,11 +429,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/o-homem-que-virou-suco/</loc>
-    <lastmod>2020-04-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/recipes/</loc>
     <lastmod>2020-04-26T00:00:00+00:00</lastmod>
   </url>
   

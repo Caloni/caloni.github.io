@@ -6,9 +6,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Mon, 22 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Bolotorta de Banana</title>
+  <link>http://www.caloni.com.br/bolotorta-de-banana/</link>
+  <pubDate>2020-06-23</pubDate>
+  
+  <guid>http://www.caloni.com.br/bolotorta-de-banana/</guid>
+  <description>A receita é de torta de banana da Dona Neusa e eu transformei em um bolo açucarado e canelento. As variações de uma receita podem não ser boas, mas sempre serão interessantes.
+Você pega a farinha e o açúcar e mistura com o leite. A unidade da massa é bem pouca, pois o açúcar não é uma coisa seca e se molda à sua experiência. Além do mais, depois vem a banana cortada em rodelas e polvilhada em açúcar e canela, e acho que esse foi o meu erro.</description>
+</item>
+
+     
+        <item>
+  <title>Renata Adler vs Pauline Kael</title>
+  <link>http://www.caloni.com.br/renata-adler-vs-pauline-kael/</link>
+  <pubDate>2020-06-23</pubDate>
+  
+  <guid>http://www.caloni.com.br/renata-adler-vs-pauline-kael/</guid>
+  <description>Comprei o livro da Amazon em que ela esculacha (com todo o respeito) a escrita de Pauline Kael. É sintomático que Kael tenha se tornado a escritora mais adorada da crítica e do público em uma época onde a forma toma o lugar da substância. Cansados da ciência objetiva as pessoas se viram cada vez mais para as experiências subjetivas de sua própria vida, ignorando evidências empíricas e catalogadas da realidade que torna um filme bom em detrimento da experiência em si.</description>
+</item>
+
      
         <item>
   <title>Era uma Vez na Anatolia</title>
@@ -123,7 +144,7 @@ Agora, para avançar nos estudos, além da prática, a teoria tem que avançar. 
   
   <guid>http://www.caloni.com.br/printf/</guid>
   <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
 </item>
 
      
@@ -442,7 +463,7 @@ Uma maneira de tornar a leitura de seu repo relativamente segura é entregar cre
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</guid>
-  <description>Máquina IBM velha e empoeirada, criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que eu tinha em volta eram papéis com anotações que ia fazendo conforme observava algo que poderia ser uma pista. Qualquer coisa servia. Do outro lado da sala, uma estagiária recém-chegada na empresa observava de longe, talvez com uma certa curiosidade, talvez medo, aquele rapaz ligar e desligar um desktop empoeirado enquanto a cada vez que apertava o botão de Power ele olhava fixamente para a tela por uma, às vezes duas horas seguidas.</description>
+  <description>Máquina IBM velha e empoeirada. Criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que havia em volta eram papéis com anotações que ia fazendo, enquanto sempre observava algo que poderia ser uma nova pista, embora sem ter muita certeza.</description>
 </item>
 
      
