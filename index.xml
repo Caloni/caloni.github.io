@@ -6,9 +6,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Pgn2art</title>
+  <link>http://www.caloni.com.br/pgn2art/</link>
+  <pubDate>2020-06-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/pgn2art/</guid>
+  <description>Meu sonho de consumo para acompanhar partidas de xadrez é às cegas, apenas lendo ou ouvindo o próximo lance e imaginando em minha cabeça o tabuleiro. Porém, enquanto não tenho essa habilidade, um meio-termo aceitável é ver um tabuleiro em ascii art se modificando a cada lance. É possível acompanhar uma partida dessa forma como se estivesse lendo um livro, e por isso esse formato é prático, também, pois posso jogar esse ascii art no meu Kindle.</description>
+</item>
+
      
         <item>
   <title>Bolotorta de Banana</title>
