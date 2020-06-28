@@ -11,6 +11,16 @@
     
      
         <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-06-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>projects</title>
   <link>http://www.caloni.com.br/tags/projects/</link>
   <pubDate>2020-06-27</pubDate>
@@ -36,16 +46,6 @@
   <pubDate>2020-06-23</pubDate>
   
   <guid>http://www.caloni.com.br/tags/recipes/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-06-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
 </item>
 
