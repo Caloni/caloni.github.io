@@ -6,9 +6,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sat, 13 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/work/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
+  <link>http://www.caloni.com.br/find-path/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/find-path/</guid>
+  <description>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.
+Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence).</description>
+</item>
+
      
         <item>
   <title>Historical Price</title>

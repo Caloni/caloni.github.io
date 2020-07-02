@@ -6,9 +6,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sat, 27 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/posts/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
+  <link>http://www.caloni.com.br/find-path/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/find-path/</guid>
+  <description>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.
+Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence).</description>
+</item>
+
      
         <item>
   <title>O Amigo da Minha Amiga</title>
@@ -493,7 +504,7 @@ Uma maneira de tornar a leitura de seu repo relativamente segura é entregar cre
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</guid>
-  <description>Máquina IBM velha e empoeirada. Criptografia blowfish, assembly 16 bits, programa residente e nenhum depurador funcionando. Tudo o que eu tinha era o conhecimento que ia adquirindo do sistema, e talvez um pouco de imaginação, naquela fatídica semana de abril de 2008. Isolado em uma sala, tudo que havia em volta eram papéis com anotações que ia fazendo, enquanto sempre observava algo que poderia ser uma nova pista, embora sem ter muita certeza.</description>
+  <description>Máquina IBM velha e empoeirada. Criptografia blowfish. Assembly 16 bits. Programa residente. E nenhum depurador funcionando. Tudo o que eu tinha se resumia em dois itens de inventário: o conhecimento, adquirido aos poucos do sistema, e minha imaginação. Era uma amena semana de abril em 2008 isolado em uma sala. Tudo que havia em volta eram papéis com anotações feitas. Observava uma nova pista todo dia, embora sem ter muita certeza.</description>
 </item>
 
      

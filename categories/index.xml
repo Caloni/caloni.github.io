@@ -6,9 +6,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sat, 27 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>code</title>
+  <link>http://www.caloni.com.br/categories/code/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/code/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>blog</title>
@@ -26,16 +36,6 @@
   <pubDate>2020-06-27</pubDate>
   
   <guid>http://www.caloni.com.br/categories/cinema/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>code</title>
-  <link>http://www.caloni.com.br/categories/code/</link>
-  <pubDate>2020-06-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/code/</guid>
   <description></description>
 </item>
 
