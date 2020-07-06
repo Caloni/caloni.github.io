@@ -11,6 +11,17 @@
     
      
         <item>
+  <title>Close Remote Socket</title>
+  <link>http://www.caloni.com.br/close-remote-socket/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/close-remote-socket/</guid>
+  <description>I got used to close sockets in Windows using TCP View, but I haven&amp;rsquo;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
+</item>
+
+     
+        <item>
   <title>The Drug King</title>
   <link>http://www.caloni.com.br/the-drug-king/</link>
   <pubDate>2020-07-05</pubDate>

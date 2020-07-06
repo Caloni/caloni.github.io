@@ -6,9 +6,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/work/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Close Remote Socket</title>
+  <link>http://www.caloni.com.br/close-remote-socket/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/close-remote-socket/</guid>
+  <description>I got used to close sockets in Windows using TCP View, but I haven&amp;rsquo;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
+</item>
+
      
         <item>
   <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
