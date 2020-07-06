@@ -6,9 +6,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/posts/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>The Drug King</title>
+  <link>http://www.caloni.com.br/the-drug-king/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/the-drug-king/</guid>
+  <description>Eu poderia dizer que é uma mistura de Scarface, Poderoso Chefão, Os Bons Companheiros e a história de Pablo Escobar, tudo embalado em versão coreana. Mas se eu fizesse isso estaria me ajoelhando diante dos chefões da Netflix, responsáveis pela produção, e pior, estaria sendo muito desonesto comparando essas obras primas com uma aventura corriqueira como esta, que além de não ter a mínima personalidade não faz questão alguma de buscar ter uma.</description>
+</item>
+
+     
+        <item>
+  <title>War Games</title>
+  <link>http://www.caloni.com.br/war-games/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/war-games/</guid>
+  <description>Jogos de Guerra se passa no auge dos anos 80. Matthew Broderick é um nerd/hacker vivendo sua adolescência em Seattle e buscando conciliar seus desejos por máquinas e uma garota fitness de sua sala. Ambos vivem uma aventura de tirar o fôlego e que se passa dentro de um enorme galpão cheio de luzes piscando e pessoas vestidas de militares. O fantasma da Guerra Fria está desaparecendo, mas fica uma reflexão pertinente quando computadores começam cada vez mais a fazer parte da família americana: qual a melhor estratégia para evitar uma nova guerra senão sequer começá-la?</description>
+</item>
+
      
         <item>
   <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
