@@ -8,14 +8,16 @@
   <title>Blogue do Caloni - Shareando Ponteiros</title>
   <meta name="author" content="" />
   <meta name="description"
-        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+        content="Apesar de ter palestrado algumas vezes sobre Boost e STL nunca escrevi muito sobre esses assuntos aqui. O tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar.
+E por isso..."/>
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
   <meta itemprop="name" content="Shareando Ponteiros"/>
   <meta itemprop="description"
-        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+        content="Apesar de ter palestrado algumas vezes sobre Boost e STL nunca escrevi muito sobre esses assuntos aqui. O tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar.
+E por isso..."/>
   <meta itemprop="image"
         content=""/>
 
@@ -27,7 +29,8 @@
   <meta property="og:image"
         content=""/>
   <meta property="og:description"
-        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+        content="Apesar de ter palestrado algumas vezes sobre Boost e STL nunca escrevi muito sobre esses assuntos aqui. O tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar.
+E por isso..."/>
   <meta property="og:site_name" content="Blogue do Caloni"/>
   <meta property="article:published_time"
         content="2014-09-03T00:00:00&#43;00:00"/>
@@ -40,7 +43,8 @@
         content=""/>
   <meta name="twitter:title" content="Shareando Ponteiros"/>
   <meta name="twitter:description"
-        content="Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que..."/>
+        content="Apesar de ter palestrado algumas vezes sobre Boost e STL nunca escrevi muito sobre esses assuntos aqui. O tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar.
+E por isso..."/>
   <meta name="twitter:creator"
         content=""/>
   <meta name="twitter:image:src"
@@ -138,10 +142,11 @@
         
           <div class="content">
             
-              <p>Apesar de já ter palestrado algumas vezes sobre Boost e STL, acho que eu nunca escrevi muito sobre esses assuntos no blogue. Acho que o tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar, certo? E já que é pra começar, eu gostaria muito de saber de você, programador miserável, que passou poucas e boas nesses 10 anos de padrão 98 brincando com templates quando eles ainda estavam em beta: se fosse para melhorar um aspecto da sua vida de código, qual seria? Qual é aquela coisa que te atormenta como insetos vidrados no seu monitor noite adentro?</p>
-<p>Que tal alocação de memória e ponteiros? Vamos matar dois coelhos com um template só?</p>
-<p>&ldquo;Ah, mas tem que usar alguma biblioteca bizarra com milhões de dependências e que vai quebrar todo o fonte aqui da empresa. Sem contar que vai ter que passar de novo pelos unit tests, vai dar erro de compilação, a LIB XPTO não funciona sem dar três pulinhos virado para a cafeteira e&hellip;&rdquo;</p>
-<p>Cada caso é um caso, existe o melhor dos mundos e o pior. Mas (quase) todos têm solução. Mesmo que tudo que você tenha disponível seja um bartante e um clipe, podemos tentar alguma mágica/gambiarra/adaptação técnica. Vamos ver os casos mais comuns:</p>
+              <p>Apesar de ter palestrado algumas vezes sobre Boost e STL nunca escrevi muito sobre esses assuntos aqui. O tamanho dessas bibliotecas assusta um pouco. Mas temos que começar de algum lugar.</p>
+<p>E por isso eu gostaria de saber de você, programador miserável, que passou poucas e boas nesses dez anos de padrão 98 brincando com templates quando eles ainda estavam em beta: se fosse para melhorar um aspecto da sua vida de código C++, qual seria? Qual é aquela coisa que te atormenta como insetos vidrados no seu monitor noite adentro?</p>
+<p>Se eu fosse você reponderia: alocação de memória e ponteiros. E portanto vamos matar dois coelhos com um template só usando smart pointers, que desalocam memória quando não precisamos mais dela e mantém os ponteiros gerenciados.</p>
+<p>&ldquo;Ah, mas tem que usar uma biblioteca bizarra com milhões de dependências e que vai quebrar todo o fonte aqui da empresa. Sem contar que vai ter que passar de novo pelos unit tests, vai dar erro de compilação, a LIB XPTO não funciona sem dar três pulinhos virado para a cafeteira e&hellip;&rdquo;</p>
+<p>Cada caso é um caso, existe o melhor dos mundos e o pior. Mas (quase) todos têm solução. Mesmo que tudo que você tenha disponível seja um barbante e um clipe, podemos tentar alguma mágica/gambiarra/adaptação técnica. Vamos ver os casos mais comuns:</p>
 <p>Um cenário perfeito para começar. A única coisa que você precisa fazer em seus novos projetos e refatorações é incluir um único cabeçalho:</p>
 <p>E pronto! Se abriu um mundo mágico onde as alocações serão compartilhadas entre funções sem se perder quem deleta o quê. Não precisa nem checar se o ponteiro é nulo, basta alocar direto e jogar para dentro do nosso mais novo smart pointer da STL:</p>
 <p>E pronto: você nunca mais vai precisar se preocupar com quem deleta o ponteiro, nem quantas cópias desse ponteiro andam por aí. O sharedptr da STL, assim como a versão que já tem faz um tempo no boost, mantém um contador de referência para cada cópia do objeto que mantém o mesmo ponteiro &ldquo;dentro de si&rdquo;. Só quando esse contador chegar a zero, ou seja, não há mais ninguém referenciando essa região da memória, o ponteiro é deletado.</p>
