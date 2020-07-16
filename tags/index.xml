@@ -21,6 +21,16 @@
 
      
         <item>
+  <title>books</title>
+  <link>http://www.caloni.com.br/tags/books/</link>
+  <pubDate>2020-07-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/books/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>series</title>
   <link>http://www.caloni.com.br/tags/series/</link>
   <pubDate>2020-07-15</pubDate>
@@ -51,21 +61,21 @@
 
      
         <item>
-  <title>english</title>
-  <link>http://www.caloni.com.br/tags/english/</link>
-  <pubDate>2020-07-05</pubDate>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-07-11</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/english/</guid>
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
 </item>
 
      
         <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
+  <title>english</title>
+  <link>http://www.caloni.com.br/tags/english/</link>
   <pubDate>2020-07-05</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
+  <guid>http://www.caloni.com.br/tags/english/</guid>
   <description></description>
 </item>
 
@@ -106,16 +116,6 @@
   <pubDate>2020-06-23</pubDate>
   
   <guid>http://www.caloni.com.br/tags/recipes/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>books</title>
-  <link>http://www.caloni.com.br/tags/books/</link>
-  <pubDate>2020-06-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/books/</guid>
   <description></description>
 </item>
 
