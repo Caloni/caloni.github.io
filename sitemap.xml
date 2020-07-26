@@ -3,27 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://www.caloni.com.br/arcanus/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/cinema/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/draft/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/encontros-e-desencontros/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/modern-love/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/series/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/arcanus/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -54,21 +84,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/o-grito-origens/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/series/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -119,11 +134,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/cosmic-trigger/</loc>
-    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/draft/</loc>
     <lastmod>2020-07-12T00:00:00+00:00</lastmod>
   </url>
   
