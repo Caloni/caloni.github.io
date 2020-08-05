@@ -6,7 +6,7 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Meu Novo Parseador de Argc Argv</title>
+  <title>Blogue do Caloni - Silver Myn</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
@@ -70,12 +70,12 @@
 
       
       <div class="container">
-        <p class="title">Meu Novo Parseador de Argc Argv</p>
+        <p class="title">Silver Myn</p>
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/meu-novo-parseador-de-argc-argv.md" title="source">
-    2018-08-21
+    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/silver-myn.md" title="source">
+    2020-08-04
     </a>
 
 </p>
@@ -90,9 +90,9 @@
         
           <div class="content">
             
-              <p>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função. Uma vez que ele encontre ele retorna o próximo elemento. Na falta de próximo elemento ele simplesmente retorna uma string vazia que não é nulo, mas já indica que há o parâmetro na lista de argumento.</p>
-<p>Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos. Ao chamar essa função se passa o argc e o argv recebido no main e o terceiro argumento é apenas o nome de um argumento válido que pode ser recebido via linha de comando. O resultado é um ponteiro (obtido no próprio argv) da próxima string ou uma string C vazia constante (não precisa de alocação) se for o último argv. E caso ele não ache o retorno é NULL. Seu uso comum é uma linha apenas, ou uma linha para cada argumento buscado. Sua complexidade é linear, mas, ei, quem está querendo performance no início do programa?</p>
-<p>Uma última observação: dependendo do uso você pode ou não usar o retorno, e ele possui semântica booleana, pois caso o argumento não exista o retorno é NULL e por isso não cai dentro do if (pois NULL traduzido em booleano é false). Eis uma função para copiar e colar abusivamente.</p>
+              <p>Há anos não comprava vinhos da Sociedade da Mesa. Minhas viagens para Argentina bastavam para encher a adega. Mas, suspensas essas aventuras, adquiri algumas garrafas do clube, e entre veio duas desse vinho francês de Bordeaux, o Silver Myn 2016, que é uma mistura de várias uvas da região de Gironde: Merlot, Cabernet Sauvignon, Cabernet Franc, Petit Verdot e Malbec. Dessa mistura vem uma sensação mista entre frescor e tradição.</p>
+<p>Essa safra 2016 não possui o potencial tânico que lhe foi dado pelo seu amadurecimento independente para cada uva por 12 meses em carvalho francês, pois temos um vinho ainda vibrante e alcoólico. Há elementos que ainda podem envelhecer para melhor, como os sabores mais maduros. Porém, talvez nem tudo fique melhor com o tempo.</p>
+<p>Ele é um vinho passageiro, uma companhia eventual para uma tarde após o serviço. Devo ter degustado errado, com acompanhamentos inusitados. Como feijoada (!). Se não posso beber o meu vinho como eu quero, qual a graça de tê-lo em minha adega?</p>
 
             
 
@@ -100,17 +100,17 @@
 
         <div class="taglist">
             
-     <a style="" href="/code/getargs.c">link</a>
-      <a href="/categories/code">code</a> 
-      <a href="/tags/ccpp">ccpp</a> 
+     <a style="" href="https://vinhos.sociedadedamesa.com.br/silver-myn-2016-10afrsm1806002/p">link</a>
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/wine">wine</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/as-duas-irenes/">As Duas Irenes --></a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-centenario-que-fugiu-pela-janela-e-desapareceu/">&lt;-- O Centenário Que Fugiu Pela Janela e Desapareceu</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/pacotes-nuget-again/">Pacotes Nuget Again --></a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/john-wick-2/">&lt;-- John Wick 2: Um Novo Dia para Counter Strike</a></span>
 
         </div>
 

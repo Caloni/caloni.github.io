@@ -6,7 +6,7 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Meu Novo Parseador de Argc Argv</title>
+  <title>Blogue do Caloni - GetArgs v. Array</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
@@ -70,12 +70,12 @@
 
       
       <div class="container">
-        <p class="title">Meu Novo Parseador de Argc Argv</p>
+        <p class="title">GetArgs v. Array</p>
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/meu-novo-parseador-de-argc-argv.md" title="source">
-    2018-08-21
+    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/getargs-array.md" title="source">
+    2020-08-04
     </a>
 
 </p>
@@ -90,9 +90,10 @@
         
           <div class="content">
             
-              <p>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função. Uma vez que ele encontre ele retorna o próximo elemento. Na falta de próximo elemento ele simplesmente retorna uma string vazia que não é nulo, mas já indica que há o parâmetro na lista de argumento.</p>
-<p>Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos. Ao chamar essa função se passa o argc e o argv recebido no main e o terceiro argumento é apenas o nome de um argumento válido que pode ser recebido via linha de comando. O resultado é um ponteiro (obtido no próprio argv) da próxima string ou uma string C vazia constante (não precisa de alocação) se for o último argv. E caso ele não ache o retorno é NULL. Seu uso comum é uma linha apenas, ou uma linha para cada argumento buscado. Sua complexidade é linear, mas, ei, quem está querendo performance no início do programa?</p>
-<p>Uma última observação: dependendo do uso você pode ou não usar o retorno, e ele possui semântica booleana, pois caso o argumento não exista o retorno é NULL e por isso não cai dentro do if (pois NULL traduzido em booleano é false). Eis uma função para copiar e colar abusivamente.</p>
+              <p>Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.</p>
+<p>Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento. Um array de argumentos é o mesmo argumento repetido n vezes se transformando em um array para ser consumido como tal. Para essa versão será necessário uma segunda função, especializada, que faça o serviço.</p>
+<p>Alterei meu código mágico, simples e rápido para parsear linha de comando em C para suportar arrays. Na correria do projeto foi algo igualmente simples e rápido, embora com alguns truques interessantes de se aprender sobre libc. Basicamente o que ele faz é varrer o array argv construindo seu próprio filtrado apenas com os argumentos que interessam. Ele aloca e realoca a memória para esse array de ponteiros para char usando a função padrão realloc, que consegue fazer a alocação inicial e realocações mantendo o conteúdo da memória original.</p>
+<p>Durante o laço é mantido um offset que é incrementado a cada novo argumento. Caso não exista nenhum argumento o retorno será NULL. O aprendizado de libc aqui fica por conta do uso do realloc para simplificar realocação, algo que C++ não possui até hoje (se você quiser fazer as coisas apenas no modo C++ com new e delete) e que depende de abstrações da STL como containers para fazê-lo.</p>
 
             
 
@@ -100,17 +101,17 @@
 
         <div class="taglist">
             
-     <a style="" href="/code/getargs.c">link</a>
-      <a href="/categories/code">code</a> 
-      <a href="/tags/ccpp">ccpp</a> 
+     <a style="" href="/code/getargs_array.c">link</a>
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/ccpp">ccpp</a>  <a href="/tags/work">work</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/as-duas-irenes/">As Duas Irenes --></a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-centenario-que-fugiu-pela-janela-e-desapareceu/">&lt;-- O Centenário Que Fugiu Pela Janela e Desapareceu</a></span>
+            
+<span style="float: left;"><a href="http://www.caloni.com.br/loretto/">&lt;-- Loretto</a></span>
 
         </div>
 

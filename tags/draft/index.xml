@@ -6748,17 +6748,6 @@ O vídeo do filósofo Alysson Augusto, baseado no texto de Leandro C.</descripti
 
      
         <item>
-  <title>Meu Novo Parseador de Argc Argv</title>
-  <link>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</link>
-  <pubDate>2018-08-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</guid>
-  <description>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Quer ver?
-Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos:</description>
-</item>
-
-     
-        <item>
   <title>O Centenário Que Fugiu Pela Janela e Desapareceu</title>
   <link>http://www.caloni.com.br/o-centenario-que-fugiu-pela-janela-e-desapareceu/</link>
   <pubDate>2018-08-19</pubDate>
