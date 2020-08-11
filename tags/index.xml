@@ -6,16 +6,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Tue, 04 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
-  <title>ccpp</title>
-  <link>http://www.caloni.com.br/tags/ccpp/</link>
-  <pubDate>2020-08-04</pubDate>
+  <title>books</title>
+  <link>http://www.caloni.com.br/tags/books/</link>
+  <pubDate>2020-08-10</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/ccpp/</guid>
+  <guid>http://www.caloni.com.br/tags/books/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>cinemaqui</title>
+  <link>http://www.caloni.com.br/tags/cinemaqui/</link>
+  <pubDate>2020-08-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
   <description></description>
 </item>
 
@@ -23,9 +33,39 @@
         <item>
   <title>coffee</title>
   <link>http://www.caloni.com.br/tags/coffee/</link>
-  <pubDate>2020-08-04</pubDate>
+  <pubDate>2020-08-10</pubDate>
   
   <guid>http://www.caloni.com.br/tags/coffee/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-08-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-08-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>ccpp</title>
+  <link>http://www.caloni.com.br/tags/ccpp/</link>
+  <pubDate>2020-08-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/ccpp/</guid>
   <description></description>
 </item>
 
@@ -51,16 +91,6 @@
 
      
         <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-08-03</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>series</title>
   <link>http://www.caloni.com.br/tags/series/</link>
   <pubDate>2020-07-26</pubDate>
@@ -71,41 +101,11 @@
 
      
         <item>
-  <title>cinemaqui</title>
-  <link>http://www.caloni.com.br/tags/cinemaqui/</link>
-  <pubDate>2020-07-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-07-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>animes</title>
   <link>http://www.caloni.com.br/tags/animes/</link>
   <pubDate>2020-07-15</pubDate>
   
   <guid>http://www.caloni.com.br/tags/animes/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>books</title>
-  <link>http://www.caloni.com.br/tags/books/</link>
-  <pubDate>2020-07-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/books/</guid>
   <description></description>
 </item>
 
