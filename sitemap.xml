@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.caloni.com.br/a-mulher-do-aviador/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/</loc>
     <lastmod>2020-08-19T00:00:00+00:00</lastmod>
   </url>
@@ -63,8 +73,13 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
+    <loc>http://www.caloni.com.br/travessia/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/wine/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -129,11 +144,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/silver-myn/</loc>
-    <lastmod>2020-08-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/wine/</loc>
     <lastmod>2020-08-04T00:00:00+00:00</lastmod>
   </url>
   

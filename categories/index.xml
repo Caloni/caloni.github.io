@@ -11,6 +11,16 @@
     
      
         <item>
+  <title>blog</title>
+  <link>http://www.caloni.com.br/categories/blog/</link>
+  <pubDate>2020-08-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/blog/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>cinema</title>
   <link>http://www.caloni.com.br/categories/cinema/</link>
   <pubDate>2020-08-19</pubDate>
@@ -26,16 +36,6 @@
   <pubDate>2020-08-19</pubDate>
   
   <guid>http://www.caloni.com.br/categories/draft/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>blog</title>
-  <link>http://www.caloni.com.br/categories/blog/</link>
-  <pubDate>2020-08-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/blog/</guid>
   <description></description>
 </item>
 
