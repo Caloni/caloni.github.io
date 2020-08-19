@@ -6,9 +6,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Wed, 12 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-08-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-08-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>series</title>
+  <link>http://www.caloni.com.br/tags/series/</link>
+  <pubDate>2020-08-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/series/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>coffee</title>
@@ -16,16 +46,6 @@
   <pubDate>2020-08-12</pubDate>
   
   <guid>http://www.caloni.com.br/tags/coffee/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-08-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
@@ -46,16 +66,6 @@
   <pubDate>2020-08-10</pubDate>
   
   <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-08-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
 </item>
 
@@ -86,16 +96,6 @@
   <pubDate>2020-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/tags/work/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>series</title>
-  <link>http://www.caloni.com.br/tags/series/</link>
-  <pubDate>2020-07-26</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/series/</guid>
   <description></description>
 </item>
 

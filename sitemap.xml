@@ -3,17 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/categories/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/cinema/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/community/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/draft/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/draft/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/jaspion/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/john-wick-3/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/movies/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/series/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
     <lastmod>2020-08-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -23,32 +73,7 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/tags/draft/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/categories/draft/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/jaspion/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/orfeu/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
-    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
     <lastmod>2020-08-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -58,17 +83,7 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/categories/cinema/</loc>
-    <lastmod>2020-08-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/tags/cinemaqui/</loc>
-    <lastmod>2020-08-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/community-episodes/</loc>
     <lastmod>2020-08-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -83,22 +98,12 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/john-wick-3/</loc>
-    <lastmod>2020-08-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/lost-girls/</loc>
     <lastmod>2020-08-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://www.caloni.com.br/minha-noite-com-ela/</loc>
-    <lastmod>2020-08-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/movies/</loc>
     <lastmod>2020-08-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -153,17 +158,7 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/tags/series/</loc>
-    <lastmod>2020-07-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/arcanus/</loc>
-    <lastmod>2020-07-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/community-again/</loc>
     <lastmod>2020-07-20T00:00:00+00:00</lastmod>
   </url>
   
@@ -429,11 +424,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/batalha/</loc>
-    <lastmod>2020-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/community/</loc>
     <lastmod>2020-06-07T00:00:00+00:00</lastmod>
   </url>
   
