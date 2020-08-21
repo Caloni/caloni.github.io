@@ -19093,16 +19093,6 @@ A fotografia é belíssima, pois consegue trazer aquele ar pálido, seco e quent
 
      
         <item>
-  <title>2048 motivos para não programar</title>
-  <link>http://www.caloni.com.br/2048-motivos-para-nao-programar/</link>
-  <pubDate>2014-04-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/2048-motivos-para-nao-programar/</guid>
-  <description>Pronto, posso programar em paz. O jogo 2048 é uma lástima para todos os trabalhadores intelectuais que dependem de suas mentes para produzir algo que preste. Ele gerou mais posts no Hacker News do que a moda dos bitcoins (talvez não) e mais projetos no GitHub do que a busca para a cura do câncer (talvez não). (Obviamente que este post vai gerar mais um commit Python no repositório de artigos.</description>
-</item>
-
-     
-        <item>
   <title>Hoje Eu Quero Voltar Sozinho</title>
   <link>http://www.caloni.com.br/hoje-eu-quero-voltar-sozinho/</link>
   <pubDate>2014-04-23</pubDate>
@@ -27480,17 +27470,6 @@ Também falei que iríamos resolver esse problema, afinal de contas, temos que s
 
      
         <item>
-  <title>A fila das threads</title>
-  <link>http://www.caloni.com.br/a-fila-das-threads/</link>
-  <pubDate>2009-04-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-fila-das-threads/</guid>
-  <description>Em um ambiente multithreading, diversas threads disputam &amp;ldquo;a tapas&amp;rdquo; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa forma é isso que acontece. São threads e mais threads rodando um pedacinho de código cada vez que passam pelo processador.
-Um ambiente complexo como esse é repleto de pequenos detalhes que podem fazer o iniciante logo desanimar quando tentar depurar um programa com mais de uma thread.</description>
-</item>
-
-     
-        <item>
   <title>Depurando até o último segundo</title>
   <link>http://www.caloni.com.br/depurando-ate-o-ultimo-segundo/</link>
   <pubDate>2009-03-31</pubDate>
@@ -27623,18 +27602,6 @@ Segue um pequeno roteiro do funcionamento do programa, que é bem simples, aliá
   <guid>http://www.caloni.com.br/como-funciona-o-psexec/</guid>
   <description>Semana passada precisei reproduzir o comportamento da ferramenta PsExec em um projeto, o que me fez sentir alguma nostalgia dos tempos em que eu fazia engenharia reversa todo dia. Este breve relato (espero) reproduz os passos que segui para descobrir o que esse programa tão útil quanto perigoso faz.
 Sabe-se que o PsExec consegue executar um programa remotamente, ou seja, de uma máquina para outra, outra essa que chamaremos de máquina-alvo.</description>
-</item>
-
-     
-        <item>
-  <title>A alça dentro do fio gerou um bloqueio da morte</title>
-  <link>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</link>
-  <pubDate>2008-10-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</guid>
-  <description>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções (o livro estava em português) no mínimo curiosas.
-Se trata do primeiro Windows Internals publicado após o lançamento da primeira versão do Windows NT, uma plataforma escrita (quase) inteiramente do zero para suplantar as versões 9x, que herdaram do DOS algumas partes indesejáveis em sistemas operacionais modernos.
-Sabe-se lá por que, essa edição foi traduzida.</description>
 </item>
 
      
