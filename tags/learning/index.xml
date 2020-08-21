@@ -1,0 +1,26 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>learning on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/learning/</link>
+    <description>Recent content in learning on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
+    <lastBuildDate>Tue, 07 Apr 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/learning/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>A fila das threads</title>
+  <link>http://www.caloni.com.br/a-fila-das-threads/</link>
+  <pubDate>2009-04-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-fila-das-threads/</guid>
+  <description>Em um ambiente multithreading, diversas threads disputam &amp;ldquo;a tapas&amp;rdquo; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa forma é isso que acontece. São threads e mais threads rodando um pedacinho de código cada vez que passam pelo processador.
+Um ambiente complexo como esse é repleto de pequenos detalhes que podem fazer o iniciante logo desanimar quando tentar depurar um programa com mais de uma thread.</description>
+</item>
+
+     
+    
+  </channel>
+</rss>
