@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Mesmo que você não programe em C/C++, mas programe para Windows (ex: .NET), sempre há a possibilidade de seu programa estar causando leaks de handles indefinidamente, o que não se traduz em aumento significativo de memória alocada para seu processo, mas é, sim, um problema a ser tratado.</p>
 <p>Como isso pode ser causado? Bom, em C/C++ sempre é mais simples de entender esses conceitos. Um código simples que se esquece de fechar o handle usando CloseHandle ou a função equivalente do recurso obtido já seria o suficiente. O último bug que eu encontrei em um código desses comete o clássico erro de sair no meio da função, deixando os recursos alocados:</p>

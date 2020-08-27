@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida, especialmente por causa das explicações sobre o loader lock e seus efeitos colaterais.</p>
 <p>O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &quot;mutex&quot;) para sincronizar as chamadas. O resultado é que, em um processo, apenas um DllMain é chamado em um dado momento. Esse objeto é chamado de &quot;loader lock&quot; na documentação da Microsoft.</p>

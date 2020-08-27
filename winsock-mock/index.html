@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em C são funções com nome bem definido e assinatura flexível (você não precisa declarar a assinatura da função, ou pode mudar no meio do caminho).</p>
 <p>Criei este pequeno projeto de mock da winsock para exemplificar. Ele utiliza um recurso interessante da winsock, um define chamado INCLWINSOCKAPIPROTOTYPES, que pode desabilitar a publicação das assinaturas das funções de socket do header winsock2.h. E por que isso é importante? Porque essas assinaturas já possuem a informação que essas funções deverão ser importadas de uma DLL (no caso a Ws232.dll). Isso muda o nome da função C. Além disso, a convenção de chamada da API do Windows é baseada em Pascal, e não cdecl, sendo a desvantagem não existir número de argumentos variáveis na pilha. Adiante veremos como isso é útil para simplificar nosso código de mock.</p>

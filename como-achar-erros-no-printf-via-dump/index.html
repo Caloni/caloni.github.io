@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques pontuais e uma análise simples da stack, da variável e do código envolvido é possível chegar em um veredito sem muitas controversas se foi isso mesmo que gerou o crash. No caso peguei hoje um caso assim.</p>
 <p>Abrir um dump (dmp) pode ser feito pelo Visual Studio, Windbg ou sua ferramenta de análise favorita. Mais importante que isso é carregar seus símbolos adequadamente. Com o dump e símbolos abertos é possível analisar a stack de chamadas, o que nos revela que há um problema em uma função de Log. Como se trata de uma versão release não há muita informação da pilha, que pode fazer parte de uma stack modificada (otimização de código). Portanto, tudo que vier é lucro. Como variáveis.</p>

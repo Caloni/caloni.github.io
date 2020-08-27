@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Semana passada precisei reproduzir o comportamento da ferramenta PsExec em um projeto, o que me fez sentir alguma nostalgia dos tempos em que eu fazia engenharia reversa todo dia. Este breve relato (espero) reproduz os passos que segui para descobrir o que esse programa tão útil quanto perigoso faz.</p>
 <p>Sabe-se que o PsExec consegue executar um programa remotamente, ou seja, de uma máquina para outra, outra essa que chamaremos de máquina-alvo. O programa a ser executado geralmente deve estar disponível na própria máquina-alvo (condição ideal). Além da simples execução, para aplicativos console ele permite ainda a interação como se estivéssemos executando o programa remoto em nossa própria máquina local. Ele consegue isso redirecionando sua entrada e saída, o que o torna, como nos descreve o próprio autor, um &quot;telnet light&quot;:</p>

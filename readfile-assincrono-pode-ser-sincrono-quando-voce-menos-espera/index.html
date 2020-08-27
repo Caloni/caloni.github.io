@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>Ano passado tive alguns problemas em um projeto que se comunicava com um dispositivo em firmware pela USB. Estávamos utilizando uma biblioteca open source do GitHub que parecia estar bem testada e mantida. Porém, não exatamente para nossos objetivos.</p>
 <p>O problema da lib hidapi era que a comunicação usb era feita de forma assíncrona. Isso no Windows é feito com a mesma função de I/O (ReadFile/WriteFile) só que passando um argumento opcional chamado de overlapped. Esse argumento é um ponteiro para uma estrutura que irá ser preenchida assim que o I/O for concluído. E quando é isso? Deve-se esperar pelo handle ser sinalizado (em outras palavras, dando um Sleep ou WaitForSingleObject neste handle).</p>

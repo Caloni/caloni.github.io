@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>No post anterior sobre debug eu havia me focado mais na depuração de processos remotos no Visual Studio 2003 de maneira convencional. Aqui eu vou abordar o assunto de uma maneira menos convencional: usando o Visual Studio 2017 mais novo e depurando uma DLL (C++) que é carregada por um serviço antes do logon no Windows 7.</p>
 <p>Em primeiro lugar, como vimos anteriormente, a ponta server do depurador é um programa que você executa com alguns parâmetros e ele fica escutando em uma porta. Simples assim. Para que isso funcione antes do logon é necessário instalar esse programa como um serviço. Tanto no caso de depuradores mais antigos (msvCmon) quando nos mais novos (msvSmon) há sempre um executável com alguns parâmetros passados via linha de comando.</p>

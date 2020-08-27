@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -90,6 +97,7 @@
 
         
           <div class="content">
+
             
               <p>There is a document from Microsoft alerting about the hazards in putting your code inside a DllMain function. what is more comprehensive and easier to read than the MSDN observations. It is worth reading, even because the explanations about the loader lock and its side effects can do very good for your code health.</p>
 <p>In short, the Windows code responsible to call DllMain for each loaded/unloaded DLLs uses an exclusive access object (the so-called &quot;mutex&quot;) to synchronize its calls. The result is that inside a process just one DllMain can be called at a given moment. This object-mutex is called &quot;loader lock&quot; into the Microsoft documentation.</p>

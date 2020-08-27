@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
 
+  
+  
+      
+  
+      
+  
+
   <head>
   <meta charset="utf-8" />
 
@@ -81,7 +88,13 @@
         <p class="subtitle">
 
   
-    Wanderley Caloni, 2020-07-01
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2020-07-01
   
 
 </p>
@@ -90,6 +103,7 @@
 
         
           <div class="content">
+
             
               <p>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.</p>
 <p>Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.</p>
