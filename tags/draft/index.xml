@@ -29372,6 +29372,17 @@ When I was reading the K&amp;amp;R book (again) I was enjoying the language spec
 
      
         <item>
+  <title>A inteligência do if - parte 1</title>
+  <link>http://www.caloni.com.br/a-inteligencia-do-if-parte-1/</link>
+  <pubDate>2007-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-inteligencia-do-if-parte-1/</guid>
+  <description>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o endereço da próxima instrução que será executada. A essa manipulação damos o nome de salto.
+O salto simples e direto permite a organização do código em subrotinas e assim seu reaproveitamento, o que economiza memória, mas computacionalmente é inútil, já que pode ser implementado simplesmente pela repetição das subrotinas.</description>
+</item>
+
+     
+        <item>
   <title>O bom filho à casa retorna</title>
   <link>http://www.caloni.com.br/hello-world/</link>
   <pubDate>2007-06-15</pubDate>
