@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &ldquo;objeto&rdquo;, seja em C (manualmente) ou em C&#43;&#43; (automagicamente pelo operador..."/>
+        content="No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &quot;objeto&quot;, seja em C (manualmente) ou em C&#43;&#43; (automagicamente pelo operador..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Classe, objeto, contexto, método</p>
+        
+<p class="title">Classe, objeto, contexto, método</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/classe-objeto-contexto-metodo.md" title="source">
-    2016-01-11
-    </a>
-    
+Wanderley Caloni, 2016-01-11
 
 </p>
 
@@ -95,12 +94,12 @@
         
           <div class="content">
             
-              <p>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &ldquo;objeto&rdquo;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &ldquo;objeto&rdquo; em C, mas ainda não chamamos um método.</p>
+              <p>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &quot;objeto&quot;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &quot;objeto&quot; em C, mas ainda não chamamos um método.</p>
 <p>Hoje faremos isso.</p>
 <p>Isso é relativamente simples quando se conhece ponteiros de função, existentes tanto em C quanto em C++. Ponteiros de função são tipos que contém endereço de uma função com assinatura específica (tipo de retorno e de argumentos). Através de um ponteiro de função é possível chamar uma função e passar alguns argumentos. Como o contexto nada mais é que um argumento, será só passá-lo como parâmetro.</p>
-<p>No exemplo anterior não sabíamos como chamar um método de nosso &ldquo;objeto&rdquo; em C:</p>
-<p>Isso se torna fácil se tivermos uma nova &ldquo;propriedade&rdquo; na nossa struct que é um ponteiro para a função que queremos chamar.</p>
-<p>Parece muito trabalho para algo que é feito &ldquo;automagicamente&rdquo; em C++, certo? Certo. Porém, agora sabemos o que acontece por baixo dos panos em C++ e que pode ser feito em C (ainda que &ldquo;na mão&rdquo;). Você provavelmente nunca fará esse tipo de código em C para emular C++, mas o objetivo desse código é entender como funciona, por exemplo, a vtable do C++, que permite polimorfismo.</p>
+<p>No exemplo anterior não sabíamos como chamar um método de nosso &quot;objeto&quot; em C:</p>
+<p>Isso se torna fácil se tivermos uma nova &quot;propriedade&quot; na nossa struct que é um ponteiro para a função que queremos chamar.</p>
+<p>Parece muito trabalho para algo que é feito &quot;automagicamente&quot; em C++, certo? Certo. Porém, agora sabemos o que acontece por baixo dos panos em C++ e que pode ser feito em C (ainda que &quot;na mão&quot;). Você provavelmente nunca fará esse tipo de código em C para emular C++, mas o objetivo desse código é entender como funciona, por exemplo, a vtable do C++, que permite polimorfismo.</p>
 <p>Mas esse é assunto para outro post.</p>
 
             
@@ -117,8 +116,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/">Classe, objeto, contexto, método, polimorfismo &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-terceiro-homem/">&#129092; O Terceiro Homem</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/">Classe, objeto, contexto, método, polimorfismo &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-terceiro-homem/">&#x25C1; O Terceiro Homem</a></span>
 
         </div>
 

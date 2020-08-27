@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Minha palestra sobre Windbg</p>
+        
+<p class="title">Minha palestra sobre Windbg</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/mbconf-at-home-2020-palestra-windbg.md" title="source">
-    2020-04-18
-    </a>
-    
+Wanderley Caloni, 2020-04-18
 
 </p>
 
@@ -97,16 +96,16 @@
             
               <p>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).</p>
 <p>Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.</p>
-<p>Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &ldquo;Debugging Tools for Windows&rdquo;, que é o pacote que contém o ecossistema do WinDbg.</p>
+<p>Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &quot;Debugging Tools for Windows&quot;, que é o pacote que contém o ecossistema do WinDbg.</p>
 <p>Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.</p>
-<p>Não fui eu que escrevi o MessageBox&hellip; juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.</p>
+<p>Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.</p>
 <p>Abordamos o boot do Windows com nt, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode do WinDbg) e configuramos o cabo. Cabo?</p>
-<p>Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &ldquo;de fora&rdquo; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.</p>
+<p>Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &quot;de fora&quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.</p>
 <p>Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.</p>
 <p>Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.</p>
-<p>Já para debug de BIOS em rede. Bem&hellip; esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.</p>
+<p>Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.</p>
 <p>Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também:</p>
-<p>Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &ldquo;Getting Started with WinDbg (User-Mode)&rdquo; e &ldquo;Getting Started with WinDbg (Kernel-Mode)&rdquo; (sorry, m$, vcs mudam os links demais para eu colocar aqui).</p>
+<p>Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &quot;Getting Started with WinDbg (User-Mode)&quot; e &quot;Getting Started with WinDbg (Kernel-Mode)&quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).</p>
 
             
 
@@ -122,8 +121,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/vampiros-de-alma/">Vampiros de Alma &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/quanto-mais-quente-melhor/">&#129092; Quanto Mais Quente Melhor</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/vampiros-de-alma/">Vampiros de Alma &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/quanto-mais-quente-melhor/">&#x25C1; Quanto Mais Quente Melhor</a></span>
 
         </div>
 

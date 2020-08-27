@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &ldquo;gratuitas&rdquo; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o..."/>
+        content="Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &quot;gratuitas&quot; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Convertendo Windows de UEFI para MBR</p>
+        
+<p class="title">Convertendo Windows de UEFI para MBR</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/convertendo-windows-de-uefi-para-mbr.md" title="source">
-    2017-02-13
-    </a>
-    
+Wanderley Caloni, 2017-02-13
 
 </p>
 
@@ -95,10 +94,10 @@
         
           <div class="content">
             
-              <p>Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &ldquo;gratuitas&rdquo; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o próprio Windows pode corrigir os problemas oriundos da conversão do boot UEFI/GPT. Depois, é claro, que você usar uma outra ferramenta esperta open-source =)</p>
-<p>Entre as diferentes distros do Linux há uma chamada SystemRescueCD que é cheia dos paranauê para manutenção de micros. Entre eles há uma ferramenta chamada testdisk que tem a &ldquo;proeza&rdquo; de sair buscando partições perdidas e reescrever o MBR (seja o código ou a tabela de partições). É uma ferramenta simples, interativa e ágil. É ela que deve ser usada para resgatar as partições da máquina após configurar a BIOS para voltar a bootar no modo legacy.</p>
+              <p>Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &quot;gratuitas&quot; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o próprio Windows pode corrigir os problemas oriundos da conversão do boot UEFI/GPT. Depois, é claro, que você usar uma outra ferramenta esperta open-source =)</p>
+<p>Entre as diferentes distros do Linux há uma chamada SystemRescueCD que é cheia dos paranauê para manutenção de micros. Entre eles há uma ferramenta chamada testdisk que tem a &quot;proeza&quot; de sair buscando partições perdidas e reescrever o MBR (seja o código ou a tabela de partições). É uma ferramenta simples, interativa e ágil. É ela que deve ser usada para resgatar as partições da máquina após configurar a BIOS para voltar a bootar no modo legacy.</p>
 <p>Depois de feita essa manipulação é a vez do CD do Windows, que deverá estar em mãos porque o Windows simplesmente não irá mais bootar. A instalação feita através do modo UEFI não instala o BOOTMGR, o gerenciador de boots do Windows. Isso porque ele não é usado, já que é a partição UEFI que se torna responsável por gerenciar o boot dos SOs presentes.</p>
-<p>Mas isso não significa que essa instalação do Windows está perdida. Através de dois boots com o CD, ambos escolhendo o modo de restauração (Repair e Repair at Startup) é possível fazer com que o Windows ache o problema (o bootmgr faltando) e &ldquo;conserte&rdquo; a instalação.</p>
+<p>Mas isso não significa que essa instalação do Windows está perdida. Através de dois boots com o CD, ambos escolhendo o modo de restauração (Repair e Repair at Startup) é possível fazer com que o Windows ache o problema (o bootmgr faltando) e &quot;conserte&quot; a instalação.</p>
 <p>No primeiro boot o Windows irá achar um problema inicial na própria instalação, no segundo boot ele já encontra a instalação. E, acreditem só, ele descobre que o BOOTMGR está faltando!</p>
 <p>E a partir daí a partição UEFI se torna inútil, embora ainda exista no início do HD, já que o boot legacy usa o velho esquema de usar o código da MBR e a partir daí chamar a partição ativa, que agora será a Windows.</p>
 <p>Essa manipulação do boot pode dar algum trabalho, mas é gratuita e com todos os passos devidamente documentados. E não há mágica: reconstrução da MBR seguido de restauração de um SO pré-existente (Windows, no caso).</p>
@@ -117,8 +116,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/bugigangue-no-espaco/">BugiGangue no Espaço &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/manchester-a-beira-mar/">&#129092; Manchester À Beira-Mar</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/bugigangue-no-espaco/">BugiGangue no Espaço &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/manchester-a-beira-mar/">&#x25C1; Manchester À Beira-Mar</a></span>
 
         </div>
 

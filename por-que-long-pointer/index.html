@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Por que Long Pointer</p>
+        
+<p class="title">Por que Long Pointer</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/por-que-long-pointer.md" title="source">
-    2010-04-21
-    </a>
-    
+Wanderley Caloni, 2010-04-21
 
 </p>
 
@@ -105,10 +104,10 @@
 <p>Agora, repare que interessante: em uma rua, cabem no máximo N casas. Se você tentar construir mais casas vai acabar invadindo o espaço de outra rua.</p>
 <p>E, já que estamos falando do endereço do destinatário, já podemos relevar que esse endereço constitui um ponteiro em nossa analogia. Se você está usando dois dados para informar o endereço, então estamos falando de um ponteiro longo, long pointer, ou LP!</p>
 <p>Na terminologia Intel para as plataformas 16 bits, a memória do computador era acessível através de segmentos (ruas) e offsets (números), que eram pedaços da memória onde cabiam no máximo N bytes. Para conseguir mais bytes é necessário alocar memória em outro segmento (outra rua).</p>
-<p>Os ponteiros que conseguiam fazer isso eram chamados de long pointers, pois podiam alcançar uma memória mais &ldquo;longa&rdquo;. Os ponteiros que apenas endereçavam o offset (número) eram chamados, em detrimento, short pointers, pois podiam apenas apontar para a memória do seu segmento (rua).</p>
-<p>Ora, se seu destinatário está na mesma rua que você, tudo que você tem a dizer ao Juquinha é: &ldquo;Juquinha, seu moleque, entrega essa carta no número 1065, e vai rápido!&quot;. Nesse caso você está usando um short pointer.</p>
+<p>Os ponteiros que conseguiam fazer isso eram chamados de long pointers, pois podiam alcançar uma memória mais &quot;longa&quot;. Os ponteiros que apenas endereçavam o offset (número) eram chamados, em detrimento, short pointers, pois podiam apenas apontar para a memória do seu segmento (rua).</p>
+<p>Ora, se seu destinatário está na mesma rua que você, tudo que você tem a dizer ao Juquinha é: &quot;Juquinha, seu moleque, entrega essa carta no número 1065, e vai rápido!&quot;. Nesse caso você está usando um short pointer.</p>
 <p>Porém, no exemplo que demos, o destinatário está em outra rua. Se o Juquinha entregar a carta no número 1065, mas na rua errada, estará errando o destinatário. Por isso é que você deve usar um long pointer e falar para o Juquinha do segmento!</p>
-<p>&ldquo;Juquinha, seu moleque safado, entrega essa carta no Segmento 0xAC89, Offset 0x496E. E vê se anda logo!&rdquo;</p>
+<p>&quot;Juquinha, seu moleque safado, entrega essa carta no Segmento 0xAC89, Offset 0x496E. E vê se anda logo!&quot;</p>
 <p>Essa frase era muito usada nos anos 80, com seus 16 bits e tudo mais.</p>
 <p>Com toda essa analogia, fica fácil perceber que o Windows não cabe em uma rua só. Seus aplicativos precisam de muitas ruas para rodar. Isso exige que todos seus ponteiros sejam long, pois do contrário o Juquinha estará entregando as cartas sempre nos endereços errados. Dessa forma, foi estipulado o typedef arcaico padrão para todos os tipos da API que usasse LP (Long Pointer) como prefixo:</p>
 <p>E é por isso que, historicamente, todos os ponteiros para os apelidos da API Win32 possuem sua contraparte LP.</p>
@@ -130,8 +129,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/alice-no-pais-das-maravilhas-2010/">Alice no País das Maravilhas &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/typedef-arcaico/">&#129092; Typedef arcaico</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/alice-no-pais-das-maravilhas-2010/">Alice no País das Maravilhas &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/typedef-arcaico/">&#x25C1; Typedef arcaico</a></span>
 
         </div>
 

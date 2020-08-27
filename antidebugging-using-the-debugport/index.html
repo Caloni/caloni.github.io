@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Antidebugging using the DebugPort</p>
+        
+<p class="title">Antidebugging using the DebugPort</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/antidebugging-using-the-debugport.md" title="source">
-    2008-08-01
-    </a>
-    
+Wanderley Caloni, 2008-08-01
 
 </p>
 
@@ -95,7 +94,7 @@
         
           <div class="content">
             
-              <p>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside Windows called LPC (Local Procedure Call). The system creates a &ldquo;magic&rdquo; communication port for debugging and the debugging events pass throw it.</p>
+              <p>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside Windows called LPC (Local Procedure Call). The system creates a &quot;magic&quot; communication port for debugging and the debugging events pass throw it.</p>
 <p>Among these events we can tell the most frequent:</p>
 <ul>
 <li>
@@ -115,7 +114,7 @@
 </li>
 </ul>
 <p>In the case of connecting into a existent process, the API DebugActiveProcess is called. Since this call, if successful, the caller program is free now to call the API DebugActiveProcess looking for debugging events. The main loop for a debugger is, so, pretty simple:</p>
-<p>The interesting detail about this communication process is that a program can be debugged actively only for ONE debugger. In other words, while there&rsquo;s a process A debugging process B, no one besides A can debug and break B.Using this principle, we can imagine a debugging protection based on this exclusivity, creating a protector process that connects to the protected process and &ldquo;debugs&rdquo; it:</p>
+<p>The interesting detail about this communication process is that a program can be debugged actively only for ONE debugger. In other words, while there's a process A debugging process B, no one besides A can debug and break B.Using this principle, we can imagine a debugging protection based on this exclusivity, creating a protector process that connects to the protected process and &quot;debugs&quot; it:</p>
 <p>The needed steps to test the code above are:</p>
 <ol>
 <li>
@@ -136,9 +135,9 @@
 </ol>
 <p>After the attach process, the debug port is occupied, and the communication between the debugger and debuggee is made throug LPC. Bellow we can see a little illustration of how things work:</p>
 <p>Basically the process stay receiving debugging events (through the LPC message queue) until the final event, the process exit. Notice that if someone try to terminate the protector process the debuggee process will be terminated, too.</p>
-<p>The strength in this protection is that it doesn&rsquo;t affect the code understanding and readability. In fact the code that protects is in another process. The weakness, I would say, it is your visibility. Everyone that will try to attack the solution will se two processes being created, what gives him/her something to think about&hellip;</p>
-<p>That&rsquo;s why thinking about the implementation is vital. Particularly the main point to be thought is the debugger/debuggee union. As much as better these two pieces were packed, harder to the attacker will be to separate them. An additional idea is to use the same technique in the opposite way, in other words, the debuggee process to attach into the debugger.</p>
-<p>This time I&rsquo;m not going to say that there&rsquo;s a easy solution. Maybe because I haven&rsquo;t though enough about the problem. Ideas?</p>
+<p>The strength in this protection is that it doesn't affect the code understanding and readability. In fact the code that protects is in another process. The weakness, I would say, it is your visibility. Everyone that will try to attack the solution will se two processes being created, what gives him/her something to think about...</p>
+<p>That's why thinking about the implementation is vital. Particularly the main point to be thought is the debugger/debuggee union. As much as better these two pieces were packed, harder to the attacker will be to separate them. An additional idea is to use the same technique in the opposite way, in other words, the debuggee process to attach into the debugger.</p>
+<p>This time I'm not going to say that there's a easy solution. Maybe because I haven't though enough about the problem. Ideas?</p>
 
             
 
@@ -154,8 +153,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/antidebugging-during-the-process-attach/">Antidebugging during the process attach &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-two/">&#129092; Antidebugging using exceptions (part two)</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/antidebugging-during-the-process-attach/">Antidebugging during the process attach &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-two/">&#x25C1; Antidebugging using exceptions (part two)</a></span>
 
         </div>
 

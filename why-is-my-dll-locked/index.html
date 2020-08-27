@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Why is my DLL locked?</p>
+        
+<p class="title">Why is my DLL locked?</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/why-is-my-dll-locked.md" title="source">
-    2007-09-24
-    </a>
-    
+Wanderley Caloni, 2007-09-24
 
 </p>
 
@@ -96,14 +95,14 @@
           <div class="content">
             
               <p>There is a document from Microsoft alerting about the hazards in putting your code inside a DllMain function. what is more comprehensive and easier to read than the MSDN observations. It is worth reading, even because the explanations about the loader lock and its side effects can do very good for your code health.</p>
-<p>In short, the Windows code responsible to call DllMain for each loaded/unloaded DLLs uses an exclusive access object (the so-called &ldquo;mutex&rdquo;) to synchronize its calls. The result is that inside a process just one DllMain can be called at a given moment. This object-mutex is called &ldquo;loader lock&rdquo; into the Microsoft documentation.</p>
-<p>The code below is silly, but represents quite well what I&rsquo;ve seen in lots of production code. For many times I was unable to realize what was going on (whether because I didn&rsquo;t know about the loader lock or the code readability was too bad). The comments say by themselves:</p>
+<p>In short, the Windows code responsible to call DllMain for each loaded/unloaded DLLs uses an exclusive access object (the so-called &quot;mutex&quot;) to synchronize its calls. The result is that inside a process just one DllMain can be called at a given moment. This object-mutex is called &quot;loader lock&quot; into the Microsoft documentation.</p>
+<p>The code below is silly, but represents quite well what I've seen in lots of production code. For many times I was unable to realize what was going on (whether because I didn't know about the loader lock or the code readability was too bad). The comments say by themselves:</p>
 <p>A simple victim of all this can be an executable using a poorly written DLL, just like the code above:</p>
 <p>In order to the see the locking code in action, copy the DLL and EXE source files and use the following commands to generate the executable files:</p>
 <p>It is important to remember that a DllMain dependant code is a very, very bad thing. Nevertheless, there are some particular cases the only place to run our code is inside DllMain. In these cases, when detected, try to run a side by side communication with your locked thread using an event object (or equivalent) before it really returns. Using this craft the thread can warn the waiting thread that the important thing to be done is done, and the waiting thread can go to sleep and stop waiting forever locked threads.</p>
 <ol>
 <li>NT Loader (MSJ Sep 99) - Matt Pietrek</li>
-<li>mgrier&rsquo;s WebLog - NT Loader team participant</li>
+<li>mgrier's WebLog - NT Loader team participant</li>
 </ol>
 
             
@@ -120,8 +119,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/introducao-ao-c-builderturbo-c/">Introdução ao C&#43;&#43; Builder...Turbo C&#43;&#43; &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/">&#129092; A mobilidade das variáveis no printf</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/introducao-ao-c-builderturbo-c/">Introdução ao C&#43;&#43; Builder...Turbo C&#43;&#43; &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/">&#x25C1; A mobilidade das variáveis no printf</a></span>
 
         </div>
 

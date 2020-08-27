@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Pacotes perdidos do NuGet em projetos C&#43;&#43; no Visual Studio</p>
+        
+<p class="title">Pacotes perdidos do NuGet em projetos C&#43;&#43; no Visual Studio</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/pacotes-perdidos-nuget-em-projetos-cpp-no-visual-studio.md" title="source">
-    2017-02-08
-    </a>
-    
+Wanderley Caloni, 2017-02-08
 
 </p>
 
@@ -100,7 +99,7 @@
 <p>Os pacotes do projeto ficam todos na raiz do diretório da solução na sub-pasta packages. Observando o que foi baixado lá, verifiquei que a versão do boost estava ok: ele havia baixado a 1.61 como pedido, mas o erro dizia respeito justamente a um desses pacotes.</p>
 <p>O maior problema disso é que não há muitas opções na IDE que resolvam. O arquivo packages.config deveria manter essas dependências, o que de fato ele faz. As opções do projeto (as abinhas do Visual Studio onde ficam as configurações) não possuem nada relacionado ao NuGet.</p>
 <p>Então não tem jeito. Há algo de podre dentro desse projeto e o próprio Visual Studio não vai resolver. Grep nele!</p>
-<p>Note (e é preciso prestar atenção!) que o projeto server/tio/tioserver.vcxproj referencia a pasta packages como se ela existisse dentro do projeto. Porém, como já sabemos, ela existe na raiz da solution, que fica duas pastas &ldquo;para trás&rdquo;. Isso nos indica que talvez o NuGet ainda não esteja tão redondo e que um possível teste é mudar esses valores na mão e ver o que acontece.</p>
+<p>Note (e é preciso prestar atenção!) que o projeto server/tio/tioserver.vcxproj referencia a pasta packages como se ela existisse dentro do projeto. Porém, como já sabemos, ela existe na raiz da solution, que fica duas pastas &quot;para trás&quot;. Isso nos indica que talvez o NuGet ainda não esteja tão redondo e que um possível teste é mudar esses valores na mão e ver o que acontece.</p>
 <p>Recarregado o projeto no Visual Studio após a intervenção cirúrgica, tudo voltou a funcionar. A lição de hoje é: nunca confie completamente em uma IDE. Às vezes o bom e velho grep e o bom e velho editor de sua escolha podem resolver uma situação.</p>
 
             
@@ -117,8 +116,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/uefi-de-adeus-a-mbr/">UEFI: dê adeus à MBR &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/um-limite-entre-nos/">&#129092; Um Limite Entre Nós</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/uefi-de-adeus-a-mbr/">UEFI: dê adeus à MBR &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/um-limite-entre-nos/">&#x25C1; Um Limite Entre Nós</a></span>
 
         </div>
 

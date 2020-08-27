@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Carregando DLLs arbitrárias pelo WinDbg</p>
+        
+<p class="title">Carregando DLLs arbitrárias pelo WinDbg</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/carregando-dlls-arbitrarias-pelo-windbg.md" title="source">
-    2007-11-23
-    </a>
-    
+Wanderley Caloni, 2007-11-23
 
 </p>
 
@@ -102,11 +101,11 @@
 <li>Usar o WinDbg e brincar um pouco.</li>
 </ul>
 <p>Por um motivo desconhecido a terceira opção me pareceu mais interessante =).</p>
-<p>A seqüência mais simples para carregar uma DLL através do WinDbg é chamar kernel32!LoadLibrary através de um código digitado na hora, o que podemos chamar de live assembly (algo como &ldquo;assembly ao vivo&rdquo;). Porém, essa simples seqüência contém um pouco mais que uma dúzia de passos.</p>
+<p>A seqüência mais simples para carregar uma DLL através do WinDbg é chamar kernel32!LoadLibrary através de um código digitado na hora, o que podemos chamar de live assembly (algo como &quot;assembly ao vivo&quot;). Porém, essa simples seqüência contém um pouco mais que uma dúzia de passos.</p>
 <p>Primeiro devemos parar a execução, voltar para um ponto seguro do código e armazenar o local seguro em um registrador temporário (o WinDbg tem 20 deles, $t0 até $t19).</p>
 <p>Parada a execução em um local seguro e armazenado o IP, em seguida podemos alocar memória para entrar o código em assembly da chamada, além do seu parâmetro, no caso o path da DLL a ser carregada.</p>
 <p>Note que estamos usando a versão ANSI do LoadLibrary, aquela que termina com A. Sendo assim, escrevemos uma string ANSI como parâmetro usando o comando eza.</p>
-<p>O último passo é chamar a função previamente &ldquo;editada&rdquo;. Para isso basta mudarmos o endereço da próxima instrução para o começo de nosso código e mandar executar, pois ele irá parar automaticamente no breakpoint que definimos &ldquo;na mão&rdquo;, o int 3 digitado. Após a execução devemos voltar o ponteiro usando nosso backup no registrador $t0.</p>
+<p>O último passo é chamar a função previamente &quot;editada&quot;. Para isso basta mudarmos o endereço da próxima instrução para o começo de nosso código e mandar executar, pois ele irá parar automaticamente no breakpoint que definimos &quot;na mão&quot;, o int 3 digitado. Após a execução devemos voltar o ponteiro usando nosso backup no registrador $t0.</p>
 <p>Como pudemos ver pela saída, a DLL foi carregada e agora temos a possibilidade de chamar qualquer código que lá esteja. Como fazer isso? Provavelmente usando o mesmo método aqui aplicado. Live-assembly é o que manda 8).</p>
 
             
@@ -123,8 +122,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">Carregando DLLs arbitrárias pelo WinDbg - parte 2 &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/">&#129092; Usando a LIBC nativa do Windows</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">Carregando DLLs arbitrárias pelo WinDbg - parte 2 &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/">&#x25C1; Usando a LIBC nativa do Windows</a></span>
 
         </div>
 

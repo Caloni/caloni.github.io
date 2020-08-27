@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Encontrando as respostas do Flash Pops</p>
+        
+<p class="title">Encontrando as respostas do Flash Pops</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/encontrando-as-respostas-do-flash-pops.md" title="source">
-    2008-01-16
-    </a>
-    
+Wanderley Caloni, 2008-01-16
 
 </p>
 
@@ -96,10 +95,10 @@
           <div class="content">
             
               <p>Existe uma série de jogos no sítio da UOL onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da década de 40 até a atualidade. É divertido e viciante fazer pesquisa na internet para encontrar os resultados, ainda mais quando já se é viciado em cinema. Ficamos jogando, eu e minha namorada, por semanas a fio. Quase chegamos a preencher tudo, e por um bom tempo ficamos travados para terminar. Então começamos a apelar para o Google e o IMDB até os limites do razoável. Nesse fim de semana, por exemplo, chegamos a assistir um filme de madrugada onde tocou rapidamente um trecho de uma das músicas que faltava no jogo sobre televisão. No dia seguinte procuramos a trilha sonora do filme, ouvimos faixa a faixa e procuramos o nome da música no Google, para finalmente encontrar o resultado.</p>
-<p>Essa foi a última resposta &ldquo;honesta&rdquo;. Depois resolvi apelar para o WinDbg =)</p>
+<p>Essa foi a última resposta &quot;honesta&quot;. Depois resolvi apelar para o WinDbg =)</p>
 <p>A primeira coisa que pensei a respeito desse jogo foi que ele não seria tão ingênuo a ponto de colocar as respostas em texto aberto, do contrário, qual seria a graça, certo? Errado! Bom, no final das contas, um passo-a-passo bem simples me levou a encontrar a lista de respostas.</p>
 <p>A primeira coisa a fazer é carregar o jogo na memória do navegador. Em seguida, seguindo meu raciocínio inicial, digitei a primeira resposta do jogo.</p>
-<p>A partir daí, podemos &ldquo;atachar&rdquo; o WinDbg no processo do navegador e rastrear a memória do processo.</p>
+<p>A partir daí, podemos &quot;atachar&quot; o WinDbg no processo do navegador e rastrear a memória do processo.</p>
 <p>[](/images/win-pan.mp3)Então, como eu dizia, não faça isso em casa enquanto estiver digitando um artigo de seu blogue dentro do navegador. Ele vai travar!</p>
 <p>OK. A primeira coisa é procurar pela string digitada, na esperança de achar a estrutura que escreve as respostas de acordo com a digitação. Isso pode ser feito facilmente graças ao WinDbg e ao artigo de Volker von Einem que ensina como procurar strings por toda a memória de um processo (mais tarde iremos também usar o comando-bônus do comentário de Roberto Farah).</p>
 <p>Interessante. Dois resultados. Olhando o primeiro deles, vemos que encontramos o que queríamos sem nem  mesmo tentar quebrar alguma chave de criptografia.</p>
@@ -140,8 +139,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/otimizacao-em-funcoes-recursivas/">Otimização em funções recursivas &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/temas-no-windbg/">&#129092; Temas no WinDbg</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/otimizacao-em-funcoes-recursivas/">Otimização em funções recursivas &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/temas-no-windbg/">&#x25C1; Temas no WinDbg</a></span>
 
         </div>
 

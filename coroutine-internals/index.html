@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Coroutine Internals</p>
+        
+<p class="title">Coroutine Internals</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/coroutine-internals.md" title="source">
-    2018-09-18
-    </a>
-    
+Wanderley Caloni, 2018-09-18
 
 </p>
 
@@ -98,24 +97,24 @@
               <p>Uma corrotinas é um mecanismo de troca de contexto onde apenas uma thread está envolvida. Ela me faz lembrar do Windows 3.0, não exatamente por não existirem threads (e não existiam mesmo), mas pelo caráter cooperativo dos diferentes códigos.</p>
 <p>Só que no caso do Windows se a rotina de impressão travasse todo o sistema congelava.</p>
 <p>A volta das corrotinas via C++ moderno ocorre, para variar, no Boost. E a arquitetura é simples: mantenha um histórico das stacks das diferentes tasks da thread. Vamos pegar o caso mais simples da Boost.Coroutine para analisar:</p>
-<p>Se você já é um programador esperto já deve ter percebido que na saída do prompt será impresso &ldquo;Hello, world!&quot;, com a vírgula no meio sendo impressa pela função main e as duas palavras da ponta pela função cooperative, ainda que ela seja chamada apenas uma vez.</p>
-<p>Note que falei chamada porque se a stack não retornou da função ela não terminou ainda seu trabalho. Não houve o &ldquo;return&rdquo;. Outra forma de entender isso é que ela é chamada aos poucos. Enfim, deixo para você a discussão semântica. O fato é que a saída é &ldquo;Hello, world&rdquo;.</p>
-<p>Depurando encontramos a stack de cooperative, que nos indica que ela não partiu do main, apesar de ter sido chamada através da construção de coroutine pulltype. O método sink chamado logo após imprimir &ldquo;Hello&rdquo; deve colocar essa rotina para dormir, voltando o controle para main.</p>
-<p>Analisando como isso é feito vemos que o depurador do Visual Studio está fazendo caquinha, pois rodando passo-a-passo voltei para a mesma função cooperative sem passar pelo main. No entanto, a vírgula &ldquo;, &quot; foi impressa.</p>
+<p>Se você já é um programador esperto já deve ter percebido que na saída do prompt será impresso &quot;Hello, world!&quot;, com a vírgula no meio sendo impressa pela função main e as duas palavras da ponta pela função cooperative, ainda que ela seja chamada apenas uma vez.</p>
+<p>Note que falei chamada porque se a stack não retornou da função ela não terminou ainda seu trabalho. Não houve o &quot;return&quot;. Outra forma de entender isso é que ela é chamada aos poucos. Enfim, deixo para você a discussão semântica. O fato é que a saída é &quot;Hello, world&quot;.</p>
+<p>Depurando encontramos a stack de cooperative, que nos indica que ela não partiu do main, apesar de ter sido chamada através da construção de coroutine pulltype. O método sink chamado logo após imprimir &quot;Hello&quot; deve colocar essa rotina para dormir, voltando o controle para main.</p>
+<p>Analisando como isso é feito vemos que o depurador do Visual Studio está fazendo caquinha, pois rodando passo-a-passo voltei para a mesma função cooperative sem passar pelo main. No entanto, a vírgula &quot;, &quot; foi impressa.</p>
 <p>Para conseguirmos depurar diferentes rotinas dentro da mesma thread é imperativo entendermos como o mecanismo de troca de contexto funciona por baixo dos panos. Para isso nada como depurar as próprias trocas de contexto.</p>
-<p>O tamanho total da stack reservada no Windows é de 1 MB, mas a granuralidade padrão é de 64 KB (&ldquo;que é suficiente para qualquer um&rdquo; - Gates, Bill). Então é por isso que quando o Boost aloca uma stack com atributos padrões esse é o tamanho que vemos (65536).</p>
+<p>O tamanho total da stack reservada no Windows é de 1 MB, mas a granuralidade padrão é de 64 KB (&quot;que é suficiente para qualquer um&quot; - Gates, Bill). Então é por isso que quando o Boost aloca uma stack com atributos padrões esse é o tamanho que vemos (65536).</p>
 <blockquote>
-<p>The default size for the reserved and initially committed stack memory is specified in the executable file header. Thread or fiber creation fails if there is not enough memory to reserve or commit the number of bytes requested. The default stack reservation size used by the linker is 1 MB. To specify a different default stack reservation size for all threads and fibers, use the STACKSIZE statement in the module definition (.def) file. The operating system rounds up the specified size to the nearest multiple of the system&rsquo;s allocation granularity (typically 64 KB). To retrieve the allocation granularity of the current system, use the GetSystemInfo function.</p>
+<p>The default size for the reserved and initially committed stack memory is specified in the executable file header. Thread or fiber creation fails if there is not enough memory to reserve or commit the number of bytes requested. The default stack reservation size used by the linker is 1 MB. To specify a different default stack reservation size for all threads and fibers, use the STACKSIZE statement in the module definition (.def) file. The operating system rounds up the specified size to the nearest multiple of the system's allocation granularity (typically 64 KB). To retrieve the allocation granularity of the current system, use the GetSystemInfo function.</p>
 </blockquote>
-<p>Detalhe curioso de arquitetura x86 (32 bits): na hora de alocar, o sp (stack pointer) aponta para o final da pilha. Isso porque no x86 a pilha cresce &ldquo;para baixo&rdquo;.</p>
+<p>Detalhe curioso de arquitetura x86 (32 bits): na hora de alocar, o sp (stack pointer) aponta para o final da pilha. Isso porque no x86 a pilha cresce &quot;para baixo&quot;.</p>
 <p>Logo em seguida, no topo da pilha, é empilhado o objeto da corrotina:</p>
 <p>Bom, entrando mais a fundo na implementação de corrotinas do Boost, temos o objeto pullcoroutineimpl, que possui flags, ponteiro para exceção e o contexto do chamador e do chamado para se localizar.</p>
 <p>O coroutinecontext possui elementos já conhecidos de quem faz hook de função: trampolins. Ou seja, funções usadas para realizar saltos incondicionais de um ponto a outro do código independente de contexto. Na minha época de hooks isso se fazia alocando memória na heap e escrevendo o código assembly necessário para realizar o pulo, geralmente de uma colinha de uma função naked (funções naked não possuem prólogo e epílogo, que são partes do código que montam e desmontam contextos dentro da pilha, responsável pela montagem dos frames com ponto de retorno, variáveis locais, argumentos).</p>
 <p>A função que faz a mágica do pulo do gato é a pull, que muda o estado da rotina para running e realiza o salto de contexto. Vamos analisar essa parte com muita calma.</p>
-<p>Quem desfaz a mágica, &ldquo;desempilhando&rdquo; o contexto para voltar ao chamador da corrotina (através do contexto apenas, não da pilha) é a função push.</p>
+<p>Quem desfaz a mágica, &quot;desempilhando&quot; o contexto para voltar ao chamador da corrotina (através do contexto apenas, não da pilha) é a função push.</p>
 <p>Com os dados disponíveis nos objetos de contexto (no exemplo do main, a variável source) é possível pelo Windbg analisar qualquer tipo de stack com o comando k.</p>
 <p>A variável de uma coroutine contém o contexto do chamador e do chamado. Quando houver a necessidade de explorar uma pilha não-ativa é preciso obter o valor de sp através dessa variável. Ela fica um pouco escondida, mas está lá. Acredite.</p>
-<p>Usando o comando k = BasePtr StackPtr InstructionPtr passando o conteúdo de sp como o stack pointer o Windbg deve mostrar a pilha de todas as formas possíveis (especificar se terá FPO, mostrar código-fonte, argumentos, etc). Para a demonstração live fica bom ter um loop &ldquo;eterno&rdquo; para poder repetir a análise quantas vezes forem necessárias:</p>
+<p>Usando o comando k = BasePtr StackPtr InstructionPtr passando o conteúdo de sp como o stack pointer o Windbg deve mostrar a pilha de todas as formas possíveis (especificar se terá FPO, mostrar código-fonte, argumentos, etc). Para a demonstração live fica bom ter um loop &quot;eterno&quot; para poder repetir a análise quantas vezes forem necessárias:</p>
 <p>DICA: É importante detachar do processo, mesmo que estejamos analisando em modo não-invasivo, porque a porta de Debug pode ser ocupada e o Visual Studio vai ficar pra sempre esperando receber eventos de debug que ele não vai mais receber.</p>
 <p>Após rodarmos novamente o programa ele pára no main. Podemos atachar com o WinDbg quantas vezes precisarmos:</p>
 
@@ -133,8 +132,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/carne-louca/">Receita: Carne Louca &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/final-space/">&#129092; Final Space</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/carne-louca/">Receita: Carne Louca &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/final-space/">&#x25C1; Final Space</a></span>
 
         </div>
 

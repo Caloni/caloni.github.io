@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Dando cabo do WinDbg</p>
+        
+<p class="title">Dando cabo do WinDbg</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/dando-cabo-do-windbg.md" title="source">
-    2014-06-18
-    </a>
-    
+Wanderley Caloni, 2014-06-18
 
 </p>
 
@@ -97,10 +96,10 @@
             
               <p>Na semana passada falei sobre a ideia de comentar algumas mudanças entre o Windows XP e o novo mundo Vista/7/8/ que fizeram com que adaptássemos algum código que obviamente não funcionaria mais. Falamos sobre a famigerada GINA (ou famiGINADA), e agora apenas vou comentar brevemente sobre o sistema de boot, que também mudou.</p>
 <p>Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora de usar o WinDbg. Tradicionalmente, o boot era gerenciado no Windows através de um arquivo localizado na raiz da partição ativa (configuração da MBR) chamado bootini. Dentro dele temos uma estrutura semelhante a um .INI (duh), onde a informação que vemos lá podia ser configurada nas configurações do Computador no Windows XP.</p>
-<p>Hoje em dia esse arquivo nem existe mais, o que pode dar um friozinho na barriga (&ldquo;caramba, não vai mais bootar!!&quot;). Agora, para sistemas baseados em BIOS há uma pasta Boot na raiz e um arquivo chamado bcd. Para os mais moderninhos, baseados em EFI, ele fica na partição EFI. Ah, EFI é Extensible Firmware Interface, e faz parte da especificação da UEFI (Universal blá blá blá), mais ou menos um padrão que define como deve ser feita a comunicação entre hardware e sistema operacional.</p>
+<p>Hoje em dia esse arquivo nem existe mais, o que pode dar um friozinho na barriga (&quot;caramba, não vai mais bootar!!&quot;). Agora, para sistemas baseados em BIOS há uma pasta Boot na raiz e um arquivo chamado bcd. Para os mais moderninhos, baseados em EFI, ele fica na partição EFI. Ah, EFI é Extensible Firmware Interface, e faz parte da especificação da UEFI (Universal blá blá blá), mais ou menos um padrão que define como deve ser feita a comunicação entre hardware e sistema operacional.</p>
 <p>Para a edição desse novo arquivo (ou partição) é necessário que seja usada a ferramenta BCDEdit no Windows. É ela que agora configura qual partição está ativa e, mais importante para escovadores de bits, qual pode ser depurada pela porta serial através do WinDbg.</p>
-<p>Porta serial? Mas que coisa antiga, hein? Pois é, muita coisa mudou desde o Windows Vista, mas algumas coisas precisam permanecer&hellip; compatíveis.</p>
-<p>Mas&hellip; se você precisar:</p>
+<p>Porta serial? Mas que coisa antiga, hein? Pois é, muita coisa mudou desde o Windows Vista, mas algumas coisas precisam permanecer... compatíveis.</p>
+<p>Mas... se você precisar:</p>
 
             
 
@@ -116,8 +115,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/orange-is-the-new-black-s03/">Orange is the New Black - Terceira Temporada &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/a-face-do-mal/">&#129092; A Face do Mal</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/orange-is-the-new-black-s03/">Orange is the New Black - Terceira Temporada &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-face-do-mal/">&#x25C1; A Face do Mal</a></span>
 
         </div>
 

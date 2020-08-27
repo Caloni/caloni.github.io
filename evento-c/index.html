@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Evento C&#43;&#43;</p>
+        
+<p class="title">Evento C&#43;&#43;</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/evento-c.md" title="source">
-    2010-08-16
-    </a>
-    
+Wanderley Caloni, 2010-08-16
 
 </p>
 
@@ -99,7 +98,7 @@
 <p>Infelizmente em nenhuma das duas palestras práticas (minha e do Fernando) houve participação interativa, e ninguém que eu saiba abriu meu pacote-surpresa com os dumps a serem analisados. De qualquer forma, minha palestra ficou bagunçada pelo excesso de conteúdo e falta de tempo, o que me fez dar boas risadas ao ouvir no twitter que minha palestra foi mais um brainstorm. A intenção não era essa, claro, mas meu claro despreparo para muito conteúdo gerou essa impressão. Espero que do pouco que consegui explicar alguém tenha achado utilidade.</p>
 <p>E, pelo jeito, futuramente irei aplicar essa mesma metodologia brainstorm em um videocast, que ainda não decidi como irei preparar. A ideia é analisarmos alguns dumps em conjunto e, para os que acompanharem online, a interatividade de perguntas &amp; respostas.</p>
 <p>Mas enquanto isso não acontece vamos dar uma olhada no que tínhamos no pacote-surpresa.</p>
-<p>Como foi visto na palestra, uma pilha nesse estado demonstra claramente alguma variável que estourou e corrompeu o resto da pilha de chamadas. Na hora de voltar para a função chamadora, o endereço usado foi o endereço reescrito por lixo, e daí temos o &ldquo;crash-pattern&rdquo; Stack Trash.</p>
+<p>Como foi visto na palestra, uma pilha nesse estado demonstra claramente alguma variável que estourou e corrompeu o resto da pilha de chamadas. Na hora de voltar para a função chamadora, o endereço usado foi o endereço reescrito por lixo, e daí temos o &quot;crash-pattern&quot; Stack Trash.</p>
 <p>A thread ativa no momento do dump aguardava por outra thread. Listando todas as threads do processo temos a primeira e a segunda, que tenta entrar em um critical section. Quando vemos que aquele CS estava sendo bloqueado pela primeira thread vemos claramente se tratar de um dead lock.</p>
 <p>O disassemble da instrução inválida tenta escrever claramente em cima do endereço zerado (edx + eax). Dessa forma fica fácil saber que esse tipo de escrita não é permitido, constituindo nosso famosíssimo AV.</p>
 <p>Esse foi meio de brinde. Uma exceção de breakpoint (int 3, ntdll!DbgBreakPoint) lançada sem um depurador atachado implica em derrubamento do processo, pois é uma exceção como outra qualquer. O programador deve ter esquecido um DebugBreak ou algo que o valha no código de produção, que acabou sendo executado.</p>
@@ -119,8 +118,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/domicilio-conjugal/">Domicilio Conjugal &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-aprendiz-de-feiticeiro/">&#129092; O Aprendiz de Feiticeiro</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/domicilio-conjugal/">Domicilio Conjugal &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-aprendiz-de-feiticeiro/">&#x25C1; O Aprendiz de Feiticeiro</a></span>
 
         </div>
 

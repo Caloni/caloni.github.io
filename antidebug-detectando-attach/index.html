@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Antidebug: detectando attach</p>
+        
+<p class="title">Antidebug: detectando attach</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/antidebug-detectando-attach.md" title="source">
-    2007-09-10
-    </a>
-    
+Wanderley Caloni, 2007-09-10
 
 </p>
 
@@ -100,19 +99,19 @@
 <p>O código que eu encontrei nada mais faz do que se aproveitar de uma peculiaridade do processo de attach: ao disparar o evento, a função ntdll!DbgUiRemoteBreakin é chamada. Ora, se é chamada, é lá que devemos estar, certo? E isso, como vemos abaixo, é relativamente fácil:</p>
 <p>Para compilar o código acima, basta chamar o compilador seguido do ligador. Obs.: precisamos da user32.lib para chamar a função API MessageBox:</p>
 <p>Após o programa ter sido executado, qualquer tentativa de attach irá exibir nossa mensagem de detecção, seguida pelo capotamento do programa.</p>
-<p>Sim, eu sei. Às vezes temos que apelar pra &ldquo;ignorância&rdquo; e fazer códigos obscuros como esse:</p>
-<p>Existem inúmeras maneiras de fazer a mesma coisa. O exemplo acima é o que é chamado comumente nas rodinhas de crackers de shellcode, que é um nome bonitinho para &ldquo;array de bytes que na verdade é um assembly de um código que faz coisas interessantes&rdquo;. Shellcode for short =).</p>
+<p>Sim, eu sei. Às vezes temos que apelar pra &quot;ignorância&quot; e fazer códigos obscuros como esse:</p>
+<p>Existem inúmeras maneiras de fazer a mesma coisa. O exemplo acima é o que é chamado comumente nas rodinhas de crackers de shellcode, que é um nome bonitinho para &quot;array de bytes que na verdade é um assembly de um código que faz coisas interessantes&quot;. Shellcode for short =).</p>
 <p>Maneiras alternativas de fazer isso são:</p>
 <ol>
 <li>
 <p>Declarar uma função <em>naked</em> no Visual Studio, criar uma função vazia logo após e fazer continha de mais e menos para chegar ao tamanho que deve ser copiado.</p>
 </li>
 <li>
-<p>Criar uma estrutura cujos membros são <em>opcodes</em> disfarçados. Dessa forma é possível no construtor dessa estrutura preencher os valores corretamente e usá-la como uma &ldquo;função móvel&rdquo;.</p>
+<p>Criar uma estrutura cujos membros são <em>opcodes</em> disfarçados. Dessa forma é possível no construtor dessa estrutura preencher os valores corretamente e usá-la como uma &quot;função móvel&quot;.</p>
 </li>
 </ol>
-<p>Ambas possuem prós e contras. Os contras estão relacionados com a dependência do ambiente. Na primeira alternativa é necessário configurar o projeto para desabilitar o &ldquo;Edit and Continue&rdquo;, enquanto no segundo é necessário alinhar a estrutura em 1 byte.</p>
-<p>Seja qual for a solução escolhida, ao menos temos a vantagem do impacto no sistema de nosso aplicativo ser praticamente nulo, pois isolamos em duas funções - AntiAttachAbort e InstallAntiAttach - um hook de uma API local (do próprio processo) que supostamente nunca deveria ser chamada em um binário de produção. Além do mais, existem maneiras mais a la C++ de fazer coisas como &ldquo;live assembly&rdquo;. Mas isso já é matéria para futuros e excitantes artigos =D.</p>
+<p>Ambas possuem prós e contras. Os contras estão relacionados com a dependência do ambiente. Na primeira alternativa é necessário configurar o projeto para desabilitar o &quot;Edit and Continue&quot;, enquanto no segundo é necessário alinhar a estrutura em 1 byte.</p>
+<p>Seja qual for a solução escolhida, ao menos temos a vantagem do impacto no sistema de nosso aplicativo ser praticamente nulo, pois isolamos em duas funções - AntiAttachAbort e InstallAntiAttach - um hook de uma API local (do próprio processo) que supostamente nunca deveria ser chamada em um binário de produção. Além do mais, existem maneiras mais a la C++ de fazer coisas como &quot;live assembly&quot;. Mas isso já é matéria para futuros e excitantes artigos =D.</p>
 
             
 
@@ -128,8 +127,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-source-safe/">Guia básico de controle de código (Source Safe) &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-passado-torto-de-um-programador-por-acaso/">&#129092; O passado torto de um programador por acaso</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-source-safe/">Guia básico de controle de código (Source Safe) &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-passado-torto-de-um-programador-por-acaso/">&#x25C1; O passado torto de um programador por acaso</a></span>
 
         </div>
 

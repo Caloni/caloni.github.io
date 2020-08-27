@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">A sala da fila das threads</p>
+        
+<p class="title">A sala da fila das threads</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/a-sala-da-fila-das-threads.md" title="source">
-    2009-04-17
-    </a>
-    
+Wanderley Caloni, 2009-04-17
 
 </p>
 
@@ -98,8 +97,8 @@
               <p>Quando falei sobre a fila das threads, e como cada thread espera pacientemente em uma fila até chegar sua vez de ser atendida no guichê das CPUs, também vimos como é fácil fazer caquinhas em um programa que roda paralelamente duas threads ou mais.</p>
 <p>Também falei que iríamos resolver esse problema, afinal de contas, temos que salvar todos aqueles programas que usam dezenas de threads trabalhando ao mesmo tempo para contar números de um até dez.</p>
 <p>A boa notícia é que o salvamento é mais simples do que parece: coloque todas as suas threads em uma sala trancada e deixe apenas uma chave. As threads terão que brigar para sair da sala e, depois que a vencedora sair, as outras terão que ficar esperando ela voltar.</p>
-<p>Confuso? Se estiver, ainda bem. Isso quer dizer que estamos novamente em um daqueles artigos com &ldquo;pseudo-parábolas&rdquo;, a maneira mais ilustrada de explicar as coisas.</p>
-<p>Os SOs modernos possuem inúmeras maneiras de controlar e monitorar o acesso a recursos do sistema. Neste breve artigo irei falar apenas de um: o critical section, ou, em tradução livre, &ldquo;seção crítica&rdquo;. O &ldquo;seção&rdquo; desse nome diz respeito a uma seção do programa, ou seja, um pedaço de código mesmo. Um pedaço de código crítico.</p>
+<p>Confuso? Se estiver, ainda bem. Isso quer dizer que estamos novamente em um daqueles artigos com &quot;pseudo-parábolas&quot;, a maneira mais ilustrada de explicar as coisas.</p>
+<p>Os SOs modernos possuem inúmeras maneiras de controlar e monitorar o acesso a recursos do sistema. Neste breve artigo irei falar apenas de um: o critical section, ou, em tradução livre, &quot;seção crítica&quot;. O &quot;seção&quot; desse nome diz respeito a uma seção do programa, ou seja, um pedaço de código mesmo. Um pedaço de código crítico.</p>
 <p>Resumidamente, um critical section é um recurso que apenas uma thread por vez pode obter. Para que outra thread tenha acesso ao mesmo critical section, a primeira thread que o obteve deve soltá-lo. Enquanto ela não solta, as outras threads ficam paradas, esperando pela chave, na sala trancada.</p>
 <p>Do ponto de vista do programador, o critical secton é apenas uma estrutura que é usada na chamada de quatro funções básicas: para inicializar o recurso, para entrar na seção crítica.aspx), para sair da seção crítica.aspx) e para liberar o recurso.aspx) (quando aquele critical section não mais será usado).</p>
 <p>Falando assim, parece simples. Bom, na verdade é simples, mesmo. Tudo que você precisa para corrigir o programa do artigo anterior é criar um critical section e fazer com que as threads obtenham-no antes de mexer com o contador compartilhado.</p>
@@ -122,8 +121,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/ultimas-pesquisas-na-blogosfera-nacional/">Últimas pesquisas na blogosfera nacional &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/deixe-o-programador-programar/">&#129092; Deixe o programador programar</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/ultimas-pesquisas-na-blogosfera-nacional/">Últimas pesquisas na blogosfera nacional &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/deixe-o-programador-programar/">&#x25C1; Deixe o programador programar</a></span>
 
         </div>
 

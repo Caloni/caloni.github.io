@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">C Resolve Tudo: goto</p>
+         <a href="https://github.com/Caloni/goto">
+<p class="title">C Resolve Tudo: goto</p>
+</a>
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/goto.md" title="source">
-    2019-05-28
-    </a>
-     <a class="external" href="https://github.com/Caloni/goto">link</a>
+Wanderley Caloni, 2019-05-28
 
 </p>
 
@@ -102,7 +101,7 @@
 <p>Esse estilo de liberação de recursos é muito usado em códigos de kernel e software mais básico, pois simplifica a visualização e aumenta a flexibilidade. Compare com a versão estruturada:</p>
 <p>Aliás, esse uso do goto é a maneira de aplicar RAII em C (Resource acquisition is initialization). Implícito em linguagens como C++ e seus destrutores de objetos, em C é você que precisa fazer a faxina. E se a bagunça foi feita da direita pra esquerda a faxina deve ser feita da esquerda pra direita.</p>
 <p>Esse uso super-aninhado do código me lembra do exemplo clássico de sair de muitos loops aninhados. Apenas por didática, vamos citá-lo:</p>
-<p>Comentei no começo do texto que os cases do switch são labels de goto disfarçados. E são mesmo. Um dos algoritmos mais famosos de transformação de loop chamado Duff&rsquo;s device junta um do-while com switch e realiza uma cópia de buffer com um número de bytes variável:</p>
+<p>Comentei no começo do texto que os cases do switch são labels de goto disfarçados. E são mesmo. Um dos algoritmos mais famosos de transformação de loop chamado Duff's device junta um do-while com switch e realiza uma cópia de buffer com um número de bytes variável:</p>
 <p>O que está acontecendo no código acima: é possível inserir qualquer tipo de mudança de fluxo dentro do switch. Duff aproveitou essa particularidade da linguagem para produzir jumps que poderiam ser feitos em assembly. Dependendo do resto da divisão por oito o salto é realizado para um case diferente, que executará parte do laço até o while comparador final. A vantagem desse tipo de abordagem é que evita-se sair da programação estruturada, e muito menos precisa-se apelar para o assembly.</p>
 <p>Esse código também seria possível de ser feito com o goto clássico, mas note que nesse caso ele fica mais verboso, pois é necessário fazer um if diferente para cada condição.</p>
 <p>Caso você tenha estranhada a definição inicial da função, ela é como se definia os argumentos em linguagem C antes do padrão ANSI, com os nomes e logo em seguida a declaração das variáveis como se fossem locais (porque de fato elas são, embora sua inicialização seja feita antes da chamada). Como este código data dos anos 80 e como o padrão só foi finalizado em 89, percebe-se que ainda se usava o formato antigo no código.</p>
@@ -125,8 +124,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/albergue-espanhol/">Albergue Espanhol &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-castelo-de-cagliostro/">&#129092; O Castelo de Cagliostro</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/albergue-espanhol/">Albergue Espanhol &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-castelo-de-cagliostro/">&#x25C1; O Castelo de Cagliostro</a></span>
 
         </div>
 

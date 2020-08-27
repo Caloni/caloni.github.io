@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</p>
+         <a href="https://vcpkg.readthedocs.io/en/latest/examples/installing-and-using-packages/">
+<p class="title">Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</p>
+</a>
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/find-path.md" title="source">
-    2020-07-01
-    </a>
-     <a class="external" href="https://vcpkg.readthedocs.io/en/latest/examples/installing-and-using-packages/">link</a>
+Wanderley Caloni, 2020-07-01
 
 </p>
 
@@ -97,7 +96,7 @@
             
               <p>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.</p>
 <p>Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.</p>
-<p>Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &ldquo;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you&rsquo;re using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&rdquo;</p>
+<p>Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &quot;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you're using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&quot;</p>
 <p>Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando o diretório de instalação do vcpkg, tudo se resolve. O solution do Visual Studio finalmente consegue encontrar os includes e libraries da glib. Ou qualquer outra biblioteca portada que você queira usar.</p>
 
             
@@ -114,8 +113,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/war-games/">War Games &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-amigo-da-minha-amiga/">&#129092; O Amigo da Minha Amiga</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/war-games/">War Games &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-amigo-da-minha-amiga/">&#x25C1; O Amigo da Minha Amiga</a></span>
 
         </div>
 

@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Depuração da MBR</p>
+        
+<p class="title">Depuração da MBR</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/depuracao-da-mbr.md" title="source">
-    2008-03-24
-    </a>
-    
+Wanderley Caloni, 2008-03-24
 
 </p>
 
@@ -97,13 +96,13 @@
             
               <p>Dando continuidade a um artigo beeeem antigo sobre depuração da BIOS usando SoftIce, como já vimos, podemos igualmente depurar a MBR após a chamada da INT13. Porém, devo atentar para o fato que, em algumas VMs, e sob determinadas condições do tempo e quantidade de ectoplasma na atmosfera, é possível que a máquina trave após o hot boot iniciado pelo depurador. Isso provavelmente tem cura usando o espaço de endereçamento alto da memória com a ajuda de aplicativos como LH e UMB.</p>
 <p>Porém, estou aqui para contar uma nova forma de depurar essa partezinha do código que pode se tornar um tormento se você só se basear em tracing na tela (ou na COM1): usando o aplicativo debug do DOS.</p>
-<p>O debug é um programa extremamente antigo, criado antes mesmo do MS-DOS pertencer à Microsoft e do Windows Vista ter sido criado. Como todo sistema operacional, é essencial que exista um programa para verificar problemas em outros programas. Essa foi a &ldquo;motivação&rdquo; para a criação do Debug.</p>
+<p>O debug é um programa extremamente antigo, criado antes mesmo do MS-DOS pertencer à Microsoft e do Windows Vista ter sido criado. Como todo sistema operacional, é essencial que exista um programa para verificar problemas em outros programas. Essa foi a &quot;motivação&quot; para a criação do Debug.</p>
 <p>Com o passar do tempo e com a evolução dos depuradores modernos, o uso do debug foi diminuindo até a chegada dos 32 bits, quando daí ele parou de vez de ser usado. Com um conjunto limitado de instruções, a versão MS é incapaz de decodificar o assembly de 32 bits, mostrar os registradores extendidos e de depurar em modo protegido.</p>
-<p>O FreeDOS é um projeto de fonte aberto que procura criar uma réplica do sistema MS-DOS, com todos seus aplicativos (e um pouco mais). Entre eles, podemos encontrar o Debug refeito e melhorado. A versão com código-fonte possui suporte às instruções &ldquo;novas&rdquo; dos processadores 32 e suporta acesso à memória extendida, modo protegido e melhorias na &ldquo;interface com o usuário&rdquo; (como repetição de comandos automática, mudança no valor dos registradores em uma linha, etc). Enfim, nada mau.</p>
+<p>O FreeDOS é um projeto de fonte aberto que procura criar uma réplica do sistema MS-DOS, com todos seus aplicativos (e um pouco mais). Entre eles, podemos encontrar o Debug refeito e melhorado. A versão com código-fonte possui suporte às instruções &quot;novas&quot; dos processadores 32 e suporta acesso à memória extendida, modo protegido e melhorias na &quot;interface com o usuário&quot; (como repetição de comandos automática, mudança no valor dos registradores em uma linha, etc). Enfim, nada mau.</p>
 <p>É por isso que comecei a utilizá-lo e é nele que me baseio o tutorial logo abaixo.</p>
 <p>Para conseguirmos essa proeza é necessário reiniciarmos a máquina com algum sistema 16 bits, de preferência que caiba em um disquete. Junto com ele basta uma cópia do debug.com. Após reiniciarmos e aparecer o prompt de comando, podemos chamar o depurador e começar a diversão:</p>
 <p>A MBR fica localizada no primeiro setor do HD ativo (master). A BIOS automaticamente procura esse HD e faz a leitura usando a INT13, função da própria BIOS para leitura de disquetes e derivados.</p>
-<p>Lembre-se que nem sempre existirá um MS-DOS para usarmos a INT21, tradicionalmente reservada para este sistema operacional. Portanto, se acostume com as &ldquo;limitações&rdquo; das funções básicas da BIOS.</p>
+<p>Lembre-se que nem sempre existirá um MS-DOS para usarmos a INT21, tradicionalmente reservada para este sistema operacional. Portanto, se acostume com as &quot;limitações&quot; das funções básicas da BIOS.</p>
 <p>O debug.com inicialmente começa a execução em um espaço de memória baixa. Podemos escrever um assembly qualquer nessa memória e começar a executar. Isso é exatamente o que iremos fazer, e a instrução escolhida será a INT13, pois iremos ler o primeiro setor do HD para a memória e começar a executá-lo. Isso é a depuração da MBR.</p>
 <p>Para fazer isso, algumas informações são necessárias, e tudo está disponível no sítio muito simpático e agradável de Ralf Brown, o cara que enumerou todas as interrupções conhecidas, além de diversas outras coisas.</p>
 <p>Como queremos ler um setor do disco, a função da interrupção que devemos chamar é a AH=02:</p>
@@ -127,8 +126,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/windbg-a-distancia/">WinDbg a distância &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/">&#129092; Como rodar qualquer coisa como serviço</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/windbg-a-distancia/">WinDbg a distância &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/">&#x25C1; Como rodar qualquer coisa como serviço</a></span>
 
         </div>
 

@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &ldquo;espetaculoso&rdquo; de todos os tempos sobre esse assunto, parte integrante do livro..."/>
+        content="Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &quot;espetaculoso&quot; de todos os tempos sobre esse assunto, parte integrante do livro..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">O boot no Windows: pré-NTLDR</p>
+        
+<p class="title">O boot no Windows: pré-NTLDR</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/o-boot-no-windows-pre-ntldr.md" title="source">
-    2009-09-09
-    </a>
-    
+Wanderley Caloni, 2009-09-09
 
 </p>
 
@@ -95,14 +94,14 @@
         
           <div class="content">
             
-              <p>Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &ldquo;espetaculoso&rdquo; de todos os tempos sobre esse assunto, parte integrante do livro Windows Internals e escrito pelo nada mais nada menos Mark Russinovich: Boot Process, no capítulo 5, &ldquo;Startup and Shutdown&rdquo;.</p>
-<p>O meu primeiro artigo sobre o boot sem Windows foi 80% escrito com o que eu já sabia de cabeça de tanto mexer na MBR  e de tanto depurar o processo de boot em 16 bits. Os artigos posteriores seriam escritos com uma pitada do que sei mais a &ldquo;inspiração&rdquo; da minha pesquisa. Apesar de não parecer pouco para os que não sabem inglês, deixa a desejar para os que sabem (boa parte dos meus leitores, imagino).</p>
+              <p>Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &quot;espetaculoso&quot; de todos os tempos sobre esse assunto, parte integrante do livro Windows Internals e escrito pelo nada mais nada menos Mark Russinovich: Boot Process, no capítulo 5, &quot;Startup and Shutdown&quot;.</p>
+<p>O meu primeiro artigo sobre o boot sem Windows foi 80% escrito com o que eu já sabia de cabeça de tanto mexer na MBR  e de tanto depurar o processo de boot em 16 bits. Os artigos posteriores seriam escritos com uma pitada do que sei mais a &quot;inspiração&quot; da minha pesquisa. Apesar de não parecer pouco para os que não sabem inglês, deixa a desejar para os que sabem (boa parte dos meus leitores, imagino).</p>
 <p>Nesse caso decidi salpicar a explicação com uma boa dose de reversing para aproveitarmos a caminhada e fuçarmos um pouco no funcionamento interno dos componentes de boot e ver no que dá. Antes de começar, porém, aviso que este não é um tratado sobre o sistema de boot. Eu diria que é apenas o resultado de algumas mexidas inconsequentes pelo disassembly do código de boot. Espero encontrar alguém tão curioso (ou mais) do que eu que compartilhe o que achou de todo esse processo. Antes de mais nada um mapinha para vermos até onde chegamos:</p>
 <p>Pelo visto esse foi só o começo. O próximo passo é saber como do setor de boot chegamos ao NTLDR. O que não é nenhum segredo, uma vez que o NTLDR é um arquivo que fica na pasta raiz do sistema de arquivos. Como todos sabemos, qualquer assembly 16 bits de 400 bytes de tamanho consegue ler um arquivo de 250 KB na memória e executá-lo.</p>
 <p>Se o NTLDR não conseguir ser encontrado, o seguinte erro será exibido:</p>
 <p>Que usuário merece ver isso?</p>
 <p>Bom, se ele soubesse analisar o assembly do setor de boot, seria fácil entender essa mensagem. E analisar o assembly é simples demais, quase tão simples quanto entender a mensagem acima. Tudo que precisamos é do programa Debug 16 bits, como o que já vem com o Windows ou aquele mais turbinado do FreeDOS.</p>
-<p>Podemos usar o Debug 16 bits para abrir o setor de boot salvo em algum arquivo e analisá-lo. Esse &ldquo;salvo em algum arquivo&rdquo; nós podemos obter usando o HxD, um sofware bom demais que eu uso quase todos os dias da minha vida, ou para analisar os primeiros setores do disco ou ler arquivos binários que caem na minha caixa de e-mails.</p>
+<p>Podemos usar o Debug 16 bits para abrir o setor de boot salvo em algum arquivo e analisá-lo. Esse &quot;salvo em algum arquivo&quot; nós podemos obter usando o HxD, um sofware bom demais que eu uso quase todos os dias da minha vida, ou para analisar os primeiros setores do disco ou ler arquivos binários que caem na minha caixa de e-mails.</p>
 <p>Eu não vou explicar como salvar um setor do disco em um arquivo. Pelamordedeus, isso é fácil demais. É só fuçar que se acha um jeito.</p>
 <p>Se bem que, como esse é um quase-tutorial, vão abaixo apenas algumas dicas:</p>
 <p>(1) no primeiro setor do disco de boot, podemos encontrar a tabela de partições;</p>
@@ -134,8 +133,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/">O boot no Windows: NTLDR &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-boot-no-windows-sem-windows/">&#129092; O boot no Windows: sem Windows</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/">O boot no Windows: NTLDR &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-boot-no-windows-sem-windows/">&#x25C1; O boot no Windows: sem Windows</a></span>
 
         </div>
 

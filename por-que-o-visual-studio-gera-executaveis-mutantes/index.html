@@ -63,7 +63,7 @@ Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que co
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que co
 
       
       <div class="container">
-        <p class="title">Por que o Visual Studio gera executáveis mutantes</p>
+        
+<p class="title">Por que o Visual Studio gera executáveis mutantes</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/por-que-o-visual-studio-gera-executaveis-mutantes.md" title="source">
-    2015-01-11
-    </a>
-    
+Wanderley Caloni, 2015-01-11
 
 </p>
 
@@ -99,8 +98,8 @@ Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que co
               <blockquote>
 <p>Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que contém uma boa dica para quem já entendeu o passo-a-passo da compilação, mas ainda tem sérios problemas quando os projetos ficam gigantes.</p>
 </blockquote>
-<p>Essa é a segunda vez que encontro esse mesmo problema. Como acredito que outras almas podem estar sofrendo do mesmo mal, coloco aqui uma breve descrição de como o VC8 faz para gerar um executável que, mesmo não dependendo das DLLs de runtime, não são executados em sistemas que suportam a interpretação do &ldquo;.manifest&rdquo;. De canja, um pequeno programa que exibe a lista dos programas instalados no sistema.</p>
-<p>Primeiro, precisamos de um solution que contenha um projeto console e uma LIB. O projeto console deve usar a LIB para fazer alguma coisa. No exemplo abaixo, estarei listando os programas instalados no Windows (os mostrados no painel de controle através da opção &ldquo;Adicionar/remover programas&rdquo;.</p>
+<p>Essa é a segunda vez que encontro esse mesmo problema. Como acredito que outras almas podem estar sofrendo do mesmo mal, coloco aqui uma breve descrição de como o VC8 faz para gerar um executável que, mesmo não dependendo das DLLs de runtime, não são executados em sistemas que suportam a interpretação do &quot;.manifest&quot;. De canja, um pequeno programa que exibe a lista dos programas instalados no sistema.</p>
+<p>Primeiro, precisamos de um solution que contenha um projeto console e uma LIB. O projeto console deve usar a LIB para fazer alguma coisa. No exemplo abaixo, estarei listando os programas instalados no Windows (os mostrados no painel de controle através da opção &quot;Adicionar/remover programas&quot;.</p>
 <p>Observação importante: para ignorar todas as estripulias da versão Debug, todos os testes foram compilados em Release.</p>
 <p>Primeiramente, modifico a configuração padrão dos dois projetos para não depender da DLL de runtime do VC. Isso está em Project, Properties, C/C++, Code Generation, Runtime Library. Depois executo em uma máquina virtual sem as runtimes do VC8 instaladas:</p>
 <p>Perfeito. Exatamente o que eu queria: um executável console que não dependesse de DLL nenhuma exceto as que já estão instaladas em um Windows ordinário.</p>
@@ -125,8 +124,8 @@ Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que co
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/o-magico-de-oz/">O Mágico de Oz &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/uma-longa-queda/">&#129092; Uma Longa Queda</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-magico-de-oz/">O Mágico de Oz &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/uma-longa-queda/">&#x25C1; Uma Longa Queda</a></span>
 
         </div>
 

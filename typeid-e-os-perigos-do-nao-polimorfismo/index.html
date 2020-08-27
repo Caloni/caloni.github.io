@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Typeid e os perigos do não-polimorfismo</p>
+        
+<p class="title">Typeid e os perigos do não-polimorfismo</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/typeid-e-os-perigos-do-nao-polimorfismo.md" title="source">
-    2007-10-24
-    </a>
-    
+Wanderley Caloni, 2007-10-24
 
 </p>
 
@@ -96,8 +95,8 @@
           <div class="content">
             
               <p>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n'água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C++ pode proporcionar.</p>
-<p>Eis um exemplo singelo, sem dramatização (com dramatização == &ldquo;500 linhas de código de produção além do código abaixo&rdquo;).</p>
-<p>O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &ldquo;ponteiro para objeto de classe não-polimórfica&rdquo;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &ldquo;não existe sobrecarga de execução sem que o programador queira&rdquo;.</p>
+<p>Eis um exemplo singelo, sem dramatização (com dramatização == &quot;500 linhas de código de produção além do código abaixo&quot;).</p>
+<p>O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &quot;ponteiro para objeto de classe não-polimórfica&quot;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &quot;não existe sobrecarga de execução sem que o programador queira&quot;.</p>
 <p>Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:</p>
 <p>Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).</p>
 
@@ -115,8 +114,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/protecao-dos-membros-protected/">Proteção dos membros protected &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/">&#129092; Guia básico para programadores de primeiro breakpoint</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/protecao-dos-membros-protected/">Proteção dos membros protected &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/">&#x25C1; Guia básico para programadores de primeiro breakpoint</a></span>
 
         </div>
 

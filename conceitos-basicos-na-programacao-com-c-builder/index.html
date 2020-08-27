@@ -63,7 +63,7 @@ Sim, existe um WinMain e ele não está..."/>
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Sim, existe um WinMain e ele não está..."/>
 
       
       <div class="container">
-        <p class="title">Conceitos básicos na programação com C&#43;&#43; Builder</p>
+        
+<p class="title">Conceitos básicos na programação com C&#43;&#43; Builder</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/conceitos-basicos-na-programacao-com-c-builder.md" title="source">
-    2007-12-03
-    </a>
-    
+Wanderley Caloni, 2007-12-03
 
 </p>
 
@@ -98,7 +97,7 @@ Sim, existe um WinMain e ele não está..."/>
             
               <p>No projeto que é criado quando iniciamos a IDE três arquivos-fonte são gerados: Project1.cpp, Unit1.cpp e Unit1.h. Desses três, vamos analisar o primeiro:</p>
 <p>Sim, existe um WinMain e ele não está escondido! Nele você pode fazer o que quiser. A IDE apenas auxilia você a gerenciar seus forms. Note que também existe a inclusão de um cabeçalho chamado vcl.h (obrigatório), o que nos leva diretamente para a base de toda a programação Delphi/Builder.</p>
-<p>A VCL é o framework usado tanto no Builder quanto no Delphi para a programação RAD nesses ambientes. Considere como a MFC geração C++ da Borland (antes era o OWL). Todos os controles que você vê na paleta da IDE - Button, Label, CheckBox, Timer - são criados e gerenciados através da VCL. Com os mesmos nomes acrescidos do prefixo T (TButton, TCheckBox&hellip;) você tem as classes que representam em código o que você vê no ambiente RAD. Através da VCL pode-se criar novos componentes extendidos dos originais, e eles serão gerenciados pela IDE, que aliás é feita usando VCL.</p>
+<p>A VCL é o framework usado tanto no Builder quanto no Delphi para a programação RAD nesses ambientes. Considere como a MFC geração C++ da Borland (antes era o OWL). Todos os controles que você vê na paleta da IDE - Button, Label, CheckBox, Timer - são criados e gerenciados através da VCL. Com os mesmos nomes acrescidos do prefixo T (TButton, TCheckBox...) você tem as classes que representam em código o que você vê no ambiente RAD. Através da VCL pode-se criar novos componentes extendidos dos originais, e eles serão gerenciados pela IDE, que aliás é feita usando VCL.</p>
 <p>Voltando ao código: o Application é um objeto visível em todo os módulos do processo e representa a aplicação em execução. Através dele você cria e destrói forms e inicia a execução da VCL. Ah, sim, é bom lembrar que todos os objetos VCL devem ser criados no heap (usando o operador new ou algum método de um objeto VCL já criado, como o CreateForm do Application). Essa e mais algumas restrições foram impostas na criação de classes VCL para que seu comportamento fosse similar/compatível com tecnologias como COM e CORBA (além das vantagens do polimorfismo e gerenciamento automático de objetos).</p>
 <p>Olhando para o outro fonte, Unit1.h, podemos ver a definição da classe que representa o form principal:</p>
 <p>A classe deriva de TForm, que é uma classe da VCL que representa uma janela padrão do Windows. Como se nota, um objeto da classe é criado automaticamente, exatamente o utilizado no WinMain para a criação da janela principal.</p>
@@ -121,8 +120,8 @@ Sim, existe um WinMain e ele não está..."/>
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/interacao-entre-controles-no-c-builder/">Interação entre controles no C&#43;&#43; Builder &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/desenhando-em-c-builder/">&#129092; Desenhando em C&#43;&#43; Builder</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/interacao-entre-controles-no-c-builder/">Interação entre controles no C&#43;&#43; Builder &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/desenhando-em-c-builder/">&#x25C1; Desenhando em C&#43;&#43; Builder</a></span>
 
         </div>
 

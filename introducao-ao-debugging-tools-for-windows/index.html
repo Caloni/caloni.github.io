@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Introdução ao Debugging Tools for Windows</p>
+        
+<p class="title">Introdução ao Debugging Tools for Windows</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/introducao-ao-debugging-tools-for-windows.md" title="source">
-    2007-06-20
-    </a>
-    
+Wanderley Caloni, 2007-06-20
 
 </p>
 
@@ -100,7 +99,7 @@
 <p>Ele não está limitado apenas para engenharia reversa de código malévolo. Esse é o uso que eu faço dele. Meu amigo Thiago, por exemplo, resolve problemas em servidores que rodam código gerenciado com WinDbg. É a maneira ideal de depurar um problema em uma máquina onde o ambiente de desenvolvimento não está disponível nem pode ser instalado. Outro ponto relevante é que ele não depura apenas um programa em particular, mas pode ser usado para depurar um sistema inteiro. Chamado de kernel debugging, podemos usar esse modo de funcionamento para resolver os problemas que surgem logo depois de espetar algum periférico novo comprado na Santa Ifigênia.</p>
 <p>Mas esse artigo não é apenas sobre o WinDbg. Ele não vem sozinho. É uma interface amigável para alguns depuradores linha de comando e outras ferramentas disponíveis no Debugging Tools for Windows, pacote disponível gratuitamente no sítio da Microsoft e atualizado geralmente de seis em seis meses. Nele podemos encontrar:</p>
 <ul>
-<li>CDB: depurador que roda em <em>user mode</em> e é uma &ldquo;linha de comando agradável&rdquo; para um programador avançado.</li>
+<li>CDB: depurador que roda em <em>user mode</em> e é uma &quot;linha de comando agradável&quot; para um programador avançado.</li>
 <li>NTSD: depurador que roda em <em>user mode</em>, da mesma forma que o CDB, mas também pode ser usado como um redirecionador de comandos para o depurador de <em>kernel</em> (logo abaixo). Existem algumas diferenças sutis entre esses dois depuradores (como o fato do NTSD não criar janelas quando usado como redirecionador), mas são diferenças que se aprendem no dia-a-dia.</li>
 <li>KD: depurador que roda em <em>kernel mode</em>, pode analisar dados do sistema local ou depurar um sistema remoto conectado através de um cabo serial ou por meio de um <em>pipe</em> criado por uma máquina virtual. Existem outros métodos mais avançados ainda para conseguir depurar uma máquina tão tão distante, por exemplo.</li>
 <li>Logger: _tracer _de chamadas de funções da API. Pode ser usado para análise de performance ou para fazer o que eu faço com os <em>trojans</em>, que é dar uma olhada nas funções que eles chamam constantemente.</li>
@@ -110,8 +109,8 @@
 <p>Já baixei e instalei. E agora, o que eu faço? Para exemplificar um uso prático dessas ferramentas vamos usar o Loggerpara descobrir quais funções API estão sendo chamadas constantemente por um cavalo de tróia, uma coisa um tanto comum em ataques a bancos. Para tornar as coisas mais reais ainda vamos utilizar o código-fonte de um suposto cavalo de tróia usado em minhas apresentações:</p>
 <p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do Visual Studio:</p>
 <p>O logger.exe possui uma extensão que pode ser usada pelo WinDbg para usar os mesmos comandos a partir do depurador. Mas para tornar as coisas mais fáceis nesse primeiro contato iremos iniciar o programa através do próprio executável:</p>
-<p>Irá aparecer uma janela onde selecionamos o conjunto de APIs que serão capturadas. Podemos manter todas as categorias selecionadas e mandar rodar usando o botão &ldquo;Go&rdquo;.</p>
-<p>Aguarde o programa executar por um tempo para termos um pouco de dados para analisar. Em minhas análises reais eu geralmente deixo ele atacar, seja no sítio real do banco ou em uma armadilha. Depois do ataque posso confirmar qual a API que ele utilizou. Se quiser fazer isso nesse teste basta criar uma janela que contenha o texto &ldquo;Fict Bank&rdquo; em seu título. Após isso, podemos finalizar o processo pelo Gerenciador de Tarefas:</p>
+<p>Irá aparecer uma janela onde selecionamos o conjunto de APIs que serão capturadas. Podemos manter todas as categorias selecionadas e mandar rodar usando o botão &quot;Go&quot;.</p>
+<p>Aguarde o programa executar por um tempo para termos um pouco de dados para analisar. Em minhas análises reais eu geralmente deixo ele atacar, seja no sítio real do banco ou em uma armadilha. Depois do ataque posso confirmar qual a API que ele utilizou. Se quiser fazer isso nesse teste basta criar uma janela que contenha o texto &quot;Fict Bank&quot; em seu título. Após isso, podemos finalizar o processo pelo Gerenciador de Tarefas:</p>
 <p>Mesmo após finalizá-lo ele continuará na lista de processos, como se tivesse travado. Na verdade, a parte injetada do Logger mantém o processo no ar, em um estado semi-morto (ou semi-vivo). Depois de finalizar o Logger fechando sua janela principal ambos os processos terminam e podemos ler o resultado da captura em uma pasta chamada LogExts criada por padrão no Desktop ouÁrea de Trabalho. Podemos dar uma olhada nos resultados através do visualizador de logs gerados, o Logviewer.</p>
 <p>Algumas colunas do Logviewersão tão úteis que vale a pena mencioná-las:</p>
 <ul>
@@ -120,14 +119,14 @@
 <li>API Function: o nome da função API que foi chamada.</li>
 <li>Return Value: o retorno da chamada da função.</li>
 </ul>
-<p>De quebra ele exibe todos os parâmetros das funções de acordo com o tipo, identificando inclusive quando se trata de uma enumeração ou define reservado. Essa &ldquo;mágica&rdquo; é feita interpretando os headers que ficam na pasta &ldquo;Debugging Tools for Windows\winext\manifest&rdquo;, tarefa executada pelo Logger no início.</p>
+<p>De quebra ele exibe todos os parâmetros das funções de acordo com o tipo, identificando inclusive quando se trata de uma enumeração ou define reservado. Essa &quot;mágica&quot; é feita interpretando os headers que ficam na pasta &quot;Debugging Tools for Windows\winext\manifest&quot;, tarefa executada pelo Logger no início.</p>
 <p>É só isso? O Debugging Tools é um pacote extremamente poderoso de ferramentas para programadores avançados. De maneira alguma conseguirei cobrir tudo que é possível fazer com essas ferramentas em apenas um blog. Porém, espero que essa pequena introdução seja o começo de uma série de artigos bem interessantes sobre debugging e uma série de testes realizados pelos meus leitores.</p>
 <p>Seguem alguns blogs dedicados inteiramente ao assunto WinDbg e debugging:</p>
 <ul>
 <li>Microsoft Advanced Windows Debugging and Troubleshooting - site mantido pelo time de resolução de problemas críticos da Microsoft.</li>
 <li>Debugging Toolbox - <em>blog</em> mantido pelo Roberto Farah, contém muitos <em>scripts</em> para ser utilizando no Windbg.</li>
 <li>Crash Dump Analysis - uma exploração profunda na análise de telas azuis e o motivo delas existirem.</li>
-<li>WinDbg by Volker von Einem - como o autor mesmo diz, &ldquo;uma coleção de utilidades para lidar com windbg&rdquo;.</li>
+<li>WinDbg by Volker von Einem - como o autor mesmo diz, &quot;uma coleção de utilidades para lidar com windbg&quot;.</li>
 <li>Nynaeve - além de falar sobre <em>debugging</em> no Windows contém análises de engenharia reversa.</li>
 </ul>
 
@@ -145,8 +144,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/disassembling-the-array-operator/">Disassembling the array operator &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/">&#129092; A inteligência do if - parte 1</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/disassembling-the-array-operator/">Disassembling the array operator &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/">&#x25C1; A inteligência do if - parte 1</a></span>
 
         </div>
 

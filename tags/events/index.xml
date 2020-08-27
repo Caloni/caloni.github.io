@@ -37,7 +37,7 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <pubDate>2020-04-05</pubDate>
   
   <guid>http://www.caloni.com.br/mbconf/</guid>
-  <description>Daqui a 12 dias acontecerá um evento online com palestras organizadas pela Mente Binária, uma galera muito afiada nos SOs, ferramentas e programação mais baixo nível. Estarei colaborando com algumas dicas de uso do WinDbg. O custo é zero. Para se inscrever, basta ir no site do evento e&amp;hellip; se inscrever? No vemos lá =).</description>
+  <description>Daqui a 12 dias acontecerá um evento online com palestras organizadas pela Mente Binária, uma galera muito afiada nos SOs, ferramentas e programação mais baixo nível. Estarei colaborando com algumas dicas de uso do WinDbg. O custo é zero. Para se inscrever, basta ir no site do evento e... se inscrever? No vemos lá =).</description>
 </item>
 
      
@@ -48,7 +48,7 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   
   <guid>http://www.caloni.com.br/mostrasp-43-2019-selecao-filmes/</guid>
   <description>Foi divulgada a lista dos filmes para a mostra desse ano. Já conheço alguns diretores por filmes anteriores.
- Abel Ferrara (filmes nessa Mostra: O Projectionista) dirigiu o &amp;ldquo;abominável&amp;rdquo; Bem-Vindo a Nova York, um estudo de personagem com Gérard Depardieu. Ale McHaddo (filmes nessa Mostra: Osmar a Primeira Fatia do Pão de Forma) iniciou no cinema com uma animação tosquinha chamada BugiGangue no Espaço, baseada em DVD educacional. Aly Muritiba (filmes nessa Mostra: Irmãos Freitas) era um ex-agente penitenciário que virou diretor; é dele o sensacional Para Minha Amada Morta e ele volta a revisitar sua antiga profissão no ótimo A Gente.</description>
+ Abel Ferrara (filmes nessa Mostra: O Projectionista) dirigiu o &amp;quot;abominável&amp;quot; Bem-Vindo a Nova York, um estudo de personagem com Gérard Depardieu. Ale McHaddo (filmes nessa Mostra: Osmar a Primeira Fatia do Pão de Forma) iniciou no cinema com uma animação tosquinha chamada BugiGangue no Espaço, baseada em DVD educacional. Aly Muritiba (filmes nessa Mostra: Irmãos Freitas) era um ex-agente penitenciário que virou diretor; é dele o sensacional Para Minha Amada Morta e ele volta a revisitar sua antiga profissão no ótimo A Gente.</description>
 </item>
 
      
@@ -69,9 +69,9 @@ Como viagem Floripa é uma cidade que se divide em ilha e continente. Na ilha h�
   <pubDate>2018-03-07</pubDate>
   
   <guid>http://www.caloni.com.br/php-experience-2018-dia2-criticas/</guid>
-  <description>Grades decepcionantes. O segundo dia do PHP Experience demonstrou pela qualidadade e teor das palestras pelo menos duas coisas: 1) a comunidade parece interessada em boas práticas e arquitetura (o que é ruim), 2) a comunidade parece mais interessada em &amp;ldquo;diversidade&amp;rdquo; que qualidade (o que é duplamente ruim).
+  <description>Grades decepcionantes. O segundo dia do PHP Experience demonstrou pela qualidadade e teor das palestras pelo menos duas coisas: 1) a comunidade parece interessada em boas práticas e arquitetura (o que é ruim), 2) a comunidade parece mais interessada em &amp;quot;diversidade&amp;quot; que qualidade (o que é duplamente ruim).
 As palestras que frequentei foram:
-Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenvolver e entregar software&amp;hellip; até esqueci sobre que tipo de software.</description>
+Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenvolver e entregar software... até esqueci sobre que tipo de software.</description>
 </item>
 
      
@@ -83,7 +83,7 @@ Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenv
   <guid>http://www.caloni.com.br/apostas-oscar-2018/</guid>
   <description>Resultado das apostas. Inspirado pelo meu amigo, vamos lá com alguns chutes de quem não sabe nada sobre Oscar (apenas que é um concurso de beleza capitalista):
 Roteiro original:
- Minha aposta: Get Out/Corra! (Jordan Peele). Explicação: A forma de dar prêmio por cota racial sem prejudicar melhor filme, etc (além de ser um ótimo roteiro). Quem ganhou: Corra! (That&amp;rsquo;s a Bingo!) Considerações finais: Ponto para a representatividade e a inventividade de Peele, reciclando o gênero.</description>
+ Minha aposta: Get Out/Corra! (Jordan Peele). Explicação: A forma de dar prêmio por cota racial sem prejudicar melhor filme, etc (além de ser um ótimo roteiro). Quem ganhou: Corra! (That&#39;s a Bingo!) Considerações finais: Ponto para a representatividade e a inventividade de Peele, reciclando o gênero.</description>
 </item>
 
      
@@ -199,7 +199,7 @@ Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trab
   <pubDate>2014-08-11</pubDate>
   
   <guid>http://www.caloni.com.br/tdc2014-trilha-de-cc-teve-palestras-para-todos-os-gostos/</guid>
-  <description>A trilha da nossa(s) linguagem(ns) querida(s) do coração(ões) desse ano foi bem heterogênea: Rodrigo Madera pegando na mão dos ainda não-iniciados na magia-negra da TMP; Fabio Gallupo audaciosamente rabiscando uma roupagem funcional para C++11 (e 14, e 17!); Felipe Lavratti abrindo o código do seu projeto para vermos como é possível organizar e modularizar bem um código em C (sem classes); eu me virando nos trinta sem slides explicando os três passos de geração de código C/C++ (dei impersonate na conta do Rodrigo Strauss); Fernando Roberto do DriverEntry mais uma vez nos impressionando com as gamb&amp;hellip; adpatações técnicas Microsoftianas no Windows para fazer tudo funcionar sem o usuário perceber (só quando as coisas ficam azuis); Fernando Luiz Rizzato mostrando que a equipe ex-Borland continua mandando muito bem criando uma IDE de C++ que porta código para diversos dispositivos mobile; eu novamente jorrando um dump das minhas memórias de 10 anos depurando código com WinDbg e suas powertools; e, acreditem ou não, nossa primeirA palestrante amante de C contando sua experiência em diversos projetos em um stand-up animado movido a diversos gifs animados.</description>
+  <description>A trilha da nossa(s) linguagem(ns) querida(s) do coração(ões) desse ano foi bem heterogênea: Rodrigo Madera pegando na mão dos ainda não-iniciados na magia-negra da TMP; Fabio Gallupo audaciosamente rabiscando uma roupagem funcional para C++11 (e 14, e 17!); Felipe Lavratti abrindo o código do seu projeto para vermos como é possível organizar e modularizar bem um código em C (sem classes); eu me virando nos trinta sem slides explicando os três passos de geração de código C/C++ (dei impersonate na conta do Rodrigo Strauss); Fernando Roberto do DriverEntry mais uma vez nos impressionando com as gamb.</description>
 </item>
 
      
@@ -209,7 +209,7 @@ Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trab
   <pubDate>2014-08-11</pubDate>
   
   <guid>http://www.caloni.com.br/tdc2014-trilhas-de-seguranca-o-que-e-ser-hacker/</guid>
-  <description>Tirando a palestra-propaganda de Welington Strutz, a trilha de segurança no TDC desse ano foi bem heterogênea e focou tanto na proteção quanto nos ataques possíveis da web. Infelizmente, para alguns participantes, a grande questão de hacking se resume a apenas invasão de saites, o que nem era de longe o intuito da rotulação &amp;ldquo;hacker&amp;rdquo; no início dos famosos ratos de computador, em um ambiente com pouca RAM, nenhuma Web e onde o poder de processamento mais pesado rodava nas mentes criativas desses pequenos gênios da informática.</description>
+  <description>Tirando a palestra-propaganda de Welington Strutz, a trilha de segurança no TDC desse ano foi bem heterogênea e focou tanto na proteção quanto nos ataques possíveis da web. Infelizmente, para alguns participantes, a grande questão de hacking se resume a apenas invasão de saites, o que nem era de longe o intuito da rotulação &amp;quot;hacker&amp;quot; no início dos famosos ratos de computador, em um ambiente com pouca RAM, nenhuma Web e onde o poder de processamento mais pesado rodava nas mentes criativas desses pequenos gênios da informática.</description>
 </item>
 
      

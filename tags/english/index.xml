@@ -16,7 +16,7 @@
   <pubDate>2020-07-05</pubDate>
   
   <guid>http://www.caloni.com.br/close-remote-socket/</guid>
-  <description>I got used to close sockets in Windows using TCP View, but I haven&amp;rsquo;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
 You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
 </item>
 
@@ -38,7 +38,7 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2014-02-20</pubDate>
   
   <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
-  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, a satiric text that influenced and encouraged me into the path of &amp;ldquo;C/C++ enlightenment&amp;rdquo;, most even than K&amp;amp;R&amp;rsquo;s book. Since then I thought that being a &amp;ldquo;Real Programmer&amp;rdquo; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;ldquo;Quiche Eater&amp;rdquo; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
+  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;quot;Real Programmers Don&#39;t Use Pascal&amp;quot;, a satiric text that influenced and encouraged me into the path of &amp;quot;C/C++ enlightenment&amp;quot;, most even than K&amp;amp;R&#39;s book. Since then I thought that being a &amp;quot;Real Programmer&amp;quot; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;quot;Quiche Eater&amp;quot; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
 </item>
 
      
@@ -60,7 +60,7 @@ The reasons why I am using TodoList are kind of obvious: it does everything I ne
   
   <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
   <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
-Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</description>
+Today I&#39;ve figured out a pretty interesting shortcut to achieve it.</description>
 </item>
 
      
@@ -70,7 +70,7 @@ Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</d
   <pubDate>2007-11-13</pubDate>
   
   <guid>http://www.caloni.com.br/mousetool/</guid>
-  <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
+  <description>Well, as most of you already know, I really don&#39;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
 </item>
 

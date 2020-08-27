@@ -63,7 +63,7 @@ Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rod
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rod
 
       
       <div class="container">
-        <p class="title">O boot no Windows: Kernel</p>
+        
+<p class="title">O boot no Windows: Kernel</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/o-boot-no-windows-kernel.md" title="source">
-    2009-12-04
-    </a>
-    
+Wanderley Caloni, 2009-12-04
 
 </p>
 
@@ -105,7 +104,7 @@ Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rod
 <p>Para depurar a criação de qualquer processo: coloque um breakpoint na função PspCreateProcess, logo no começo. Será possível capturar a criação do processo System, o processo onde roda a primeira thread do kernel, que inicializa o resto dos componentes.</p>
 <p>E não é lindo ver que, após a chamada ao Process Manager o processo REALMENTE foi criado e está na lista de processos?</p>
 <p>É nesse momento que percebemos que um processo, uma thread, um qualquer-coisa dentro do kernel não é nada mais nada menos que um item em uma lista. Quase tudo no kernel será um item numa lista com um monte de ponteiros referenciando outras estruturas. É isso que mantém a lógica e a coerência no sistema inteiro. Tudo isso é basicamente software, construído como castelos no ar.</p>
-<p>O próximo processo a ser criado, logo após carregar todos os drivers, é o nosso amigo SMSS, o Gerenciador de Sessão, o primeiro pedacinho do iceberg que desponta no oceano. É ele que irá iniciar toda a &ldquo;parte user-mode do kernel&rdquo;.</p>
+<p>O próximo processo a ser criado, logo após carregar todos os drivers, é o nosso amigo SMSS, o Gerenciador de Sessão, o primeiro pedacinho do iceberg que desponta no oceano. É ele que irá iniciar toda a &quot;parte user-mode do kernel&quot;.</p>
 <p>Nota: Apesar de parecer contraditório, algumas partes do kernel são de fato implementadas em user mode. Os motivos podem variar, mas geralmente são maior segurança (código que não precisa rodar em um ring privilegiado) e desempenho (código que não precisa de muita prioridade).</p>
 <p>Como podemos ver, isso é muito divertido e muito extenso. Poderíamos ir para qualquer lado da evolução do boot. Talvez em artigos futuros daremos uma olhada no processo de logon de um usuário, o que nos obrigaria a ter uma leve noção de como o Windows autentica e autoriza as pessoas. ou talvez daremos uma passadinha no sistema de escalonamento de threads do kernel, um assunto pra lá de complicado e esotérico.</p>
 <p>Nota: Eu pessoalmente recomendo acompanhar o processo de boot descrito por Russinovich e depurar passo-a-passo um boot de verdade. Serão horas e mais horas de puro conhecimento empírico catalogado em seu cérebro-depurador.</p>
@@ -125,8 +124,8 @@ Podemos espetar o depurador e fazê-lo parar assim que conectado. Se estiver rod
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/aprendendo-um-terceiro-idioma/">Aprendendo um terceiro idioma &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/">&#129092; O boot no Windows: NTLDR</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/aprendendo-um-terceiro-idioma/">Aprendendo um terceiro idioma &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/">&#x25C1; O boot no Windows: NTLDR</a></span>
 
         </div>
 

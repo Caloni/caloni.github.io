@@ -39,7 +39,7 @@ No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no 
   
   <guid>http://www.caloni.com.br/printf/</guid>
   <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
 </item>
 
      
@@ -91,7 +91,7 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2015-04-27</pubDate>
   
   <guid>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</guid>
-  <description>&amp;ldquo;C++ é divertido, mas não paga minhas contas&amp;rdquo;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C++, e com uma equipe peso-pesado.</description>
+  <description>&amp;quot;C++ é divertido, mas não paga minhas contas&amp;quot;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C++, e com uma equipe peso-pesado.</description>
 </item>
 
      
@@ -101,7 +101,7 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2015-01-04</pubDate>
   
   <guid>http://www.caloni.com.br/entendendo-a-compilacao/</guid>
-  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa &amp;ndash; eu disse: PRECISA &amp;ndash; conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
+  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa -- eu disse: PRECISA -- conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
 </item>
 
      
@@ -111,7 +111,7 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2013-12-04</pubDate>
   
   <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
-  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;ldquo;frescurento&amp;rdquo; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
+  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;quot;frescurento&amp;quot; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
 Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance.</description>
 </item>
 
@@ -122,7 +122,7 @@ Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empre
   <pubDate>2008-04-21</pubDate>
   
   <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;ldquo;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;ldquo;derivado&amp;rdquo; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
+  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
 </item>
 
      

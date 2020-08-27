@@ -63,7 +63,7 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
 
       
       <div class="container">
-        <p class="title">Kernel Mode &gt;&gt; User Mode</p>
+        
+<p class="title">Kernel Mode &gt;&gt; User Mode</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/kernel-mode-user-mode.md" title="source">
-    2008-05-13
-    </a>
-    
+Wanderley Caloni, 2008-05-13
 
 </p>
 
@@ -103,12 +102,12 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
 <p>Os depuradores do pacote Debugging Tools (especialmente o ntsd e o cdb) suportam o funcionamento em modo proxy, ou seja, eles apenas redirecionam a saída e os comandos entre as duas pontas da depuração (o depurador e o depurado). Isso é comumente usado em depuração remota e depuração de kernel, quando o sistema inteiro está congelado. O objetivo aqui é conseguir os dois: depurar remotamente um processo em um sistema que está travado.</p>
 <p>Para isso podemos nos utilizar do parâmetro -d, que manda o depurador redirecionar toda saída e controle para o depurador de kernel. Para que isso funcione o depurador já deve estar atachado no sistema-alvo. A coisa funciona mais ou menos assim:</p>
 <p>Com essa configuração temos a vantagem de ter o sistema congelado só pra nós, ao mesmo tempo que conseguimos depurar nosso processo fujão, passo-a-passo.</p>
-<p>A única desvantagem é não ter uma GUI tão poderosa quando o &ldquo;WinDbg fonte colorido, tooltips, etc&rdquo;. Pra quem não liga pra essas frescuras, é possível depurar processos de maneira produtiva utilizando esse cenário.</p>
+<p>A única desvantagem é não ter uma GUI tão poderosa quando o &quot;WinDbg fonte colorido, tooltips, etc&quot;. Pra quem não liga pra essas frescuras, é possível depurar processos de maneira produtiva utilizando esse cenário.</p>
 <p>Para ativar qualquer programa que irá rodar nesse modo, basta usar o aplicativo gflags:</p>
-<p>É preciso dar uma lida bem profunda na ajuda do Debugging Tools para entender como as coisas estão funcionando nessa configuração milagrosa que estamos usando. Procure por &ldquo;Controlling the User-Mode Debugger from the Kernel Debugger&rdquo;. Também é possível ouvir falar parcamente sobre isso no livro Advanced Windows Debugging na parte &ldquo;Redirecting a User Mode Debugger Through a Kernel&rdquo;. A vantagem é que vem de brinde uma bela figura para pendurar em um quadro no escritório (embora eu possa jurar que já vi essa figura na ajuda do WinDbg):</p>
+<p>É preciso dar uma lida bem profunda na ajuda do Debugging Tools para entender como as coisas estão funcionando nessa configuração milagrosa que estamos usando. Procure por &quot;Controlling the User-Mode Debugger from the Kernel Debugger&quot;. Também é possível ouvir falar parcamente sobre isso no livro Advanced Windows Debugging na parte &quot;Redirecting a User Mode Debugger Through a Kernel&quot;. A vantagem é que vem de brinde uma bela figura para pendurar em um quadro no escritório (embora eu possa jurar que já vi essa figura na ajuda do WinDbg):</p>
 <p>Como podemos notar, o controlador de tudo é o kernel debugger. Assim que o depurador de processo entra em ação, ele se comunica com o depurador de kernel que entra no modo user mode prompt, pedindo entrada para ser redirecionada ao depurador de processo. Existem alguns caminhos para sair de um estado e entrar em outro, como o comando .breakin e o .sleep.</p>
 <p>É necessário recomentar: estamos nos comunicando com um depurador e o seu processo depurado em um sistema totalmente travado. Isso quer dizer que o acesso a coisas como código-fonte e símbolos é extremamente limitado, porém não impossível. Apenas mantenha-os localmente na máquina-vítima, pois uma comunicação pela rede não irá funcionar.</p>
-<p>A depuração com a linha atual no código-fonte demarcando onde estamos também não é possível, uma vez que o WinDbg da ponta de cá apenas faz o papel de garoto de recados para o &ldquo;depurador de verdade&rdquo; do outro lado (no nosso exemplo, o ntsd). Isso quer dizer que a forma mais &ldquo;fácil&rdquo; de ir passo-a-passo é usar o comando p (step) ou t (trace), além de habilitar o uso de fonte em 100%.</p>
+<p>A depuração com a linha atual no código-fonte demarcando onde estamos também não é possível, uma vez que o WinDbg da ponta de cá apenas faz o papel de garoto de recados para o &quot;depurador de verdade&quot; do outro lado (no nosso exemplo, o ntsd). Isso quer dizer que a forma mais &quot;fácil&quot; de ir passo-a-passo é usar o comando p (step) ou t (trace), além de habilitar o uso de fonte em 100%.</p>
 <p>Um tipo de problema que só pode ser depurado dessa maneira enfatiza a importância do uso de unit tests, além de um controle de qualidade mais aguçado antes de liberar uma versão para o cliente.</p>
 
             
@@ -125,8 +124,8 @@ Imagine o seguinte: temos um serviço que inicia automagicamente antes do login 
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/aquele-do-while-engracado/">Aquele do-while engraçado &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/como-tratar-um-merge-no-bazaar/">&#129092; Como tratar um merge no Bazaar</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/aquele-do-while-engracado/">Aquele do-while engraçado &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/como-tratar-um-merge-no-bazaar/">&#x25C1; Como tratar um merge no Bazaar</a></span>
 
         </div>
 

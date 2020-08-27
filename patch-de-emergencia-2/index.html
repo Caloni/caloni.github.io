@@ -64,7 +64,7 @@ As chances de estarmos escrevendo no momento em que a..."/>
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -76,14 +76,13 @@ As chances de estarmos escrevendo no momento em que a..."/>
 
       
       <div class="container">
-        <p class="title">Patch de emergência 2</p>
+        
+<p class="title">Patch de emergência 2</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/patch-de-emergencia-2.md" title="source">
-    2010-11-09
-    </a>
-    
+Wanderley Caloni, 2010-11-09
 
 </p>
 
@@ -101,7 +100,7 @@ As chances de estarmos escrevendo no momento em que a..."/>
 <p>E se não houvesse Sleep?</p>
 <p>As chances de estarmos escrevendo no momento em que a função está sendo executada são tremendas, de forma que não poderíamos sobrescrevê-la sem correr o risco de um crash.</p>
 <p>Uma solução alternativa para isso é alocar um novo pedaço de memória para a versão corrigida e trocar o endereço de chamada na função main.</p>
-<p>Antes de trocarmos o endereço dentro do main precisamos &ldquo;consertar&rdquo; a função copiada. Ela está usando as funções globais rand e printf, e as chamadas usam offsets relativos. Como agora a função está em outro offset, temos que reconstruir as chamadas:</p>
+<p>Antes de trocarmos o endereço dentro do main precisamos &quot;consertar&quot; a função copiada. Ela está usando as funções globais rand e printf, e as chamadas usam offsets relativos. Como agora a função está em outro offset, temos que reconstruir as chamadas:</p>
 <p>Agora a função está pronta para ser usada.</p>
 <p>É nessa parte que trocaremos o endereço o endereço 00401005 pela memória alocada. Note que essa escrita é muito rápida e o programa lê esse endereço por muito pouco tempo se compararmos com todas as intruções que são executadas. No entanto, essa escrita não é atômica, e mesmo que as chances sejam extremamente remotas, ainda assim pode haver uma colisão no acesso à essa parte.</p>
 <p>É salutar rezar por 10 segundos.</p>
@@ -122,8 +121,8 @@ As chances de estarmos escrevendo no momento em que a..."/>
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/red-aposentados-e-perigosos/">Red Aposentados e Perigosos &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/patch-de-emergencia/">&#129092; Patch de emergência</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/red-aposentados-e-perigosos/">Red Aposentados e Perigosos &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/patch-de-emergencia/">&#x25C1; Patch de emergência</a></span>
 
         </div>
 

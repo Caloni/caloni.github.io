@@ -63,7 +63,7 @@ In this first try (even being a nice one) we can clearly see by instinct that th
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ In this first try (even being a nice one) we can clearly see by instinct that th
 
       
       <div class="container">
-        <p class="title">What happens inside the sizeof operator</p>
+        
+<p class="title">What happens inside the sizeof operator</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/what-happens-inside-the-sizeof-operator.md" title="source">
-    2007-07-16
-    </a>
-    
+Wanderley Caloni, 2007-07-16
 
 </p>
 
@@ -98,10 +97,10 @@ In this first try (even being a nice one) we can clearly see by instinct that th
             
               <p>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:</p>
 <p>In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work. The compiler error is not even clear. The member access operator (the point sign) needs to have as its left some variable or constant of the same type of the struct. Since the operand is the type itself, there is no deal.</p>
-<p>The second test is more feasible. Even the compiler can alert us. We have accessed the right member in the right struct but in the wrong way. As we&rsquo;re not using a static member or, in other words, a class variable, we can&rsquo;t access the member by scope. We need an object. But in order to have an object we are supposed to have to create one, and this is exactly what is not allowed in our solution.</p>
-<p>This kind of problem reminds me about a curious feature inside the sizeof operator: it doesn&rsquo;t evaluate the expressions used as operands. How&rsquo;s that? Well, as the sizeof main purpose is to provide us the memory size filled by the expression, it simply doesn&rsquo;t make sense to execute the expression. We just need to note that the language we&rsquo;re talking about defends eficiency and clarity as main principles. If you want to execute the expression, we do it without using sizeof operator.</p>
-<p>So, now we know that everything put inside a sizeof is not going to be executed in fact. It works somewhat like the c++ &ldquo;dead zone&rdquo;: is the place where - talking about executable code - nothing runs. That means we can build a object inside sizeof that nothing is going to happen, except for the expression size. Let&rsquo;s look the resulting assembly:</p>
-<p>Another way to do the same thing (for those who can&rsquo;t bear the use of operator new delete, seeing the code as a memory leak):</p>
+<p>The second test is more feasible. Even the compiler can alert us. We have accessed the right member in the right struct but in the wrong way. As we're not using a static member or, in other words, a class variable, we can't access the member by scope. We need an object. But in order to have an object we are supposed to have to create one, and this is exactly what is not allowed in our solution.</p>
+<p>This kind of problem reminds me about a curious feature inside the sizeof operator: it doesn't evaluate the expressions used as operands. How's that? Well, as the sizeof main purpose is to provide us the memory size filled by the expression, it simply doesn't make sense to execute the expression. We just need to note that the language we're talking about defends eficiency and clarity as main principles. If you want to execute the expression, we do it without using sizeof operator.</p>
+<p>So, now we know that everything put inside a sizeof is not going to be executed in fact. It works somewhat like the c++ &quot;dead zone&quot;: is the place where - talking about executable code - nothing runs. That means we can build a object inside sizeof that nothing is going to happen, except for the expression size. Let's look the resulting assembly:</p>
+<p>Another way to do the same thing (for those who can't bear the use of operator new delete, seeing the code as a memory leak):</p>
 <p>Conclusion: the operator new is called and nothing happens. We got what we wanted. That shows us one more time that the little details built inside a language layout are only very important in the exact time we need them.</p>
 
             
@@ -118,8 +117,8 @@ In this first try (even being a nice one) we can clearly see by instinct that th
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-nos-proximos-seis-meses/">Como ser um melhor desenvolvedor nos próximos seis meses &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/desejo-insano-de-programar-no-kernel/">&#129092; Desejo insano de programar no kernel</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-nos-proximos-seis-meses/">Como ser um melhor desenvolvedor nos próximos seis meses &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/desejo-insano-de-programar-no-kernel/">&#x25C1; Desejo insano de programar no kernel</a></span>
 
         </div>
 

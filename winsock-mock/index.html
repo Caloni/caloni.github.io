@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Winmock</p>
+         <a href="https://github.com/Caloni/winmock">
+<p class="title">Winmock</p>
+</a>
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/winsock-mock.md" title="source">
-    2020-04-10
-    </a>
-     <a class="external" href="https://github.com/Caloni/winmock">link</a>
+Wanderley Caloni, 2020-04-10
 
 </p>
 
@@ -100,15 +99,15 @@
 <p>Em primeiro lugar vamos montar um projeto para iniciar um client socket para exemplificar o uso da winsock. Na verdade, de qualquer UNIX socket.</p>
 <p>Esse código pode ser testado diretamente do Blogue do Caloni. Só que não. Ele não está apto no momento a retornar o conhecido ack do IRC. Um dia talvez. Mas no momento não. As funções com o prefixo winmock estão no projeto C client que usa as funções de socket para se comunicar com o servidor. Alguns snippets:</p>
 <p>As funções C do winsock/socket, connect, send, recv, select, etc, são apenas funções C cujos nomes são conhecidíssimos. Elas são linkadas com programas que usam alguma biblioteca de socket. Nada impede que nós mesmos sobrescrevamos essas funções para implementá-las nós mesmos em nosso programa. É isso o que nosso projeto de unittest integrado faz, usando o define já citado para evitar que as funções winsock tomem o lugar.</p>
-<p>A linha mais importante é &ldquo;adddefinitions(-DINCLWINSOCKAPIPROTOTYPES=0)&quot;, que irá manter as assinaturas do header da winsock longe da compilação.</p>
+<p>A linha mais importante é &quot;adddefinitions(-DINCLWINSOCKAPIPROTOTYPES=0)&quot;, que irá manter as assinaturas do header da winsock longe da compilação.</p>
 <p>Tanto a INCLWINSOCKAPIPROTOTYPES quanto a INCLWINSOCKAPITYPEDEFS podem ser muito úteis para incluir algumas coisas do header, mas não todas. E como os protótipos das funções winsock não estão disponíveis, podemos implementar as nossas:</p>
 <p>Com isso o linker irá usar nossas funções em vez da lib de winsock, e na execução podemos simular eventos e operações de rede. Para flexibilizar para que cada teste monte seu ambiente transformamos a implementação em chamadas de ponteiros de função que podem ser trocadas. Por padrão preenchemos esses ponteiros com uma função que não faz nada. Note que com a convenção de chamadas de C não precisamos especificar os argumentos e funções com diferentes tipos e números de parâmetros podem chamar a mesma função.</p>
 <p>Agora é possível escrever um sistema de simulação do Blogue do Caloni que retorna o ack que precisamos para que o teste funcione.</p>
-<p>extern &ldquo;C&rdquo; {
+<p>extern &quot;C&quot; {
 }</p>
 <p>using namespace std;</p>
 <p>static string lastsend;</p>
-<p>extern &ldquo;C&rdquo; {</p>
+<p>extern &quot;C&quot; {</p>
 <p>int select_default(int nfds, fd_set FAR* readfds, fd_set FAR* writefds, fd_set FAR* exceptfds, const struct timeval FAR* timeout)
 {
 }</p>
@@ -137,7 +136,7 @@ clientTest() {
 <p>TESTF(clientTest, ConnectSendReceive)
 {
 struct CONNECTION* conn = NULL;
-if (winmock_connect(&ldquo;caloni.com.br&rdquo;, 80, &amp;conn) == 0)
+if (winmock_connect(&quot;caloni.com.br&quot;, 80, &amp;conn) == 0)
 {
 }
 }</p>
@@ -159,8 +158,8 @@ if (winmock_connect(&ldquo;caloni.com.br&rdquo;, 80, &amp;conn) == 0)
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/temporal/">Temporal &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/callback-hell/">&#129092; Callback Hell</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/temporal/">Temporal &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/callback-hell/">&#x25C1; Callback Hell</a></span>
 
         </div>
 

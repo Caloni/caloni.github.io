@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &ldquo;link estático&rdquo;) ou ele chama a..."/>
+        content="Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &quot;link estático&quot;) ou ele chama a função..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Hook de API no WinDbg</p>
+        
+<p class="title">Hook de API no WinDbg</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/hook-de-api-no-windbg.md" title="source">
-    2007-08-29
-    </a>
-    
+Wanderley Caloni, 2007-08-29
 
 </p>
 
@@ -95,12 +94,12 @@
         
           <div class="content">
             
-              <p>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &ldquo;link estático&rdquo;) ou ele chama a função kernel32!GetProcAddress explicitamente [1].</p>
+              <p>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &quot;link estático&quot;) ou ele chama a função kernel32!GetProcAddress explicitamente [1].</p>
 <p>Para conseguir saber as funções das quais um executável obtém o endereço através da primeira técnica podemos utilizar o mundialmente famoso Dependency Walker. Ele nos mostrará quais DLLs ele utiliza e quais funções por DLL ele quer o endereço. Ele também nos avisa sobre as DLLs que estão utilizando delay load, uma técnica inventada no Visual Studio para que os executáveis não dependam estaticamente de APIs muito novas que podem não existir em versões do Windows mais antigas. Com o Depends também é possível fazer hook de chamadas de API utilizando a opção profiling (F7), mas não costuma funcionar muito bem com trojans, pois eles capotam antes que alguma coisa interessante ocorra.</p>
 <p>O importante do Dependency Walker para o WinDbg é que com um editor é possível copiar todas as funções exibidas em sua interface para um editor, usar um pouco de regular expressions e criar uma batelada de breakpoints no WinDbg:</p>
-<p>O comando &ldquo;bp&rdquo; cria um breakpoint no endereço requisitado. O que está entre aspas são os comandos que você deseja executar quando o breakpoint for disparado. No caso, para todas as funções será impresso o seu nome (comando &ldquo;.echo&rdquo;) e a execução irá continuar (comando &ldquo;g&rdquo;). Ao rodar o programa, as chamadas das funções são mostradas na saída do depurador:</p>
+<p>O comando &quot;bp&quot; cria um breakpoint no endereço requisitado. O que está entre aspas são os comandos que você deseja executar quando o breakpoint for disparado. No caso, para todas as funções será impresso o seu nome (comando &quot;.echo&quot;) e a execução irá continuar (comando &quot;g&quot;). Ao rodar o programa, as chamadas das funções são mostradas na saída do depurador:</p>
 <p>Lindo, não? Porém ainda podem estar sendo chamadas as funções obtidas pela segunda técnica, a do GetProcAddress. Para esse caso devemos ir um pouquinho mais fundo e rodar o executável duas vezes. Na primeira, coletamos as funções que são obtidas por essa técnica através do seguinte comando:</p>
-<p>O comando &ldquo;da&rdquo; exibe o conteúdo de uma string em C (caracteres ANSI e terminada em zero) na memória. A memória no caso é o &ldquo;apontado do valor contido no segundo parâmetro da pilha&rdquo;. Complicado? Nem tanto: lembre-se que o ESP aponta sempre pro endereço de retorno da função chamadora e os parâmetros são sempre empilhados na ordem inversa da declaração em C. Logo, se o protótipo de GetProcAddress é:</p>
+<p>O comando &quot;da&quot; exibe o conteúdo de uma string em C (caracteres ANSI e terminada em zero) na memória. A memória no caso é o &quot;apontado do valor contido no segundo parâmetro da pilha&quot;. Complicado? Nem tanto: lembre-se que o ESP aponta sempre pro endereço de retorno da função chamadora e os parâmetros são sempre empilhados na ordem inversa da declaração em C. Logo, se o protótipo de GetProcAddress é:</p>
 <p>O último parâmetro empilhado (ESP+4) é o hModule, e o penúltimo (ESP+8) é o lpProcName, que é o lugar onde é passado o nome da função.</p>
 <p>Devemos lembrar de colocar esse breakpoint bem no início da execução e rodar o executável uma vez. Com isso coletamos o conjunto de nomes de funções usadas para chamar GetProcAddress:</p>
 <p>Daí é só organizar a lista obtida em ordem alfabética, acabar com duplicidades e criar o mesmo tipo de breakpoint que foi usado para as funções estáticas (pode ser sem o nome da DLL porque, embora não recomendado, o WinDbg se vira para encontrar os símbolos). Depois de criados os comandos, rodamos novamente o executável e, logo no início, já colocamos todos os breakpoints das funções coletadas.</p>
@@ -126,8 +125,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/barata-eletrica-e-o-hacker-de-antigamente/">Barata Elétrica e o hacker de antigamente &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/todolist/">&#129092; ToDoList</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/barata-eletrica-e-o-hacker-de-antigamente/">Barata Elétrica e o hacker de antigamente &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/todolist/">&#x25C1; ToDoList</a></span>
 
         </div>
 

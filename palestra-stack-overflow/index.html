@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Palestra: Stack Overflow</p>
+        
+<p class="title">Palestra: Stack Overflow</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/palestra-stack-overflow.md" title="source">
-    2016-06-04
-    </a>
-    
+Wanderley Caloni, 2016-06-04
 
 </p>
 
@@ -97,13 +96,13 @@
             
               <p>Há umas semanas (sim, estava enrolado para falar sobre isso) ministrei uma nova palestra lá em Sorocaba. Cheguei no meio de uma greve de ônibus, o que atrasou o evento em uma hora e me deu tempo de sobre para pensar nas desgraças que serão cidades próximas da capital crescendo desordenadamente graças às regulações estatais.</p>
 <p>Mas divago.</p>
-<p>A ideia da palestra foi do meu amigo Alan Silva (a.k.a. jumpi), e era para a SEMANA DA COMPUTAÇÃO E TECNOLOGIA &ndash; mas nada tem a ver com computação, nem tecnologia, mas com oportunidade de emprego de estagiários para empresas corporativistas da área. O foco era sair da mesmisse que os representantes de R.H. fazem em falar de cultura, visão, valores e outras besteiras e falar um pouco mais de bits e bytes, algo que falta a essa geração.</p>
+<p>A ideia da palestra foi do meu amigo Alan Silva (a.k.a. jumpi), e era para a SEMANA DA COMPUTAÇÃO E TECNOLOGIA -- mas nada tem a ver com computação, nem tecnologia, mas com oportunidade de emprego de estagiários para empresas corporativistas da área. O foco era sair da mesmisse que os representantes de R.H. fazem em falar de cultura, visão, valores e outras besteiras e falar um pouco mais de bits e bytes, algo que falta a essa geração.</p>
 <p>Meu público era muito, muito jovem, e foquei erroneamente em conceitos muito, muito antigos para eles, então não tenho muita certeza se fui útil. De qualquer forma, foi um prazer falar sobre engenharia da computação atrelado a ataque na pilha de execução (sim, um salto enorme para baixo, do R.H. para a placa de memória RAM).</p>
 <p>O conteúdo e a palestra está no GitHub e a palestra em si pode ser vista logo abaixo; a apresentação do conteúdo está mais abaixo, e peço desculpas por não ter tido tempo de apresentar todo ele (mesmo com quase duas horas):</p>
 <p><a href="http://www.slideshare.net/slideshow/embedcode/key/qRb4TSKjnf8Wx">http://www.slideshare.net/slideshow/embedcode/key/qRb4TSKjnf8Wx</a></p>
 <p>PS: Ah, esqueci. Também fiz um vídeo para complementar o conteúdo da palestra. Segue:</p>
 <p><a href="https://www.youtube.com/embed/kSKQQDTBRXQ?list=PLa0QVTprDkHBz6fjuzy4kU1iTLUnRWkeW">https://www.youtube.com/embed/kSKQQDTBRXQ?list=PLa0QVTprDkHBz6fjuzy4kU1iTLUnRWkeW</a></p>
-<p>Um StackOverflow é definido pela escrita em uma região não autorizada de memória. Stack overflow, overrun, etc, não interessando a nomenclatura &ldquo;oficial&rdquo;, o importante aqui é como um bug de acesso à memória pode permitir acesso exclusivo a regiões de memória que não estariam disponíveis para um atacante se não fosse por esse bug.</p>
+<p>Um StackOverflow é definido pela escrita em uma região não autorizada de memória. Stack overflow, overrun, etc, não interessando a nomenclatura &quot;oficial&quot;, o importante aqui é como um bug de acesso à memória pode permitir acesso exclusivo a regiões de memória que não estariam disponíveis para um atacante se não fosse por esse bug.</p>
 <p>No exemplo do código deste projeto, um usuário fictício utiliza um código que possui controle de acesso, mas também possui um bug: ele escreve em uma região da memória inadvertidamente. Dessa forma, é possível explorar essa falha no código para escrever um novo endereço de retorno na pilha (stack), ganhando acesso, dessa forma, a código que não estaria disponível em situações normais de temperatura e pressão.</p>
 <p>Para explorar esse tipo de falha, primeiro devemos entender a execução do código na arquitetura que se pretende atacar, além de alguns conceitos específicos do sistema operacional alvo.</p>
 <ul>
@@ -117,7 +116,7 @@
 <p>Assembly: Ponte entre ser humano e máquina.</p>
 </li>
 <li>
-<p>1&rsquo;s e 0&rsquo;s: Codificação lógica do computador.</p>
+<p>1's e 0's: Codificação lógica do computador.</p>
 </li>
 <li>
 <p>Impulsos elétricos: Voltamos para o mundo real.</p>
@@ -126,7 +125,7 @@
 <p>Qubit: Voltamos para a Matrix.</p>
 </li>
 <li>
-<p>(&ldquo;IBM disponibiliza computador quântico para público&rdquo;)</p>
+<p>(&quot;IBM disponibiliza computador quântico para público&quot;)</p>
 </li>
 <li>
 <p>Mais abstrações: Memória Virtual, Threads, I/O.</p>
@@ -216,7 +215,7 @@
 <p>Python, F#, Lambdas C++11, Métodos, Função Virtual.</p>
 </li>
 <li>
-<p>Bloco de memória chama&hellip; Outro bloco de memória</p>
+<p>Bloco de memória chama... Outro bloco de memória</p>
 </li>
 <li>
 <p>[[[C]]]]decl e Std(?)call (M$).</p>
@@ -273,8 +272,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/ninfomaniaca-volume-2/">Ninfomaníaca Volume 2 &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/chocolate/">&#129092; Chocolat</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/ninfomaniaca-volume-2/">Ninfomaníaca Volume 2 &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/chocolate/">&#x25C1; Chocolat</a></span>
 
         </div>
 

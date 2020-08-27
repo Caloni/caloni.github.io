@@ -37,7 +37,7 @@ No final do dia a correção era mais simples que imaginava: eu só precisava de
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
-  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero&amp;hellip;
+  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero...
 Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço.</description>
 </item>
 
@@ -160,7 +160,7 @@ O principal objetivo do programa é evitar de clicar no mouse, simulando um cliq
   <pubDate>2007-11-13</pubDate>
   
   <guid>http://www.caloni.com.br/mousetool/</guid>
-  <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
+  <description>Well, as most of you already know, I really don&#39;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
 </item>
 

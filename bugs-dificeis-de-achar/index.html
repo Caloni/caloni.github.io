@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Bugs Difíceis de Achar</p>
+        
+<p class="title">Bugs Difíceis de Achar</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/bugs-dificeis-de-achar.md" title="source">
-    2009-06-18
-    </a>
-    
+Wanderley Caloni, 2009-06-18
 
 </p>
 
@@ -99,13 +98,13 @@
 <p>Mas o que achei mais legal, apesar de não estar na lista, estava relacionado com o Mariner 1, primeira espaçonave de um programa da NASA para pesquisar Marte, Vênus e Mercúrio em voos automatizados. Mariner 1 não chegou a sair de órbita, pois houve uma falha na antena de comunicação entre módulos e um bug no programa do computador de bordo.</p>
 <p>Falava-se que o bug havia sido gerado ao trocar uma vírgula por um ponto em um loop escrito em FORTRAN. Apesar de não ter sido esse o causador da falha do computador da nave do projeto Mariner, ele existiu de fato em outro projeto da NASA, o Mercury. A linha fatal no caso era essa:</p>
 <p>É óbvio que a intenção do programador foi fazer um loop até o label 17 dez vezes, pois a instrução para isso é:</p>
-<p>Mas pela troca da vírgula pelo ponto, e como em FORTRAN os caracteres de espaço não são significativos, a linha com o bug não representa mais um loop, mas uma atribuição à uma variável chamada &ldquo;DO17I&rdquo;:</p>
-<p>Esse detalhe esdrúxulo de uma das linguagens mais famosas da época nos leva a crer que antigamente os programadores deveriam estar muito mais atentos durante a digitação de código do que os programadores de hoje em dia, com seus ambientes com verificação sintática embutida. Existe inclusive um texto humorístico de longa data comparando programadores de verdade e programadores de linguagens estruturadas como PASCAL recém-saídos da faculdade, carinhosamente citados no texto como &ldquo;Quiche Eaters&rdquo; (comedores de pastelão).</p>
+<p>Mas pela troca da vírgula pelo ponto, e como em FORTRAN os caracteres de espaço não são significativos, a linha com o bug não representa mais um loop, mas uma atribuição à uma variável chamada &quot;DO17I&quot;:</p>
+<p>Esse detalhe esdrúxulo de uma das linguagens mais famosas da época nos leva a crer que antigamente os programadores deveriam estar muito mais atentos durante a digitação de código do que os programadores de hoje em dia, com seus ambientes com verificação sintática embutida. Existe inclusive um texto humorístico de longa data comparando programadores de verdade e programadores de linguagens estruturadas como PASCAL recém-saídos da faculdade, carinhosamente citados no texto como &quot;Quiche Eaters&quot; (comedores de pastelão).</p>
 <p>O tipo de erro de falta de atenção do programa da NASA lembra uma das mais duras críticas às linguagem C e C++: é fácil escrever um código errado do ponto de vista lógico mas sintaticamente correto (compilável). Alguns exemplos famosos:</p>
 <p>Dessa coleção de problemas, o compilador nos brinda com dois warnings:</p>
 <p>Agora imagine o número de horas noturnas em frente ao micro que você não poderia ter economizado em sua vida se aumentasse o nível de warning e lêsse-os de vez em quando? =)</p>
 <p>Colaborando com a lista de bugs difíceis de achar do artigo ai vai código/piadinha:</p>
-<p>Esse não é pego pelos alertas dos compiladores (pelo menos não pelos que eu uso)&hellip; É um bom motivo para usar const no lugar de define em alguns casos, ou no mínimo cercar o define por parênteses &ldquo;(&rdquo; e &ldquo;)&rdquo;</p>
+<p>Esse não é pego pelos alertas dos compiladores (pelo menos não pelos que eu uso)... É um bom motivo para usar const no lugar de define em alguns casos, ou no mínimo cercar o define por parênteses &quot;(&quot; e &quot;)&quot;</p>
 <p>Outro bug muito comum entre iniciantes é o de templates aninhados, apesar de que compiladores mais novos lidam melhor com o bug e trazem mensagens de erro mais claras:</p>
 
             
@@ -122,8 +121,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/strings/">Strings &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/">&#129092; Programadores de verdade não usam Java</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/strings/">Strings &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/">&#x25C1; Programadores de verdade não usam Java</a></span>
 
         </div>
 

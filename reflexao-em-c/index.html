@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="O termo e conceito de &ldquo;reflection)&rdquo; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode..."/>
+        content="O termo e conceito de &quot;reflection)&quot; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Reflexão em C&#43;&#43;</p>
+        
+<p class="title">Reflexão em C&#43;&#43;</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/reflexao-em-c.md" title="source">
-    2008-06-30
-    </a>
-    
+Wanderley Caloni, 2008-06-30
 
 </p>
 
@@ -95,11 +94,11 @@
         
           <div class="content">
             
-              <p>O termo e conceito de &ldquo;reflection)&rdquo; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.</p>
+              <p>O termo e conceito de &quot;reflection)&quot; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.</p>
 <p>Infelizmente não muito.</p>
 <p>O sistema de RTTI (Run Time Type Identification), a identificação de tipos em tempo de execução, seria o começo do reflection em C++. Foi um começo que não teve meio nem fim, mas existe na linguagem. Dessa forma podemos tirar algum proveito disso.</p>
 <p>Um leitor pediu para que eu falasse um pouco sobre essas coisas, especificamente como se faz para obter o nome da classe de onde estamos executando um determinado método. Para esse tipo de construção podemos usar o operado typeid, que retorna informações básicas sobre um tipo de acordo com um tipo, instância ou expressão:</p>
-<p>Dessa forma, podemos nos aproveitar do fato que todo método não-estático possui a variável implícita this, do tipo &ldquo;ponteiro constante para T&rdquo;, onde T é o tipo da classe que contém o método sendo chamado.</p>
+<p>Dessa forma, podemos nos aproveitar do fato que todo método não-estático possui a variável implícita this, do tipo &quot;ponteiro constante para T&quot;, onde T é o tipo da classe que contém o método sendo chamado.</p>
 <p>class MyClass::MyMethod</p>
 <p>Com classes não-polimórficas a coisa parece não ter muita utilidade. No entanto, essa mesma técnica pode ser aplicada em classes derivadas, uma vez que o operador typeid pode trabalhar em tempo de execução:</p>
 <p>Apenas se lembre de ter de fato uma classe polimórfica (eu consegui isso tornando MyMethod uma função virtual). Do contrário você pode ter problemas.</p>
@@ -118,8 +117,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/pesquisas-sobre-a-gina/">Pesquisas sobre a GINA &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/primeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen/">&#129092; Primeiros passos na documentação de código-fonte usando Doxygen</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/pesquisas-sobre-a-gina/">Pesquisas sobre a GINA &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/primeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen/">&#x25C1; Primeiros passos na documentação de código-fonte usando Doxygen</a></span>
 
         </div>
 

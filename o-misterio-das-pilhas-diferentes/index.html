@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Mal comecei a leitura do meu mais novo &ldquo;mother-fucker&rdquo; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo..."/>
+        content="Mal comecei a leitura do meu mais novo &quot;mother-fucker&quot; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">O mistério das pilhas diferentes</p>
+        
+<p class="title">O mistério das pilhas diferentes</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/o-misterio-das-pilhas-diferentes.md" title="source">
-    2008-03-12
-    </a>
-    
+Wanderley Caloni, 2008-03-12
 
 </p>
 
@@ -95,13 +94,13 @@
         
           <div class="content">
             
-              <p>Mal comecei a leitura do meu mais novo &ldquo;mother-fucker&rdquo; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: configure seus símbolos corretamente.</p>
+              <p>Mal comecei a leitura do meu mais novo &quot;mother-fucker&quot; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: configure seus símbolos corretamente.</p>
 <p>Esse é o primeiro ponto abordado pelo autor, por se tratar de algo que, caso não seja bem feito, pode dar dores de cabeça piores do que o próprio problema que originou a sessão de debugging. Por isso eu repito:</p>
 <p>Vamos acompanhar alguns momentos de tortura alheia?</p>
-<p>Tudo aconteceu quando inesperadamente perdi metade do artigo que estava escrevendo para explicar o processo de engenharia reversa no dicionário Houaiss. Tive que refazer todos os meus testes que havia feito no laptop. Como a preguiça é a mãe de todas as descobertas, não estava com ele ligado no momento do &ldquo;reteste&rdquo; e por isso acabei usando a máquina desktop, mesmo.</p>
+<p>Tudo aconteceu quando inesperadamente perdi metade do artigo que estava escrevendo para explicar o processo de engenharia reversa no dicionário Houaiss. Tive que refazer todos os meus testes que havia feito no laptop. Como a preguiça é a mãe de todas as descobertas, não estava com ele ligado no momento do &quot;reteste&quot; e por isso acabei usando a máquina desktop, mesmo.</p>
 <p>A análise inicial consistia simplesmente em verificar as entradas e saídas da função ReadFile, na esperança de entender a formatação interna do dicionário. Repetindo a seqüência:</p>
 <p>Se notarmos no artigo anterior, veremos que o conteúdo do arquivo lido não é em texto claro, sendo necessário passar por mais algumas instruções assembly para descobrir a função responsável por embaralhar o conteúdo na memória. Contudo, ao rodar esses comandos novamente, eis que a saída do ReadFile já vem toda legível, como se o dicionário não estivesse mais encriptado.</p>
-<p>A leitura foi feita e o texto direto do arquivo veio em claro? O que está acontecendo? Quando abro pelo comando type ele aparece todo obscuro&hellip;</p>
+<p>A leitura foi feita e o texto direto do arquivo veio em claro? O que está acontecendo? Quando abro pelo comando type ele aparece todo obscuro...</p>
 <p>Sim, alguma coisa não-trivial acaba de acontecer. Testei esse procedimento no laptop e no desktop, sendo que esse problema aconteceu apenas no desktop. Dessa vez a curiosidade falou mais alto que a preguiça, e tive que abrir as duas máquinas e comparar os resultados.</p>
 <p>Depois de um pouco de cabeçadas rastreando o assembly executado, descobri que o ponto onde o breakpoint havia parado não era o retorno da chamada a ReadFile. Isso eu não vou demonstrar aqui pois se trata de raciocínio de passo-a-passo no assembly até descobrir a diferença. É enfadonho e sujeito a erros. Sugiro que tente um dia desses. Para mim, o resultado lógico de tudo isso é a saída que segue:</p>
 <p>Como podemos ver pelos comandos acima, o pseudo-registrador $ra não está mostrando o valor corretamente!</p>
@@ -129,8 +128,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/influence-board/">Influence Board &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/sed-grep-e-afins/">&#129092; Sed, Grep e afins</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/influence-board/">Influence Board &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/sed-grep-e-afins/">&#x25C1; Sed, Grep e afins</a></span>
 
         </div>
 

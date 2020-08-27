@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">RmThread: rode código em processo vizinho</p>
+        
+<p class="title">RmThread: rode código em processo vizinho</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/rmthread-rode-codigo-em-processo-vizinho.md" title="source">
-    2008-01-28
-    </a>
-    
+Wanderley Caloni, 2008-01-28
 
 </p>
 
@@ -96,12 +95,12 @@
           <div class="content">
             
               <p>Aproveitando que utilizei a mesma técnica semana passada para desenvolver um vírus para Ethical Hacking, republico aqui este artigo que já está mofando no Code Projet, mas que espero que sirva de ajuda pra muita gente que gosta de fuçar nos internals do sistema. Boa leitura!</p>
-<p>RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &ldquo;Three Ways to Inject Your Code into Another Process&rdquo;. No entanto, não utilizei código algum. Queria aprender sobre isso, pesquisei pela internet, e me influenciei pela técnica CreateRemoteThread &amp; LoadLibrary. O resto foi uma mistura de &ldquo;chamada de funções certas&rdquo; e MSDN.</p>
+<p>RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &quot;Three Ways to Inject Your Code into Another Process&quot;. No entanto, não utilizei código algum. Queria aprender sobre isso, pesquisei pela internet, e me influenciei pela técnica CreateRemoteThread &amp; LoadLibrary. O resto foi uma mistura de &quot;chamada de funções certas&quot; e MSDN.</p>
 <p>O projeto que fiz é útil para quem precisa rodar algum código em um processo vizinho, mas não quer se preocupar em desenvolver a técnica para fazer isso. Quer apenas escrever o código que vai ser executado remotamente. O projeto de demonstração, RmThread.exe, funciona exatamente como a técnica citada anteriormente. Você diz qual o processo a ser executado e a DLL a ser carregada, e ele inicia o processo e carrega a DLL em seu contexto. O resto fica por conta do código que está na DLL.</p>
 <p>Para fazer a DLL, existe um projeto de demonstração que se utiliza de uma técnica que descobri para fazer rodar algum código a partir da execução de DllMain sem ficar escravo de suas limitações (você só pode chamar com segurança funções localizadas na kernel32.dll).</p>
 <p>Existem três funções que poderão ser utilizadas pelo seu programa:</p>
 <p>Eis a rotina principal simplificada demonstrando como é simples a utilização das funções:</p>
-<p>A parte mais complicada talvez seja o que fazer quando a sua DLL é carregada. Considerando que ao ser chamada em seu ponto de entrada, o código da DLL possui algumas limitações (uma já citada; para mais, vide a ajuda de DllMain no MSDN), fiz uma &ldquo;execução alternativa&rdquo;, criando uma thread na função DllMain:</p>
+<p>A parte mais complicada talvez seja o que fazer quando a sua DLL é carregada. Considerando que ao ser chamada em seu ponto de entrada, o código da DLL possui algumas limitações (uma já citada; para mais, vide a ajuda de DllMain no MSDN), fiz uma &quot;execução alternativa&quot;, criando uma thread na função DllMain:</p>
 <p>A função da thread, por sua vez, é esperar pela finalização da thread DllMain (temos o handle dessa thread armazenado em ghThrDllMain), fazer o que tem que fazer, e retornar, liberando ao mesmo tempo o handle da DLL criado para si:</p>
 <p>A marca TODO é aonde seu código deve ser colocado (você pode tirar o MessageBox, se quiser). Como DllMain já foi previamente executada, essa parte do código está livre para fazer o que quiser no contexto do processo vizinho.</p>
 <p>Um detalhe interessante é que é necessária a chamada de FreeLibraryAndExitThread. Do contrário, após chamar FreeLibrary, o código a ser executado depois (um simples return) estaria em um endereço de memória inválido, já que a DLL não está mais carregada. O resultado não seria muito agradável.</p>
@@ -124,8 +123,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo/">Compartilhando variáveis com o mundo &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/keychanger-de-crianca/">&#129092; Keychanger de criança</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo/">Compartilhando variáveis com o mundo &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/keychanger-de-crianca/">&#x25C1; Keychanger de criança</a></span>
 
         </div>
 

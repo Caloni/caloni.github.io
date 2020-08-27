@@ -63,7 +63,7 @@ Uma das formas mais divertidas de entender o..."/>
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Uma das formas mais divertidas de entender o..."/>
 
       
       <div class="container">
-        <p class="title">Vcpkg Internals: como o gerenciador de pacotes da M$ funciona por dentro (e como fazer seu próprio pacote!)</p>
+        
+<p class="title">Vcpkg Internals: como o gerenciador de pacotes da M$ funciona por dentro (e como fazer seu próprio pacote!)</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/vcpkg-internals.md" title="source">
-    2018-09-12
-    </a>
-    
+Wanderley Caloni, 2018-09-12
 
 </p>
 
@@ -122,10 +121,10 @@ Uma das formas mais divertidas de entender o..."/>
 <li>VCPKG_C_FLAGS_RELEASE</li>
 </ul>
 <p>A macro do CMake PORT será interpretada pelo triplet. Isso é uma garantia de mudanças nos settings para portabilidade. Por exemplo:</p>
-<p>Que compila qualquer coisa que entre no match &ldquo;qt5-*&rdquo; como dinâmico (DLLs), embora todo o resto possa ser estático.</p>
+<p>Que compila qualquer coisa que entre no match &quot;qt5-*&quot; como dinâmico (DLLs), embora todo o resto possa ser estático.</p>
 <p>A integração com o Visual Studio ocorre com o uso daqueles pedaços de configuração de projetos que são as abas de propriedades. Você mesmo pode criar abas de propriedade como arquivos separados do seu vcxproj para configurações comuns a mais projetos.</p>
-<p>Para realizar a integração o comando é vcpkg integrate install&rdquo;:</p>
-<p>Note que as coisas para quem usa CMake são automáticas e fáceis de usar. Basta acrescentar o toolchain especificado. Já para Visual Studio&hellip;</p>
+<p>Para realizar a integração o comando é vcpkg integrate install&quot;:</p>
+<p>Note que as coisas para quem usa CMake são automáticas e fáceis de usar. Basta acrescentar o toolchain especificado. Já para Visual Studio...</p>
 <p>O mecanismo envolve uma pasta do msbuild:</p>
 <p>Dentro dessa pasta é colocado um desses pedaços de configuração (propriedades) chamado vcpkg.system.props.</p>
 <p>Essa diretiva usa a pasta definida pela variável de ambiente LOCALAPPDATA (geralmente C:\Users&lt;seu-usuario&gt;\AppData\Local) para localizar um outro arquivo, o vcpkg.user.targets.</p>
@@ -144,10 +143,10 @@ Uma das formas mais divertidas de entender o..."/>
 <p>UPDATE: Essa sugestão já foi adicionada à última versão do vcpkg. É feita uma normalização do nome:</p>
 <p>Assim o que seguir é Debug ou Release =).</p>
 <p>Um outro potencial problema dos usuários de Visual Studio para compilar e rodar projetos C++ são as dependências de binários (DLLs). É possível que um pacote seja compilado de maneira dinâmica, ou seja, com DLLs de dependência. Essas DLLs na instalação do pacote devem constar na pasta bin, mas por conta dessa pasta não fazer parte dos diretórios de sistema o depurador do Visual Studio irá carregar um executável em sua pasta de geração em que não encontrará as eventuais DLLs que ele precisa para rodar.</p>
-<p>Para &ldquo;corrigir&rdquo; isso, ou melhor dizendo, contornar a experiência, também foi adicionado um comando Post Build no vcpkg.targets com um comando Power Shell que copia esses binários para a pasta de geração do projeto atual. Dessa forma o projeto pode rodar sem problemas, o usuário fica feliz e consegue terminar sua programação antes de passar para o deploy (e facilita deploys de testes, pois basta copiar a pasta de geração do executável que todas suas dependências estarão lá).</p>
+<p>Para &quot;corrigir&quot; isso, ou melhor dizendo, contornar a experiência, também foi adicionado um comando Post Build no vcpkg.targets com um comando Power Shell que copia esses binários para a pasta de geração do projeto atual. Dessa forma o projeto pode rodar sem problemas, o usuário fica feliz e consegue terminar sua programação antes de passar para o deploy (e facilita deploys de testes, pois basta copiar a pasta de geração do executável que todas suas dependências estarão lá).</p>
 <p>O script executado pelo PowerShell fica em vcpkg\scripts\buildsystems\msbuild e recebe o TargetPath (o binário-alvo) como parâmetro e onde estão os binários instalados pelo vcpkg, e com base na saída da ferramenta dumpbin extrai as dependências do executável e as busca no diretório bin:</p>
 <p>Isso é o equivalente ao uso padrão de dumpbin com grep e sed:</p>
-<p>A cópia dos binários é feito com um teste simples de &ldquo;path existe&rdquo; com deploy:</p>
+<p>A cópia dos binários é feito com um teste simples de &quot;path existe&quot; com deploy:</p>
 <p>Fato curioso: no script do PowerShell existem alguns hacks para alguns pacotes, incluindo Qt.</p>
 <p>O uso do CMake permite aos usuários do vcpkg ter boas ideias apenas lendo os scripts do projeto. Se você abrir o solution vcpkg.sln dentro de toolsrc vai descobrir todos os scripts listados por lá. Há funções espertinhas como o download e extração de pacotes 7zip do Source Forge.</p>
 <p>Essa parte fica em vcpkg/scripts/cmake. Olhe, por exemplo, como retornar a versão do Windows SDK (vcpkggetwindowssdk.cmake):</p>
@@ -186,8 +185,8 @@ Uma das formas mais divertidas de entender o..."/>
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/limites/">Limites &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/getarg/">&#129092; GetArg: the ultimate badass argv/argc parser</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/limites/">Limites &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/getarg/">&#x25C1; GetArg: the ultimate badass argv/argc parser</a></span>
 
         </div>
 

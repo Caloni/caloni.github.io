@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Estava eu outro dia programando aquele código esperto &ldquo;para ontem&rdquo; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx)..."/>
+        content="Estava eu outro dia programando aquele código esperto &quot;para ontem&quot; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx) me..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Retorno do PathIsDirectory</p>
+        
+<p class="title">Retorno do PathIsDirectory</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/retorno-do-pathisdirectory.md" title="source">
-    2008-09-10
-    </a>
-    
+Wanderley Caloni, 2008-09-10
 
 </p>
 
@@ -95,7 +94,7 @@
         
           <div class="content">
             
-              <p>Estava eu outro dia programando aquele código esperto &ldquo;para ontem&rdquo; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx) me foi retornado pela API um valor diferente de TRUE. E diferente de FALSE!</p>
+              <p>Estava eu outro dia programando aquele código esperto &quot;para ontem&quot; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx) me foi retornado pela API um valor diferente de TRUE. E diferente de FALSE!</p>
 <p>De acordo com a documentação, o retorno deveria ser TRUE caso o caminho enviado à função fosse de fato um diretório. Caso contrário, o retorno deveria ser FALSE.</p>
 <p>Note que existem apenas dois valores possíveis para essa função. Porém, o valor retornado não é 1, o equivalente ao define TRUE, mas sim 0x10 (16 em hexadecimal). O simples exemplo abaixo deve conseguir reproduzir a situação (Windows XP Service Pack 3):</p>
 <p>Isso quer dizer apenas que o código abaixo vai funcionar,</p>
@@ -105,7 +104,7 @@
 <p>Pesquisando um pouco descobri uma boa discussão sobre o tema, e inclusive que outras pessoas descobriram o interessante detalhe que para pastas normais o retorno é 0x10, mas para compartilhamentos o retorno é 0x1.</p>
 <p>O problema ocorre por causa da maneira que a função determina se o caminho é um diretório ou não. Uma simples vistoria sobre a função nos revela o detalhe crucial:</p>
 <p>Ou seja, para pastas locais a função simplesmente usa a conhecidíssima GetFileAttributes.aspx), que retorna o flag 0x10 setado caso se trate de uma pasta, de acordo com a documentação:</p>
-<p>&ldquo;The attributes can be one or more of the following values.</p>
+<p>&quot;The attributes can be one or more of the following values.</p>
 <p>Aqui termina nossa dúvida sobre o pequenino bug na documentação. E isso nos lembra também que é sempre bom comparar as coisas da melhor maneira possível. E essa melhor maneira em se tratando de ifs é supor apenas dois valores binário: ou é zero ou é não-zero.</p>
 
             
@@ -122,8 +121,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/todo-programador-e-um-filosofo-em-potencial/">Todo programador é um filósofo em potencial &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/de-volta-a-tona/">&#129092; De volta à tona</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/todo-programador-e-um-filosofo-em-potencial/">Todo programador é um filósofo em potencial &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/de-volta-a-tona/">&#x25C1; De volta à tona</a></span>
 
         </div>
 

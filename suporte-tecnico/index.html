@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Suporte técnico</p>
+        
+<p class="title">Suporte técnico</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/suporte-tecnico.md" title="source">
-    2010-11-05
-    </a>
-    
+Wanderley Caloni, 2010-11-05
 
 </p>
 
@@ -96,7 +95,7 @@
           <div class="content">
             
               <p>Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte mensagem:</p>
-<p>Erro de automação? (&ldquo;Mensagem do cliente - A classe não dá suporte para automação&rdquo;)</p>
+<p>Erro de automação? (&quot;Mensagem do cliente - A classe não dá suporte para automação&quot;)</p>
 <p>Abaixo um exemplo simples para ter uma ideia em JS:</p>
 <p>A primeira coisa que se faz nesse caso é pesquisar no Google por pessoas que já tiveram esse problema. A maioria dizia ser necessária registrar novamente as DLLs do navegador/shell, coisa que fizemos à exaustão e não resolveu o problema. Também imaginamos haver relação com a versão da SDocVw.dll que estava alocada na lista de assemblies .NET cacheados, o chamado GAC. Ou seja, já estávamos viajando geral.</p>
 <p>No meio dos procedimentos batidos que todos fazem a lista abaixo resume bem:</p>
@@ -118,7 +117,7 @@
 <ul>
 <li>Exportei o registro da máquina saudável.</li>
 <li>Transformei a exportação em exclusão total das chaves.</li>
-<li>Importei ambos os registros no esquema &ldquo;apaga tudo cria tudo de novo&rdquo;.</li>
+<li>Importei ambos os registros no esquema &quot;apaga tudo cria tudo de novo&quot;.</li>
 </ul>
 <p>Problema reproduzido.</p>
 <p>Agora restava saber qual chave exata estava faltando e o que isso impactava no comportamento do browser.</p>
@@ -134,12 +133,12 @@
 </ol>
 <p>Essa série de passos foi reproduzida em menos de uma hora até chegarmos a apenas uma linha no registro:</p>
 <p>Que se revelou pertencer à DLL dispex.dll:</p>
-<p>&ldquo;dispex.dll is a module that contains COM interfaces used by Visual Basic scripts&rdquo;</p>
+<p>&quot;dispex.dll is a module that contains COM interfaces used by Visual Basic scripts&quot;</p>
 <p>Pesquisando soluções de restauração achei esse KB que explica que existe um aplicativo chamado McRepair que teoricamente conserta a bagunça.</p>
 <p>Não conserta.</p>
 <p>Porém, ao usar o Method 1 (registrar novamente a DLL) o problema foi resolvido. Exportei o registro antes e depois da operação e por algum motivo a máquina do cliente estava com o GUID das interfaces IDispatchEx e IObjectIdentity adulteradas:</p>
 <p>Realizei o mesmo teste com nossa DLL que gerou o problema inicial e descobri que não houve mudanças nessa parte do registro por conta dela.</p>
-<p>Fica assim indefinida a origem do &ldquo;corrompimento&rdquo; dessa parte do registro, apesar de localizada.</p>
+<p>Fica assim indefinida a origem do &quot;corrompimento&quot; dessa parte do registro, apesar de localizada.</p>
 <p>Esse artigo é pra mostrar que não é só de ifs e elses que vive um programador =)</p>
 
             
@@ -156,8 +155,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/jose-e-pilar/">José e Pilar &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-atleta/">&#129092; O Atleta</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/jose-e-pilar/">José e Pilar &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-atleta/">&#x25C1; O Atleta</a></span>
 
         </div>
 

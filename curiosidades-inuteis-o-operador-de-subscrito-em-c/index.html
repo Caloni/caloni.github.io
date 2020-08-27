@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Curiosidades inúteis: o operador de subscrito em C&#43;&#43;</p>
+        
+<p class="title">Curiosidades inúteis: o operador de subscrito em C&#43;&#43;</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/curiosidades-inuteis-o-operador-de-subscrito-em-c.md" title="source">
-    2007-12-27
-    </a>
-    
+Wanderley Caloni, 2007-12-27
 
 </p>
 
@@ -97,15 +96,15 @@
             
               <p>Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C++ de sua preferência. Boa leitura!</p>
 <p>Em C e C++ as regras de sintaxe são extremamente flexíveis. Essa liberdade toda se manteve no decorrer dos tempos porque se trata de uma das idéias fundamentais da linguagem C, motivo de sua criação. Me lembro certa vez que, bitolado em C Standard 89, usei uma sintaxe não lá muito usual para acessar um elemento de um array. Foi apenas um experimento de estudante, coisa que nunca vi em código algum e queria comprovar.</p>
-<p>As regras de acesso a elementos de um array (subscrito) são definidas não em termos do array, mas em termos de um ponteiro e de um índice. &ldquo;Me dê um ponteiro para T e um inteiro e te retorno um lvalue do tipo T&rdquo;. Essa é a idéia geral. A mesma idéia, com pequenas alterações, se manteve em C++. Eis parte do parágrafo que fala sobre isso:</p>
+<p>As regras de acesso a elementos de um array (subscrito) são definidas não em termos do array, mas em termos de um ponteiro e de um índice. &quot;Me dê um ponteiro para T e um inteiro e te retorno um lvalue do tipo T&quot;. Essa é a idéia geral. A mesma idéia, com pequenas alterações, se manteve em C++. Eis parte do parágrafo que fala sobre isso:</p>
 <blockquote>
-<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &ldquo;pointer to T&rdquo; and the other shall have enumeration or integral type. The result is an lvalue of type &ldquo;T&rdquo;. (&hellip;) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ). - C++: International Standard ISO/IEC 14882 First Edition 1998-09-01</p>
+<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &quot;pointer to T&quot; and the other shall have enumeration or integral type. The result is an lvalue of type &quot;T&quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ). - C++: International Standard ISO/IEC 14882 First Edition 1998-09-01</p>
 </blockquote>
 <p>Isso traduzido em miúdos quer dizer que com duas expressões formando a construção E1 [ E2 ], sendo uma delas do tipo ponteiro para um tipo e a outra do tipo integral, o resultado é equivalente a *( (E1) + (E2) ). Como no código abaixo:</p>
 <p>A teoria comprovada na prática: temos duas expressões no formato E1 [ E2 ] sendo uma do tipo ponteiro para char e a outra do tipo int, exatamente como a regra define. O detalhe obscuro que permaneceu durante a evolução dessas duas linguagens é que a regra de acesso a elementos não define a ordem das expressões. Assim sendo, me aproveito dessa flexibilidade e inverto os elementos do subscrito:</p>
 <p>Isso também compila e tem o mesmo resultado, pois também é equivalente a *( (E1) + (E2) ). No final dá na mesma. E do jeito que está a inversão nem dá tanto susto assim, pois estamos lidando com duas variáveis. A coisa começa a ficar mais IOCCC se colocarmos em vez de uma delas uma constante:</p>
-<p>Isso ainda é válido, certo? Os tipos das expressões estão de acordo com a regra. Fica simples de visualizar se sempre pensarmos no &ldquo;equivalente universal&rdquo; *( (E1) + (E2) ). Até coisas bizarras como essa acabam ficando simples:</p>
-<p>Nota do autor: esse tipo de &ldquo;recurso obscuro&rdquo; dificilmente passará por uma revisão de código, e com razão, dado que não é um método útil e muito menos conhecido. Sábio é saber evitar. Não acredito, porém, que o conhecimento de certos detalhes da linguagem em que se programa sejam completamente inúteis. Conhecimento nunca é demais, pois quanto mais se conhece maior é o número de ferramentas conceituais que se dispõe para resolver um certo problema. Em muitas vezes o &ldquo;conhecimento inútil&rdquo; de hoje se torna um guia sábio quando se precisa de bons conceitos sobre a coisa toda. No entanto, que não venha um boi-corneta me dizer que esse código fere as boas práticas de programação. Tenho dito.</p>
+<p>Isso ainda é válido, certo? Os tipos das expressões estão de acordo com a regra. Fica simples de visualizar se sempre pensarmos no &quot;equivalente universal&quot; *( (E1) + (E2) ). Até coisas bizarras como essa acabam ficando simples:</p>
+<p>Nota do autor: esse tipo de &quot;recurso obscuro&quot; dificilmente passará por uma revisão de código, e com razão, dado que não é um método útil e muito menos conhecido. Sábio é saber evitar. Não acredito, porém, que o conhecimento de certos detalhes da linguagem em que se programa sejam completamente inúteis. Conhecimento nunca é demais, pois quanto mais se conhece maior é o número de ferramentas conceituais que se dispõe para resolver um certo problema. Em muitas vezes o &quot;conhecimento inútil&quot; de hoje se torna um guia sábio quando se precisa de bons conceitos sobre a coisa toda. No entanto, que não venha um boi-corneta me dizer que esse código fere as boas práticas de programação. Tenho dito.</p>
 
             
 
@@ -121,8 +120,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/gambi-do-dia-swap-com-apenas-duas-variaveis/">Gambi do dia: swap com apenas duas variáveis &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-que-acontece-quando-o-contador-estoura/">&#129092; O que acontece quando o contador estoura</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/gambi-do-dia-swap-com-apenas-duas-variaveis/">Gambi do dia: swap com apenas duas variáveis &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-que-acontece-quando-o-contador-estoura/">&#x25C1; O que acontece quando o contador estoura</a></span>
 
         </div>
 

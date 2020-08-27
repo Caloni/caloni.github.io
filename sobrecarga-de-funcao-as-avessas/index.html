@@ -63,7 +63,7 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
 
       
       <div class="container">
-        <p class="title">Sobrecarga de função às avessas</p>
+        
+<p class="title">Sobrecarga de função às avessas</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/sobrecarga-de-funcao-as-avessas.md" title="source">
-    2012-05-20
-    </a>
-    
+Wanderley Caloni, 2012-05-20
 
 </p>
 
@@ -103,8 +102,8 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
 <p>É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:</p>
 <p>Voltando às teorias de C++, veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama:</p>
 <p>Correto. O tipo de retorno não é uma propriedade da função que exclua a ambigüidade. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).</p>
-<p>Pois bem. Não podemos fazer isso utilizando funções ordinárias. Então o jeito é criar nosso próprio &ldquo;tipo de função&rdquo; que dê conta do recado:</p>
-<p>Pronto. Agora podemos &ldquo;chamar&rdquo; a nossa função criando uma nova instância e atribuindo o &ldquo;retorno&rdquo; a wstring ou à nossa GUID struct:</p>
+<p>Pois bem. Não podemos fazer isso utilizando funções ordinárias. Então o jeito é criar nosso próprio &quot;tipo de função&quot; que dê conta do recado:</p>
+<p>Pronto. Agora podemos &quot;chamar&quot; a nossa função criando uma nova instância e atribuindo o &quot;retorno&quot; a wstring ou à nossa GUID struct:</p>
 <p>Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:</p>
 <p>E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas:</p>
 <p>Eis o fonte completo:</p>
@@ -124,8 +123,8 @@ Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas e
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/o-corvo/">O Corvo &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/consumo-abusivo-de-memoria/">&#129092; Consumo abusivo de memória</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-corvo/">O Corvo &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/consumo-abusivo-de-memoria/">&#x25C1; Consumo abusivo de memória</a></span>
 
         </div>
 

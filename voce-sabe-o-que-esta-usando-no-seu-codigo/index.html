@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Você sabe o que está usando no seu código?</p>
+        
+<p class="title">Você sabe o que está usando no seu código?</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/voce-sabe-o-que-esta-usando-no-seu-codigo.md" title="source">
-    2015-07-28
-    </a>
-    
+Wanderley Caloni, 2015-07-28
 
 </p>
 
@@ -98,12 +97,12 @@
               <p>Quando se mexe com C++ em múltiplos fontes logo vem aquela bagunça do versionamento e do compartilhamento de código. LIBs, DLLs, COMs (de Component Object Model, da Microsoft). É difícil a partir de um binário saber quais os fontes envolvidos em sua construção, a não ser que você os amarre através de um sistema automatizado de build onde todos os binários devem ser obrigatoriamente compilados (e suas dependências, claro).</p>
 <p>Porém, há maneiras mais descentralizadas de se trabalhar. Alguém poderia simplesmente colocar a versão em cada CPP e atualizá-la, assim como comentários de histórico, toda vez que alguma mudança for feita:</p>
 <p>OK, esse já é um modelo interessante, embora totalmente descartável se você já usa um sistema de build atrelado a um controle de fonte, já que você automaticamente já terá um número mágico para relacionar seus binários: o revno de seu commit (ou seus commits, no caso de mais de um repositório).</p>
-<p>Uma versão um pouco mais&hellip; &ldquo;binária&rdquo;, seria inserir uma string no próprio fonte com essa versão, e talvez até o nome de seu módulo/lib/etc:</p>
-<p>static const char* LIBVERSION = &ldquo;minhalib 0.0.1&rdquo;;</p>
+<p>Uma versão um pouco mais... &quot;binária&quot;, seria inserir uma string no próprio fonte com essa versão, e talvez até o nome de seu módulo/lib/etc:</p>
+<p>static const char* LIBVERSION = &quot;minhalib 0.0.1&quot;;</p>
 <p>Dessa forma, por pior que seja a situação do controle de seus binários, sempre haverá a possibilidade de procurar a string lá dentro.</p>
 <p>Ops, esqueci que nesses compiladores modernos o que você não usa não será incluído no binário final. Isso quer dizer que se quisermos que essas strings de identificação de dependências apareça no binário compilado precisamos pelo menos dar a impressão de que ele esteja sendo usado:</p>
 <p>Agora uma variável estática do módulo deverá ser inicializada como um objeto da classe Using e irá jogar em uma variável estática dentro do construtor. Se ela será usada fica a dúvida do compilador, que deixa tudo como está. Ou seja, ganhamos nossa string no binário:</p>
-<p>Uma solução mais genérica pode ser aplicada utilizando as famigeradas macros e&hellip;</p>
+<p>Uma solução mais genérica pode ser aplicada utilizando as famigeradas macros e...</p>
 <p>O quê?!?!?!??! VOCÊ DISSE MACROS?!???!? TÁ MALUCO??!??!</p>
 <p>Sim. Macros. São inofensivas se você usar direito.</p>
 <p>E se reclamar vai ter goto.</p>
@@ -125,8 +124,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/south-park/">South Park &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/existem-programadores-ccpp-no-rio-de-janeiro/">&#129092; Existem programadores C/C&#43;&#43; no Rio de Janeiro?</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/south-park/">South Park &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/existem-programadores-ccpp-no-rio-de-janeiro/">&#x25C1; Existem programadores C/C&#43;&#43; no Rio de Janeiro?</a></span>
 
         </div>
 

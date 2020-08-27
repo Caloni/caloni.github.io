@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Como estou trabalhando com o Bazaar</p>
+        
+<p class="title">Como estou trabalhando com o Bazaar</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/como-estou-trabalhando-com-o-bazaar.md" title="source">
-    2008-06-24
-    </a>
-    
+Wanderley Caloni, 2008-06-24
 
 </p>
 
@@ -111,18 +110,18 @@
 <p>Se estiver tudo certo, ao iniciar o serviço o Bazaar passará a ficar escutando e pronto para fazer commits e branches.</p>
 <p>Agora qualquer usuário da rede consegue fazer updates e commits. Um desenvolvedor novo faria o seguinte comando:</p>
 <p>Note que o usuário do Bazaar não é obrigado a criar um repositório compartilhado. Esse foi um padrão definido aqui e não necessariamente é o melhor.</p>
-<p>O Bazaar por ser muito flexível entra naquela categoria de &ldquo;Difícil de acertar a maneira certa de utilizar&rdquo;. Bom, mais ou menos. Eu sinceramente não acho que exista uma maneira errada de usar o Bazaar, mas vamos ver as maneiras mais comuns, que não são exclusivas entre si.</p>
+<p>O Bazaar por ser muito flexível entra naquela categoria de &quot;Difícil de acertar a maneira certa de utilizar&quot;. Bom, mais ou menos. Eu sinceramente não acho que exista uma maneira errada de usar o Bazaar, mas vamos ver as maneiras mais comuns, que não são exclusivas entre si.</p>
 <p>É aquele que prefere fazer tudo localmente e só depois, bem depois, mandar seus commits para o servidor. Nesse caso o comando para começar a programar é branch.</p>
 <p>Nesse esquema o servidor e a máquina do desenvolvedor não trocam idéia se ele não quiser. Quando quiser, pode usar os comandos push, pull e merge. O push coloca coisas novas no servidor; o pull puxa coisas novas do servidor, e o merge é necessário quando existem conflitos entre as mudanças no fonte. Mais sobre conflitos em um futuro artigo.</p>
 <p>É o cara que quer sempre atualizar todas as modificações que ele faz imediatamente colocadas no servidor. Tudo bem. É só trabalhar no modo Source Safe (ou Subversion) com o comando checkout:</p>
-<p>Um checkout funciona como o branch, só que faz um bind (ligação) com o servidor. O que quer dizer que qualquer commit feito localmente irá parar imediatamente também no servidor, a não ser que seja usado o parâmetro &ndash;local.</p>
+<p>Um checkout funciona como o branch, só que faz um bind (ligação) com o servidor. O que quer dizer que qualquer commit feito localmente irá parar imediatamente também no servidor, a não ser que seja usado o parâmetro --local.</p>
 <p>O modo checkout permite usar o comando update para ver se existem mudanças entre a máquina local e o servidor, diferente do modo standalone, onde o update apenas compara com o branch local e o diretório de trabalho.</p>
 <p>Como eu havia dito, uma coisa não exclui outra. Se você está trabalhando em um branch e deseja se conectar ao servidor para atualizar mudanças, basta usar o comando bind.</p>
 <p>O branch começará a trabalhar como um checkout.</p>
 <p>O contrário, que é fazer um checkout ficar desconectado é conseguido pelo comando unbind.</p>
 <p>Todos os novos commits serão feitos apenas localmente.</p>
 <p>Esses esquemas de conectado e desconectado podem ser usados no modo cliente x servidor ou tudo em uma máquina só. Por exemplo, uma série de mudanças em um projeto pode ser feito em um outro branch desconectado:</p>
-<p>Os commits de &ldquo;novo-branch&rdquo; não serão replicados para o branch &ldquo;projeto&rdquo;.</p>
+<p>Os commits de &quot;novo-branch&quot; não serão replicados para o branch &quot;projeto&quot;.</p>
 <p>No entanto, se é uma série de mudanças que devem ser colocadas imediatamente no branch principal, pode-se usar checkout.</p>
 <p>Existem diversas outras formas de usar o Bazaar, e isso está sob o controle do desenvolvedor. O importante para quem está migrando é saber definir alguns padrões (onde é o servidor principal, ramificação dos projetos) e o resto é só programar, exatamente como antes.</p>
 <!-- raw HTML omitted -->
@@ -141,8 +140,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/primeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen/">Primeiros passos na documentação de código-fonte usando Doxygen &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/e-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo/">&#129092; É possível carregar duas DLLs gêmeas no mesmo processo?</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/primeiros-passos-na-documentacao-de-codigo-fonte-usando-doxygen/">Primeiros passos na documentação de código-fonte usando Doxygen &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/e-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo/">&#x25C1; É possível carregar duas DLLs gêmeas no mesmo processo?</a></span>
 
         </div>
 

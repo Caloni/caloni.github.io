@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Estruturas VS Classes: fight!</p>
+        
+<p class="title">Estruturas VS Classes: fight!</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/estruturas-vs-classes-fight.md" title="source">
-    2014-05-20
-    </a>
-    
+Wanderley Caloni, 2014-05-20
 
 </p>
 
@@ -95,13 +94,13 @@
         
           <div class="content">
             
-              <p>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &ldquo;ficar bonito&rdquo;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</p>
+              <p>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &quot;ficar bonito&quot;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</p>
 <p>Ele compila e roda sem problemas:</p>
-<p>&ldquo;Estruturalmente&rdquo; falando, MinhaEstrutura e MinhaClasse são idênticas, pois são os detalhes de sintaxe que diferem, e diferem pouco. Abrindo o jogo, a única diferença que poderá ser sentida em usar um ou outro é que structs possuem seus membros públicos por padrão e classes possuem seus membros privados por padrão. Apenas isso. O resto, nada muda.</p>
+<p>&quot;Estruturalmente&quot; falando, MinhaEstrutura e MinhaClasse são idênticas, pois são os detalhes de sintaxe que diferem, e diferem pouco. Abrindo o jogo, a única diferença que poderá ser sentida em usar um ou outro é que structs possuem seus membros públicos por padrão e classes possuem seus membros privados por padrão. Apenas isso. O resto, nada muda.</p>
 <p>Isso pode ser visto quando adicionamos um construtor para nossos tipos de teste:</p>
 <p>Antes não havia problemas para MinhaClasse porque o construtor padrão criado para ela é público por default. Porém, explicitando no código um construtor e deixando sua privacidade ligada por padrão temos esse erro que NÃO ocorre em MinhaEstrutura.</p>
 <p>Mas, então, posso criar todas minhas classes usando a palavra-chave struct?</p>
-<p>Isso mesmo! Nada lhe obriga tecnicamente a usar class. Porém, assim como nada lhe obriga a usar uma linha para cada comando na linguagem ¿ afinal, todos poderiam estar na mesma linha separados por ponto-e-vírgula ¿ o uso da palavra struct para classes no sentido de &ldquo;objetos que possuem inteligência, métodos, herança, polimorfismo e outras firulas&rdquo; não se enquadra nas boas práticas dos programadores C++.</p>
+<p>Isso mesmo! Nada lhe obriga tecnicamente a usar class. Porém, assim como nada lhe obriga a usar uma linha para cada comando na linguagem ¿ afinal, todos poderiam estar na mesma linha separados por ponto-e-vírgula ¿ o uso da palavra struct para classes no sentido de &quot;objetos que possuem inteligência, métodos, herança, polimorfismo e outras firulas&quot; não se enquadra nas boas práticas dos programadores C++.</p>
 <p>Geralmente uma struct é uma forma de concatenar tipos primitivos e só. Algumas liberdades além disso geralmente são permitidas, mas desencorajadas, como um construtor que inicia os membros da struct com valores-default.</p>
 <p>E, por que não, uma sobrecarga do operador de stream para imprimirmos diretamente os valores de MinhaEstrutura para a saída com apenas um comando?</p>
 <p>Enfim, não há nenhum limite que se aplica à uma struct além do bom senso. A criação da palavra class não foi por falta do que fazer. Ela diz claramente que estamos definindo um objeto que contém usos mais adequados à orientação a objetos de C++ do que a programação estruturada de C, e vice-versa. É uma forma de tornar o código mais legível, mas nada do outro mundo. Sabemos, no final das contas, que o compilador trata as duas (quase) da mesma maneira.</p>
@@ -122,8 +121,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/trainspotting-sem-limites/">Trainspotting Sem Limites &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/manhattan/">&#129092; Manhattan</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/trainspotting-sem-limites/">Trainspotting Sem Limites &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/manhattan/">&#x25C1; Manhattan</a></span>
 
         </div>
 

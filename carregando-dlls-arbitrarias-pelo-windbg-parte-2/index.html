@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Carregando DLLs arbitrárias pelo WinDbg - parte 2</p>
+        
+<p class="title">Carregando DLLs arbitrárias pelo WinDbg - parte 2</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/carregando-dlls-arbitrarias-pelo-windbg-parte-2.md" title="source">
-    2007-11-27
-    </a>
-    
+Wanderley Caloni, 2007-11-27
 
 </p>
 
@@ -106,25 +105,25 @@
 <li>$$&gt;&lt;nome-do-arquivo - permite espaços e não condensa comandos.</li>
 <li>$$&gt;a&lt;nome-do-arquivo - igual ao anterior, e ainda permite passar argumentos.</li>
 </ul>
-<p>OBS: a ajuda do WinDbg descreve as diferenças dos comandos acima de forma adversa, afirmando que os comandos &lsquo;&lt;&rsquo;  não condensam as linhas e os &lsquo;&gt;&lt;&rsquo; o fazem, quando na realidade é o contrário. Não se deixe enganar por esse detalhe.</p>
+<p>OBS: a ajuda do WinDbg descreve as diferenças dos comandos acima de forma adversa, afirmando que os comandos '&lt;'  não condensam as linhas e os '&gt;&lt;' o fazem, quando na realidade é o contrário. Não se deixe enganar por esse detalhe.</p>
 <p>No caso do script desse artigo, utilizaremos a última forma, pois precisamos de um argumento para funcionar: o nome da DLL. Caso você não digite esse argumento, a ajuda do script será impressa:</p>
-<p>Não há qualquer dificuldade. Tudo que você tem que fazer é baixar o script que carrega DLLs e salvá-lo em um lugar de sua preferência. Depois é só digitar o comando que carrega scripts, o path de nosso script e o nome da DLL a ser carregada em uma das três formas exibidas. Eu costumo criar uma pasta chamada &ldquo;scripts&rdquo; dentro do diretório de instalação do Debugging Tools, o que quer dizer que posso simplesmente chamar todos meus scripts (ou seja, 1) dessa maneira:</p>
+<p>Não há qualquer dificuldade. Tudo que você tem que fazer é baixar o script que carrega DLLs e salvá-lo em um lugar de sua preferência. Depois é só digitar o comando que carrega scripts, o path de nosso script e o nome da DLL a ser carregada em uma das três formas exibidas. Eu costumo criar uma pasta chamada &quot;scripts&quot; dentro do diretório de instalação do Debugging Tools, o que quer dizer que posso simplesmente chamar todos meus scripts (ou seja, 1) dessa maneira:</p>
 <p>Abaixo um pequeno teste que fiz carregando a DLL do Direct Draw (ddraw.dll) na nossa vítima de plantão:</p>
 <p>Simples e indolor.</p>
 <p>Vamos agora dar uma olhada no script completo e dissecar as linhas pausadamente. Dessa forma entenderemos como a função inteira funciona e como usar os comandos isoladamente para criar novos scripts.</p>
 <p>Como podemos ver, ele é um pouco grandinho. Por isso mesmo que ele é um script, já que não precisamos, sempre que formos usar este comando, ficar olhando para o fonte.</p>
 <p>Por falar em olhar, uma primeira olhada revela a seguinte estrutura:</p>
 <p>Qualquer semelhança com as instruções em C não é mera coincidência. Essa estrutura de fato verifica se o resultado dentro do .if é verdadeiro. No caso o script verifica se o primeiro parâmetro foi passado, já que os argumentos são acessíveis através dos alias (apelidos) $arg1 - $argn. Essa maneira de usar os argumentos passados no WinDbg ainda não foi documentada, mas encontrei essa dica em um artigo do Roberto Farah, um grande escritor de scripts para o WinDbg.</p>
-<p>Da mesma forma, o que não deve ser nenhuma surpresa, o WinDbg suporta comentários. Todas as linhas que contêm &lsquo;$$&rsquo; isoladamente são comentários, e seu conteúdo da direita é ignorado, salvo se for encontrado um ponto-e-vírgula.</p>
+<p>Da mesma forma, o que não deve ser nenhuma surpresa, o WinDbg suporta comentários. Todas as linhas que contêm '$$' isoladamente são comentários, e seu conteúdo da direita é ignorado, salvo se for encontrado um ponto-e-vírgula.</p>
 <p>A primeira coisa que fazemos para carregar a DLL é salvar o estado do registrador IP, que indica onde está a próxima instrução:</p>
 <p>Feito isso, usamos um comando não tão comum, mas que pode ser muito útil nos casos em que precisamos capturar algum dado da saída de um comando do WinDbg e usá-lo em outro comando.</p>
 <p>A estrutura do .foreach deixa o usuário especificar dois grupos de comandos: o primeiro grupo irá gerar uma saída que pode ser aproveitada no segundo grupo.</p>
-<p>A opção &ldquo;/pS 5&rdquo; diz ao comando para pular 5 posições antes de capturar o token que será usado no próximo comando. Os tokens são divididos por espaço. Sendo a saída de &ldquo;.dvalloc 0x1000&rdquo;</p>
+<p>A opção &quot;/pS 5&quot; diz ao comando para pular 5 posições antes de capturar o token que será usado no próximo comando. Os tokens são divididos por espaço. Sendo a saída de &quot;.dvalloc 0x1000&quot;</p>
 <p>Pulando 5 posições iremos capturar o endereço onde a memória foi alocada. E é isso mesmo que queremos!</p>
-<p>O sinônimo do endereço (alias) se torna &ldquo;addr&rdquo;, apelido que usamos ao executar o segundo comando, que armazena o endereço no registrador temporário $t0:</p>
+<p>O sinônimo do endereço (alias) se torna &quot;addr&quot;, apelido que usamos ao executar o segundo comando, que armazena o endereço no registrador temporário $t0:</p>
 <p>Após alocada a memória, gravamos o parâmetro de LoadLibrary, o path da DLL a ser carregada, em seu início.</p>
 <p>O código assembly que irá chamar fica um ponto à frente, mas na mesma memória alocada.</p>
-<p>Conforme as técnicas vão cada vez ficando mais &ldquo;não-usuais&rdquo;, mais difícil fica achar um nome para a coisa. Essa técnica de escrever o assembly de um código através de escritas em hexadecimal dentro de um script do WinDbg eu chamei de &ldquo;script assembly&rdquo;. Se tiver um nome melhor, não se acanhe em usá-lo. E me deixe saber =).</p>
+<p>Conforme as técnicas vão cada vez ficando mais &quot;não-usuais&quot;, mais difícil fica achar um nome para a coisa. Essa técnica de escrever o assembly de um código através de escritas em hexadecimal dentro de um script do WinDbg eu chamei de &quot;script assembly&quot;. Se tiver um nome melhor, não se acanhe em usá-lo. E me deixe saber =).</p>
 <p>Cada comentário de uma instrução em assembly é seguido pela escrita dessa instrução usando o comando e. Se trata de um código bem trivial, fora alguns detalhes que merecem mais atenção.</p>
 <p>Os comandos acima servem para salvar e restaurar o estado dos registradores e das flags de execução. Isso permite que possamos executar o código virtualmente em qualquer posição que pararmos no código depurado, já que retornamos tudo como estava ao final da execução do LoadLibrary. É claro que isso não garante que o código estará 100% estável em todas as condições, mas já ajuda um bocado.</p>
 <p>Uma chamada através do opcode call (código em hexa 0xe80c) é bem comum e se trata de uma chamada relativa, baseada no estado do Instruction Pointer atual mais o valor especificado. Por isso mesmo que fazemos o cálculo usando o endereço de onde será escrita a próxima instrução, que é o valor que teremos em IP quando este call for executado:</p>
@@ -148,8 +147,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/desenhando-em-c-builder/">Desenhando em C&#43;&#43; Builder &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg/">&#129092; Carregando DLLs arbitrárias pelo WinDbg</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/desenhando-em-c-builder/">Desenhando em C&#43;&#43; Builder &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg/">&#x25C1; Carregando DLLs arbitrárias pelo WinDbg</a></span>
 
         </div>
 

@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Process Monitor e o monopólio malcriado</p>
+        
+<p class="title">Process Monitor e o monopólio malcriado</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/process-monitor-e-o-monopolio-malcriado.md" title="source">
-    2008-02-05
-    </a>
-    
+Wanderley Caloni, 2008-02-05
 
 </p>
 
@@ -100,7 +99,7 @@
 <p>Mau garoto. Bons tempos em que quando um jogo travava o máximo que tínhamos que fazer era apertar um botão.</p>
 <p>Para encontrar problemas desse tipo, sempre uso o Process Monitor, que tem virado minha ferramenta básica para muitas coisas. Para os que não conhecem, o Process Monitor é uma ferramenta de auditoria de operações no sistema operacional, ou seja, tudo que alguém ler e escrever em arquivos e no registro será logado.</p>
 <p>Sua função é mostrar tudo, absolutamente tudo que o sistema está fazendo em um determinado espaço no tempo. Isso pode ser ruim por um lado, já que será bem difícil encontrar alguma informação útil no meio de tanto lixo que pode ser gerado em um log de poucos momentos. Para ter uma idéia do que eu estou falando, tente abrir o Procmon sem qualquer filtro e deixá-lo rodando por 30 segundos sem fazer nada. No meu sistema, isso deu aproximadamente 20 000 linhas de eventos de log. Nada mau para um sistema ocioso.</p>
-<p>É por isso que ele vem &ldquo;de fábrica&rdquo; já com uma série de filtros, que evitam lotar o log de eventos com informação sempre gerada pelo sistema, mas quase sempre inútil. Além dos filtros-padrão, podemos inserir nossos próprios filtros. É isso que faremos aqui para pegar o monopólio malcriado (sem trocadilhos).</p>
+<p>É por isso que ele vem &quot;de fábrica&quot; já com uma série de filtros, que evitam lotar o log de eventos com informação sempre gerada pelo sistema, mas quase sempre inútil. Além dos filtros-padrão, podemos inserir nossos próprios filtros. É isso que faremos aqui para pegar o monopólio malcriado (sem trocadilhos).</p>
 <p>Como podemos ver, iremos mostrar em nosso log todos os eventos cujo nome do processo seja monopolyclassic.exe (o nosso amigo faltoso) e iremos excluir do log qualquer evento cujo resultado tenha sido sucesso (se deu certo, provavelmente não é um erro).</p>
 <p>Executamos novamente o jogo, dessa vez com o Process Monitor capturando todos seus movimentos.</p>
 <p>Agora, uma pequena ressalva: eu estou cansado de ver isso, mas para quem nunca viu, pode não ser tão óbvio. Como eu disse no início do artigo, programas mal-escritos costumam tentar acessar áreas do sistema que não são acessíveis para usuários comuns. Isso quer dizer que, se o problema que está acontecendo com o jogo tem a ver com essa peculiaridade, a primeira coisa a procurar é por erros de acesso negado.</p>
@@ -125,8 +124,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/">Silly regex trick: finding the project who failed inside a big VS solution &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo-v2/">&#129092; Compartilhando variáveis com o mundo v2</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/">Silly regex trick: finding the project who failed inside a big VS solution &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo-v2/">&#x25C1; Compartilhando variáveis com o mundo v2</a></span>
 
         </div>
 

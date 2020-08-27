@@ -72,7 +72,7 @@ Para realizar esta operação será necessário usar as seguintes ferramentas:
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-windows/</guid>
   <description>Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.
-Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;ldquo;flow&amp;rdquo;, ou estar na zona. Agora é a vez do Windows.</description>
+Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;quot;flow&amp;quot;, ou estar na zona. Agora é a vez do Windows.</description>
 </item>
 
      
@@ -92,7 +92,7 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2017-01-05</pubDate>
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
-  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;ldquo;zona&amp;rdquo;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
+  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
 </item>
 
      
@@ -112,7 +112,7 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2016-09-18</pubDate>
   
   <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
-  <description>A vida dos programadores C/C++ Windows &amp;ndash; e que geralmente precisam do Visual Studio &amp;ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
+  <description>A vida dos programadores C/C++ Windows -- e que geralmente precisam do Visual Studio -- está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
 </item>
 
      
@@ -166,7 +166,7 @@ Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora d
   <pubDate>2013-04-01</pubDate>
   
   <guid>http://www.caloni.com.br/depuracao-na-nuvem/</guid>
-  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;ldquo;na nuvem&amp;rdquo;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
+  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;quot;na nuvem&amp;quot;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
 Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software.</description>
 </item>
 
@@ -178,7 +178,7 @@ Já é conhecido que será possível inserir comentários no código-fonte com o
   
   <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
   <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
-A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should not try to learn every command an editor offers.</description>
+A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers.</description>
 </item>
 
      
@@ -265,7 +265,7 @@ Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui 
   <pubDate>2009-02-10</pubDate>
   
   <guid>http://www.caloni.com.br/windbginfo/</guid>
-  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;ldquo;WinDbg. From A to Z&amp;rdquo;.
+  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;quot;WinDbg. From A to Z&amp;quot;.
 Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)</description>
 </item>
 
@@ -277,7 +277,7 @@ Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua
   
   <guid>http://www.caloni.com.br/virtualbox/</guid>
   <description>O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.
-Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;ldquo;seamless mode&amp;rdquo; - , que estará integrado na versão 7 da VMWare.</description>
+Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;quot;seamless mode&amp;quot; - , que estará integrado na versão 7 da VMWare.</description>
 </item>
 
      
@@ -322,7 +322,7 @@ O Launchpad nada mais é do que um lugar onde é possível publicar seus projeto
   
   <guid>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</guid>
   <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
-Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;ldquo;urgentes&amp;rdquo;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
+Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;quot;urgentes&amp;quot;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
 Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.</description>
 </item>
 
@@ -333,7 +333,7 @@ Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar n�
   <pubDate>2008-04-09</pubDate>
   
   <guid>http://www.caloni.com.br/linux-e-o-dhcp/</guid>
-  <description>Quando procuramos no google por &amp;ldquo;linux dhcp&amp;rdquo;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
+  <description>Quando procuramos no google por &amp;quot;linux dhcp&amp;quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
 Muito bem. E a outra ponta da história?
 [Testes feitos em um Fedora 8, não me pergunte mais detalhes]
 O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network.</description>

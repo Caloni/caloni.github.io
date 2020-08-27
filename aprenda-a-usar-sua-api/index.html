@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Aprenda a usar sua API</p>
+        
+<p class="title">Aprenda a usar sua API</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/aprenda-a-usar-sua-api.md" title="source">
-    2008-07-22
-    </a>
-    
+Wanderley Caloni, 2008-07-22
 
 </p>
 
@@ -103,7 +102,7 @@
 <p>É fato que a maioria das funções que retornam handles retornam NULL para indicar o erro na tentativa de obter o recurso. Ao comparar o retorno com NULL, o programador geralmente faz uma chamada a GetLastError.aspx) para saber o que aconteceu. No entanto, uma das funções mais usadas, a CreateFile, não retorna NULL, mas INVALIDHANDLEVALUE.</p>
 <p>Sendo assim, o código acima deveria ser:</p>
 <p>Taí uma função que muitos erraram. Erraram tanto que eles fizeram uma nova versão menos complicada. Como está escrito no MSDN.aspx):</p>
-<p>&ldquo;The GetVersionEx function was developed because many existing applications err when examining the packed DWORD value returned by GetVersion, transposing the major and minor version numbers.&rdquo;</p>
+<p>&quot;The GetVersionEx function was developed because many existing applications err when examining the packed DWORD value returned by GetVersion, transposing the major and minor version numbers.&quot;</p>
 <p>O motivo de tantos erro pode ter sido o fato que o valor retornado é uma estrutura de bits dentro de um DWORD, coisa que nem todos programadores C sabem lidar muito bem, e o fato de ser uma função muito utilizada por todos (pegar a versão do sistema operacional).</p>
 <p>Eis a tabela de campos do retorno de GetVersion:</p>
 <p>Mesmo que não seja tão difícil, pode ser ambíguo. Por exemplo, como saber se o Windows é 95, 98 ou ME?</p>
@@ -140,8 +139,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/entrevista-com-o-caloni-no-do-zero-ao-mestre/">Entrevista com o Caloni no &#39;Do ZERO ao MESTRE&#39; &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/">&#129092; O conhecido unresolved external</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/entrevista-com-o-caloni-no-do-zero-ao-mestre/">Entrevista com o Caloni no &#39;Do ZERO ao MESTRE&#39; &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/">&#x25C1; O conhecido unresolved external</a></span>
 
         </div>
 

@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Como tratar um merge no Bazaar</p>
+        
+<p class="title">Como tratar um merge no Bazaar</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/como-tratar-um-merge-no-bazaar.md" title="source">
-    2008-05-09
-    </a>
-    
+Wanderley Caloni, 2008-05-09
 
 </p>
 
@@ -103,11 +102,11 @@
 <p>Em vermelho podemos notar as linhas alteradas. Uma mudança diferente foi feita para o bug do buffer overflow, em seu branch correspondente:</p>
 <p>Agora só temos que juntar ambas as mudanças no branch principal.</p>
 <p>Com toda razão, pensa o programador que está corrigindo o bug da quebra de linha, olhando sorrateiramente a função do meio, intocada, DoAnotherJob.</p>
-<p>Então ele resolve fazer um pequeno fix &ldquo;de brinde&rdquo;, desconhecendo que mais alguém andou alterando essas linhas:</p>
+<p>Então ele resolve fazer um pequeno fix &quot;de brinde&quot;, desconhecendo que mais alguém andou alterando essas linhas:</p>
 <p>Pronto. Um fonte politicamente correto! E que vai causar um conflito ao juntar essa galera. Vamos ver na seqüência:</p>
 <p>Ops. Algo deu errado no segundo pull. O Bazaar nos diz que os branches estão diferentes, e que termos que usar o comando merge no lugar.</p>
 <p>Usamos merge no lugar do pull e ganhamos agora um conflito no arquivo bzppilot.cpp, nosso único arquivo. Vamos ver a bagunça que fizemos?</p>
-<p>A última coisa que um controle de fonte quer fazer é confundir ou chatear o usuário. Por isso mesmo, a maioria dos conflitos que o Bazaar encontrar nos fontes serão resolvidos usando o algoritmo &ldquo;se só um mexeu, então coloca a mudança&rdquo;. A tabela do guia do usuário ilustra esse algoritmo em possibilidades:</p>
+<p>A última coisa que um controle de fonte quer fazer é confundir ou chatear o usuário. Por isso mesmo, a maioria dos conflitos que o Bazaar encontrar nos fontes serão resolvidos usando o algoritmo &quot;se só um mexeu, então coloca a mudança&quot;. A tabela do guia do usuário ilustra esse algoritmo em possibilidades:</p>
 <p>conflito!!!</p>
 <p>O ancestral é a última modificação em comum dos dois branches que estamos fazendo merge. Do ancestral pra frente cada um seguiu seu caminho, podendo existir quantas modificações quisermos.</p>
 <p>Como podemos ver, o conflito só ocorre se ambos os usuário mexerem na mesma parte do código ao mesmo tempo. Eu disse na mesma parte do código, e não apenas no mesmo arquivo. Isso porque se a mudança for feita no mesmo arquivo, porém em locais diferentes, o conflito é resolvido automaticamente.</p>
@@ -137,8 +136,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/kernel-mode-user-mode/">Kernel Mode &gt;&gt; User Mode &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/read-the-functional-manual/">&#129092; Read The Functional Manual</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/kernel-mode-user-mode/">Kernel Mode &gt;&gt; User Mode &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/read-the-functional-manual/">&#x25C1; Read The Functional Manual</a></span>
 
         </div>
 

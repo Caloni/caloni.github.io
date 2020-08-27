@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Debug da BIOS com o SoftIce 16 bits</p>
+        
+<p class="title">Debug da BIOS com o SoftIce 16 bits</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/debug-da-bios-com-o-softice-16-bits.md" title="source">
-    2007-10-02
-    </a>
-    
+Wanderley Caloni, 2007-10-02
 
 </p>
 
@@ -107,7 +106,7 @@
 <li>Execute o SoftIce (é só rodar, ele permanece residente e é ativado com Ctrl + D).</li>
 <li>Coloque um <em>breakpoint</em> na int 0x13 (disco) na função 2 (leitura) (faz-se assim: bpint 13 ah=2).</li>
 <li>Troque o disquete do Softice pelo disquete com o setor de <em>boot</em> do artigo do CP.</li>
-<li>Efetue novamente o <em>boot</em> na máquina em modo &ldquo;quente&rdquo; (usando o próprio SoftIce, comando boot).</li>
+<li>Efetue novamente o <em>boot</em> na máquina em modo &quot;quente&quot; (usando o próprio SoftIce, comando boot).</li>
 <li>A execução deve ser paralisada exatamente no ponto onde o código da BIOS lê o setor de boot do seu disquete.</li>
 <li>Digite p ret e em seguida F10 ou T e seja feliz.</li>
 </ol>
@@ -119,11 +118,11 @@
 <li>Entregar a execução para o código em 0x7C00.</li>
 </ol>
 <p>O item 2 é justamente o que utiliza essa interrupção para ler do disco. Eu prefiri colocar o breakpoint no item 2, mas nada impediria de você colocá-lo no item 3 e já iniciar a depuração no código do boot loader. Mas, como eu já passei por problemas encontrados no código da BIOS que impediam o sistema de entregar a execução para o setor de boot, já dei a dica de lambuja caso você também tenha a oportunidade de se divertir em um cliente depurando a BIOS de algum laptop desajustado.</p>
-<p>Pela imagem acima sabemos que após o boot foi executada a interrupção 0x13, função 2 e que se trata de leitura em disquete, pois o conteúdo do registrador DL está em 0 (veja a referência das interrupções da BIOS em Ralf Brown&rsquo;s Interrupt List).</p>
-<p>É mais ou menos o step out do SoftIce 32. Ou seja, ele avança a execução até a função retornar. No caso do SoftIce 16, ele irá avançar até o próximo ret/iret. Por isso que também precisamos executar a próxima instrução (o próprio ret) para cair onde queremos. É nesse ponto que o &ldquo;nosso&rdquo; código começa a executar e onde conseguimos colocar breakpoints &ldquo;de verdade&rdquo; (lembre-se que o código da BIOS está em uma memória de somente leitura, pelo menos durante a execução).</p>
+<p>Pela imagem acima sabemos que após o boot foi executada a interrupção 0x13, função 2 e que se trata de leitura em disquete, pois o conteúdo do registrador DL está em 0 (veja a referência das interrupções da BIOS em Ralf Brown's Interrupt List).</p>
+<p>É mais ou menos o step out do SoftIce 32. Ou seja, ele avança a execução até a função retornar. No caso do SoftIce 16, ele irá avançar até o próximo ret/iret. Por isso que também precisamos executar a próxima instrução (o próprio ret) para cair onde queremos. É nesse ponto que o &quot;nosso&quot; código começa a executar e onde conseguimos colocar breakpoints &quot;de verdade&quot; (lembre-se que o código da BIOS está em uma memória de somente leitura, pelo menos durante a execução).</p>
 <ul>
 <li>Building your own operating system - ShalomZ</li>
-<li>Ralf Brown&rsquo;s Interrupt List</li>
+<li>Ralf Brown's Interrupt List</li>
 <li>Gerenciamento de memória 386 - Daniel Quadros</li>
 </ul>
 
@@ -141,8 +140,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/cronograma/">Cronogramas &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/developer-you-need-to-know-english/">&#129092; Developer: you need to know English!</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/cronograma/">Cronogramas &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/developer-you-need-to-know-english/">&#x25C1; Developer: you need to know English!</a></span>
 
         </div>
 

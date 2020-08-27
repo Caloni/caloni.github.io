@@ -63,7 +63,7 @@ O objetivo da FormatMessage é formatar uma string,..."/>
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ O objetivo da FormatMessage é formatar uma string,..."/>
 
       
       <div class="container">
-        <p class="title">FormatMessage para... dumies?</p>
+        
+<p class="title">FormatMessage para... dumies?</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/formatmessage-para-dumies.md" title="source">
-    2010-10-26
-    </a>
-    
+Wanderley Caloni, 2010-10-26
 
 </p>
 
@@ -120,7 +119,7 @@ O objetivo da FormatMessage é formatar uma string,..."/>
 <p>Por outro lado, se o buffer for nosso, então seu tamanho deve ser especificado no próximo argumento, nSize.</p>
 <p>Só que nem o parâmetro que especifica o tamanho do buffer é simples, assim. Se for especificado a flag FORMATMESSAGEALLOCATEBUFFER, em vez de não fazer sentido esse argumento, ele significa o número MÍNIMO de caracteres que devem ser alocados, independente do tamanho da mensagem.</p>
 <p>Obs.: Lembre-se que são caracteres, e não bytes. Se estivermos programando em UNICODE o número de bytes dobra.</p>
-<p>Essa seria uma lista simples de argumentos valist que, para quem já fez funções ao estilo printf sabe muito bem usar. A lógica da função determina que os valores &ldquo;%1&rdquo;, &ldquo;%2&rdquo; e assim por diante dentro da definição de mensagem sejam trocados por estes argumentos.</p>
+<p>Essa seria uma lista simples de argumentos valist que, para quem já fez funções ao estilo printf sabe muito bem usar. A lógica da função determina que os valores &quot;%1&quot;, &quot;%2&quot; e assim por diante dentro da definição de mensagem sejam trocados por estes argumentos.</p>
 <p>Se eles são strings terminadas em nulo (interpretação padrão), inteiros ou estruturas específicas, isso vai depender da mensagem que está sendo formatada, o que é outro if a ser lembrado na hora de formatar mensagens do sistema.</p>
 <p>Também é importante lembrar que, uma vez chamada a função, o conteúdo de valist não pode ser usado novamente se não for reinicializado com vaend seguido de vastart.</p>
 <p>Agora, se todo esse negócio de vasbrubles é muito complicado pra você, é possível passar um array de DWORDPTRs com o uso da flag FORMATMESSAGEARGUMENTARRAY.</p>
@@ -129,11 +128,11 @@ O objetivo da FormatMessage é formatar uma string,..."/>
 <p>Pensou que acabaria por aqui? E qual o significado das sequências de escape dentro da mensagem-modelo? O formato básico para inserção de um argumento segue o padrão %n!format-string!.</p>
 <p>Onde n é o número que identifica o argumento, como já vimos, e format-string é um espaço reservado para identificarmos o tipo do argumento e como ele aparecerá na mensagem de saída.</p>
 <p>Existe uma longa explicação sobre o uso de controladores de largura e precisão da saída formatada e sua localização na lista de argumentos, cujo número irá depender se estamos usando valist ou array de DWORDPTRs, sendo que alguns problemas podem surgir se repetirmos esses números de inserção. Em dois momentos da explicação o artigo seja a sugerir que seja usada a função StringCchPrintf, primeiro por que FormatMessage não suporta formatação de ponto flutuantes, e segundo, porque, mesmo que seja possível formatar valores de 64 bits, seria mais fácil se você usasse outra função.</p>
-<p>Ainda existe um uso específico para &ldquo;%0&rdquo;, que é evitar quebra de linha durante a formatação da mensagem, inclusive no final. Esse uso entra em conflito com o nosso flag quando este determina um número máximo de caracteres por linha.</p>
-<p>Ainda existe &ldquo;de bônus&rdquo; outras strings para preencher limitações que o próprio printf possui, como %%, %t, etc.</p>
+<p>Ainda existe um uso específico para &quot;%0&quot;, que é evitar quebra de linha durante a formatação da mensagem, inclusive no final. Esse uso entra em conflito com o nosso flag quando este determina um número máximo de caracteres por linha.</p>
+<p>Ainda existe &quot;de bônus&quot; outras strings para preencher limitações que o próprio printf possui, como %%, %t, etc.</p>
 <p>Como os programadores habituados com ataques de stack overrun devem deduzir, uma mensagem-modelo mal intencionada pode conter sequências de inserção que não existem na formatação habitual, forçando o vazamento de bytes na string final, o que pode forçar ataques planejados. Como o próprio artigo diz, usar um código de erro arbitrário retornado por uma API qualquer e usar FormatMessage sem a flag FORMATMESSAGEIGNOREINSERTS pode levar a resultados desastrosos.</p>
 <p>Esse também é um bônus da MSDN, que te presenteia com exemplos de código tão fantasiosos quanto a própria função, veja o primeiro exemplo, por exemplo:</p>
-<p>Depois ele chega a reimplementar o exemplo usando valist, o que é muito interessante, mas&hellip; bom, deixa pra lá. Vamos fazer nosso próprio teste.</p>
+<p>Depois ele chega a reimplementar o exemplo usando valist, o que é muito interessante, mas... bom, deixa pra lá. Vamos fazer nosso próprio teste.</p>
 <p>Esse é o uso clássico: precisamos de uma descrição de um código de erro para o usuário; um código Win32. A chamada para esse tipo de uso pode ser encapsulada em uma função mais simples:</p>
 <p>Existem milhares de forma de usar essa função, como você deve ter percebido pelos parâmetros. Não seja tímido: se você conhece algum truquezinho esperto e quer compartilhar com os usuários da FormatMessage, essa é a hora!</p>
 
@@ -151,8 +150,8 @@ O objetivo da FormatMessage é formatar uma string,..."/>
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/broder/">Bróder &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/suecia-hoje/">&#129092; Suécia Hoje</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/broder/">Bróder &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/suecia-hoje/">&#x25C1; Suécia Hoje</a></span>
 
         </div>
 

@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">O caso da função de Delay Load desaparecida</p>
+        
+<p class="title">O caso da função de Delay Load desaparecida</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/o-caso-da-funcao-de-delay-load-desaparecida.md" title="source">
-    2008-07-16
-    </a>
-    
+Wanderley Caloni, 2008-07-16
 
 </p>
 
@@ -104,13 +103,13 @@
 <p>Mas nem tudo está perdido!</p>
 <p>Existe uma LIB no Visual Studio que serve para substituir a dependência estática de uma DLL pela verificação dinâmica da existência de suas funções quando, e se, for executada a função no programa.</p>
 <p>Essa LIB contém algumas funções-chave que o Visual Studio utiliza ser for usado o seguinte parâmetro de compilação:</p>
-<p>A função principal se chama &ldquo;delayLoadHelper@8&rdquo;, ou seja, é uma função com convenção de chamada WINAPI (stdcall) que recebe dois parâmetros.</p>
+<p>A função principal se chama &quot;delayLoadHelper@8&quot;, ou seja, é uma função com convenção de chamada WINAPI (stdcall) que recebe dois parâmetros.</p>
 <p>Isso costuma sempre funcionar, sendo que tive uma grande surpresa com os seguintes erros de compilação na versão do programa que deve ser executada em Windows 95:</p>
 <p>Isso, é claro, depois de ter checado e rechecado a existência da LIB de Delay Load na lista de LIBs a serem lincadas:</p>
 <p>Acontece que eu conheço algumas ferramentas que podem sempre me ajudar em situações de compilação e linque: Process Monitor e dumpbin.</p>
 <p>O Process Monitor pode ser usado para obter exatamente a localização da LIB que estamos tentando verificar:</p>
-<p>Após localizar o local, podemos listar seus símbolos, mais precisamente a função &ldquo;delayLoadHelper&rdquo;:</p>
-<p>A análise mostra que a função possui um &ldquo;2&rdquo; no final de seu nome, causando o erro de linque.</p>
+<p>Após localizar o local, podemos listar seus símbolos, mais precisamente a função &quot;delayLoadHelper&quot;:</p>
+<p>A análise mostra que a função possui um &quot;2&quot; no final de seu nome, causando o erro de linque.</p>
 <p>Essa função, pelo visto, tem mudado de nome desde o Visual C++ 6, o que fez com que LIBs mais novas não funcionassem com essa versão do Visual Studio.</p>
 <p>Para sanar o problema, existem duas coisas que podem ser feitas:</p>
 <ol>
@@ -137,8 +136,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/">O conhecido unresolved external &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/segunda-versao-do-houaiss2babylon/">&#129092; Segunda versão do Houaiss2Babylon</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/">O conhecido unresolved external &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/segunda-versao-do-houaiss2babylon/">&#x25C1; Segunda versão do Houaiss2Babylon</a></span>
 
         </div>
 

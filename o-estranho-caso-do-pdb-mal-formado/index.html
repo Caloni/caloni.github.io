@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">O Estranho Caso do PDB Mal-Aformado</p>
+        
+<p class="title">O Estranho Caso do PDB Mal-Aformado</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/o-estranho-caso-do-pdb-mal-formado.md" title="source">
-    2015-08-19
-    </a>
-    
+Wanderley Caloni, 2015-08-19
 
 </p>
 
@@ -95,21 +94,21 @@
         
           <div class="content">
             
-              <p>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft traria para o pessoal do &ldquo;baixo nível&rdquo; a mais nova novidade do verão: uma IDE lenta, bugada e&hellip; bonita?</p>
+              <p>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft traria para o pessoal do &quot;baixo nível&quot; a mais nova novidade do verão: uma IDE lenta, bugada e... bonita?</p>
 <p>Bem, para os que estavam acostumados com o Visual C++ 6.0, nada foi mais incômodo do que esperar carregar o programa de manhã para conseguir finalmente compilar. Ajustadas as expectativas, os projetos foram aos poucos migrados para aquela nova forma de configurar EXEs, DLLs, LIBs e OCXs.</p>
-<p>E eis que alguém, muito provavelmente eu mesmo, naquele momento de inspiração, criei a seguinte configuração para a geração dos PDBs, os símbolos para depurar programas no Windows. C/C++, Output File, Program Database File Name = &ldquo;$(IntDir)/$(ProjectName).pdb&rdquo;.</p>
-<p>Faz sentido, não? Afinal de contas, o PDB costuma ter o nome do projeto, e ele já está setado até em outro lugar para gerar com o mesmo nome. Nada de novo no front. Em Linker, Debugging, Generate Program Database File vemos &ldquo;$(OutDir&rdquo;$(ProjectName).pdb&rdquo;.</p>
-<p>Até aí tudo bem. Aliás, tudo ficou muito bem por estranhos 13 anos. Até que alguém decidiu migrar para o já não tão novo Visual Studio 2013, onde tudo correu muito bem por algumas horas&hellip; talvez 13. Até que a depuração de repente parou de funcionar.</p>
+<p>E eis que alguém, muito provavelmente eu mesmo, naquele momento de inspiração, criei a seguinte configuração para a geração dos PDBs, os símbolos para depurar programas no Windows. C/C++, Output File, Program Database File Name = &quot;$(IntDir)/$(ProjectName).pdb&quot;.</p>
+<p>Faz sentido, não? Afinal de contas, o PDB costuma ter o nome do projeto, e ele já está setado até em outro lugar para gerar com o mesmo nome. Nada de novo no front. Em Linker, Debugging, Generate Program Database File vemos &quot;$(OutDir&quot;$(ProjectName).pdb&quot;.</p>
+<p>Até aí tudo bem. Aliás, tudo ficou muito bem por estranhos 13 anos. Até que alguém decidiu migrar para o já não tão novo Visual Studio 2013, onde tudo correu muito bem por algumas horas... talvez 13. Até que a depuração de repente parou de funcionar.</p>
 <p>Será o benedito? Ou o co-piloto?</p>
-<p>Pesquisando nos fóruns da vida, antro dos desesperados, achei/lembrei de um comando muito útil no WinDbg que não apenas diz se os símbolos estão &ldquo;mismatch&rdquo;, ou seja, os símbolos ou o PDB não está combinando com o EXE, mas também por quê.</p>
+<p>Pesquisando nos fóruns da vida, antro dos desesperados, achei/lembrei de um comando muito útil no WinDbg que não apenas diz se os símbolos estão &quot;mismatch&quot;, ou seja, os símbolos ou o PDB não está combinando com o EXE, mas também por quê.</p>
 <p>Bom, para saber se está mismatch é aquela fórmula de bolo:</p>
 <p>Para saber o que está errado, o famigerado !IToldYouSo</p>
 <p>Mano, como assim?!?!? Eu acabei de compilar esse binário, eu já apaguei 15 vezes as pastas de Debug e Release, eu já rebootei mais do que o Windows me obriga a rebootar por causa das falhas de segurança.</p>
 <p>Pois, então, desesperançado, crio um projeto novo para comparar as configurações, e voltamos 13 anos atrás, naquele fatídico dia, e entendo por que o nome do PDB temporário não é igual. Bom, na verdade não entendo, mas intuo que tenha alguma relação:</p>
-<p>E, de fato. Solução? Copie as configurações usuais do &ldquo;novo&rdquo; Visual Studio comparando com o velho.</p>
-<p>Abaixo a chamada do suporte em inglês, se alguém achar o mesmo problema em algum fórum e quiser &ldquo;espalhar a palavra&rdquo;.</p>
+<p>E, de fato. Solução? Copie as configurações usuais do &quot;novo&quot; Visual Studio comparando com o velho.</p>
+<p>Abaixo a chamada do suporte em inglês, se alguém achar o mesmo problema em algum fórum e quiser &quot;espalhar a palavra&quot;.</p>
 <blockquote>
-<p>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &ldquo;right&rdquo; value can&rsquo;t be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one&rsquo;s problem as well =)
+<p>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &quot;right&quot; value can't be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one's problem as well =)
 Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da Intelitrader, e mesmo tendo já atualizado meu perfil MVP há anos, continuo sendo funcionário da UOL Diveo/Broker =/</p>
 </blockquote>
 
@@ -127,8 +126,8 @@ Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da 
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/os-acompanhantes/">Os Acompanhantes &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/ccppbr-rio-12/">&#129092; CCPPBRRio12</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/os-acompanhantes/">Os Acompanhantes &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/ccppbr-rio-12/">&#x25C1; CCPPBRRio12</a></span>
 
         </div>
 

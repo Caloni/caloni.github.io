@@ -16,7 +16,7 @@
   <pubDate>2020-07-05</pubDate>
   
   <guid>http://www.caloni.com.br/close-remote-socket/</guid>
-  <description>I got used to close sockets in Windows using TCP View, but I haven&amp;rsquo;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
 You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
 </item>
 
@@ -50,7 +50,7 @@ No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no 
   
   <guid>http://www.caloni.com.br/printf/</guid>
   <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;ldquo;%s&amp;rdquo;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
 </item>
 
      
@@ -113,7 +113,7 @@ No final do dia a correção era mais simples que imaginava: eu só precisava de
   <pubDate>2020-05-10</pubDate>
   
   <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
-  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero&amp;hellip;
+  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero...
 Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço.</description>
 </item>
 
@@ -395,8 +395,8 @@ As linguagens que são criadas depois da revolução dos computadores pessoais q
   <pubDate>2019-05-08</pubDate>
   
   <guid>http://www.caloni.com.br/coroutines-em-c-picoro/</guid>
-  <description>Tantas linguagens hoje em dia tentando implementar a abstração de corrotinas e inserindo mais camadas de abstração (fibras e cereais)&amp;hellip; há duas implementações já no Boost, ambas dependendo de uma biblioteca de contexto de stack que é dependente de arquitetura (programada em Assembly).
-E aqui está a linguagem C com sua elegância, minimalismo e a filosofia &amp;ldquo;just works&amp;rdquo;, por mais ou menos 50 anos.
+  <description>Tantas linguagens hoje em dia tentando implementar a abstração de corrotinas e inserindo mais camadas de abstração (fibras e cereais)... há duas implementações já no Boost, ambas dependendo de uma biblioteca de contexto de stack que é dependente de arquitetura (programada em Assembly).
+E aqui está a linguagem C com sua elegância, minimalismo e a filosofia &amp;quot;just works&amp;quot;, por mais ou menos 50 anos.
 Estava pesquisando sobre bibliotecas de corrotinas em C e encontrei a Picoro, de Tony Finch.</description>
 </item>
 
@@ -474,8 +474,8 @@ Hoje em dia, às vésperas do Visual Studio 2019, espero que todo mundo use pelo
   <pubDate>2019-01-06</pubDate>
   
   <guid>http://www.caloni.com.br/bug-boost-asio-acceptex-winsock/</guid>
-  <description>Depois de um mês de correção e mais um ou dois meses preparando um compilado do que ocorreu no software que estamos mantendo, foi descoberta uma situação muito peculiar que ocorre tanto em Windows XP quanto no Windows 10, mas que no 10 tem uma correção bem-educada e no XP&amp;hellip; bom, nem tanto.
-O problema ocorreu em um uso padrão do Boost.Asio de modo assíncrono. Sem querer entrar muito em código nesse momento &amp;ndash; que teve como base nosso projeto de servidor de requisições mais rápido do universo, o motherforker &amp;ndash; se trata apenas de um listening que usa spawn de um lambda para tratar os accepts e dentro dele cria processos, redirecionando sua entrada e saída.</description>
+  <description>Depois de um mês de correção e mais um ou dois meses preparando um compilado do que ocorreu no software que estamos mantendo, foi descoberta uma situação muito peculiar que ocorre tanto em Windows XP quanto no Windows 10, mas que no 10 tem uma correção bem-educada e no XP... bom, nem tanto.
+O problema ocorreu em um uso padrão do Boost.Asio de modo assíncrono. Sem querer entrar muito em código nesse momento -- que teve como base nosso projeto de servidor de requisições mais rápido do universo, o motherforker -- se trata apenas de um listening que usa spawn de um lambda para tratar os accepts e dentro dele cria processos, redirecionando sua entrada e saída.</description>
 </item>
 
      
@@ -660,7 +660,7 @@ Sua estrutura pode ser simples e direta. Digamos uma lista ligada de idades vai 
   <pubDate>2018-03-11</pubDate>
   
   <guid>http://www.caloni.com.br/contra-o-array-de-100-bytes-eh-suficiente/</guid>
-  <description>Desde o C++ moderno (pós-03) o uso de arrays de tamanho fixo estão se tornando depreciados. E por um bom motivo: você nunca sabe realmente qual o tamanho que você precisa para um array de bytes até você saber. Daí a próxima grande questão é: &amp;ldquo;como gerenciar essa memória dinâmica de forma efetiva?&amp;quot;. E a resposta moderna sempre é: &amp;ldquo;não faça isso você mesmo&amp;rdquo;. Eis o porquê:
+  <description>Desde o C++ moderno (pós-03) o uso de arrays de tamanho fixo estão se tornando depreciados. E por um bom motivo: você nunca sabe realmente qual o tamanho que você precisa para um array de bytes até você saber. Daí a próxima grande questão é: &amp;quot;como gerenciar essa memória dinâmica de forma efetiva?&amp;quot;. E a resposta moderna sempre é: &amp;quot;não faça isso você mesmo&amp;quot;. Eis o porquê:
 Quando lidamos com funções legadas elas se misturam de tal maneira com código novo que a merda da alocação/desalocação dinâmica manual vai se espalhando também.</description>
 </item>
 
@@ -672,7 +672,7 @@ Quando lidamos com funções legadas elas se misturam de tal maneira com código
   
   <guid>http://www.caloni.com.br/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao/</guid>
   <description>Uma dúvida muito comum dos programadores iniciantes em C/C++ diz respeito às variáveis static que são declaradas dentro de um escopo, como uma função. Sabemos que se ela fosse declarada global, fora de qualquer escopo, ela seria inicializada antes do main ser chamado, como diz este trecho de alguém que pesquisou a respeito:
- &amp;ldquo;C++ Primer says. Each local static variable is initialized before the first time execution passes through the object&amp;rsquo;s definition.</description>
+ &amp;quot;C++ Primer says. Each local static variable is initialized before the first time execution passes through the object&#39;s definition.</description>
 </item>
 
      
@@ -825,7 +825,7 @@ A modificação do CD pode ser feita bootando com ele mesmo, seguinto o tutorial
   <guid>http://www.caloni.com.br/forma-simples-de-baixar-atualizacoes-remotamente-de-um-cliente-para-um-servidor/</guid>
   <description>A forma mais simples e rápida para subir um servidor de arquivos é usar o file server embutido do python:
 Para que não seja necessário instalar o Python no servidor é possível transformar essa chamada em um executável, com todas suas dependências embutidas:
-Esse script pode ser compilado pela ferramenta py2exe, instalável pelo próprio Python. É necessário criar um arquivo setup.py na mesma pasta do script e através desse script gerar uma pasta dist com o script &amp;ldquo;compilado&amp;rdquo; e pronto para ser executado.</description>
+Esse script pode ser compilado pela ferramenta py2exe, instalável pelo próprio Python. É necessário criar um arquivo setup.py na mesma pasta do script e através desse script gerar uma pasta dist com o script &amp;quot;compilado&amp;quot; e pronto para ser executado.</description>
 </item>
 
      
@@ -847,7 +847,7 @@ Existe um arquivo pronto circulando pela net chamado qt5.natvis. Alguns funciona
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-windows/</guid>
   <description>Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.
-Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;ldquo;flow&amp;rdquo;, ou estar na zona. Agora é a vez do Windows.</description>
+Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;quot;flow&amp;quot;, ou estar na zona. Agora é a vez do Windows.</description>
 </item>
 
      
@@ -867,8 +867,8 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2017-02-20</pubDate>
   
   <guid>http://www.caloni.com.br/o-velho-problema-do-project-out-of-date-do-visual-studio/</guid>
-  <description>Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &amp;ldquo;o projeto está desatualizado: deseja compilar novamente?&amp;quot;. Mas como assim? Eu acabei de compilar, não faz nem cinco segundos. Está quentinho, saiu do forno agora.
-Quando vem aquela fatídica mensagem do Visual Studio indicando que algo de errado não está certo: &amp;ldquo;This project is out of date.</description>
+  <description>Acho que todo mundo já passou por isso. Você compila todo o projeto bonitinho e no final, ao depurar, ele faz aquela velha pergunta: &amp;quot;o projeto está desatualizado: deseja compilar novamente?&amp;quot;. Mas como assim? Eu acabei de compilar, não faz nem cinco segundos. Está quentinho, saiu do forno agora.
+Quando vem aquela fatídica mensagem do Visual Studio indicando que algo de errado não está certo: &amp;quot;This project is out of date.</description>
 </item>
 
      
@@ -899,7 +899,7 @@ O Visual Studio utiliza um mecanismo que lembra os comandos bizarros que se usa 
   <pubDate>2017-02-13</pubDate>
   
   <guid>http://www.caloni.com.br/convertendo-windows-de-uefi-para-mbr/</guid>
-  <description>Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &amp;ldquo;gratuitas&amp;rdquo; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o próprio Windows pode corrigir os problemas oriundos da conversão do boot UEFI/GPT. Depois, é claro, que você usar uma outra ferramenta esperta open-source =)
+  <description>Quando você pesquisa sobre isso no Google o que mais encontra é ferramentas &amp;quot;gratuitas&amp;quot; que prometem fazer a conversão ou algo do gênero. No entanto, há um procedimento simples em que o próprio Windows pode corrigir os problemas oriundos da conversão do boot UEFI/GPT. Depois, é claro, que você usar uma outra ferramenta esperta open-source =)
 Entre as diferentes distros do Linux há uma chamada SystemRescueCD que é cheia dos paranauê para manutenção de micros.</description>
 </item>
 
@@ -942,7 +942,7 @@ Que nem hoje de manhã, quando fui inocentemente baixar uma versão limpa do tio
   <pubDate>2017-02-04</pubDate>
   
   <guid>http://www.caloni.com.br/um-commit-por-feature/</guid>
-  <description>Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são necessários para manter a ordem em sua cabeça. &amp;ldquo;Fiz isso logo de manhã, testei algo diferente antes do almoço e de tarde fui incrementando a solução final até passar todos os testes.&amp;rdquo; Tudo bonito. Mas como fica na hora de subir essa bagaça pras pessoas verem?</description>
+  <description>Imagine que você vai começar a trabalhar em algo novo. Daí você baixa a última versão do branch de dev e começa a codar. Então chega um momento em que o primeiro, segundo, terceiro commits são necessários para manter a ordem em sua cabeça. &amp;quot;Fiz isso logo de manhã, testei algo diferente antes do almoço e de tarde fui incrementando a solução final até passar todos os testes.&amp;quot; Tudo bonito. Mas como fica na hora de subir essa bagaça pras pessoas verem?</description>
 </item>
 
      
@@ -974,7 +974,7 @@ O problema da lib hidapi era que a comunicação usb era feita de forma assíncr
   <pubDate>2017-01-05</pubDate>
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
-  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;ldquo;zona&amp;rdquo;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
+  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
 </item>
 
      
@@ -994,7 +994,7 @@ O problema da lib hidapi era que a comunicação usb era feita de forma assíncr
   <pubDate>2016-11-29</pubDate>
   
   <guid>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</guid>
-  <description>O livro-base sobre a linguagem C++ e como programar nela tem o nome pouco criativo &amp;ldquo;The C++ Programming Language&amp;rdquo;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhar a linguagem em 1979, quando ainda a chamada de &amp;ldquo;C com Classes&amp;rdquo;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula &amp;ndash; como o novo conceito de Orientação a Objetos &amp;ndash; que carecia do mais importante na época: velocidade (só na época?</description>
+  <description>O livro-base sobre a linguagem C++ e como programar nela tem o nome pouco criativo &amp;quot;The C++ Programming Language&amp;quot;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhar a linguagem em 1979, quando ainda a chamada de &amp;quot;C com Classes&amp;quot;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula -- como o novo conceito de Orientação a Objetos -- que carecia do mais importante na época: velocidade (só na época?</description>
 </item>
 
      
@@ -1025,7 +1025,7 @@ Como isso pode ser causado? Bom, em C/C++ sempre é mais simples de entender ess
   <pubDate>2016-09-18</pubDate>
   
   <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
-  <description>A vida dos programadores C/C++ Windows &amp;ndash; e que geralmente precisam do Visual Studio &amp;ndash; está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
+  <description>A vida dos programadores C/C++ Windows -- e que geralmente precisam do Visual Studio -- está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
 </item>
 
      
@@ -1069,7 +1069,7 @@ Sua função é abstrair a abertura de um banco de dados, sua execução e sua s
   <pubDate>2016-08-12</pubDate>
   
   <guid>http://www.caloni.com.br/depurando-codigo-c-no-visual-studio/</guid>
-  <description>Olá de novo. Este é o segundo vídeo da série &amp;ldquo;o que que eu tô fazendo no YouTube?&amp;quot;. Dessa vez abri o Visual Studio para depurar um código de 10 linhas com um bug absurdamente absurdo, mas que pode enganar muita gente. Há quem acredite que esse bug foi proposital, mas não foi. O importante é que ficou muito legal. Vamos ver?
+  <description>Olá de novo. Este é o segundo vídeo da série &amp;quot;o que que eu tô fazendo no YouTube?&amp;quot;. Dessa vez abri o Visual Studio para depurar um código de 10 linhas com um bug absurdamente absurdo, mas que pode enganar muita gente. Há quem acredite que esse bug foi proposital, mas não foi. O importante é que ficou muito legal. Vamos ver?
 https://www.youtube.com/embed/TpTNMj7ngc
 Pra começo de conversa, é importante ressaltar que este é um vídeo introdutório, para quem deseja começar a programar em C++, ou até para quem quer alguma dica de uso da IDE do Visual Studio.</description>
 </item>
@@ -1082,7 +1082,7 @@ Pra começo de conversa, é importante ressaltar que este é um vídeo introdut�
   
   <guid>http://www.caloni.com.br/video-criando-projeto-c-console-no-visual-studio-2015/</guid>
   <description>Esse vídeo é um experimento que estou fazendo para tentar começar a compartilhar conhecimento em vídeo. Para começar, acho que nada mais apropriado que criar um projeto novo no Visual Studio, não? Dúvidas, sugestões, críticas, todas bem-vindas. Compartilhem com aquele amigo que pensa em começar a programar (ainda mais se for em C++).
-Essa primeira tentativa saiu um pouco longa &amp;ndash; 10 minutos &amp;ndash; mas era para ser mais sucinto. Me perdi em alguns detalhes da estrutura do projeto, mas o objetivo era entrar um pouco mais a fundo, mesmo, abrindo os arquivos do Visual Studio &amp;ldquo;na mão&amp;rdquo; para ver o que tem dentro, e já dando dicas de como a depuração pode começar já na compilação.</description>
+Essa primeira tentativa saiu um pouco longa -- 10 minutos -- mas era para ser mais sucinto. Me perdi em alguns detalhes da estrutura do projeto, mas o objetivo era entrar um pouco mais a fundo, mesmo, abrindo os arquivos do Visual Studio &amp;quot;na mão&amp;quot; para ver o que tem dentro, e já dando dicas de como a depuração pode começar já na compilação.</description>
 </item>
 
      
@@ -1094,7 +1094,7 @@ Essa primeira tentativa saiu um pouco longa &amp;ndash; 10 minutos &amp;ndash; m
   <guid>http://www.caloni.com.br/palestra-stack-overflow/</guid>
   <description>Há umas semanas (sim, estava enrolado para falar sobre isso) ministrei uma nova palestra lá em Sorocaba. Cheguei no meio de uma greve de ônibus, o que atrasou o evento em uma hora e me deu tempo de sobre para pensar nas desgraças que serão cidades próximas da capital crescendo desordenadamente graças às regulações estatais.
 Mas divago.
-A ideia da palestra foi do meu amigo Alan Silva (a.k.a. jumpi), e era para a SEMANA DA COMPUTAÇÃO E TECNOLOGIA &amp;ndash; mas nada tem a ver com computação, nem tecnologia, mas com oportunidade de emprego de estagiários para empresas corporativistas da área.</description>
+A ideia da palestra foi do meu amigo Alan Silva (a.k.a. jumpi), e era para a SEMANA DA COMPUTAÇÃO E TECNOLOGIA -- mas nada tem a ver com computação, nem tecnologia, mas com oportunidade de emprego de estagiários para empresas corporativistas da área.</description>
 </item>
 
      
@@ -1125,7 +1125,7 @@ Basicamente, o problema pede que, dado um quadrado de tamanho N, e 2*N-1 linhas 
   <pubDate>2016-03-01</pubDate>
   
   <guid>http://www.caloni.com.br/crash-no-windows-explorer/</guid>
-  <description>Quem nunca se deparou com um sistema Windows em que o Explorer travasse ou crashasse de vez em quando? O problema com esse tipo de problema (recursividade&amp;hellip;) é que ele pode ocorrer por infinitos motivos. Tão infinitos quanto os shell extensions, aquelas DLLs irritantes que são carregadas automaticamente por todo processo explorer.exe, e que portanto podem gerar infinitas maneiras de travar seu shell.
+  <description>Quem nunca se deparou com um sistema Windows em que o Explorer travasse ou crashasse de vez em quando? O problema com esse tipo de problema (recursividade...) é que ele pode ocorrer por infinitos motivos. Tão infinitos quanto os shell extensions, aquelas DLLs irritantes que são carregadas automaticamente por todo processo explorer.exe, e que portanto podem gerar infinitas maneiras de travar seu shell.
 Um que estava me incomodando já há algum tempo era um deadlock que acabava em restart do Explorer (isso é automático no Windows 10).</description>
 </item>
 
@@ -1169,7 +1169,7 @@ A lógica por trás de LISTENTRY é que esse membro pode ser inserido em qualque
   <pubDate>2016-01-13</pubDate>
   
   <guid>http://www.caloni.com.br/gabaritos/</guid>
-  <description>Um template &amp;ndash; ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito &amp;ndash; é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).
+  <description>Um template -- ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito -- é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).
 Em C++, fazer uma função template é muito simples:</description>
 </item>
 
@@ -1180,7 +1180,7 @@ Em C++, fazer uma função template é muito simples:</description>
   <pubDate>2016-01-12</pubDate>
   
   <guid>http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/</guid>
-  <description>No post anterior implementamos &amp;ldquo;métodos&amp;rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).
+  <description>No post anterior implementamos &amp;quot;métodos&amp;quot; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).
 Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém.</description>
 </item>
 
@@ -1191,7 +1191,7 @@ Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funçõ
   <pubDate>2016-01-11</pubDate>
   
   <guid>http://www.caloni.com.br/classe-objeto-contexto-metodo/</guid>
-  <description>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &amp;ldquo;objeto&amp;rdquo;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &amp;ldquo;objeto&amp;rdquo; em C, mas ainda não chamamos um método.
+  <description>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &amp;quot;objeto&amp;quot;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &amp;quot;objeto&amp;quot; em C, mas ainda não chamamos um método.
 Hoje faremos isso.
 Isso é relativamente simples quando se conhece ponteiros de função, existentes tanto em C quanto em C++. Ponteiros de função são tipos que contém endereço de uma função com assinatura específica (tipo de retorno e de argumentos).</description>
 </item>
@@ -1213,7 +1213,7 @@ Isso é relativamente simples quando se conhece ponteiros de função, existente
   <pubDate>2015-11-18</pubDate>
   
   <guid>http://www.caloni.com.br/como-ser-um-hacker/</guid>
-  <description>Talvez as pessoas estejam com preguiça de ler. Talvez estejam apenas inundadas por tanta informação que temos hoje. Talvez seja apenas falta de foco pelas interrupções consecutivas de novos &amp;ldquo;espertofones&amp;rdquo; ou nossas redes sociais viciantes, pois oferecem muito a troco de nada.
+  <description>Talvez as pessoas estejam com preguiça de ler. Talvez estejam apenas inundadas por tanta informação que temos hoje. Talvez seja apenas falta de foco pelas interrupções consecutivas de novos &amp;quot;espertofones&amp;quot; ou nossas redes sociais viciantes, pois oferecem muito a troco de nada.
 O fato é: se você precisa perguntar para alguém (no caso, eu) o que é preciso fazer para se tornar um hacker, algo como um guia passo-a-passo, eu vou encarar o desafio numa boa, pensar por alguns dias, semanas e talvez meses, e chegar à conclusão que a pessoa que precisa que alguém lhe ensine está percorrendo o caminho errado.</description>
 </item>
 
@@ -1245,7 +1245,7 @@ A respeito do deploy e manutenção, um dos principais é manter o código sempr
   <pubDate>2015-08-19</pubDate>
   
   <guid>http://www.caloni.com.br/o-estranho-caso-do-pdb-mal-formado/</guid>
-  <description>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft traria para o pessoal do &amp;ldquo;baixo nível&amp;rdquo; a mais nova novidade do verão: uma IDE lenta, bugada e&amp;hellip; bonita?
+  <description>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft traria para o pessoal do &amp;quot;baixo nível&amp;quot; a mais nova novidade do verão: uma IDE lenta, bugada e... bonita?
 Bem, para os que estavam acostumados com o Visual C++ 6.0, nada foi mais incômodo do que esperar carregar o programa de manhã para conseguir finalmente compilar.</description>
 </item>
 
@@ -1267,7 +1267,7 @@ Porém, há maneiras mais descentralizadas de se trabalhar.</description>
   <pubDate>2015-06-05</pubDate>
   
   <guid>http://www.caloni.com.br/logs-em-servicos-e-outras-coisas/</guid>
-  <description>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &amp;ldquo;passou por aqui&amp;rdquo; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:
+  <description>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &amp;quot;passou por aqui&amp;quot; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:
 Vou tentar defender meu ponto de vista.
 Esse artigo do Dr. Dobbs explica de uma maneira bem completa como fazer uma lib de log leve e configurável.</description>
 </item>
@@ -1279,7 +1279,7 @@ Esse artigo do Dr. Dobbs explica de uma maneira bem completa como fazer uma lib 
   <pubDate>2015-05-26</pubDate>
   
   <guid>http://www.caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github/</guid>
-  <description>Semana passada fiquei sabendo que o vídeo da minha palestra &amp;ldquo;Depurando até o fim do mundo&amp;rdquo; do TDC 2014 estava disponível online. Resolvi assistir para ver se aprendia alguma coisa. A despeito do palestrante ser muito ruim, ele disse uma coisa interessante: com o Debugging Tools (WinDbg para os íntimos) seria possível além de indexar os símbolos (PDBs para os íntimos) usando o esquema de Symbol Server que a própria Microsoft adota usar algumas ferramentas embutidas para conseguir obter o fonte através de um símbolo indexado.</description>
+  <description>Semana passada fiquei sabendo que o vídeo da minha palestra &amp;quot;Depurando até o fim do mundo&amp;quot; do TDC 2014 estava disponível online. Resolvi assistir para ver se aprendia alguma coisa. A despeito do palestrante ser muito ruim, ele disse uma coisa interessante: com o Debugging Tools (WinDbg para os íntimos) seria possível além de indexar os símbolos (PDBs para os íntimos) usando o esquema de Symbol Server que a própria Microsoft adota usar algumas ferramentas embutidas para conseguir obter o fonte através de um símbolo indexado.</description>
 </item>
 
      
@@ -1323,7 +1323,7 @@ Não é muito elegante deixar seus logins, seu perfil, seus favoritos e históri
   
   <guid>http://www.caloni.com.br/origem-do-tipo-char/</guid>
   <description>Programadores C e C++, preparem-se para explodir as cabeças!
-No princípio&amp;hellip; não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
+No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
 O bom de B estava em sua rica expressividade. Sua gramática extremamente simples. Tão simples que o manual da linguagem consistia de apenas 30 páginas.</description>
 </item>
 
@@ -1335,7 +1335,7 @@ O bom de B estava em sua rica expressividade. Sua gramática extremamente simple
   
   <guid>http://www.caloni.com.br/por-que-o-visual-studio-gera-executaveis-mutantes/</guid>
   <description>Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que contém uma boa dica para quem já entendeu o passo-a-passo da compilação, mas ainda tem sérios problemas quando os projetos ficam gigantes.
- Essa é a segunda vez que encontro esse mesmo problema. Como acredito que outras almas podem estar sofrendo do mesmo mal, coloco aqui uma breve descrição de como o VC8 faz para gerar um executável que, mesmo não dependendo das DLLs de runtime, não são executados em sistemas que suportam a interpretação do &amp;ldquo;.</description>
+ Essa é a segunda vez que encontro esse mesmo problema. Como acredito que outras almas podem estar sofrendo do mesmo mal, coloco aqui uma breve descrição de como o VC8 faz para gerar um executável que, mesmo não dependendo das DLLs de runtime, não são executados em sistemas que suportam a interpretação do &amp;quot;.</description>
 </item>
 
      
@@ -1345,7 +1345,7 @@ O bom de B estava em sua rica expressividade. Sua gramática extremamente simple
   <pubDate>2015-01-04</pubDate>
   
   <guid>http://www.caloni.com.br/entendendo-a-compilacao/</guid>
-  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa &amp;ndash; eu disse: PRECISA &amp;ndash; conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
+  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa -- eu disse: PRECISA -- conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
 </item>
 
      
@@ -1420,7 +1420,7 @@ Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora d
   <pubDate>2014-06-11</pubDate>
   
   <guid>http://www.caloni.com.br/eles-querem-que-a-gina-va-embora-tres-posts-sobre-evolucao-windows/</guid>
-  <description>Fui convidado pela Fernanda Saraiva do programa de MVPs da Microsoft Brasil a falar sobre alguma história a respeito da evolução do Windows e como isso impactou minha experiência profissional. Pesquisando em meu próprio blogue fui capaz de lembrar não apenas de uma, mas de três mudanças técnicas que fizeram com que eu e minha &amp;ldquo;equipe&amp;rdquo; da época (geralmente mais alguém, no máximo) matássemos alguns neurônios tentando descobrir novas maneiras do sistema fazer o que já fazia no Windows XP.</description>
+  <description>Fui convidado pela Fernanda Saraiva do programa de MVPs da Microsoft Brasil a falar sobre alguma história a respeito da evolução do Windows e como isso impactou minha experiência profissional. Pesquisando em meu próprio blogue fui capaz de lembrar não apenas de uma, mas de três mudanças técnicas que fizeram com que eu e minha &amp;quot;equipe&amp;quot; da época (geralmente mais alguém, no máximo) matássemos alguns neurônios tentando descobrir novas maneiras do sistema fazer o que já fazia no Windows XP.</description>
 </item>
 
      
@@ -1430,7 +1430,7 @@ Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora d
   <pubDate>2014-06-03</pubDate>
   
   <guid>http://www.caloni.com.br/ss/</guid>
-  <description>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para reforma, pois ela é extremamente error-prone e não-intuitiva. Porém, se a printf é não-intuitiva, o que dizer &amp;lt; &amp;lt; daqueles &amp;laquo; sinais &amp;laquo; de &amp;laquo; flechinhas apontando para cout? Bem melhor, não?
+  <description>Uma das coisas mais cretinas e difíceis para os iniciantes em C++ é conseguir formatar strings de maneira fácil, rápida e indolor. Infelizmente, a biblioteca de printf da linguagem C está fechada para reforma, pois ela é extremamente error-prone e não-intuitiva. Porém, se a printf é não-intuitiva, o que dizer &amp;lt; &amp;lt; daqueles &amp;lt;&amp;lt; sinais &amp;lt;&amp;lt; de &amp;lt;&amp;lt; flechinhas apontando para cout? Bem melhor, não?
 A resposta é, pra variar, depende.</description>
 </item>
 
@@ -1451,7 +1451,7 @@ A resposta é, pra variar, depende.</description>
   <pubDate>2014-05-20</pubDate>
   
   <guid>http://www.caloni.com.br/estruturas-vs-classes-fight/</guid>
-  <description>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &amp;ldquo;ficar bonito&amp;rdquo;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</description>
+  <description>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &amp;quot;ficar bonito&amp;quot;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</description>
 </item>
 
      
@@ -1461,7 +1461,7 @@ A resposta é, pra variar, depende.</description>
   <pubDate>2014-05-13</pubDate>
   
   <guid>http://www.caloni.com.br/50-anos-de-basic/</guid>
-  <description>Minha primeira linguagem de programação foi o BASIC. Aprendi durante minhas frequentes visitas à biblioteca lendo livros dos anos 80. Na verdade, eu não me lembro muito bem por que diabos resolvi aprender a programar, já que eu estava mais interessado em entender como um computador funciona. Por que? Não sei bem ao certo, parece que já nasci com um chip embutido que foi ativado quando comecei a tender muito para o lado de humanas ao iniciar a faculdade de Letras&amp;hellip; um chip salvador!</description>
+  <description>Minha primeira linguagem de programação foi o BASIC. Aprendi durante minhas frequentes visitas à biblioteca lendo livros dos anos 80. Na verdade, eu não me lembro muito bem por que diabos resolvi aprender a programar, já que eu estava mais interessado em entender como um computador funciona. Por que? Não sei bem ao certo, parece que já nasci com um chip embutido que foi ativado quando comecei a tender muito para o lado de humanas ao iniciar a faculdade de Letras.</description>
 </item>
 
      
@@ -1471,7 +1471,7 @@ A resposta é, pra variar, depende.</description>
   <pubDate>2014-05-06</pubDate>
   
   <guid>http://www.caloni.com.br/poker-face/</guid>
-  <description>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops aninhados (a versão large fica para outro post). Na verdade, estou aqui para expressar minha gratidão ao campeonato por ter aprendido mais uma bela lição vendo o código do primeiro colocado do primeiro round, vulgo Kaizero, um coreano que deu uma solução simples, rápida e prática para um problema de probabilidade tão error-prone que até os juízes do Google deram uma lambuja de alguns testes errados (sem contar que houve apenas a categoria small), e me fez pensar em quantas vezes pensamos em demasiado tentando encontrar a solução perfeita para algo que simplesmente&amp;hellip; não precisa.</description>
+  <description>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops aninhados (a versão large fica para outro post). Na verdade, estou aqui para expressar minha gratidão ao campeonato por ter aprendido mais uma bela lição vendo o código do primeiro colocado do primeiro round, vulgo Kaizero, um coreano que deu uma solução simples, rápida e prática para um problema de probabilidade tão error-prone que até os juízes do Google deram uma lambuja de alguns testes errados (sem contar que houve apenas a categoria small), e me fez pensar em quantas vezes pensamos em demasiado tentando encontrar a solução perfeita para algo que simplesmente.</description>
 </item>
 
      
@@ -1512,7 +1512,7 @@ No entanto, esse ano apareceram dois motivos que me levaram a gastar cinco minut
   <pubDate>2014-04-08</pubDate>
   
   <guid>http://www.caloni.com.br/lambda-o-retorno/</guid>
-  <description>Na última vez que foi abordado o tema &amp;ldquo;lambda na ferida&amp;rdquo; falamos brevemente sobre como C++ agora permite criar funções dentro de funções. Hoje vamos apenas falar que aquela construção bizarra que criamos fica ainda mais bizarra se precisarmos retornar alguma coisa dessa função ou usá-la mais de uma vez.
+  <description>Na última vez que foi abordado o tema &amp;quot;lambda na ferida&amp;quot; falamos brevemente sobre como C++ agora permite criar funções dentro de funções. Hoje vamos apenas falar que aquela construção bizarra que criamos fica ainda mais bizarra se precisarmos retornar alguma coisa dessa função ou usá-la mais de uma vez.
 O padrão do lambda é supor que sua função embutida e enlatada não precisa retornar nada, o que torna a sintaxe mais simples: é um void AlgumaCoisa(argumentos).</description>
 </item>
 
@@ -1525,7 +1525,7 @@ O padrão do lambda é supor que sua função embutida e enlatada não precisa r
   <guid>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</guid>
   <description>A nova moda de programar C++ nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
 O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.
-Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;ldquo;pain in the ass&amp;rdquo;.</description>
+Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;quot;pain in the ass&amp;quot;.</description>
 </item>
 
      
@@ -1545,7 +1545,7 @@ Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp
   <pubDate>2014-02-20</pubDate>
   
   <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
-  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, a satiric text that influenced and encouraged me into the path of &amp;ldquo;C/C++ enlightenment&amp;rdquo;, most even than K&amp;amp;R&amp;rsquo;s book. Since then I thought that being a &amp;ldquo;Real Programmer&amp;rdquo; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;ldquo;Quiche Eater&amp;rdquo; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
+  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;quot;Real Programmers Don&#39;t Use Pascal&amp;quot;, a satiric text that influenced and encouraged me into the path of &amp;quot;C/C++ enlightenment&amp;quot;, most even than K&amp;amp;R&#39;s book. Since then I thought that being a &amp;quot;Real Programmer&amp;quot; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;quot;Quiche Eater&amp;quot; was, in couterpart, comparable to nothing. Real Programmers solve real problems!</description>
 </item>
 
      
@@ -1578,7 +1578,7 @@ Um uso trivial pode não cuspir um resultado trivial, ou seja, os elementos não
   <pubDate>2013-12-04</pubDate>
   
   <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
-  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;ldquo;frescurento&amp;rdquo; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
+  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;quot;frescurento&amp;quot; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
 Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance.</description>
 </item>
 
@@ -1589,7 +1589,7 @@ Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empre
   <pubDate>2013-11-07</pubDate>
   
   <guid>http://www.caloni.com.br/ponto-flutuante-afundando/</guid>
-  <description>Quando armazenamos valores monetários em doubles seus cálculos conseguem manter a precisão e na maioria das vezes o ajuste de precisão funciona. Porém, encontrei alguns casos onde a subtração de dois valores fazia &amp;ldquo;perder&amp;rdquo; um centavo (ou comparações exatas) justamente pela limitação da precisão do ponto flutuante. Nesse exemplo os valores são 2.358,93 - 1.386,93, que em uma conta de padaria (mas correta) dá 972,00 (até a Calc do Windows e o Excel funcionam), mas pelo Visual Studio 2010 chega perto, mas erra o alvo:</description>
+  <description>Quando armazenamos valores monetários em doubles seus cálculos conseguem manter a precisão e na maioria das vezes o ajuste de precisão funciona. Porém, encontrei alguns casos onde a subtração de dois valores fazia &amp;quot;perder&amp;quot; um centavo (ou comparações exatas) justamente pela limitação da precisão do ponto flutuante. Nesse exemplo os valores são 2.358,93 - 1.386,93, que em uma conta de padaria (mas correta) dá 972,00 (até a Calc do Windows e o Excel funcionam), mas pelo Visual Studio 2010 chega perto, mas erra o alvo:</description>
 </item>
 
      
@@ -1599,7 +1599,7 @@ Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empre
   <pubDate>2013-04-01</pubDate>
   
   <guid>http://www.caloni.com.br/depuracao-na-nuvem/</guid>
-  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;ldquo;na nuvem&amp;rdquo;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
+  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;quot;na nuvem&amp;quot;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
 Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software.</description>
 </item>
 
@@ -1644,7 +1644,7 @@ Porém, nada como código para provar que estamos errados:</description>
   
   <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
   <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
-A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;ldquo;You should not try to learn every command an editor offers.</description>
+A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers.</description>
 </item>
 
      
@@ -1721,7 +1721,7 @@ Vamos supor que você crie seu super-projeto ZeroMQ e no meio dele acabe evoluin
   <pubDate>2012-01-11</pubDate>
   
   <guid>http://www.caloni.com.br/rvalue-e-o-novo-lvalue/</guid>
-  <description>As grandes discussões filosóficas que participei durante meu estudo da linguagem C, e mais tarde de C++, muitas vezes convergiam para o significado místico daquela figura que nós da gramática da linguagem conhecemos como lvalue, ou l-value, ou left-value. Enfim, a definição de uma expressão que representa um lugar na memória e, portanto, pode ocupar o lado esquerdo de uma atribuição/cópia/passagem de argumentos qualquer. Porém, os &amp;ldquo;grandes&amp;rdquo; embates daquela época hoje parecem brincadeira de criança, como a diferença sutil entre ++x e x++ ou convergência de tipos em templates.</description>
+  <description>As grandes discussões filosóficas que participei durante meu estudo da linguagem C, e mais tarde de C++, muitas vezes convergiam para o significado místico daquela figura que nós da gramática da linguagem conhecemos como lvalue, ou l-value, ou left-value. Enfim, a definição de uma expressão que representa um lugar na memória e, portanto, pode ocupar o lado esquerdo de uma atribuição/cópia/passagem de argumentos qualquer. Porém, os &amp;quot;grandes&amp;quot; embates daquela época hoje parecem brincadeira de criança, como a diferença sutil entre ++x e x++ ou convergência de tipos em templates.</description>
 </item>
 
      
@@ -1742,7 +1742,7 @@ Vamos supor que você crie seu super-projeto ZeroMQ e no meio dele acabe evoluin
   <pubDate>2011-10-14</pubDate>
   
   <guid>http://www.caloni.com.br/coders-at-work/</guid>
-  <description>&amp;ldquo;Personally I have never believed that it is possible to be a good coder without being a good programmer nor a good programmer without being a good designer, communicator, and thinker.&amp;rdquo; - Jamie Zawinski
+  <description>&amp;quot;Personally I have never believed that it is possible to be a good coder without being a good programmer nor a good programmer without being a good designer, communicator, and thinker.&amp;quot; - Jamie Zawinski
  Como Joel e Atwood disseram, a leitura de Coders At Work é tão útil quanto ler o código dos outros, só que em um estilo mais condensado, que se aproveita das décadas de experiência dessa gente para aprimorarmos nossos processos de desenvolvimento e, muitas vezes, a forma de pensarmos sobre software.</description>
 </item>
 
@@ -1869,7 +1869,7 @@ Não é a primeira pessoa que pede informações sobre algo específico demais p
   
   <guid>http://www.caloni.com.br/projeto-daytoday/</guid>
   <description>O DayToDay é um projetinho que criei para fazer tracking das minhas atividades diárias. Eu o criei há mais de 6 anos, e provavelmente se tivesse pensado em como isso seria útil para as pessoas compartilharem suas ideias e limitasse o número de caracteres para 140, estaria rico hoje.
-O &amp;ldquo;conceito&amp;rdquo; é bem simples: executo o programa, ele exibe um campo texto para digitar o que estou fazendo, digito enter ou clico no botão de OK e ele fecha.</description>
+O &amp;quot;conceito&amp;quot; é bem simples: executo o programa, ele exibe um campo texto para digitar o que estou fazendo, digito enter ou clico no botão de OK e ele fecha.</description>
 </item>
 
      
@@ -1948,7 +1948,7 @@ Mas eis que liga o seu gerente para o celular vermelho que te entregou no caso d
   
   <guid>http://www.caloni.com.br/suporte-tecnico/</guid>
   <description>Máquina com parte do registro corrompida, notadamente alguma sub-chave de HKEYCLASSESROOT. Resultado: ao rodar um script que abre uma segunda janela e tenta usar seu método focus é exibida a seguinte mensagem:
-Erro de automação? (&amp;ldquo;Mensagem do cliente - A classe não dá suporte para automação&amp;rdquo;)
+Erro de automação? (&amp;quot;Mensagem do cliente - A classe não dá suporte para automação&amp;quot;)
 Abaixo um exemplo simples para ter uma ideia em JS:
 A primeira coisa que se faz nesse caso é pesquisar no Google por pessoas que já tiveram esse problema.</description>
 </item>
@@ -1994,7 +1994,7 @@ De qualquer forma, qual não foi minha surpresa quando tentei recompilar o proje
   
   <guid>http://www.caloni.com.br/tres-em-um/</guid>
   <description>Que vergonha passar tanto tempo sem postar nada. Parece que não fiz nada que valesse a pena comentar por aqui.
-Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e reuniões de alinhamento depois, sobrou um tempinho pra programar. Aprendi algumas coisas que tinha o desejo de saber há tanto tempo&amp;hellip; Agora eu sei, quem diria, criar linques suspensos nas janelas Win32! Que novidade, não? Pois é, isso exige, de acordo com o SDK, algumas artimanhas pra fazer funcionar.</description>
+Na verdade, não fiz tanto, mesmo. Muitas mensagens do Outlook, gráficos UML e reuniões de alinhamento depois, sobrou um tempinho pra programar. Aprendi algumas coisas que tinha o desejo de saber há tanto tempo... Agora eu sei, quem diria, criar linques suspensos nas janelas Win32! Que novidade, não? Pois é, isso exige, de acordo com o SDK, algumas artimanhas pra fazer funcionar.</description>
 </item>
 
      
@@ -2038,7 +2038,7 @@ Infelizmente em nenhuma das duas palestras práticas (minha e do Fernando) houve
   <pubDate>2010-08-12</pubDate>
   
   <guid>http://www.caloni.com.br/foto-dos-melhores-momentos/</guid>
-  <description>Mais um quebra-cabeças antes da nossa palestra, esse &amp;ldquo;baseado em fatos reais&amp;rdquo;.
+  <description>Mais um quebra-cabeças antes da nossa palestra, esse &amp;quot;baseado em fatos reais&amp;quot;.
 A história é a seguinte: o cliente instalou uma versão nova do produto em algumas máquinas que, ato contínuo, começaram a apresentar telas azuis constantemente. Como essas máquinas tinham que ser usadas pelos funcionários, a administradora rapidamente desinstalou essa versão buguenta, e logo em seguida pediu por uma correção.
 Até aí tudo bem. O problema maior era que ninguém havia capturado dump de nada.</description>
 </item>
@@ -2084,7 +2084,7 @@ E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela disc
   <pubDate>2010-07-26</pubDate>
   
   <guid>http://www.caloni.com.br/breakpoints-promiscuos/</guid>
-  <description>Ontem falei sobre como &amp;ldquo;brincar&amp;rdquo; com os breakpoints promíscuos, ou seja, aqueles que topam qualquer processo. Isso
+  <description>Ontem falei sobre como &amp;quot;brincar&amp;quot; com os breakpoints promíscuos, ou seja, aqueles que topam qualquer processo. Isso
 é muito simples de se fazer:
  Configure uma VM para bootar em kernel debug. Encontre um processo qualquer (vamos usar o notepad pra variar?). Reabra os símbolos de user mode nele. Defina um breakpoint em alguma DLL de user mode.  Como meus leitores são muito espertos foi partir para o momento após rodarmos um notepad.</description>
 </item>
@@ -2224,7 +2224,7 @@ Ele é leve, vem enrustido embutido na última versão e pode economizar alguns 
   
   <guid>http://www.caloni.com.br/restauranto-o-registro/</guid>
   <description>Algumas ferramentas viram essenciais quando o importante é tempo. As minhas favoritas são: Visual Studio e batch. Com esses dois eu faço virtualmente qualquer coisa que preciso em pouquíssimo tempo. É lógico que, na ausência dessas, alternativas são bem-vindas, como Notepad++, viM, grep, cygwin.
-Ontem tive que resolver uma &amp;ldquo;situação&amp;rdquo; no cliente, e graças ao bom Deus (ele também é programador) existia um Notepad++ na bagagem que levávamos. Além, é claro, do Excel e do sistema batch do Windows.</description>
+Ontem tive que resolver uma &amp;quot;situação&amp;quot; no cliente, e graças ao bom Deus (ele também é programador) existia um Notepad++ na bagagem que levávamos. Além, é claro, do Excel e do sistema batch do Windows.</description>
 </item>
 
      
@@ -2234,7 +2234,7 @@ Ontem tive que resolver uma &amp;ldquo;situação&amp;rdquo; no cliente, e graç
   <pubDate>2010-02-01</pubDate>
   
   <guid>http://www.caloni.com.br/correcao-de-bugs-instantanea/</guid>
-  <description>Um programador tarimbado sabe que a melhor situação da vida dele para corrigir um bug é quando esse bug acontece em sua máquina de desenvolvimento, na versão Debug e ainda passo-a-passo. Como nessa situação a correção é um verdadeiro &amp;ldquo;passeio no parque&amp;rdquo; (ou na mesa do café) ela tende a quase nunca acontecer. Isso é Murphy Aplicado.
+  <description>Um programador tarimbado sabe que a melhor situação da vida dele para corrigir um bug é quando esse bug acontece em sua máquina de desenvolvimento, na versão Debug e ainda passo-a-passo. Como nessa situação a correção é um verdadeiro &amp;quot;passeio no parque&amp;quot; (ou na mesa do café) ela tende a quase nunca acontecer. Isso é Murphy Aplicado.
 Para quem programa para sistemas, então, só o fato de acontecer no mesmo processo toda vez que ele for executado já é o máximo (quem já programou serviços, plugins, GINAs e afins sabe do que eu estou falando).</description>
 </item>
 
@@ -2301,7 +2301,7 @@ O nosso amigo NT Loader pode ser entendido através da leitura do já citado Win
   <pubDate>2009-09-09</pubDate>
   
   <guid>http://www.caloni.com.br/o-boot-no-windows-pre-ntldr/</guid>
-  <description>Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &amp;ldquo;espetaculoso&amp;rdquo; de todos os tempos sobre esse assunto, parte integrante do livro Windows Internals e escrito pelo nada mais nada menos Mark Russinovich: Boot Process, no capítulo 5, &amp;ldquo;Startup and Shutdown&amp;rdquo;.
+  <description>Conforme fui estudando para recordar os momentos sublimes do boot do Windows me deparei com o artigo mais &amp;quot;espetaculoso&amp;quot; de todos os tempos sobre esse assunto, parte integrante do livro Windows Internals e escrito pelo nada mais nada menos Mark Russinovich: Boot Process, no capítulo 5, &amp;quot;Startup and Shutdown&amp;quot;.
 O meu primeiro artigo sobre o boot sem Windows foi 80% escrito com o que eu já sabia de cabeça de tanto mexer na MBR e de tanto depurar o processo de boot em 16 bits.</description>
 </item>
 
@@ -2324,7 +2324,7 @@ O que esses artigos não vão fazer muito bem é explicar o lado do kernel mode 
   
   <guid>http://www.caloni.com.br/what-ive-been-doing-in-the-last-10-years/</guid>
   <description>This week I dedicate myself to update my resumè and I have the brilliant idea of put into it my technical historical, what resuming is a list of things I did or was involved with during my brief ten years stay in the programming world.
-So I thought: &amp;ldquo;this could be useful to the people read me&amp;rdquo;. Why not? Perhaps you got some doubt waiting to be solved and is unable to find a guy who knows something about this.</description>
+So I thought: &amp;quot;this could be useful to the people read me&amp;quot;. Why not? Perhaps you got some doubt waiting to be solved and is unable to find a guy who knows something about this.</description>
 </item>
 
      
@@ -2384,7 +2384,7 @@ De volta aos anos 90, isso também está errado em C++. Até por uma questão de
   <description>To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
 Immediately the compiler would blame you about the following errors:
 This happens because in C the identifiers are unique into the scope. This is the reason why the following code is wrong also:
-Back to the 90&amp;rsquo;s, this is also wrong in C++.</description>
+Back to the 90&#39;s, this is also wrong in C++.</description>
 </item>
 
      
@@ -2415,7 +2415,7 @@ No entanto, quando esses dados viram algo de útil em um determinado contexto, n
   <pubDate>2009-06-18</pubDate>
   
   <guid>http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/</guid>
-  <description>Quando era um newbie (e um wanna-be) gostava de ler o &amp;ldquo;Real Programmers Don&amp;rsquo;t Use Pascal&amp;rdquo;, um texto humorístico que mais me influenciou e encorajou a caminho da iluminação C/C++ do que o livro de K&amp;amp;R. A partir dele, supunha eu, ser um &amp;ldquo;programador de verdade&amp;rdquo; era ser tudo. Ser um Quiche Eater (Comedor de Torta) não era nada. Programadores de verdade é que resolvem os problemas de verdade! Quiche Eaters são os losers que estudam os conceitos acadêmicos da ciência da computação e nunca fazem um maldito programa que preste (conhece alguém assim?</description>
+  <description>Quando era um newbie (e um wanna-be) gostava de ler o &amp;quot;Real Programmers Don&#39;t Use Pascal&amp;quot;, um texto humorístico que mais me influenciou e encorajou a caminho da iluminação C/C++ do que o livro de K&amp;amp;R. A partir dele, supunha eu, ser um &amp;quot;programador de verdade&amp;quot; era ser tudo. Ser um Quiche Eater (Comedor de Torta) não era nada. Programadores de verdade é que resolvem os problemas de verdade! Quiche Eaters são os losers que estudam os conceitos acadêmicos da ciência da computação e nunca fazem um maldito programa que preste (conhece alguém assim?</description>
 </item>
 
      
@@ -2461,8 +2461,8 @@ Também falei que iríamos resolver esse problema, afinal de contas, temos que s
   <pubDate>2009-04-07</pubDate>
   
   <guid>http://www.caloni.com.br/a-fila-das-threads/</guid>
-  <description>Em um ambiente multithreading, diversas threads disputam &amp;ldquo;a tapas&amp;rdquo; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa forma é isso que acontece. São threads e mais threads rodando um pedacinho de código cada vez que passam pelo processador.
-Um ambiente complexo como esse é repleto de pequenos detalhes que podem fazer o iniciante logo desanimar quando tentar depurar um programa com mais de uma thread.</description>
+  <description>Em um ambiente multithreading diversas threads disputam &amp;quot;a tapas&amp;quot; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa forma é isso que acontece. São threads e mais threads rodando um pedacinho de código cada vez que passam pelo processador.
+Um ambiente complexo como um sistema operacional executando dezenas (às vezes centenas) de programas é repleto de pequenos detalhes que podem fazer o iniciante logo desanimar quando tentar depurar um programa com mais de uma thread.</description>
 </item>
 
      
@@ -2495,7 +2495,7 @@ Um exemplo: um hook global do Windows que quando ativado em determinados eventos
   <pubDate>2009-02-10</pubDate>
   
   <guid>http://www.caloni.com.br/windbginfo/</guid>
-  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;ldquo;WinDbg. From A to Z&amp;rdquo;.
+  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;quot;WinDbg. From A to Z&amp;quot;.
 Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)</description>
 </item>
 
@@ -2619,7 +2619,7 @@ O fato é que eles fizeram isso, e agora é possível ter o WTL mais novo compil
   <pubDate>2008-09-23</pubDate>
   
   <guid>http://www.caloni.com.br/windows-jobs-com-completion-port/</guid>
-  <description>Ou &amp;ldquo;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&amp;rdquo;.
+  <description>Ou &amp;quot;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&amp;quot;.
 Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos um sistema de referências cruzadas eficiente. Outro dia demorei cerca de duas horas para conseguir criar um job.aspx), anexar o processo desejado e, a pior parte, esperar que todos os processos (o principal e seus filhos e netos) terminassem.</description>
 </item>
 
@@ -2630,7 +2630,7 @@ Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo
   <pubDate>2008-09-19</pubDate>
   
   <guid>http://www.caloni.com.br/reuna-seus-comandos-mais-usados-no-windbg-com-cmdtree/</guid>
-  <description>Tudo começou com o artigo de Roberto Farah sobre o comando &amp;ldquo;escondido&amp;rdquo; do WinDbg .cmdtree. Logo depois meus outros colegas do fã-clube do WinDbg Volker von Einem e Dmitry Vostokov comentaram sobre a imensa utilidade desse comando.
+  <description>Tudo começou com o artigo de Roberto Farah sobre o comando &amp;quot;escondido&amp;quot; do WinDbg .cmdtree. Logo depois meus outros colegas do fã-clube do WinDbg Volker von Einem e Dmitry Vostokov comentaram sobre a imensa utilidade desse comando.
 E não é pra menos. É de longe o melhor comando não-documentado do ano. Tão bom que sou obrigado a comentar em português sobre ele, apesar dos três artigos já citados.
 E eu estava justamente falando sobre essa mania dos programadores sempre acharem soluções para tarefas repetitivas e monótonas que o computador possa fazer sozinho.</description>
 </item>
@@ -2642,7 +2642,7 @@ E eu estava justamente falando sobre essa mania dos programadores sempre acharem
   <pubDate>2008-09-10</pubDate>
   
   <guid>http://www.caloni.com.br/retorno-do-pathisdirectory/</guid>
-  <description>Estava eu outro dia programando aquele código esperto &amp;ldquo;para ontem&amp;rdquo; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx) me foi retornado pela API um valor diferente de TRUE. E diferente de FALSE!
+  <description>Estava eu outro dia programando aquele código esperto &amp;quot;para ontem&amp;quot; quando me deparei com uma situação no mínimo inusitada. Ao testar se um caminho recebido era de fato um diretório.aspx) me foi retornado pela API um valor diferente de TRUE. E diferente de FALSE!
 De acordo com a documentação, o retorno deveria ser TRUE caso o caminho enviado à função fosse de fato um diretório. Caso contrário, o retorno deveria ser FALSE.</description>
 </item>
 
@@ -2707,7 +2707,7 @@ O melhor de tudo nem é a lista de livros, cujos títulos já estão batidos na 
   <pubDate>2008-08-05</pubDate>
   
   <guid>http://www.caloni.com.br/antidebugging-during-the-process-attach/</guid>
-  <description>Today was a great day for reverse engineering and protection analysis. I&amp;rsquo;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first program site - from a enthusiastic of the good for all Win32 Assembly - I&amp;rsquo;ve found the source code for one more antidebugging technique, what bring us back to our series of antidebugging techniques.
+  <description>Today was a great day for reverse engineering and protection analysis. I&#39;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first program site - from a enthusiastic of the good for all Win32 Assembly - I&#39;ve found the source code for one more antidebugging technique, what bring us back to our series of antidebugging techniques.
 The purpose of this protection is to detect if some debugger tries to attach into our running process.</description>
 </item>
 
@@ -2718,7 +2718,7 @@ The purpose of this protection is to detect if some debugger tries to attach int
   <pubDate>2008-08-01</pubDate>
   
   <guid>http://www.caloni.com.br/antidebugging-using-the-debugport/</guid>
-  <description>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside Windows called LPC (Local Procedure Call). The system creates a &amp;ldquo;magic&amp;rdquo; communication port for debugging and the debugging events pass throw it.
+  <description>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside Windows called LPC (Local Procedure Call). The system creates a &amp;quot;magic&amp;quot; communication port for debugging and the debugging events pass throw it.
 Among these events we can tell the most frequent:
   Activated breakpoints
   Thrown exceptions</description>
@@ -2731,7 +2731,7 @@ Among these events we can tell the most frequent:
   <pubDate>2008-07-30</pubDate>
   
   <guid>http://www.caloni.com.br/antidebugging-using-exceptions-part-two/</guid>
-  <description>In the first article we saw how it&amp;rsquo;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints. However, we saw also that this is a difficult solution to keep in the source code, besides its main weakness to be easily bypassed if discovered. Now it&amp;rsquo;s time to put things easier to support and at the same time to guarantee tough times even if the attacker discover what is going on.</description>
+  <description>In the first article we saw how it&#39;s possible to spoof the debugger through exceptions and let the attacker lose some considerable time trying to unbind the program from the fake breakpoints. However, we saw also that this is a difficult solution to keep in the source code, besides its main weakness to be easily bypassed if discovered. Now it&#39;s time to put things easier to support and at the same time to guarantee tough times even if the attacker discover what is going on.</description>
 </item>
 
      
@@ -2741,7 +2741,7 @@ Among these events we can tell the most frequent:
   <pubDate>2008-07-28</pubDate>
   
   <guid>http://www.caloni.com.br/antidebugging-using-exceptions-part-one/</guid>
-  <description>A debugger puts breakpoints to stop for a moment the debuggee execution. In order to do this it makes use of a well known instruction: int 3. This instruction throws an exception - the breakpoint exception - that is caught by the operating system and bypassed to the handling code for this exception. For debuggee processes this code is inside the debugger. For free processes this code normally doesn&amp;rsquo;t exist and the application simply crashs.</description>
+  <description>A debugger puts breakpoints to stop for a moment the debuggee execution. In order to do this it makes use of a well known instruction: int 3. This instruction throws an exception - the breakpoint exception - that is caught by the operating system and bypassed to the handling code for this exception. For debuggee processes this code is inside the debugger. For free processes this code normally doesn&#39;t exist and the application simply crashs.</description>
 </item>
 
      
@@ -2821,7 +2821,7 @@ Antes de começar a pensar em como as pastas estarão alinhadas, é importante s
   
   <guid>http://www.caloni.com.br/virtualbox/</guid>
   <description>O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.
-Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;ldquo;seamless mode&amp;rdquo; - , que estará integrado na versão 7 da VMWare.</description>
+Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;quot;seamless mode&amp;quot; - , que estará integrado na versão 7 da VMWare.</description>
 </item>
 
      
@@ -2834,7 +2834,7 @@ Desenvolvido pela Sun Microsystems, as características do VirtualBox impression
   <description>Já sabemos o que é uma GINA. Afinal, todo mundo já viu uma antes. E sabemos que hoje em dia ela está morta.
 No entanto, algumas pequenas mudanças foram feitas nela no Windows XP que ainda almaldiçoam o código de quem tenta reproduzir a famosa GINA da Microsoft. Nem todos chegam no final e morrem tentando.
 Eu sou um deles.
-Uma explicação sobre como funciona o processo de logon (local e remoto) e os componentes envolvidos está no artigo &amp;ldquo;How Interactive Logon Works&amp;rdquo; da Technet.</description>
+Uma explicação sobre como funciona o processo de logon (local e remoto) e os componentes envolvidos está no artigo &amp;quot;How Interactive Logon Works&amp;quot; da Technet.</description>
 </item>
 
      
@@ -2844,7 +2844,7 @@ Uma explicação sobre como funciona o processo de logon (local e remoto) e os c
   <pubDate>2008-06-30</pubDate>
   
   <guid>http://www.caloni.com.br/reflexao-em-c/</guid>
-  <description>O termo e conceito de &amp;ldquo;reflection)&amp;rdquo; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.
+  <description>O termo e conceito de &amp;quot;reflection)&amp;quot; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.
 Infelizmente não muito.
 O sistema de RTTI (Run Time Type Identification), a identificação de tipos em tempo de execução, seria o começo do reflection em C++.</description>
 </item>
@@ -2879,7 +2879,7 @@ Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na 
   <pubDate>2008-06-21</pubDate>
   
   <guid>http://www.caloni.com.br/e-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo/</guid>
-  <description>Um dos últimos artigos de Dmitry Vostokov, e tenho que falar assim porque o cara escreve muito em pouco tempo, fala sobre os perigos de termos uma mesma DLL carregada duas vezes em um único processo, muitas vezes em versões diferentes. Para os observadores atentos como Dmitry esse é um perigo que muitas vezes temos que estar preparados. Para os espertinhos de plantão, a resposta padrão seria: &amp;ldquo;não vou me preocupar, porque o contador de instâncias cuida disso&amp;rdquo;.</description>
+  <description>Um dos últimos artigos de Dmitry Vostokov, e tenho que falar assim porque o cara escreve muito em pouco tempo, fala sobre os perigos de termos uma mesma DLL carregada duas vezes em um único processo, muitas vezes em versões diferentes. Para os observadores atentos como Dmitry esse é um perigo que muitas vezes temos que estar preparados. Para os espertinhos de plantão, a resposta padrão seria: &amp;quot;não vou me preocupar, porque o contador de instâncias cuida disso&amp;quot;.</description>
 </item>
 
      
@@ -2946,7 +2946,7 @@ O Launchpad nada mais é do que um lugar onde é possível publicar seus projeto
   
   <guid>http://www.caloni.com.br/como-criar-uma-lib-no-visual-studio/</guid>
   <description>Quando se está começando no ramo, alguns detalhes nunca vêm à tona para o programador novato. Ele simplesmente vai codando até se sentir satisfeito com o prazer que é proporcionado pela prática da arte dos deuses de silício.
-Isso, em termos práticos, quer dizer que todo o fonte vai ser escrito no mesmo &amp;ldquo;.c&amp;rdquo;, que aliás talvez nem se dê ao luxo de possuir seu próprio &amp;ldquo;.h&amp;rdquo;: pra quê, se as funções são todas amigas de infância e todas se conhecem?</description>
+Isso, em termos práticos, quer dizer que todo o fonte vai ser escrito no mesmo &amp;quot;.c&amp;quot;, que aliás talvez nem se dê ao luxo de possuir seu próprio &amp;quot;.h&amp;quot;: pra quê, se as funções são todas amigas de infância e todas se conhecem?</description>
 </item>
 
      
@@ -2957,7 +2957,7 @@ Isso, em termos práticos, quer dizer que todo o fonte vai ser escrito no mesmo 
   
   <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
   <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
-Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</description>
+Today I&#39;ve figured out a pretty interesting shortcut to achieve it.</description>
 </item>
 
      
@@ -2967,7 +2967,7 @@ Today I&amp;rsquo;ve figured out a pretty interesting shortcut to achieve it.</d
   <pubDate>2008-05-23</pubDate>
   
   <guid>http://www.caloni.com.br/aprendendo-rapidamente-conceitos-essenciais-do-windbg/</guid>
-  <description>Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil, quando se começa a usar, mas mesmo assim conheço muitos programadores que relutam em depurar passo-a-passo, preferindo a depuração por meio de &amp;ldquo;MessageBoxes&amp;rdquo; ou saídas na tela. Imagine, então, a dificuldade que não é para quem conseguiu às duras penas aprender a tornar um hábito a primeira passada do código novo em folha através do F10 começar a fazer coisas como configurar símbolos e digitar comandos exdrúxulos em uma tela em modo texto.</description>
+  <description>Todo o poder e flexibilidade do pacote Debugging Tools da Microsoft pode ser ofuscado pela sua complexidade e curva de aprendizagem. Afinal de contas, usar o depurador do Visual Studio é muito fácil, quando se começa a usar, mas mesmo assim conheço muitos programadores que relutam em depurar passo-a-passo, preferindo a depuração por meio de &amp;quot;MessageBoxes&amp;quot; ou saídas na tela. Imagine, então, a dificuldade que não é para quem conseguiu às duras penas aprender a tornar um hábito a primeira passada do código novo em folha através do F10 começar a fazer coisas como configurar símbolos e digitar comandos exdrúxulos em uma tela em modo texto.</description>
 </item>
 
      
@@ -3046,7 +3046,7 @@ Porém, existem situações, como a que passei essa semana, onde é preciso sabe
   
   <guid>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</guid>
   <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
-Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;ldquo;urgentes&amp;rdquo;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
+Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;quot;urgentes&amp;quot;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
 Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.</description>
 </item>
 
@@ -3057,7 +3057,7 @@ Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar n�
   <pubDate>2008-04-21</pubDate>
   
   <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;ldquo;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;ldquo;derivado&amp;rdquo; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
+  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
 </item>
 
      
@@ -3067,7 +3067,7 @@ Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar n�
   <pubDate>2008-04-17</pubDate>
   
   <guid>http://www.caloni.com.br/crash-dump-analysis-o-livro/</guid>
-  <description>Para quem acabou de terminar o Advanced Windows Debugging (como eu) e não consegue ler no computador os complicados artigos de Dmitry Vostokov (como eu), &amp;ldquo;seus problemas acabaram-se&amp;rdquo;: acabou de ser lançado o Memory Dump Analysis Volume 1 em hardware! Em modelos portáveis (paperback) e desktop (hardcover).
+  <description>Para quem acabou de terminar o Advanced Windows Debugging (como eu) e não consegue ler no computador os complicados artigos de Dmitry Vostokov (como eu), &amp;quot;seus problemas acabaram-se&amp;quot;: acabou de ser lançado o Memory Dump Analysis Volume 1 em hardware! Em modelos portáveis (paperback) e desktop (hardcover).
 Se você perder um pouco de tempo lendo o índice online, perceberá que boa parte do conteúdo (se não todo) está em seu sítio, disponível gratuitamente.</description>
 </item>
 
@@ -3101,7 +3101,7 @@ Para quem está começando, recomendo usar um depurador simples, 16 bits e que e
   <pubDate>2008-04-09</pubDate>
   
   <guid>http://www.caloni.com.br/linux-e-o-dhcp/</guid>
-  <description>Quando procuramos no google por &amp;ldquo;linux dhcp&amp;rdquo;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
+  <description>Quando procuramos no google por &amp;quot;linux dhcp&amp;quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
 Muito bem. E a outra ponta da história?
 [Testes feitos em um Fedora 8, não me pergunte mais detalhes]
 O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network.</description>
@@ -3190,7 +3190,7 @@ A falta de prática e estudos pesa muito para um enxadrista amador, já que faci
   <pubDate>2008-03-12</pubDate>
   
   <guid>http://www.caloni.com.br/o-misterio-das-pilhas-diferentes/</guid>
-  <description>Mal comecei a leitura do meu mais novo &amp;ldquo;mother-fucker&amp;rdquo; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: configure seus símbolos corretamente.
+  <description>Mal comecei a leitura do meu mais novo &amp;quot;mother-fucker&amp;quot; livro e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: configure seus símbolos corretamente.
 Esse é o primeiro ponto abordado pelo autor, por se tratar de algo que, caso não seja bem feito, pode dar dores de cabeça piores do que o próprio problema que originou a sessão de debugging.</description>
 </item>
 
@@ -3245,8 +3245,8 @@ Nesse caso, se tratava de um programa que iria rodar em um microprocessador, daq
   <pubDate>2008-02-25</pubDate>
   
   <guid>http://www.caloni.com.br/codigos-de-entrevista-o-ponteiro-nulo/</guid>
-  <description>Bom, parece que o &amp;ldquo;mother-fucker&amp;rdquo; wordpress ferrou com meu artigo sobre o Houaiss. Enquanto eu choro as pitangas aqui vai um outro artigo um pouco mais simples, mas igualmente interessante.
-&amp;ldquo;Wanderley, tenho umas sugestões para teu blog. A primeira: Que tal analisar o código abaixo e dizer se compila ou não. Se não compilar, explicar porquê não compila. Se compilar, o que acontecerá e por quê.&amp;rdquo;
+  <description>Bom, parece que o &amp;quot;mother-fucker&amp;quot; wordpress ferrou com meu artigo sobre o Houaiss. Enquanto eu choro as pitangas aqui vai um outro artigo um pouco mais simples, mas igualmente interessante.
+&amp;quot;Wanderley, tenho umas sugestões para teu blog. A primeira: Que tal analisar o código abaixo e dizer se compila ou não. Se não compilar, explicar porquê não compila. Se compilar, o que acontecerá e por quê.&amp;quot;
 O código é o que veremos abaixo:</description>
 </item>
 
@@ -3277,9 +3277,9 @@ O código é o que veremos abaixo:</description>
   <pubDate>2008-02-13</pubDate>
   
   <guid>http://www.caloni.com.br/funky-do-while/</guid>
-  <description>It&amp;rsquo;s a known habit to use do-while constructions when there&amp;rsquo;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.
-Let&amp;rsquo;s imagine a trace macro that&amp;rsquo;s enabled in debug mode, whilst kept in silence in release builds:
-Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&amp;rsquo;t work.</description>
+  <description>It&#39;s a known habit to use do-while constructions when there&#39;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.
+Let&#39;s imagine a trace macro that&#39;s enabled in debug mode, whilst kept in silence in release builds:
+Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&#39;t work.</description>
 </item>
 
      
@@ -3289,7 +3289,7 @@ Nothing much, but it seems to work. But, as we going to see in the following lin
   <pubDate>2008-02-11</pubDate>
   
   <guid>http://www.caloni.com.br/desconstruindo-ioccc/</guid>
-  <description>Como alguns devem saber, e outros não (ou não deveriam), existe uma competição internacional para escolher quem escreve o código em C mais ofuscado. Isso mesmo. O evento se chama The International Obfuscated C Code Contest (IOCCC resumidamente) e costuma premiar anualmente os melhores &amp;ldquo;do ramo&amp;rdquo; com a chamada &amp;ldquo;menção desonrosa&amp;rdquo;.
+  <description>Como alguns devem saber, e outros não (ou não deveriam), existe uma competição internacional para escolher quem escreve o código em C mais ofuscado. Isso mesmo. O evento se chama The International Obfuscated C Code Contest (IOCCC resumidamente) e costuma premiar anualmente os melhores &amp;quot;do ramo&amp;quot; com a chamada &amp;quot;menção desonrosa&amp;quot;.
 Acredito que a real valia de um campeonato desse porte é fazer as pessoas pensarem mais a fundo sobre as regras da linguagem.</description>
 </item>
 
@@ -3300,8 +3300,8 @@ Acredito que a real valia de um campeonato desse porte é fazer as pessoas pensa
   <pubDate>2008-02-07</pubDate>
   
   <guid>http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/</guid>
-  <description>I know what you going to think about this one: &amp;ldquo;silly trick&amp;rdquo;. That&amp;rsquo;s why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who cares about productivity.
-Let&amp;rsquo;s say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?</description>
+  <description>I know what you going to think about this one: &amp;quot;silly trick&amp;quot;. That&#39;s why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who cares about productivity.
+Let&#39;s say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?</description>
 </item>
 
      
@@ -3344,7 +3344,7 @@ Era comum (talvez ainda seja) fazer um código assim:</description>
   
   <guid>http://www.caloni.com.br/rmthread-rode-codigo-em-processo-vizinho/</guid>
   <description>Aproveitando que utilizei a mesma técnica semana passada para desenvolver um vírus para Ethical Hacking, republico aqui este artigo que já está mofando no Code Projet, mas que espero que sirva de ajuda pra muita gente que gosta de fuçar nos internals do sistema. Boa leitura!
-RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &amp;ldquo;Three Ways to Inject Your Code into Another Process&amp;rdquo;.</description>
+RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &amp;quot;Three Ways to Inject Your Code into Another Process&amp;quot;.</description>
 </item>
 
      
@@ -3354,7 +3354,7 @@ RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Rob
   <pubDate>2008-01-24</pubDate>
   
   <guid>http://www.caloni.com.br/keychanger-de-crianca/</guid>
-  <description>Às vezes na vida a vontade de fazer alguma coisa besta acaba sendo mais forte do que o senso de ridículo. Então, resolvi ressuscitar o quase apodrecido RusKey, um programa que fiz para trocar letras digitadas no teclado. A idéia é muito simples: o sujeito digita &amp;lsquo;i&amp;rsquo; e sai um &amp;lsquo;c&amp;rsquo;, digita um &amp;lsquo;f&amp;rsquo; e sai um &amp;lsquo;u&amp;rsquo;, e assim por diante. Se estiver programando e for criar um if, por exemplo, no lugar da palavra if vai aparecer&amp;hellip; bom, não é exatamente um if que vai aparecer na tela =).</description>
+  <description>Às vezes na vida a vontade de fazer alguma coisa besta acaba sendo mais forte do que o senso de ridículo. Então, resolvi ressuscitar o quase apodrecido RusKey, um programa que fiz para trocar letras digitadas no teclado. A idéia é muito simples: o sujeito digita &#39;i&#39; e sai um &#39;c&#39;, digita um &#39;f&#39; e sai um &#39;u&#39;, e assim por diante. Se estiver programando e for criar um if, por exemplo, no lugar da palavra if vai aparecer.</description>
 </item>
 
      
@@ -3396,7 +3396,7 @@ Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que
   <pubDate>2008-01-10</pubDate>
   
   <guid>http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida/</guid>
-  <description>Apesar de ser recomendado que 100% dos componentes de um software esteja configurado corretamente para gerar símbolos na versão release, possibilitando assim a visualização do nome das funções internas através de um arquivo de dump (despejo) gerado na ocorrência de um crash, essa verdade só ocorre em 80% das vezes. Quis Murphy que dessa vez a única parte não &amp;ldquo;simbolizada&amp;rdquo; fosse a que gerou a tela azul em um Intel Quad Core que estou analisando esses dias.</description>
+  <description>Apesar de ser recomendado que 100% dos componentes de um software esteja configurado corretamente para gerar símbolos na versão release, possibilitando assim a visualização do nome das funções internas através de um arquivo de dump (despejo) gerado na ocorrência de um crash, essa verdade só ocorre em 80% das vezes. Quis Murphy que dessa vez a única parte não &amp;quot;simbolizada&amp;quot; fosse a que gerou a tela azul em um Intel Quad Core que estou analisando esses dias.</description>
 </item>
 
      
@@ -3532,7 +3532,7 @@ Sim, existe um WinMain e ele não está escondido! Nele você pode fazer o que q
   <pubDate>2007-11-29</pubDate>
   
   <guid>http://www.caloni.com.br/desenhando-em-c-builder/</guid>
-  <description>Uma das partes mais fáceis e divertidas de se mexer no C++ Builder é a que lida com gráficos. A abstração da VCL toma conta da alocação e liberação dos objetos gráficos da GDI e nos fornece uma interface para desenhar linhas e figuras geométricas, mexer com bitmaps, usar fontes etc. Concomitantemente, temos acesso ao handles &amp;ldquo;crus&amp;rdquo; da Win32 API para que possamos chamar alguma função esotérica necessária para o seu programa, o que nos garante flexibilidade suficiente.</description>
+  <description>Uma das partes mais fáceis e divertidas de se mexer no C++ Builder é a que lida com gráficos. A abstração da VCL toma conta da alocação e liberação dos objetos gráficos da GDI e nos fornece uma interface para desenhar linhas e figuras geométricas, mexer com bitmaps, usar fontes etc. Concomitantemente, temos acesso ao handles &amp;quot;crus&amp;quot; da Win32 API para que possamos chamar alguma função esotérica necessária para o seu programa, o que nos garante flexibilidade suficiente.</description>
 </item>
 
      
@@ -3565,7 +3565,7 @@ Um script no WinDbg nada mais é que uma execução em batch: um arquivo texto c
   <pubDate>2007-11-21</pubDate>
   
   <guid>http://www.caloni.com.br/usando-a-libc-nativa-do-windows/</guid>
-  <description>Por padrão, todo projeto no Visual Studio depende da LIBC. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos onde fazer um &amp;ldquo;Hello World&amp;rdquo; pode custar 56 KB em Release - Visual Studio 2005, configuração padrão sem &amp;ldquo;buffer security check&amp;rdquo; - vale a pena economizar alguns KBytes que não se vão usar. Principalmente se essa possibilidade existe desde o cavernoso Windows 95.</description>
+  <description>Por padrão, todo projeto no Visual Studio depende da LIBC. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos onde fazer um &amp;quot;Hello World&amp;quot; pode custar 56 KB em Release - Visual Studio 2005, configuração padrão sem &amp;quot;buffer security check&amp;quot; - vale a pena economizar alguns KBytes que não se vão usar. Principalmente se essa possibilidade existe desde o cavernoso Windows 95.</description>
 </item>
 
      
@@ -3596,7 +3596,7 @@ Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sens
   <pubDate>2007-11-13</pubDate>
   
   <guid>http://www.caloni.com.br/mousetool/</guid>
-  <description>Well, as most of you already know, I really don&amp;rsquo;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
+  <description>Well, as most of you already know, I really don&#39;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
 The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor.</description>
 </item>
 
@@ -3640,7 +3640,7 @@ Isso me estimulou a desdobrar um pouco mais os mistérios por trás dos ponteiro
   <pubDate>2007-11-01</pubDate>
   
   <guid>http://www.caloni.com.br/desenvolvendo-em-linha-de-comando/</guid>
-  <description>Desde uns tempos para cá o Visual Studio tem se tornado uma das ferramentas mais pesadas de desenvolvimento já criadas. Como se não bastasse, a compilação de pequenos trechos de código é algo desnecessariamente complicado no ambiente. Por esse motivo estou ganhando o costume de usar a linha de comando para esse tipo de tarefa. Afinal de contas, na maioria das vezes a única coisa que eu preciso fazer é abrir o atalho &amp;ldquo;Visual Studio Command Prompt&amp;rdquo; e digitar uma linha:</description>
+  <description>Desde uns tempos para cá o Visual Studio tem se tornado uma das ferramentas mais pesadas de desenvolvimento já criadas. Como se não bastasse, a compilação de pequenos trechos de código é algo desnecessariamente complicado no ambiente. Por esse motivo estou ganhando o costume de usar a linha de comando para esse tipo de tarefa. Afinal de contas, na maioria das vezes a única coisa que eu preciso fazer é abrir o atalho &amp;quot;Visual Studio Command Prompt&amp;quot; e digitar uma linha:</description>
 </item>
 
      
@@ -3663,7 +3663,7 @@ Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá
   <guid>http://www.caloni.com.br/protecao-dos-membros-protected/</guid>
   <description>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:
 Esse é o motivo fundamental do porquê não podermos fazer isso:
-Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &amp;ldquo;.</description>
+Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &amp;quot;.</description>
 </item>
 
      
@@ -3695,7 +3695,7 @@ Ao acessar membros protegidos é importante o tipo da expressão que está do la
   
   <guid>http://www.caloni.com.br/por-que-minha-dll-travou/</guid>
   <description>Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida, especialmente por causa das explicações sobre o loader lock e seus efeitos colaterais.
-O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &amp;ldquo;mutex&amp;rdquo;) para sincronizar as chamadas.</description>
+O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &amp;quot;mutex&amp;quot;) para sincronizar as chamadas.</description>
 </item>
 
      
@@ -3757,7 +3757,7 @@ Então, o que ler antes disso? Existem tantos livros bons para iniciantes (e tan
   <pubDate>2007-09-26</pubDate>
   
   <guid>http://www.caloni.com.br/introducao-ao-c-builderturbo-c/</guid>
-  <description>Após mais de um ano de tentativas, finalmente consegui instalar e iniciar com sucesso o Borland Developer Studio. Esse foi o nome pomposo dado pela Borland para a &amp;ldquo;continuação&amp;rdquo; do velho C++ Builder e seus parentes, o Delphi e o C# Builder.
+  <description>Após mais de um ano de tentativas, finalmente consegui instalar e iniciar com sucesso o Borland Developer Studio. Esse foi o nome pomposo dado pela Borland para a &amp;quot;continuação&amp;quot; do velho C++ Builder e seus parentes, o Delphi e o C# Builder.
 Existem muitas coisas novas ainda para ver, mas não é a usabilidade. Assim como a IDE antiga, é fácil de sair mexendo e fazendo janelas, no bom estilo WYSIWYG dos produtos da Borland.</description>
 </item>
 
@@ -3769,7 +3769,7 @@ Existem muitas coisas novas ainda para ver, mas não é a usabilidade. Assim com
   
   <guid>http://www.caloni.com.br/why-is-my-dll-locked/</guid>
   <description>There is a document from Microsoft alerting about the hazards in putting your code inside a DllMain function. what is more comprehensive and easier to read than the MSDN observations. It is worth reading, even because the explanations about the loader lock and its side effects can do very good for your code health.
-In short, the Windows code responsible to call DllMain for each loaded/unloaded DLLs uses an exclusive access object (the so-called &amp;ldquo;mutex&amp;rdquo;) to synchronize its calls.</description>
+In short, the Windows code responsible to call DllMain for each loaded/unloaded DLLs uses an exclusive access object (the so-called &amp;quot;mutex&amp;quot;) to synchronize its calls.</description>
 </item>
 
      
@@ -3791,7 +3791,7 @@ Isso costuma ser mais comum quando existem centenas de milhares de parâmetros n
   <pubDate>2007-09-18</pubDate>
   
   <guid>http://www.caloni.com.br/hook-de-com-no-windbg/</guid>
-  <description>Continuando com o tema hooks no WinDbg, vamos aqui &amp;ldquo;hookear&amp;rdquo; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de engenharia reversa que apresentei há um tempo atrás [1], mas com as opções de pause, rewind, replay e câmera lenta habilitadas.
+  <description>Continuando com o tema hooks no WinDbg, vamos aqui &amp;quot;hookear&amp;quot; e analisar as chamadas de métodos de um objeto COM. O que será feito aqui é o mesmo experimento feito para uma palestra de engenharia reversa que apresentei há um tempo atrás [1], mas com as opções de pause, rewind, replay e câmera lenta habilitadas.
 Antes de começar, se você não sabe nada sobre COM, não deveria estar aqui, mas aqui, aqui e aqui.</description>
 </item>
 
@@ -3842,7 +3842,7 @@ Antes de começar, se você não sabe nada sobre COM, não deveria estar aqui, m
   <pubDate>2007-08-29</pubDate>
   
   <guid>http://www.caloni.com.br/hook-de-api-no-windbg/</guid>
-  <description>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &amp;ldquo;link estático&amp;rdquo;) ou ele chama a função kernel32!GetProcAddress explicitamente [1].
+  <description>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &amp;quot;link estático&amp;quot;) ou ele chama a função kernel32!GetProcAddress explicitamente [1].
 Para conseguir saber as funções das quais um executável obtém o endereço através da primeira técnica podemos utilizar o mundialmente famoso Dependency Walker. Ele nos mostrará quais DLLs ele utiliza e quais funções por DLL ele quer o endereço.</description>
 </item>
 
@@ -3853,7 +3853,7 @@ Para conseguir saber as funções das quais um executável obtém o endereço at
   <pubDate>2007-08-23</pubDate>
   
   <guid>http://www.caloni.com.br/antidebug-ocupando-a-debugport/</guid>
-  <description>Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um recurso interno do Windows chamado de LPC (Local Procedure Call). O sistema cria uma &amp;ldquo;porta mágica&amp;rdquo; de comunicação específica para a depuração e os eventos trafegam por meio dela.
+  <description>Quando um depurador inicia um processo para ser depurado ou, o caso abordado por este artigo, se conecta em um processo já iniciado, as comunicações entre esses dois processos é feita através de um recurso interno do Windows chamado de LPC (Local Procedure Call). O sistema cria uma &amp;quot;porta mágica&amp;quot; de comunicação específica para a depuração e os eventos trafegam por meio dela.
 Entre esses eventos podemos citar os seguintes:</description>
 </item>
 
@@ -3876,7 +3876,7 @@ O fonte abaixo, por exemplo, envolve um detalhe que costuma atormentar alguns pr
   
   <guid>http://www.caloni.com.br/junctions/</guid>
   <description>Semana passada baixei uma nova imagem para minha máquina de desenvolvimento. Esse esquema do pessoal da engenharia instalar as coisas para você facilita muito as coisas, mas existe o risco de algo ser instalado no lugar errado, que foram os casos do DDK e do SDK do Windows. Aqui no desenvolvimento, para efeito de padronização, utilizamos a seguinte estrutura de diretórios para esses dois aplicativos:
-Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o nosso padrão: o SDK é instalado em &amp;ldquo;%programfiles%\Microsoft Platform SDK&amp;rdquo; e o DDK em &amp;ldquo;C:\WINDDK\3790.</description>
+Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o nosso padrão: o SDK é instalado em &amp;quot;%programfiles%\Microsoft Platform SDK&amp;quot; e o DDK em &amp;quot;C:\WINDDK\3790.</description>
 </item>
 
      
@@ -3886,7 +3886,7 @@ Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o
   <pubDate>2007-08-15</pubDate>
   
   <guid>http://www.caloni.com.br/historia-da-linguagem-c-parte-2/</guid>
-  <description>No princípio&amp;hellip; não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados Srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
+  <description>No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados Srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
 O bom de B era sua rica expressividade e sua simples gramática. Tão simples que o manual da linguagem consistia de apenas 30 páginas.</description>
 </item>
 
@@ -3908,7 +3908,7 @@ Com a chegada do Windows Vista, uma velha conhecida minha e dos meus colegas dei
   <pubDate>2007-08-09</pubDate>
   
   <guid>http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-2/</guid>
-  <description>No primeiro artigo vimos como é possível &amp;ldquo;enganar&amp;rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</description>
+  <description>No primeiro artigo vimos como é possível &amp;quot;enganar&amp;quot; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</description>
 </item>
 
      
@@ -3949,7 +3949,7 @@ Em 21 de julho de 1967 Martin Richards libera o manual da sua recém-criada ling
   <pubDate>2007-07-30</pubDate>
   
   <guid>http://www.caloni.com.br/c-and-c-operators-precedence-table/</guid>
-  <description>Wanderley, your explanation about why a program compiles in C++ and not in C seems to me logic and correct, but gave me some doubts, because I always learned that the C and C++ operator precedence are the same thing. I checked out the Appendix A in the &amp;ldquo;C ++ - How To Program&amp;rdquo; (sixth edition) and the book table is equal to the C operators precedence table and it is different from the C++ precedence table presented by you in the article.</description>
+  <description>Wanderley, your explanation about why a program compiles in C++ and not in C seems to me logic and correct, but gave me some doubts, because I always learned that the C and C++ operator precedence are the same thing. I checked out the Appendix A in the &amp;quot;C ++ - How To Program&amp;quot; (sixth edition) and the book table is equal to the C operators precedence table and it is different from the C++ precedence table presented by you in the article.</description>
 </item>
 
      
@@ -3959,7 +3959,7 @@ Em 21 de julho de 1967 Martin Richards libera o manual da sua recém-criada ling
   <pubDate>2007-07-26</pubDate>
   
   <guid>http://www.caloni.com.br/movendo-o-cursor-do-mouse-com-o-teclado/</guid>
-  <description>Bom, vamos deixar de papo furado e &amp;ldquo;codar&amp;rdquo;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do mouse quando pressionada uma tecla de atalho e voltar à sua posição original quando pressionada outra tecla.
+  <description>Bom, vamos deixar de papo furado e &amp;quot;codar&amp;quot;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do mouse quando pressionada uma tecla de atalho e voltar à sua posição original quando pressionada outra tecla.
 Nota de desculpas: eu sei que estou sendo rabugento demais com o mouse. Já é o segundo artigo que escrevo falando como evitar o mouse e isso deve realmente irritar os fãs desse ponteirinho irritante.</description>
 </item>
 
@@ -3981,7 +3981,7 @@ Atualmente temos duas maneiras de fazer asserções: usando a função assert (a
   <pubDate>2007-07-20</pubDate>
   
   <guid>http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-1/</guid>
-  <description>Um depurador utiliza breakpoints para &amp;ldquo;paralisar&amp;rdquo; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como int 3. Essa instrução gera uma exceção - exceção de breakpoint - que é capturada pelo sistema operacional e repassada para o código de tratamento dessa exceção. Em programas sendo depurados esse código está localizado no depurador. Em programas &amp;ldquo;livres&amp;rdquo; esse código normalmente não existe e ao acontecer essa exceção o aplicativo simplesmente &amp;ldquo;capota&amp;rdquo;.</description>
+  <description>Um depurador utiliza breakpoints para &amp;quot;paralisar&amp;quot; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como int 3. Essa instrução gera uma exceção - exceção de breakpoint - que é capturada pelo sistema operacional e repassada para o código de tratamento dessa exceção. Em programas sendo depurados esse código está localizado no depurador. Em programas &amp;quot;livres&amp;quot; esse código normalmente não existe e ao acontecer essa exceção o aplicativo simplesmente &amp;quot;capota&amp;quot;.</description>
 </item>
 
      
@@ -3991,7 +3991,7 @@ Atualmente temos duas maneiras de fazer asserções: usando a função assert (a
   <pubDate>2007-07-18</pubDate>
   
   <guid>http://www.caloni.com.br/como-ser-um-melhor-desenvolvedor-nos-proximos-seis-meses/</guid>
-  <description>Graças ao meu amigo Thiago estive acompanhando uma série de posts de gente renomada sobre o tema deste artigo. Eles fazem parte de uma nova modalidade entre os blogueiros (pelo menos para mim) chamada de tagging. Funciona assim: você escreve sobre algo (por exemplo, &amp;ldquo;como ser um melhor cozinheiro em 6 meses&amp;rdquo;) e manda uma tag para que outras pessoas também escrevam sobre o mesmo assunto, o que pode ser feito referenciando o sítio dessas pessoas.</description>
+  <description>Graças ao meu amigo Thiago estive acompanhando uma série de posts de gente renomada sobre o tema deste artigo. Eles fazem parte de uma nova modalidade entre os blogueiros (pelo menos para mim) chamada de tagging. Funciona assim: você escreve sobre algo (por exemplo, &amp;quot;como ser um melhor cozinheiro em 6 meses&amp;quot;) e manda uma tag para que outras pessoas também escrevam sobre o mesmo assunto, o que pode ser feito referenciando o sítio dessas pessoas.</description>
 </item>
 
      
@@ -4023,8 +4023,8 @@ Claro que sempre me empenho em entender como o sistema funciona, nos menores det
   <pubDate>2007-07-10</pubDate>
   
   <guid>http://www.caloni.com.br/precedence-difference/</guid>
-  <description>Once upon a time my old friend Kabloc wrote this little and &amp;ldquo;harmless&amp;rdquo; function in order to print the multiplication table:
-Despite the fact the result is a strong candidate to &amp;ldquo;The International Obfuscated C Code Contest&amp;rdquo;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.
+  <description>Once upon a time my old friend Kabloc wrote this little and &amp;quot;harmless&amp;quot; function in order to print the multiplication table:
+Despite the fact the result is a strong candidate to &amp;quot;The International Obfuscated C Code Contest&amp;quot;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.
 Asked to solve the problem, given my congenital inclination to random subjects involving C++, I decided to fix the things up in my old-n-good Visual Studio 2003.</description>
 </item>
 
@@ -4036,7 +4036,7 @@ Asked to solve the problem, given my congenital inclination to random subjects i
   
   <guid>http://www.caloni.com.br/google-shortcuts/</guid>
   <description>I do love shortcuts. Since my very first years using computers, shortcuts had become my obsession. I research them through the time, collecting them, using them. For a long time I avoid myself from touching the mouse, trainning to remember all keystroke sequences I know.
- I have nothing against using the mouse neither the people that do it. I&amp;rsquo;m just not very much enthusiastic in using mice. For sometime, I even believed that the cursor pointer was getting me annoyed, so I developed a program to get rid of it from the screen (using a shortcut, of course).</description>
+ I have nothing against using the mouse neither the people that do it. I&#39;m just not very much enthusiastic in using mice. For sometime, I even believed that the cursor pointer was getting me annoyed, so I developed a program to get rid of it from the screen (using a shortcut, of course).</description>
 </item>
 
      

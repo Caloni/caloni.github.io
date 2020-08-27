@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Disassembling the array operator</p>
+        
+<p class="title">Disassembling the array operator</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/disassembling-the-array-operator.md" title="source">
-    2007-06-22
-    </a>
-    
+Wanderley Caloni, 2007-06-22
 
 </p>
 
@@ -97,12 +96,12 @@
             
               <p>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: pointers.</p>
 <p>When I was reading the K&amp;R book (again) I was enjoying the language specification details in the Appendix A. It was specially odd the description as an array must be accessed:</p>
-<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &ldquo;pointer to T&rdquo; and the other shall have enumeration or integral type. The result is an lvalue of type &ldquo;T&rdquo;. (&hellip;) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ).</p>
-<p>Notice that the rules don&rsquo;t specify the order of expressions to access the array. In other words, it doesn&rsquo;t matter for the language if we use a pointer before the integer or an integer before the pointer.</p>
+<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &quot;pointer to T&quot; and the other shall have enumeration or integral type. The result is an lvalue of type &quot;T&quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ).</p>
+<p>Notice that the rules don't specify the order of expressions to access the array. In other words, it doesn't matter for the language if we use a pointer before the integer or an integer before the pointer.</p>
 <p>The quote[index] bellow shows that we can use both orders and the code will compile successfully.</p>
-<p>This code doesn&rsquo;t show how obscure we can be. If we use a constant integer replacing the index, by example, the code starts to be an IOCCC participant:</p>
-<p>Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &ldquo;universal match&rdquo; *( (E1) + (E2) ). Even bizarre things like this are easy to realize:</p>
-<p>Obs.: this kind of &ldquo;obscure rule&rdquo; hardly will pass in a code review since it is a useless feature. Be wise and don&rsquo;t use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.</p>
+<p>This code doesn't show how obscure we can be. If we use a constant integer replacing the index, by example, the code starts to be an IOCCC participant:</p>
+<p>Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &quot;universal match&quot; *( (E1) + (E2) ). Even bizarre things like this are easy to realize:</p>
+<p>Obs.: this kind of &quot;obscure rule&quot; hardly will pass in a code review since it is a useless feature. Be wise and don't use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.</p>
 
             
 
@@ -118,8 +117,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/historia-do-windows-parte-10/">História do Windows - parte 1.0 &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/">&#129092; Introdução ao Debugging Tools for Windows</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/historia-do-windows-parte-10/">História do Windows - parte 1.0 &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/">&#x25C1; Introdução ao Debugging Tools for Windows</a></span>
 
         </div>
 

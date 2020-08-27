@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de..."/>
+        content="No primeiro artigo vimos como é possível &quot;enganar&quot; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira...."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Antidebug: interpretação baseada em exceção (parte 2)</p>
+        
+<p class="title">Antidebug: interpretação baseada em exceção (parte 2)</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/antidebug-interpretacao-baseada-em-excecao-parte-2.md" title="source">
-    2007-08-09
-    </a>
-    
+Wanderley Caloni, 2007-08-09
 
 </p>
 
@@ -95,10 +94,10 @@
         
           <div class="content">
             
-              <p>No primeiro artigo vimos como é possível &ldquo;enganar&rdquo; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</p>
+              <p>No primeiro artigo vimos como é possível &quot;enganar&quot; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</p>
 <p>O upgrade apresentado aqui continua utilizando o lançamento de exceções intrinsecamente, mas agora não depende mais da divisão do código em minifunções e chamá-las aos poucos. Em invés disso, temos apenas que pegar traços de código e colocá-los em torno de uma macro milagrosa que fará tudo o que quisermos. Isso, claro, depois de algumas marteladas que serão explicadas aqui.</p>
-<p>A solução acima está apresentada em pseudo-código para tornar mais claro o conceito. Note que existe uma espécie de &ldquo;retorno invisível&rdquo;, não baseado em retorno de pilha, envolvido. Para implementá-lo, contudo, podemos nos ajeitar com o velho e bom padrão C ANSI, com as rotinas setjmp (passo 1) e longjmp (passo 3). Para entender a implementação dessa funções na plataforma 8086 precisamos ter primeiro uma visão básica da estrutura de chamada de funções baseada em pilha.</p>
-<p>Registradores são variáveis reservadas do processador que podem ser utilizadas pelo código assembly da plataforma envolvida. Stack frame (estrutura da pilha) nada mais é que a hierarquia de chamadas das funções, o &ldquo;quem chamou quem&rdquo; em uma execução qualquer. Call e ret são instruções em assembly para chamar uma função (call) e sair de uma função (ret), respectivamente. Ambas alteram o stack frame.</p>
+<p>A solução acima está apresentada em pseudo-código para tornar mais claro o conceito. Note que existe uma espécie de &quot;retorno invisível&quot;, não baseado em retorno de pilha, envolvido. Para implementá-lo, contudo, podemos nos ajeitar com o velho e bom padrão C ANSI, com as rotinas setjmp (passo 1) e longjmp (passo 3). Para entender a implementação dessa funções na plataforma 8086 precisamos ter primeiro uma visão básica da estrutura de chamada de funções baseada em pilha.</p>
+<p>Registradores são variáveis reservadas do processador que podem ser utilizadas pelo código assembly da plataforma envolvida. Stack frame (estrutura da pilha) nada mais é que a hierarquia de chamadas das funções, o &quot;quem chamou quem&quot; em uma execução qualquer. Call e ret são instruções em assembly para chamar uma função (call) e sair de uma função (ret), respectivamente. Ambas alteram o stack frame.</p>
 <p>Imagine que você tem uma função, CallFunc, e outra função, Func, e que uma chame a outra. Para analisarmos apenas a chamada de função, e apenas isso, vamos considerar que Func não recebe nenhum parâmetro e não retorna nenhum valor. O código em C fica, então, assim:</p>
 <p>void Func()
 {
@@ -116,14 +115,14 @@ Func();
 00411F9C previnstruction
 00411F9E call Func (411424h) ; ESP = 0012FD3C
 00411FA3 nextinstruction</p>
-<p>A partir do assembly acima podemos concluir no mínimo duas coisas: 1. a pilha &ldquo;cresce&rdquo; para baixo, pois seu valor decrementou de quadro (0012FD3C para 0012FD38 são 4 byte a menos) e 2. o valor de retorno da função chamada é o endereço da próxima instrução após a chamada (call), no caso 00411FA3.</p>
-<p>Ora, da mesma forma que conseguimos acompanhar essa simples execução, o atacante também o fará. Por isso que no meio dessa chamada iremos colocar o lançamento de uma exceção e, no retorno, faremos não do modo convencional apresentado, mas por uma outra técnica que, ao invés de utilizar a instrução ret, seta &ldquo;manualmente&rdquo; o valor do registrador ESP (estado da pilha) e &ldquo;pula&rdquo; para a próxima instrução de CallFunc.</p>
+<p>A partir do assembly acima podemos concluir no mínimo duas coisas: 1. a pilha &quot;cresce&quot; para baixo, pois seu valor decrementou de quadro (0012FD3C para 0012FD38 são 4 byte a menos) e 2. o valor de retorno da função chamada é o endereço da próxima instrução após a chamada (call), no caso 00411FA3.</p>
+<p>Ora, da mesma forma que conseguimos acompanhar essa simples execução, o atacante também o fará. Por isso que no meio dessa chamada iremos colocar o lançamento de uma exceção e, no retorno, faremos não do modo convencional apresentado, mas por uma outra técnica que, ao invés de utilizar a instrução ret, seta &quot;manualmente&quot; o valor do registrador ESP (estado da pilha) e &quot;pula&quot; para a próxima instrução de CallFunc.</p>
 <p>Func:
 00411F60 throwexception
-00411F61 &hellip;
+00411F61 ...
 00411F73 catchexception
 00411F74 mov ESP, 0012FD3C ; ESP = 0012FD3C, como em CallFunc
-00411F75 jmp 00411FA3 ; &ldquo;pula&rdquo; para CallFunc::nextinstruction</p>
+00411F75 jmp 00411FA3 ; &quot;pula&quot; para CallFunc::nextinstruction</p>
 <p>Toda essa esculhambada em assembly não precisa ser necessariamente feita em linguagem de baixo nível. Foi apenas uma maneira que encontrei pra ilustrar as diferenças entre retorno baseado em pilha e alteração no fluxo do código. Como já foi dito, para a sorte e o bem-estar de todos, essa mesma técnica pode ser implementada com funções C da biblioteca ANSI:</p>
 <p>Essa foi a técnica adicionada à solução do lançamento de exceções. O código final ficou mais claro:</p>
 <p>À primeira vista parece um desperdício o if estar diretamente no código (lembre-se que vamos utilizar a mesma estrutura condicional em várias e várias partes do código. Para tornar mais claro seu uso, resumir a chamada protegida e permitir que a proteção seja desabilitada em debug, vamos criar uma macro:</p>
@@ -143,8 +142,8 @@ Func();
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/gina-x-credential-provider/">GINA x Credential Provider &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/historia-do-windows-parte-351/">&#129092; História do Windows - parte 3.51</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/gina-x-credential-provider/">GINA x Credential Provider &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/historia-do-windows-parte-351/">&#x25C1; História do Windows - parte 3.51</a></span>
 
         </div>
 

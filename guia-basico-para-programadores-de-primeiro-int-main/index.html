@@ -63,7 +63,7 @@ Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer pr
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer pr
 
       
       <div class="container">
-        <p class="title">Guia básico para programadores de primeiro int main</p>
+        
+<p class="title">Guia básico para programadores de primeiro int main</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/guia-basico-para-programadores-de-primeiro-int-main.md" title="source">
-    2007-10-16
-    </a>
-    
+Wanderley Caloni, 2007-10-16
 
 </p>
 
@@ -150,10 +149,10 @@ Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer pr
 </tr>
 </tbody>
 </table>
-<p>Como podemos ver, podemos abstrair esse lance de &ldquo;dados de entrada + processamento = dados de saída&rdquo; com qualquer tipo de programa que usarmos. Basta relacionar o que fazemos (digitar algo, arrastar o mouse, apertar um botão, etc) para obtermos a saída desejada (texto/gráfico na tela, no arquivo, na impressora, etc). O programa é o elemento que fica no meio fazendo essa &ldquo;mágica&rdquo;.</p>
-<p>Existem informações intermediárias que precisamos guardar em um programa em execução para que no final consigamos apresentar a saída desejada ao usuário. Essas informações intermediárias também são dados, só que o usuário não os enxerga. A elas chamamos de variáveis. Entenda uma variável como &ldquo;um lugar na memória onde o programa armazena alguma informação durante o processamento&rdquo;.</p>
+<p>Como podemos ver, podemos abstrair esse lance de &quot;dados de entrada + processamento = dados de saída&quot; com qualquer tipo de programa que usarmos. Basta relacionar o que fazemos (digitar algo, arrastar o mouse, apertar um botão, etc) para obtermos a saída desejada (texto/gráfico na tela, no arquivo, na impressora, etc). O programa é o elemento que fica no meio fazendo essa &quot;mágica&quot;.</p>
+<p>Existem informações intermediárias que precisamos guardar em um programa em execução para que no final consigamos apresentar a saída desejada ao usuário. Essas informações intermediárias também são dados, só que o usuário não os enxerga. A elas chamamos de variáveis. Entenda uma variável como &quot;um lugar na memória onde o programa armazena alguma informação durante o processamento&quot;.</p>
 <p>Toda variável é apenas memória interpretada de uma maneira peculiar. Essa maneira de interpretar a memória é chamada de tipo. Cada variável possui o tipo que lhe convém. Basicamente, existem dois tipos de variáveis: número (ou inteiro) e texto (ou string).</p>
-<p>Imagine um programa sendo executado do começo ao fim. A ordem em que um programa é executado é chamado de fluxo de execução. A tendência natural de um programa é ser executado pelo computador da sua primeira instrução até a última, sempre nessa ordem. Ou seja, linha 1, linha 2, linha 3, &hellip;., linha n. Pronto. Acabou.</p>
+<p>Imagine um programa sendo executado do começo ao fim. A ordem em que um programa é executado é chamado de fluxo de execução. A tendência natural de um programa é ser executado pelo computador da sua primeira instrução até a última, sempre nessa ordem. Ou seja, linha 1, linha 2, linha 3, ...., linha n. Pronto. Acabou.</p>
 <p>Porém, se fosse sempre assim, isso quer dizer que o programa seria executado sempre do mesmo jeito, e os dados de saída seriam sempre os mesmos, independente dos dados de entrada. Mas isso não acontece, certo? Quer dizer, se você não mirar direito e apertar o botão certo, o inimigo não vai cair no chão. Isso faz um certo sentido, não?</p>
 <p>Seguindo esse raciocínio, podemos deduzir que um programa deve tomar decisões para saber o que fazer. E para tomar essas decisões ele usa o que recebeu como entrada, que são exatamente os dados de entrada. Nesse contexto, tomar decisão significa alterar o fluxo de execução. Ou seja, a ordem não necessariamente será sempre linha 1, linha 2, linha 3, etc, mas poderá ser, por exemplo, linha 1, linha 52, linha 237643, linha 52 de novo, linha 890, e assim por diante.</p>
 <p>Note que existem várias perguntas que o programa precisa responder para seguir em frente. Para respondê-las, o programa pede a ajuda do computador para fazer comparações entre variáveis. E aí está o uso desses dados internos.</p>
@@ -179,11 +178,11 @@ Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer pr
 </li>
 </ul>
 <p>Para concluir, vamos dar uma espiada nas estruturas de comparação de um programa em C e suas conseqüentes mudanças de fluxo. Note também que as comparações são feitas com variáveis internas.</p>
-<p>If significa &ldquo;se&rdquo;, ou seja, faz uma comparação, e retorna se a comparação é verdadeira (sim!) ou não (não!). Porém, o if apenas faz alguma coisa se o resultado for sim.</p>
-<p>Else significa &ldquo;senão&rdquo;, ou seja, é o complemento do if. Lembra-se que o if só faz alguma coisa se o resultado da comparação for sim? Pois bem, o else permite fazer outra coisa se o resultado for não.</p>
-<p>While significa &ldquo;enquanto&rdquo;, e é o nosso primeiro exemplo de laço, ou loop. Um loop faz constantemente a mesma coisa enquanto o resultado da comparação for sim. Uma vez que for não (pode ser a primeira, inclusive), ele não faz mais nada e o programa continua seu fluxo natural.</p>
-<p>For significa &ldquo;por&rdquo;, com o mesmo sentido que em &ldquo;ele me chutou por 5 vezes seguidas&rdquo;. Ele pode ter muitos usos, mas o tradicional é fazer n vezes alguma coisa, sabendo que n é um número de vezes já conhecido. Nesse caso, o loop serve apenas para repetir um determinado número de vezes uma ação, sem nunca variar esse número de vezes.</p>
-<p>Programar não tem segredo. É tudo uma questão de gostar, aprender, executar, aprender, gostar mais, aprender mais, executar mais, etc. Não exatamente nessa ordem. Tudo vai depender dos seus dados de entrada. Mas o fluxo já começou sua execução&hellip;</p>
+<p>If significa &quot;se&quot;, ou seja, faz uma comparação, e retorna se a comparação é verdadeira (sim!) ou não (não!). Porém, o if apenas faz alguma coisa se o resultado for sim.</p>
+<p>Else significa &quot;senão&quot;, ou seja, é o complemento do if. Lembra-se que o if só faz alguma coisa se o resultado da comparação for sim? Pois bem, o else permite fazer outra coisa se o resultado for não.</p>
+<p>While significa &quot;enquanto&quot;, e é o nosso primeiro exemplo de laço, ou loop. Um loop faz constantemente a mesma coisa enquanto o resultado da comparação for sim. Uma vez que for não (pode ser a primeira, inclusive), ele não faz mais nada e o programa continua seu fluxo natural.</p>
+<p>For significa &quot;por&quot;, com o mesmo sentido que em &quot;ele me chutou por 5 vezes seguidas&quot;. Ele pode ter muitos usos, mas o tradicional é fazer n vezes alguma coisa, sabendo que n é um número de vezes já conhecido. Nesse caso, o loop serve apenas para repetir um determinado número de vezes uma ação, sem nunca variar esse número de vezes.</p>
+<p>Programar não tem segredo. É tudo uma questão de gostar, aprender, executar, aprender, gostar mais, aprender mais, executar mais, etc. Não exatamente nessa ordem. Tudo vai depender dos seus dados de entrada. Mas o fluxo já começou sua execução...</p>
 <ul>
 <li>A inteligência do if - parte 1</li>
 <li>A inteligência do if - parte 2</li>
@@ -205,8 +204,8 @@ Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre como fazer pr
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/por-que-minha-dll-travou/">Por que minha DLL travou? &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/the-c-programming-language/">&#129092; A Linguagem de Programação C</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/por-que-minha-dll-travou/">Por que minha DLL travou? &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/the-c-programming-language/">&#x25C1; A Linguagem de Programação C</a></span>
 
         </div>
 

@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Cmd e o encoding fake</p>
+        
+<p class="title">Cmd e o encoding fake</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/cmd-e-o-encoding-fake.md" title="source">
-    2017-12-26
-    </a>
-    
+Wanderley Caloni, 2017-12-26
 
 </p>
 
@@ -97,17 +96,17 @@
             
               <p>Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas podem vir de qualquer programa com qualquer encoding. A missão do cmd.exe é usar o encoding escolhido pelo usuário para exibir os caracteres na tela. Vamos supor que nós criemos uma pasta com acentos no nome (pelo Explorer para não ter erro):</p>
 <p>Agora através de um cmd.exe podemos observar como esse nome acentuado aparece:</p>
-<p>Note como o &ldquo;a&rdquo; acentuado com til aparece perfeitamente. Também note que o codepage utilizado é o 437.</p>
+<p>Note como o &quot;a&quot; acentuado com til aparece perfeitamente. Também note que o codepage utilizado é o 437.</p>
 <p>Até aí tudo bem, certo?</p>
 <p>Não! Não! Não!</p>
 <p>O codepage 437 não possui ã. Nem õ.</p>
-<p>Isso, meus amigos, é chamado tecnicamente na área de &ldquo;muito louco&rdquo;.</p>
+<p>Isso, meus amigos, é chamado tecnicamente na área de &quot;muito louco&quot;.</p>
 <p>Curioso a respeito disso, resolvi observar a saída padrão do cmd.exe, para ver o que diabos vem como resultado. Para isso desenvolvi um simples output redirector tabajara:</p>
 <p>Simples, bonito e prático. Quando executamos Redirector.exe ele executa um cmd.exe, com a diferença que a saída dele vai parar no arquivo cmd.log, que podemos observar com um BareTail da vida.</p>
 <p>Opa, opa, opa!</p>
 <p>O til sumiu!</p>
-<p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao ã foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &ldquo;a&rdquo;, simplesmente, sem til.</p>
-<p>Isso quer dizer que ao receber um &ldquo;ã&rdquo; o cmd.exe o reinterpreta como &ldquo;a&rdquo;, mesmo estando sob o encoding 437. Esse é o resultado de um prompt user friendly que quer seu amigo.</p>
+<p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao ã foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &quot;a&quot;, simplesmente, sem til.</p>
+<p>Isso quer dizer que ao receber um &quot;ã&quot; o cmd.exe o reinterpreta como &quot;a&quot;, mesmo estando sob o encoding 437. Esse é o resultado de um prompt user friendly que quer seu amigo.</p>
 <p>Se analisarmos a memória do cmd.exe veremos que ele armazena as coisas em UTF-16, como qualquer programa Windows nativo unicode.</p>
 <p>E com isso constatamos que não necessariamente no Windows, What You See Is What You Get. Ou, em termos mais filosóficos, What You See Is Not What I Get.</p>
 
@@ -125,8 +124,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/erased/">Erased: Piloto &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/se-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe/">&#129092; Se você não precisa de classe você não precisa de classe</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/erased/">Erased: Piloto &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/se-voce-nao-precisa-de-classe-voce-nao-precisa-de-classe/">&#x25C1; Se você não precisa de classe você não precisa de classe</a></span>
 
         </div>
 

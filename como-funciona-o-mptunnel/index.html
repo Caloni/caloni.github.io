@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Como Funciona o MPTunnel</p>
+        
+<p class="title">Como Funciona o MPTunnel</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/como-funciona-o-mptunnel.md" title="source">
-    2019-12-11
-    </a>
-    
+Wanderley Caloni, 2019-12-11
 
 </p>
 
@@ -110,11 +109,11 @@
 </ul>
 <p>Em seguida deve-se baixar o repositório do mtunnel e do terminal cygwin executar o build.</p>
 <p>Dentro deste repositório há como exemplo dois programas client/server em UDP, udpclient.c e udpserver.c. Eles se comunicam de um lado para outro enviando mensagens de hello com um número na frente que é incrementado pelo servidor.</p>
-<p>Eu quero conectar em meu udpserver, mas a conexão é instável e a razão de perda de pacotes é alta, gerando um throughput muito pequeno. Para aumentar o throughput, ou seja, diminuir a perda de pacote, eu posso rodar um MPUDP para o servidor e estabilizar uma &ldquo;conexão&rdquo; UDP através da redundância das bridges.</p>
+<p>Eu quero conectar em meu udpserver, mas a conexão é instável e a razão de perda de pacotes é alta, gerando um throughput muito pequeno. Para aumentar o throughput, ou seja, diminuir a perda de pacote, eu posso rodar um MPUDP para o servidor e estabilizar uma &quot;conexão&quot; UDP através da redundância das bridges.</p>
 <p>O udpserver está em listen na porta 6666 UDP e eu executo o mpserver no servidor da seguinte forma:</p>
 <p>Localmente executo o mpclient da seguinte forma:</p>
 <p>Abaixo está o conteúdo do arquivo client.mpclient.conf</p>
-<p>Em cada &ldquo;servidor bridge&rdquo; (no exemplo está tudo local, mas não precisaria) use socat para redirecionar os pacotes:</p>
+<p>Em cada &quot;servidor bridge&quot; (no exemplo está tudo local, mas não precisaria) use socat para redirecionar os pacotes:</p>
 <p>Os servidores bridge irão ficar em listen nas portas 4001, 4002 e 4003 e redirecionar qualquer pacote recebido para localhost:2000, e vice-versa.</p>
 <p>Agora eu faço o cliente conectar em localhost:4000 que o mpclient está em listen ele irá estabiizar uma conexão sobre o MultiPath UDP tunnel.</p>
 <p>Dois scripts estão disponíveis para iniciar e parar a arquitetura de exemplo acima chamados respectivamente sample.start.sh e sample.stop.sh.</p>
@@ -145,8 +144,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/chernobyl/">Chernobyl &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/panetone/">&#129092; Receita: Panetone</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/chernobyl/">Chernobyl &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/panetone/">&#x25C1; Receita: Panetone</a></span>
 
         </div>
 

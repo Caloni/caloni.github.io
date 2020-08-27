@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Debugger remoto do Visual Studio</p>
+        
+<p class="title">Debugger remoto do Visual Studio</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/debugger-remoto-do-visual-studio.md" title="source">
-    2017-06-13
-    </a>
-    
+Wanderley Caloni, 2017-06-13
 
 </p>
 
@@ -103,12 +102,12 @@
 <p>Copiados esses arquivos na máquina-alvo é necessário copiar também o executável. Afinal de contas, ele irá executar remotamente! O arquivo PDB, no entanto, você só precisa guardar com você. Lembre-se que toda recompilação em Debug altera de maneira significativa o PDB, então não recompile seu projeto enquanto estiver depurando. Se for fazê-lo, troque o executável na máquina-alvo.</p>
 <p>A primeira execução de toda ferramenta, seu help, irá nos mostrar o seguinte no msvcmon:</p>
 <p>Minhas opções favoritas são -tcpip -anyuser -timeout -1, o que libera o acesso a qualquer usuário direto por TCP/IP e o timeout da execução é infinito. All access no limits =)</p>
-<p>Agora no Visual Studio 2003 vá em Debug, Processes (ou Ctrl+Alt+P para os íntimos) e escolha a opção de Transport como TCP/IP, digite o IP&hellip; explore sua ferramenta, poxa!</p>
+<p>Agora no Visual Studio 2003 vá em Debug, Processes (ou Ctrl+Alt+P para os íntimos) e escolha a opção de Transport como TCP/IP, digite o IP... explore sua ferramenta, poxa!</p>
 <p>Depois de conectar remotamente por essa janela o console do msvcmon irá mostrar que usuário se logou:</p>
 <p>Para configurar o início da depuração remota pelo próprio projeto você terá que ir nas opções de debug dele e mexer em Remote Settings. Para começar os problemas é sempre bom lembrar que projetos compilados como debug precisam das DLLs de runtime do Visual Studio que sejam debug. Mas você já sabe disso.</p>
 <p>Depois que tudo isso estiver OK é só iniciar seus processos remotamente em modo de depuração ou atachar pela primeira janela que vimos.</p>
-<p>Agora você deve estar se perguntando: &ldquo;mas esse VS é muito velho! e os mais novos?&rdquo;</p>
-<p>Bom, desde o VS 2010 e até o VS2017 RC essa ferramenta está disponível na pasta de instalação, mudou um pouco de cara e você pode encontrar procurando por &ldquo;remote&rdquo;. No Caso do VS mais novo que tenho em mãos aqui, o 2017 RC, existe já uma pasta pronta para copiar e colar na máquina-alvo, em Common7, IDE, Remote Debugger. Há duas pastas disponíveis: x86 e x64. Dependendo do tipo de compilação que deseja realizar (e de qual o seu executável) copie uma das duas, rode o executável da pasta e apenas configure.</p>
+<p>Agora você deve estar se perguntando: &quot;mas esse VS é muito velho! e os mais novos?&quot;</p>
+<p>Bom, desde o VS 2010 e até o VS2017 RC essa ferramenta está disponível na pasta de instalação, mudou um pouco de cara e você pode encontrar procurando por &quot;remote&quot;. No Caso do VS mais novo que tenho em mãos aqui, o 2017 RC, existe já uma pasta pronta para copiar e colar na máquina-alvo, em Common7, IDE, Remote Debugger. Há duas pastas disponíveis: x86 e x64. Dependendo do tipo de compilação que deseja realizar (e de qual o seu executável) copie uma das duas, rode o executável da pasta e apenas configure.</p>
 
             
 
@@ -124,8 +123,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/a-garota-ocidental/">A Garota Ocidental - Entre o Coração e a Tradição &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/mulher-do-pai/">&#129092; Mulher do Pai</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/a-garota-ocidental/">A Garota Ocidental - Entre o Coração e a Tradição &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/mulher-do-pai/">&#x25C1; Mulher do Pai</a></span>
 
         </div>
 

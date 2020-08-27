@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Sizeof (de novo)</p>
+        
+<p class="title">Sizeof (de novo)</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/sizeof-de-novo.md" title="source">
-    2007-12-17
-    </a>
-    
+Wanderley Caloni, 2007-12-17
 
 </p>
 
@@ -98,17 +97,17 @@
               <p>Algumas coisas em C parecem tão simples na programação do dia-a-dia que em alguns momentos podem existir situações confusas e misteriosas. O uso obscuro do operador sizeof, por exemplo, pode dar margens a interpretações erradas a respeito do que está acontecendo por baixo dos panos. Apesar do padrão ter sido elaborado para tentar tornar a linguagem uma coisa intuitiva e de fácil dedução, isso não acontece todas as vezes.</p>
 <p>Vamos tomar, por exemplo, o seguinte minicódigo:</p>
 <p>A pergunta ingênua: quantos bytes são copiados para buf?</p>
-<p>A resposta ingênua: er&hellip; o tamanho de &ldquo;A simple string&rdquo;?</p>
-<p>Agora vamos supor que você é um pouco mais esperto e começa a pensar: &ldquo;mas, peraí, estou passando na realidade um ponteiro para sizeof, o que quer dizer que, se meus cálculos estiverem corretos, e estivermos em uma plataforma de 32 bits, sizeof deve retornar 4, o que quer dizer que acabei de achar um bug escabroso, uhuu!&quot;.</p>
-<p>Muito bem, o raciocínio é perfeito. Afinal de contas, &ldquo;A simple string&rdquo; é um ponteiro para um array de caracteres terminados em zero, certo?</p>
+<p>A resposta ingênua: er... o tamanho de &quot;A simple string&quot;?</p>
+<p>Agora vamos supor que você é um pouco mais esperto e começa a pensar: &quot;mas, peraí, estou passando na realidade um ponteiro para sizeof, o que quer dizer que, se meus cálculos estiverem corretos, e estivermos em uma plataforma de 32 bits, sizeof deve retornar 4, o que quer dizer que acabei de achar um bug escabroso, uhuu!&quot;.</p>
+<p>Muito bem, o raciocínio é perfeito. Afinal de contas, &quot;A simple string&quot; é um ponteiro para um array de caracteres terminados em zero, certo?</p>
 <p>Estou quase certo disso. Porém, isso quer dizer que já deixei vários bugs escabrosos há uns 4 anos atrás em trechos de código parecidos com esse. Será que eu estava errado e não me dei conta, ou sabia de algo que esqueci faz muito tempo?</p>
 <p>Eu e meu amigo demos uma olhada no padrão da linguagem C de 89 (revisão de 90), que diz duas coisas muito importantes nesse momento: o que é um sizeof e o que é uma string constante (chamada no padrão de string literal):</p>
-<p>A character string literal is a sequence of zero or more multibyte characters enclosed in double-quotes, as in &ldquo;xyz&rdquo;. A wide string literal is the same, except prefixed by the letter L. (&hellip;) The multibyte character sequence is then used to initialize an array of static storage duration and lenght just sufficient to contain the sequence.</p>
+<p>A character string literal is a sequence of zero or more multibyte characters enclosed in double-quotes, as in &quot;xyz&quot;. A wide string literal is the same, except prefixed by the letter L. (...) The multibyte character sequence is then used to initialize an array of static storage duration and lenght just sufficient to contain the sequence.</p>
 <p>Em C++ (padrão ISO de 98) o texto é muito parecido, apenas abragendo também o conceito de type-id (desnecessário explicar para o contexto deste artigo):</p>
-<p>A string literal is a sequence of characters (as defined in 2.13.2) surrounded by double quotes, optionally beginning with the letter L, as in &ldquo;&hellip;&rdquo; or L&rdquo;&hellip;&quot;. (&hellip;) An ordinary string literal has type &ldquo;array of n const char&rdquo; and static storage duration (&hellip;).</p>
+<p>A string literal is a sequence of characters (as defined in 2.13.2) surrounded by double quotes, optionally beginning with the letter L, as in &quot;...&quot; or L&quot;...&quot;. (...) An ordinary string literal has type &quot;array of n const char&quot; and static storage duration (...).</p>
 <p>Os grifos são meus, para demonstrar que o operador sizeof irá retornar o número de bytes baseado no tipo do operando, e que o tipo de uma string literal é de array de caracteres com o tamanho justo para caber a string.</p>
 <p>Bem, todos sabemos o resultado das linhas abaixo:</p>
-<p>Nesse caso é simples de observar que o operador sizeof irá retornar 100, que é o número em bytes para abrigar o tipo do operando, que é de &ldquo;array de 100 caracteres&rdquo;. Podemos, então, imaginar que a nossa idiomática expressão do início é no fundo um resumo das linhas que se seguem.</p>
+<p>Nesse caso é simples de observar que o operador sizeof irá retornar 100, que é o número em bytes para abrigar o tipo do operando, que é de &quot;array de 100 caracteres&quot;. Podemos, então, imaginar que a nossa idiomática expressão do início é no fundo um resumo das linhas que se seguem.</p>
 <p>Ou seja, o tipo de nossa string é na verdade de array estático de caracteres, como se uma variável tivesse sido definida anteriormente com o conteúdo da string, que deve estar em algum lugar da memória do programa. Visto dessa forma fica bem mais simples de entender o que acontece na versão resumida.</p>
 <p>O mais encorajador desse problema do sizeof é que a resposta ingênua estava certa, ou seja, pelo menos dessa vez, o padrão conseguiu através de suas regras seguir a intuição do programador.</p>
 
@@ -126,8 +125,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/drag-and-drop-no-c-builder/">Drag and drop no C&#43;&#43; Builder &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/debug-remoto-no-c-builder/">&#129092; Debug remoto no C&#43;&#43; Builder</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/drag-and-drop-no-c-builder/">Drag and drop no C&#43;&#43; Builder &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/debug-remoto-no-c-builder/">&#x25C1; Debug remoto no C&#43;&#43; Builder</a></span>
 
         </div>
 

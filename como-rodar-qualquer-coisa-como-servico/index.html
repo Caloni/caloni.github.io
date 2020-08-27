@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Como rodar qualquer coisa como serviço</p>
+        
+<p class="title">Como rodar qualquer coisa como serviço</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/como-rodar-qualquer-coisa-como-servico.md" title="source">
-    2008-03-20
-    </a>
-    
+Wanderley Caloni, 2008-03-20
 
 </p>
 
@@ -98,12 +97,12 @@
               <p>A maior vantagem de se rodar um aplicativo como serviço, interativo ou não, é permitir que ele seja iniciado antes que seja feito um logon na máquina. Um exemplo que acontece comigo é a necessidade de depurar a GINA. Para isso, preciso que o depurador remoto do Visual Studio seja iniciado antes do logon. A solução mais fácil e rápida é rodar o Msvcmon, a parte servidora da depuração, como um serviço.</p>
 <p>Hoje eu descobri um atalho bem interessante para isso.</p>
 <p>Um artigo do Alex Ionescu falava sobre esse aplicativo linha de comando usado para criar, iniciar e apagar serviços. Mesmo não sendo o foco do artigo, achei muito útil a informação, pois não conhecia esse utilitário. Logo começaram a borbulhar idéias na minha mente:</p>
-<p>&ldquo;E se eu usasse esse carinha para iniciar o notepad?&rdquo;</p>
+<p>&quot;E se eu usasse esse carinha para iniciar o notepad?&quot;</p>
 <p>Bem, o Bloco de Notas é a vítima padrão de testes. Logo, a linha a seguir provaria que é possível rodá-lo na conta de sistema:</p>
 <p>Porém, como todo serviço, é esperado que ele se comunique com o Gerenciador de Serviços do Windows. Como o Bloco de Notas mal imagina que agora ele é um motta-fucka service, expira o timeout de inicialização e o SCM mata o processo.</p>
-<p>Como diria meu amigo Thiago, &ldquo;não bom&rdquo;.</p>
+<p>Como diria meu amigo Thiago, &quot;não bom&quot;.</p>
 <p>Porém porém, o SCM não mata os processos filhos do processo-serviço. Bug? Feature? Gambi? Seja o que for, pode ser usado para iniciar o nosso querido msvcmon:</p>
-<p>Agora, quando iniciarmos o serviço Msvcmon, o processo cmd.exe será criado, que por sua vez irá rodar o msvcmon.exe que queríamos, e ficará esperando inocentemente pela sua &ldquo;funesta morte&rdquo; pelo SCM.</p>
+<p>Agora, quando iniciarmos o serviço Msvcmon, o processo cmd.exe será criado, que por sua vez irá rodar o msvcmon.exe que queríamos, e ficará esperando inocentemente pela sua &quot;funesta morte&quot; pelo SCM.</p>
 
             
 
@@ -119,8 +118,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/depuracao-da-mbr/">Depuração da MBR &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/influence-board/">&#129092; Influence Board</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/depuracao-da-mbr/">Depuração da MBR &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/influence-board/">&#x25C1; Influence Board</a></span>
 
         </div>
 

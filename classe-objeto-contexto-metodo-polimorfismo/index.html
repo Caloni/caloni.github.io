@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="No post anterior implementamos &ldquo;métodos&rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de..."/>
+        content="No post anterior implementamos &quot;métodos&quot; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Classe, objeto, contexto, método, polimorfismo</p>
+        
+<p class="title">Classe, objeto, contexto, método, polimorfismo</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/classe-objeto-contexto-metodo-polimorfismo.md" title="source">
-    2016-01-12
-    </a>
-    
+Wanderley Caloni, 2016-01-12
 
 </p>
 
@@ -95,11 +94,11 @@
         
           <div class="content">
             
-              <p>No post anterior implementamos &ldquo;métodos&rdquo; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).</p>
+              <p>No post anterior implementamos &quot;métodos&quot; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).</p>
 <p>Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém. No entanto, quando há pelo menos um método virtual, surge a necessidade de se criar a famigerada vtable, ou seja, justamente uma tabela de ponteiros de função, que dependem da classe instanciada (base ou algumas das derivadas). Se uma classe derivada sobrescreve um método de alguma classe base, é o endereço desse método que irá existir na vtable. Já vimos isso há muito tempo atrás escovando os bits da vtable direto no assembly e na pilha.</p>
-<p>Como você deve imaginar, é possível também fazer isso em C. Basta mudar os endereços das variáveis do tipo ponteiro de função que estão na struct usada como contexto. Para ficar o mais próximo possível do &ldquo;modo C++&rdquo; de fazer polimorfirmo, podemos escrever hardcoded a tal vtable para os diferentes tipos de &ldquo;classe&rdquo;:</p>
-<p>A versão C ainda tem a vantagem de não precisar de uma vtable const (embora seja adequado em situações normais de temperatura e pressão). Os &ldquo;métodos&rdquo; poderiam mudar caso algum estado mudasse, alguma exceção fosse disparada, mantendo o mesmo contexto, mas um comportamento (vtable) diferente. Quem utiliza muito essa estratégia é o kernel do Windows, que mexe com estruturas que contém não apenas listas ligadas genéricas, mas funções de callback que não apenas o código da Microsoft precisa chamar, mas os próprios drivers de terceiros que se preocupam com bom comportamento e guidelines que tornam o SO rodando perfeitamente.</p>
-<p>O importante deste artigo é demonstrar como conceitos aparentemente complicados ou escondidos de uma linguagem como C++ podem ser compreendidos completamente utilizando apenas linguagem de alto nível no bom e velho C. Essa estratégia de descer camadas de abstração, como verá, funciona para linguagens de mais alto nível, como C# ou Java, pois ambas são implementadas em linguagens como C++. No fundo, engenharia de software é um universo multi-camadas transitando pela última camada que conhecemos &ndash; a física. Pelo menos a última camada que ainda conhecemos.</p>
+<p>Como você deve imaginar, é possível também fazer isso em C. Basta mudar os endereços das variáveis do tipo ponteiro de função que estão na struct usada como contexto. Para ficar o mais próximo possível do &quot;modo C++&quot; de fazer polimorfirmo, podemos escrever hardcoded a tal vtable para os diferentes tipos de &quot;classe&quot;:</p>
+<p>A versão C ainda tem a vantagem de não precisar de uma vtable const (embora seja adequado em situações normais de temperatura e pressão). Os &quot;métodos&quot; poderiam mudar caso algum estado mudasse, alguma exceção fosse disparada, mantendo o mesmo contexto, mas um comportamento (vtable) diferente. Quem utiliza muito essa estratégia é o kernel do Windows, que mexe com estruturas que contém não apenas listas ligadas genéricas, mas funções de callback que não apenas o código da Microsoft precisa chamar, mas os próprios drivers de terceiros que se preocupam com bom comportamento e guidelines que tornam o SO rodando perfeitamente.</p>
+<p>O importante deste artigo é demonstrar como conceitos aparentemente complicados ou escondidos de uma linguagem como C++ podem ser compreendidos completamente utilizando apenas linguagem de alto nível no bom e velho C. Essa estratégia de descer camadas de abstração, como verá, funciona para linguagens de mais alto nível, como C# ou Java, pois ambas são implementadas em linguagens como C++. No fundo, engenharia de software é um universo multi-camadas transitando pela última camada que conhecemos -- a física. Pelo menos a última camada que ainda conhecemos.</p>
 
             
 
@@ -115,8 +114,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/gabaritos/">Gabaritos &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo/">&#129092; Classe, objeto, contexto, método</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/gabaritos/">Gabaritos &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo/">&#x25C1; Classe, objeto, contexto, método</a></span>
 
         </div>
 

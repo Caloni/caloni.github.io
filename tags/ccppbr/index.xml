@@ -157,7 +157,7 @@ Então vamos aos detalhes:
   
   <guid>http://www.caloni.com.br/rip-alberto/</guid>
   <description>Acho que como muitos aqui de vocês, eu sou (fui?) um fã condicional de Alberto Fabiano, o mestre em várias coisas, não se restringindo apenas à informática. Alberto, é preciso dizer, foi um hacker de verdade.
-Ultimamente ando fuçando nas minhas mensagens do GMail procurando por posts que se perderam no tempo. Acabei encontrando um email que o Alberto me mandou em 2006 comparando nossas evoluções na área. Não é preciso dizer que a minha evolução ficou para trás em algumas centenas de anos perto dele, mas mesmo assim ele teve a &amp;ldquo;humildade&amp;rdquo; e uma infinita modéstia de comparar-nos em alguns aspectos de nossas vidas profissionais, como termos começado a programar com Quick BASIC e gostar de Segurança da Informação.</description>
+Ultimamente ando fuçando nas minhas mensagens do GMail procurando por posts que se perderam no tempo. Acabei encontrando um email que o Alberto me mandou em 2006 comparando nossas evoluções na área. Não é preciso dizer que a minha evolução ficou para trás em algumas centenas de anos perto dele, mas mesmo assim ele teve a &amp;quot;humildade&amp;quot; e uma infinita modéstia de comparar-nos em alguns aspectos de nossas vidas profissionais, como termos começado a programar com Quick BASIC e gostar de Segurança da Informação.</description>
 </item>
 
      
@@ -168,7 +168,7 @@ Ultimamente ando fuçando nas minhas mensagens do GMail procurando por posts que
   
   <guid>http://www.caloni.com.br/10-encontro-de-programadores-de-c-c-2/</guid>
   <description>Ando tendo alguns problemas de postagem no meu blog, por isso o aviso não foi feito com mais antecedência. Peço desculpas aos organizadores do evento, pois sei que todo tipo de divulgação é útil.
-Chegamos em mais um evento do grupo C/C++ Brasil, dessa vez honrando a parte &amp;ldquo;Brasil&amp;rdquo; do nome. Sim, nosso próximo evento será fora de Sampa, mas ainda próximo, no Rio de Janeiro! Até onde eu sei, o primeiro que se tem notícia.</description>
+Chegamos em mais um evento do grupo C/C++ Brasil, dessa vez honrando a parte &amp;quot;Brasil&amp;quot; do nome. Sim, nosso próximo evento será fora de Sampa, mas ainda próximo, no Rio de Janeiro! Até onde eu sei, o primeiro que se tem notícia.</description>
 </item>
 
      
@@ -178,7 +178,7 @@ Chegamos em mais um evento do grupo C/C++ Brasil, dessa vez honrando a parte &am
   <pubDate>2012-03-11</pubDate>
   
   <guid>http://www.caloni.com.br/conteudo-da-palestra/</guid>
-  <description>Uma nuvem mágica&amp;hellip;
+  <description>Uma nuvem mágica...
 O evento de C++ na Microsoft (e organizada pelo nosso grupo C/C++ Brasil) aconteceu. Quem esteve lá teve o privilégio de passar algumas horas com programadores e entusiastas de ambas as linguagens e acompanhar o raciocínio dos palestrantes sobre Move Semantics, COM (good times), programação na placa gráfica e a solução para todos os problemas do universo (vulgo ZeroMQ). Fora isso, a palestra que me surpreendeu no dia foi a do Sr.</description>
 </item>
 
@@ -189,7 +189,7 @@ O evento de C++ na Microsoft (e organizada pelo nosso grupo C/C++ Brasil) aconte
   <pubDate>2012-01-11</pubDate>
   
   <guid>http://www.caloni.com.br/rvalue-e-o-novo-lvalue/</guid>
-  <description>As grandes discussões filosóficas que participei durante meu estudo da linguagem C, e mais tarde de C++, muitas vezes convergiam para o significado místico daquela figura que nós da gramática da linguagem conhecemos como lvalue, ou l-value, ou left-value. Enfim, a definição de uma expressão que representa um lugar na memória e, portanto, pode ocupar o lado esquerdo de uma atribuição/cópia/passagem de argumentos qualquer. Porém, os &amp;ldquo;grandes&amp;rdquo; embates daquela época hoje parecem brincadeira de criança, como a diferença sutil entre ++x e x++ ou convergência de tipos em templates.</description>
+  <description>As grandes discussões filosóficas que participei durante meu estudo da linguagem C, e mais tarde de C++, muitas vezes convergiam para o significado místico daquela figura que nós da gramática da linguagem conhecemos como lvalue, ou l-value, ou left-value. Enfim, a definição de uma expressão que representa um lugar na memória e, portanto, pode ocupar o lado esquerdo de uma atribuição/cópia/passagem de argumentos qualquer. Porém, os &amp;quot;grandes&amp;quot; embates daquela época hoje parecem brincadeira de criança, como a diferença sutil entre ++x e x++ ou convergência de tipos em templates.</description>
 </item>
 
      
@@ -199,7 +199,7 @@ O evento de C++ na Microsoft (e organizada pelo nosso grupo C/C++ Brasil) aconte
   <pubDate>2011-09-19</pubDate>
   
   <guid>http://www.caloni.com.br/oitavo-encontro-do-grupo-cc-brasil/</guid>
-  <description>Esse final de semana ocorreu mais um dos inesquecíveis encontros dos programadores C++, dessa vez ao estilo &amp;ldquo;velhos tempos&amp;rdquo;, com direito a entrada gratuita e um grupo mais coeso, quase já íntimo, e mais animado.
+  <description>Esse final de semana ocorreu mais um dos inesquecíveis encontros dos programadores C++, dessa vez ao estilo &amp;quot;velhos tempos&amp;quot;, com direito a entrada gratuita e um grupo mais coeso, quase já íntimo, e mais animado.
 Não só pela informalidade da ocasião, tivemos palestras interessantes que dessa vez conseguiram abranger temas bem diversificados e fugir um pouco do feijão-com-arroz de desenvolvimento Windows que muitos encontros anteriores haviam se transformado.
 Logo no começo do dia tivemos Vinicius Jarina apresentando-nos a possibilidade de usar Lua como um script rápido de embutir em código C++ sem muitos percalços.</description>
 </item>
@@ -254,7 +254,7 @@ Mas nem por isso deixei de terminar uma primeira versão do aplicativo que irei 
   <pubDate>2008-10-07</pubDate>
   
   <guid>http://www.caloni.com.br/impressoes-do-quinto-encontro-de-ccpp/</guid>
-  <description>Pois é, passou, acabou&amp;hellip; e foi muito bom!
+  <description>Pois é, passou, acabou... e foi muito bom!
 E dessa vez me abstenho de fazer os comentários de sempre, visto que já está rolando uma discussão muito produtiva sobre o resultado desse último encontro, opiniões que, sinceramente, já refletem os pensamentos de todos que participaram desse magnânimo encontro de usuários.</description>
 </item>
 

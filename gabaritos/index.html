@@ -19,7 +19,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Um template &ndash; ou, como é na tradução da primeira edição de The C&#43;&#43; Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito &ndash; é um molde que pode ser usado por diferentes tipos..."/>
+        content="Um template -- ou, como é na tradução da primeira edição de The C&#43;&#43; Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito -- é um molde que pode ser usado por diferentes tipos para..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Gabaritos</p>
+        
+<p class="title">Gabaritos</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/gabaritos.md" title="source">
-    2016-01-13
-    </a>
-    
+Wanderley Caloni, 2016-01-13
 
 </p>
 
@@ -95,11 +94,11 @@
         
           <div class="content">
             
-              <p>Um template &ndash; ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito &ndash; é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).</p>
+              <p>Um template -- ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito -- é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).</p>
 <p>Em C++, fazer uma função template é muito simples:</p>
 <p>Continuando nosso tema de fazer as mesmas coisas em C, templates não é tão simples, pois não existe de fato na linguagem. Templates são interpretados pelo compilador, que gera um esqueleto de algoritmo que é usado para preencher código de todos os tipos utilizados. Em C isso era feito usando macros. Porém, macros não fazem parte da linguagem C. É apenas uma ferramenta chamada pré-processador que substitui texto antes do programa ser compilado. É através do pré-processador que, por exemplo, os headers são incluídos em um código-fonte. Isso já foi explicado em um artigo bem velhinho, e mais recentemente em uma palestra.</p>
-<p>Eu não recomendaria usar macros em C++, assim como não recomendo em C. Porém, em C é a única opção para reciclar algoritmos de maneira estática. Exceto se você usar ponteiros de função, o que adiciona pouco overhead, mas se perde, assim como a técnica de macro, a informação dos tipos. A própria libc contém uma função, qsort, que é &ldquo;genérica&rdquo; através do uso de ponteiros sem tipo (void*) e ponteiro de função. A função ordena elementos de uma lista, mas para isso depende da função de comparação que é passada por parâmetro. Essa função recebe dois void* que deve comparar. Além disso, o leiaute na memória tem que ser fixo, contínuo, pois é assim que a função consegue mover os elementos. Ou seja, bem limitado.</p>
-<p>Dessa forma, não pretendo ensinar a usar &ldquo;templates&rdquo; em C, mas a usá-los em C++ com foco em C. Um amigo conhecido de vocês, o Fernando/DriverEntry, utilizou essa técnica com maestria em alguns códigos kernel-mode que ele desenvolveu, e é uma maneira válida de se aproveitar de uma linguagem mais &ldquo;alto nível&rdquo; como C++ em ambientes limitados como o código que trabalha com o S.O.. Como a API do kernel lida com abstrações em C, seus objetos necessariamente não são objetos no sentido C++, mas os famigerados &ldquo;ponteiros opacos&rdquo;.</p>
+<p>Eu não recomendaria usar macros em C++, assim como não recomendo em C. Porém, em C é a única opção para reciclar algoritmos de maneira estática. Exceto se você usar ponteiros de função, o que adiciona pouco overhead, mas se perde, assim como a técnica de macro, a informação dos tipos. A própria libc contém uma função, qsort, que é &quot;genérica&quot; através do uso de ponteiros sem tipo (void*) e ponteiro de função. A função ordena elementos de uma lista, mas para isso depende da função de comparação que é passada por parâmetro. Essa função recebe dois void* que deve comparar. Além disso, o leiaute na memória tem que ser fixo, contínuo, pois é assim que a função consegue mover os elementos. Ou seja, bem limitado.</p>
+<p>Dessa forma, não pretendo ensinar a usar &quot;templates&quot; em C, mas a usá-los em C++ com foco em C. Um amigo conhecido de vocês, o Fernando/DriverEntry, utilizou essa técnica com maestria em alguns códigos kernel-mode que ele desenvolveu, e é uma maneira válida de se aproveitar de uma linguagem mais &quot;alto nível&quot; como C++ em ambientes limitados como o código que trabalha com o S.O.. Como a API do kernel lida com abstrações em C, seus objetos necessariamente não são objetos no sentido C++, mas os famigerados &quot;ponteiros opacos&quot;.</p>
 <p>Mais sobre isso em um próximo post.</p>
 
             
@@ -116,8 +115,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/expresso-do-amanha/">Expresso do Amanhã &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/">&#129092; Classe, objeto, contexto, método, polimorfismo</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/expresso-do-amanha/">Expresso do Amanhã &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/">&#x25C1; Classe, objeto, contexto, método, polimorfismo</a></span>
 
         </div>
 

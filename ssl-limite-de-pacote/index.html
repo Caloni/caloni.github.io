@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">SSL e seu limite de pacote</p>
+        
+<p class="title">SSL e seu limite de pacote</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/ssl-limite-de-pacote.md" title="source">
-    2018-05-22
-    </a>
-    
+Wanderley Caloni, 2018-05-22
 
 </p>
 
@@ -99,8 +98,8 @@
 <p>O pacote SSL tem um limite de 16 KB, ou 16384 bytes. Esse é o limite que será respeitado por qualquer implementação do protocolo, o que inclui o uso de Boost.Asio e seu uso da OpenSSL. O que isso quer dizer na teoria é que você não pode trafegar sentido server=&gt;client nada maior que 16k bytes. O que isso quer dizer na prática é que sua aplicação não pode escrever mais que 16k bytes de uma vez no socket que vai dar pau.</p>
 <p>Sim, a camada de aplicação tem que estar ligada que existe SSL abaixo dela.</p>
 <p>Isso quer dizer que este snippet de código, por exemplo:</p>
-<p>Não é inocente e não funciona sempre. Se sock for um socket cuja comunicação está encriptada por SSL (em outras palavras &ndash; em Boostês &ndash; ele for um sslsocket) você precisa escrever output em pequenas quantidades. Como em outra implementação inocente:</p>
-<p>Se isso não for feito e a ponta server escrever, digamos, 512KB, ou 17KB, ou qualquer coisa acima de 16KB, ela irá receber&hellip; 16 KB. E acabou. O resto se perder.</p>
+<p>Não é inocente e não funciona sempre. Se sock for um socket cuja comunicação está encriptada por SSL (em outras palavras -- em Boostês -- ele for um sslsocket) você precisa escrever output em pequenas quantidades. Como em outra implementação inocente:</p>
+<p>Se isso não for feito e a ponta server escrever, digamos, 512KB, ou 17KB, ou qualquer coisa acima de 16KB, ela irá receber... 16 KB. E acabou. O resto se perder.</p>
 <p>Portanto, quando for mexer com SSL, esqueça OSI e esqueça TCP/IP. As coisas funcionam de uma maneira muito mais esotérica que qualquer programador de redes jamais viu, e jamais verá.</p>
 
             
@@ -117,8 +116,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/desejo-de-matar-1974/">Desejo de Matar (1974) &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/boost-meta-state-machine/">&#129092; Boost Meta State Machine</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/desejo-de-matar-1974/">Desejo de Matar (1974) &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/boost-meta-state-machine/">&#x25C1; Boost Meta State Machine</a></span>
 
         </div>
 

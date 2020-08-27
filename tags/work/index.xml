@@ -27,7 +27,7 @@ Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende
   <pubDate>2020-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/pacotes-nuget-again/</guid>
-  <description>Agora que mexo com .net no trabalho surgem problemas de &amp;ldquo;marinheiro de primeira viagem&amp;rdquo; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.
+  <description>Agora que mexo com .net no trabalho surgem problemas de &amp;quot;marinheiro de primeira viagem&amp;quot; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.
 Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Durante a compilação tudo estava lindo e maravilhoso.</description>
 </item>
 
@@ -38,7 +38,7 @@ Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Du
   <pubDate>2020-07-05</pubDate>
   
   <guid>http://www.caloni.com.br/close-remote-socket/</guid>
-  <description>I got used to close sockets in Windows using TCP View, but I haven&amp;rsquo;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
 You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
 </item>
 

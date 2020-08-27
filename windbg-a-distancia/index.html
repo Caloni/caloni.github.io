@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">WinDbg a distância</p>
+        
+<p class="title">WinDbg a distância</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/windbg-a-distancia.md" title="source">
-    2008-03-26
-    </a>
-    
+Wanderley Caloni, 2008-03-26
 
 </p>
 
@@ -103,7 +102,7 @@
 <p>Nesse caso podemos supor que a máquina tem total acesso e controle do desenvolvedor. Tudo o que temos que fazer é iniciar um WinDbg na máquina-vítima e outro WinDbg na máquina-programador. O WinDbg da máquina-vítima deve ser iniciado no modo-servidor, enquanto o da máquina-programador no modo-cliente.</p>
 <p>A vantagem dessa técnica é que tanto o WinDbg da máquina-vítima quanto o da máquina-programador podem emitir comandos, e todos vêem os resultados. Uma possível desvantagem é que os símbolos devem estar disponíveis a partir da máquina-vítima.</p>
 <p>Se for necessário, é possível convidar mais gente pra festa, pois o WinDbg permite se transformar em uma instância servidora pelo comando .server, que possui a mesma sintaxe da linha de comando. Para a comunicação entre todos esses depuradores ambulantes um comando muito útil é o .echo.</p>
-<p>Nesse ambiente muito mais hostil, é salutar e recomendável utilizar um servidor genérico que não imprima coisa alguma na tela &ldquo;do outro lado&rdquo;. Após iniciar o depurador na máquina que está dando o problema, o programador tem virtualmente uma série de comandos úteis que podem ser executados remotamente, como iniciar novos processos, se anexar a processos já existentes, copiar novas versões de executáveis, etc.</p>
+<p>Nesse ambiente muito mais hostil, é salutar e recomendável utilizar um servidor genérico que não imprima coisa alguma na tela &quot;do outro lado&quot;. Após iniciar o depurador na máquina que está dando o problema, o programador tem virtualmente uma série de comandos úteis que podem ser executados remotamente, como iniciar novos processos, se anexar a processos já existentes, copiar novas versões de executáveis, etc.</p>
 <p>O nome do processo do lado servidor para modo usuário é dbgsrv.exe. Para o modo kernel é kdsrv.exe. Os parâmetros de execução, felizmente, são os mesmos que os do WinDbg (e CDB, NTSD e KD), o que evita ter que decorar uma nova série de comandos.</p>
 <p>Para iniciar o servidor de depuração e deixar as portas abertas para o depurador temos apenas que iniciar o processo dbgsrv.exe:</p>
 <p>Para iniciar o processo depurador, a sintaxe é quase a mesma, só que no lugar de remote especificamos premote:</p>
@@ -125,8 +124,8 @@
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/backup-de-pobre/">Backup de pobre &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/depuracao-da-mbr/">&#129092; Depuração da MBR</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/backup-de-pobre/">Backup de pobre &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/depuracao-da-mbr/">&#x25C1; Depuração da MBR</a></span>
 
         </div>
 

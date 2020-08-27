@@ -62,7 +62,7 @@
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -74,14 +74,13 @@
 
       
       <div class="container">
-        <p class="title">Header Inútil</p>
+        
+<p class="title">Header Inútil</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/header-inutil.md" title="source">
-    2012-03-27
-    </a>
-    
+Wanderley Caloni, 2012-03-27
 
 </p>
 
@@ -98,42 +97,42 @@
               <p>O Visual Studio é uma ótima ferramenta para depurar rapidamente programas sendo desenvolvidos e para o resto usamos Vim. No entanto, a versão 2010 do ambiente (ainda não testei a 2011 beta) possui um pequeno deslize com sua árvore de dependências que não chega a prejudica o desenvolvedor, mas o deixa com um bug atrás da orelha.</p>
 <p>Vamos supor que você crie seu super-projeto ZeroMQ e no meio dele acabe evoluindo uma nova forma de vida inútil e descartável, que aqui iremos chamar de HeaderInutil e seu fiel companheiro CppInutil:</p>
 <p>OK. Ele não está fazendo nada, mas e daí? Compilo meu projeto normalmente e depuro ele como se nada estivesse acontecendo.</p>
-<p>&mdash;&mdash; Rebuild All started: Project: ZeroMasQueCoisaProj, Configuration: Debug Win32 &mdash;&mdash;
+<p>------ Rebuild All started: Project: ZeroMasQueCoisaProj, Configuration: Debug Win32 ------
 Build started 27/03/2012 11:40:32.
 PrepareForClean:
-Deleting file &ldquo;Debug\ZeroMasQueCoisaProj.lastbuildstate&rdquo;.
+Deleting file &quot;Debug\ZeroMasQueCoisaProj.lastbuildstate&quot;.
 InitializeBuildStatus:
-Creating &ldquo;Debug\ZeroMasQueCoisaProj.unsuccessfulbuild&rdquo; because &ldquo;AlwaysCreate&rdquo; was specified.
+Creating &quot;Debug\ZeroMasQueCoisaProj.unsuccessfulbuild&quot; because &quot;AlwaysCreate&quot; was specified.
 ClCompile:
 stdafx.cpp
 ZeroMasQueCoisaProj.cpp
 CppInutil.cpp
-Generating Code&hellip;
+Generating Code...
 Manifest:
-Deleting file &ldquo;Debug\ZeroMasQueCoisaProj.exe.embed.manifest&rdquo;.
+Deleting file &quot;Debug\ZeroMasQueCoisaProj.exe.embed.manifest&quot;.
 LinkEmbedManifest:
 ZeroMasQueCoisaProj.vcxproj -&gt; c:...\Debug\ZeroMasQueCoisaProj.exe
 FinalizeBuildStatus:
-Deleting file &ldquo;Debug\ZeroMasQueCoisaProj.unsuccessfulbuild&rdquo;.
-Touching &ldquo;Debug\ZeroMasQueCoisaProj.lastbuildstate&rdquo;.</p>
+Deleting file &quot;Debug\ZeroMasQueCoisaProj.unsuccessfulbuild&quot;.
+Touching &quot;Debug\ZeroMasQueCoisaProj.lastbuildstate&quot;.</p>
 <p>Build succeeded.</p>
 <p>Time Elapsed 00:00:00.73
 ========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========</p>
-<p>&lsquo;ZeroMasQueCoisaProj.exe&rsquo;: Loaded &lsquo;C:...\Debug\ZeroMasQueCoisaProj.exe&rsquo;, Symbols loaded.
-&lsquo;ZeroMasQueCoisaProj.exe&rsquo;: Loaded &lsquo;C:\Windows\SysWOW64\ntdll.dll&rsquo;, Cannot find or open the PDB file
-&lsquo;ZeroMasQueCoisaProj.exe&rsquo;: Loaded &lsquo;C:\Windows\SysWOW64\kernel32.dll&rsquo;, Cannot find or open the PDB file
-&lsquo;ZeroMasQueCoisaProj.exe&rsquo;: Loaded &lsquo;C:\Windows\SysWOW64\KernelBase.dll&rsquo;, Cannot find or open the PDB file
-&lsquo;ZeroMasQueCoisaProj.exe&rsquo;: Loaded &lsquo;C:\Windows\SysWOW64\msvcr100d.dll&rsquo;, Symbols loaded.
-The program &lsquo;[5212] ZeroMasQueCoisaProj.exe: Native&rsquo; has exited with code 0 (0x0).</p>
+<p>'ZeroMasQueCoisaProj.exe': Loaded 'C:...\Debug\ZeroMasQueCoisaProj.exe', Symbols loaded.
+'ZeroMasQueCoisaProj.exe': Loaded 'C:\Windows\SysWOW64\ntdll.dll', Cannot find or open the PDB file
+'ZeroMasQueCoisaProj.exe': Loaded 'C:\Windows\SysWOW64\kernel32.dll', Cannot find or open the PDB file
+'ZeroMasQueCoisaProj.exe': Loaded 'C:\Windows\SysWOW64\KernelBase.dll', Cannot find or open the PDB file
+'ZeroMasQueCoisaProj.exe': Loaded 'C:\Windows\SysWOW64\msvcr100d.dll', Symbols loaded.
+The program '[5212] ZeroMasQueCoisaProj.exe: Native' has exited with code 0 (0x0).</p>
 <p>Show.</p>
 <p>Mas o que acontece se eu precisar no momento do refactory (que deve, sim, existir) eu decidir remover meus arquivos inúteis?</p>
-<p>Continuo compilando normalmente o projeto, mas na hora de depurar&hellip;</p>
+<p>Continuo compilando normalmente o projeto, mas na hora de depurar...</p>
 <p>Mas o que ocorre? Eu acabei de compilar o projeto! E se eu compilar novamente e pressionar F5, ele continua apresentando o mesmo problema!</p>
 <p>OK, não estou admitindo aqui o famigerado Rebuild All. Se você mantém projetos com mais de 200 arquivos, acho que deve repensar seus conceitos ao usar Rebuild All para tudo nessa vida.</p>
 <p>Acontece que existe uma árvore de dependências que o Visual Studio mantém para saber se seu projeto foi atualizado com tudo que tem mais de novo no que diz respeito ao File System, mas às vezes se esquece de checar o FS com o que está na solution. Por conta disso, o HeaderInutil e o CppInutil continuam dentro da árvore de dependência como zumbis.</p>
 <p>O que pode ser feito nesse caso (além do que os personagens de The Walking Dead costumam fazer) é configurar o arquivo devenv.exe.config (presente em %programfiles(x86)%\Microsoft Visual Studio 10.0\Common7\IDE) e adicionar as seguintes linhas após a seção configSections. (Esses passos estão descritos no blogue da equipe do VC.)</p>
 <p>Depois de modificar o arquivo, reinicie o Visual Studio e tente novamente apertar F5 no mesmo projeto, mas com o DebugView aberto.</p>
-<p>Como um amigo meu diria: &ldquo;AHÁ!!&quot;. Descobrimos o culpado.</p>
+<p>Como um amigo meu diria: &quot;AHÁ!!&quot;. Descobrimos o culpado.</p>
 <p>A solução? Nesse caso não tem jeito: dar um clean no projeto e build novamente para que o VS reconstrua a árvore de dependências. Porém, agora sabemos por que precisamos do Rebuild All. Não é RebuildAllMania.</p>
 
             
@@ -150,8 +149,8 @@ The program &lsquo;[5212] ZeroMasQueCoisaProj.exe: Native&rsquo; has exited with
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/cliente-morto-nao-paga/">Cliente Morto Não Paga &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/2-filhos-de-francisco/">&#129092; 2 Filhos De Francisco A História De Zezé Di Camargo e Luciano</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/cliente-morto-nao-paga/">Cliente Morto Não Paga &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/2-filhos-de-francisco/">&#x25C1; 2 Filhos De Francisco A História De Zezé Di Camargo e Luciano</a></span>
 
         </div>
 

@@ -63,7 +63,7 @@ Vamos analisar cada..."/>
     <div class="navbar-brand">
       <a class="navbar-item" title="Go to Home" href="/">
         <img alt="Brand" src="/img/brand.svg">
-        <div class="title is-6">&nbsp;Blogue do Caloni</div>
+        <div class="is-6">&nbsp;Blogue do Caloni</div>
       </a>
     </div>
 
@@ -75,14 +75,13 @@ Vamos analisar cada..."/>
 
       
       <div class="container">
-        <p class="title">Detectando hooks globais no WinDbg</p>
+        
+<p class="title">Detectando hooks globais no WinDbg</p>
+
 
         <p class="subtitle">
 
-    <a style="" href="https://github.com/Caloni/blog/blob/master/content/posts/detectando-hooks-globais-no-windbg.md" title="source">
-    2007-11-09
-    </a>
-    
+Wanderley Caloni, 2007-11-09
 
 </p>
 
@@ -98,17 +97,17 @@ Vamos analisar cada..."/>
             
               <p>Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um hook global:</p>
 <p>Vamos analisar cada um dos subcomandos novos um a um.</p>
-<p>No WinDbg é possível definir um ou mais comandos que são executados quando um breakpoint é acionado. Esses comandos ficam entre aspas duplas e podem conter as mesmas coisas que digitamos na linha de comando. Alguns comandos, porém, são mais úteis que outros nesse contexto. Por exemplo, o comando &ldquo;.echo&rdquo;. Podemos digitar .echo na linha de comando do WinDbg. O que acontece?</p>
+<p>No WinDbg é possível definir um ou mais comandos que são executados quando um breakpoint é acionado. Esses comandos ficam entre aspas duplas e podem conter as mesmas coisas que digitamos na linha de comando. Alguns comandos, porém, são mais úteis que outros nesse contexto. Por exemplo, o comando &quot;.echo&quot;. Podemos digitar .echo na linha de comando do WinDbg. O que acontece?</p>
 <p>Exatamente o que o comando se dispõe a fazer: imprimir seus argumentos na tela. E qual a vantagem nisso? Nenhuma, se estamos na linha de comando. Mas muita se estivermos colocando um breakpoint onde queremos contar o número de vezes que passamos por lá, o comando tem serventia:</p>
 <p>Se essa mensagem fosse exibida mais de uma vez, poderíamos supor que é possível existir algum tipo de infecção na execução do aplicativo, como quando o código inicial carrega o original e volta a executar o mesmo ponto.</p>
-<p>O objetivo aqui é &ldquo;preparar o terreno&rdquo; (ficar residente) antes que o código original seja executado. Com um simples breakpoint e um simples .echo conseguimos visualizar esse tipo de ataque. Outra possibilidade é que se trata daqueles executáveis &ldquo;empacotados&rdquo; por meio de algum encriptador de códigos como UPX, que desempacota o código e reexecuta o ponto de entrada do executável.</p>
+<p>O objetivo aqui é &quot;preparar o terreno&quot; (ficar residente) antes que o código original seja executado. Com um simples breakpoint e um simples .echo conseguimos visualizar esse tipo de ataque. Outra possibilidade é que se trata daqueles executáveis &quot;empacotados&quot; por meio de algum encriptador de códigos como UPX, que desempacota o código e reexecuta o ponto de entrada do executável.</p>
 <p>Claro, esse é apenas um uso que podemos fazer desses comandos.</p>
-<p>Aprendi o comando j antes do .if, por isso acabo usando mais o primeiro, mas ambos possuem similaridades. O formato desse comando é exatamente como um &ldquo;if-else&rdquo;:</p>
-<p>Se Expression for verdadeiro, Command1 será executado; do contrário, Command2 será. Se você não precisa do else basta usar um comando vazio ' &lsquo;. A escolha é sua em usar aspas simples ou nada. Se usar aspas simples, é possível colocar mais de um comando, que foi o que eu fiz no else:</p>
-<p>Tudo depende do uso que você fizer desde comando. Algumas peculiaridades existem com relação ao uso de aspas duplas, simples, sem aspas, com ponto-e-vírgula, etc, mas são coisas que, como diz o Thiago, &ldquo;só se aprende na dor&rdquo;.</p>
+<p>Aprendi o comando j antes do .if, por isso acabo usando mais o primeiro, mas ambos possuem similaridades. O formato desse comando é exatamente como um &quot;if-else&quot;:</p>
+<p>Se Expression for verdadeiro, Command1 será executado; do contrário, Command2 será. Se você não precisa do else basta usar um comando vazio ' '. A escolha é sua em usar aspas simples ou nada. Se usar aspas simples, é possível colocar mais de um comando, que foi o que eu fiz no else:</p>
+<p>Tudo depende do uso que você fizer desde comando. Algumas peculiaridades existem com relação ao uso de aspas duplas, simples, sem aspas, com ponto-e-vírgula, etc, mas são coisas que, como diz o Thiago, &quot;só se aprende na dor&quot;.</p>
 <p>Lembram-se de nossa peregrinação pela pilha de chamadas quando fizemos um hook na função MessageBox pelo WinDbg? Aqui é a mesma coisa, pois estou analisando um parâmetro passado na pilha (esp): o ID da thread para onde vai o hook:</p>
 <p>Relembrando nosso passeio pela pilha, ao entrar em uma função stdcall, os primeiros 4 bytes são o endereço de retorno, os próximos o primeiro parâmetro e assim por diante. O que quer dizer que:</p>
-<p>É o apontado do quarto parâmetro (4<em>4) que está sendo verificado. Concluindo, se o parâmetro dwThreadId for igual a zero, estamos diante de um hook global, e é o momento em que meu .echo vai exibir na tela &ldquo;</em>** GLOBAL HOOK ***&quot;. Do contrário, a execução vai continuar silenciosamente.</p>
+<p>É o apontado do quarto parâmetro (4<em>4) que está sendo verificado. Concluindo, se o parâmetro dwThreadId for igual a zero, estamos diante de um hook global, e é o momento em que meu .echo vai exibir na tela &quot;</em>** GLOBAL HOOK ***&quot;. Do contrário, a execução vai continuar silenciosamente.</p>
 
             
 
@@ -124,8 +123,8 @@ Vamos analisar cada..."/>
         </div>
 
         <div class="navigation-bottom">
-            <span style="float: right;"><a href="http://www.caloni.com.br/mousetool/">MouseTool &#129094;</a></span>
-<span style="float: left;"><a href="http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/">&#129092; Ponteiro de método: qual this é usado?</a></span>
+            <span style="float: right;"><a href="http://www.caloni.com.br/mousetool/">MouseTool &#x25B7;</a></span>
+<span style="float: left;"><a href="http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/">&#x25C1; Ponteiro de método: qual this é usado?</a></span>
 
         </div>
 
