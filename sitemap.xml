@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.caloni.com.br/categories/blog/</loc>
+    <lastmod>2020-08-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/</loc>
     <lastmod>2020-08-29T00:00:00+00:00</lastmod>
   </url>
@@ -23,6 +28,11 @@
   </url>
   
   <url>
+    <loc>http://www.caloni.com.br/jejum-de-dopamina/</loc>
+    <lastmod>2020-08-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/tags/movies/</loc>
     <lastmod>2020-08-29T00:00:00+00:00</lastmod>
   </url>
@@ -33,13 +43,13 @@
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
+    <loc>http://www.caloni.com.br/tags/reading/</loc>
     <lastmod>2020-08-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/categories/blog/</loc>
-    <lastmod>2020-08-24T00:00:00+00:00</lastmod>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-08-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -254,11 +264,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/tags/quotes/</loc>
-    <lastmod>2020-07-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/reading/</loc>
     <lastmod>2020-07-12T00:00:00+00:00</lastmod>
   </url>
   
