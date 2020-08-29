@@ -6,9 +6,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Mon, 24 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Entre Facas e Segredos</title>
+  <link>http://www.caloni.com.br/entre-facas-e-segredos/</link>
+  <pubDate>2020-08-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/entre-facas-e-segredos/</guid>
+  <description>Assisti a este filme do cineasta Rian Johnson tendo em mente que ele é o diretor do melhor filme Guerra nas Estrelas até agora, &amp;quot;Star Wars: Os Últimos Jedi&amp;quot;. Além, é claro, do ótimo &amp;quot;Looper: Assassinos do Futuro&amp;quot; e de pelo menos dois dos melhores episódios da série dramática &amp;quot;Breaking Bad&amp;quot;. Porém, também sabia que esse filme recebeu ótimos elogios pela sua crítica social, então já esperava que a história não prestaria o suficiente.</description>
+</item>
+
      
         <item>
   <title>CPU Fritando com Intel Turbo Boost</title>
@@ -9635,7 +9645,7 @@ Bjarne Stroustrup desde o começo, em seu livro The C++ Programming Language, su
 
      
         <item>
-  <title>Star Wars: os Últimos Jedi</title>
+  <title>Star Wars: Os Últimos Jedi</title>
   <link>http://www.caloni.com.br/star-wars-os-ultimos-jedi/</link>
   <pubDate>2017-12-14</pubDate>
   
@@ -14372,11 +14382,21 @@ O que há de forte em Homem na Parede são os elementos do roteiro, que se acumu
 
      
         <item>
-  <title>Breaking Bad - Conclusão</title>
+  <title>Breaking Bad</title>
   <link>http://www.caloni.com.br/breaking-bad-conclusao/</link>
   <pubDate>2016-07-16</pubDate>
   
   <guid>http://www.caloni.com.br/breaking-bad-conclusao/</guid>
+  <description>Sabemos desde o início do seriado que há algo de novo, muito novo, na televisão. Através da figura de um pacato professor de química que descobre ter câncer e que será pai novamente enxergamos aos poucos a relativação da moral quando Walter White decide produzir drogas usando seu conhecimento e sua recém necessidade de zelar pelo futuro de sua família. Através dessa história inicial somos levados ao mundo do crime e como ele pode ser bem menos glamoroso do que imaginamos, mas também bem menos assustador do que nos contam.</description>
+</item>
+
+     
+        <item>
+  <title>Breaking Bad - Conclusão</title>
+  <link>http://www.caloni.com.br/breaking-bad/</link>
+  <pubDate>2016-07-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/breaking-bad/</guid>
   <description>Sabemos desde o início do seriado que há algo de novo, muito novo, na televisão. Através da figura de um pacato professor de química que descobre ter câncer e que será pai novamente enxergamos aos poucos a relativação da moral quando Walter White decide produzir drogas usando seu conhecimento e sua recém necessidade de zelar pelo futuro de sua família. Através dessa história inicial somos levados ao mundo do crime e como ele pode ser bem menos glamoroso do que imaginamos, mas também bem menos assustador do que nos contam.</description>
 </item>
 
@@ -23079,7 +23099,7 @@ O problema é que Calvin não consegue mais escrever.</description>
 
      
         <item>
-  <title>Looper Assassinos do Futuro</title>
+  <title>Looper: Assassinos do Futuro</title>
   <link>http://www.caloni.com.br/looper-assassinos-do-futuro/</link>
   <pubDate>2012-10-09</pubDate>
   
