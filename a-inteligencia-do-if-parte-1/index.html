@@ -88,7 +88,13 @@
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2007-06-18
   
 
 </p>
@@ -100,7 +106,7 @@
 
             
               <p>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o endereço da próxima instrução que será executada. A essa manipulação damos o nome de salto.</p>
-<p>O salto simples e direto permite a organização do código em subrotinas e assim seu reaproveitamento, o que economiza memória, mas computacionalmente é inútil, já que pode ser implementado simplesmente pela repetição das subrotinas. O que eu quero dizer é que, do ponto de vista da execução, a mesma seqüência de instruções será executada. Pense no fluxo de execução de uma rotina que chama várias vezes a mesma subrotina:</p>
+<p>O salto simples e direto permite a organização do código em subrotinas. Subrotinas permitem o reaproveitamento de código com parâmetros de entrada distintos, o que economiza memória, mas computacionalmente é &quot;inútil&quot;, já que pode ser implementado simplesmente pela repetição das mesmas subrotinas. O que eu quero dizer é que, do ponto de vista da execução, a mesma seqüência de instruções será executada. Pense no fluxo de execução de uma rotina que chama várias vezes a mesma subrotina:</p>
 <pre><code>sub:
   code
   ret
@@ -125,7 +131,7 @@ routine:
   sub:
     code
 </code></pre>
-<p>A grande sacada computacional, motivo pelo qual hoje os computadores hoje são tão úteis para os seres humanos, é a invenção de um conceito chamado salto condicional. Ou seja, não é um salto certo, mas um salto que será executado caso a condição sob a qual ele está subordinado for verdadeira:</p>
+<p>A grande sacada computacional não são subrotinas. O real motivo pelo qual hoje os computadores são tão úteis para os seres humanos é a invenção de um conceito chamado salto condicional. Ou seja, não é um salto certo, mas um salto que será executado caso a condição sob a qual ele está subordinado for verdadeira:</p>
 <pre><code>code
 if cond:
   call sub
@@ -138,20 +144,20 @@ if cond:
 code
 </code></pre>
 <p>Os saltos condicionais, vulgarmente conhecidos como if, permitiram às linguagens de programação possuírem construções de execução mais sofisticadas: laços, iterações e seleção de caso. Claro que no fundo todas essas construções não passam de um conjunto formado por saltos condicionais e incondicionais. Peguemos o while e seu bloco, por exemplo. A construção em uma linguagem de programação possui uma condicional seguido de um bloco de código que se repete enquanto a condicional for verdadeira:</p>
-<pre><code>while condition:
+<pre><code>while cond:
   code
 </code></pre>
 <p>Enquanto para o programador dessa fictícia linguagem existe um controle de execução no início que determina quando o código deixará de ser executado repetidamente, para o compilador o while não passa de um salto no final do bloco para o começo de um if.</p>
 <pre><code>label:
-if condition:
+if cond:
   code
   jump label
 </code></pre>
-<p>O for, por outro lado, possui tradicionalmente em seu início três operações: inicialização, condição e incremento. O código começa executando a inicialização e verifica a condição uma primeira vez. Após executado o bloco de código condicionado ao for o incremento será executado e mais uma vez a condição verificada. Caso seja verdadeira novamente o bloco de código volta a executar, para no final executar o incremento e verificar a condição, e assim por diante.</p>
+<p>O for, por outro lado, possui tradicionalmente em seu início três operações: inicialização, condição e incremento. O código começa executando a inicialização e verifica a condição uma primeira vez. Após executado o bloco de código condicionado ao for, o incremento será executado, e mais uma vez a condição verificada. Caso a condição seja verdadeira novamente o bloco de código volta a executar, para no final executar o incremento e verificar a condição, e assim por diante.</p>
 <pre><code>for: i = 0; i &lt; 10; i++
   code
 </code></pre>
-<p>Vendo do ponto de vista do compilador que irá transformar esta lógica em código de máquina, o for não passa de um contador que é incrementado a cada iteração com um salto incondiconal no final do bloco de código executado.</p>
+<p>Do ponto de vista do compilador, que irá transformar esta lógica em código de máquina, o for não passa de um contador que é incrementado a cada iteração com um salto incondiconal no final do bloco de código executado.</p>
 <pre><code>i = 0
 label:
   if i &lt; 10:
@@ -159,7 +165,7 @@ label:
     i++
     jump label
 </code></pre>
-<p>O switch-case, ou seleção, filtra um determinado valor em comparações de igualdade (a condição) em série. Quando é encontrada alguma igualdade verdadeira o código atrelado é executado e o código imediatamente seguinte ao switch é executado.</p>
+<p>O switch-case, ou seleção, filtra um determinado valor em comparações de igualdade, a condição, em série. Quando é encontrada alguma igualdade verdadeira o código atrelado é executado e o código imediatamente seguinte ao switch é executado. Opcionalmente o bloco inteiro após uma seleção é ignorado.</p>
 <pre><code>switch i:
   case 0:
     code
@@ -184,7 +190,7 @@ else:
   code
 label:
 </code></pre>
-<p>Neste artigo aprendemos como todas as construções de uma linguagem de programação podem ser convertidas em um conjunto de saltos, condicionais e incondicionais. Em um próximo artigo veremos como o salto condicional pode ser implementado apenas com operações matemáticas (afinal, é só isso que temos em um computador; qualquer computador).</p>
+<p>Neste artigo vimos como todas as construções de uma linguagem de programação, independente do seu nível, podem ser convertidas em um conjunto de saltos, condicionais e incondicionais. Em um próximo artigo, que chamaremos de &quot;A inteligência do if - parte 2&quot;, veremos como o salto condicional verdadeiramente funciona, e como pode ser implementado usando apenas operações matemáticas. Afinal, matemática básica é o bloco lógico mais básico que temos em um computador; qualquer computador.</p>
 
             
 
@@ -193,7 +199,7 @@ label:
         <div class="taglist">
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a>  <a href="/tags/learning">learning</a>  <a href="/tags/kernel">kernel</a> 
+      <a href="/tags/learning">learning</a>  <a href="/tags/kernel">kernel</a> 
     
 
 

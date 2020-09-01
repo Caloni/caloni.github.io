@@ -6,9 +6,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sat, 29 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/posts/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Houve uma Vez Dois Verões</title>
+  <link>http://www.caloni.com.br/houve-uma-vez-dois-veroes/</link>
+  <pubDate>2020-08-31</pubDate>
+  
+  <guid>http://www.caloni.com.br/houve-uma-vez-dois-veroes/</guid>
+  <description>Meninas virgens costumam ter o que vulgarmente se conhece como &amp;quot;amor de pica&amp;quot;, que é quando ela não consegue largar o garoto que a desvirginou; para o resto de sua vida. Trágico. Em contrapartida, Houve Uma Vez Dois Verões parte da história de um menino virgem que tem uma noite apenas com a garota perfeita -- jogadora de fliperama -- e desenvolve o que chamaríamos por tabela, e também vulgarmente, de &amp;quot;amor de xana&amp;quot;.</description>
+</item>
+
      
         <item>
   <title>Entre Facas e Segredos</title>
@@ -30554,8 +30564,7 @@ Tudo bem, mas e se estamos falando de depuração em kernel mode?</description>
   <pubDate>2007-06-29</pubDate>
   
   <guid>http://www.caloni.com.br/a-inteligencia-do-if-parte-2/</guid>
-  <description>Vimos na primeira parte desse artigo como o if revolucionou o mundo da computação trazendo um salto que depende de condições anteriores e, portanto, depende do estado do programa. A ele chamamos de salto condicional. Agora veremos como implementar uma condição baseando-se no fato de que o computador pode apenas realizar operações matemáticas.
-Uma condição, item necessário para o funcionamento do salto condicional, nada mais é do que um cálculo matemático e o seu resultado, sendo o salto dependente desse resultado.</description>
+  <description>Vimos na primeira parte desse artigo, &amp;quot;A inteligência do if - parte 1&amp;quot;, como o if revolucionou o mundo da computação ao trazer um salto que depende de condições anteriores e, portanto, depende do estado do programa. A ele chamamos de salto condicional. Também vimos como o resto das construções lógicas de uma linguagem são apenas derivações montadas a partir de saltos condicionais e incondicionais. Neste artigo veremos como implementar um saldo condicional baseando-se no fato de que o computador pode apenas realizar operações matemáticas.</description>
 </item>
 
      
@@ -30598,7 +30607,7 @@ When I was reading the K&amp;amp;R book (again) I was enjoying the language spec
   
   <guid>http://www.caloni.com.br/a-inteligencia-do-if-parte-1/</guid>
   <description>No nível mais baixo, podemos dizer que as instruções de um computador se baseiam simplesmente em cálculos matemáticos e manipulação de memória. E entre os tipos de manipulação existe aquela que muda o endereço da próxima instrução que será executada. A essa manipulação damos o nome de salto.
-O salto simples e direto permite a organização do código em subrotinas e assim seu reaproveitamento, o que economiza memória, mas computacionalmente é inútil, já que pode ser implementado simplesmente pela repetição das subrotinas.</description>
+O salto simples e direto permite a organização do código em subrotinas. Subrotinas permitem o reaproveitamento de código com parâmetros de entrada distintos, o que economiza memória, mas computacionalmente é &amp;quot;inútil&amp;quot;, já que pode ser implementado simplesmente pela repetição das mesmas subrotinas.</description>
 </item>
 
      
