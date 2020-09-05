@@ -6,9 +6,50 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Mon, 31 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>A Banda</title>
+  <link>http://www.caloni.com.br/a-banda/</link>
+  <pubDate>2020-09-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-banda/</guid>
+  <description>Estão todos juntos porque o uniforme é o mesmo, mas seus espíritos vagam em diferentes sentidos, entre a fantasia de estar perdido em país estrangeiro e o desespero de ter que viver tudo aquilo com todos juntos. Porque, sabe como é, estão todos com o mesmo uniforme.
+A banda pode ser uma metáfora sobre a vida, ou pelo menos é isso que o espectador pode pensar, já que não há nada mais para pensar e os poucos diálogos apenas tentam compor a comédia de situações do choque de culturas: estrangeiros vestidos com extravagância deslocada observando a vida local e os locais em um misto entre alienação e nostalgia.</description>
+</item>
+
+     
+        <item>
+  <title>Bispo e Cavalo</title>
+  <link>http://www.caloni.com.br/bispo-e-cavalo/</link>
+  <pubDate>2020-09-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/bispo-e-cavalo/</guid>
+  <description>Já havia estudado este final há muito tempo e nem lembrava mais. Ter empatada uma partida porque não consegui dar mate forçado com bispo e cavalo é o que me fez rever o estudo. Assisti alguns vídeos e pratiquei com alguns estudos no Lichess. Por fim, me pus a jogar com o computador até entender a dinâmica de cercar o rei e realizar o movimento de W com o cavalo. Eu sei que ainda terão partidas que me sentirei acuado por conta do tempo, mas é bom agora voltar a ter o mínimo de arcabouço lógico por trás desse fascinante e difícil final.</description>
+</item>
+
+     
+        <item>
+  <title>Santo Grão</title>
+  <link>http://www.caloni.com.br/santo-grao/</link>
+  <pubDate>2020-09-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/santo-grao/</guid>
+  <description>O doce tânico, o corpo médio, a caneca de café perfeita, regular, mas falta algo. Equilibrado demais, talvez? Não. Experimentei tomar com uma proporção mais pesada, 10g por 100ml, e fez diferença. O sabor mais presente revela uma combinação inebriante entre o amadeirado tânico da torra média e o amargor que envolve esse café aveludado. É um dos cafés mais equilibrados de linha que já provei.</description>
+</item>
+
+     
+        <item>
+  <title>Uma Doce Mentira</title>
+  <link>http://www.caloni.com.br/uma-doce-mentira/</link>
+  <pubDate>2020-09-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/uma-doce-mentira/</guid>
+  <description>Quando escrever doces palavras em letra de mão e enviar anonimamente para sua amada só pode ser obra de um velho safado. Vivemos em tempos cínicos e desprovidos de leveza. Essa parece uma comédia romântica, mas é um drama disfarçado. É o começo do fim da excelência francesa em fazer rir das situações do dia-a-dia. Audrey Tautou é a queridinha da França para o Mundo, mas aqui tenta não repetir papéis e sai dos eixos, vivendo uma empresária e filha maquiavélica que tenta consertar sua relação com a depressiva mãe e acaba destruindo corações no processo, incluindo o seu próprio.</description>
+</item>
+
      
         <item>
   <title>Houve uma Vez Dois Verões</title>
@@ -30624,10 +30665,10 @@ Por outro lado, aprendi muitas coisas novas desde o começo desse ano. Decorei n
      
         <item>
   <title>Wanderley Caloni</title>
-  <link>http://www.caloni.com.br/caloni/</link>
+  <link>http://www.caloni.com.br/about/</link>
   <pubDate>2007-06-14</pubDate>
   
-  <guid>http://www.caloni.com.br/caloni/</guid>
+  <guid>http://www.caloni.com.br/about/</guid>
   <description>Wanderley Caloni é um programador C/C++ especializado em backend para Windows que decidiu ter seu próprio blogue técnico a pedidos insistentes do seu amigo, Rodrigo Strauss, que estava blogando já fazia alguns anos no www.1bit.com.br. Busco mantê-lo atualizado por esses longos anos de programação, depuração e transpiração com minhas peripécias do dia-a-dia. Eventualmente me tornei crítico de cinema e juntei aqui essas duas escovas de dentes, os textos técnicos e cinematográficos, o que acabou tornando o saite gigante, a ponto de eu precisar trocar meu static site generator para algo mais rápido como Hugo.</description>
 </item>
 
