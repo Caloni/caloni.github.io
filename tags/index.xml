@@ -6,9 +6,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Copyright é invenção do capitalismo burguês opressor. Todos os direitos não serão reservados.</copyright>
-    <lastBuildDate>Sat, 05 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-09-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>chess</title>
@@ -31,41 +41,11 @@
 
      
         <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-09-05</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>blog</title>
-  <link>http://www.caloni.com.br/tags/blog/</link>
+  <title>videos</title>
+  <link>http://www.caloni.com.br/tags/videos/</link>
   <pubDate>2020-08-29</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/blog/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-08-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>reading</title>
-  <link>http://www.caloni.com.br/tags/reading/</link>
-  <pubDate>2020-08-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/reading/</guid>
+  <guid>http://www.caloni.com.br/tags/videos/</guid>
   <description></description>
 </item>
 
@@ -76,6 +56,16 @@
   <pubDate>2020-08-24</pubDate>
   
   <guid>http://www.caloni.com.br/tags/kernel/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-08-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
@@ -156,6 +146,16 @@
   <pubDate>2020-07-12</pubDate>
   
   <guid>http://www.caloni.com.br/tags/quotes/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>reading</title>
+  <link>http://www.caloni.com.br/tags/reading/</link>
+  <pubDate>2020-07-12</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/reading/</guid>
   <description></description>
 </item>
 
