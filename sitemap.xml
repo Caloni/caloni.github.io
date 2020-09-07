@@ -3,32 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://www.caloni.com.br/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/draft/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/estou-pensando-em-acabar-com-tudo/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/movies/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/o-livro-de-cabeceira/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/posts/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.caloni.com.br/tags/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.caloni.com.br/a-banda/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.caloni.com.br/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.caloni.com.br/houve-uma-vez-dois-veroes/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/movies/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/posts/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -89,11 +104,6 @@
   
   <url>
     <loc>http://www.caloni.com.br/community/</loc>
-    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.caloni.com.br/tags/draft/</loc>
     <lastmod>2020-08-19T00:00:00+00:00</lastmod>
   </url>
   
