@@ -15,8 +15,11 @@
   <pubDate>2020-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/getargs-array/</guid>
-  <description>Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.
-Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento.</description>
+  <description>&lt;p&gt;Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.&lt;/p&gt;
+&lt;p&gt;Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento. Um array de argumentos é o mesmo argumento repetido n vezes se transformando em um array para ser consumido como tal. Para essa versão será necessário uma segunda função, especializada, que faça o serviço.&lt;/p&gt;
+&lt;p&gt;Alterei meu código mágico, simples e rápido para parsear linha de comando em C para suportar arrays. Na correria do projeto foi algo igualmente simples e rápido, embora com alguns truques interessantes de se aprender sobre libc. Basicamente o que ele faz é varrer o array argv construindo seu próprio filtrado apenas com os argumentos que interessam. Ele aloca e realoca a memória para esse array de ponteiros para char usando a função padrão realloc, que consegue fazer a alocação inicial e realocações mantendo o conteúdo da memória original.&lt;/p&gt;
+&lt;p&gt;Durante o laço é mantido um offset que é incrementado a cada novo argumento. Caso não exista nenhum argumento o retorno será NULL. O aprendizado de libc aqui fica por conta do uso do realloc para simplificar realocação, algo que C++ não possui até hoje (se você quiser fazer as coisas apenas no modo C++ com new e delete) e que depende de abstrações da STL como containers para fazê-lo.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -26,8 +29,11 @@ Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende
   <pubDate>2020-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/pacotes-nuget-again/</guid>
-  <description>Agora que mexo com .net no trabalho surgem problemas de &amp;quot;marinheiro de primeira viagem&amp;quot; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.
-Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Durante a compilação tudo estava lindo e maravilhoso.</description>
+  <description>&lt;p&gt;Agora que mexo com .net no trabalho surgem problemas de &amp;quot;marinheiro de primeira viagem&amp;quot; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.&lt;/p&gt;
+&lt;p&gt;Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Durante a compilação tudo estava lindo e maravilhoso. Porém, na hora de rodar, a exceção de I/O dizendo que não conseguiu carregar o assembly na versão certa pula na minha frente.&lt;/p&gt;
+&lt;p&gt;Pesquisa de lá, pesquisa de cá, fuça de cá, fuça de lá, encontrei acho que pela segunda vez a solução. Se trata mesmo da versão errada sendo utilizada, mas não na compilação, mas na execução. É preciso definir a versão correta no arquivo de configuração.&lt;/p&gt;
+&lt;p&gt;Feito isso todo o mundo maravilhoso de .nerd volta a fazer sentido.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -37,8 +43,9 @@ Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Du
   <pubDate>2020-07-05</pubDate>
   
   <guid>http://www.caloni.com.br/close-remote-socket/</guid>
-  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
-You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger.</description>
+  <description>&lt;p&gt;I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.&lt;/p&gt;
+&lt;p&gt;You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger. You done. How simple is that, right?&lt;/p&gt;
+</description>
 </item>
 
      
@@ -48,8 +55,11 @@ You just need to find the process using netstat, find the socket descriptor usin
   <pubDate>2020-07-01</pubDate>
   
   <guid>http://www.caloni.com.br/find-path/</guid>
-  <description>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.
-Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence).</description>
+  <description>&lt;p&gt;Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.&lt;/p&gt;
+&lt;p&gt;Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.&lt;/p&gt;
+&lt;p&gt;Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &amp;quot;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you&#39;re using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&amp;quot;&lt;/p&gt;
+&lt;p&gt;Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando o diretório de instalação do vcpkg, tudo se resolve. O solution do Visual Studio finalmente consegue encontrar os includes e libraries da glib. Ou qualquer outra biblioteca portada que você queira usar.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -59,7 +69,10 @@ Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgCo
   <pubDate>2020-06-13</pubDate>
   
   <guid>http://www.caloni.com.br/historical-price/</guid>
-  <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades.</description>
+  <description>&lt;p&gt;Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades. E isso justo agora que ando estudando awk. Então não deu outra: usei esta linguagem clássica como ferramenta para esta conversão.&lt;/p&gt;
+&lt;p&gt;O código ficou, em minha humilde opinião, elegante e pequeno, pois se aproveita da composição das periodicidades. Ou seja, o período de cinco minutos é a consolidação de cinco linhas de um minuto, mas a de quinze minutos não são quinze linhas de um minuto, mas três de cinco minutos, que já estão sendo calculados a cada cinco linha. E assim por diante. Usando os arrays associativos do awk é possível manter o estado de cada candle até o momento de gerar a saída desejada, que no exemplo que codifiquei ficou como um comando SQL de insert em um banco fictício que grava cada tipo de candle em uma tabela.&lt;/p&gt;
+&lt;p&gt;O uso de um array por candle simplificou o código, pois ao criar uma função que manipula o candle que está finalizando e o próximo eu posso simplesmente passá-los como argumentos. Dessa forma eu só preciso compor os filtros de linhas de acordo com o resto da divisão do seu número. No exemplo inicial, o candle de cinco minutos está finalizando quando RN é igual a cinco ou múltiplos de cinco, enquanto um novo candle se inicia em múltiplos de seis.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -69,8 +82,12 @@ Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgCo
   <pubDate>2020-06-07</pubDate>
   
   <guid>http://www.caloni.com.br/leak-de-memoria/</guid>
-  <description>Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.
-Essa memória é alocada para um objeto acessível por uma interface.</description>
+  <description>&lt;p&gt;Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.&lt;/p&gt;
+&lt;p&gt;Essa memória é alocada para um objeto acessível por uma interface. Abaixo dessa abstração reside uma mensagem do protocol buffers, ainda na versão 2. Isso quer dizer que cada new e delete construía uma nova mensagem protobuf, além da vtable da interface, e destruía em seguida. Apenas um campo int era preenchido como teste. Para monitorar melhor a memória usei um segundo campo string, pois daí posso alocar quantos bytes quiser para ele e o gráfico do Process Explorer fica dando um berro que não dá para ignorar.&lt;/p&gt;
+&lt;p&gt;Então me veio o pensamento sobre a versão debug, que não é confiável. Uma versão debug de uma lib pode decidir que é importante manter coisas na memória que o programa não pediu, mas que é importante para diagnóstico. Então compilei a versão release. O padrão de consumo se repetiu, embora em um ritmo menor porque versão release é mais performática. O consumo crescente ainda estava aí.&lt;/p&gt;
+&lt;p&gt;O jeito foi ir destroçando o código, classe por classe, até fazer o padrão de consumo crescente estabilizar. Este projeto tem uma arquitetura complexa, cheia de interfaces e classes que manipulam dados internos através delas. É complicado destrinchar e me custou o domingo inteiro. E quando finalmente encontrei o problema, não tinha nada a ver com o que eu imaginava. Se tratava da fila de linhas de log que não eram apagadas porque o servidor de log não havia sido configurado no componente, e como ele nunca conectava, a lib de log decidia manter as linhas em memória até conseguir. Pode ser um erro de arquitetura ou uma decisão de segurança. De qualquer forma, não há leak. Apenas um sintoma.&lt;/p&gt;
+&lt;p&gt;Essa sessão de debugging me deu alguns insights, entre eles um que é sempre mais frequente: nunca supor nada antes de analisar um problema. Minha estratégia de dividir para conquistar sempre foi a única que gerou resultados rápidos, ainda que às custas de não confiar em minha intuição. A longo prazo essa estratégia é vencedora, pois a intuição não utilizada sem critérios fica mais afiada conforme você acumula conhecimento. É como o cara dos Axiomas de Zurique (o livro) dizia, intuição é um quase-conhecimento. Saber cada vez mais irá fazer com que você consiga caminhar mais rapidamente por onde quer chegar.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -80,8 +97,10 @@ Essa memória é alocada para um objeto acessível por uma interface.</descripti
   <pubDate>2020-06-04</pubDate>
   
   <guid>http://www.caloni.com.br/azure-missing-lines/</guid>
-  <description>É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.
-Para se autenticar no repositório remoto, é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros.</description>
+  <description>&lt;p&gt;É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.&lt;/p&gt;
+&lt;p&gt;Para se autenticar no repositório remoto, é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros. Uma conta desse serviço é usada e o acesso está liberado. Porém, se o repositório possui submodules, e estes foram configurados como acessos via ssh, a automação do Azure já para de funcionar neste momento.&lt;/p&gt;
+&lt;p&gt;A causa desse bug é simples: não existe ambiente para as chaves SSH estarem configuradas antes de existir um agente (uma máquina) onde o build irá acontecer. A correção, felizmente, também é simples, apesar de inapropriada: primeiro deve-se baixar o repo sem submodules, instalar a chave SSH, e apenas agora iniciar e atualizar os submodules.&lt;/p&gt;
+</description>
 </item>
 
      

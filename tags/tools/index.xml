@@ -15,7 +15,11 @@
   <pubDate>2020-06-07</pubDate>
   
   <guid>http://www.caloni.com.br/awk/</guid>
-  <description>Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.</description>
+  <description>&lt;p&gt;Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.&lt;/p&gt;
+&lt;p&gt;Por ela ser uma ferramenta antiga usa conceitos antigos, como field e record. Ela foi criada para formatar texto em formato de planilha, ou banco de dados. Um field, ou campo, é uma coluna na planilha, e um record, ou registro, é uma linha dessa planilha. Imagine que você pode usar awk para manipular e extrair dados de qualquer texto que contenha esse padrão, sendo que os detalhes como o separador de campos e registros, por padrão espaço e nova-linha, podem ser alterados no começo do programa.&lt;/p&gt;
+&lt;p&gt;Como toda linguagem usada como ferramenta do dia-a-dia existem os comandos mais úteis:&lt;/p&gt;
+&lt;p&gt;Existem tópicos mais avançados como funções, seja embutidas ou criadas pelo usuário (inclusive em C), e versões mais novas como nawk e gawk. Assim como existe o vim e existem plugins, sendo que passo muito bem sem usar plugins no meu vim. Acho difícil que um dia precise estender awk, exceto por curiosidade e para aguçar minha criatividade. E como o próprio guia GNU da ferramenta sugere, se seu programa awk atingir algumas centenas de linhas é melhor você refazer em outra linguagem. Python, por exemplo (brincadeira).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -25,8 +29,19 @@
   <pubDate>2020-04-18</pubDate>
   
   <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
-  <description>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).
-Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora.</description>
+  <description>&lt;p&gt;A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).&lt;/p&gt;
+&lt;p&gt;Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.&lt;/p&gt;
+&lt;p&gt;Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &amp;quot;Debugging Tools for Windows&amp;quot;, que é o pacote que contém o ecossistema do WinDbg.&lt;/p&gt;
+&lt;p&gt;Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.&lt;/p&gt;
+&lt;p&gt;Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.&lt;/p&gt;
+&lt;p&gt;Abordamos o boot do Windows com nt, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode do WinDbg) e configuramos o cabo. Cabo?&lt;/p&gt;
+&lt;p&gt;Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &amp;quot;de fora&amp;quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.&lt;/p&gt;
+&lt;p&gt;Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.&lt;/p&gt;
+&lt;p&gt;Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.&lt;/p&gt;
+&lt;p&gt;Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.&lt;/p&gt;
+&lt;p&gt;Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também:&lt;/p&gt;
+&lt;p&gt;Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &amp;quot;Getting Started with WinDbg (User-Mode)&amp;quot; e &amp;quot;Getting Started with WinDbg (Kernel-Mode)&amp;quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -36,9 +51,14 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <pubDate>2018-12-11</pubDate>
   
   <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
-  <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
-Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.
-Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária.</description>
+  <description>&lt;p&gt;Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.&lt;/p&gt;
+&lt;p&gt;Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.&lt;/p&gt;
+&lt;p&gt;Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária. No caso da Microsoft há os precompiled headers, que sujam o projeto antes mesmo do tempo de compilação ser um problema. E agora descobri que os arquivos estão sendo gerados em UNICODE Windows.&lt;/p&gt;
+&lt;p&gt;Se você tiver o mesmo problema e quiser corrigir segue o passo-a-passo: salve os arquivos com um encoding de gente grande como utf8. Fim do passo-a-passo.&lt;/p&gt;
+&lt;p&gt;Isso pode ser obtido na janela de &amp;quot;Save As&amp;quot; do Visual Studio. Há uma flecha para baixo do lado do botão Save onde você pode abrir a opção &amp;quot;Save with Encoding&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Na prática, troque possivelmente de &amp;quot;Unicode - Codepage 1200&amp;quot; para &amp;quot;Unicode (UTF-8 without signature) - Codepage 65001&amp;quot;.  A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.&lt;/p&gt;
+&lt;p&gt;A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -48,9 +68,27 @@ Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmen
   <pubDate>2018-07-15</pubDate>
   
   <guid>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</guid>
-  <description>A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.
-Para realizar esta operação será necessário usar as seguintes ferramentas:
- wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente.</description>
+  <description>&lt;p&gt;A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.&lt;/p&gt;
+&lt;p&gt;Para realizar esta operação será necessário usar as seguintes ferramentas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;wget&lt;/li&gt;
+&lt;li&gt;sed&lt;/li&gt;
+&lt;li&gt;sort&lt;/li&gt;
+&lt;li&gt;Calibre&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:&lt;/p&gt;
+&lt;p&gt;Este batch baixa todo o conteúdo do site da Stanford em um único diretório. O processo pode demorar mais ou menos, dependendo da sua banda, mas aqui em casa (50MB) demorou cerca de meia-hora pra mais.&lt;/p&gt;
+&lt;p&gt;Este batch chama dois outros batch, call calibreremovehead.bat e call calibreremovebottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.&lt;/p&gt;
+&lt;p&gt;Esta batch gera os índices das entradas baseado em seus títulos, e os nomes dos arquivos serão usados para links no TOC do Calibre.&lt;/p&gt;
+&lt;p&gt;Algumas entradas possuem o marcador em, que deve ser retirado antes de ordenar os títulos.&lt;/p&gt;
+&lt;p&gt;Se não ordenarmos por título o único índice de nosso livro será inútil.&lt;/p&gt;
+&lt;p&gt;Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado doublekiller.exe, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:&lt;/p&gt;
+&lt;p&gt;Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag a, no formato que o Calibre espera:&lt;/p&gt;
+&lt;p&gt;Por fim, antes de usar o Calibre é necessário juntar os arquivos de template em um arquivo final de TOC, o calibre.html. Ao final desse processo passaremos ao Calibre em si.&lt;/p&gt;
+&lt;p&gt;Para realizar este passo basta arrastar ou abrir o arquivo html central que foi criado, e a partir dele iniciar a conversão. Note que após arrastar já será criado um zip com todos os HTMLs relacionados.&lt;/p&gt;
+&lt;p&gt;Após abrir pelo Calibre ele insere na biblioteca e é só converter para MOBI (Kindle) ou EPUB (outros leitores) ou qualquer outro formato desejado. A nota final aqui é que como se trata de um arquivo gigantesco (50 MB em HTML zipado, 80 MB em MOBI) é melhor baixar a versão 64 bits do Calibre e ter muita memória RAM. Voilà!&lt;/p&gt;
+&lt;p&gt;E por hoje é só. Se tudo der certo você poderá copiar e colar dentro do seu leitor todas as entradas de uma enciclopédia indispensável para quem está estudando filosofia. Enjoy.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -60,7 +98,27 @@ Para realizar esta operação será necessário usar as seguintes ferramentas:
   <pubDate>2017-07-25</pubDate>
   
   <guid>http://www.caloni.com.br/cpptests/</guid>
-  <description>Iniciei um novo projeto no GitHub que tem por objetivo ser minha prancheta de trabalhos para minha palestra no próximo encontro ccpp. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?</description>
+  <description>&lt;p&gt;Iniciei um novo projeto no GitHub que tem por objetivo ser minha prancheta de trabalhos para minha palestra no próximo encontro ccpp. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?&lt;/p&gt;
+&lt;p&gt;Depende.&lt;/p&gt;
+&lt;p&gt;Dei uma olhada nas últimas modificações adicionadas no Visual Studio 2017 (versão 15.3 preview 1, mas o último lançado é o preview 5), e há muitos elementos IMHO supérfluos, mas que tendem a ser integrados aos poucos (I hope).&lt;/p&gt;
+&lt;p&gt;A lista que achei interessante (com seu projeto):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;binary_literals_test. Perfumaria muito bem-vinda de uma linguagem feita para trabalhar também baixo nível.&lt;/li&gt;
+&lt;li&gt;constexpr_test. Um teste que alguém fez na nossa lista ccpp do Telegram e que possui uma particularidade interessante (mais abaixo).&lt;/li&gt;
+&lt;li&gt;for_range_generic_test. Ainda em teste, mas me parece a forma definitiva de iterar entre elementos em C++; completamente genérico.&lt;/li&gt;
+&lt;li&gt;generic_lambdas_test. E por falar em genérico, este lambda tem muito a ver com programação funcional.&lt;/li&gt;
+&lt;li&gt;has_include_test. Uma maneira elegante (apesar do nome feio) de ir migrando projetos/libs aos poucos.&lt;/li&gt;
+&lt;li&gt;initializer_list. Só demonstrando o que já é velho (mas que ainda não comentei no blogue).&lt;/li&gt;
+&lt;li&gt;nodiscard_test. Essa é uma das features mais curiosas para escrita de código robusta.&lt;/li&gt;
+&lt;li&gt;sfinae_test. O SFINAE é um dos pilares do C++, e ele vem melhorando cada vez mais.&lt;/li&gt;
+&lt;li&gt;static_assert_test. O que estava faltando que no Boost é macaco velho.&lt;/li&gt;
+&lt;li&gt;user_defined_literals_test. Mais uma perfumaria; essa é bonitinha; para uso acadêmico.&lt;/li&gt;
+&lt;li&gt;variable_templates_test. Mais algo já velho, que demonstro aqui com minha superlib de log.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A otimização no if através do uso da palavra-chave constexpr possibilita a criação de diferentes instâncias da chamada que não contém o if, mas um dos dois branches dependendo do tipo ser integral ou não.&lt;/p&gt;
+&lt;p&gt;Para que a compilação dessa opção funcione no Visual Studio 2017 15.3 é necessário inserir o parâmetro /std:c++latest nas opções do projeto em C/C++, Command Line, Additional Options.&lt;/p&gt;
+&lt;p&gt;Todos (ou a maioria) deles ainda está em teste. Acabei de baixar o preview 5, conforma um dos membros da ML dos MVPs C++ me informou que saiu quentinha do forno. Em breve novidades.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -70,8 +128,14 @@ Para realizar esta operação será necessário usar as seguintes ferramentas:
   <pubDate>2017-03-14</pubDate>
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-windows/</guid>
-  <description>Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.
-Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;quot;flow&amp;quot;, ou estar na zona. Agora é a vez do Windows.</description>
+  <description>&lt;p&gt;&lt;strong&gt;Update 2019-03-20: Adicionando programa para fazer tela cheia no Windows e retirados detalhes que não uso mais.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferramenta para toda obra, com isso limitando as distrações quando se está em um computador, e com isso facilitando a entrada e a permanência no estado de fluidez de produtividade que conhecemos como &amp;quot;flow&amp;quot;, ou estar na zona. Agora é a vez do Windows.&lt;/p&gt;
+&lt;p&gt;O Windows 10 já vem com atalhos pré-instalados assim que você loga nele. Tem browser, navegador de arquivos, notícias, e uma caralhada de coisas inúteis que ficam se mexendo na tela, chamando sua atenção, distraindo sobre o que é mais importante.&lt;/p&gt;
+&lt;p&gt;Mas é possível arrancar tudo isso e deixar na barra de tarefas pinado apenas as coisas realmente vitais para o uso do computador de trabalho, geralmente o terminal, o navegador (pesquisa, emails, etc) e o editor (não necessariamente o Vim).&lt;/p&gt;
+&lt;p&gt;O terminal do Windows, o Command Prompt, ou cmd para os íntimos, sofreu algumas mudanças ultimamente. Entre elas há a transparência, o que o tornou cool, e a tela cheia (atalho Alt+Enter), o que o tornou ideal como ferramenta de navegação para programadores (melhor do que o explorer, que virou um penduricalho de atalhos inúteis também). Você pode ativá-lo já entrando na tela cheia e com o code page de sua preferência (o meu é 65001, que é o utf8) usando esse pequeno programa:&lt;/p&gt;
+&lt;p&gt;Os comandos do git são muito verbose. Duas letras já seriam suficiente (o Windbg manipula seu programa com apenas uma...). Para otimizar a digitação no git crie uns aliases em seu HOME.gitconfig:&lt;/p&gt;
+&lt;p&gt;Agora, através dos atalhos Win+1, 2, 3... pode-se abrir e alternar entre os aplicativos principais do seu dia-a-dia, que devem ficar &amp;quot;pinados&amp;quot; na barra de tarefas. Os meus atualmente são três: terminal (1 cmd), editor (2 vim) e browser (3 chrome). Não é necessário colocar coisas como Visual Studio, já que minha navegação é feita rapidamente pelo terminal para o projeto que irei mexer. Com isso o foco fica restrito a apenas uma coisa: o que você tem que fazer hoje? =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -81,7 +145,34 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2017-02-27</pubDate>
   
   <guid>http://www.caloni.com.br/atalhos-no-terminal-do-linux-unix-cygwin/</guid>
-  <description>Há pouca coisa que você pode fazer para manipular a linha de comando que está digitando em um terminal do Windows. Isso faz sentido. O terminal da Microsoft é apenas um resquício do MS-DOS, que foi herdado pelas inúmeras versões do Windows para que desenvolvedores e suporte pudessem executar alguns comandos não disponíveis pelo clique de um mouse. Já no Unix a história é inversa. Durante tantas décadas sendo usado, o sistema Unix, hoje, em sua mais nova reencarnação, Linux, foi acumulando diferentes teclas de atalho para conseguirmos refazer, desfazer e fazer melhor a montagem dos comandos digitados na linha de comando.</description>
+  <description>&lt;p&gt;Há pouca coisa que você pode fazer para manipular a linha de comando que está digitando em um terminal do Windows. Isso faz sentido. O terminal da Microsoft é apenas um resquício do MS-DOS, que foi herdado pelas inúmeras versões do Windows para que desenvolvedores e suporte pudessem executar alguns comandos não disponíveis pelo clique de um mouse. Já no Unix a história é inversa. Durante tantas décadas sendo usado, o sistema Unix, hoje, em sua mais nova reencarnação, Linux, foi acumulando diferentes teclas de atalho para conseguirmos refazer, desfazer e fazer melhor a montagem dos comandos digitados na linha de comando. Um sistema bash padrão já deve ter implementado o mínimo que você precisa para sobreviver na linha de comando. Aparentemente esse é um conhecimento tão bem divulgado pela comunidade que ninguém se dá ao trabalho de escrever um artigo sobre isso. Eu fiz algumas pesquisas uns tempos atrás e cheguei na seguinte lista, que tem muito mais do que eu preciso, e que seria bom aprender, nem que fosse aos poucos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + r&lt;/strong&gt; - navigate previous commands&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + a&lt;/strong&gt; - go to the start of the command line&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + e&lt;/strong&gt; - go to the end of the command line&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + k&lt;/strong&gt; - delete from cursor to the end of the command line&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + u&lt;/strong&gt; - delete from cursor to the start of the command line&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + w&lt;/strong&gt; - delete from cursor to start of word (i.e. delete backwards one word)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + y&lt;/strong&gt; - paste word or text that was cut using one of the deletion shortcuts (such as the one above) after the cursor&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + xx&lt;/strong&gt; - move between start of command line and current cursor position (and back again)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + b&lt;/strong&gt; - move backward one word (or go to start of word the cursor is currently on)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + f&lt;/strong&gt; - move forward one word (or go to end of word the cursor is currently on)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + d&lt;/strong&gt; - delete to end of word starting at cursor (whole word if cursor is at the beginning of word)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + c&lt;/strong&gt; - capitalize to end of word starting at cursor (whole word if cursor is at the beginning of word)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + u&lt;/strong&gt; - make uppercase from cursor to end of word&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + l&lt;/strong&gt; - make lowercase from cursor to end of word&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alt + t&lt;/strong&gt; - swap current word with previous&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + f&lt;/strong&gt; - move forward one character&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + b&lt;/strong&gt; - move backward one character&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + d&lt;/strong&gt; - delete character under the cursor&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + h&lt;/strong&gt; - delete character before the cursor&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + t&lt;/strong&gt; - swap character under cursor with the previous one&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + l&lt;/strong&gt; - clean the screen (history back)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + z&lt;/strong&gt; - put in background (fg restores it)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + c&lt;/strong&gt; - cancel current command&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ctrl + d&lt;/strong&gt; - exit the current shell&lt;/li&gt;
+&lt;/ul&gt;
+</description>
 </item>
 
      
@@ -91,7 +182,18 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2017-01-05</pubDate>
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
-  <description>Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar?</description>
+  <description>&lt;p&gt;Se você é programador é bem provável que já tenha ouvido falar em [Flow] &lt;a href=&#34;https://en.wikipedia.org/wiki/Flow(psychology)&#34;&gt;1&lt;/a&gt; ou [The Zone] &lt;a href=&#34;https://hn.algolia.com/?query=the%20zone&#34;&gt;2&lt;/a&gt;. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.&lt;/p&gt;
+&lt;p&gt;Na zona, principalmente resolvendo problemas complexos, o importante é poder construir uma estrutura em sua mente com a ajuda de alguns aparatos, como um caderno de anotações, stickers, lousa ou seu editor preferido. Meu editor preferido para navegar (flow) por um código é sem sombra de dúvida o Vim, pois ele é apenas uma tela que preenche todo meu campo de visão e possui comandos em que eu consigo facilmente acessar o conteúdo que preciso relembrar. Quando estou obtendo o diagnóstico de um log, por exemplo, posso rapidamente ir construindo um modelo mental da solução navegando entre arquivos de log e código-fonte através de tags e buscas em regex.&lt;/p&gt;
+&lt;p&gt;A primeira vantagem do Vim em relação a outros editores é sua capacidade de abrir arquivos grandes. Um log de 1GB pode ser um desafio para um Notepad da vida, e até para um Visual Studio, mas no Vim tudo que você precisa é de memória disponível. E mesmo que não tenha, o Windows se vira bem no gerenciamento de swap (ou Linux, tanto faz).&lt;/p&gt;
+&lt;p&gt;Para navegar no código, existem duas técnicas que não necessitam de nenhum plugin. A primeira é a busca por regex, que pode ser feita com os comandos :vimgrep ou :grep, sendo que o primeiro busca em um padrão de arquivos (usando wildcard) e o segundo dentro dos buffers já abertos (útil se você já tiver uma sessão ativa; mais sobre isso depois).&lt;/p&gt;
+&lt;p&gt;O bom é que, no caso de logs, se você buscar por expressões unívocas, isso já fica no histórico de seus comandos e você pode usar quando quiser para voltar para esses logs (ou se você for maluco e guardar de cabeça seus marks, pode criar um mark de vez).&lt;/p&gt;
+&lt;p&gt;A segunda técnica de navegar no código é através das tags que são montadas pela ferramenta ctags. Ela é genérica o suficiente para suportar várias linguagens, mas pode ser usada até para qualquer sequência de palavras. Há plugins que realizam essa varredura do fonte automática, mas particularmente não gosto de encher meu Vim de plugins, sendo que o único que uso que me lembro é o MRU (porque o Vim ainda não suporta algo do gênero internamente). De qualquer forma, tudo que eu preciso fazer para atualizar as tags de um projeto é abrir o readme do projeto (que geralmente fica na pasta raiz) e rodar meu atalho.&lt;/p&gt;
+&lt;p&gt;Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato na verdade é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects\SomeProject\Folder1\Folder2\Folder3\File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cai em SomeProject.&lt;/p&gt;
+&lt;p&gt;Como no Windows o atalho padrão do comando tag do Vim não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados):&lt;/p&gt;
+&lt;p&gt;Depois de dar uma olhada no log, encontrar os métodos que você precisa analisar, seu fluxo, etc, você terá um monte de buffers relevantes abertos nas linhas relevantes. Seria muito bom se tudo isso pudesse ser guardado em um estado para que você continue amanhã ou em sua próxima sessão de flow. Para isso existe o comando :mksession.&lt;/p&gt;
+&lt;p&gt;O comando :source roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.&lt;/p&gt;
+&lt;p&gt;Basicamente é isso. Tudo o que você precisa em sua análise de fonte e de log se encontra na ponta de seus dedos. Não é necessário abrir nenhuma pasta nem terminal. Simplesmente navegue através do Vim para descobrir o problema e seja feliz em sua zona.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -101,7 +203,15 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2016-10-05</pubDate>
   
   <guid>http://www.caloni.com.br/guardando-senhas-com-vim/</guid>
-  <description>Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR.</description>
+  <description>&lt;p&gt;Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR. E é aí que entra em cena o Vim 8.&lt;/p&gt;
+&lt;p&gt;A nova versão do meu editor favorito não apresenta o defeito do algoritmo blowfish anterior, ou apresenta, mas dessa vez fornece uma versão atualizada (claro que, por razões de compatibilidade, foram mantidos os algoritmos anteriores).&lt;/p&gt;
+&lt;p&gt;O que eu gosto no modelo do Vim de encriptar arquivos é que eles são encriptados apenas na escrita, e na leitura o usuário deve digitar a senha. Se a senha não correponder ao que foi usado para encriptá-lo, não há mensagem de erro: o editor irá simplesmente exibir o lixo gerado pela sua senha errada. Isso gera uma situação vantajosa e uma perigosa.&lt;/p&gt;
+&lt;p&gt;A vantajosa é que não há como automatizar um brute force em cima de arquivos encriptados pelo Vim, pois não há muitos sinais de que o arquivo foi desencriptado. Claro, por amostragem de texto é possível saber se a senha foi ou não satisfatória, mas a beleza está em não existir nada específico na estrutura do editor que diga se a senha foi ou não bem sucedida.&lt;/p&gt;
+&lt;p&gt;A perigosa é que uma vez que você digite a senha errada, muito cuidado com o lixo que você verá no seu buffer. Se por força do hábito for salvar o conteúdo, poderá perder o conteúdo do arquivo original, que estava encriptado com uma senha que você conhecia, mas que agora foi salvo após ter sido desencriptado com a senha errada. Ou seja, não há como reaver o conteúdo original a não ser com muito suor.&lt;/p&gt;
+&lt;p&gt;O mais prático de tudo é usar esse modelo de arquivo encriptado pelo Vim para salvar senhas. Um arquivo de senhas pode ser tão simples quando login/senha de todas as senhas que você deseja guardar, e tão bem protegido quanto a força de sua senha master. Nada mais, nada menos. De quebra, um arquivo pequeno cujo backup pode ser sincronizado instantaneamente na nuvem (usando Google Drive, Dropbox ou One Drive), ou até mantido em um controle de fonte (embora ele seja tratado como binário).&lt;/p&gt;
+&lt;p&gt;Se você gostou desse modelo, seguem os comandos para pesquisar (:help comando):&lt;/p&gt;
+&lt;p&gt;Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler o artigo da invert.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -111,7 +221,25 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2016-09-18</pubDate>
   
   <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
-  <description>A vida dos programadores C/C++ Windows -- e que geralmente precisam do Visual Studio -- está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .</description>
+  <description>&lt;p&gt;A vida dos programadores C/C++ Windows -- e que geralmente precisam do Visual Studio -- está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .NET, do Visual Studio 2003 e dos XMLs disfarçados como arquivos de projeto e solution, o uso do makefile foi paulatinamente abandonado, gerando diferentes versões de ferramentas -- todas incompatíveis -- para conseguir compilar um ou mais cpps e conseguir ver o resultado.&lt;/p&gt;
+&lt;p&gt;Por isso mesmo é um assunto pouco explorado nos fóruns do Stack Overflow como configurar decentemente o comando :make do Vim para conseguir realizar o ciclor program-compile-debug que já era feito desde a época do Amiga OS (e conhecido no manual do Vim como Quickfix). Ninguém se dá ao trabalho de usar esse modelo torto.&lt;/p&gt;
+&lt;p&gt;Houve um tempo que eu mesmo pesquisei algumas soluções, e caí no velho problema de tentar conviver com diferentes versões do Visual Studio. Deixei de lado o Vim por uns anos, e passei a usar o VsVim, um plugin que roda em várias versões do Visual Studio e utiliza o vimrc de sua instalação.&lt;/p&gt;
+&lt;p&gt;Hoje voltei a fuçar esse problema e depois de algumas horas tentando entender qual a dinâmica que deve ser seguida, cheguei a dois usos legítimos do make no Visual Studio: o modo legado, através do devenv, e o modo comportado, que usa a ferramenta MsBuild para encontrar o projeto e a solution que devem ser compilados.&lt;/p&gt;
+&lt;p&gt;A não ser que você coloque o path das ferramentas direto nos comandos (algo que não recomendo pois as coisas no Vim começam a ficar estranhas com paths com espaços, algo abundante no Windows) é preferível que você escolha qual devenv e qual msbuild deseja utilizar e definir isso na variável de sistema path. No meu exemplo estou usando o msbuild para qualquer Visual Studio acima do 2010 (como o 2015), pois já está padronizado, e como tenho projetos no VS2003 para manter, escolhi deixar o devenv.com com ele.&lt;/p&gt;
+&lt;p&gt;Note que essa configuração, para ficar persistente, precisa ser definida através do Painel de Controle ou Propriedades do Sistema. Google for it.&lt;/p&gt;
+&lt;p&gt;Depois de configurado, qualquer projeto deve ser compilável em 2003 pela linha de comando (através do devenv.com):&lt;/p&gt;
+&lt;p&gt;Da mesma forma, projetos 2010+ devem usar o msbuild:&lt;/p&gt;
+&lt;p&gt;Pois é. Tirando essa facilidade, as coisas no Vim para msbuild rodam particularmente bem. Basta alterarmos o makeprg da seguinte maneira:&lt;/p&gt;
+&lt;p&gt;As opções específicas são para gerar o path completo, as barras invertidas são por causa dessa mania do Vim de dar pau quando tem espaço em tudo.&lt;/p&gt;
+&lt;p&gt;A partir dessa configuração já é possível compilar um projeto estando em sua pasta:&lt;/p&gt;
+&lt;p&gt;Para o Visual Studio 2003 (ou qualquer um usando o devenv.com) é necessário mudar esse comando:&lt;/p&gt;
+&lt;p&gt;Sim, temos que escolher uma configuração (o msbuild já escolhe por você). E note que ele usa o arquivo atual (%) para compilar. Isso quer dizer que isso irá exigir do usuário de Vim abrir o sln ou o vcproj e executar o :make a partir daí. De qualquer forma, ele funciona também:&lt;/p&gt;
+&lt;p&gt;Note que em nenhum dos casos erros conseguirão ser capturados para irmos direto no ponto do código-fonte onde ele está. Para isso funcionar, em nosso último passo, é necessário configurar o errorformat para que ele tenha um padrão que funcione com ambas as ferramentas. Depois de testar um pouco, cheguei nesse formato:&lt;/p&gt;
+&lt;p&gt;Ele pega também os warnings, mas fazer o quê. Você não quer conviver com warnings em seu código pelo resto da vida, né? =)&lt;/p&gt;
+&lt;p&gt;E para navegar na lista é como o resultado de comandos como :vimgrep. :cnext e :cprevious vão para frente e para trás na lista, sempre pulando para o ponto no código onde está o erro.&lt;/p&gt;
+&lt;p&gt;Como deu pra perceber, para conseguir usar o msbuild e o devenv ao mesmo tempo você seria obrigado a trocar o makeprg sempre que precisasse. Para facilitar seu uso, nada como fazer um mapeamento de atalhos:&lt;/p&gt;
+&lt;p&gt;Para alguém curioso para ver minhas configurações do Vim (quem quiser compartilhar também, fique à vontade), segue.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -121,8 +249,17 @@ Um artigo anterior havia dado umas dicas de como transformar o Vim em uma ferram
   <pubDate>2016-08-16</pubDate>
   
   <guid>http://www.caloni.com.br/electrum-uma-opcao-simples-e-rapida-de-manter-bitcoins-seguros/</guid>
-  <description>Estava já há algum tempo pesquisando as melhores ferramentas para organizar carteiras bitcoin. E quando se fala em ter seus próprios bitcoins, a segurança deve ser prioridade número zero. Isso porque, diferente de bancos, quando você se dispõe a gerenciar seu próprio cofre, é você, e apenas você, o único responsável pela sua integridade.
-Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não seja necessário. Algum hacker ou programa malicioso instalado na sua máquina (como um keylogger) pode facilmente obter essa informação.</description>
+  <description>&lt;p&gt;Estava já há algum tempo pesquisando as melhores ferramentas para organizar carteiras bitcoin. E quando se fala em ter seus próprios bitcoins, a segurança deve ser prioridade número zero. Isso porque, diferente de bancos, quando você se dispõe a gerenciar seu próprio cofre, é você, e apenas você, o único responsável pela sua integridade.&lt;/p&gt;
+&lt;p&gt;Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não seja necessário. Algum hacker ou programa malicioso instalado na sua máquina (como um keylogger) pode facilmente obter essa informação.&lt;/p&gt;
+&lt;p&gt;E, sim, é preciso pensar que pode haver um keylogger em cada teclado que você for usar para digitar sua bendita senha. Por isso ter uma senha segura, no caso de bitcoins, não funciona muito bem.&lt;/p&gt;
+&lt;p&gt;Além disso, há também a segurança dos próprios dados. Não de serem roubados, mas perdidos. Nesse caso, uma estratégia muito interessante, por acrescentar entropia e comodidade, são as carteiras determinísticas. Elas se baseiam em um grupo de palavras que são usadas para gerar o par de chaves pública e privada e derivar as próximas chaves de sua carteira. Com isso, basta guardar (em papel, no seu cérebro, mas nunca em software!) essas palavras que você poderá resgatar sua carteira, reproduzindo o algoritmo de derivação.&lt;/p&gt;
+&lt;p&gt;Outro ponto importante, para os mais paranóicos, é conseguir gerenciar carteiras &amp;quot;frias&amp;quot;, que são carteiras que não podem ser usadas para gastar, apenas para receber. Funciona assim: você gera o seu endereço público para a transação, onde as pessoas podem depositar seus bitcoins, mas a chave privada, necessária para enviar bitcoins dessa carteira, é removida ou não está disponível. Dessa forma, ela vira uma carteira &amp;quot;watch-only&amp;quot;, em que o portador só consegue verificar o saldo e as transações, mas não realizar uma (a não ser que ele assine a transação em outro computador com a chave privada, ou resgate a chave privada de algum lugar, que seria o lugar &amp;quot;quente&amp;quot;).&lt;/p&gt;
+&lt;p&gt;Esse cold storage de carteiras, como é chamado, só é possível de duas maneiras: sendo você próprio um servidor da blockchain ou utilizando a infraestrutura da nuvem para validar as transações. A primeira forma é muito custosa, pois a blockchain cresce a olhos vistos, e demora hoje alguns dias para resgatar toda ela desde 2009. A segunda opção é mais rápida, mas depende da integridade dos servidores, libera mais informações sobre as transações do que devia, além de ser lento.&lt;/p&gt;
+&lt;p&gt;Dentro dessa segunda opção, porém, existe uma maneira rápida de verificar a transação sem comprometer seus dados, enviando coisas a mais para o servidor que irá validá-lo. Se chama Simple Payment Verification, e já estava prevista no paper original de Satoshi. Ela se baseia apenas em uma árvore de hashes montada justamente para compor a blockchain. Gerenciar essa informação economiza muito mais tempo e processamento, além de liberar apenas a informação essencial para os servidores validarem.&lt;/p&gt;
+&lt;p&gt;Todos esses elementos estão juntos no Electrum, uma ferramenta feita em Python que possui uma versão monolítica (um exe apenas) para Windows e que mantém as carteiras em texto plano em sua máquina. Sim, não há criptografia desnecessária. Afinal de contas, só a chave privada é que precisa ser protegida, e ela é aberta apenas durante a assinatura de uma transação, tornando todo o processo muito rápido.&lt;/p&gt;
+&lt;p&gt;Em sua página é possível tirar todas as dúvidas de como fazer uma carteira offline (fria), como apenas assinar transações, como gerenciar as carteiras, em que arquivo elas ficam, o que comem, etc. Estou usando e estou muito feliz, pois é o primeiro software que gerencia bitcoins que consegue a proeza de ser simples de usar, flexível e rápido.&lt;/p&gt;
+&lt;p&gt;Ah, e ainda possui um console em Python, para rodar seus programas =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -132,8 +269,20 @@ Isso quer dizer que apenas uma senha protegendo sua chave privada talvez não se
   <pubDate>2016-01-27</pubDate>
   
   <guid>http://www.caloni.com.br/exportando-repositorios-antigos-do-bazaar-para-git/</guid>
-  <description>Enquanto estudava sobre controle de fontes distribuído, experimentei e usei os projetos Mercurial e Bazaar, precursores desse modelo que funcionavam bem em Windows. Havia o Git, mas por conta da sua evolução assimétrica, o ambiente da Microsoft havia ficado para trás.
-Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e funcionando razoavelmente bem em ambientes Windows (64 ou 32), sobraram apenas os repositórios do Mercurial e do Bazaar.</description>
+  <description>&lt;p&gt;Enquanto estudava sobre controle de fontes distribuído, experimentei e usei os projetos Mercurial e Bazaar, precursores desse modelo que funcionavam bem em Windows. Havia o Git, mas por conta da sua evolução assimétrica, o ambiente da Microsoft havia ficado para trás.&lt;/p&gt;
+&lt;p&gt;Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e funcionando razoavelmente bem em ambientes Windows (64 ou 32), sobraram apenas os repositórios do Mercurial e do Bazaar. Na verdade, mais do Bazaar, pois eu havia migrado já do Hg pelo Bazaar possuir algo que hoje o Git emula, mas antes era um diferencial no projeto da Canonical: detecção de rename completo (com histórico e tudo). Isso para refatoração era vital, e suporte à refatoração pesada era o que eu precisava no momento.&lt;/p&gt;
+&lt;p&gt;Agora é hora de manter esse histórico vivo, mas convertido para o que todos usam.&lt;/p&gt;
+&lt;p&gt;A primeira coisa a ser feita é converter o repositório. Depois de convertido, como todas as operações estarão no universo Git, há uma de entradas no StackOverflow para nos ajudar a reunir os repositórios em um só, meu objetivo, já que o Git é mais leve e mais versátil nesse quesito.&lt;/p&gt;
+&lt;p&gt;No Windows, nas últimas versões do Bazaar o comando fast-export não estava mais funcionando. Parado desde 2012, não há previsão de correções. No entanto, para essa operação, a versão 2.4.2 atendeu bem. O comando é um pouco diferente, mas ele é rápido e rodou sem problemas em conjunto com o fast-import do Git.&lt;/p&gt;
+&lt;p&gt;É óbvio que nem tudo serão mil maravilhas. Eu, por exemplo, encontrei um problema com case-sensitive que me deu algumas dores de cabeça:&lt;/p&gt;
+&lt;p&gt;O Git gera um arquivo de report onde estão as informações do ocorrido. Uma forma de contornar esse tipo de problema é primeiro exportar para um arquivo e editá-lo (corrigindo o case, por exemplo):&lt;/p&gt;
+&lt;p&gt;Note que talvez você precise de um editor que suporte arquivos gigantescos (como o Vim) e precise se debruçar sobre merges com arquivos com mesmo nome e diferentes cases. Isso que dá manter projetos com refactoring pesado.&lt;/p&gt;
+&lt;p&gt;Por fim, faça a conversão para todos os .bzr que tiver e haverá um .git com todo o histórico desses anos usando Bazaar. O próximo passo é montar o histórico de todos eles em apenas um repositório (se assim desejar). Segue uma série de comandos que pode ajudar para usar em uma batch:&lt;/p&gt;
+&lt;p&gt;Você pode chamar um a um em cima de um repo novo:&lt;/p&gt;
+&lt;p&gt;Para conseguir ter acesso ao histórico dos arquivos movidos, basta usar a opção -all do log:&lt;/p&gt;
+&lt;p&gt;Tive alguns problemas em rastrear o histórico utilizando a estratégia de fazer merge no mesmo branch. A solução que encontrei, embora não exatamente direta, foi realizar os merges em branches apartados primeiro, mover os arquivos (de preferência, usando o git, para que ele detecte o rename), aplicar o commit e realizar o merge com o master. Há uma vantagem nessa estratégia, além do log --follow funcionar melhor: mantenha os branches originais, além do ponteiro para remote. Dessa forma, depois de alguns anos, saberá de onde veio esse merge maluco.&lt;/p&gt;
+&lt;p&gt;Depois de um tempo testando essa técnica, descobri que o Git se perde novamente e não encontra mais todos os logs, mesmo com --follow  mesmo movendo os arquivos. O meu problema está relacionado com mesmos paths dos arquivos em repositórios diferentes. Paciência.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -143,8 +292,24 @@ Hoje com o Git sendo praticamente o mainstream das conversões do SubVersion, e 
   <pubDate>2014-07-22</pubDate>
   
   <guid>http://www.caloni.com.br/integrando-bitbucketgithub-com-trello/</guid>
-  <description>Eu nem acredito que estou escrevendo sobre desenvolvimento web, mas como foi algo que me fez dedicar algumas horas do meu fim-de-semana, e não encontrei facilmente uma solução já feita, acredito que pode ser útil para mais alguém que usa Trello e GitHub (ou BitBucket).
-Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards.</description>
+  <description>&lt;p&gt;Eu nem acredito que estou escrevendo sobre desenvolvimento web, mas como foi algo que me fez dedicar algumas horas do meu fim-de-semana, e não encontrei facilmente uma solução já feita, acredito que pode ser útil para mais alguém que usa Trello e GitHub (ou BitBucket).&lt;/p&gt;
+&lt;p&gt;Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards. Em cada board vivem L listas, e em cada lista vivem C cards. Cada card pode conter comentários, histórico de mudanças, labels, checklists, due dates e todas as tranqueiras que geralmente existe em uma lista de tarefas. É um sistema online, desenvolvido pela empresa do Joel Spolsky (o mesmo do excelente blogue de programador Joel on Software (ou em português, e que contém algo que eu adoro em sistemas web: atalhos!&lt;/p&gt;
+&lt;p&gt;A ideia que tive foi usar os webhooks dos saites de repositórios de fontes para permitir comentar dentro dos cards o commit que foi feito, sua mensagem e o linque para o commit. OK, mas por que não usar o sistema de issues dos já feitos pra isso GitHub e BitBucket? Ele já faz isso muito melhor. De fato. Porém, fica espalhado pelos repositórios, e não é sempre que uma tarefa envolve código (comprar pão, por exemplo). Além do mais, praticamente qualquer serviço desses oferece hooks para a integração de outros projetos/serviços, então se um dia nascer mais um sistema de controle de fonte ou mais um saite que organiza essas tralhas haverá um hook e consequentemente mais uma adaptação do meu código PHP.&lt;/p&gt;
+&lt;p&gt;E por que PHP? Bom, PHP é uma linguagem fácil de mexer (se parece com C, mas é um script) e praticamente qualquer servidor web do universo, mesmo o mais baratinho, vem com o pacote Apache + PHP (e geralmente uma base MySql). Dessa forma, é uma solução que pode ser implantada fácil e rapidamente.&lt;/p&gt;
+&lt;p&gt;Vamos começar pelo mais difícil que o resto vai fácil: comentar pela API do Trello. Sua API é beta, assim como sua documentação, então tive arrancar significado inexistente em seu help, mas acabou funcionando. Como qualquer API web, você precisa de uma chave, segredo e a permissão do usuário. Com essa permissão é possível comentar em todas as boards que esse usuário específico tem acesso.&lt;/p&gt;
+&lt;p&gt;Pelo menos a parte de geração de chave/segredo é simples. Depois disso, mesmo nessa página já é possível conseguir uma chave de acesso para o seu usuário.&lt;/p&gt;
+&lt;p&gt;Por fim, para fazer o código que irá comentar dentro de um card no Trello, basta usar dois ou três métodos que lidam com enviar coisas pela web (não me pergunte mais que isso):&lt;/p&gt;
+&lt;p&gt;As informações AQUIVAISUACHAVE e AQUIVAISEUTOKENDEACESSO você já obteve no linque de geração de key/secret. Já o IDDOCARD é algo que depende de em qual lista seu card está, mas felizmente também existe um shortlink único e imutável para cada card no sistema:&lt;/p&gt;
+&lt;p&gt;Basta usar o ID em Base64-ou-o-que-o-valha no lugar de IDDOCARD que já estamos OK. Depois que este código conseguir ser executado, basta ter acesso à internet que ele irá escrever &amp;quot;Hello, World&amp;quot; no cartão referenciado:&lt;/p&gt;
+&lt;p&gt;Muito bem. Primeira parte da missão concluída.&lt;/p&gt;
+&lt;p&gt;Como o GitHub é um dos serviços de repositório de fontes mais famoso, vamos torná-lo nosso caso de sucesso. Basicamente você deve ir no seu repositório do coração (essa é a parte ruim: se você tem mais de um coração, vai ter que repetir esse mesmo procedimento para todos os outros repositórios dos seus outros corações), Settings, Webhooks &amp;amp; Services.&lt;/p&gt;
+&lt;p&gt;Lembre-se de colocar seu código PHP em um servidor visível na web. Lembre-se também de usar o método de envio urlencoded do payload para simplificar seu tratamento. Para simplificar ainda mais o processo, coloque qualquer coisa no segredo (não validaremos neste post, mas #ficadica de segurança se você não quer que outros acessem seu PHP inadvertidamente).&lt;/p&gt;
+&lt;p&gt;Pois bem. No código que irá receber o payload do GitHub precisamos de duas coisas: saber qual a estrutura que vai ser recebida e como localizar o id do card onde iremos enviar a informação. Nesse caso, mais uma vez, para simplificar, vamos procurar pelo próprio linque permanente do cartão na mensagem do commit. Aliás, doS commitS (sendo um push, é provável que o evento seja gerado com diversos commits aninhados).&lt;/p&gt;
+&lt;p&gt;Agora é só testar. Posso pegar esse mesmo artigo e comitá-lo no repositório do blogue usando o linque único do card da tarefa de escrever este artigo. Ou seja, aqui é Inception na veia, mermão!&lt;/p&gt;
+&lt;p&gt;O que vai deixar você perplexo é entender como esse texto está sendo comitado antes mesmo de eu comitar este texto ;).&lt;/p&gt;
+&lt;p&gt;E o negócio é rápido, viu?&lt;/p&gt;
+&lt;p&gt;A única coisa que muda no caso do BitBucket é a tela onde deve ser inserido seu webhook (método POST, sempre) e a estrutura JSon que é enviada. De lambuja, eis o que deve ser feito com esse payload:&lt;/p&gt;
+</description>
 </item>
 
      
@@ -154,8 +319,13 @@ Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligent
   <pubDate>2014-06-18</pubDate>
   
   <guid>http://www.caloni.com.br/dando-cabo-do-windbg/</guid>
-  <description>Na semana passada falei sobre a ideia de comentar algumas mudanças entre o Windows XP e o novo mundo Vista/7/8/ que fizeram com que adaptássemos algum código que obviamente não funcionaria mais. Falamos sobre a famigerada GINA (ou famiGINADA), e agora apenas vou comentar brevemente sobre o sistema de boot, que também mudou.
-Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora de usar o WinDbg.</description>
+  <description>&lt;p&gt;Na semana passada falei sobre a ideia de comentar algumas mudanças entre o Windows XP e o novo mundo Vista/7/8/ que fizeram com que adaptássemos algum código que obviamente não funcionaria mais. Falamos sobre a famigerada GINA (ou famiGINADA), e agora apenas vou comentar brevemente sobre o sistema de boot, que também mudou.&lt;/p&gt;
+&lt;p&gt;Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora de usar o WinDbg. Tradicionalmente, o boot era gerenciado no Windows através de um arquivo localizado na raiz da partição ativa (configuração da MBR) chamado bootini. Dentro dele temos uma estrutura semelhante a um .INI (duh), onde a informação que vemos lá podia ser configurada nas configurações do Computador no Windows XP.&lt;/p&gt;
+&lt;p&gt;Hoje em dia esse arquivo nem existe mais, o que pode dar um friozinho na barriga (&amp;quot;caramba, não vai mais bootar!!&amp;quot;). Agora, para sistemas baseados em BIOS há uma pasta Boot na raiz e um arquivo chamado bcd. Para os mais moderninhos, baseados em EFI, ele fica na partição EFI. Ah, EFI é Extensible Firmware Interface, e faz parte da especificação da UEFI (Universal blá blá blá), mais ou menos um padrão que define como deve ser feita a comunicação entre hardware e sistema operacional.&lt;/p&gt;
+&lt;p&gt;Para a edição desse novo arquivo (ou partição) é necessário que seja usada a ferramenta BCDEdit no Windows. É ela que agora configura qual partição está ativa e, mais importante para escovadores de bits, qual pode ser depurada pela porta serial através do WinDbg.&lt;/p&gt;
+&lt;p&gt;Porta serial? Mas que coisa antiga, hein? Pois é, muita coisa mudou desde o Windows Vista, mas algumas coisas precisam permanecer... compatíveis.&lt;/p&gt;
+&lt;p&gt;Mas... se você precisar:&lt;/p&gt;
+</description>
 </item>
 
      
@@ -165,8 +335,10 @@ Na verdade, pouca coisa mudou, mas foi o suficiente para dar problemas na hora d
   <pubDate>2013-04-01</pubDate>
   
   <guid>http://www.caloni.com.br/depuracao-na-nuvem/</guid>
-  <description>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;quot;na nuvem&amp;quot;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.
-Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software.</description>
+  <description>&lt;p&gt;Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &amp;quot;na nuvem&amp;quot;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.&lt;/p&gt;
+&lt;p&gt;Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software. Porém, o que poucos sabem, é que será também possível depurar as APIs de redes sociais em tempo real. Ou seja, caso seja usado o método Twitter::Tweet(), logo após o retorno da chamada será possível aguardar por uma resposta dos usuários envolvidos:&lt;/p&gt;
+&lt;p&gt;Ou seja, logo será possível além de perder horas navegando em saites de rede social perder também horas depurando os comentários e respostas das pessoas nessas redes direto do Visual Studio. É a Microsoft pensando nos programadores que gostam de perder tempo se envolver com pessoas (ainda que virtuais) e discussões acaloradas sobre tópicos irrelevantes e absurdos (ainda que virtuais).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -176,8 +348,16 @@ Já é conhecido que será possível inserir comentários no código-fonte com o
   <pubDate>2012-06-09</pubDate>
   
   <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
-  <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
-A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers.</description>
+  <description>&lt;p&gt;Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.&lt;/p&gt;
+&lt;p&gt;A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But it¿s a different set of commands for everybody.&amp;quot;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;&amp;lt;C-W&amp;gt;&lt;/code&gt; Alterna entre janelas.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;-c&lt;/code&gt; Fecha a janela atual.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;-o&lt;/code&gt; Fecha todas as janelas menos a atual.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:ball&lt;/code&gt; Abre todos os buffers em janelas distintas.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;g &amp;lt;C-G&amp;gt;&lt;/code&gt; Conta linhas, palavras, etc, no texto todo ou na seleção atual.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
 </item>
 
      
@@ -187,8 +367,24 @@ A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should no
   <pubDate>2011-10-18</pubDate>
   
   <guid>http://www.caloni.com.br/depuracao-de-emergencia-receita-de-bolo/</guid>
-  <description>Continuando o papo sobre o que fazer para analisar rapidamente um crash no servidor com o pacote WinDbg, na maioria das vezes a exceção lançada pelo processo está diretamente relacionada com um acesso indevido à memória, o que tem diversas vantagens sobre problemas mais complexos:
- Possui localização precisa de onde ocorreu a violação, incluindo o nome do arquivo e a linha do código; Não corrompe a pilha ou, se corrompe, não chega a afetá-la a ponto da thread ficar irreconhecível; A thread que contém a janela de crash é a culpada imediata, então basta olhar a pilha.</description>
+  <description>&lt;p&gt;Continuando o papo sobre o que fazer para analisar rapidamente um crash no servidor com o pacote WinDbg, na maioria das vezes a exceção lançada pelo processo está diretamente relacionada com um acesso indevido à memória, o que tem diversas vantagens sobre problemas mais complexos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Possui localização precisa de onde ocorreu a violação, incluindo o nome do arquivo e a linha do código;&lt;/li&gt;
+&lt;li&gt;Não corrompe a pilha ou, se corrompe, não chega a afetá-la a ponto da thread ficar irreconhecível;&lt;/li&gt;
+&lt;li&gt;A thread que contém a janela de crash é a culpada imediata, então basta olhar a pilha.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Resumindo: basta olhar a pilha! Mas, para isso ser efetivo, precisaremos do PDB do executável que gerou o crash, pois através dele é possível puxar a tal localização da violação de acesso. Isso quer dizer que se você mantiver o executável, e DLL também é executável, juntinho com seu PDB, ou pelo menos facilmente localizável, sua vida será muito mais fácil e florida. Também significa que poderá começar a beber cerveja mais cedo.&lt;/p&gt;
+&lt;p&gt;Mesmo que em alguns momentos-surpresa apareça uma ou outra tela indesejada.&lt;/p&gt;
+&lt;p&gt;O comando mais útil na maioria desses casos é mostrar a pilha no modo verbose, usando o comando kv seguido de enter. Porém, antes disso, precisamos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Ajeitar o path dos símbolos;&lt;/li&gt;
+&lt;li&gt;Recarregar o PDB do executável suspeito;&lt;/li&gt;
+&lt;li&gt;Mostrar a pilha de todas as threads até descobrir a culpada.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Todos esses comandos podem ser vistos abaixo. São, respectivamente, .symfix, .reload e novamente o kv, com a diferença de que para todas threads.&lt;/p&gt;
+&lt;p&gt;Ops! Um pequeno desvio do curso. Estamos rodando um processo de 32 bits dentro de um SO 64 bits, no exemplo um Windows 7. Isso pode acontecer e é bom saber o que fazer nesse caso. Seguimos com os comandos .load wow64exts e .effmach x86, que irá carregar a extensão de wow64 do depurador e iniciar a tradução da stack para 32 bits.&lt;/p&gt;
+&lt;p&gt;Nosso depurador favorito acusa uma pilha que contém a função WerpReportFault. Nessa mesma thread a última linha conhecida nossa está no arquivo crashonserver.cpp:13. E essa situação, caro leitor, é dez por cento de tudo o que você precisa saber sobre WinDbg para resolver, mas que já resolve noventa por cento dos casos que irá encontrar em produção. Belo custo-benefício, não?&lt;/p&gt;
+</description>
 </item>
 
      
@@ -198,8 +394,10 @@ A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should no
   <pubDate>2011-03-23</pubDate>
   
   <guid>http://www.caloni.com.br/bazaar-com-subversion/</guid>
-  <description>Para pessoas que ficaram viciadas em commits curtos e todo o histórico do fonte na própria máquina, foi uma surpresa descobrir que com o uso do plugin bzr-svn (já incluso no pacote de instalação), consigo ainda utilizar o Bazaar, mesmo que agora esteja trabalhando com um branch do Subversion.
-Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na máquina local, como se fosse um branch do próprio Bazaar, e permite a criação de branches desconectados para pequenos commits e o merge final para o servidor SVN.</description>
+  <description>&lt;p&gt;Para pessoas que ficaram viciadas em commits curtos e todo o histórico do fonte na própria máquina, foi uma surpresa descobrir que com o uso do plugin bzr-svn (já incluso no pacote de instalação), consigo ainda utilizar o Bazaar, mesmo que agora esteja trabalhando com um branch do Subversion.&lt;/p&gt;
+&lt;p&gt;Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na máquina local, como se fosse um branch do próprio Bazaar, e permite a criação de branches desconectados para pequenos commits e o merge final para o servidor SVN.&lt;/p&gt;
+&lt;p&gt;E o melhor de tudo: não há segredo. Tudo que precisa fazer é instalar o Bazaar e fazer um get/co com o endereço do branch SVN que o plugin se vira sozinho para detectar que se trata do Subversion. (Se for um branch protegido, o usuário e senha serão pedidos durante o processo).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -209,7 +407,40 @@ Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na m
   <pubDate>2010-11-02</pubDate>
   
   <guid>http://www.caloni.com.br/entao-voce-ainda-nao-usa-controle-de-fonte/</guid>
-  <description>Não há nada de errado nisso. Projetos robustos com uma equipe moderada ¿ 5 a 10 programadores ¿ precisam desse tipo de organização, e tornam a resolução dos problemas do dia-a-dia mais problemática sem esse controle. A questão reside para o programador solitário ou a equipe minúscula ¿ 2 a 4 programadores. Esses geralmente questionam o custo-benefício de terem o trabalho de configurar e manter mais um sistema. Além disso, isso implica em uma mudança de grandes proporções em cada membro da equipe: uma mudança cultural.</description>
+  <description>&lt;p&gt;Não há nada de errado nisso. Projetos robustos com uma equipe moderada ¿ 5 a 10 programadores ¿ precisam desse tipo de organização, e tornam a resolução dos problemas do dia-a-dia mais problemática sem esse controle. A questão reside para o programador solitário ou a equipe minúscula ¿ 2 a 4 programadores. Esses geralmente questionam o custo-benefício de terem o trabalho de configurar e manter mais um sistema. Além disso, isso implica em uma mudança de grandes proporções em cada membro da equipe: uma mudança cultural.&lt;/p&gt;
+&lt;p&gt;Portanto, a primeira decisão que deve ser tomada pelo programador que quer mudar as coisas é instalar um controle de fonte moderno para seus projetos caseiros. Quando digo moderno, digo distribuído.Distribuído porque 1) é possível começar desde já com três comandos simples, 2) quando alguém copia a pasta do projeto está levando todo o histórico junto e 3) pastas duplicadas são branches distintos que podem interagir no futuro.&lt;/p&gt;
+&lt;p&gt;Os três comandos simples não são nada do outro mundo: criar o repositório, adicionar arquivos e fazer commit.&lt;/p&gt;
+&lt;p&gt;Dica: Um commit é uma maneira de dizer ao controle de fonte: &amp;quot;já modifiquei o que tinha pra modificar, então mande tudo que tenho de novo para o controle&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Tanto faz qual controle você pretende usar. No meu exemplo usarei o Bazaar, que é a ferramenta que uso no dia-a-dia com minha pequena equipe e serve bem para programadores solitários também. Basicamente para ter o Bazzar instalado basta baixá-lo, next next e finish.&lt;/p&gt;
+&lt;p&gt;Marcar para usar o PATH pode ser uma boa pra quem é fã de linha de comando.&lt;/p&gt;
+&lt;p&gt;Apesar de existirem firulas gráficas, gosto de usar o Bazaar na linha de comando porque faz você pensar direito antes de fazer commits, mas esteja livre para experimentar a maneira que achar melhor.&lt;/p&gt;
+&lt;p&gt;Isso vale para qualquer projeto que você esteja trabalhando. Pela linha de comando, navegue até o diretório do projeto. Digite os comandos abaixo seguidos de enter:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;bzr init&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;bzr add&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;bzr commit -m &amp;quot;Primeiro commit no controle de fonte&amp;quot;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Pronto! Você está oficialmente com seu projeto dentro de um controle de fonte.&lt;/p&gt;
+&lt;p&gt;Os passos seguintes seguem o mesmo padrão, exceto o passo 1, que é substituído pelo seu trabalho:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;trabalho&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;bzr add&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;bzr commit -m &amp;quot;Comentário sobre modificação que fiz&amp;quot;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Basicamente, sim. É claro que um controle de fonte não se baseia apenas em commits. Existem arquivos a serem ignorados (os obj da vida) e eventualmente algum trabalho paralelo ou com mais programadores. No futuro poderá comparar versões diferentes do código. Porém, apenas seguindo essa simples receita acima você já pode se gabar de ter um controle de fontes confiável em seus projetos. Já estará se aproveitando desse controle no futuro, quando aprender mais sobre ele.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -219,8 +450,11 @@ Na verdade, melhor ainda: o bzr-svn baixa o SVN trunk com todo o histórico na m
   <pubDate>2010-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/novas-diferencas-no-bazaar/</guid>
-  <description>Novidade incrível nas novas versões do Bazaar. Dando continuidade à sua versão boiola gráfica, agora é possível configurar quantos visualizadores de diferenças você quiser. Na hora de ver a diferença em algum código-fonte, você pode optar pelo enrustido embutido ou, no caso, o meu favorito, WinMerge.
-E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela discussão se devemos usar tabs ou três espaços para indentar o código.</description>
+  <description>&lt;p&gt;Novidade incrível nas novas versões do Bazaar. Dando continuidade à sua versão boiola gráfica, agora é possível configurar quantos visualizadores de diferenças você quiser. Na hora de ver a diferença em algum código-fonte, você pode optar pelo enrustido embutido ou, no caso, o meu favorito, WinMerge.&lt;/p&gt;
+&lt;p&gt;E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela discussão se devemos usar tabs ou três espaços para indentar o código. Cada um indenta como quer, na hora que mexer no código, que o WinMerge não vai nem ligar para essas diferencinhas (já que o compilador não liga). Ele até detecta blocos de código inteiros que foram movidos dentro do arquivo.&lt;/p&gt;
+&lt;p&gt;Na hora de ver as diferenças no worktree podemos usar a velha opção de criar um alias para o WinMerge. Mas no meio de um log, podemos ativar tanto o view embutido quanto o de qualquer outra ferramenta que escolhermos.&lt;/p&gt;
+&lt;p&gt;Vendo essas coisas fico imaginando como ainda tem gente que usa arquivos zip com data para armazenar versões de documentos diferentes. Tsc, tsc.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -230,8 +464,17 @@ E por que o WinMerge é meu favorito? Porque você pode ignorar toda aquela disc
   <pubDate>2010-04-10</pubDate>
   
   <guid>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</guid>
-  <description>The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.
-The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable.</description>
+  <description>&lt;p&gt;The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using  TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.&lt;/p&gt;
+&lt;p&gt;The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable. Meanwhile, the Project, besides not being portable (I need to carry on with me a 200 MB installer? And do install?) it uses a hard to change format and it was made to project the world, and not to be easily shared.&lt;/p&gt;
+&lt;p&gt;So, let&#39;s go. Everything we need is a current edition of TodoList and Microsoft Project. The first thing we must to do é to export the tasks we want to a default CSV, using the columns we would like to import to Project:&lt;/p&gt;
+&lt;p&gt;After that it comes the tricky thing, but not so much. We open the project to where we want to import the tasks and choose the option Open again, but this time we select our friend exported-tasks.CSV.&lt;/p&gt;
+&lt;p&gt;Before we do import, we got to create a new column  that will keep the TodoList tasks IDs, to make sure that in the next imports we make we could merge datum together. So, create this column using a significant name.&lt;/p&gt;
+&lt;p&gt;Now we can go on the import process. Imagining to be the first one, let&#39;s create a inicial map for this migration:&lt;/p&gt;
+&lt;p&gt;The time we choose who is who in the columns list, we just need to setup which columns in Project are the counterpart for the columns in TodoList, and remember to allocate our special column ID.&lt;/p&gt;
+&lt;p&gt;Just more a few Nexts and voilà! We got our tasks properly imported.&lt;/p&gt;
+&lt;p&gt;But of course all this work would be useless if we had to (sigh) open the Project. To avoid this impure job, we keep on updating the project status in our tiny, tidy TodoList and, when we need, we just import the data again, but this time using a already saved map (follow the screenshots above) and setting our TodoList ID as the key. This way the tasks already present will be just updated, and the unknown tasks will be added. That&#39;s the most important trick in this post.&lt;/p&gt;
+&lt;p&gt;After I researched all this, I just found out the Project won&#39;t be necessary anymore. Lucky me. Now, if you don&#39;t have such luck, you can use this post =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -241,8 +484,15 @@ The reasons why I am using TodoList are kind of obvious: it does everything I ne
   <pubDate>2010-02-25</pubDate>
   
   <guid>http://www.caloni.com.br/bazaar-grafico/</guid>
-  <description>Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!
-Ele é leve, vem enrustido embutido na última versão e pode economizar alguns page ups/downs no prompt do DOS. Ah, sim, antes que comentem, eu não uso o Tortoise for Bazaar porque instalar shell extensions, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.</description>
+  <description>&lt;p&gt;Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!&lt;/p&gt;
+&lt;p&gt;Ele é leve, vem enrustido embutido na última versão e pode economizar alguns page ups/downs no prompt do DOS. Ah, sim, antes que comentem, eu não uso o Tortoise for Bazaar porque instalar shell extensions, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.)&lt;/p&gt;
+&lt;p&gt;Para exibir a lista de comandos &amp;quot;amigáveis&amp;quot;, digite no prompt os comandos do Bazaar filtrando-os para os que começam com &amp;quot;q&amp;quot;:&lt;/p&gt;
+&lt;p&gt;Os que eu mais uso no dia-a-dia são:&lt;/p&gt;
+&lt;p&gt;Diversão garantida. Por meio destes simples comandos podemos ver o histórico de commits e navegar pela árvore de pastas e arquivos com a anotação do último commit para cada elemento. Só para ter uma ideia de quanto uso isso, transformei-os em opções do Explorer.&lt;/p&gt;
+&lt;p&gt;Além da utilidade básica, de quebra, o qbrowse pode te levar para um qlog filtrado, e o qlog pode te levar a um diff gráfico, que é o próximo comando que eu iria mostrar.&lt;/p&gt;
+&lt;p&gt;Coisa linda de Deus. Existem dois modos de exibição, mas o padrão já é show de bola, mostrando as mudanças em todos os arquivos de um commit de uma só vez ou do arquivo/pasta especificado pelo comando. É lógico que é possível especificar qualquer faixa de commits que você quiser ver.&lt;/p&gt;
+&lt;p&gt;Uma desvantagem desse comando é que ele oculta o resto das linhas do fonte e não mostra de jeito nenhum (pelo menos não descobri ainda como fazer isso). Sendo assim, para uma análise mais detalhada das diferenças no código-fonte sempre use um editor externo que consiga comparar arquivos inteiros (eu uso o WinMerge). Você pode colocar esse comando na forma de um diff personalizado, com o uso do qconfig.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -252,9 +502,12 @@ Ele é leve, vem enrustido embutido na última versão e pode economizar alguns 
   <pubDate>2009-07-27</pubDate>
   
   <guid>http://www.caloni.com.br/cuidado-com-a-copia-de-arquivos-na-vmware/</guid>
-  <description>Quebrei a cabeça com uma DLL de hook que não estava funcionando para usuários comuns. No entanto, para qualquer administrador funcionava.
-Isso acontece porque quando se arrasta uma DLL recém-compilada para a VMWare ela possui um mecanismo que primeiro cria esse arquivo no temporário do usuário atual e depois move esse arquivo para o lugar onde você de fato arrastou.
-Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui direitos de uso apenas do usuário e dos administradores do sistema.</description>
+  <description>&lt;p&gt;Quebrei a cabeça com uma DLL de hook que não estava funcionando para usuários comuns. No entanto, para qualquer administrador funcionava.&lt;/p&gt;
+&lt;p&gt;Isso acontece porque quando se arrasta uma DLL recém-compilada para a VMWare ela possui um mecanismo que primeiro cria esse arquivo no temporário do usuário atual e depois move esse arquivo para o lugar onde você de fato arrastou.&lt;/p&gt;
+&lt;p&gt;Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui direitos de uso apenas do usuário e dos administradores do sistema. Se eu copio um arquivo de uma pasta restrita para outra pasta os direitos do arquivo permanecem. Isso quer dizer que apenas o usuário atual e os administradores terão acesso ao arquivo, mesmo que se trate de um arquivo para uso de todos.&lt;/p&gt;
+&lt;p&gt;Resultado: arrastava a nova DLL de hook compilada da pasta de saída direto para a pasta de sistema da máquina virtual e esse caminho através do temporário era seguido, tornando a DLL inacessível para os usuários que eu estava testando.&lt;/p&gt;
+&lt;p&gt;Solução: após arrastar o arquivo, mude suas permissões. Ou copie-o através do bom e velho copiar/colar. Diferente do arrastar, o Ctrl+C Ctrl+V não gera arquivos temporários.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -264,8 +517,9 @@ Como sabemos, a pasta temporária de um usuário fica em seu perfil, que possui 
   <pubDate>2009-02-10</pubDate>
   
   <guid>http://www.caloni.com.br/windbginfo/</guid>
-  <description>Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;quot;WinDbg. From A to Z&amp;quot;.
-Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)</description>
+  <description>&lt;p&gt;Para os perdidos e desatualizados como eu, notei hoje que Robert Kuster possui um saite onde mantém diversas informações sobre o WinDbg; uma espécie de continuação de sua famosa transparência &amp;quot;WinDbg. From A to Z&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua tradução para inglês do meu artigo como Foreword para os slides =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -275,8 +529,12 @@ Como eu descobri? Bom, ele me mandou um e-mail perguntando se poderia deixar sua
   <pubDate>2008-07-04</pubDate>
   
   <guid>http://www.caloni.com.br/virtualbox/</guid>
-  <description>O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.
-Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;quot;seamless mode&amp;quot; - , que estará integrado na versão 7 da VMWare.</description>
+  <description>&lt;p&gt;O VirtualBox parece ser o concorrente mais próximo atualmente da VMWare. Descobrimos ele essa semana e resolvemos fazer alguns testes. O resultado foi bem animador.&lt;/p&gt;
+&lt;p&gt;Desenvolvido pela Sun Microsystems, as características do VirtualBox impressionam pelo cuidado que houve em torná-lo muito parecido com sua concorrente paga. Apenas para começar, ela suporta dispositivos USB, possui múltiplos snapshots e já suporta o modo do VMWare Fusion - chamado de &amp;quot;seamless mode&amp;quot; - , que estará integrado na versão 7 da VMWare.&lt;/p&gt;
+&lt;p&gt;No entanto, entre as coisas que testamos (instalado em um Windows Vista SP1 como host), o que não funcionou já não agradou tanto. A lista de prós e contras ainda confirma a liderança da VMWare, pelo menos em qualidade:&lt;/p&gt;
+&lt;p&gt;Além da tabela de testes acima, é necessário notar que por mas três vezes a VM simplesmente parou de responder, sendo necessário reiniciar o programa Host.&lt;/p&gt;
+&lt;p&gt;Em suma, o VirtualBox tem tudo para arrasar em futuras versões. Se, é claro, conseguir competir em qualidade com a VMWare que, no momento, é a líder em soluções de virtualização. Talvez por isso sua solução não seja tão barata.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -286,8 +544,38 @@ Desenvolvido pela Sun Microsystems, as características do VirtualBox impression
   <pubDate>2008-06-24</pubDate>
   
   <guid>http://www.caloni.com.br/como-estou-trabalhando-com-o-bazaar/</guid>
-  <description>Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor Rafael, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para Dummies de como é possível organizar um ou mais projetos de forma a favorecer o refactoring e a liberdade de uso.
-Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os branches. O branch principal tem o mesmo nome do projeto.</description>
+  <description>&lt;p&gt;Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor Rafael, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para Dummies de como é possível organizar um ou mais projetos de forma a favorecer o refactoring e a liberdade de uso.&lt;/p&gt;
+&lt;p&gt;Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os branches. O branch principal tem o mesmo nome do projeto. Isso na máquina de um desenvolvedor ficaria:&lt;/p&gt;
+&lt;p&gt;No servidor de fontes geralmente teremos apenas o branch principal, apesar de que o desenvolvimento em paralelo seja permitido:&lt;/p&gt;
+&lt;p&gt;Foi criado um projeto modelo para que todos os projetos herdassem seu histórico. Para que isso? Bom, na eventualidade de partes de um projeto irem parar em outro (isso quase nunca acontece), isso pode ser feito sem perder todo o histórico do início do projeto.&lt;/p&gt;
+&lt;p&gt;Resumindo: todos os projetos novos são branches do projeto-modelo.&lt;/p&gt;
+&lt;p&gt;Como podemos ver acima, o projeto modelo segue o mesmo padrão de repositório compartilhado. Os projetos que criarmos serão baseados nesse projeto modelo, mas em outro repositório compartilhado.&lt;/p&gt;
+&lt;p&gt;A ramificação dos projetos estará sempre no mesmo lugar, independente da pasta raiz.&lt;/p&gt;
+&lt;p&gt;O controle distribuído de fontes não significa que não existe um servidor. Existe. O detalhe é que todos os desenvolvedores guardam todo o histórico do projeto com eles, igualzinho o servidor, que é apenas mais uma máquina com mais um branch.&lt;/p&gt;
+&lt;p&gt;O repositório do servidor pode ser criado com a opção que não cria o diretório de trabalho, que é onde os programadores mexem no código-fonte. Sendo um servidor, o código-fonte não é necessário, só a base de dados:&lt;/p&gt;
+&lt;p&gt;O Bazzar possui um esquema de servidor embutido nele, que fica escutando em uma porta e se comunica em um protocolo otimizado. Nós gostamos desse esquema, pois protege os projetos de acidentes de usuários que podem apagar uma pasta sem querer.&lt;/p&gt;
+&lt;p&gt;Para manter o Bazaar eternamente rodando, usamos o programa do DriverEntry que transforma qualquer coisa no formato de um serviço de gelo.&lt;/p&gt;
+&lt;p&gt;Ou não sei usar direito esse programa ou ele não permite uso de aspas no nome do aplicativo junto de argumentos. Por isso tive que editar o registro onde ele fica para colocar aspas duplas em torno do bzr.exe.&lt;/p&gt;
+&lt;p&gt;Após isso, ainda temos que configurar o serviço para iniciar automaticamente e usar um usuário conhecido. Enquanto o computador estiver ligado, mesmo que sem sessões abertas, nenhuma tela irá aparecer, mas o Bazaar estará rodando e ativo, escutando em sua porta padrão:&lt;/p&gt;
+&lt;p&gt;Se estiver tudo certo, ao iniciar o serviço o Bazaar passará a ficar escutando e pronto para fazer commits e branches.&lt;/p&gt;
+&lt;p&gt;Agora qualquer usuário da rede consegue fazer updates e commits. Um desenvolvedor novo faria o seguinte comando:&lt;/p&gt;
+&lt;p&gt;Note que o usuário do Bazaar não é obrigado a criar um repositório compartilhado. Esse foi um padrão definido aqui e não necessariamente é o melhor.&lt;/p&gt;
+&lt;p&gt;O Bazaar por ser muito flexível entra naquela categoria de &amp;quot;Difícil de acertar a maneira certa de utilizar&amp;quot;. Bom, mais ou menos. Eu sinceramente não acho que exista uma maneira errada de usar o Bazaar, mas vamos ver as maneiras mais comuns, que não são exclusivas entre si.&lt;/p&gt;
+&lt;p&gt;É aquele que prefere fazer tudo localmente e só depois, bem depois, mandar seus commits para o servidor. Nesse caso o comando para começar a programar é branch.&lt;/p&gt;
+&lt;p&gt;Nesse esquema o servidor e a máquina do desenvolvedor não trocam idéia se ele não quiser. Quando quiser, pode usar os comandos push, pull e merge. O push coloca coisas novas no servidor; o pull puxa coisas novas do servidor, e o merge é necessário quando existem conflitos entre as mudanças no fonte. Mais sobre conflitos em um futuro artigo.&lt;/p&gt;
+&lt;p&gt;É o cara que quer sempre atualizar todas as modificações que ele faz imediatamente colocadas no servidor. Tudo bem. É só trabalhar no modo Source Safe (ou Subversion) com o comando checkout:&lt;/p&gt;
+&lt;p&gt;Um checkout funciona como o branch, só que faz um bind (ligação) com o servidor. O que quer dizer que qualquer commit feito localmente irá parar imediatamente também no servidor, a não ser que seja usado o parâmetro --local.&lt;/p&gt;
+&lt;p&gt;O modo checkout permite usar o comando update para ver se existem mudanças entre a máquina local e o servidor, diferente do modo standalone, onde o update apenas compara com o branch local e o diretório de trabalho.&lt;/p&gt;
+&lt;p&gt;Como eu havia dito, uma coisa não exclui outra. Se você está trabalhando em um branch e deseja se conectar ao servidor para atualizar mudanças, basta usar o comando bind.&lt;/p&gt;
+&lt;p&gt;O branch começará a trabalhar como um checkout.&lt;/p&gt;
+&lt;p&gt;O contrário, que é fazer um checkout ficar desconectado é conseguido pelo comando unbind.&lt;/p&gt;
+&lt;p&gt;Todos os novos commits serão feitos apenas localmente.&lt;/p&gt;
+&lt;p&gt;Esses esquemas de conectado e desconectado podem ser usados no modo cliente x servidor ou tudo em uma máquina só. Por exemplo, uma série de mudanças em um projeto pode ser feito em um outro branch desconectado:&lt;/p&gt;
+&lt;p&gt;Os commits de &amp;quot;novo-branch&amp;quot; não serão replicados para o branch &amp;quot;projeto&amp;quot;.&lt;/p&gt;
+&lt;p&gt;No entanto, se é uma série de mudanças que devem ser colocadas imediatamente no branch principal, pode-se usar checkout.&lt;/p&gt;
+&lt;p&gt;Existem diversas outras formas de usar o Bazaar, e isso está sob o controle do desenvolvedor. O importante para quem está migrando é saber definir alguns padrões (onde é o servidor principal, ramificação dos projetos) e o resto é só programar, exatamente como antes.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
 </item>
 
      
@@ -297,8 +585,15 @@ Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na 
   <pubDate>2008-06-16</pubDate>
   
   <guid>http://www.caloni.com.br/como-fazer-merge-de-projetos-distintos-no-bazaar/</guid>
-  <description>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.
-No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?</description>
+  <description>&lt;p&gt;O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.&lt;/p&gt;
+&lt;p&gt;No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?&lt;/p&gt;
+&lt;p&gt;Até que veio o dia de juntar.&lt;/p&gt;
+&lt;p&gt;O processo de merge de um controle de fonte supõe que os branches começaram em algum ponto em comum; do contrário não há como o controlador saber as coisas que mudaram em paralelo. Pois é achando a modificação ancestral, pai de ambos os branches, que ele irá medir a dificuldade de juntar as versões novamente. Se não existe ancestral, não existe análise. Como exemplificado na figura:&lt;/p&gt;
+&lt;p&gt;Acontece que existe um plugin esperto que consegue migrar revisões (commits) entre branches sem qualquer parentesco. Não me pergunte como ele faz isso. Mas ele faz. E foi assim que resolvemos o problema dos branches órfãos.&lt;/p&gt;
+&lt;p&gt;Para instalar o plugin do rebase, basta baixá-lo e copiar sua pasta extraída com um nome válido no Python (rebase, por exemplo). A partir daí os comandos do plugin estão disponíveis no prompt do Bazaar, assim como a instalação de qualquer plugin que cria novos comandos.&lt;/p&gt;
+&lt;p&gt;O comando que usamos foi o replay, que não é comando principal do plugin, mas que resolve esse problema de maneira quase satisfatória. Como era tudo o que tínhamos, valeu a pena.&lt;/p&gt;
+&lt;p&gt;O processo que usei foi de usar esse comando n vezes para buscar revisões de um branch e colocar no outro. Um grande problema com ele é que ao encontrar merges no branch origem ele se perde e o usuário tem que fazer as modificações &amp;quot;na mão&amp;quot;. Deu um pouco de trabalho, mas conseguimos migrar nossos commits mais importantes e deixar o projeto inteiro, Linux+Windows, em um branch só.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -308,9 +603,46 @@ No segundo momento da evolução decidimos começar a migrar os projetos para o 
   <pubDate>2008-06-04</pubDate>
   
   <guid>http://www.caloni.com.br/launchpad-e-a-democracia-do-codigo-fonte/</guid>
-  <description>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.
-Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.
-O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch).</description>
+  <description>&lt;p&gt;Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.&lt;/p&gt;
+&lt;p&gt;Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.&lt;/p&gt;
+&lt;p&gt;O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch). O esquema todo é organizado no formato comunidade, o que permite o compartilhamento não só de código, mas de bugs, traduções e, principalmente, idéias.&lt;/p&gt;
+&lt;p&gt;A idéia é uma das primeiras que usa a modalidade de controle de fonte distribuído, e permite o uso do Bazaar como o controlador oficial, ou importação de outros controles de fonte, em um processo conhecido como espelhamento. Tudo foi feito de forma a amenizar o processo de migração dos sistemas de controle de código centralizado, como CVS e Subversion.&lt;/p&gt;
+&lt;p&gt;Para ter acesso aos meus projetos iniciais é simples: basta usar o mesmo comando que é usado para obter um novo branch de um projeto do Bazaar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MouseTool - Simulador de clique de mouse&lt;/li&gt;
+&lt;li&gt;Influence Board - Complemento ao Winboard que mostra a influência das peças&lt;/li&gt;
+&lt;li&gt;Conversor Houaiss Babylon - Converte de um dicionário para o outro&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Como o Bazaar foi feito integrado com o Launchpad, também é possível usar um comando bem mais fácil:&lt;/p&gt;
+&lt;p&gt;Assim como é possível usar comandos de repositório, também é possível navegar pelo histórico de mudanças do projeto simplesmente usando os linques acima no navegador de sua preferência. E é nessa hora que começa a ficar interessante publicar seu projeto na web. Por falar nisso, que tal aprender como&lt;/p&gt;
+&lt;p&gt;Tudo que precisamos é de um login, facilmente obtido na página principal, e de registrar um projeto. Para criar o primeiro branch e fazermos alterações precisaremos também de um par de chaves pública e privada para a conexão SSH criada automaticamente pelo Bazaar. Tudo isso é facilmente possível com o uso das ferramentas do Putty, um cliente SSH para Windows.&lt;/p&gt;
+&lt;p&gt;Dessa forma os passos são os seguintes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Criar um login&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Registrar um projeto&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Criar um par de chaves através do PuTTYgen&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;ATENÇÃO
+Devido a alguns problemas, recomendo que use o texto exibido na tela do gerador de chaves em vez de copiar diretamente do arquivo da chave pública para o cadastro no saite. Guarde bem essas chaves com você, pois você as usará sempre que necessário fazer uma modificação no projeto.&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Atualizar no cadastro do saite (item &amp;quot;Update SSH keys&amp;quot;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Usar o Pageant para carregar a chave privada na memória&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use os comandos do Bazaar passando o usuário e o branch:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Simples e direto. E funciona!&lt;/p&gt;
+</description>
 </item>
 
      
@@ -320,9 +652,28 @@ O Launchpad nada mais é do que um lugar onde é possível publicar seus projeto
   <pubDate>2008-04-29</pubDate>
   
   <guid>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</guid>
-  <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
-Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;quot;urgentes&amp;quot;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
-Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.</description>
+  <description>&lt;p&gt;Seria bom se as coisas simples da vida fossem simples, não é mesmo?&lt;/p&gt;
+&lt;p&gt;Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;quot;urgentes&amp;quot;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.&lt;/p&gt;
+&lt;p&gt;Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.91!) que o formato do banco de dados já se tornou incompatível.&lt;/p&gt;
+&lt;p&gt;O pior, no entanto, foi tentar encontrar uma solução para o problema. Fiz mil e uma pesquisas com palavras-chave que nem imaginava que seria capaz de formular. E nada. A princípio minha idéia era apenas atualizar a lista de pacotes do repositório gerenciado pelo yum, o gerenciador de pacotes oficial do Fedora. Entre minhas buscas, encontrei os seguintes itens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Um FAQ do Fedora (que não conseguiu responder à minha pergunta)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;O sítio do projeto do yum, gerenciador de pacotes (cujo FAQ não conseguiu responder o mínimo)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Uma lista enorme de sítios explicando como criar seu próprio repositório (sem comentários)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Enfim, a coisa não estava saindo do lugar. E o cronograma apertando até o dia final. Até que decidi usar o caminho mais rápido e pentelho: perguntar para quem entende do assunto. A resposta foi simples e direta:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Por que você não instala direto dos fontes?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Uia! E não é que é mais simples, mesmo?&lt;/p&gt;
+&lt;p&gt;E foi isso! É a segunda vez que tento fazer algo simples no Linux e me dou mal. Com certeza os dias futuros serão melhores. Mas me bate aquela sensação que as coisas poderiam já estar em um nível mais fácil de se mexer. Opinião pessoal.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -332,10 +683,19 @@ Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar n�
   <pubDate>2008-04-09</pubDate>
   
   <guid>http://www.caloni.com.br/linux-e-o-dhcp/</guid>
-  <description>Quando procuramos no google por &amp;quot;linux dhcp&amp;quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
-Muito bem. E a outra ponta da história?
-[Testes feitos em um Fedora 8, não me pergunte mais detalhes]
-O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network.</description>
+  <description>&lt;p&gt;Quando procuramos no google por &amp;quot;linux dhcp&amp;quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.&lt;/p&gt;
+&lt;p&gt;Muito bem. E a outra ponta da história?&lt;/p&gt;
+&lt;p&gt;[Testes feitos em um Fedora 8, não me pergunte mais detalhes]&lt;/p&gt;
+&lt;p&gt;O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network. Nele devemos, em uma configuração simplista, colocar uma única linha:&lt;/p&gt;
+&lt;p&gt;Tive alguns problemas com a entrada NETWORKINGIPV6, ou algo do gênero. A comunicação com o servidor DHCP da rede simplesmente não funcionava com essa linha, deixando o computador sem IP durante o boot. Má configuração do servidor? Pode até ser. Porém, não quis entrar nesses meandros.&lt;/p&gt;
+&lt;p&gt;Por isso, se houver a linha sobre IPV6 e você tiver problemas, comente-a temporariamente.&lt;/p&gt;
+&lt;p&gt;O passo seguinte é configurar a interface de rede, que é no fim das contas a representação da sua placa. Para isso temos alguns arquivos em /etc/sysconfig/network-scripts no formato ifcfg-nome-da-interface. Se você digitar ifconfig na linha de comando terá os nomes de interface disponíveis. No meu caso, eth0.&lt;/p&gt;
+&lt;p&gt;Note que o valor BOOTPROTO é realmente BOOTPROTO, com um O no final. Tive alguns problemas de soletrar também nesse caso, o que me gerou mais alguns reboots mal-sucedidos.&lt;/p&gt;
+&lt;p&gt;Bem, o que isso faz? Basicamente, manda o Linux utilizar o protocolo DHCP, procurando na rede algum servidor que lhe dê algum IP válido. Só isso. O resto ele faz dinamicamente.&lt;/p&gt;
+&lt;p&gt;Inclusive alterar automaticamente o arquivo /etc/resolv.conf. Nele estão definidas algumas coisas como o domínio de nomes que estamos e os IPs de onde buscar a resolução de nomes.&lt;/p&gt;
+&lt;p&gt;Feito isso, como se costuma dizer, voilà! Temos um cliente DHCP funcionando contente e feliz. Eu reiniciei a máquina para tudo dar certo, mas provavelmente devem existir maneiras mais saudáveis de reiniciar a rede (talvez um ifdown seguido de ifup resolvesse).  E agora eu posso finalmente ter acesso aos pacotes de instalação que precisava.&lt;/p&gt;
+&lt;p&gt;Notas de um Linux padawan =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -345,9 +705,25 @@ O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso 
   <pubDate>2008-01-14</pubDate>
   
   <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
-  <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
-O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
-Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente.</description>
+  <description>&lt;p&gt;Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).&lt;/p&gt;
+&lt;p&gt;O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:&lt;/p&gt;
+&lt;p&gt;Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.&lt;/p&gt;
+&lt;p&gt;Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath+.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.&lt;/p&gt;
+&lt;p&gt;Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).&lt;/p&gt;
+&lt;p&gt;Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -357,8 +733,15 @@ Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que
   <pubDate>2007-11-15</pubDate>
   
   <guid>http://www.caloni.com.br/sdelete/</guid>
-  <description>Minha vida tem que ser portátil. Existem pelo menos três lugares diferentes onde costumo ficar com um computador (não o mesmo). Por causa disso, os dados mais relevantes e que precisam fazer parte do meu sistema biológico eu carrego comigo pra cima e pra baixo em meu PenDrive/MP3Player.
-Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sensíveis, e busco sempre manter todos os arquivos sensíveis encriptados ou com uma senha específica do programa que o abre.</description>
+  <description>&lt;p&gt;Minha vida tem que ser portátil. Existem pelo menos três lugares diferentes onde costumo ficar com um computador (não o mesmo). Por causa disso, os dados mais relevantes e que precisam fazer parte do meu sistema biológico eu carrego comigo pra cima e pra baixo em meu PenDrive/MP3Player.&lt;/p&gt;
+&lt;p&gt;Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sensíveis, e busco sempre manter todos os arquivos sensíveis encriptados ou com uma senha específica do programa que o abre. O grande problema mesmo é que eu sei que operações no sistema de arquivos costumam deixar lastros do que já foi escrito um dia, e que é possível reaver esses dados com um pouco de persistência e sorte. É nessa hora que entra a praticidade do SDelete.&lt;/p&gt;
+&lt;p&gt;Desde a versão NT, o Windows segue as diretivas de segurança do C2, o que entre outras coisas quer dizer que o a reutilização de um objeto no sistema operacional será protegida. Um objeto aqui está para representar recursos da máquina em geral, como páginas de memória e setores do disco. Quando um programa pede um setor de disco livre (ou uma página de memória) para uso próprio, o Windows apaga qualquer conteúdo remanescente naquele espaço de memória, evitando assim que exista uma maneira do atacante obter dados de terceiros (e.g. arquivos protegidos ou memória do sistema) sem autorização.&lt;/p&gt;
+&lt;p&gt;Ou seja, desde que o Windows esteja no comando, os dados escritos por um programa não estarão disponíveis ao usuário por meio do reaproveitamento dos setores. Ficou claro?&lt;/p&gt;
+&lt;p&gt;Se ficou claro, deve ter notado o &amp;quot;desde que o Windows esteja no comando&amp;quot;. Essa é uma condição sine qua non, mas que nem sempre é verdadeira. Um atacante que tenha acesso físico ao dispositivo de armazenamento (e.g. meu PenDrive) pode certamente usar outro sistema operacional (ou até mesmo o Windows em condições especiais) e vasculhar os dados que eu já apaguei, pois estes, como mostra a figura, não são apagados de fato até que um programa peça o espaço ocupado por eles.&lt;/p&gt;
+&lt;p&gt;Para esse tipo de problema eu costumo usar um programinha esperto chamado SDelete (de Secure Delete). O que ele faz é zerar os setores não usados, da mesma forma com que o Windows faz quando um programa pede um setor não usado. Para isso, basta especificar um ou mais arquivos:&lt;/p&gt;
+&lt;p&gt;Uma outra coisa que ele faz, muito útil quando comecei a usá-lo, é apagar todos os setores não usados que existem no disco inteiro (ou uma pasta inteira). Com isso podemos começar uma vida nova. Apenas tome muito cuidado nessa hora para especificar o comando, pois um errinho no comando pode realmente fazer você começar uma vida nova.&lt;/p&gt;
+&lt;p&gt;O SDelete segue o padrão DOD 5220.22-M, o que quer dizer que ele está dentro das especificações da indústria que garantem a confidencialidade dos dados apagados. Além do mais, você pode especificar quantas &amp;quot;passadas&amp;quot; nos setores você deseja, para evitar aqueles ataques mais rebuscados em que é analisada a impedância das trilhas físicas de um disco magnético para obter os dados que uma vez estavam lá. É claro que isso não deve valer muito a pena se você está usando um PenDrive com memória flash =).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -368,7 +751,34 @@ Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sens
   <pubDate>2007-08-27</pubDate>
   
   <guid>http://www.caloni.com.br/todolist/</guid>
-  <description>Vou aproveitar que o recente blogue do meu amigo resolveu falar um pouco sobre administração de tempo e citar a ferramenta que venho utilizando há quase um ano para tentar organizar minhas idéias, minhas tarefas e minha vida. Assim como o Kabloc, eu estava em sérias dificuldades para tentar fazer e organizar todas as coisas que eu tinha em mente. Ainda continuo com dificuldades para fazer, mas o mais importante é que agora eu tenho um roadmap de para onde eu quero ir.</description>
+  <description>&lt;p&gt;Vou aproveitar que o recente blogue do meu amigo resolveu falar um pouco sobre administração de tempo e citar a ferramenta que venho utilizando há quase um ano para tentar organizar minhas idéias, minhas tarefas e minha vida. Assim como o Kabloc, eu estava em sérias dificuldades para tentar fazer e organizar todas as coisas que eu tinha em mente. Ainda continuo com dificuldades para fazer, mas o mais importante é que agora eu tenho um roadmap de para onde eu quero ir.&lt;/p&gt;
+&lt;p&gt;Eu sempre ouvi falar nesse programa desde que freqüento o The Code Project, um sítio onde programadores publicam seus minicódigos para serem aproveitados (e avaliados) por toda a comunidade. Possuo algumas pequenas contribuições por lá.&lt;/p&gt;
+&lt;p&gt;O fato é que por preguiça de testar e pelo seu screenshot inicial, me pareceu um programa demasiado complexo e pesado. Por isso passei vários anos sem sequer baixá-lo.&lt;/p&gt;
+&lt;p&gt;No entanto, houve um momento em minha vida em que eu precisava definitivamente reunir e organizar todas as minhas idéias e atividades para conseguir concluí-las, tanto no trabalho quanto na vida pessoal. Houve então uma pequena pesquisa de minha parte de programas que fizessem o que eu precisava. Foi aí que eu baixei e testei o ToDoList, um programa pequeno, portátil (posso levar em meu PenDrive) e muito flexível. Eis abaixo o screenshot original do artigo do Code Project:&lt;/p&gt;
+&lt;p&gt;Bem, me parecia mais do que eu precisava. No entanto ele é flexível, e suas colunas podem ser configuradas da maneira que lhe aprouver. Abaixo um screenshot de como utilizo o ToDoList:&lt;/p&gt;
+&lt;p&gt;Entre algumas coisas legais que gosto nesse programa que me fizeram ficar com ele, consigo me lembrar da seguinte lista:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Posso levar onde quiser e salvar minhas configurações em um arquivo ini.&lt;/li&gt;
+&lt;li&gt;Ele fica na área de notificação e posso ativá-lo com um atalho global.&lt;/li&gt;
+&lt;li&gt;Ele conta o tempo de uma tarefa se você quiser.&lt;/li&gt;
+&lt;li&gt;Ele exporta as listas em formatos como Excel, HTML e texto puro.&lt;/li&gt;
+&lt;li&gt;Ele é pequeno e não precisa de instalação.&lt;/li&gt;
+&lt;li&gt;O código-fonte é disponível e está sempre sendo atualizado.&lt;/li&gt;
+&lt;li&gt;Posso salvar minhas listas em XML (padrão) ou encriptado.&lt;/li&gt;
+&lt;li&gt;Pode ser estendido por meio de &lt;em&gt;plugins.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bem, ele sozinho não resolveu meus problemas. Assim como o Kabloc disse, é você, e unicamente você, o responsável por organizar a sua agenda. E eu tive que passar muito tempo junto da minha para conseguir encontrar a maneira ideal para eu trabalhar. Cada um tem a sua.&lt;/p&gt;
+&lt;p&gt;Há um tempo atrás não acreditava muito em idéias, mas a partir de um dado momento um outro amigo meu conseguiu me convencer que idéias são os verdadeiros motores do mundo, e um mundo sem idéias seria um mundo de fazedores de coisas sem cabeça. Não adianta ser muito bom no que se faz se não se pensa no que se faz. Essa é um boa razão para explicar por que boas idéias permanecem para sempre, mesmo que seus criadores já tenham morrido há muito tempo.&lt;/p&gt;
+&lt;p&gt;Por esse motivo que uso o ToDoList para catalogar e listar todas as idéias que tenho sobre o que pretendo fazer. Como você deve adivinhar, a lista nunca acaba e só tende a crescer. Mas tudo bem, o objetivo não é acabar, mas sim não perder a idéia que se teve, pois ela aos poucos pode ser extendida e aprimorada no próprio ToDoList, até chegar a hora de implementar. Quando for a hora de botar a mão na massa muito dos problemas já foi pensado e analisado naqueles momentos de divagação no banheiro, no ônibus, ou na sala de aula. Os momentos mais frutíferos, aliás.&lt;/p&gt;
+&lt;p&gt;Porém, é claro que catalogar tudo também não é tudo. É preciso agir. Por esse motivo costumo dividir minhas tarefas em duas listas (fora a da empresa onde trabalho): Curto Prazo e Longo Prazo. As tarefas no curto prazo são as mais imediatas, e representam as coisas que devo fazer antes da semana, do mês ou do ano acabar. Geralmente dou uma olhada diária nessa lista. As de longo prazo não são menos importantes, mas possuem um tempo de finalização mais longo, ou porque não são interessantes atualmente, ou porque fazem parte do meu projeto de vida, algo que se deve pensar mais e agir aos poucos. Costumo dar uma olhada semanal nessa lista.&lt;/p&gt;
+&lt;p&gt;Enfim, cada pessoa tem sua maneira de encarar problemas, catalogar idéias e fazer acontecer. Essa ferramenta, na minha opinião, pode ajudar. Recomendo também dar uma olhada nos sítios recomendados pelo Kabloc. Aliás, agora que ele está de sítio novo, espero que ele consiga tempo para mantê-lo e seguir seus próprios conselhos =).&lt;/p&gt;
+&lt;p&gt;Para continuar divagando:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Artigo no Code Project sobre a ferramenta (e &lt;em&gt;link&lt;/em&gt; para &lt;em&gt;download).&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Sítio do criador do programa (com mais recursos para baixar).&lt;/li&gt;
+&lt;li&gt;Como fazer cronogramas (dicas simples e rápidas para programadores).&lt;/li&gt;
+&lt;/ul&gt;
+</description>
 </item>
 
      

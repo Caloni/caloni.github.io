@@ -15,8 +15,11 @@
   <pubDate>2020-08-04</pubDate>
   
   <guid>http://www.caloni.com.br/getargs-array/</guid>
-  <description>Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.
-Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento.</description>
+  <description>&lt;p&gt;Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.&lt;/p&gt;
+&lt;p&gt;Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento. Um array de argumentos é o mesmo argumento repetido n vezes se transformando em um array para ser consumido como tal. Para essa versão será necessário uma segunda função, especializada, que faça o serviço.&lt;/p&gt;
+&lt;p&gt;Alterei meu código mágico, simples e rápido para parsear linha de comando em C para suportar arrays. Na correria do projeto foi algo igualmente simples e rápido, embora com alguns truques interessantes de se aprender sobre libc. Basicamente o que ele faz é varrer o array argv construindo seu próprio filtrado apenas com os argumentos que interessam. Ele aloca e realoca a memória para esse array de ponteiros para char usando a função padrão realloc, que consegue fazer a alocação inicial e realocações mantendo o conteúdo da memória original.&lt;/p&gt;
+&lt;p&gt;Durante o laço é mantido um offset que é incrementado a cada novo argumento. Caso não exista nenhum argumento o retorno será NULL. O aprendizado de libc aqui fica por conta do uso do realloc para simplificar realocação, algo que C++ não possui até hoje (se você quiser fazer as coisas apenas no modo C++ com new e delete) e que depende de abstrações da STL como containers para fazê-lo.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -26,8 +29,11 @@ Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende
   <pubDate>2020-06-21</pubDate>
   
   <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
-  <description>Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C++.
-No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C++ tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.</description>
+  <description>&lt;p&gt;Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C++.&lt;/p&gt;
+&lt;p&gt;No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C++ tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.&lt;/p&gt;
+&lt;p&gt;A primeira ressalva diz respeito à alocação dinâmica. Ao usar esse modelo de rotinas cooperativas o programador é obrigado a alocar espaço para o estado dinamicamente, o que fere duas premissas da linguagem: o controle absoluto do modelo de execução para o programador e a certeza que ele irá apenas pagar em performance o que ele usar. Se os fãs da linguagem fossem religiosos, eles diriam agora que esta não foi uma decisão muito cristã do comitê.&lt;/p&gt;
+&lt;p&gt;Eu continuo defendendo que a linguagem C seja usada caso surjam contra-indicações na prática da STL.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -37,8 +43,11 @@ No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no 
   <pubDate>2020-06-18</pubDate>
   
   <guid>http://www.caloni.com.br/printf/</guid>
-  <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
-A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda.</description>
+  <description>&lt;p&gt;Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.&lt;/p&gt;
+&lt;p&gt;A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda. Mas o que é direita e esquerda se o tamanho usado pela impressão vai ser exatamente o tamanho da string? Aí é que entra o especificador de tamanho, logo após o opcional sinal de menos e antes do s que determina o tipo string. Dessa forma a string de formatação final para uma string variável alinhada à esquerda em uma coluna de trinta caracteres de tamanho seria &amp;quot;%-30s&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Porém, existe um problema com essa abordagem: a string variável pode ter mais de trinta caracteres. Nesse caso existe mais uma opção &amp;quot;escondida&amp;quot; do printf, que é especificar esse trinta em um argumento passado junto dos valores. Para isso basta trocar o número por asterisco e passar o tamanho como se passa qualquer outro valor à função, seguindo a ordem de recebimento. Por exemplo, um printf(&amp;quot;%-30s&amp;quot;, &amp;quot;minha_string&amp;quot;) poderia virar printf(&amp;quot;%-*s&amp;quot;, 30, &amp;quot;minha_string&amp;quot;). Note que agora o tamanho trinta não está mais fixo no código e pode ser uma variável inteira.&lt;/p&gt;
+&lt;p&gt;Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um controle de fonte e imprime as duas no final, alinhando o nome das branches à esquerda e o número de commits de cada uma à direita, incluindo um header. É assim que o printf resolve esse tipo de problema de saída formatada: de maneira simples e elegante, sem inventar moda nem querer &amp;quot;revolucionar&amp;quot; a computação.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -48,8 +57,11 @@ A impressão básica de uma string passada como argumento com printf deve ser fe
   <pubDate>2020-04-22</pubDate>
   
   <guid>http://www.caloni.com.br/cast-operator/</guid>
-  <description>O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.
-O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo.</description>
+  <description>&lt;p&gt;O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.&lt;/p&gt;
+&lt;p&gt;O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.&lt;/p&gt;
+&lt;p&gt;Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer sobrecarga de função pelo retorno. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.&lt;/p&gt;
+&lt;p&gt;Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C++ moderno:&lt;/p&gt;
+</description>
 </item>
 
      
@@ -59,8 +71,18 @@ O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um m
   <pubDate>2019-08-08</pubDate>
   
   <guid>http://www.caloni.com.br/hacker-rank/</guid>
-  <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
-Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.</description>
+  <description>&lt;p&gt;A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.&lt;/p&gt;
+&lt;p&gt;Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.&lt;/p&gt;
+&lt;p&gt;My first attempt was naive, but worked for test cases where there were no duplicated numbers, a detail I overlooked in the description and happenned the very first test (lucky me it is possible to download the test cases, input and output, giving in return some of the points accumulated solving other problems).&lt;/p&gt;
+&lt;p&gt;So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.&lt;/p&gt;
+&lt;p&gt;I still wasn&#39;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.&lt;/p&gt;
+&lt;p&gt;I was still trying in the window, thought, until in one of these iteractions with the compiler/debugger I achieved a simples, clearer solution, using only offsets from the vector instead of iterators.&lt;/p&gt;
+&lt;p&gt;This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C++ solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.&lt;/p&gt;
+&lt;p&gt;And it worked. Now what I learned looking the other solutions.&lt;/p&gt;
+&lt;p&gt;There are incredible tools in C++, even since 98 or 11, that are frequently overlooked, but it is important to notice that the language has a framework for processing: containers, algorithms and so on. By example, looking for other solutions I learned about the characteristics of multiset and priorityqueue (spoiler: both have a ordering predicate and are logarithmic). There are smart functions in algorithm, too, as lowerbound.&lt;/p&gt;
+&lt;p&gt;A lot of solutions simply ignored the skeleton provided by the site and began its own code from scratch, eliminating the &amp;quot;request&amp;quot; that the numbers must be stored first in a vector. Sometimes, when there as skeleton in our life, we use them as guidelines, forgetting that &amp;quot;there is no spoon&amp;quot;.&lt;/p&gt;
+&lt;p&gt;I hope you learned something, too. You can see my Hacker Rank attempts in the site (nickname caloni) or my GitHub repository.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -70,7 +92,10 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2018-08-21</pubDate>
   
   <guid>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</guid>
-  <description>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função.</description>
+  <description>&lt;p&gt;Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função. Uma vez que ele encontre ele retorna o próximo elemento. Na falta de próximo elemento ele simplesmente retorna uma string vazia que não é nulo, mas já indica que há o parâmetro na lista de argumento.&lt;/p&gt;
+&lt;p&gt;Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos. Ao chamar essa função se passa o argc e o argv recebido no main e o terceiro argumento é apenas o nome de um argumento válido que pode ser recebido via linha de comando. O resultado é um ponteiro (obtido no próprio argv) da próxima string ou uma string C vazia constante (não precisa de alocação) se for o último argv. E caso ele não ache o retorno é NULL. Seu uso comum é uma linha apenas, ou uma linha para cada argumento buscado. Sua complexidade é linear, mas, ei, quem está querendo performance no início do programa?&lt;/p&gt;
+&lt;p&gt;Uma última observação: dependendo do uso você pode ou não usar o retorno, e ele possui semântica booleana, pois caso o argumento não exista o retorno é NULL e por isso não cai dentro do if (pois NULL traduzido em booleano é false). Eis uma função para copiar e colar abusivamente.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -80,7 +105,13 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2018-01-25</pubDate>
   
   <guid>http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/</guid>
-  <description>Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques pontuais e uma análise simples da stack, da variável e do código envolvido é possível chegar em um veredito sem muitas controversas se foi isso mesmo que gerou o crash. No caso peguei hoje um caso assim.</description>
+  <description>&lt;p&gt;Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques pontuais e uma análise simples da stack, da variável e do código envolvido é possível chegar em um veredito sem muitas controversas se foi isso mesmo que gerou o crash. No caso peguei hoje um caso assim.&lt;/p&gt;
+&lt;p&gt;Abrir um dump (dmp) pode ser feito pelo Visual Studio, Windbg ou sua ferramenta de análise favorita. Mais importante que isso é carregar seus símbolos adequadamente. Com o dump e símbolos abertos é possível analisar a stack de chamadas, o que nos revela que há um problema em uma função de Log. Como se trata de uma versão release não há muita informação da pilha, que pode fazer parte de uma stack modificada (otimização de código). Portanto, tudo que vier é lucro. Como variáveis.&lt;/p&gt;
+&lt;p&gt;Demos sorte e é possível ver o que tem na variável de format, a mais importante de uma função de log estilo printf, pois geralmente é ela a responsável pelas dores de cabeça infernais.&lt;/p&gt;
+&lt;p&gt;Através dessa string é possível buscar no código usando grep, vim ou até o Visual Studio. Com isso reduzimos nosso escopo de busca ao mínimo.&lt;/p&gt;
+&lt;p&gt;E voilà! Temos uma chamada de log que teoricamente teria que passar uma string C, mas não passa nada. Isso quer dizer que a função de printf irá procurar na pilha pelo endereço de uma string, mas irá encontrar um endereço aleatório. Lendo esse endereço, que tem ótimas chances de ser inválido, ele irá capotar. Para dores de cabeças mais intensas, ele irá capotar aleatoriamente (ou na máquina do chefe, o mais provável).&lt;/p&gt;
+&lt;p&gt;E assim terminamos mais uma sessão simples e rápida de debug. Quer dizer, simples e rápida para quem tem 20 anos de experiência nessas coisas. Os estagiários devem ter ficado de cabelos em pé.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -90,7 +121,15 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2015-04-27</pubDate>
   
   <guid>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</guid>
-  <description>&amp;quot;C++ é divertido, mas não paga minhas contas&amp;quot;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C++, e com uma equipe peso-pesado.</description>
+  <description>&lt;p&gt;&amp;quot;C++ é divertido, mas não paga minhas contas&amp;quot;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C++, e com uma equipe peso-pesado. Programávamos para Windows, onde as coisas não são tão fáceis quanto no Linux (que é um SO de e para programadores), e onde precisa-se comer muita farinha com sintaxe para construir coisas decentes. Portabilidade às vezes é um objetivo, às vezes é deixado de lado. A API Win32 já é bruta demais, e o cliente sempre tem um prazo apertado demais.&lt;/p&gt;
+&lt;p&gt;Hoje, uns 15 anos depois, minha carreira foi 95% asfaltada com C e C++, com pitadas de Assembly e recentemente Python. De vez em quanto, .NET, Java e até VB, porque a gente merece um descanso de vez em quando. Essa semana um leitor me perguntou como começar a trilhar esse caminho tão divertido do médio-nível. Não só isso: com pitadas de engenharia reversa. Como eu não sou um professor, infelizmente não vou conseguir dar uma resposta à altura, mas posso compartilhar um pouco meus pensamentos sobre meu passado.&lt;/p&gt;
+&lt;p&gt;Na engenharia reversa, por exemplo, segui um caminho parecido com C: brincava de crackear os programas em casa. &amp;quot;Como destavar o WinRar?&amp;quot;, &amp;quot;Como não deixar expirar aquele programinha que veio no CD?&amp;quot;. Respostas à essas perguntas geralmente demoravam dias, semanas ou até meses. Mas não importava. Desde que fosse divertido -- e era, muito! -- sempre haveria vontade de caminhar cada vez mais para encontrar a resposta. Esse &amp;quot;caminho&amp;quot; que eu uso como metáfora geralmente não é muito bem pavimentado, não tem atalhos, mas tem diversas vielas que irão dar em paisagens fantásticas que irão te fazer perder um tempo imenso, mas deliciosamente divertido. Me lembro até hoje que minha maior diversão quando conheci os computadores foi tentar chegar o máximo possível do hardware para entender como diabos um impulso elétrico consegue fazer tanta coisa diferente. Não preciso dizer que isso deve ter me custado um ano e vários livros, cada um em uma camada mais embaixo de abstração.&lt;/p&gt;
+&lt;p&gt;A questão sobre o aprendizado é: para aprender como um autodidata nada mais fácil do que tentar responder perguntas cuja resposta você esteja morrendo de curiosidade para saber. Só assim para esbarrar, por exemplo, no Assembly, e dedicar alguns meses lendo uns livros sobre o assunto, fazendo testes, abrindo um depurador que nunca viu na vida e aprendendo cometendo mais erros que acertos. Só com uma curiosidade infinita para ir além sem precisar de incentivos, sem temer a tão temida hoje em dia procrastinação. O Facebook/Twiter nunca serão tão divertidos quanto o poder de criação de um programador em suas mãos, ou o poder de desmontar um software engenhoso. Não se você já gostar dessa área. E se você gosta, provavelmente já sabe disso. Ou quer saber.&lt;/p&gt;
+&lt;p&gt;Durante minha estadia na Open fiz uma pequena palestra explicando as coisas que eu precisava conhecer a fundo, mas que podem ser facilmente apreendidas por iniciantes (como eu fui), passo-a-passo, na análise de trojans de Windows. Acho que o conteúdo se aplica para quem quer começar a fuçar e não sabe por onde começar. No fundo o conteúdo era mais ou menos o que eu gostaria que me fosse ensinado antes que eu tivesse que gastar mais alguns meses com livros inteiros. Mas não me arrependo desses livros inteiros. Muitos foram úteis, outros inúteis, mas são as cicatrizes que tornam o aprendizado mais forte. Cicatrizes? Os erros de percurso!&lt;/p&gt;
+&lt;p&gt;Se me perguntassem a respeito da facilidade de aprender essa ou aquela linguagem, aprender essa ou aquela técnica, qual o melhor para começar eu diria que depende. E muito. Cada profissional tem o seu histórico de vida e de trabalho. E cada um tem o seu ritmo. Eu sou uma pessoa devagar. Eu preciso repetir as mesmas coisas várias vezes para conseguir fixar um novo aprendizado. Porém, quando fixo, dificilmente esqueço. Foi assim com a linguagem C, cujo padrão fiquei quase decorando (um dos anexos do livro que citei no início tem a gramática completa, é uma linguagem simples). No entanto, demorei tempo demais para partir para o C++. Porém, quando comecei a ler The C++ Programming Language já tinha um background do que era C++, como ele nasceu e como ele evoluiu para um padrão internacional. Já existia internet, e tudo ficou mais fácil com internet (especialmente para autodidatas). Hoje em dia apenas os analfabetos e os preguiçosos não conseguem aprender alguma coisa se tiverem internet. E olhe que quem está escrevendo isso é um preguiçoso nato. Tem semanas que sou um procrastinador profissional. Porém, quando algo aguça minha curiosidade, eu viro um computador processando um programa que só irá terminar depois de uma resposta satisfatória.&lt;/p&gt;
+&lt;p&gt;Foi assim com C++, talvez uma camada de abstração acima de C, mas igualmente divertido, pois trazia o poder de processamento e acesso a hardware já presente em C. Os novos paradigmas que a STL apresentava pareciam alienígenas, e acho que não me habituaria hoje em dia com contêineres se não tivesse lido com muita atenção o livro-mestre de Bjarne Stroustrup. Nem templates. Templates são um quebra-cabeças para quem está pensando em tipos, pois eles não são tipos. É o mesmo quebra-cabeças que algumas novidades como namespaces fazem com a nossa cabeça. Estava acostumado a tipos, comandos e expressões. Essas novidades do C++ foram um passo além, e que valeu a pena.&lt;/p&gt;
+&lt;p&gt;Uma possível evolução disso seriam as linguagens funcionais. Dizem que é o futuro. Por enquanto, não paga a conta de muita gente. Assim como as famigeradas C e C++. No entanto, se isso for sempre o seu balizador de conhecimento, estará sempre à mercê do mercado, que não sabe de nada sobre os seus gostos, seus interesses, suas ambições. Conhecimento é uma ambição muito &amp;quot;mais infinita&amp;quot; e muito mais recompensadora que dinheiro. O conhecimento tem o poder de fazer mais dinheiro, e não o contrário. Portanto, tenha a curiosidade, e atenda aos seus chamados. O resto o destino se vira.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -100,7 +139,12 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2015-01-04</pubDate>
   
   <guid>http://www.caloni.com.br/entendendo-a-compilacao/</guid>
-  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa -- eu disse: PRECISA -- conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.</description>
+  <description>&lt;p&gt;Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C++ e precisa -- eu disse: PRECISA -- conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.&lt;/p&gt;
+&lt;p&gt;Como havia explicado anteriormente, existem três processos principais e clássicos (pode haver mais, dependendo do compilador, ambiente, etc) na formação de um código de máquina a partir de arquivos-fontes escritos em C ou C++ (ou ambos, são intercambiáveis). São eles: preprocessamento, compilação e linkedição.&lt;/p&gt;
+&lt;p&gt;O preprocessamento é um trocador de textos. No máximo há macros, em que é possível passar argumentos (no formato texto). Exemplos são include, ifdef e define.&lt;/p&gt;
+&lt;p&gt;A compilação é o núcleo da linguagem. Regras de sintaxe e gramática são validadas aqui pelo compilador. Cada compilação bem-sucedida recebe uma unidade de tradução e cospe um arquivo-objeto, que ainda não é executável, mas que já passou pela validação da linguagem.&lt;/p&gt;
+&lt;p&gt;Por fim, a linkedição junta todos os arquivos-objeto, procurando ligar os nomes das funções e variáveis referenciadas um pelo outro. Os nomes externos são importantes neste passo para que o linker encontre as lacunas que precisa para consertar os saltos e assim gerar o executável final, que pode ser um programa com uma função main ou uma biblioteca dinâmica carregada por outro programa compilado seguindo esses três passos.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -110,8 +154,11 @@ Talking with friends about one of them proposed a interesting puzzle called Find
   <pubDate>2013-12-04</pubDate>
   
   <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
-  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;quot;frescurento&amp;quot; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
-Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance.</description>
+  <description>&lt;p&gt;Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;quot;frescurento&amp;quot; de C++2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.&lt;/p&gt;
+&lt;p&gt;Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance. Não acredito que cheguem lá, mas o fato de estarem empenhados indica para a indústria e seus clientes que há uma demanda sendo atendida. Não é mais frescurite de acadêmicos. Algumas features ultra-novas começam a ser usadas e permitidas em projetos.&lt;/p&gt;
+&lt;p&gt;Estamos falando de uma nova linguagem que se forma com um novo ritmo. O padrão C++11 demorou &amp;quot;apenas&amp;quot; 2 anos para cair em nossas linhas de comando, há um patch já confirmado para o ano que vem e já existem menções para um novo release em 2017. Para o programador C++ que se acostumou a contar as evoluções em décadas, um novo ritmo se impõe. Não há tempo para cristalização de conceitos. O boost já nos forneceu isso por todos esses anos e hoje ele é reconhecidamente a versão alpha que precisávamos.&lt;/p&gt;
+&lt;p&gt;Veremos o que o futuro cada vez mais presente nos reserva.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -121,7 +168,17 @@ Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empre
   <pubDate>2008-04-21</pubDate>
   
   <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.</description>
+  <description>&lt;p&gt;Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C++?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.&lt;/p&gt;
+&lt;p&gt;Cristiano -- Olá! Sou programador em basic (Vbasic/Qbasic), fico indignado, com pessoas que sabem entender a linguagem C++, assembler... Como podem? Eu acho isto coisa de outro mundo! Será que eu tenho chances de aprender a linguagem?&lt;/p&gt;
+&lt;p&gt;Strauss -- A resposta é simples: estudando. Eu tb comecei com QBasic e VB. Arrume um livro de C++ e estude. Treine bastante. E hoje em dia é mais fácil do que quando eu comecei, pq eu não tinha acesso à Internet. É simples assim... :-)&lt;/p&gt;
+&lt;p&gt;Caloni -- Você pode ir tão longe quanto queira, mas pra isso a primeira coisa que vc tem que fazer é querer  =).&lt;/p&gt;
+&lt;p&gt;Strauss -- Acho que vou fazer um post sobre isso. &amp;quot;Por que C++&amp;quot; :-) Vc podia me ajudar...&lt;/p&gt;
+&lt;p&gt;Caloni -- Escrevi um textículo sobre o assunto da escolha, mas não visando o mercado:&lt;/p&gt;
+&lt;p&gt;Strauss -- Legal. Vou colocar minha água mercadológica no feijão e colocar no site.&lt;/p&gt;
+&lt;p&gt;Não quis alterar o texto original, mas colocaria, além de rapidez, o título economia de recursos. É incrível o quanto progredimos no quesito hardware todos esses anos, e mesmo assim, existem linguagens e ambientes que parecem ter fome suficiente para consumir tudo e deixar um computador de última geração parecer um micro &amp;quot;meio lerdinho&amp;quot;. Felizmente não preciso dar nome aos bois, pois todos sabem ou conhecem pelo menos uma linguagem com essa característica.&lt;/p&gt;
+&lt;p&gt;Também não quis generalizar. C e C++ não são as duas únicas opções quando se fala em bom desempenho. Existe também assembly e linguagens de script, que chegam inclusive a ser mais flexíveis e rápidas (além de mais produtivas).&lt;/p&gt;
+&lt;p&gt;Ainda acredito em tudo isso que C++ proporciona e irá continuar proporcionando por muto tempo. Para os que não seguiram o linque do artigo do Strauss, existe uma modesta lista de programas escritos nessa linguagem ao redor do planeta. Muitos são conhecidíssimos e usados nos quatro cantos do mundo, muitas vezes em mais de um sistema operacional. C++ está morto? Longe disso... talvez pareça assim em território nacional, mas esse é o motivo de meus votos de sucesso no início de nosso grupo C++.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -131,9 +188,14 @@ Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empre
   <pubDate>2007-09-20</pubDate>
   
   <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
-  <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
-O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
-Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir):</description>
+  <description>&lt;p&gt;O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).&lt;/p&gt;
+&lt;p&gt;O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:&lt;/p&gt;
+&lt;p&gt;Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir):&lt;/p&gt;
+&lt;p&gt;O segundo que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:&lt;/p&gt;
+&lt;p&gt;É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm.&lt;/p&gt;
+&lt;p&gt;É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?&lt;/p&gt;
+&lt;p&gt;Conforme o printf interpreta a string de formatação, ele vai &amp;quot;comendo&amp;quot; (no bom sentido) os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente. Como os próximos 32 bits de nosso int64 estão zerados, faz sentido o printf imprimir (null) no lugar da string, pois este é o comportamento padrão da função quando o ponteiro é nulo. Agora, se tivéssemos um int realmente grande - vulgo &amp;quot;intão&amp;quot; - daí as coisas seriam diferentes:&lt;/p&gt;
+</description>
 </item>
 
      
@@ -143,8 +205,27 @@ Isso costuma ser mais comum quando existem centenas de milhares de parâmetros n
   <pubDate>2007-07-24</pubDate>
   
   <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
-  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C++, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C++ já há algum tempo.
-Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates.</description>
+  <description>&lt;p&gt;A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C++, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C++ já há algum tempo.&lt;/p&gt;
+&lt;p&gt;Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates. Para eles deverá ser definida a nova palavra-chave staticassert, que irá ser composta de dois parâmetros:&lt;/p&gt;
+&lt;p&gt;Podemos usá-la tanto no lugar da função assert quanto da diretiva #error. Mas seu uso mais interessante é como limite para a instanciação de templates:&lt;/p&gt;
+&lt;p&gt;Existem outros lugares onde esse novo comando pode ser usado. Para saber quando usá-lo, lembre-se que a verificação é feita durante a compilação, diferente do assert tradicional, que é chamada em tempo de execução.&lt;/p&gt;
+&lt;p&gt;Quem diria: depois de todos esse anos o pré-processador sofrerá um upgrade. O objetivo é ser compatível com o novo padrão da linguagem C, o C99. A maior novidade fica por conta do número variável de parâmetros para macros. A linha abaixo resume tudo:&lt;/p&gt;
+&lt;p&gt;Ou seja, não será mais necessário usar o truque dos &amp;quot;parênteses duplos&amp;quot; em macros de log que formatam parâmetros.&lt;/p&gt;
+&lt;p&gt;Considero essa mudança a mais interessante. Com ela será possível usar um número variável de parâmetros em templates. Basicamente isso permite que um dado template aceite um número variável de parâmetros e esses parâmetros sejam &amp;quot;expandidos&amp;quot; em inúmeras construções dentro do escopo desse template. Nada melhor para explicar que um exemplo, como o caso da herança múltipla. Imagine um template que precisa herdar de seus parâmetros, mas não quer especificar a quantidade:&lt;/p&gt;
+&lt;p&gt;Outras pequenas correções também serão feitas para tornar a linguagem mais robusta:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Referências para &lt;em&gt;lvalue.&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Parâmetros &lt;em&gt;default&lt;/em&gt; em funções-&lt;em&gt;template.&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Problema do fecha-&lt;em&gt;templates&lt;/em&gt; duplo (&amp;gt;&amp;gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Podemos esperar por outras grandes mudanças que irão ocorrer nesse novo padrão? Não exatamente. As principais estarão na biblioteca C++, com a inclusão de diversas classes e funções do projeto Boost. O resto são pequenas correções e melhorias de uma linguagem que, cá entre nós, já está bem poderosa e complexa.&lt;/p&gt;
+</description>
 </item>
 
      

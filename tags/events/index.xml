@@ -15,7 +15,9 @@
   <pubDate>2020-05-14</pubDate>
   
   <guid>http://www.caloni.com.br/bode-caloni-cast-live/</guid>
-  <description>Alguns caras em uma noite de quinta-feira falando sobre aleatoriedades que giram em torno de cinema, social justice (justiça social), anime e o melhor filme de todos: The Room. O primeiro bodecast live do grupo C/C++ Brasil foi sucesso de participantes e fracasso de público (só veio o Matheus e o Elias). Descobrimos que o Gianni, fundador do grupo do Telegram, tem o péssimo costume de largar os filmes pela metade.</description>
+  <description>&lt;p&gt;Alguns caras em uma noite de quinta-feira falando sobre aleatoriedades que giram em torno de cinema, social justice (justiça social), anime e o &lt;del&gt;melhor&lt;/del&gt; filme de todos: The Room. O primeiro bodecast live do grupo C/C++ Brasil foi sucesso de participantes e fracasso de público (só veio o Matheus e o Elias). Descobrimos que o Gianni, fundador do grupo do Telegram, tem o péssimo costume de largar os filmes pela metade. Também descobrimos que Cosmos é o projeto secreto de @drmadera para criar vida no fundo de seu home-office. E de quebra houve uma invasão de neo-São-Joseenses, um povo muito simpático que citou alguns filmes malucos para comentarmos.&lt;/p&gt;
+&lt;p&gt;Infelizmente a live terminou mais cedo porque &lt;del&gt;o Gianni não pagou a conta de internet&lt;/del&gt; o sinal caiu e nos derrubou a todos ao mesmo tempo. Se quiser que façamos mais como esse dê um curtir no vídeo e comente com sugestões, críticas, etc. Comente por lá. Aqui só eu tenho voz.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -25,8 +27,19 @@
   <pubDate>2020-04-18</pubDate>
   
   <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
-  <description>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).
-Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora.</description>
+  <description>&lt;p&gt;A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).&lt;/p&gt;
+&lt;p&gt;Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.&lt;/p&gt;
+&lt;p&gt;Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &amp;quot;Debugging Tools for Windows&amp;quot;, que é o pacote que contém o ecossistema do WinDbg.&lt;/p&gt;
+&lt;p&gt;Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.&lt;/p&gt;
+&lt;p&gt;Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.&lt;/p&gt;
+&lt;p&gt;Abordamos o boot do Windows com nt, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode do WinDbg) e configuramos o cabo. Cabo?&lt;/p&gt;
+&lt;p&gt;Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &amp;quot;de fora&amp;quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.&lt;/p&gt;
+&lt;p&gt;Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.&lt;/p&gt;
+&lt;p&gt;Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.&lt;/p&gt;
+&lt;p&gt;Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.&lt;/p&gt;
+&lt;p&gt;Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também:&lt;/p&gt;
+&lt;p&gt;Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &amp;quot;Getting Started with WinDbg (User-Mode)&amp;quot; e &amp;quot;Getting Started with WinDbg (Kernel-Mode)&amp;quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -36,7 +49,8 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <pubDate>2020-04-05</pubDate>
   
   <guid>http://www.caloni.com.br/mbconf/</guid>
-  <description>Daqui a 12 dias acontecerá um evento online com palestras organizadas pela Mente Binária, uma galera muito afiada nos SOs, ferramentas e programação mais baixo nível. Estarei colaborando com algumas dicas de uso do WinDbg. O custo é zero. Para se inscrever, basta ir no site do evento e... se inscrever? No vemos lá =).</description>
+  <description>&lt;p&gt;Daqui a 12 dias acontecerá um evento online com palestras organizadas pela Mente Binária, uma galera muito afiada nos SOs, ferramentas e programação mais baixo nível. Estarei colaborando com algumas dicas de uso do WinDbg. O custo é zero. Para se inscrever, basta ir no site do evento e... se inscrever? No vemos lá =).&lt;/p&gt;
+</description>
 </item>
 
      
@@ -46,8 +60,32 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <pubDate>2019-10-07</pubDate>
   
   <guid>http://www.caloni.com.br/mostrasp-43-2019-selecao-filmes/</guid>
-  <description>Foi divulgada a lista dos filmes para a mostra desse ano. Já conheço alguns diretores por filmes anteriores.
- Abel Ferrara (filmes nessa Mostra: O Projectionista) dirigiu o &amp;quot;abominável&amp;quot; Bem-Vindo a Nova York, um estudo de personagem com Gérard Depardieu. Ale McHaddo (filmes nessa Mostra: Osmar a Primeira Fatia do Pão de Forma) iniciou no cinema com uma animação tosquinha chamada BugiGangue no Espaço, baseada em DVD educacional. Aly Muritiba (filmes nessa Mostra: Irmãos Freitas) era um ex-agente penitenciário que virou diretor; é dele o sensacional Para Minha Amada Morta e ele volta a revisitar sua antiga profissão no ótimo A Gente.</description>
+  <description>&lt;p&gt;Foi divulgada a lista dos filmes para a mostra desse ano. Já conheço alguns diretores por filmes anteriores.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Abel Ferrara (filmes nessa Mostra: O Projectionista) dirigiu o &amp;quot;abominável&amp;quot; Bem-Vindo a Nova York, um estudo de personagem com Gérard Depardieu.&lt;/li&gt;
+&lt;li&gt;Ale McHaddo (filmes nessa Mostra: Osmar a Primeira Fatia do Pão de Forma) iniciou no cinema com uma animação tosquinha chamada BugiGangue no Espaço, baseada em DVD educacional.&lt;/li&gt;
+&lt;li&gt;Aly Muritiba (filmes nessa Mostra: Irmãos Freitas) era um ex-agente penitenciário que virou diretor; é dele o sensacional Para Minha Amada Morta e ele volta a revisitar sua antiga profissão no ótimo A Gente.&lt;/li&gt;
+&lt;li&gt;Beto Brant (filmes nessa Mostra: O Invasor) é o diretor de O Invasor, um filme catártico da época do renascimento do cinema brasileiro. Vale o ingresso.&lt;/li&gt;
+&lt;li&gt;Caco Ciocler (filmes nessa Mostra: Partida) atuou em 2 Coelhos, filme-referência nacional em edição de um filme dinâmico com plot twists como diversão, e agora estreia na direção.&lt;/li&gt;
+&lt;li&gt;Daniel Rezende (filmes nessa Mostra: Turma da Mônica: Laços) é o editor premiado de Cidade de Deus e já tem dois trabalhos na direção; na mostra será exibida a adaptação dos quadrinhos da Turma da Mônica.&lt;/li&gt;
+&lt;li&gt;Daniela Thomas (filmes nessa Mostra: Tuã Ingugu (Olhos d&#39;Água) é diretora brasileira, chegando a fazer um curta para Paris Te Amo.&lt;/li&gt;
+&lt;li&gt;Fatih Akin (filmes nessa Mostra: Contra a Parede) é o diretor alemão do ótimo thriller intimista Em Pedaços, com Diane Kruger.&lt;/li&gt;
+&lt;li&gt;Fernando Grostein Andrade (filmes nessa Mostra: Abe, Encarcerados) é o diretor de documentário sobre a maconha, o internacional Quebrando o Tabu.&lt;/li&gt;
+&lt;li&gt;Gavin Hood (filmes nessa Mostra: Segredos Oficiais) é diretor da questionável adaptação do livro Ender&#39;s Game.&lt;/li&gt;
+&lt;li&gt;Heitor Dhalia (filmes nessa Mostra: Anna) é o diretor do excelente O Cheiro do Ralo, com Selton Mello.&lt;/li&gt;
+&lt;li&gt;Ira Sachs (filmes nessa Mostra: Frankie) é diretor de um romance/drama sobre dois homossexuais de meia-idade bacana chamado O Amor é Estranho.&lt;/li&gt;
+&lt;li&gt;Julia Rezende (filmes nessa Mostra: Depois a Louca Sou Eu) dirigiu uma vergonha alheia chamada Como é Cruel Viver Assim, um dos tantos projetos financiados pela Ancine para mostrar as injustiças do mundo, adaptado de uma peça de Fernando Ceylão.&lt;/li&gt;
+&lt;li&gt;Luc Dardenne (filmes nessa Mostra: O Jovem Ahmed) é o diretor de um drama que estuda uma personagem descobrindo sua humanidade em A Garota Desconhecida.&lt;/li&gt;
+&lt;li&gt;Mania Akbari (filmes nessa Mostra: Uma Lua Para Meu Pai) é a atriz do filme de Abbas Kiarostami que se passa totalmente em um carro, Dez; na mostra um de seus filmes como diretora será exibido.&lt;/li&gt;
+&lt;li&gt;Margarethe von Trotta (filmes nessa Mostra: As Mulheres da Rosenstrasse) é a diretora do interessante O Mundo Fora do Lugar, sobre abuso psicológico.&lt;/li&gt;
+&lt;li&gt;Maria Ribeiro (filmes nessa Mostra: Outubro), a atriz (você vai lembrar dela como esposa do Capitão Nascimento em Tropa de Elite) que virou diretora com o ótimo documentário Domingos, chega em novo filme, Outubro.&lt;/li&gt;
+&lt;li&gt;Mohsen Makhmalbaf (filmes nessa Mostra: Margue e Sua Mãe) é o diretor iraniano do curioso e revelador O Voto é Secreto.&lt;/li&gt;
+&lt;li&gt;Paulo Caldas (filmes nessa Mostra: Abismo Tropical, Flores do Cárcere) é diretor do brega País do Desejo, com Fábio Assunção (você deve lembrar dele de algumas baladas de sexta à noite).&lt;/li&gt;
+&lt;li&gt;Robert Eggers (filmes nessa Mostra: O Farol) é diretor do terror tenso e premiado A Bruxa.&lt;/li&gt;
+&lt;li&gt;Roschdy Zem (filmes nessa Mostra: Persona Non Grata) é diretor do drama histórico sobre racismo em Chocolate&lt;/li&gt;
+&lt;li&gt;Yorgos Lanthimos (filmes nessa Mostra: Nimic) é o diretor premiado ano passado pelo espetacular A Favorita, e que chega com novo filme Nimic.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
 </item>
 
      
@@ -57,8 +95,17 @@ Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que
   <pubDate>2018-09-28</pubDate>
   
   <guid>http://www.caloni.com.br/native-floripa-2018/</guid>
-  <description>O Native Floripa desse ano foi um evento de nerds que adoro e também uma viagem e encontro de nerds (que também adoro). Isso quer dizer que este é um post duplo, onde analiso tanto a viagem quanto o evento.
-Como viagem Floripa é uma cidade que se divide em ilha e continente. Na ilha há um emaranhado de rodovias que circulam pelos morros e que se cruzam onde percebemos que a prefeitura não tem o mínimo de cuidado e investimento em fazer conexões decentes.</description>
+  <description>&lt;p&gt;O Native Floripa desse ano foi um evento de nerds que adoro e também uma viagem e encontro de nerds (que também adoro). Isso quer dizer que este é um post duplo, onde analiso tanto a viagem quanto o evento.&lt;/p&gt;
+&lt;p&gt;Como viagem Floripa é uma cidade que se divide em ilha e continente. Na ilha há um emaranhado de rodovias que circulam pelos morros e que se cruzam onde percebemos que a prefeitura não tem o mínimo de cuidado e investimento em fazer conexões decentes. Há dois elevados em obras que facilitaram a transição entre rodovias. Vimos um no caminho do aeroporto para Barra da Lagoa, e o motorista do Uber comentou que está há dez anos em obras, já tendo gasto todo o dinheiro em um amontoado de madeira e concreto inúteis, o que resume o que tenho a dizer sobre a organização da cidade como um todo.&lt;/p&gt;
+&lt;p&gt;Felizmente o povo do sul é um povo decente, de respeito e que graças a Deus não parece ter dado muita atenção nos movimentos de &amp;quot;justiça social&amp;quot; que assolam o país. Há uma casa de coxinhas muito boa, a Maria Coxinha, onde um dos pratos se chama Kibexinha. Isso é tudo que precisa ser dito sobre a saúde do povo da cidade.&lt;/p&gt;
+&lt;p&gt;O evento teve lugar, como no ano passado, na Acate, uma incubadora de startups, nos dias 22 e 23 de setembro de 2018 (sábado e domingo). Houve em alguns momentos duas trilhas, que eu condeno por ser um evento pequeno, mas no salão principal houve a filmagem para publicação na internet, que eu invejo, pois logo teremos disponível para todos as palestras da trilha principal. Essa filmagem se torna ainda mais especial quando se percebe que houve muitos poucos participante no evento, girando em torno de 20 no sábado e 10 no domingo. As palestras do ano passado já se encontram publicadas, mas como houve uma demora de alguns meses talvez esse ano teremos a mesma espera.&lt;/p&gt;
+&lt;p&gt;Confesso que fazia um bom tempo que não participava de um evento como esses. Nossa tentativa de realizar o próximo encontro em sp miou por falta de público em um momento em que C++ está em obras e com discussões importantíssimas sobre a linguagem e bibliotecas necessárias. O Native Floripa atendeu essa necessidade em pelo menos algumas palestras.&lt;/p&gt;
+&lt;p&gt;O destaque do evento com certeza foram as corrotinas em C++. Verdadeiras máquinas de performance onde se economiza troca de contexto, houve três palestras sobre o assunto, podemos dizer. Duas delas ministradas por Vinicius, mantenedor da Boost.Http, onde ambas dialogam sobre a fascinante questão de como adequar o uso de corrotinas sem interferir no fluxo do programa. A terceira palestra é minha, onde discurso sobre a dificuldade atual de depurar corrotinas sem ferramentas atualizadas para este &amp;quot;novo&amp;quot; paradigma.&lt;/p&gt;
+&lt;p&gt;Outra palestra que me lembro com muita empolgação é a sobre WebAssenbly. Não torça o nariz antes de entender. O palestrante nos apresenta algo ainda em andamento sobre transpilar código C/C++ para uma máquina virtual criada a partir de JavaScript. A estrutura da palestra é muito boa e o palestrante melhor ainda. Ele chegou a alterar o código durante a palestra para nos demonstrar diversos usos dessa tecnologia. Ainda em testes, mas muito promissora.&lt;/p&gt;
+&lt;p&gt;Por fim, as conversas entre os palestrantes e os participantes foi muito frutífera. Assim como nosso grupo do Telegram, importa menos o tema do que as pessoas envolvidas. E todos concordam que não há nada melhor no mundo que conversar com pessoas inteligentes e beber chopes do Sul. E lá na Acate há a melhor praça de alimentação que já vi na vida. Comida e bebida (chopes e vinhos por taça) boa e barata. Há massas e carnes de muita qualidade. O Madero do lado, que já não é nada de mais, ficou ainda menor.&lt;/p&gt;
+&lt;p&gt;Ficamos hospedados em uma casa na Barra da Lagoa pelo AirBnB em alta concentração de temas filosóficos. Fizemos um churrasco imprestável, fomos em restaurantes medíocres da orla, mas a conversa foi sempre interessante. Era como se o grupo de filosofia do Telegram tivesse se mudado temporariamente para lá. Temas como metafísica, política, social justice, auto ajuda e imprint de traumas eram frequentes. A paisagem belíssima, a casa aconchegante e a companhia agradável.&lt;/p&gt;
+&lt;p&gt;Native Floripa virou já uma tradição. Ano que vem nos vemos de novo.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -68,9 +115,16 @@ Como viagem Floripa é uma cidade que se divide em ilha e continente. Na ilha h�
   <pubDate>2018-03-07</pubDate>
   
   <guid>http://www.caloni.com.br/php-experience-2018-dia2-criticas/</guid>
-  <description>Grades decepcionantes. O segundo dia do PHP Experience demonstrou pela qualidadade e teor das palestras pelo menos duas coisas: 1) a comunidade parece interessada em boas práticas e arquitetura (o que é ruim), 2) a comunidade parece mais interessada em &amp;quot;diversidade&amp;quot; que qualidade (o que é duplamente ruim).
-As palestras que frequentei foram:
-Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenvolver e entregar software... até esqueci sobre que tipo de software.</description>
+  <description>&lt;p&gt;Grades decepcionantes. O segundo dia do PHP Experience demonstrou pela qualidadade e teor das palestras pelo menos duas coisas: 1) a comunidade parece interessada em boas práticas e arquitetura (o que é ruim), 2) a comunidade parece mais interessada em &amp;quot;diversidade&amp;quot; que qualidade (o que é duplamente ruim).&lt;/p&gt;
+&lt;p&gt;As palestras que frequentei foram:&lt;/p&gt;
+&lt;p&gt;Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenvolver e entregar software... até esqueci sobre que tipo de software. Acho que SaaS.&lt;/p&gt;
+&lt;p&gt;Uma DBA palestrando é uma coisa de louco. Parece que existe uma necessidade glorificada em analisar como usar o banco de dados para a melhor solução. A conclusão foi que se você souber usar seu cérebro você vai conseguir sair com a solução com qualquer banco de dados. Se você não souber programar entregue o problema para a DBA que ela vai te entregar uma solução com o melhor de cada. Mas vai ter que instalar e manter uns seis bancos diferentes.&lt;/p&gt;
+&lt;p&gt;Palestra interessante, sugerindo algumas ferramentas. Mas no final das contas curl é mais que suficiente.&lt;/p&gt;
+&lt;p&gt;Uma das piores. A expressividade sugerida é apenas blá-blá-blá de negócios. Parece que a comunidade tem problemas frequentes com conversar com os clientes sobre a solução e são focados demais na programação e linguagem técnica. E a solução é usar uma metodologia whatever que é complexa e burocrática demais para entender e manter.&lt;/p&gt;
+&lt;p&gt;Acho que a única palestra simpática do dia, com Anderson Casimiro, da comunidade C/C++ Brasil. Casimiro nos dá um panorama real de como a comunicação entre sistemas evoluiu e como tudo é mais simples que parece do que a sopa de letrinhas que tivemos que engolir nas últimas décadas. Desde a passagem de informação via arquivo gerado em uma pasta até a API rígida e tipada do Facebook, passando por REST, o resultado é uma viagem no tempo que nos entrega várias opções interessantes de comunicação e as explica em um linguajar mais simples. A comunidade não pareceu responder muito bem, sem ter muita noção de humor técnico e deixando Anderson em uma saia justa que não correspondeu ao que ele esperava.&lt;/p&gt;
+&lt;p&gt;Depois houve um show com uma banda chamada ElePHPants formada pelos apresentadores dos palestrantes durante o evento, um toque muito elegante. Som barulhento e regado a pouca cerveja, o iMasters é bom em arrumar local e uma estrutura básica e bem suportada pelo seu staff. A lotação máxima do evento indica que eles são muito bons de marketing.&lt;/p&gt;
+&lt;p&gt;Só falta agora a comunidade investir melhor em conteúdo.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -80,9 +134,156 @@ Uma lenta e dolorosa peregrinação teórica sobre boas práticas de como desenv
   <pubDate>2018-03-05</pubDate>
   
   <guid>http://www.caloni.com.br/apostas-oscar-2018/</guid>
-  <description>Resultado das apostas. Inspirado pelo meu amigo, vamos lá com alguns chutes de quem não sabe nada sobre Oscar (apenas que é um concurso de beleza capitalista):
-Roteiro original:
- Minha aposta: Get Out/Corra! (Jordan Peele). Explicação: A forma de dar prêmio por cota racial sem prejudicar melhor filme, etc (além de ser um ótimo roteiro). Quem ganhou: Corra! (That&#39;s a Bingo!) Considerações finais: Ponto para a representatividade e a inventividade de Peele, reciclando o gênero.</description>
+  <description>&lt;p&gt;Resultado das apostas. Inspirado pelo meu amigo, vamos lá com alguns chutes de quem não sabe nada sobre Oscar (apenas que é um concurso de beleza capitalista):&lt;/p&gt;
+&lt;p&gt;Roteiro original:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Get Out/Corra! (Jordan Peele).&lt;/li&gt;
+&lt;li&gt;Explicação: A forma de dar prêmio por cota racial sem prejudicar melhor filme, etc (além de ser um ótimo roteiro).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Corra! (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Ponto para a representatividade e a inventividade de Peele, reciclando o gênero.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Adaptado:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Logan (Scott Frank).&lt;/li&gt;
+&lt;li&gt;Explicação: Porque eu quero (assim como Corra!).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Call Me by Your Name&lt;/li&gt;
+&lt;li&gt;Considerações finais: OK, talvez a representatividade estivesse alta demais...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Efeitos visuais:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Guardians of the Galaxy Vol. 2.&lt;/li&gt;
+&lt;li&gt;Explicação: Rejuvenescimento de Kurt Russel e o Planeta Ego).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Blade Runner 2049&lt;/li&gt;
+&lt;li&gt;Considerações finais: Não vi.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Mixagem de som:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Star Wars: The Last Jedi.&lt;/li&gt;
+&lt;li&gt;Explicação: Poderia ser Dunkirk, mas acho que vão equilibrar.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Dunkirk&lt;/li&gt;
+&lt;li&gt;Considerações finais: E não é que foi pra Dunkirk, mesmo...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Edição de som:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk.&lt;/li&gt;
+&lt;li&gt;Explicação: Fala sério, né. Dá pra ouvir com perfeição a capa da bala cair em um chão molhado de dentro de um bunker abandonado.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Dunkirk (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: É, não tinha pra ninguém; devia ter botado mais fé e chutado mixagem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Curta de animação:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Lou.&lt;/li&gt;
+&lt;li&gt;Explicação: Bonitinho.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Dear Basketball&lt;/li&gt;
+&lt;li&gt;Considerações finais: Até aqui a representatividade tá em alta?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Design de produção:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Darkest Hour/O Destino de uma Nação.&lt;/li&gt;
+&lt;li&gt;Explicação: Nenhuma em especial.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Shape of Water&lt;/li&gt;
+&lt;li&gt;Considerações finais: É...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Música:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: &amp;quot;This is Me&amp;quot; (The Greatest Showman/O Rei do Show).&lt;/li&gt;
+&lt;li&gt;Explicação: está brincando, é um hit (assim como toda a trilha).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: &amp;quot;Remember Me&amp;quot; from Coco&lt;/li&gt;
+&lt;li&gt;Considerações finais: É só ser mexicano que ganha até do Wolverine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Trilha sonora:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk (Hanz Zimmer).&lt;/li&gt;
+&lt;li&gt;Explicação: Hanz Zimmer finalmente encontrou onde pode ser barulhento.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Alexandre Desplat (Shape of Water)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Desplat nem precisou pedir a cidadania mexicana.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Maquiagem e cabeleira:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Wonder/Extraordinário.&lt;/li&gt;
+&lt;li&gt;Explicação: bonitinho, coragem de colocar criança com defeito, blá.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Daskest Hour&lt;/li&gt;
+&lt;li&gt;Considerações finais: Onde ele não devia ganhar... se bem que, será?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Estrangeiros:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: On Body and Soul/Corpo e Alma (Ildikó Enyedi).&lt;/li&gt;
+&lt;li&gt;Explicação: o único que eu vi, está no mesmo ângulo do Oscar SJW (mas os velhos ainda podem vetar).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: A Fantastic Woman&lt;/li&gt;
+&lt;li&gt;Considerações finais: Mexicanos e falantes em espanhol, vocês estão em alta.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Edição:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk (Lee Smith).&lt;/li&gt;
+&lt;li&gt;Explicação: só a logística para que o tempo passe de maneira assimétrica para favorecer a narrativa já está de bom tamanho?&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Dunkirk (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Se não fosse para ele, pelamor...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Direção:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk (Christopher Nolan).&lt;/li&gt;
+&lt;li&gt;Explicação: Chris Nolan já foi indicado três vezes e agora fez um trabalho &amp;quot;sério&amp;quot;.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Guilhermo del Toro (Shape of Water)&lt;/li&gt;
+&lt;li&gt;Considerações finais: 3 mexicanos nos últimos 5 prêmios; estão pegando pesado e tende a piorar.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Roupa:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Beauty and the Beast.&lt;/li&gt;
+&lt;li&gt;Explicação: filme de Oscar pra figurino.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Phantom Thread&lt;/li&gt;
+&lt;li&gt;Considerações finais: Não vi (mas deveria, PTA).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Fotografia:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk (Hoyte von Hoytema).&lt;/li&gt;
+&lt;li&gt;Explicação: Colaborador habitual de Nolan, o cara é foda; cada cena é uma fotografia colorizada da Segunda Guerra.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Blade Runner 2049&lt;/li&gt;
+&lt;li&gt;Considerações finais: Difícil prever prêmios técnicos quando todos os filmes são perfeitos...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Animação:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Coco/Viva: A Vida é uma Festa (Lee Unkrich).&lt;/li&gt;
+&lt;li&gt;Explicação: lágrimas.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Coco (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Disney/Pixar, você ganha até quando não deveria; esse ano é seu, mesmo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Atriz de suporte:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Allison Janney (I, Tonya).&lt;/li&gt;
+&lt;li&gt;Explicação: papel fácil de ser adorado (vilã engraçada).&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Allison Janney (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Fácil, fácil...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ator de suporte:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Woody Harrelson (Three Billboards, outside Ebbing, Missouri).&lt;/li&gt;
+&lt;li&gt;Explicação: Harrelson, assim como Dafoe, indicado três vezes sem nada; e Three Billboards está em melhor filme.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Sam Rockwell&lt;/li&gt;
+&lt;li&gt;Considerações finais: Não vi outro ator indicado para o mesmo filme!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Atriz principal:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Sally Hawkings (The Shape of Water).&lt;/li&gt;
+&lt;li&gt;Explicação: Hawkins vai segurar a única estatueta do filme do del Toro.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Frances McDormand&lt;/li&gt;
+&lt;li&gt;Considerações finais: Você tá brincando comigo; e entre duas brancas...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ator principal:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Gary Oldman (Darkest Hour/O Destino de uma Nação).&lt;/li&gt;
+&lt;li&gt;Explicação: mesmo &amp;quot;problema&amp;quot; do Harrelson elevado a sétima potência; ele já foi indicado o quê, oito vezes...&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Gary Oldman (That&#39;s a Bingo!)&lt;/li&gt;
+&lt;li&gt;Considerações finais: Fácil, fácil 2...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Melhor filme:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minha aposta: Dunkirk (Christopher Nolan).&lt;/li&gt;
+&lt;li&gt;Explicação: agora é a hora, Nolan! Tá perdoado pelo seu autismo e a Academia volta a premiar um Blockbuster como Soldado Ryan.&lt;/li&gt;
+&lt;li&gt;Quem ganhou: Shape of Water&lt;/li&gt;
+&lt;li&gt;Considerações finais: Melhor filme é sempre imprevisível, é uma soma louca. Mas a representatividade foi de pé até o final e sem trolagem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Minha pontuação ficou 6 de 21. 28% de aproveitamento até que não está ruim pra um chute de 10 minutos. É isso aí, pe-pe-pe-pessoal. Ano que vem tem mais minorias. E nem assim Star Wars ganha alguma coisa...&lt;/p&gt;
+</description>
 </item>
 
      
@@ -92,8 +293,13 @@ Roteiro original:
   <pubDate>2018-03-05</pubDate>
   
   <guid>http://www.caloni.com.br/imasters-php-experience/</guid>
-  <description>Meu primeiro post no blog sobre PHP. Já programei alguma coisinha no passado e meu amigo Strauss fez o blogue dele todo em php, do zero. Sim. Programador de verdade ele.
-Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de frequentar graças ao meu amigo T@z. Hoje foi o keynote e amanhã serão as trilhas. Este é um evento muito bem organizado e frequentado por centenas de pessoas.</description>
+  <description>&lt;p&gt;Meu primeiro post no blog sobre PHP. Já programei alguma coisinha no passado e meu amigo Strauss fez o blogue dele todo em php, do zero. Sim. Programador de verdade ele.&lt;/p&gt;
+&lt;p&gt;Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de frequentar graças ao meu amigo T@z. Hoje foi o keynote e amanhã serão as trilhas. Este é um evento muito bem organizado e frequentado por centenas de pessoas. Um mega-evento sobre programação. Me sinto muito bem com esse tipo de evento.&lt;/p&gt;
+&lt;p&gt;E mesmo não programando nessa linguagem, programação é programação. Houve alguns detalhes que achei que merecem ser copiados pela comunidade C/C++ Brasil. Um deles é uma palestra standup: Integrando GO com PHP. Hilário. Rápido e letal.&lt;/p&gt;
+&lt;p&gt;Outra palestra inesperada foi a do Marcelo Camargo: PHP under the hood. Acompanhamos o código &amp;quot;assembly&amp;quot; gerado pela linguagem e ao final da execução a galera vibrou e aplaudiu. Essa é a vibe de qualquer grupo de nerds, fascinados pela tecnologia e como ela nos vem levado tão longe.&lt;/p&gt;
+&lt;p&gt;Este é um evento sólido, com um preço salgado mas que parece pagar cada centavo. Sentimos a estrutura por trás. É o design, a organização e o empenho de todos. Um mega-evento como esses não teria lugar no Brasil com a galera de C/C++. Somos dispersos em um país continental e pouco habituados a se locomover para um evento desses no Brasil. Simplesmente porque aqui não é a região onde as coisas acontecem. Infelizmente.&lt;/p&gt;
+&lt;p&gt;Mas felizmente temos outras tecnologias e não estamos mais presos geograficamente. Todo programador C/C++ é, no fundo, um cidadão do mundo.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -103,7 +309,8 @@ Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de
   <pubDate>2018-02-20</pubDate>
   
   <guid>http://www.caloni.com.br/caloni-palestrando-sobre-bitcoins-antes-de-virar-modinha/</guid>
-  <description>Naquela época o bitcoin estava oscilando entre 3000 e 5000 reais. Dá pra acreditar? Faz muito tempo. Cerca de um ano. E hoje tem pessoas dizendo que o mundo vai acabar porque bitcoin caiu para a mínima de 20k. Aham. Porém, existe uma imensidão de questões no meio desses valores que é: o que, afinal de contas, é uma moeda digital? Essa minha palestra foi ministrada no Native Floripa 2017, no comecinho daquele ano acho.</description>
+  <description>&lt;p&gt;Naquela época o bitcoin estava oscilando entre 3000 e 5000 reais. Dá pra acreditar? Faz muito tempo. Cerca de um ano. E hoje tem pessoas dizendo que o mundo vai acabar porque bitcoin caiu para a mínima de 20k. Aham. Porém, existe uma imensidão de questões no meio desses valores que é: o que, afinal de contas, é uma moeda digital? Essa minha palestra foi ministrada no Native Floripa 2017, no comecinho daquele ano acho. Faz algum tempo, então não me lembro direito, mas foi um dos eventos mais legais que participei. Boa estrutura e ótima companhia.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -113,7 +320,11 @@ Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de
   <pubDate>2017-03-21</pubDate>
   
   <guid>http://www.caloni.com.br/native-floripa-2017-impressoes/</guid>
-  <description>A despeito de poucas pessoas envolvidas na organização, o primeiro evento no estilo Encontro CCPPBrasil (sem ser um encontro CCPPBrasil) foi um grande sucesso. Houve um nível de palestras razoável com um público idem. Houve também uma maior participação das pessoas, com perguntas e às vezes quase um debate. Houve café no coffee break, mas mais importante: houve chope artesanal no Happy Hour. E por causa disso não há comparativos com encontros C++ de Sampa e Rio =).</description>
+  <description>&lt;p&gt;A despeito de poucas pessoas envolvidas na organização, o primeiro evento no estilo Encontro CCPPBrasil (sem ser um encontro CCPPBrasil) foi um grande sucesso. Houve um nível de palestras razoável com um público idem. Houve também uma maior participação das pessoas, com perguntas e às vezes quase um debate. Houve café no coffee break, mas mais importante: houve chope artesanal no Happy Hour. E por causa disso não há comparativos com encontros C++ de Sampa e Rio =).&lt;/p&gt;
+&lt;p&gt;Palestrei duas vezes, sobre engenharia reversa e moedas digitais, nos dois dias do evento (18, 19 de março de 2017, sábado e domingo). Não consegui assistir todas as palestras porque seria fisicamente impossível, já que houve no sábado uma divisão em duas salas. Uma lástima, porque muitas vezes gostaria de ver ambas as palestras que estavam disputando o tempo. No domingo fomos de single-threaded, e infelizmente o nível de informação foi o que ficou mais aquém, com os palestrantes não tendo um domínio muito bom de conteúdos, como interop entre Go e C (que achei horrível), ou houve palestras muito básicas e verborrágicas à toa, como a construção de um exemplo bobo em OpenCV que une key-points (em um código-fonte de gosto discutível).&lt;/p&gt;
+&lt;p&gt;Felizmente, com pouco público, houve a possibilidade de interagir com muitas pessoas diferentes com interesses diferentes. Houve um networking razoável, mas a impressão que ficou foi que os temas foram tão esparsos que não houve muito engajamento de uma possível plateia que ficou de fora e que resolveu não viajar para Floripa para ver apenas uma ou duas palestras.&lt;/p&gt;
+&lt;p&gt;De qualquer forma, houve gente de fora (eu incluso). Muita gente de SP e do Sul, pelo que pude constatar (muita gente == mais que meia-dúzia). Também houve bastante palestras de uma empresa só (esqueci o nome, mas isso não importa, pois não divulgaria aqui). O preço do ingresso foi muito válido para os pagantes, IMHO, porque além do coffee-break havia máquinas de chope no recinto e um ambiente extremamente agradável no melhor estilo empresa de startup ou incubadora, com design modernão. Ah, e o chope do Happy de sábado foi na faixa. Houvi falar que há eventos muitos mais caros com restrição de salas feitos em universidades onde serve-se biscoito seco e no almoço um lanche sub-way surrado. Em comparação, NativeFloripa foi algo muito, muito superior.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -123,7 +334,49 @@ Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de
   <pubDate>2017-02-09</pubDate>
   
   <guid>http://www.caloni.com.br/native-floripa-2017-palestras/</guid>
-  <description>Já está disponível na grade de palestras do Native Floripa 2017 o conteúdo que será ministrado nos dois dias do final de semana dias 18 e 19 de março de 2017 em Florianópolis, na Associação Catarinense de Empresas de Tecnologia (Rodovia SC 401, Km 4, Bairro Saco Grande, Florianópolis, SC, CEP 88032-000, Telefone (48) 2107-2700). As palestras englobam trabalhos acadêmicos, teoria da computação, demonstração de bibliotecas e práticas comuns no dia-a-dia, treinamentos em engenharia reversa, embarcados e internet das coisas, e toda coleção de linguagens bizarras que você poderá conhecer.</description>
+  <description>&lt;p&gt;Já está disponível na grade de palestras do Native Floripa 2017 o conteúdo que será ministrado nos dois dias do final de semana dias 18 e 19 de março de 2017 em Florianópolis, na Associação Catarinense de Empresas de Tecnologia (Rodovia SC 401, Km 4, Bairro Saco Grande, Florianópolis, SC, CEP 88032-000, Telefone (48) 2107-2700). As palestras englobam trabalhos acadêmicos, teoria da computação, demonstração de bibliotecas e práticas comuns no dia-a-dia, treinamentos em engenharia reversa, embarcados e internet das coisas, e toda coleção de linguagens bizarras que você poderá conhecer. Ah, e moedas digitais (eu! eu!) =)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Conectando EFL Models a Elementary Widgets&lt;/li&gt;
+&lt;li&gt;Usando C++14 com CPUs ATmel (Arduinos)&lt;/li&gt;
+&lt;li&gt;Acessando código nativo em Elixir&lt;/li&gt;
+&lt;li&gt;Apache Mynewt: An OS and Tools for the Embedded World&lt;/li&gt;
+&lt;li&gt;Desenvolvimento de sistema visão computacional de tempo real usando Multithreaded IO-Pipeline com C++ e OpenCV&lt;/li&gt;
+&lt;li&gt;Soletta: Closing the IoT Development Gap&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Engenharia Reversa para Principiantes e Demo: Quebrando Dicionário Houaiss (eu! eu!)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Go C, Go! - Interoperando Go e C&lt;/li&gt;
+&lt;li&gt;Por que Rust?&lt;/li&gt;
+&lt;li&gt;Implementação Inicial da RFC 6897 (MP-TCP)&lt;/li&gt;
+&lt;li&gt;Não use ponteiros!&lt;/li&gt;
+&lt;li&gt;Desenvolvimento de ferramentas Open Source para sistemas embarcados&lt;/li&gt;
+&lt;li&gt;Visualizando imagens médicas com C++&lt;/li&gt;
+&lt;li&gt;Modificando Clang para gerar arquivos coq do proof assistant para pré e pós-condições&lt;/li&gt;
+&lt;li&gt;Visão computacional com OpenCV: implementando uma simples interface por webcam&lt;/li&gt;
+&lt;li&gt;Apresentando a biblioteca cryptox&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Como criar moedas digitais em casa com C++ (eu! eu!)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;IButterFree: Uma biblioteca gráfica opensource para arquiteturas enxutas&lt;/li&gt;
+&lt;li&gt;Implementando algoritmos ao estilo da STL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se isso ainda não tocou nenhum sino em sua cabeça, talvez a lista dos palestrantes o faça:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Alan Silva&lt;/li&gt;
+&lt;li&gt;Carlos Eduardo Gesser&lt;/li&gt;
+&lt;li&gt;Expertise Solutions&lt;/li&gt;
+&lt;li&gt;Fabio Galuppo&lt;/li&gt;
+&lt;li&gt;Fabio Utzig&lt;/li&gt;
+&lt;li&gt;Felipe Magno de Almeida&lt;/li&gt;
+&lt;li&gt;Gustavo Sverzut Barbieri&lt;/li&gt;
+&lt;li&gt;Larry Lira&lt;/li&gt;
+&lt;li&gt;Lauro Moura&lt;/li&gt;
+&lt;li&gt;Luiz Barreto&lt;/li&gt;
+&lt;li&gt;Marcelo Castellani&lt;/li&gt;
+&lt;li&gt;Patrick José Pereira&lt;/li&gt;
+&lt;li&gt;Renan Prata&lt;/li&gt;
+&lt;li&gt;Rodrigo Madera&lt;/li&gt;
+&lt;li&gt;Vitor Sousa Da Silva&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Wanderley Caloni (eu! eu!)&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As inscrições já estão abertas e o preço me impressionou. Para um evento com dois dias, está bem mais acessível que o TDC.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -133,7 +386,13 @@ Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de
   <pubDate>2016-11-02</pubDate>
   
   <guid>http://www.caloni.com.br/saldo-da-40-mostra-sp/</guid>
-  <description>Vinte e dois filmes. Essa foi a quantidade que consegui assistir nessa primeira mostra que me dedico nos dias de semana (uma bagatela de ter a própria empresa). Na maioria dos dias foram três sessões seguidas; em alguns dias tive que me ausentar, outros simplesmente entrei na sala errada! (e acabei vendo, por exemplo, o ótimo O Contador). No entanto, foi de longe a edição do festival em que mais vi filmes, e a primeira em que escrevi sobre todos eles.</description>
+  <description>&lt;p&gt;Vinte e dois filmes. Essa foi a quantidade que consegui assistir nessa primeira mostra que me dedico nos dias de semana (uma bagatela de ter a própria empresa). Na maioria dos dias foram três sessões seguidas; em alguns dias tive que me ausentar, outros simplesmente entrei na sala errada! (e acabei vendo, por exemplo, o ótimo O Contador). No entanto, foi de longe a edição do festival em que mais vi filmes, e a primeira em que escrevi sobre todos eles.&lt;/p&gt;
+&lt;p&gt;Ao todo foram dez dramas, seis documentários, uma animação... a maioria tentei ir na competição de Melhores Diretores, onde tive a oportunidade de ver debate com dois deles, estreantes; os outros fizeram parte da Mostra Brasil e da Perspectiva Internacional. Por fim, para não fazer desfeita, vi um dos filmes de Andrzej Wajda, o homenageado do ano, polonês que enxergou os horrores do autoritarismo através da igreja e dos sovietes. Terra Prometida, o filme que eu vi, é a perfeita anti-propaganda nazista/comunista, já que exagera o tom na mesma medida que eles faziam quando queriam dizer que os capitalistas comiam criancinhas.&lt;/p&gt;
+&lt;p&gt;Dos documentários, o mais impressionante foi &amp;quot;Então Morri&amp;quot;, pelo poder do Cinema mesmo com poucos recursos. Além disso, foi a primeira vez que fui convidado por um diretor a assistir seu filme. Um Homem Insignificante, de Vinay Shukla, popula o imaginário político das massas através dos olhos do Partido do Homem Comum na Índia.&lt;/p&gt;
+&lt;p&gt;Das ficções, o campeão disparado para mim é Aloys, pela metalinguagem empregada em desvendar os problemas psicológicos das pessoas solitárias, como depressão. A montagem de Aloys é uma das ótimas descobertas dessa mostra.&lt;/p&gt;
+&lt;p&gt;Minha impressão como cinéfilo foi que, nos dias de semana à tarde, as sessõe estavam muito vazias. Não havia público o suficiente sequer para votar. Pode ser que a cidade não esteja tão preparada para receber as pessoas, ou, o mais provável, que a mostra não esteja mais chamando tanto a atenção. A organização é ótima, ainda mais para quem tem credencial, e o público que frequentou as mesmas sessões que eu dividiam-se em jovens que precisam ganhar cota das faculdades de artes que devem estar fazendo -- e estão aparentemente cagando para a sétima arte -- e velhos que já são veteranos do evento. Não há um interesse no público em geral, o que é esperado. O Cinema como arte tem morrido aos poucos, e a crítica escrita vai junto, afogando paulatinamente.&lt;/p&gt;
+&lt;p&gt;De qualquer forma, um viva para o Cinema. Enquanto houver dinheiro roubado para investir em cultura, essa morte tende a demorar mais tempo. Torço para uma Mostra em streaming em breve, como deve ser. A real democratização das artes é dar ao público todas as opções que eles merecem, mesmo que para a grande maioria isso não sirva pra nada.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -143,8 +402,17 @@ Mas hoje quero falar sobre o iMasters PHP Experience, que tive a oportunidade de
   <pubDate>2015-10-12</pubDate>
   
   <guid>http://www.caloni.com.br/diretores-da-39-mostra-sp/</guid>
-  <description>Mostra chegando, e começa a ser liberadas as listas de diretores, filmes e, em breve (na última hora) a programação. Segue a lista dos diretores que dirigiram pelo menos algum filme com texto no Cine Tênis Verde:
-Nasceu em Zenica, Bósnia-Herzegovina, em 1969. Foi criado em Sarajevo, onde estudou direção. Seu primeiro longa-metragem, Terra de Ninguém (2001), ganhou o Oscar de melhor filme estrangeiro e o Prêmio do Público de melhor longa de ficção na 25ª Mostra.</description>
+  <description>&lt;p&gt;Mostra chegando, e começa a ser liberadas as listas de diretores, filmes e, em breve (na última hora) a programação. Segue a lista dos diretores que dirigiram pelo menos algum filme com texto no Cine Tênis Verde:&lt;/p&gt;
+&lt;p&gt;Nasceu em Zenica, Bósnia-Herzegovina, em 1969. Foi criado em Sarajevo, onde estudou direção. Seu primeiro longa-metragem, Terra de Ninguém (2001), ganhou o Oscar de melhor filme estrangeiro e o Prêmio do Público de melhor longa de ficção na 25ª Mostra. Também dirigiu o segmento Bósnia-Herzegovina do filme 11 de Setembro (2002, 26ª Mostra) e os longas O Inferno (2005, 29ª Mostra), Triage (2009), Cirkus Columbia (2010, 34ª Mostra) e Um Episódio na Vida de um Catador de Ferro-Velho (2013).&lt;/p&gt;
+&lt;p&gt;Nasceu em Nova York em 1969. Ator, roteirista e diretor, escreveu e dirigiu filmes como Tempo de Decisão (1995), A Lula e a Baleia (2005, 29ª Mostra), Margot e o Casamento (2007), O Solteirão (2010), Frances Ha (2012) e Enquanto Somos Jovens (2014).&lt;/p&gt;
+&lt;p&gt;Nasceu no Porto, em Portugal, em 1908. Iniciou a carreira como atleta e piloto de corridas. Dirigiu seu primeiro curta-metragem mudo, Douro, Faina Fluvial, em 1931. Abandonou o cinema nos anos 1940 para tornar-se vinicultor. Retornou na década de 1970, com filmes autorais que fizeram dele um dos diretores mais singulares da história. Teve todos os seus filmes exibidos na Mostra, desde Amor de Perdição (1978, 3ª Mostra). Ganhou retrospectiva integral de sua obra na 15ª Mostra e na 29ª Mostra, respectivamente em 1991 e 2005. Recebeu o Prêmio Especial da Mostra por Os Canibais (1988, 12ª Mostra); o Prêmio da Crítica por Vale Abraão (1993, 17ª Mostra) e Vou para Casa (2001, 25ª Mostra); e o Prêmio Humanidade pelo conjunto da obra em 2004, na 28ª Mostra. Dirigiu ainda títulos como Singularidades de uma Rapariga Loura (2009, 33ª Mostra), O Estranho Caso de Angélica (2010, 34ª Mostra), o segmento Do Visível ao Invisível, do filme Mundo Invisível, produzido pela Mostra (2011, 35ª Mostra), O Gebo e a Sombra (2012, 36ª Mostra) e O Velho do Restelo (2014, 38ª Mostra). Morreu em 2015 aos 106 anos.&lt;/p&gt;
+&lt;p&gt;Nasceu em Leytonstone, no subúrbio de Londres, em 1899. No início dos anos 20, começou sua carreira desenhando storyboards. Depois de atuar como assistente de direção e roteirista, estreou como diretor com The Pleasure Garden (1925), seguido por The Mountain Eagle (1926). Um dos mais importantes diretores da história do cinema, realizou filmes como 39 Degraus (1935); Rebecca, a Mulher Inesquecível (1940), vencedor do Oscar de melhor filme; Festim Diabólico (1948); Pacto Sinistro (1951); Janela Indiscreta (1954, 24ª Mostra); O Terceiro Tiro (1955); O Homem que Sabia Demais (1956); Um Corpo que Cai (1958); Psicose (1960) e Os Pássaros (1963). Morreu em Los Angeles em 1980 aos 80 anos.&lt;/p&gt;
+&lt;p&gt;Nasceu na Turquia em 1909 e foi para os EUA aos quatro anos. Trabalhou como ator e diretor de teatro e, em 1947, foi um dos fundadores do Actors Studio, escola que revolucionou técnicas de atuação. Em 1945 dirigiu seu primeiro longa, Laços Humanos (35ª Mostra), vencedor de um Oscar. A 35ª Mostra fez uma retrospectiva do período mais fértil de sua carreira, de 1945 a 1962, exibindo filmes como Uma Rua Chamada Pecado (1951), Vidas Amargas (1955) e Clamor do Sexo (1961). A mesma edição do festival exibiu Uma Carta para Elia (2010), de Martin Scorsese e Kent Jones, documentário sobre o cineasta. Morreu em Nova York em 2003 aos 94 anos.&lt;/p&gt;
+&lt;p&gt;Nasceu nos Estados Unidos em 1946. Estudou pintura e começou no cinema nos anos 1960, com curtas experimentais como The Alphabet (1968) e The Grandmother (1970). Seu primeiro longa-metragem foi Eraserhead. Durante a carreira recebeu três indicações ao Oscar de direção, por O Homem Elefante (1980), Veludo Azul (1986) e Cidade dos Sonhos (2001). Ganhou a Palma de Ouro no Festival de Cannes com Coração Selvagem (1990, 14ª Mostra). Também dirigiu os longas Duna (1984), Estrada Perdida (1997), História Real (1999, 25ª Mostra) e Império dos Sonhos (2006, 31ª Mostra). Na década de 1990, criou a série Twin Peaks, que também deu origem ao longa Twin Peaks: Os Últimos Dias de Laura Palmer (1992, 16ª Mostra).&lt;/p&gt;
+&lt;p&gt;Nasceu em Düsseldorf, na Alemanha, em 1945. Estudou na Escola de Cinema e Televisão de Munique. É um dos expoentes do Novo Cinema Alemão dos anos 1970. Dirigiu os longas O Amigo Americano (1977, 3ª Mostra); Hammett (1982, 8ª Mostra); O Estado das Coisas (1982, 8ª Mostra), vencedor do Leão de Ouro no Festival de Veneza; Tokyo-Ga (1985, 10ª Mostra); e Paris, Texas (1984, 13ª Mostra), Palma de Ouro no Festival de Cannes. Asas do Desejo (1987) venceu o Prêmio do Público na 12ª Mostra e também foi exibido na 34ª Mostra. Realizou ainda Um Filme para Nick (1980, 15ª Mostra), Até o Fim do Mundo (1991, 16ª Mostra), Ode a Colônia (2000, 26ª Mostra), Terra de Fartura (2004, filme de abertura da 28ª Mostra) e Estrela Solitária (2005, 29ª Mostra). Veio a São Paulo em 2008 a convite da Mostra para apresentar Palermo Shooting e uma Carta Branca com filmes escolhidos por ele na 32ª Mostra. Em 2010, assinou o cartaz da 34ª Mostra e retornou à cidade para a abertura de uma exposição com suas fotos no Masp. Também dirigiu um dos segmentos do filme Mundo Invisível (2012), produzido pela Mostra. Também dirigiu seu primeiro trabalho em 3D com Pina.&lt;/p&gt;
+&lt;p&gt;Nasceu em Buenos Aires em 1946 e naturalizou-se brasileiro em 1970. Dirigiu os filmes O Rei da Noite (1976); Lucio Flávio - O Passageiro da Agonia (1977), Prêmio do Público na 1ª Mostra; Pixote, a Lei do Mais Fraco (1981); O Beijo da Mulher Aranha (1985, 9ª Mostra), pelo qual foi indicado ao Oscar de melhor diretor; Ironweed (1987), indicado ao Oscar de melhor ator e melhor atriz; Brincando nos Campos do Senhor (1991); Coração Iluminado (1996); Carandiru (2003); O Passado (2007, filme de abertura da 31ª Mostra) e O Homem que Roubou um Pato, episódio do filme Falando com Deuses (2014, 38ª Mostra). Ganhou o Prêmio Leon Cakoff na 37ª Mostra, em reconhecimento à sua carreira.&lt;/p&gt;
+&lt;p&gt;Nascidos em Porto Alegre, iniciaram a carreira como atores. Como cineastas, trabalham principalmente em obras sobre conflitos da juventude e sexualidade. Colaboraram nos curtas Preservativo (2011) e Um Diálogo de Ballet (2012) e no média-metragem Quarto Vazio (2013). Beira-Mar, o primeiro longa dirigido pela dupla, foi exibido no Festival de Berlim.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -154,10 +422,11 @@ Nasceu em Zenica, Bósnia-Herzegovina, em 1969. Foi criado em Sarajevo, onde est
   <pubDate>2015-07-27</pubDate>
   
   <guid>http://www.caloni.com.br/tecnicas-antidebugging-no-tdc-2015/</guid>
-  <description>Esse fim-de-semana, quer dizer, contando com a sexta-feira (dia 24/07/2015), tivemos a trilha de segurança no TDC 2015, e eu palestrei pela segunda vez, dessa vez com um material mais antigo ainda, mas que parece ter agradado alguns: técnicas antidebugging.
-O código está em um branch no GitHub e a palestra também, mas você pode acompanhar diretamente aqui:
-http://pt.slideshare.net/slideshow/embedcode/key/g5lKLH15KTcenu
-O que vocês acham de uma versão em áudio? Tenho algumas anotações que costumo fazer para treinar, mas não sei até quando uma palestra no estilo vídeo com áudio poderá agradar.</description>
+  <description>&lt;p&gt;Esse fim-de-semana, quer dizer, contando com a sexta-feira (dia 24/07/2015), tivemos a trilha de segurança no TDC 2015, e eu palestrei pela segunda vez, dessa vez com um material mais antigo ainda, mas que parece ter agradado alguns: técnicas antidebugging.&lt;/p&gt;
+&lt;p&gt;O código está em um branch no GitHub e a palestra também, mas você pode acompanhar diretamente aqui:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://pt.slideshare.net/slideshow/embedcode/key/g5lKLH15KTcenu&#34;&gt;http://pt.slideshare.net/slideshow/embedcode/key/g5lKLH15KTcenu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;O que vocês acham de uma versão em áudio? Tenho algumas anotações que costumo fazer para treinar, mas não sei até quando uma palestra no estilo vídeo com áudio poderá agradar. Os que tiverem interesse, por favor, se manifestem, para eu ter algum ânimo de usar minha voz =)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -167,7 +436,11 @@ O que vocês acham de uma versão em áudio? Tenho algumas anotações que costu
   <pubDate>2015-07-13</pubDate>
   
   <guid>http://www.caloni.com.br/tdc-2015-no-more/</guid>
-  <description>Eu represento o Grupo C/C++ Brasil. Sou um dos fundadores. A bem da verdade, todos que participam ativamente no Google Groups e/ou ajudam a organizar o nosso saite, e/ou ajudam a fortalecer a presença de uma comunidade C/C++ no país representam, em menor ou maior grau, a esse ideal que é: as linguagens C e C++ ainda são muito úteis na programação de uso geral, em cenários tão distintos e tão variados que fica difícil sequer listar onde elas são usadas sem parecer panelinha.</description>
+  <description>&lt;p&gt;Eu represento o Grupo C/C++ Brasil. Sou um dos fundadores. A bem da verdade, todos que participam ativamente no Google Groups e/ou ajudam a organizar o nosso saite, e/ou ajudam a fortalecer a presença de uma comunidade C/C++ no país representam, em menor ou maior grau, a esse ideal que é: as linguagens C e C++ ainda são muito úteis na programação de uso geral, em cenários tão distintos e tão variados que fica difícil sequer listar onde elas são usadas sem parecer panelinha.&lt;/p&gt;
+&lt;p&gt;Além de eu representar o grupo, eu seria um dos organizadores da Trilha C/C++ do TDC 2015 São Paulo desse ano. Seria, se as coisas não tivessem saído dos trilhos a partir desta thread, que colocou em xeque a presença da trilha.&lt;/p&gt;
+&lt;p&gt;Esse ano posso dizer que não há dúvidas: após a saída da organização de Rodrigo Strauss e de mim, a trilha foi oficialmente cancelada esse ano. Quem esperava assistir as palestras que foram disponibilizadas na grade sinto dizer que não acontecerão esse ano nesse evento. Podem acontecer em outro evento, nesse ou em outros anos? É capaz. O pessoal do Rio está fazendo um esforço admirável em montar nosso segundo encontro no ano, o que já é uma conquista e tanto para um grupo que peca às vezes pela parca frequência com que se reúne (talvez possamos resolver isso de forma mais informal através daqueles velhos papos de boteco que aconteceram algumas vezes no passado).&lt;/p&gt;
+&lt;p&gt;Bom, é isso. Espero encontrar alguns de vocês por lá. E espero que nos encontremos em Sampa com mais frequência ;)&lt;/p&gt;
+</description>
 </item>
 
      
@@ -177,7 +450,8 @@ O que vocês acham de uma versão em áudio? Tenho algumas anotações que costu
   <pubDate>2015-06-22</pubDate>
   
   <guid>http://www.caloni.com.br/escolha-de-palestras-tdc-2015-sp/</guid>
-  <description>Já passou a semana de envio de palestras, e agora chegou a hora de escolher as palestras que farão parte da Trilha C/C++ do TDC 2015, em São Paulo. Se vocês puderem colaborar, é super-simples e rápido. Há uma lista de títulos de palestras e você só precisa escolher qual a mais importante para você. Avalie com cuidado.</description>
+  <description>&lt;p&gt;Já passou a semana de envio de palestras, e agora chegou a hora de escolher as palestras que farão parte da Trilha C/C++ do TDC 2015, em São Paulo. Se vocês puderem colaborar, é super-simples e rápido. Há uma lista de títulos de palestras e você só precisa escolher qual a mais importante para você. Avalie com cuidado.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -187,8 +461,14 @@ O que vocês acham de uma versão em áudio? Tenho algumas anotações que costu
   <pubDate>2015-06-11</pubDate>
   
   <guid>http://www.caloni.com.br/tdc-sp-2015-cfp/</guid>
-  <description>Antes do nosso encontro 12 no Rio, no segundo semestre, teremos o TDC São Paulo, que já está em sua fase de chamada de trabalhos. Se você tem alguma coisa para apresentar, não se acanhe. Todos são bem-vindos! =)
-Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trabalho colaborem com o evento, já que nosso próximo encontro será no Rio, cujo público, acredito eu, deverá mudar em sua maioria.</description>
+  <description>&lt;p&gt;Antes do nosso encontro 12 no Rio, no segundo semestre, teremos o TDC São Paulo, que já está em sua fase de chamada de trabalhos. Se você tem alguma coisa para apresentar, não se acanhe. Todos são bem-vindos! =)&lt;/p&gt;
+&lt;p&gt;Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trabalho colaborem com o evento, já que nosso próximo encontro será no Rio, cujo público, acredito eu, deverá mudar em sua maioria.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Submissão de palestras até 15 de junho às 18h&lt;/li&gt;
+&lt;li&gt;Notificação de palestras aprovadas ou não entre 16 e 22 de junho&lt;/li&gt;
+&lt;li&gt;Evento acontecerá de 21 a 25 de Julho&lt;/li&gt;
+&lt;/ul&gt;
+</description>
 </item>
 
      
@@ -198,7 +478,10 @@ Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trab
   <pubDate>2014-08-11</pubDate>
   
   <guid>http://www.caloni.com.br/tdc2014-trilha-de-cc-teve-palestras-para-todos-os-gostos/</guid>
-  <description>A trilha da nossa(s) linguagem(ns) querida(s) do coração(ões) desse ano foi bem heterogênea: Rodrigo Madera pegando na mão dos ainda não-iniciados na magia-negra da TMP; Fabio Gallupo audaciosamente rabiscando uma roupagem funcional para C++11 (e 14, e 17!); Felipe Lavratti abrindo o código do seu projeto para vermos como é possível organizar e modularizar bem um código em C (sem classes); eu me virando nos trinta sem slides explicando os três passos de geração de código C/C++ (dei impersonate na conta do Rodrigo Strauss); Fernando Roberto do DriverEntry mais uma vez nos impressionando com as gamb.</description>
+  <description>&lt;p&gt;A trilha da nossa(s) linguagem(ns) querida(s) do coração(ões) desse ano foi bem heterogênea: Rodrigo Madera pegando na mão dos ainda não-iniciados na magia-negra da TMP; Fabio Gallupo audaciosamente rabiscando uma roupagem funcional para C++11 (e 14, e 17!); Felipe Lavratti abrindo o código do seu projeto para vermos como é possível organizar e modularizar bem um código em C (sem classes); eu me virando nos trinta sem slides explicando os três passos de geração de código C/C++ (dei impersonate na conta do Rodrigo Strauss); Fernando Roberto do DriverEntry mais uma vez nos impressionando com as gamb... adpatações técnicas Microsoftianas no Windows para fazer tudo funcionar sem o usuário perceber (só quando as coisas ficam azuis); Fernando Luiz Rizzato mostrando que a equipe ex-Borland continua mandando muito bem criando uma IDE de C++ que porta código para diversos dispositivos mobile; eu novamente jorrando um dump das minhas memórias de 10 anos depurando código com WinDbg e suas powertools; e, acreditem ou não, nossa primeirA palestrante amante de C contando sua experiência em diversos projetos em um stand-up animado movido a diversos gifs animados.&lt;/p&gt;
+&lt;p&gt;O negócio é que tivemos um dia bem atípico, com direito a lotação (!) de nossa sala logo pela manhã. Os organizadores Rodrigo Strauss e Vinicius Jarina tiveram que dar um pushback na lista de vectors da sala. E todos, aparentemente, estavam no lugar certo.&lt;/p&gt;
+&lt;p&gt;Foi bom estar de volta nesse evento tão importante para mantermos os diferentes programadores unidos por um bem comum: mostrar que C/C++ está tão vivo como nunca!&lt;/p&gt;
+</description>
 </item>
 
      
@@ -208,7 +491,13 @@ Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trab
   <pubDate>2014-08-11</pubDate>
   
   <guid>http://www.caloni.com.br/tdc2014-trilhas-de-seguranca-o-que-e-ser-hacker/</guid>
-  <description>Tirando a palestra-propaganda de Welington Strutz, a trilha de segurança no TDC desse ano foi bem heterogênea e focou tanto na proteção quanto nos ataques possíveis da web. Infelizmente, para alguns participantes, a grande questão de hacking se resume a apenas invasão de saites, o que nem era de longe o intuito da rotulação &amp;quot;hacker&amp;quot; no início dos famosos ratos de computador, em um ambiente com pouca RAM, nenhuma Web e onde o poder de processamento mais pesado rodava nas mentes criativas desses pequenos gênios da informática.</description>
+  <description>&lt;p&gt;Tirando a palestra-propaganda de Welington Strutz, a trilha de segurança no TDC desse ano foi bem heterogênea e focou tanto na proteção quanto nos ataques possíveis da web. Infelizmente, para alguns participantes, a grande questão de hacking se resume a apenas invasão de saites, o que nem era de longe o intuito da rotulação &amp;quot;hacker&amp;quot; no início dos famosos ratos de computador, em um ambiente com pouca RAM, nenhuma Web e onde o poder de processamento mais pesado rodava nas mentes criativas desses pequenos gênios da informática.&lt;/p&gt;
+&lt;p&gt;Mais para a frente, o conceito/definição de hackativismo foi virando algo cada vez mais genérico, e criou-se a cultura de ser possível ser hacker em qualquer nível de conhecimento humano. Essa é a definição que eu mais gosto e apoio, tanto por agregar o poder do hacking para toda a humanidade (seja você um burocrata, um trabalhador braçal, um designer de foguetes, um acadêmico, ...) quanto por não situar suas ações em um nível moral, algo completamente desnecessário e que só se tornou uma questão relevante por conta da mídia sensacionalista e as mentes mais conservadoras fazer-nos acreditar que estamos correndo um risco em deixar a internet nas mãos de pessoas altamente capacitadas, mas que não compartilham das suas crenças e valores.&lt;/p&gt;
+&lt;p&gt;Mesmo se focarmos apenas em computadores, engenharia reversa (de hardware e software), gambiarras de hardware e software conseguem fazer muito mais pela evolução tecnológica do que esse jogo de gato e rato de vulnerabilidades e ferramentas mágicas.&lt;/p&gt;
+&lt;p&gt;Porém, é necessária a existência de pessoas interessadas em atacar para que se crie a necessidade de se proteger. Dessa forma é que foram criados os X-Headers explicados por William Costa, os sistema de geração de números verdadeiramente aleatórios para se proteger de trapaceiros em um jogo de pôquer (minha palestra). Foi com o mesmo raciocínio que hoje existem valiosos insights sobre arquiteturas mais robustas discutidas por Rafael Lachi. É tendo curiosidade que encontramos falhas graves nos aplicativos mobile de hoje, como foi demonstrado tanto por Rafael Tosetto Pimentel quanto por Ivan Jeukens. E, não podemos nos esquecer, é essa nova geração do Antonio Costa que procura por brechas ridículas no login de diversos saites, forçando o mercado a se ajustar às melhores práticas.&lt;/p&gt;
+&lt;p&gt;Como Não Desenvolver Pôquer Online ou Como Explorar a Pseudo-Aleatoriedade from Wanderley Caloni&lt;/p&gt;
+&lt;p&gt;De uma forma ou de outra, segurança deve se tornar um pensamento constante na vida dos programadores, ainda mais web e mobile. Essa não é uma tendência, essa deveria ser uma necessidade básica do dia-a-dia.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -218,8 +507,11 @@ Peço que os palestrantes que não tiveram a oportunidade de apresentar seu trab
   <pubDate>2014-07-16</pubDate>
   
   <guid>http://www.caloni.com.br/tdc-2014-seguranca/</guid>
-  <description>Nesse TDC, além da minha palestra usual na trilha C/C++ irei participar da trilha de segurança, voltando às minhas origens, quando programava em empresas da segurança da informação. Foram 10 anos!
-Estão marcadas duas palestras nesse dia (quinta-feira, 7 de agosto de 2014): uma já ministradas outras vezes sobre o processo de engenharia reversa do dicionário Houaiss, que gerou tantas discussões nos comentários e versões alternativas (inclusive em Python!) do código.</description>
+  <description>&lt;p&gt;Nesse TDC, além da minha palestra usual na trilha C/C++ irei participar da trilha de segurança, voltando às minhas origens, quando programava em empresas da segurança da informação. Foram 10 anos!&lt;/p&gt;
+&lt;p&gt;Estão marcadas duas palestras nesse dia (quinta-feira, 7 de agosto de 2014): uma já ministradas outras vezes sobre o processo de engenharia reversa do dicionário Houaiss, que gerou tantas discussões nos comentários e versões alternativas (inclusive em Python!) do código. Aqui, além de já explicar o processo que me fez abrir o dicionário Houaiss para uso no Babylon, pularei a parte do uso no Babylon e irei focar mais nas técnicas de segurança que podemos utilizar para tornar essa engenharia reversa não impossível, mas pelo menos um pouco mais difícil.&lt;/p&gt;
+&lt;p&gt;Já a segunda palestra é bem rápida -- espero! -- e fala sobre um artigo que li de Laura Diane Hamilton sobre algoritmo de embaralhamento de cartas para saites de pôquer. Esse artigo, que irei demonstrar, explica diversas falhas do código de um saite e eu tentarei explicar brevemente maneiras de se aproveitar dessas falhas, além -- é claro -- de como se proteger contra isso!&lt;/p&gt;
+&lt;p&gt;Então é isso aí, mais um dia, mais uma trilha, mais bits e bytes. Nos vemos por lá!&lt;/p&gt;
+</description>
 </item>
 
      
@@ -229,9 +521,17 @@ Estão marcadas duas palestras nesse dia (quinta-feira, 7 de agosto de 2014): um
   <pubDate>2014-07-08</pubDate>
   
   <guid>http://www.caloni.com.br/tdc-2014/</guid>
-  <description>Segue a descrição oficial completa:
-O programador C/C++ de médio e baixo nível em Windows precisa estar familiarizado com as potencialidades de suas ferramentas de trabalho. Entre elas, o WinDbg é de longe o mais completo e complexo, além de ser quase desconhecido pela comunidade.
-Essa palestra visa um público que deseja conhecer novas técnicas de depuração para problemas específicos, mas comuns, como leak de memória, travamento durante shutdown da máquina e análise de processos de maneira não-intrusiva.</description>
+  <description>&lt;p&gt;Segue a descrição oficial completa:&lt;/p&gt;
+&lt;p&gt;O programador C/C++ de médio e baixo nível em Windows precisa estar familiarizado com as potencialidades de suas ferramentas de trabalho. Entre elas, o WinDbg é de longe o mais completo e complexo, além de ser quase desconhecido pela comunidade.&lt;/p&gt;
+&lt;p&gt;Essa palestra visa um público que deseja conhecer novas técnicas de depuração para problemas específicos, mas comuns, como leak de memória, travamento durante shutdown da máquina e análise de processos de maneira não-intrusiva.&lt;/p&gt;
+&lt;p&gt;Apresentando o WinDbg: para os ainda não iniciados, uma visão geral do que é o WinDbg, como ele funciona e em que ele pode ajudar o programador C/C++.&lt;/p&gt;
+&lt;p&gt;Leak de Memória: nessa segunda parte já passamos para a prática, adicionando ao cinto de utilidades do programador dicas valiosas para detectar rapidamente onde está ocorrendo vazamento de memória constante.&lt;/p&gt;
+&lt;p&gt;Depurando até o último segundo: para análises mais hardcore às vezes é necessário depurar onde até o sistema operacional está indo embora; essa terceira parte da palestra visa mesclar técnicas de user-mode e kernel-mode para depurar um serviço que trava durante o reboot da máquina.&lt;/p&gt;
+&lt;p&gt;Dicas e truques rápidos: nesta última parte aprenderemos um apanhado de truques para o iniciante não se perder muito tempo nos problemas que eventualmente encontrará usando o WinDbg. Também aprenderá a realizar tarefas mais raras, como comparação de strings, busca na memória, etc.&lt;/p&gt;
+&lt;p&gt;Ainda estou pensando quais truques colocar. Se tiver alguma sugestão de algo que seja muito difícil de fazer na depuração Windows ou tenha alguma dica para compartilhar, ainda dá tempo.&lt;/p&gt;
+&lt;p&gt;O TDC continua sendo esse evento com muitas trilhas, mas que tem como virtude reunir comunidades que geralmente ficam muito afastadas umas das outras. Na trilha C/C++ a vantagem é ainda maior, pois a área onde um programador da linguagem atua pode variar enormemente. Esse ano teremos palestras sobre metaprogramação (Rodrigo Madera), modularização de código (Felipe Lavratti), c++ para android e ios com o mesmo fonte (Fernando Luiz Rizzato), análise dos passos de uma compilação (Rodrigo Strauss), uma olhada no sistema wow64 do kernel do Windows (Fernando Roberto da Silva) e programação funcional (Fabio Galuppo). Ou seja, uma grade espetacularmente variada!&lt;/p&gt;
+&lt;p&gt;Então é isso. Garanta seu ingresso, faça networking, assista as palestras do seu interesse e pode me procurar durante o dia para tirar dúvidas sobre qualquer assunto relacionado a C++ e coisas que já mexi.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -241,8 +541,11 @@ Essa palestra visa um público que deseja conhecer novas técnicas de depuraçã
   <pubDate>2012-04-17</pubDate>
   
   <guid>http://www.caloni.com.br/engenharia-reversa-em-itajuba/</guid>
-  <description>Essa segunda (ontem, 16 de abril de 2012) foi dia da minha palestra na Unifei, parte do II Composium Unifei, que reúne diversos profissionais e suas especialidades para que estudantes vejam o quão útil pode ser o curso de engenharia.
-Tive o prazer de conversar com diversos alunos após a palestra, e me animou muito saber que existem pessoas no mundo acadêmico considerando a possibilidade de escovar bits como um meio de vida.</description>
+  <description>&lt;p&gt;Essa segunda (ontem, 16 de abril de 2012) foi dia da minha palestra na Unifei, parte do II Composium Unifei, que reúne diversos profissionais e suas especialidades para que estudantes vejam o quão útil pode ser o curso de engenharia.&lt;/p&gt;
+&lt;p&gt;Tive o prazer de conversar com diversos alunos após a palestra, e me animou muito saber que existem pessoas no mundo acadêmico considerando a possibilidade de escovar bits como um meio de vida. Espero que muitos pesquisem e testem seus conhecimentos em torno da arte da Engenharia Reversa e, em casos extremos, entrem em contato comigo, pois estarei feliz em responder dúvidas pontuais ou direcionar melhor o aprendizado.&lt;/p&gt;
+&lt;p&gt;O que eu aprendi durante o evento foi que a Unifei já é um polo de engenharia dedicada à formação completa dos seus alunos e uma base de pesquisas realmente interessantes. No entanto, eles querem mais, e me parece que o futuro reserva muitos desafios e conquistas naquela região no que diz respeito à P&amp;amp;D de novas tecnologias em um grau de maturidade que o país, infelizmente, ainda não foi capaz de atingir.&lt;/p&gt;
+&lt;p&gt;Tudo isso, contudo, depende do grupo dos focados professores e organizadores do evento, cuja companhia tive o privilégio de compartilhar. É preciso tirar o chapéu para o que estão fazendo em Itajubá. E preciso agradecer a Rodrigo Almeida pelo convite para a palestra; foi de fato uma experiência única conhecer o campus e a maravilhosa cidade mineira.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -252,8 +555,14 @@ Tive o prazer de conversar com diversos alunos após a palestra, e me animou mui
   <pubDate>2011-07-07</pubDate>
   
   <guid>http://www.caloni.com.br/e-foi-se-o-tdc/</guid>
-  <description>Dessa vez, talvez pelo dia de semana, havia poucos participantes. Isso, contudo, não evitou que o conteúdo e a qualidade das palestras fosse, como sempre, de alto nível.
-Infelizmente, só cheguei a partir da palestra de Antonio Ribeiro sobre uma Simulação Distribuída focando no trânsito de São Paulo. Há tempos esse é um tema debatido e ainda acredito que a tecnologia ainda vai resolver isso da melhor maneira possível: cada um em sua casa.</description>
+  <description>&lt;p&gt;Dessa vez, talvez pelo dia de semana, havia poucos participantes. Isso, contudo, não evitou que o conteúdo e a qualidade das palestras fosse, como sempre, de alto nível.&lt;/p&gt;
+&lt;p&gt;Infelizmente, só cheguei a partir da palestra de Antonio Ribeiro sobre uma Simulação Distribuída focando no trânsito de São Paulo. Há tempos esse é um tema debatido e ainda acredito que a tecnologia ainda vai resolver isso da melhor maneira possível: cada um em sua casa.&lt;/p&gt;
+&lt;p&gt;Depois do agradável almoço, onde tive a oportunidade de rever DQSoft e conversar sobre leituras de ficção-não-necessariamente-científica, participamos de um pequeno review sobre escrita de código seguro. Ao menos não tivemos que ouvir novamente algum representante da Microsoft falando sobre a famigerada lib que refazia as funções do C para a versão com copyrights.&lt;/p&gt;
+&lt;p&gt;Então chega a vez da palestra mais bagunçada: a minha. Juro que perdi totalmente o fio da meada no início, e quanto mais me esforçava para lembrar o que devia ser dito, mais esquecia. Então resolvi partir direto para o hands-on, onde consegui, imagino eu, com um ritmo adequado, demonstrar todo o cenário da análise do Dicionário Houaiss que tinha feito anos atrás. E pelo visto, muitas pessoas gostaram, pois fui abordado por três ou quatro participantes muito simpáticos e entusiasmados com o tema. Talvez seja hora de voltar para esse submundo mais um pouquinho, fazer coisas mais hardcore pra variar...&lt;/p&gt;
+&lt;p&gt;Depois do coffee-açucarado-break, tivemos a palestra mais interessante do dia: desenvolvimento de microkernels, apresentado por Rodrigo Almeida, professor de Eletrônica e Programação de Embarcados da Unifei. Não só o tema me interessou ao máximo, como a didática da apresentação foi impecável, abordando tanto os pontos for-dummies quanto um gostinho do que seria fazer por nós mesmos um controle intermediário entre a placa e os programas.&lt;/p&gt;
+&lt;p&gt;Ao final, nosso mestre-de-cerimônias habitual Alberto Techberto Fabiano fez a abertura de um painel tentando mesclar problemas + experiência + vontade de aprender. Dos assuntos que me lembro, chamou a atenção o fato dos profissionais da linguagem (C/C++) estarem escasseando cada vez mais e também o fato de nosso Grupo C/C++ parecer praticamente invisível aos olhos do Google, pois parece que quase ninguém consegue encontrar o dito cujo.&lt;/p&gt;
+&lt;p&gt;Infelizmente, alguns compromissos inadiáveis me fizeram ter que sair pela esquerda e esquecer o Lado B da questão. Felizmente, esse não é o nosso último encontro, e espero participar de futuras oportunidades de me integrar à nossa agora, como diz meu amigo Pikachu, comunidade maçônica.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -263,7 +572,36 @@ Infelizmente, só cheguei a partir da palestra de Antonio Ribeiro sobre uma Simu
   <pubDate>2011-06-30</pubDate>
   
   <guid>http://www.caloni.com.br/tdc-2011/</guid>
-  <description>Se você gosta do tema e possui dúvidas a respeito, ou gostaria de mais detalhes sobre outros projetos, não deixe de comparecer. Antes e depois da palestra estarei disponível para conversarmos. O mais interessante de termos uma trilha em C++ é reunir pessoas envolvidas em torno da linguagem, não importando muito a área. Somos um grupo pequeno, e é importante que tenhamos um contato mais próximo de vez em quando.</description>
+  <description>&lt;p&gt;Se você gosta do tema e possui dúvidas a respeito, ou gostaria de mais detalhes sobre outros projetos, não deixe de comparecer. Antes e depois da palestra estarei disponível para conversarmos. O mais interessante de termos uma trilha em C++ é reunir pessoas envolvidas em torno da linguagem, não importando muito a área. Somos um grupo pequeno, e é importante que tenhamos um contato mais próximo de vez em quando.&lt;/p&gt;
+&lt;p&gt;C/C++ Caso de Uso: Engenharia Reversa com Windbg. Esta palestra é sobre desmontar e montar novamente. Iremos descobrir como as entradas do dicionário Houaiss eletrônico estão gravadas em um primeiro momento, para depois remontarmos essa informação de maneira que ela possa ser usada em um outro dicionário.&lt;/p&gt;
+&lt;p&gt;Ferramentas que serão usadas: Windows, WinDbg, Visual Studio (qualquer versão).&lt;/p&gt;
+&lt;p&gt;Conhecimentos necessários: C/C++, Assembly 8086, Win32 API.&lt;/p&gt;
+&lt;p&gt;Passo-a-passo da palestra:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Sobre Pirataria. Como identificar brechas na licença para que você possa usufruir do seu trabalho de refatoração binária.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Análise. Desmontando o dicionário Houaiss e desvendando seu funcionamento interno.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Programação. Remontando a estrutura identificada pela Engenharia Reversa em um formato aberto.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Sobre Fair Use. Explicando como abrir portas para o desenvolvimento de soluções baseada em nossa análise.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Assuntos &amp;quot;similares&amp;quot; também nos esperam com Sergio Prado e programação segura e Rodrigo Almeida, abordando o desenvolvimento de microkernel. Além disso, também teremos Bruno Koga e Guilherme Andrade destrinchando o compilador LLVM para Objective-C, enquanto Antonio Ribeiro Alves Júnior explica sobre t100, um Middleware para Simulação Distribuída.&lt;/p&gt;
+&lt;p&gt;Nos vemos lá.&lt;/p&gt;
+</description>
 </item>
 
      
@@ -273,8 +611,10 @@ Infelizmente, só cheguei a partir da palestra de Antonio Ribeiro sobre uma Simu
   <pubDate>2011-06-10</pubDate>
   
   <guid>http://www.caloni.com.br/trilha-de-c-organizada-pelo-grupo-cc-brasil/</guid>
-  <description>Sim, nós temos C++! Apesar de ser uma linguagem dita ultrapassada pelos brazucas, o TDC desse ano terá uma trilha de C++ disponível para todo tipo de público que aprecia ou precisa dos poderes de C++ em seu dia-a-dia.
-O evento será organizado (do lado C++) pelos nossos habituais organizadores dos eventos do grupo Alberto Fabiano e Rodrigo Strauss, o que é um ótimo sinal, pois, geralmente, ter o nome C++ associado a alguém que nunca compilou um código na vida não é algo que atraia um conteúdo de qualidade.</description>
+  <description>&lt;p&gt;Sim, nós temos C++! Apesar de ser uma linguagem dita ultrapassada pelos brazucas, o TDC desse ano terá uma trilha de C++ disponível para todo tipo de público que aprecia ou precisa dos poderes de C++ em seu dia-a-dia.&lt;/p&gt;
+&lt;p&gt;O evento será organizado (do lado C++) pelos nossos habituais organizadores dos eventos do grupo Alberto Fabiano e Rodrigo Strauss, o que é um ótimo sinal, pois, geralmente, ter o nome C++ associado a alguém que nunca compilou um código na vida não é algo que atraia um conteúdo de qualidade.&lt;/p&gt;
+&lt;p&gt;A trilha de C++ será Quarta, dia 6 de Julho.&lt;/p&gt;
+</description>
 </item>
 
      
