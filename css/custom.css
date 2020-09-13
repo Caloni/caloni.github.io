@@ -1,1 +1,109 @@
+html {
+    font-size: 1.2rem;
+}
+
+body {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+body, button, input, select, textarea {
+    font-family: Monospace;
+}
+
+.container {
+    margin: 0 auto;
+    position: relative;
+}
+.container.is-fluid {
+    margin-left: 64px;
+    margin-right: 64px;
+    max-width: none;
+    width: auto;
+}
+@media screen and (min-width:1472px) {
+    .container {
+        max-width: 1344px;
+        width: 1344px;
+    }
+}
+
+.navbar-brand {
+    display: flex;
+}
+.navbar-item {
+    align-items: center;
+    color: black;
+    display: flex;
+}
+
+td {
+    border-bottom: 1px dotted black; 
+    padding: 5px;
+}
+tr:hover, tr:hover a {
+    background-color: lightgray;
+}
+
+.title {
+    color: firebrick;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    word-break: break-word;
+}
+
+.subtitle {
+    color: black;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: 400;
+    margin-color: black;
+    margin-top: -0.25rem;
+    word-break: break-word;
+}
+
+.taglist  {
+    margin-bottom: 1em;
+}
+.taglist:hover, .navigation-bottom:hover  {
+    overflow: auto;
+    background-color: lightgray;
+}
+.taglist a {
+    color: gray;
+}
+
+.prev-in-section {
+    float: right; 
+    text-align: 
+    right; width: 50%;
+}
+.next-in-section {
+    float: left; 
+    text-align: 
+    left; width: 50%;
+}
+
+.content h1 { font-size: 1.5em; }
+.content h2 { font-size: 1.0em; }
+.content h3 { font-size: 1em; }
+.content h4 { font-size: 1em; }
+.content h5 { font-size: 1em; }
+.content h6 { font-size: 1em; }
+
+a {
+    color: firebrick;
+    text-decoration: none;
+}
+a:hover {
+    color: black;
+}
+
+.external {
+    background-image: url(/img/external-link-ltr-icon-red.svg);
+    background-position: center right;
+    background-repeat: no-repeat;
+    padding-right: 13px;
+}
 
