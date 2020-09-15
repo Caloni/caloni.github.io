@@ -1,0 +1,200 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/tags/blog/</link>
+    <description>Recent content in blog on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/tags/blog/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>Close Remote Socket</title>
+  <link>http://www.caloni.com.br/close-remote-socket/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/close-remote-socket/</guid>
+  <description>&lt;p&gt;I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.&lt;/p&gt;
+&lt;p&gt;You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger. You done. How simple is that, right?&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
+  <link>http://www.caloni.com.br/find-path/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/find-path/</guid>
+  <description>&lt;p&gt;Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.&lt;/p&gt;
+&lt;p&gt;Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.&lt;/p&gt;
+&lt;p&gt;Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &amp;quot;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you&#39;re using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&amp;quot;&lt;/p&gt;
+&lt;p&gt;Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando o diretório de instalação do vcpkg, tudo se resolve. O solution do Visual Studio finalmente consegue encontrar os includes e libraries da glib. Ou qualquer outra biblioteca portada que você queira usar.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43; Co Routines</title>
+  <link>http://www.caloni.com.br/cpp-co-routines/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
+  <description>&lt;p&gt;Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C++.&lt;/p&gt;
+&lt;p&gt;No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C++ tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.&lt;/p&gt;
+&lt;p&gt;A primeira ressalva diz respeito à alocação dinâmica. Ao usar esse modelo de rotinas cooperativas o programador é obrigado a alocar espaço para o estado dinamicamente, o que fere duas premissas da linguagem: o controle absoluto do modelo de execução para o programador e a certeza que ele irá apenas pagar em performance o que ele usar. Se os fãs da linguagem fossem religiosos, eles diriam agora que esta não foi uma decisão muito cristã do comitê.&lt;/p&gt;
+&lt;p&gt;Eu continuo defendendo que a linguagem C seja usada caso surjam contra-indicações na prática da STL.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Printf</title>
+  <link>http://www.caloni.com.br/printf/</link>
+  <pubDate>2020-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/printf/</guid>
+  <description>&lt;p&gt;Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.&lt;/p&gt;
+&lt;p&gt;A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda. Mas o que é direita e esquerda se o tamanho usado pela impressão vai ser exatamente o tamanho da string? Aí é que entra o especificador de tamanho, logo após o opcional sinal de menos e antes do s que determina o tipo string. Dessa forma a string de formatação final para uma string variável alinhada à esquerda em uma coluna de trinta caracteres de tamanho seria &amp;quot;%-30s&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Porém, existe um problema com essa abordagem: a string variável pode ter mais de trinta caracteres. Nesse caso existe mais uma opção &amp;quot;escondida&amp;quot; do printf, que é especificar esse trinta em um argumento passado junto dos valores. Para isso basta trocar o número por asterisco e passar o tamanho como se passa qualquer outro valor à função, seguindo a ordem de recebimento. Por exemplo, um printf(&amp;quot;%-30s&amp;quot;, &amp;quot;minha_string&amp;quot;) poderia virar printf(&amp;quot;%-*s&amp;quot;, 30, &amp;quot;minha_string&amp;quot;). Note que agora o tamanho trinta não está mais fixo no código e pode ser uma variável inteira.&lt;/p&gt;
+&lt;p&gt;Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um controle de fonte e imprime as duas no final, alinhando o nome das branches à esquerda e o número de commits de cada uma à direita, incluindo um header. É assim que o printf resolve esse tipo de problema de saída formatada: de maneira simples e elegante, sem inventar moda nem querer &amp;quot;revolucionar&amp;quot; a computação.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Historical Price</title>
+  <link>http://www.caloni.com.br/historical-price/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/historical-price/</guid>
+  <description>&lt;p&gt;Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades. E isso justo agora que ando estudando awk. Então não deu outra: usei esta linguagem clássica como ferramenta para esta conversão.&lt;/p&gt;
+&lt;p&gt;O código ficou, em minha humilde opinião, elegante e pequeno, pois se aproveita da composição das periodicidades. Ou seja, o período de cinco minutos é a consolidação de cinco linhas de um minuto, mas a de quinze minutos não são quinze linhas de um minuto, mas três de cinco minutos, que já estão sendo calculados a cada cinco linha. E assim por diante. Usando os arrays associativos do awk é possível manter o estado de cada candle até o momento de gerar a saída desejada, que no exemplo que codifiquei ficou como um comando SQL de insert em um banco fictício que grava cada tipo de candle em uma tabela.&lt;/p&gt;
+&lt;p&gt;O uso de um array por candle simplificou o código, pois ao criar uma função que manipula o candle que está finalizando e o próximo eu posso simplesmente passá-los como argumentos. Dessa forma eu só preciso compor os filtros de linhas de acordo com o resto da divisão do seu número. No exemplo inicial, o candle de cinco minutos está finalizando quando RN é igual a cinco ou múltiplos de cinco, enquanto um novo candle se inicia em múltiplos de seis.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Leak de Memória</title>
+  <link>http://www.caloni.com.br/leak-de-memoria/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/leak-de-memoria/</guid>
+  <description>&lt;p&gt;Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.&lt;/p&gt;
+&lt;p&gt;Essa memória é alocada para um objeto acessível por uma interface. Abaixo dessa abstração reside uma mensagem do protocol buffers, ainda na versão 2. Isso quer dizer que cada new e delete construía uma nova mensagem protobuf, além da vtable da interface, e destruía em seguida. Apenas um campo int era preenchido como teste. Para monitorar melhor a memória usei um segundo campo string, pois daí posso alocar quantos bytes quiser para ele e o gráfico do Process Explorer fica dando um berro que não dá para ignorar.&lt;/p&gt;
+&lt;p&gt;Então me veio o pensamento sobre a versão debug, que não é confiável. Uma versão debug de uma lib pode decidir que é importante manter coisas na memória que o programa não pediu, mas que é importante para diagnóstico. Então compilei a versão release. O padrão de consumo se repetiu, embora em um ritmo menor porque versão release é mais performática. O consumo crescente ainda estava aí.&lt;/p&gt;
+&lt;p&gt;O jeito foi ir destroçando o código, classe por classe, até fazer o padrão de consumo crescente estabilizar. Este projeto tem uma arquitetura complexa, cheia de interfaces e classes que manipulam dados internos através delas. É complicado destrinchar e me custou o domingo inteiro. E quando finalmente encontrei o problema, não tinha nada a ver com o que eu imaginava. Se tratava da fila de linhas de log que não eram apagadas porque o servidor de log não havia sido configurado no componente, e como ele nunca conectava, a lib de log decidia manter as linhas em memória até conseguir. Pode ser um erro de arquitetura ou uma decisão de segurança. De qualquer forma, não há leak. Apenas um sintoma.&lt;/p&gt;
+&lt;p&gt;Essa sessão de debugging me deu alguns insights, entre eles um que é sempre mais frequente: nunca supor nada antes de analisar um problema. Minha estratégia de dividir para conquistar sempre foi a única que gerou resultados rápidos, ainda que às custas de não confiar em minha intuição. A longo prazo essa estratégia é vencedora, pois a intuição não utilizada sem critérios fica mais afiada conforme você acumula conhecimento. É como o cara dos &lt;a href=&#34;http://www.caloni.com.br/axiomas-de-zurique&#34;&gt;Axiomas de Zurique&lt;/a&gt; (o livro) dizia, intuição é um quase-conhecimento. Saber cada vez mais irá fazer com que você consiga caminhar mais rapidamente por onde quer chegar.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Azure Missing Lines: Submodules no Git (SSH Version)</title>
+  <link>http://www.caloni.com.br/azure-missing-lines/</link>
+  <pubDate>2020-06-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/azure-missing-lines/</guid>
+  <description>&lt;p&gt;É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.&lt;/p&gt;
+&lt;p&gt;Para se autenticar no repositório remoto é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros. Uma conta desse serviço é usada e o acesso está liberado. Porém, se o repositório possui submodules, e estes foram configurados como acessos via ssh, a automação do Azure já para de funcionar neste momento.&lt;/p&gt;
+&lt;p&gt;A causa desse bug é simples: não existe ambiente para as chaves SSH estarem configuradas antes de existir um agente (uma máquina) onde o build irá acontecer. A correção, felizmente, também é simples, apesar de inapropriada: primeiro deve-se baixar o repo sem submodules, instalar a chave SSH, e apenas agora iniciar e atualizar os submodules.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Transmission</title>
+  <link>http://www.caloni.com.br/transmission/</link>
+  <pubDate>2020-06-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/transmission/</guid>
+  <description>&lt;p&gt;Dia de fazer funcionar o download automágico de legendas depois que o Transmission baixou meu Netflix caseiro. O download funcionou, mas não foi dos melhores, pois o sincronismo e o encoding veio errado, e o rename de _pb para o nome do arquivo não está acontecendo rodando pelo transmission-daemon. Fora isso tá com tudo em cima.&lt;/p&gt;
+&lt;p&gt;No final do dia a correção era mais simples que imaginava: eu só precisava desabilitar duas flags: o uso de sufixo no nome do arquivo salvo e a flag que força todo arquivo a ser salvo como utf8 (os arquivos em português do Brasil são salvos no encoding do Windows, o ISO-8859-1 ou Windows 1252 para os mais íntimos).&lt;/p&gt;
+&lt;p&gt;No final do dia todos os bugs conterão uma correção trivial escondida do outro lado do muro chinês.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Bug no Calonibot Rodando Como Serviço</title>
+  <link>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</link>
+  <pubDate>2020-05-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
+  <description>&lt;p&gt;Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero...&lt;/p&gt;
+&lt;p&gt;Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço. Foi o que eu fiz no caso do calonibot, que atualiza seu próprio repositório de tempos em tempos porque nele está contido o index.xml principal do site para ele realizar uma busca mais completa quando você pedir a ele (que é atualizado sempre que publico um novo artigo).&lt;/p&gt;
+&lt;p&gt;Para que isso funcione para repositórios configurados com chave ssh você terá que copiar essa chave para o diretório /root/.ssh, como se fosse a home do seu usuário. Depois de feito isso reinicie o serviço e ele deverá funcionar como novo.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Cast Operator</title>
+  <link>http://www.caloni.com.br/cast-operator/</link>
+  <pubDate>2020-04-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/cast-operator/</guid>
+  <description>&lt;p&gt;O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct T
+{
+  explicit
+  operator int()
+  {
+    return 10;
+  }
+};
+
+int main()
+{
+  T t;
+
+  // error: term does not
+  // evaluate to a function
+  // taking 0 arguments
+  t();
+
+  int i = (int) t;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;int i = t;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer &lt;a href=&#34;http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas&#34;&gt;sobrecarga de função pelo retorno&lt;/a&gt;. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.&lt;/p&gt;
+&lt;p&gt;Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C++ moderno:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// cast-operator
+operator int();
+
+// function-operator
+int operator();
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Minha Palestra Sobre Windbg</title>
+  <link>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</link>
+  <pubDate>2020-04-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
+  <description>&lt;p&gt;A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).&lt;/p&gt;
+&lt;p&gt;Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.&lt;/p&gt;
+&lt;p&gt;Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &amp;quot;Debugging Tools for Windows&amp;quot;, que é o pacote que contém o ecossistema do WinDbg.&lt;/p&gt;
+&lt;p&gt;Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.&lt;/p&gt;
+&lt;p&gt;Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.&lt;/p&gt;
+&lt;p&gt;Abordamos o boot do Windows com nt, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode do WinDbg) e configuramos o cabo. Cabo?&lt;/p&gt;
+&lt;p&gt;Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &amp;quot;de fora&amp;quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.&lt;/p&gt;
+&lt;p&gt;Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.&lt;/p&gt;
+&lt;p&gt;Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.&lt;/p&gt;
+&lt;p&gt;Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.&lt;/p&gt;
+&lt;p&gt;Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também:&lt;/p&gt;
+&lt;p&gt;Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &amp;quot;Getting Started with WinDbg (User-Mode)&amp;quot; e &amp;quot;Getting Started with WinDbg (Kernel-Mode)&amp;quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).&lt;/p&gt;
+</description>
+</item>
+
+     
+    
+  </channel>
+</rss>

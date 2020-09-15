@@ -13,21 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - A alça dentro do fio gerou um bloqueio da morte</title>
+  <title>Blogue do Caloni - A Alça Dentro do Fio Gerou um Bloqueio da Morte</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="A alça dentro do fio gerou um bloqueio da morte"/>
+  <meta property="og:title" content="A Alça Dentro do Fio Gerou um Bloqueio da Morte"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções (o livro estava em português) no mínimo curiosas.
-Se trata do primeiro..."/>
+        content="Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções no mínimo curiosas. O exemplar em questão era o primeiro Windows Internals,..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -84,7 +83,7 @@ Se trata do primeiro..."/>
       <div class="container">
         <p class="title">
 
-A alça dentro do fio gerou um bloqueio da morte
+A Alça Dentro do Fio Gerou um Bloqueio da Morte
 
 </p>
 
@@ -108,46 +107,22 @@ A alça dentro do fio gerou um bloqueio da morte
           <div class="content">
 
             
-              <p>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções (o livro estava em português) no mínimo curiosas.</p>
-<p>Se trata do primeiro Windows Internals publicado após o lançamento da primeira versão do Windows NT, uma plataforma escrita (quase) inteiramente do zero para suplantar as versões 9x, que herdaram do DOS algumas partes indesejáveis em sistemas operacionais modernos.</p>
-<p>Sabe-se lá por que, essa edição foi traduzida. É interessante notar que naquela época foi dado um tratamento especial a alguns termos e conceitos já comuns no dia-a-dia do programador americano, apesar de quase nenhum desses termos ter se mantido em sua versão original. Os exemplos mais gritantes são as threads (fios ou linhas), os dead locks (bloqueios da morte) e handles (alças).</p>
-<p>Apesar de não ter nada contra traduzir termos do inglês para português (e vice-versa), algumas coisas incomodam em tradução de livros técnicos.</p>
-<p>Com essa informação, que pode ser usada apenas nos primeiros usos da palavra, agradaria gregos e troianos. Abaixo um exemplo.</p>
-<blockquote>
-<p>&quot;os ponteiros em C (pointers) são um recurso rico e necessário para a escrita de programas de baixo/médio nível&quot;.</p>
-</blockquote>
-<p>Por exemplo, ler um dado capítulo:</p>
-<blockquote>
-<p>&quot;... é muito importante inicializar seus ponteiros antes de usá-los.&quot;</p>
-</blockquote>
-<p>E, depois de se acostumar com o termo, ler em outro capítulo:</p>
-<blockquote>
-<p>&quot;... sabe-se que a pior desgraça para um programador C são os famigerados apontadores selvagens.&quot;</p>
-</blockquote>
-<p>Um exemplo notável é o famoso livro de algoritmos em C da O'Reilly, que mesmo na nova edição com uma errata de 49 itens foi possível detectar mais erros. O exemplo abaixo consta no item 46 da edição de 2000 (Editora Ciência Moderna):</p>
-<pre><code>if (opos &gt; 0)
-{
-    if ( (temp = (unsigned char *)
-        realloc(orig, opos + 1)) == NULL)
-    {
-        bitree_destroy(tree);
-        free(tree);
-        free(original); /* original??? */
-        return -1;
-    }
-
-    orig = temp;
-}
-</code></pre>
-<p>Obs.: importante notar que no original não consta esse erro da variável original. Entendeu? Entendeu?</p>
-<p>Isso é pior do que não colocar a versão em inglês, pois dá a impressão que não existe significado a ser explicado. Por exemplo, ver antes do capítulo sobre threads:</p>
-<blockquote>
-<p>&quot;... quando um fio espera o outro e vice-versa, acontece o terrível bug da trava da morte.&quot;</p>
-</blockquote>
-<p>Para quem não descobriu o que foi escrito no original, se trata de um deadlock, cujo termo inclusive é usado no seu original na Wikipédia em português.</p>
+              <p>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções no mínimo curiosas. O exemplar em questão era o primeiro Windows Internals, publicado após o lançamento da primeira versão do Windows NT, uma plataforma escrita (quase) inteiramente do zero para suplantar as versões 9x (Windows 95 e 98), que herdaram do DOS algumas partes indesejáveis em sistemas operacionais modernos.</p>
+<p>Sabe-se lá por que essa edição foi traduzida. É interessante notar que naquela época foi dado um tratamento especial a alguns termos e conceitos já comuns no dia-a-dia do programador americano, apesar de quase nenhum desses termos ter se mantido em sua versão original. Os exemplos mais gritantes são as threads (fios ou linhas), os dead locks (bloqueios da morte) e os handles (alças). Apesar de não ter nada contra traduzir termos do inglês para português (e vice-versa) algumas coisas incomodam em tradução de livros técnicos.</p>
+<p>Um bom exemplo são ponteiros. Ler em um dado capítulo &quot;(...) é muito importante inicializar seus ponteiros antes de usá-los&quot; para, depois de nos acostumarmos com o termo, ler em outro capítulo &quot;(...) sabe-se que a pior desgraça para um programador C são os famigerados apontadores selvagens&quot;. Você resolveria esse tipo de problema definindo um vocabulário em comum com todo o livro (importantíssimo se ele está sendo traduziro por mais de uma pessoa) e ainda informaria o leitor qual o termo original, caso ele precise pesquisar sobre ele fora do livro. Com essa informação, que pode ser usada apenas nos primeiros usos da palavra ou em um glossário à parte, agradaria gregos e troianos: &quot;os ponteiros em C (pointers) são um recurso rico e necessário para a escrita de programas de baixo/médio nível&quot;.</p>
+<p>Um exemplo notável é o famoso livro de algoritmos em C da O'Reilly, que mesmo na nova edição com uma errata de 49 itens foi possível detectar mais erros. Um exemplo que me lembro era de uma função do algoritmo bitree. Nele havia uma variável com o nome orig que três linhas abaixo estava &quot;traduzida&quot; para original. É importante aqui diferenciar que no original não consta esse erro da troca do nome da variável.</p>
+<p>Isso acaba sendo pior do que não colocar a versão em inglês, pois dá a impressão que não existe significado a ser explicado. Por exemplo, ver antes do capítulo sobre threads a passagem &quot;... quando um fio espera o outro e vice-versa, acontece o terrível bug da trava da morte&quot;. Para quem não descobriu o que foi escrito no original, se trata de duas threads (fios) causando um deadlock (trava da morte), cujo termo inclusive é usado no seu original na <a href="https://pt.wikipedia.org/wiki/Deadlock">Wikipédia em português</a>.</p>
 <p>Esses exemplos, salvo o exemplo do livro de algoritmos, foram criados para ilustrar os tipos de erros mais comuns em traduções de livros técnicos, e não estão relacionados com qualquer livro em específico. Então o que era inicialmente para ajudar as pessoas que estão iniciando alguns conceitos acaba por prejudicar ainda mais o aprendizado, gerando aquele tipo de confusão que só com ajuda extra (internet, professor, colega) pode ser resolvida.</p>
-<p>Assim como no vocabulário comum corrente, em que existem palavras dificilmente adaptáveis ou traduzíveis em um termo comum, como shopping e show, no meio técnico desabrocham as mais variadas expressões estrangeirísticas. Algumas são muito difíceis de encontrar seu primo lusófono, como link e login. Outros, no entanto, exageram um pouco as coisas, a ponto de conjugarmos um verbo em inglês usando nosso sistema gramatical (se você &quot;stopar&quot; o &quot;debugador&quot; vai &quot;crashear&quot; todo o sistema, porque esse software tá &quot;bugado&quot;!).</p>
-<p>O fato é que não há escapatória para quem trabalha nessa área, e no fundo isso é uma coisa boa, pois é da leitura técnica em inglês que podemos estender o nosso conhecimento além das barreiras do ponto com ponto br e encontrar conteúdo extremamente interessante (e inédito em nossa língua) para aprender. Se não estivéssemos abarrotados de estrangeirismos talvez fosse um pouco mais difícil fazer o switch entre essas duas linguagens. Entendeu? Switch? Entendeu?</p>
+<p>Assim como no vocabulário comum corrente, em que existem palavras dificilmente adaptáveis ou traduzíveis em um termo comum, como shopping e show, no meio técnico brotam as mais variadas expressões &quot;estrangeirísticas&quot;. Algumas são muito difíceis de encontrar seu primo lusófono, como link e login. Outros, no entanto, exageram um pouco as coisas, a ponto de conjugarmos um verbo em inglês usando nosso sistema gramatical: se você &quot;stopar&quot; o &quot;debugador&quot; vai &quot;crashear&quot; todo o sistema, porque esse software tá &quot;bugado&quot;! <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>O fato é que não há escapatória para quem trabalha nessa área, e no fundo isso é uma coisa boa, pois é da leitura técnica em inglês que podemos estender o nosso conhecimento além das barreiras do ponto com ponto br e encontrar conteúdo extremamente interessante (e inédito em nossa língua) para aprender. Se não estivéssemos abarrotados de estrangeirismos talvez fosse um pouco mais difícil fazer o switch entre essas duas linguagens.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Ironicamente 12 anos depois deste artigo ser escrito o verbo bugar virou uma gíria corrente entre jovens. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
             
 
@@ -156,7 +131,7 @@ A alça dentro do fio gerou um bloqueio da morte
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/essays">essays</a> 
+      <a href="/tags/essays">essays</a> 
     
 
 

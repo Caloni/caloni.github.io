@@ -27,7 +27,7 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="
-Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o..."/>
+Nota do autor: navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -91,7 +91,13 @@ Sobrecarga de função às avessas
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2012-05-20
   
 
 </p>
@@ -103,18 +109,59 @@ Sobrecarga de função às avessas
 
             
               <blockquote>
-<p>Navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo t@z) e o finado CThings. No final, consegui matar a marmota, chegar a 80 milhas por hora e voltar para o presente. Enjoy it!</p>
+<p>Nota do autor: navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo que uso até hoje no blogue) e um finado outro domínio meu, o CThings. No final, consegui <a href="/feitico-do-tempo">matar a marmota</a>, chegar a <a href="/de-volta-para-o-futuro">80 milhas por hora</a> e voltar para o presente. Enjoy!</p>
 </blockquote>
 <p>Alguém já se perguntou se é possível usar sobrecarga de função quando a diferença não está nos parâmetros recebidos, mas no tipo de retorno? Melhor dizendo, imagine que eu tenha o seguinte código:</p>
+<pre><code>void CreateNewGUID(wstring&amp;);
+void CreateNewGUID(GUID&amp;);
+
+GUID guid;
+wstring guidS;
+
+CreateNewGUID(guidS);
+CreateNewGUID(guid);
+</code></pre>
 <p>É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:</p>
-<p>Voltando às teorias de C++, veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama:</p>
-<p>Correto. O tipo de retorno não é uma propriedade da função que exclua a ambigüidade. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).</p>
-<p>Pois bem. Não podemos fazer isso utilizando funções ordinárias. Então o jeito é criar nosso próprio &quot;tipo de função&quot; que dê conta do recado:</p>
-<p>Pronto. Agora podemos &quot;chamar&quot; a nossa função criando uma nova instância e atribuindo o &quot;retorno&quot; a wstring ou à nossa GUID struct:</p>
+<pre><code>wstring CreateNewGUID();
+GUID CreateNewGUID();
+
+GUID guid;
+wstring guidS;
+
+guid = CreateNewGUID();
+guidS = CreateNewGUID();
+</code></pre>
+<p>Voltando às teorias de C++ veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama com um &quot;error C2556: 'GUID CreateNewGUID(void)': overloaded function differs only by return type from 'std::wstring CreateNewGUID(void)'&quot;. E obviamente ele está correto. O tipo de retorno não é uma propriedade da função que exclua a ambiguidade em sua chamada. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).</p>
+<p>Como não podemos utilizar funções ordinárias o jeito é criar nosso próprio tipo de função que dê conta do recado usando a sobrecarga do operador de conversão de tipos. O operador de conversão suporta sobrecarga porque é na conversão que o compilador decide qual função chamar.</p>
+<pre><code>struct CreateNewGUID
+{
+  operator wstring ();
+  operator GUID ();
+}; 
+
+guid = CreateNewGUID();
+guidS = CreateNewGUID();
+</code></pre>
+<p>Agora com o novo tipo CreateNewGUID é possível chamá-lo como uma função, o que na prática cria uma nova instância da struct. Ao atribuir o retorno dessa instância a uma variável do tipo wstring ou GUID os operadores de conversão serão requisitados, cada um dependendo do tipo da variável a qual será atribuído o retorno.</p>
 <p>Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:</p>
-<p>E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas:</p>
-<p>Eis o fonte completo:</p>
-<p>Voltando à pergunta original: penso que, com criatividade e C++, nada é impossível =)</p>
+<pre><code>struct CreateNewGUID
+{
+  operator wstring ()
+  {
+    wstring ret;
+    // cria guid
+    return ret;
+  }
+
+  operator GUID ()
+  {
+    GUID ret;
+    // cria guid
+    return ret;
+  }
+};
+</code></pre>
+<p>E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas. E voltando à pergunta original, penso que, com criatividade e C++, nada é impossível. =)</p>
 
             
 
@@ -123,7 +170,7 @@ Sobrecarga de função às avessas
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a> 
     
 
 

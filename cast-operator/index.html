@@ -90,7 +90,13 @@ Cast Operator
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2020-04-22
   
 
 </p>
@@ -102,9 +108,38 @@ Cast Operator
 
             
               <p>O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.</p>
+<pre><code>struct T
+{
+  explicit
+  operator int()
+  {
+    return 10;
+  }
+};
+
+int main()
+{
+  T t;
+
+  // error: term does not
+  // evaluate to a function
+  // taking 0 arguments
+  t();
+
+  int i = (int) t;
+}
+</code></pre>
 <p>O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.</p>
-<p>Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer sobrecarga de função pelo retorno. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.</p>
+<pre><code>int i = t;
+</code></pre>
+<p>Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer <a href="/sobrecarga-de-funcao-as-avessas">sobrecarga de função pelo retorno</a>. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.</p>
 <p>Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C++ moderno:</p>
+<pre><code>// cast-operator
+operator int();
+
+// function-operator
+int operator();
+</code></pre>
 
             
 
@@ -113,7 +148,7 @@ Cast Operator
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a>  <a href="/tags/ccpp">ccpp</a> 
+      <a href="/tags/blog">blog</a>  <a href="/tags/ccpp">ccpp</a> 
     
 
 

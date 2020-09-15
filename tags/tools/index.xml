@@ -5,9 +5,23 @@
     <description>Recent content in tools on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 07 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/tools/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
+  <link>http://www.caloni.com.br/find-path/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/find-path/</guid>
+  <description>&lt;p&gt;Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.&lt;/p&gt;
+&lt;p&gt;Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.&lt;/p&gt;
+&lt;p&gt;Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &amp;quot;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you&#39;re using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&amp;quot;&lt;/p&gt;
+&lt;p&gt;Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando o diretório de instalação do vcpkg, tudo se resolve. O solution do Visual Studio finalmente consegue encontrar os includes e libraries da glib. Ou qualquer outra biblioteca portada que você queira usar.&lt;/p&gt;
+</description>
+</item>
+
      
         <item>
   <title>Awk</title>
@@ -15,32 +29,82 @@
   <pubDate>2020-06-07</pubDate>
   
   <guid>http://www.caloni.com.br/awk/</guid>
-  <description>&lt;p&gt;Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o Awk in 20 Minutes, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.&lt;/p&gt;
-&lt;p&gt;Por ela ser uma ferramenta antiga usa conceitos antigos, como field e record. Ela foi criada para formatar texto em formato de planilha, ou banco de dados. Um field, ou campo, é uma coluna na planilha, e um record, ou registro, é uma linha dessa planilha. Imagine que você pode usar awk para manipular e extrair dados de qualquer texto que contenha esse padrão, sendo que os detalhes como o separador de campos e registros, por padrão espaço e nova-linha, podem ser alterados no começo do programa.&lt;/p&gt;
-&lt;p&gt;Como toda linguagem usada como ferramenta do dia-a-dia existem os comandos mais úteis:&lt;/p&gt;
-&lt;p&gt;Existem tópicos mais avançados como funções, seja embutidas ou criadas pelo usuário (inclusive em C), e versões mais novas como nawk e gawk. Assim como existe o vim e existem plugins, sendo que passo muito bem sem usar plugins no meu vim. Acho difícil que um dia precise estender awk, exceto por curiosidade e para aguçar minha criatividade. E como o próprio guia GNU da ferramenta sugere, se seu programa awk atingir algumas centenas de linhas é melhor você refazer em outra linguagem. Python, por exemplo (brincadeira).&lt;/p&gt;
-</description>
-</item>
+  <description>&lt;p&gt;Meu amigo sugeriu que aprender awk poderia ser útil de várias maneiras. Uma delas para organizar finanças pessoais. Dei uma lida em alguns tutoriais, sendo que o melhor custo benefício foi o &lt;a href=&#34;https://ferd.ca/awk-in-20-minutes.html&#34;&gt;Awk in 20 Minutes&lt;/a&gt;, de Fred Hebert (ele é o mesmo autor de um livro sobre erlang). Gostei. É sobre tratamento de texto como sed, mas em uma versão estendida e criada na época com a mesma sintaxe de C.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# comment
+Pattern1 { ACTIONS; }
 
-     
-        <item>
-  <title>Minha palestra sobre Windbg</title>
-  <link>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</link>
-  <pubDate>2020-04-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
-  <description>&lt;p&gt;A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).&lt;/p&gt;
-&lt;p&gt;Minhas palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.&lt;/p&gt;
-&lt;p&gt;Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &amp;quot;Debugging Tools for Windows&amp;quot;, que é o pacote que contém o ecossistema do WinDbg.&lt;/p&gt;
-&lt;p&gt;Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.&lt;/p&gt;
-&lt;p&gt;Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.&lt;/p&gt;
-&lt;p&gt;Abordamos o boot do Windows com nt, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode do WinDbg) e configuramos o cabo. Cabo?&lt;/p&gt;
-&lt;p&gt;Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &amp;quot;de fora&amp;quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.&lt;/p&gt;
-&lt;p&gt;Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.&lt;/p&gt;
-&lt;p&gt;Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.&lt;/p&gt;
-&lt;p&gt;Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.&lt;/p&gt;
-&lt;p&gt;Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também:&lt;/p&gt;
-&lt;p&gt;Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &amp;quot;Getting Started with WinDbg (User-Mode)&amp;quot; e &amp;quot;Getting Started with WinDbg (Kernel-Mode)&amp;quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).&lt;/p&gt;
+# comment
+Pattern2 { ACTIONS; }
+
+# comment
+Pattern3 { ACTIONS; }
+
+# comment
+Pattern4 { ACTIONS; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por ela ser uma ferramenta antiga usa conceitos antigos, como field e record. Ela foi criada para formatar texto em formato de planilha, ou banco de dados. Um field, ou campo, é uma coluna na planilha, e um record, ou registro, é uma linha dessa planilha. Imagine que você pode usar awk para manipular e extrair dados de qualquer texto que contenha esse padrão, sendo que os detalhes como o separador de campos e registros, por padrão espaço e nova-linha, podem ser alterados no começo do programa.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# can be modified by the user
+BEGIN {
+
+  # Field
+  # Separator
+  FS = &amp;quot;,&amp;quot;;
+
+  # Record
+  # Separator (lines)
+  RS = &amp;quot;\n&amp;quot;;
+
+  # Output
+  # Field
+  # Separator
+  OFS = &amp;quot; &amp;quot;;
+
+  # Output
+  # Record
+  # Separator
+  # (aka lines)
+  ORS = &amp;quot;\n&amp;quot;;
+}
+# can&#39;t be modified by the user
+{
+  # Number of Fields
+  # in the current Record
+  NF
+
+  # Number of Records
+  # seen so far
+  NR
+
+  # Script Arguments
+  ARGV / ARGC
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como toda linguagem usada como ferramenta do dia-a-dia existem os comandos mais úteis:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# prints $0 
+# (just print will do it)
+{ print $0; }  
+
+# ends the program
+{ exit; }      
+
+# skips to the 
+# next line of input
+{ next; }      
+
+# variable assignment
+{ a=$1; b=$0 } 
+
+# array assignment
+{ c[$1] = $2 } 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Existem tópicos mais avançados como funções, seja embutidas ou criadas pelo usuário (inclusive em C), e versões mais novas como nawk e gawk. Assim como existe o vim e existem plugins, sendo que passo muito bem sem usar plugins no meu vim. Acho difícil que um dia precise estender awk, exceto por curiosidade e para aguçar minha criatividade. E como o próprio guia GNU da ferramenta sugere, se seu programa awk atingir algumas centenas de linhas é melhor você refazer em outra linguagem. Python, por exemplo (brincadeira).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{ if (BOOLEAN) { ACTION }
+  else if (BOOLEAN) { ACTION }
+  else { ACTION }
+}
+{ for (i=1; i&amp;lt;x; i++) { ACTION } }
+{ for (item in c) { ACTION } }
+&lt;/code&gt;&lt;/pre&gt;
 </description>
 </item>
 

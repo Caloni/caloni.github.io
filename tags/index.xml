@@ -160,11 +160,11 @@
 
      
         <item>
-  <title>code</title>
-  <link>http://www.caloni.com.br/tags/code/</link>
+  <title>blog</title>
+  <link>http://www.caloni.com.br/tags/blog/</link>
   <pubDate>2020-07-05</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/code/</guid>
+  <guid>http://www.caloni.com.br/tags/blog/</guid>
   <description></description>
 </item>
 
@@ -175,6 +175,16 @@
   <pubDate>2020-07-05</pubDate>
   
   <guid>http://www.caloni.com.br/tags/english/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>tools</title>
+  <link>http://www.caloni.com.br/tags/tools/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/tools/</guid>
   <description></description>
 </item>
 
@@ -220,11 +230,11 @@
 
      
         <item>
-  <title>tools</title>
-  <link>http://www.caloni.com.br/tags/tools/</link>
+  <title>code</title>
+  <link>http://www.caloni.com.br/tags/code/</link>
   <pubDate>2020-06-07</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/tools/</guid>
+  <guid>http://www.caloni.com.br/tags/code/</guid>
   <description></description>
 </item>
 
@@ -255,16 +265,6 @@
   <pubDate>2020-04-26</pubDate>
   
   <guid>http://www.caloni.com.br/tags/food/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>reversing</title>
-  <link>http://www.caloni.com.br/tags/reversing/</link>
-  <pubDate>2020-04-18</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/reversing/</guid>
   <description></description>
 </item>
 
@@ -345,6 +345,16 @@
   <pubDate>2016-08-16</pubDate>
   
   <guid>http://www.caloni.com.br/tags/news/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>reversing</title>
+  <link>http://www.caloni.com.br/tags/reversing/</link>
+  <pubDate>2015-04-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/reversing/</guid>
   <description></description>
 </item>
 

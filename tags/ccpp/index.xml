@@ -58,9 +58,38 @@
   
   <guid>http://www.caloni.com.br/cast-operator/</guid>
   <description>&lt;p&gt;O código abaixo não é C++ moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct T
+{
+  explicit
+  operator int()
+  {
+    return 10;
+  }
+};
+
+int main()
+{
+  T t;
+
+  // error: term does not
+  // evaluate to a function
+  // taking 0 arguments
+  t();
+
+  int i = (int) t;
+}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.&lt;/p&gt;
-&lt;p&gt;Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer sobrecarga de função pelo retorno. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;int i = t;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer &lt;a href=&#34;http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas&#34;&gt;sobrecarga de função pelo retorno&lt;/a&gt;. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.&lt;/p&gt;
 &lt;p&gt;Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C++ moderno:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// cast-operator
+operator int();
+
+// function-operator
+int operator();
+&lt;/code&gt;&lt;/pre&gt;
 </description>
 </item>
 
@@ -158,6 +187,70 @@
 &lt;p&gt;Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C++11/14 100% compliance. Não acredito que cheguem lá, mas o fato de estarem empenhados indica para a indústria e seus clientes que há uma demanda sendo atendida. Não é mais frescurite de acadêmicos. Algumas features ultra-novas começam a ser usadas e permitidas em projetos.&lt;/p&gt;
 &lt;p&gt;Estamos falando de uma nova linguagem que se forma com um novo ritmo. O padrão C++11 demorou &amp;quot;apenas&amp;quot; 2 anos para cair em nossas linhas de comando, há um patch já confirmado para o ano que vem e já existem menções para um novo release em 2017. Para o programador C++ que se acostumou a contar as evoluções em décadas, um novo ritmo se impõe. Não há tempo para cristalização de conceitos. O boost já nos forneceu isso por todos esses anos e hoje ele é reconhecidamente a versão alpha que precisávamos.&lt;/p&gt;
 &lt;p&gt;Veremos o que o futuro cada vez mais presente nos reserva.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Sobrecarga de função às avessas</title>
+  <link>http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/</link>
+  <pubDate>2012-05-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/</guid>
+  <description>&lt;blockquote&gt;
+&lt;p&gt;Nota do autor: navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo que uso até hoje no blogue) e um finado outro domínio meu, o CThings. No final, consegui &lt;a href=&#34;http://www.caloni.com.br/feitico-do-tempo&#34;&gt;matar a marmota&lt;/a&gt;, chegar a &lt;a href=&#34;http://www.caloni.com.br/de-volta-para-o-futuro&#34;&gt;80 milhas por hora&lt;/a&gt; e voltar para o presente. Enjoy!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Alguém já se perguntou se é possível usar sobrecarga de função quando a diferença não está nos parâmetros recebidos, mas no tipo de retorno? Melhor dizendo, imagine que eu tenha o seguinte código:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void CreateNewGUID(wstring&amp;amp;);
+void CreateNewGUID(GUID&amp;amp;);
+
+GUID guid;
+wstring guidS;
+
+CreateNewGUID(guidS);
+CreateNewGUID(guid);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wstring CreateNewGUID();
+GUID CreateNewGUID();
+
+GUID guid;
+wstring guidS;
+
+guid = CreateNewGUID();
+guidS = CreateNewGUID();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Voltando às teorias de C++ veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama com um &amp;quot;error C2556: &#39;GUID CreateNewGUID(void)&#39;: overloaded function differs only by return type from &#39;std::wstring CreateNewGUID(void)&#39;&amp;quot;. E obviamente ele está correto. O tipo de retorno não é uma propriedade da função que exclua a ambiguidade em sua chamada. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).&lt;/p&gt;
+&lt;p&gt;Como não podemos utilizar funções ordinárias o jeito é criar nosso próprio tipo de função que dê conta do recado usando a sobrecarga do operador de conversão de tipos. O operador de conversão suporta sobrecarga porque é na conversão que o compilador decide qual função chamar.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct CreateNewGUID
+{
+  operator wstring ();
+  operator GUID ();
+}; 
+
+guid = CreateNewGUID();
+guidS = CreateNewGUID();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora com o novo tipo CreateNewGUID é possível chamá-lo como uma função, o que na prática cria uma nova instância da struct. Ao atribuir o retorno dessa instância a uma variável do tipo wstring ou GUID os operadores de conversão serão requisitados, cada um dependendo do tipo da variável a qual será atribuído o retorno.&lt;/p&gt;
+&lt;p&gt;Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct CreateNewGUID
+{
+  operator wstring ()
+  {
+    wstring ret;
+    // cria guid
+    return ret;
+  }
+
+  operator GUID ()
+  {
+    GUID ret;
+    // cria guid
+    return ret;
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas. E voltando à pergunta original, penso que, com criatividade e C++, nada é impossível. =)&lt;/p&gt;
 </description>
 </item>
 
