@@ -119,17 +119,12 @@
 &lt;p&gt;The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor. Just this: simple, efficient and mouseless =).&lt;/p&gt;
 &lt;p&gt;There are some options like drag-and-drop and double-click, both available through the program. You can choose to use a keyboard shortcut or the mode state, where you can switch the program default among simple-click, double-click and drag-and-drop.&lt;/p&gt;
 &lt;p&gt;MouseTool was originally a open source tool. That means the lastest open source code is available, right? Wrong. Actually, I was unable to find it in every place I looked for.&lt;/p&gt;
-&lt;p&gt;Fortunately, my friend Marcio Andrey [2] has got the source, and just like me, he wanted to make it available to everyone who would like to use it and change it. That&#39;s why I&#39;m publishing it here. It&#39;s free, and it&#39;s 4all =).&lt;/p&gt;
+&lt;p&gt;Fortunately, my friend &lt;a href=&#34;http://marcioandreyoliveira.blogspot.com/search/label/GMouseTool&#34;&gt;Marcio Andrey&lt;/a&gt; has got the source, and just like me, he wanted to make it available to everyone who would like to use it and change it. That&#39;s why I&#39;m publishing it in &lt;a href=&#34;https://github.com/Caloni/mtool&#34;&gt;GitHub&lt;/a&gt;. It&#39;s free, and it&#39;s 4all =).&lt;/p&gt;
 &lt;p&gt;Let&#39;s make use of this source and show how to explore a code not written by us. Normally the first things to do are: download the compacted file and extract the files into a new folder. So we find the project file (in this case, MouseTool.dsw) and try to open it. The result is a total failure, because I believe no one use the Visual Studio version that opens this kind of file (it will convert it to another one).&lt;/p&gt;
 &lt;p&gt;Normally open source projects programmers are used to get the source code files, modify them, use them, publish them and all. But this is not always true about strict Windows commercial programmers.&lt;/p&gt;
 &lt;p&gt;Given the source files, we can explore some interesting parts we&#39;d like to do someday in our own programs. And the main part is: we have the source, but not the copyright.&lt;/p&gt;
-&lt;p&gt;Click in the link in the end of the post and make good use of it [3].&lt;/p&gt;
-&lt;p&gt;PS: MouseTool now has a home page and a Source Forge project! Its new name is GMouseTool [2].&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[1] &lt;a href=&#34;https://blog.codinghorror.com/going-commando-put-down-the-mouse/&#34;&gt;https://blog.codinghorror.com/going-commando-put-down-the-mouse/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[2] &lt;a href=&#34;http://marcioandreyoliveira.blogspot.com/search/label/GMouseTool&#34;&gt;http://marcioandreyoliveira.blogspot.com/search/label/GMouseTool&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[3] &lt;a href=&#34;https://github.com/Caloni/mtool&#34;&gt;https://github.com/Caloni/mtool&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Click in the link in the end of the post and make good use of it.&lt;/p&gt;
+&lt;p&gt;Update: MouseTool now has a home page and a Source Forge project! Its new name is &lt;a href=&#34;http://gmousetool.sourceforge.net&#34;&gt;GMouseTool&lt;/a&gt;.&lt;/p&gt;
 </description>
 </item>
 

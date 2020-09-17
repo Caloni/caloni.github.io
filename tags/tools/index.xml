@@ -764,6 +764,40 @@ Devido a alguns problemas, recomendo que use o texto exibido na tela do gerador 
 
      
         <item>
+  <title>Sed, Grep e afins</title>
+  <link>http://www.caloni.com.br/sed-grep-e-afins/</link>
+  <pubDate>2008-03-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/sed-grep-e-afins/</guid>
+  <description>&lt;p&gt;Esse artigo é resultado de eu ter me matado para conseguir encontrar a forma correta de usar o aplicativo sed para fazer uma filtragem simples nos resultados de uma listagem de arquivos.&lt;/p&gt;
+&lt;p&gt;Primeiramente, eu gostaria de expressar minha total surpresa ao não conseguir encontrar um guia simples e confiável de uso dessas ferramentas na web. Existem três teorias: ou eu não sei usar as palavras mágicas certas no Google, ou a indexação das páginas realmente importantes sobre o assunto não funcionam com o Google, ou de fato não existe documentação fácil sobre o tema.&lt;/p&gt;
+&lt;p&gt;Como esta é uma exceção em anos de &amp;quot;googadas&amp;quot;, eu fico com a terceira opção.&lt;/p&gt;
+&lt;p&gt;Existem algumas ferramentas que já salvaram minha vida uma dúzia de vezes e devo admitir que são tão poderosas e flexíveis quanto difíceis de usar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Grep. Use esta se quiser fazer uma busca, qualquer busca, em um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.&lt;/li&gt;
+&lt;li&gt;Sed. Use esta se quiser processar a entrada de um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.&lt;/li&gt;
+&lt;li&gt;Sort. Use esta se quiser ordenar qualquer coisa da entrada padrão (inclusive arquivos, conjunto de arquivos...).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Essas ferramentas são nativas do ambiente Linux, mas podem ser instaladas no Windows através do Cygwin, do Mingw ou nativamente através das ferramentas GnuWin32.&lt;/p&gt;
+&lt;p&gt;O que eu queria era processar a saída de um programa de forma que eu tivesse a lista de todas as extensões dos arquivos. Por exemplo, para a seguinte entrada:&lt;/p&gt;
+&lt;p&gt;Eu gostaria de uma saída no seguinte formato:&lt;/p&gt;
+&lt;p&gt;Basicamente é isso.&lt;/p&gt;
+&lt;p&gt;Sabendo que processamento de entrada estaria envolvido, logo pensei em utilizar o sed para a tarefa. Justiça seja feita, depois de eu perder uma hora e meia em pesquisa eu encontrei um tutorial muito bom para quem está começando a entender melhor o funcionamento do sed, e é nele que me baseei para resolver meu problema e escrever este artigo.&lt;/p&gt;
+&lt;p&gt;Obs.: sim, eu conheço os tutoriais do Aurélio, e aprendi regex através do livro dele. Contudo, seu guia do sed não é tão bom quanto parece, e apesar de lê-lo de cabo a rabo, acabei precisando de ajuda extra.&lt;/p&gt;
+&lt;p&gt;Para filtrar o path do arquivo, e ao mesmo tempo retirar seu nome, podemos usar o seguinte comando (fora outras trilhões de variantes):&lt;/p&gt;
+&lt;p&gt;Após esse processamento, a saída é um monte de extensões vindas de um monte de arquivos:&lt;/p&gt;
+&lt;p&gt;Como podemos ver e é óbvio de imaginar, muitas extensões irão se repetir. Para eliminar as repetições e ordenar a saída da saída corretamente, usamos o comando sort:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Os caracteres .*[]^$\ dão problemas se usados sem escape no sed, pois fazem parte dos comandos para procurar expressões regulares. Use-os com o caractere de escape .&lt;/li&gt;
+&lt;li&gt;Para concatenar comandos no sed, use sempre -e &amp;quot;comando&amp;quot;. A ordem de execução dos comandos é a ordem em que eles são inseridos na linha de comando, ou seja, podemos confiar que no segundo comando o primeiro já terá sido executado e assim por diante.&lt;/li&gt;
+&lt;li&gt;Para fazer o escape das barras do caminho de um arquivo temos que usar o conjunto / (obs.: caminhos em formato Unix). Para evitar esse uso enfadonho podemos substituir o caractere de divisão do comando s colocando-o na frente: s#/path#/outropath#&lt;/li&gt;
+&lt;li&gt;Para agrupar expressõe, use sempre &amp;quot;(&amp;quot; e &amp;quot;)&amp;quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+</item>
+
+     
+        <item>
   <title>Temas no WinDbg</title>
   <link>http://www.caloni.com.br/temas-no-windbg/</link>
   <pubDate>2008-01-14</pubDate>

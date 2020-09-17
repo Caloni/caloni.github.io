@@ -5,9 +5,29 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>lists</title>
+  <link>http://www.caloni.com.br/tags/lists/</link>
+  <pubDate>2020-09-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/lists/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>windows</title>
+  <link>http://www.caloni.com.br/tags/windows/</link>
+  <pubDate>2020-09-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/windows/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>draft</title>
@@ -285,16 +305,6 @@
   <pubDate>2020-04-05</pubDate>
   
   <guid>http://www.caloni.com.br/tags/puzzle/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>lists</title>
-  <link>http://www.caloni.com.br/tags/lists/</link>
-  <pubDate>2019-12-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/lists/</guid>
   <description></description>
 </item>
 
