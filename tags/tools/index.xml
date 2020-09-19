@@ -241,28 +241,32 @@ BEGIN {
 
      
         <item>
-  <title>Entrando na zona com Vim</title>
+  <title>Entrando na Zona com Vim</title>
   <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
   <pubDate>2017-01-05</pubDate>
   
   <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
-  <description>&lt;p&gt;Se você é programador é bem provável que já tenha ouvido falar em [Flow] &lt;a href=&#34;https://en.wikipedia.org/wiki/Flow(psychology)&#34;&gt;1&lt;/a&gt; ou [The Zone] &lt;a href=&#34;https://hn.algolia.com/?query=the%20zone&#34;&gt;2&lt;/a&gt;. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.&lt;/p&gt;
+  <description>&lt;p&gt;Se você é programador é bem provável que já tenha ouvido falar em &lt;a href=&#34;https://en.wikipedia.org/wiki/Flow(psychology)&#34;&gt;Flow&lt;/a&gt; ou &lt;a href=&#34;https://hn.algolia.com/?query=the%20zone&#34;&gt;The Zone&lt;/a&gt;. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.&lt;/p&gt;
 &lt;p&gt;Na zona, principalmente resolvendo problemas complexos, o importante é poder construir uma estrutura em sua mente com a ajuda de alguns aparatos, como um caderno de anotações, stickers, lousa ou seu editor preferido. Meu editor preferido para navegar (flow) por um código é sem sombra de dúvida o Vim, pois ele é apenas uma tela que preenche todo meu campo de visão e possui comandos em que eu consigo facilmente acessar o conteúdo que preciso relembrar. Quando estou obtendo o diagnóstico de um log, por exemplo, posso rapidamente ir construindo um modelo mental da solução navegando entre arquivos de log e código-fonte através de tags e buscas em regex.&lt;/p&gt;
 &lt;p&gt;A primeira vantagem do Vim em relação a outros editores é sua capacidade de abrir arquivos grandes. Um log de 1GB pode ser um desafio para um Notepad da vida, e até para um Visual Studio, mas no Vim tudo que você precisa é de memória disponível. E mesmo que não tenha, o Windows se vira bem no gerenciamento de swap (ou Linux, tanto faz).&lt;/p&gt;
 &lt;p&gt;Para navegar no código, existem duas técnicas que não necessitam de nenhum plugin. A primeira é a busca por regex, que pode ser feita com os comandos :vimgrep ou :grep, sendo que o primeiro busca em um padrão de arquivos (usando wildcard) e o segundo dentro dos buffers já abertos (útil se você já tiver uma sessão ativa; mais sobre isso depois).&lt;/p&gt;
 &lt;p&gt;O bom é que, no caso de logs, se você buscar por expressões unívocas, isso já fica no histórico de seus comandos e você pode usar quando quiser para voltar para esses logs (ou se você for maluco e guardar de cabeça seus marks, pode criar um mark de vez).&lt;/p&gt;
 &lt;p&gt;A segunda técnica de navegar no código é através das tags que são montadas pela ferramenta ctags. Ela é genérica o suficiente para suportar várias linguagens, mas pode ser usada até para qualquer sequência de palavras. Há plugins que realizam essa varredura do fonte automática, mas particularmente não gosto de encher meu Vim de plugins, sendo que o único que uso que me lembro é o MRU (porque o Vim ainda não suporta algo do gênero internamente). De qualquer forma, tudo que eu preciso fazer para atualizar as tags de um projeto é abrir o readme do projeto (que geralmente fica na pasta raiz) e rodar meu atalho.&lt;/p&gt;
-&lt;p&gt;Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato na verdade é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects\SomeProject\Folder1\Folder2\Folder3\File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cai em SomeProject.&lt;/p&gt;
-&lt;p&gt;Como no Windows o atalho padrão do comando tag do Vim não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados):&lt;/p&gt;
+&lt;p&gt;Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects, SomeProject, Folder1, Folder2, Folder3, File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cair em SomeProject.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set tags=tags;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como no Windows o atalho padrão do comando tag do Vim (&lt;code&gt;C-]&lt;/code&gt;) não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;map &amp;lt;C-K&amp;gt; &amp;lt;C-]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Depois de dar uma olhada no log, encontrar os métodos que você precisa analisar, seu fluxo, etc, você terá um monte de buffers relevantes abertos nas linhas relevantes. Seria muito bom se tudo isso pudesse ser guardado em um estado para que você continue amanhã ou em sua próxima sessão de flow. Para isso existe o comando :mksession.&lt;/p&gt;
-&lt;p&gt;O comando :source roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.&lt;/p&gt;
+&lt;p&gt;Por último: o comando :source roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.&lt;/p&gt;
 &lt;p&gt;Basicamente é isso. Tudo o que você precisa em sua análise de fonte e de log se encontra na ponta de seus dedos. Não é necessário abrir nenhuma pasta nem terminal. Simplesmente navegue através do Vim para descobrir o problema e seja feliz em sua zona.&lt;/p&gt;
 </description>
 </item>
 
      
         <item>
-  <title>Guardando senhas com Vim</title>
+  <title>Guardando Senhas com Vim</title>
   <link>http://www.caloni.com.br/guardando-senhas-com-vim/</link>
   <pubDate>2016-10-05</pubDate>
   
@@ -273,36 +277,30 @@ BEGIN {
 &lt;p&gt;A vantajosa é que não há como automatizar um brute force em cima de arquivos encriptados pelo Vim, pois não há muitos sinais de que o arquivo foi desencriptado. Claro, por amostragem de texto é possível saber se a senha foi ou não satisfatória, mas a beleza está em não existir nada específico na estrutura do editor que diga se a senha foi ou não bem sucedida.&lt;/p&gt;
 &lt;p&gt;A perigosa é que uma vez que você digite a senha errada, muito cuidado com o lixo que você verá no seu buffer. Se por força do hábito for salvar o conteúdo, poderá perder o conteúdo do arquivo original, que estava encriptado com uma senha que você conhecia, mas que agora foi salvo após ter sido desencriptado com a senha errada. Ou seja, não há como reaver o conteúdo original a não ser com muito suor.&lt;/p&gt;
 &lt;p&gt;O mais prático de tudo é usar esse modelo de arquivo encriptado pelo Vim para salvar senhas. Um arquivo de senhas pode ser tão simples quando login/senha de todas as senhas que você deseja guardar, e tão bem protegido quanto a força de sua senha master. Nada mais, nada menos. De quebra, um arquivo pequeno cujo backup pode ser sincronizado instantaneamente na nuvem (usando Google Drive, Dropbox ou One Drive), ou até mantido em um controle de fonte (embora ele seja tratado como binário).&lt;/p&gt;
-&lt;p&gt;Se você gostou desse modelo, seguem os comandos para pesquisar (:help comando):&lt;/p&gt;
-&lt;p&gt;Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler o artigo da invert.&lt;/p&gt;
+&lt;p&gt;Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opções &amp;quot;cm&amp;quot; e &amp;quot;:X&amp;quot;. Leia com atenção. Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler um artigo da invert (não me lembro o link).&lt;/p&gt;
 </description>
 </item>
 
      
         <item>
-  <title>Usando GVim com projetos do Visual Studio</title>
+  <title>Usando GVim com Projetos do Visual Studio</title>
   <link>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</link>
   <pubDate>2016-09-18</pubDate>
   
   <guid>http://www.caloni.com.br/usando-gvim-com-projetos-do-visual-studio/</guid>
-  <description>&lt;p&gt;A vida dos programadores C/C++ Windows -- e que geralmente precisam do Visual Studio -- está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .NET, do Visual Studio 2003 e dos XMLs disfarçados como arquivos de projeto e solution, o uso do makefile foi paulatinamente abandonado, gerando diferentes versões de ferramentas -- todas incompatíveis -- para conseguir compilar um ou mais cpps e conseguir ver o resultado.&lt;/p&gt;
-&lt;p&gt;Por isso mesmo é um assunto pouco explorado nos fóruns do Stack Overflow como configurar decentemente o comando :make do Vim para conseguir realizar o ciclor program-compile-debug que já era feito desde a época do Amiga OS (e conhecido no manual do Vim como Quickfix). Ninguém se dá ao trabalho de usar esse modelo torto.&lt;/p&gt;
+  <description>&lt;p&gt;A vida dos programadores C/C++ Windows, e que geralmente precisam do Visual Studio, está um abandono total. A configuração de make dos projetos sempre foi baseada no uso de makefiles, assim como no Unix, e por isso mesmo o uso da ferramenta nmake do SDK do Windows era a maneira padrão de se compilar e ver o resultado de dentro do Vim para projetos Windows. Com o advento do .NET, do Visual Studio 2003 e dos XMLs disfarçados como arquivos de projeto e solution o uso do makefile foi paulatinamente abandonado, gerando diferentes versões de ferramentas, todas incompatíveis, para conseguir compilar um ou mais cpps e conseguir ver o resultado.&lt;/p&gt;
+&lt;p&gt;Por isso mesmo é um assunto pouco explorado nos fóruns do Stack Overflow como configurar decentemente o comando :make do Vim para conseguir realizar o ciclo &amp;quot;program, compile, debug&amp;quot; que já era feito desde a época do Amiga OS (e conhecido no manual do Vim como Quickfix). Ninguém se dá ao trabalho de usar esse modelo torto.&lt;/p&gt;
 &lt;p&gt;Houve um tempo que eu mesmo pesquisei algumas soluções, e caí no velho problema de tentar conviver com diferentes versões do Visual Studio. Deixei de lado o Vim por uns anos, e passei a usar o VsVim, um plugin que roda em várias versões do Visual Studio e utiliza o vimrc de sua instalação.&lt;/p&gt;
 &lt;p&gt;Hoje voltei a fuçar esse problema e depois de algumas horas tentando entender qual a dinâmica que deve ser seguida, cheguei a dois usos legítimos do make no Visual Studio: o modo legado, através do devenv, e o modo comportado, que usa a ferramenta MsBuild para encontrar o projeto e a solution que devem ser compilados.&lt;/p&gt;
 &lt;p&gt;A não ser que você coloque o path das ferramentas direto nos comandos (algo que não recomendo pois as coisas no Vim começam a ficar estranhas com paths com espaços, algo abundante no Windows) é preferível que você escolha qual devenv e qual msbuild deseja utilizar e definir isso na variável de sistema path. No meu exemplo estou usando o msbuild para qualquer Visual Studio acima do 2010 (como o 2015), pois já está padronizado, e como tenho projetos no VS2003 para manter, escolhi deixar o devenv.com com ele.&lt;/p&gt;
-&lt;p&gt;Note que essa configuração, para ficar persistente, precisa ser definida através do Painel de Controle ou Propriedades do Sistema. Google for it.&lt;/p&gt;
-&lt;p&gt;Depois de configurado, qualquer projeto deve ser compilável em 2003 pela linha de comando (através do devenv.com):&lt;/p&gt;
-&lt;p&gt;Da mesma forma, projetos 2010+ devem usar o msbuild:&lt;/p&gt;
-&lt;p&gt;Pois é. Tirando essa facilidade, as coisas no Vim para msbuild rodam particularmente bem. Basta alterarmos o makeprg da seguinte maneira:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note que essa configuração, para ficar persistente, precisa ser definida através do Painel de Controle ou Propriedades do Sistema. Google for it.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Depois de configurado, qualquer projeto deve ser compilável em 2003 pela linha de comando (através do devenv.com). E mesma forma, projetos 2010+ devem usar o msbuild. Tirando essa facilidade, as coisas no Vim para msbuild rodam particularmente bem. Basta alterarmos o makeprg da seguinte maneira: &amp;quot;:set makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true&lt;!-- raw HTML omitted --&gt;&amp;quot;.&lt;/p&gt;
 &lt;p&gt;As opções específicas são para gerar o path completo, as barras invertidas são por causa dessa mania do Vim de dar pau quando tem espaço em tudo.&lt;/p&gt;
-&lt;p&gt;A partir dessa configuração já é possível compilar um projeto estando em sua pasta:&lt;/p&gt;
-&lt;p&gt;Para o Visual Studio 2003 (ou qualquer um usando o devenv.com) é necessário mudar esse comando:&lt;/p&gt;
-&lt;p&gt;Sim, temos que escolher uma configuração (o msbuild já escolhe por você). E note que ele usa o arquivo atual (%) para compilar. Isso quer dizer que isso irá exigir do usuário de Vim abrir o sln ou o vcproj e executar o :make a partir daí. De qualquer forma, ele funciona também:&lt;/p&gt;
-&lt;p&gt;Note que em nenhum dos casos erros conseguirão ser capturados para irmos direto no ponto do código-fonte onde ele está. Para isso funcionar, em nosso último passo, é necessário configurar o errorformat para que ele tenha um padrão que funcione com ambas as ferramentas. Depois de testar um pouco, cheguei nesse formato:&lt;/p&gt;
-&lt;p&gt;Ele pega também os warnings, mas fazer o quê. Você não quer conviver com warnings em seu código pelo resto da vida, né? =)&lt;/p&gt;
+&lt;p&gt;A partir dessa configuração já é possível compilar um projeto estando em sua pasta. Para o Visual Studio 2003 (ou qualquer um usando o devenv.com) é necessário mudar esse comando para o uso do devenv: &amp;quot;:set makeprg=devenv\ %\ /build\ Debug&lt;!-- raw HTML omitted --&gt;&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Sim, temos que escolher uma configuração (o msbuild já escolhe por você). E note que ele usa o arquivo atual (%) para compilar. Isso quer dizer que isso irá exigir do usuário de Vim abrir o sln ou o vcproj e executar o :make a partir daí. De qualquer forma, ele funciona também.&lt;/p&gt;
+&lt;p&gt;Note que em nenhum dos casos erros conseguirão ser capturados para irmos direto no ponto do código-fonte onde ele está. Para isso funcionar, em nosso último passo, é necessário configurar o errorformat para que ele tenha um padrão que funcione com ambas as ferramentas. Depois de testar um pouco, cheguei nesse formato: &amp;quot;set errorformat=%f(%l)%m&amp;quot;. Talvez isso mude no futuro, pois sabe como é a Microsoft com suporte a linha de comando. Este formato pega também os warnings, mas fazer o quê. Você não quer conviver com warnings em seu código pelo resto da vida, né? =)&lt;/p&gt;
 &lt;p&gt;E para navegar na lista é como o resultado de comandos como :vimgrep. :cnext e :cprevious vão para frente e para trás na lista, sempre pulando para o ponto no código onde está o erro.&lt;/p&gt;
-&lt;p&gt;Como deu pra perceber, para conseguir usar o msbuild e o devenv ao mesmo tempo você seria obrigado a trocar o makeprg sempre que precisasse. Para facilitar seu uso, nada como fazer um mapeamento de atalhos:&lt;/p&gt;
-&lt;p&gt;Para alguém curioso para ver minhas configurações do Vim (quem quiser compartilhar também, fique à vontade), segue.&lt;/p&gt;
+&lt;p&gt;Como deu pra perceber, para conseguir usar o msbuild e o devenv ao mesmo tempo você seria obrigado a trocar o makeprg sempre que precisasse. Para facilitar seu uso, nada como fazer um mapeamento de atalhos com o uso do comando map do vim.&lt;/p&gt;
 </description>
 </item>
 
@@ -407,13 +405,13 @@ BEGIN {
 
      
         <item>
-  <title>Novos atalhos aprendidos no Vim</title>
+  <title>Novos Atalhos Aprendidos no Vim</title>
   <link>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</link>
   <pubDate>2012-06-09</pubDate>
   
   <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
   <description>&lt;p&gt;Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.&lt;/p&gt;
-&lt;p&gt;A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But it¿s a different set of commands for everybody.&amp;quot;&lt;/p&gt;
+&lt;p&gt;A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But &lt;strong&gt;it&#39;s a different set of commands for everybody&lt;/strong&gt;&amp;quot; (grifo meu).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;&amp;lt;C-W&amp;gt;&lt;/code&gt; Alterna entre janelas.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;-c&lt;/code&gt; Fecha a janela atual.&lt;/li&gt;

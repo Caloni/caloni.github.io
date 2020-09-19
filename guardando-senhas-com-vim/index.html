@@ -13,13 +13,13 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Guardando senhas com Vim</title>
+  <title>Blogue do Caloni - Guardando Senhas com Vim</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Guardando senhas com Vim"/>
+  <meta property="og:title" content="Guardando Senhas com Vim"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/guardando-senhas-com-vim/"/>
@@ -83,14 +83,20 @@
       <div class="container">
         <p class="title">
 
-Guardando senhas com Vim
+Guardando Senhas com Vim
 
 </p>
 
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2016-10-05
   
 
 </p>
@@ -107,8 +113,7 @@ Guardando senhas com Vim
 <p>A vantajosa é que não há como automatizar um brute force em cima de arquivos encriptados pelo Vim, pois não há muitos sinais de que o arquivo foi desencriptado. Claro, por amostragem de texto é possível saber se a senha foi ou não satisfatória, mas a beleza está em não existir nada específico na estrutura do editor que diga se a senha foi ou não bem sucedida.</p>
 <p>A perigosa é que uma vez que você digite a senha errada, muito cuidado com o lixo que você verá no seu buffer. Se por força do hábito for salvar o conteúdo, poderá perder o conteúdo do arquivo original, que estava encriptado com uma senha que você conhecia, mas que agora foi salvo após ter sido desencriptado com a senha errada. Ou seja, não há como reaver o conteúdo original a não ser com muito suor.</p>
 <p>O mais prático de tudo é usar esse modelo de arquivo encriptado pelo Vim para salvar senhas. Um arquivo de senhas pode ser tão simples quando login/senha de todas as senhas que você deseja guardar, e tão bem protegido quanto a força de sua senha master. Nada mais, nada menos. De quebra, um arquivo pequeno cujo backup pode ser sincronizado instantaneamente na nuvem (usando Google Drive, Dropbox ou One Drive), ou até mantido em um controle de fonte (embora ele seja tratado como binário).</p>
-<p>Se você gostou desse modelo, seguem os comandos para pesquisar (:help comando):</p>
-<p>Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler o artigo da invert.</p>
+<p>Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opções &quot;cm&quot; e &quot;:X&quot;. Leia com atenção. Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler um artigo da invert (não me lembro o link).</p>
 
             
 
@@ -117,7 +122,7 @@ Guardando senhas com Vim
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a>  <a href="/tags/tools">tools</a> 
+      <a href="/tags/blog">blog</a>  <a href="/tags/tools">tools</a> 
     
 
 

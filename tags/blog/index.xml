@@ -195,6 +195,67 @@ int operator();
 </item>
 
      
+        <item>
+  <title>Entrando na Zona com Vim</title>
+  <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
+  <pubDate>2017-01-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/entrando-na-zona-com-vim/</guid>
+  <description>&lt;p&gt;Se você é programador é bem provável que já tenha ouvido falar em &lt;a href=&#34;https://en.wikipedia.org/wiki/Flow(psychology)&#34;&gt;Flow&lt;/a&gt; ou &lt;a href=&#34;https://hn.algolia.com/?query=the%20zone&#34;&gt;The Zone&lt;/a&gt;. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &amp;quot;zona&amp;quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.&lt;/p&gt;
+&lt;p&gt;Na zona, principalmente resolvendo problemas complexos, o importante é poder construir uma estrutura em sua mente com a ajuda de alguns aparatos, como um caderno de anotações, stickers, lousa ou seu editor preferido. Meu editor preferido para navegar (flow) por um código é sem sombra de dúvida o Vim, pois ele é apenas uma tela que preenche todo meu campo de visão e possui comandos em que eu consigo facilmente acessar o conteúdo que preciso relembrar. Quando estou obtendo o diagnóstico de um log, por exemplo, posso rapidamente ir construindo um modelo mental da solução navegando entre arquivos de log e código-fonte através de tags e buscas em regex.&lt;/p&gt;
+&lt;p&gt;A primeira vantagem do Vim em relação a outros editores é sua capacidade de abrir arquivos grandes. Um log de 1GB pode ser um desafio para um Notepad da vida, e até para um Visual Studio, mas no Vim tudo que você precisa é de memória disponível. E mesmo que não tenha, o Windows se vira bem no gerenciamento de swap (ou Linux, tanto faz).&lt;/p&gt;
+&lt;p&gt;Para navegar no código, existem duas técnicas que não necessitam de nenhum plugin. A primeira é a busca por regex, que pode ser feita com os comandos :vimgrep ou :grep, sendo que o primeiro busca em um padrão de arquivos (usando wildcard) e o segundo dentro dos buffers já abertos (útil se você já tiver uma sessão ativa; mais sobre isso depois).&lt;/p&gt;
+&lt;p&gt;O bom é que, no caso de logs, se você buscar por expressões unívocas, isso já fica no histórico de seus comandos e você pode usar quando quiser para voltar para esses logs (ou se você for maluco e guardar de cabeça seus marks, pode criar um mark de vez).&lt;/p&gt;
+&lt;p&gt;A segunda técnica de navegar no código é através das tags que são montadas pela ferramenta ctags. Ela é genérica o suficiente para suportar várias linguagens, mas pode ser usada até para qualquer sequência de palavras. Há plugins que realizam essa varredura do fonte automática, mas particularmente não gosto de encher meu Vim de plugins, sendo que o único que uso que me lembro é o MRU (porque o Vim ainda não suporta algo do gênero internamente). De qualquer forma, tudo que eu preciso fazer para atualizar as tags de um projeto é abrir o readme do projeto (que geralmente fica na pasta raiz) e rodar meu atalho.&lt;/p&gt;
+&lt;p&gt;Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects, SomeProject, Folder1, Folder2, Folder3, File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cair em SomeProject.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set tags=tags;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como no Windows o atalho padrão do comando tag do Vim (&lt;code&gt;C-]&lt;/code&gt;) não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;map &amp;lt;C-K&amp;gt; &amp;lt;C-]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Depois de dar uma olhada no log, encontrar os métodos que você precisa analisar, seu fluxo, etc, você terá um monte de buffers relevantes abertos nas linhas relevantes. Seria muito bom se tudo isso pudesse ser guardado em um estado para que você continue amanhã ou em sua próxima sessão de flow. Para isso existe o comando :mksession.&lt;/p&gt;
+&lt;p&gt;Por último: o comando :source roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.&lt;/p&gt;
+&lt;p&gt;Basicamente é isso. Tudo o que você precisa em sua análise de fonte e de log se encontra na ponta de seus dedos. Não é necessário abrir nenhuma pasta nem terminal. Simplesmente navegue através do Vim para descobrir o problema e seja feliz em sua zona.&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Guardando Senhas com Vim</title>
+  <link>http://www.caloni.com.br/guardando-senhas-com-vim/</link>
+  <pubDate>2016-10-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/guardando-senhas-com-vim/</guid>
+  <description>&lt;p&gt;Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR. E é aí que entra em cena o Vim 8.&lt;/p&gt;
+&lt;p&gt;A nova versão do meu editor favorito não apresenta o defeito do algoritmo blowfish anterior, ou apresenta, mas dessa vez fornece uma versão atualizada (claro que, por razões de compatibilidade, foram mantidos os algoritmos anteriores).&lt;/p&gt;
+&lt;p&gt;O que eu gosto no modelo do Vim de encriptar arquivos é que eles são encriptados apenas na escrita, e na leitura o usuário deve digitar a senha. Se a senha não correponder ao que foi usado para encriptá-lo, não há mensagem de erro: o editor irá simplesmente exibir o lixo gerado pela sua senha errada. Isso gera uma situação vantajosa e uma perigosa.&lt;/p&gt;
+&lt;p&gt;A vantajosa é que não há como automatizar um brute force em cima de arquivos encriptados pelo Vim, pois não há muitos sinais de que o arquivo foi desencriptado. Claro, por amostragem de texto é possível saber se a senha foi ou não satisfatória, mas a beleza está em não existir nada específico na estrutura do editor que diga se a senha foi ou não bem sucedida.&lt;/p&gt;
+&lt;p&gt;A perigosa é que uma vez que você digite a senha errada, muito cuidado com o lixo que você verá no seu buffer. Se por força do hábito for salvar o conteúdo, poderá perder o conteúdo do arquivo original, que estava encriptado com uma senha que você conhecia, mas que agora foi salvo após ter sido desencriptado com a senha errada. Ou seja, não há como reaver o conteúdo original a não ser com muito suor.&lt;/p&gt;
+&lt;p&gt;O mais prático de tudo é usar esse modelo de arquivo encriptado pelo Vim para salvar senhas. Um arquivo de senhas pode ser tão simples quando login/senha de todas as senhas que você deseja guardar, e tão bem protegido quanto a força de sua senha master. Nada mais, nada menos. De quebra, um arquivo pequeno cujo backup pode ser sincronizado instantaneamente na nuvem (usando Google Drive, Dropbox ou One Drive), ou até mantido em um controle de fonte (embora ele seja tratado como binário).&lt;/p&gt;
+&lt;p&gt;Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opções &amp;quot;cm&amp;quot; e &amp;quot;:X&amp;quot;. Leia com atenção. Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler um artigo da invert (não me lembro o link).&lt;/p&gt;
+</description>
+</item>
+
+     
+        <item>
+  <title>Novos Atalhos Aprendidos no Vim</title>
+  <link>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</link>
+  <pubDate>2012-06-09</pubDate>
+  
+  <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
+  <description>&lt;p&gt;Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.&lt;/p&gt;
+&lt;p&gt;A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But &lt;strong&gt;it&#39;s a different set of commands for everybody&lt;/strong&gt;&amp;quot; (grifo meu).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;&amp;lt;C-W&amp;gt;&lt;/code&gt; Alterna entre janelas.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;-c&lt;/code&gt; Fecha a janela atual.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;C-W&amp;gt;-o&lt;/code&gt; Fecha todas as janelas menos a atual.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:ball&lt;/code&gt; Abre todos os buffers em janelas distintas.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;g &amp;lt;C-G&amp;gt;&lt;/code&gt; Conta linhas, palavras, etc, no texto todo ou na seleção atual.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+</item>
+
+     
     
   </channel>
 </rss>
