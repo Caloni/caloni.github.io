@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Alguns implementam mutex pero no mucho, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo..."/>
+        content="Alguns implementam o famigerado &quot;mutex pero no mucho&quot;, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -90,7 +90,13 @@ Meu Try Lock de Pelúcia
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2020-04-07
   
 
 </p>
@@ -101,9 +107,20 @@ Meu Try Lock de Pelúcia
           <div class="content">
 
             
-              <p>Alguns implementam mutex pero no mucho, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo que pode ou não rodar multithread.</p>
-<p>Já isso me lembra o try lock de pelúcia de um driver de uma empresa que trabalhei certa vez. Como havia situações onde o lock não era nunca liberado, e a thread estava rodando em um nível de interrupção que não poderia mais voltar, ou ela agendava uma execução menos prioritária ou obtia o lock. Mas baixar a prioridade não era uma opção para o programador MacGyver. Então o código acabou ficando mais ou menos assim:</p>
-<p>Ninguém mandou mexer com o dadinho.</p>
+              <p>Alguns implementam o famigerado &quot;mutex pero no mucho&quot;, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo que pode ou não rodar multithread.</p>
+<p>Mas isso é uma coisa. Outra coisa é o try lock de pelúcia de um driver de uma empresa que trabalhei certa vez. Como havia situações onde o lock não era nunca liberado, e a thread estava rodando em um nível de interrupção que não poderia mais voltar, ou ela agendava uma execução menos prioritária ou obtia o lock. Mas baixar a prioridade não era uma opção para o programador MacGyver. Então o código acabou pegando o lock na marra.</p>
+<pre><code>if( ! try_aquire_mutex() )
+// dá um tempo...
+
+if( ! try_aquire_mutex() )
+// dá um tempo...
+
+// ...
+
+// ah, dane-se,
+// eu vou pegar esse mutex!
+aquire_mutex();
+</code></pre>
 
             
 
@@ -112,14 +129,14 @@ Meu Try Lock de Pelúcia
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a>  <a href="/tags/fun">fun</a> 
+      <a href="/tags/blog">blog</a>  <a href="/tags/fun">fun</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/e-ai-irmao-cade-voce/">&#x25C1; E Aí, Meu Irmão, Cadê Você?</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/e-ai-meu-irmao-cade-voce/">&#x25C1; E Aí, Meu Irmão, Cadê Você?</a></span>
 <span class="prev-in-section"><a href="http://www.caloni.com.br/central-do-brasil/">&#x25B7; Central do Brasil</a></span>
 
         </div>
