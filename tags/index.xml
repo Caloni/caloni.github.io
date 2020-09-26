@@ -5,16 +5,26 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Fri, 25 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
-  <title>coffee</title>
-  <link>http://www.caloni.com.br/tags/coffee/</link>
-  <pubDate>2020-09-25</pubDate>
+  <title>cinemaqui</title>
+  <link>http://www.caloni.com.br/tags/cinemaqui/</link>
+  <pubDate>2020-09-26</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/coffee/</guid>
+  <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-09-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
@@ -22,7 +32,7 @@
         <item>
   <title>movies</title>
   <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-09-18</pubDate>
+  <pubDate>2020-09-26</pubDate>
   
   <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
@@ -32,9 +42,19 @@
         <item>
   <title>reviews</title>
   <link>http://www.caloni.com.br/tags/reviews/</link>
-  <pubDate>2020-09-18</pubDate>
+  <pubDate>2020-09-26</pubDate>
   
   <guid>http://www.caloni.com.br/tags/reviews/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>coffee</title>
+  <link>http://www.caloni.com.br/tags/coffee/</link>
+  <pubDate>2020-09-25</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/coffee/</guid>
   <description></description>
 </item>
 
@@ -55,16 +75,6 @@
   <pubDate>2020-09-16</pubDate>
   
   <guid>http://www.caloni.com.br/tags/windows/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-09-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
@@ -125,16 +135,6 @@
   <pubDate>2020-08-10</pubDate>
   
   <guid>http://www.caloni.com.br/tags/books/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>cinemaqui</title>
-  <link>http://www.caloni.com.br/tags/cinemaqui/</link>
-  <pubDate>2020-08-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
   <description></description>
 </item>
 
