@@ -5,9 +5,19 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>books</title>
+  <link>http://www.caloni.com.br/tags/books/</link>
+  <pubDate>2020-09-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/books/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>cinemaqui</title>
@@ -125,16 +135,6 @@
   <pubDate>2020-08-19</pubDate>
   
   <guid>http://www.caloni.com.br/tags/wine/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>books</title>
-  <link>http://www.caloni.com.br/tags/books/</link>
-  <pubDate>2020-08-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/books/</guid>
   <description></description>
 </item>
 
