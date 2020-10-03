@@ -13,20 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Lista Ligada; tá ligado?</title>
+  <title>Blogue do Caloni - Lista Ligada; tá Ligado?</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Lista Ligada; tá ligado?"/>
+  <meta property="og:title" content="Lista Ligada; tá Ligado?"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/lista-ligada/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque..."/>
+        content="Uma lista ligada é uma lista de alguma coisa onde os elementos se ligam um no outro, ou seja, um elemento tem a referência do próximo. O tipo dos elementos de uma lista ligada pode ser inteiros,..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -83,14 +83,20 @@
       <div class="container">
         <p class="title">
 
-Lista Ligada; tá ligado?
+Lista Ligada; tá Ligado?
 
 </p>
 
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças.
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2018-04-24
   
 
 </p>
@@ -101,18 +107,85 @@ Lista Ligada; tá ligado?
           <div class="content">
 
             
-              <p>Uma lista ligada é uma lista de alguma coisa. Essa alguma coisa podem ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque existe além dos dados em si mais uma informação que você precisará guardar em cada elemento de sua lista: o próximo elemento.</p>
-<p>Sua estrutura pode ser simples e direta. Digamos uma lista ligada de idades vai ter o endereço do próximo elemento e o dado propriamente dito deste elemento (a idade):</p>
-<p>A primeira coisa que você precisa ter em sua lista é onde ela começa. Isso pode ser uma variável especial que não é usada para nada exceto indicar qual o primeiro elemento da sua lista (esse, sim, um elemento). Ele pode ser simplesmente um ponteiro para o próximo (no caso o primeiro) elemento.</p>
+              <p>Uma lista ligada é uma lista de alguma coisa onde os elementos se ligam um no outro, ou seja, um elemento tem a referência do próximo. O tipo dos elementos de uma lista ligada pode ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque existe além dos dados em si mais uma informação que você precisará guardar em cada elemento de sua lista: o próximo elemento. E é daí que surge a ligação da lista ligada.</p>
+<pre><code>struct Node
+{
+  int number;
+  struct Node* next;
+};
+</code></pre>
+<p>Sua estrutura pode ser simples e direta. Digamos uma lista ligada de números vai ter o número que esse elemento armazena e o endereço para o próximo elemento. Em C guardamos o endereço de uma variável usando um ponteiro para o mesmo tipo de elemento (no caso um struct Node).</p>
+<p>O elemento mais importante de sua lista ligada é o primeiro elemento, pois sem ele você não consegue mais voltar ao início. Isso pode ser uma variável especial que não é usada para nada exceto indicar qual o primeiro elemento da sua lista. Essa variável não pode mudar, pois precisamos sempre ter uma referência para o início da lista, a não ser que o primeiro elemento seja removido (veremos adiante). Ele pode ser simplesmente um ponteiro para o &quot;próximo&quot; elemento,que no caso o primeiro elemento.</p>
+<p>struct Node* head = NULL;</p>
 <p>Este ponteiro começa em NULL porque a lista está vazia. Mas assim que inserirmos um item ele deixará de ser nulo.</p>
-<p>A única coisa que liga um elemento ao outro é o membro next:</p>
-<p>Geralmente adicionamos um novo elemento no meio de uma lista, e por isso não nos preocupamos aqui com o membro next sobrescrito (que obviamente é NULL). Porém, para um resultado mais genérico podemos verificar se ele de fato é NULL. Se não for ele se tornará o next do elemento inserido (o que quer dizer que ele não será o último!):</p>
-<p>Se formos sempre inserir um novo elemento no final também é interessante termos um ponteiro para o último elemento:</p>
-<p>É preciso prestar atenção quando temos muitas variáveis sobrando no código. Caso você esteja com sua lista ligada vazia, por exemplo, ghead e glast precisam ser atualizados!</p>
-<p>Se a lista não estiver vazia apenas o glast deve ser atualizado.</p>
-<p>Remover é a parte mais complicada de uma lista ligada, pois temos que atualizar o elemento de trás (se houver):</p>
-<p>Não parece tão complicado. Mas imagine que para realizar esta façanha você terá que encontrar o elemento que quer apagar, mas mantendo o elemento anterior em outra variável.</p>
-<p>Este artigo está incompleto de propósito, pois é preciso pensar antes de implementar uma solução. Para que você precisa de uma lista ligada, pra começo de conversa?</p>
+<pre><code>struct Node* node = 
+  (struct Node*) malloc(
+    sizeof(struct Node)
+  );
+
+node-&gt;number = 10;
+node-&gt;next = NULL;
+head = node;
+</code></pre>
+<p>Pronto, agora a lista não está mais vazia e a cabeça da lista aponta para o primeiro elemento. Note que você precisa sempre inicializar o membro next com NULL, uma vez que ele é o último elemento da lista e não possui próximo.</p>
+<p>Para inserir um novo elemento você pode inseri-lo no começo, no fim ou no meio de sua lista. No começo é o mais fácil, pois já temos o endereço do primeiro elemento.</p>
+<pre><code>struct Node* node = 
+  (struct Node*) malloc(
+    sizeof(struct Node)
+  );
+
+node-&gt;number = 10;
+node-&gt;next = next;
+head = node;
+</code></pre>
+<p>Para inserir um novo elemento no final da lista você terá que percorrê-la até achar o próximo elemento cujo membro next é igual a NULL, o que quer dizer que não há mais próximo. Nesse caso é importante saber se a lista está vazia. Se estiver basta atualizar a cabeça da lista e está pronto (como já visto).</p>
+<pre><code>struct Node* lnode = head;
+
+if( ! lnode )
+{
+  head = node;
+}
+else
+{
+  while( lnode-&gt;next )
+    lnode = lnode-&gt;next;
+  lnode-&gt;next = node;
+}
+</code></pre>
+<p>Se formos sempre inserir um novo elemento no final também é interessante termos um ponteiro para o último elemento (o tail), que também pode ser um ponteiro e começa com NULL. Quando for inserido o primeiro elemento ele também será o último, então devem ser atualizados os ponteiros head e tail com o mesmo valor.</p>
+<pre><code>struct Node* tail = NULL;
+</code></pre>
+<p>É preciso prestar atenção quando temos muitas variáveis com o estado de sua lista sobrando no código. Cada atualização na lista envolve atualizar todos os endereços envolvidos. Preste atenção sempre na hora que estiver escrevendo e depurando seu código ou se arrependerá por horas a fio em um fim-de-semana perdido.</p>
+<p>Acho que remover elementos da lista ligada é a parte mais complicada, pois temos que atualizar o elemento anterior, se houver, para que o próximo dele seja o próximo do próximo.</p>
+<pre><code>void del(struct Node* node)
+{
+  struct Node* pnode = NULL;
+  struct Node* cnode = head;
+
+  while( cnode )
+  {
+    if( cnode == element )
+      break;
+    pnode = cnode;
+    cnode = cnode-&gt;next;
+  }
+
+  if( cnode == element )
+  {
+    if( pnode )
+    {
+      pnode-&gt;next = 
+        cnode-&gt;next;
+    }
+    else
+    {
+      head = 
+        cnode-&gt;next;
+    }
+  }
+}
+</code></pre>
+<p>Para simplificar programação, depuração e análise de problemas a lista duplamente ligada, apesar de ser uma estrutura mais complexa, acaba nos dando mais controle sobre os elementos de uma lista. Mas este é assunto para próximo post.</p>
 
             
 
@@ -121,7 +194,7 @@ Lista Ligada; tá ligado?
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a>  <a href="/tags/learning">learning</a>  <a href="/tags/lists">lists</a> 
     
 
 
