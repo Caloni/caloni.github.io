@@ -286,6 +286,29 @@ Apenas li o enunciado. Ele falava sobre o quadrado latino, assim como o problema
 
      
         <item>
+  <title>MBConf</title>
+  <link>http://www.caloni.com.br/mbconf/</link>
+  <pubDate>2020-04-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/mbconf/</guid>
+  <description>Daqui a 12 dias acontecerá um evento online com palestras organizadas pela Mente Binária, uma galera muito afiada nos SOs, ferramentas e programação mais baixo nível. Estarei colaborando com algumas dicas de uso do WinDbg. O custo é zero. Para se inscrever, basta ir no site do evento e... se inscrever? No vemos lá =).
+</description>
+</item>
+
+     
+        <item>
+  <title>Git Subtree</title>
+  <link>http://www.caloni.com.br/git-subtree/</link>
+  <pubDate>2020-03-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/git-subtree/</guid>
+  <description>É a segunda vez que uso subtrees no Git. Não é algo que me acostumei usar por rotina, mas é uma técnica que eu recomendo que todo programador conheça para unir repositórios que não dependa dos pesadelos de configurar submodules.
+Há vários tutoriais na internet sobre seu uso (como o da Atlasian), além do próprio manual do Git e sua ajuda. Só quero enfatizar neste post que ele existe, é fácil de usar, e pode resolver alguns problemas de gerenciamento de projeto:
+ Unir repositórios que foram separados em algum momento ou que nasceram separados. Unir dependências que não estão online, mas que precisam estar caminhando em paralelo. Compor árvores de histórico distintas e não se preocupar muito de onde elas vieram (exceto quando for necessário juntar de novo, e nesse caso o commit que as une possui algumas informações).  </description>
+</item>
+
+     
+        <item>
   <title>Entrando na Zona com Vim</title>
   <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
   <pubDate>2017-01-05</pubDate>
