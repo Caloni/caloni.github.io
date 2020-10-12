@@ -40,16 +40,6 @@
 
      
         <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-10-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>lists</title>
   <link>http://www.caloni.com.br/tags/lists/</link>
   <pubDate>2020-10-11</pubDate>
@@ -65,6 +55,26 @@
   <pubDate>2020-10-11</pubDate>
   
   <guid>http://www.caloni.com.br/tags/miniviews/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>mostrasp</title>
+  <link>http://www.caloni.com.br/tags/mostrasp/</link>
+  <pubDate>2020-10-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/mostrasp/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/tags/movies/</link>
+  <pubDate>2020-10-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
 </item>
 
@@ -105,16 +115,6 @@
   <pubDate>2020-10-11</pubDate>
   
   <guid>http://www.caloni.com.br/tags/wines/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/tags/movies/</link>
-  <pubDate>2020-10-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/movies/</guid>
   <description></description>
 </item>
 
@@ -360,21 +360,21 @@
 
      
         <item>
-  <title>trips</title>
-  <link>http://www.caloni.com.br/tags/trips/</link>
-  <pubDate>2019-12-10</pubDate>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2020-03-23</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/trips/</guid>
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
      
         <item>
-  <title>mostrasp</title>
-  <link>http://www.caloni.com.br/tags/mostrasp/</link>
-  <pubDate>2019-10-07</pubDate>
+  <title>trips</title>
+  <link>http://www.caloni.com.br/tags/trips/</link>
+  <pubDate>2019-12-10</pubDate>
   
-  <guid>http://www.caloni.com.br/tags/mostrasp/</guid>
+  <guid>http://www.caloni.com.br/tags/trips/</guid>
   <description></description>
 </item>
 
