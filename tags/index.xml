@@ -5,14 +5,14 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
   <title>animation</title>
   <link>http://www.caloni.com.br/tags/animation/</link>
-  <pubDate>2020-10-11</pubDate>
+  <pubDate>2020-10-13</pubDate>
   
   <guid>http://www.caloni.com.br/tags/animation/</guid>
   <description></description>
@@ -22,9 +22,49 @@
         <item>
   <title>animes</title>
   <link>http://www.caloni.com.br/tags/animes/</link>
-  <pubDate>2020-10-11</pubDate>
+  <pubDate>2020-10-13</pubDate>
   
   <guid>http://www.caloni.com.br/tags/animes/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>miniviews</title>
+  <link>http://www.caloni.com.br/tags/miniviews/</link>
+  <pubDate>2020-10-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/miniviews/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>series</title>
+  <link>http://www.caloni.com.br/tags/series/</link>
+  <pubDate>2020-10-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/series/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>wine</title>
+  <link>http://www.caloni.com.br/tags/wine/</link>
+  <pubDate>2020-10-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/wine/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>wines</title>
+  <link>http://www.caloni.com.br/tags/wines/</link>
+  <pubDate>2020-10-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/wines/</guid>
   <description></description>
 </item>
 
@@ -45,16 +85,6 @@
   <pubDate>2020-10-11</pubDate>
   
   <guid>http://www.caloni.com.br/tags/lists/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>miniviews</title>
-  <link>http://www.caloni.com.br/tags/miniviews/</link>
-  <pubDate>2020-10-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/miniviews/</guid>
   <description></description>
 </item>
 
@@ -85,36 +115,6 @@
   <pubDate>2020-10-11</pubDate>
   
   <guid>http://www.caloni.com.br/tags/reading/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>series</title>
-  <link>http://www.caloni.com.br/tags/series/</link>
-  <pubDate>2020-10-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/series/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>wine</title>
-  <link>http://www.caloni.com.br/tags/wine/</link>
-  <pubDate>2020-10-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/wine/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>wines</title>
-  <link>http://www.caloni.com.br/tags/wines/</link>
-  <pubDate>2020-10-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/wines/</guid>
   <description></description>
 </item>
 
@@ -362,7 +362,7 @@
         <item>
   <title>draft</title>
   <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-03-23</pubDate>
+  <pubDate>2020-03-17</pubDate>
   
   <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
