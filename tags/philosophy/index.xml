@@ -1,166 +1,0 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>philosophy on Blogue do Caloni</title>
-    <link>http://www.caloni.com.br/tags/philosophy/</link>
-    <description>Recent content in philosophy on Blogue do Caloni</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Sun, 26 Aug 2018 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://www.caloni.com.br/tags/philosophy/" rel="self" type="application/rss+xml" />
-    
-     
-        <item>
-  <title>O Papel da Genética na Mobilidade Social</title>
-  <link>http://www.caloni.com.br/o-papel-da-genetica-na-mobilidade-social/</link>
-  <pubDate>2018-08-26</pubDate>
-  
-  <guid>http://www.caloni.com.br/o-papel-da-genetica-na-mobilidade-social/</guid>
-  <description>O que será que faz pessoas durante suas vidas ficarem mais ricas ou pobres de onde começaram? Nascer rico com certeza ajuda, mas e se não for apenas isso? Há habilidades inatas de cada indivíduo, carregadas pelos genes de seus pais, que poderiam influenciar nesse processo? E se sim, qual a relevância de quem são seus pais? Um estudo genético quis investigar as possíveis respostas.
-O vídeo do filósofo Alysson Augusto, baseado no texto de Leandro C. Bellato, tenta explorar os resultados de uma pesquisa recente realizada e suas três hipóteses levantadas:
- Pessoas com genes que indicam sucesso na educação leva a pessoas mais bem-sucedidas na vida. Os genes dos pais é que geram um ambiente favorável ao sucesso pessoal de seus filho. Falsa causalidade; o que importa mesmo é se você nasce em família rica ou pobre.  A pesquisa se chama &#39;Genetic analysis of social-class mobility in five longitudinal studies&#39; (Análise genética de mobilidade social em cinco estudos longitudinais) e tem o seguinte Abstract:
- Uma medida genética sumária, conhecida como &amp;quot;escore poligênico&amp;quot;, derivada de um estudo de educação através de associação de amplitude de genoma (na sigla inglesa, GWAS) pode modestamente predizer o sucesso educacional e econômico de uma pessoa. Essa previsão poderia sinalizar um mecanismo biológico: a genética ligada à educação poderia codificar características que ajudariam pessoas a avançar na vida. Alternativamente, a previsão poderia refletir a história social: pessoas de famílias em situações muito melhores poderiam permanecer melhores por razões sociais, e essas famílias poderiam também se parecer geneticamente. Um teste chave para distinguir o mecanismo biológico da história social é se pessoas com escores poligênicos mais altos tenderiam a ascender socialmente além da posição de seus pais. A mobilidade social indicaria que a genética ligada à educação codifica características que promovem o sucesso. Nós testamos essa hipótese em mais de 20.000 indivíduos em cinco estudos longitudinais nos EUA, Reino Unido e Nova Zelândia. Participantes com escores poligênicos maiores atingiram maior educação e sucesso na carreira, além de acumular mais riqueza. No entanto, eles também tenderam a vir de famílias em situação melhor. No teste chave, participantes com escores poligênicos ascenderam socialmente acima dos seus pais; influenciando a mobilidade social no espaço de uma vida. Análises adicionais revelaram que o escore poligênico da mãe conseguiram prever a realização de suas crianças até acima que o escore poligênico da própria criança, sugerindo que a genética dos pais pode também afetar a realização dos filhos através do ambiente. As descobertas educacionais pelo método GWAS afetam a realização socioeconômica através da influência das famílias dos indivíduos e sua mobilidade social.
- A summary genetic measure, called a &amp;quot;polygenic score&amp;quot;, derived from a genome-wide association study (GWAS) of education can modestly predict a person&#39;s educational and economic success. This prediction could signal a biological mechanism: Education linked genetics could encode characteristics that help people get ahead in life. Alternatively, prediction could reflect social history: People from well-off families might stay well-off for social reasons, and these families might also look alike genetically. A key test to distinguish biological mechanism from social history is if people with higher education polygenic scores tend to climb the social ladder beyond their parents&#39; position. Upward mobility would indicate education-linked genetics encodes characteristics that foster success. We tested if education-linked polygenic scores predicted social mobility in &amp;gt;20,000 individuals in five longitudinal studies in the United States, Britain, and New Zealand. Participants with higher polygenic scores achieved more education and career success and accumulated more wealth. However, they also tended to come from better-off families. In the key test, participants with higher polygenic scores tended to be upwardly mobile compared with their parents. Moreover, in sibling-difference analysis, the sibling with the higher polygenic score was more upwardly mobile. Thus, education GWAS discoveries are not mere correlates of privilege; they influence social mobility within a life. Additional analyses revealed that a mother&#39;s polygenic score predicted her child&#39;s attainment over and above the child&#39;s own polygenic score, suggesting parents&#39; genetics can also affect their children&#39;s attainment through environmental pathways. Education GWAS discoveries affect socioeconomic attainment through influence on individuals&#39; family-oforigin environments and their social mobility.
-TL;DR: filhos com boa pontuação genética sobre educação conseguiram atingir um status social melhor que seus pais. No caso de irmãos, o sucesso socioeconômico afetou o que teve a pontuação maior. Também foi descoberto que a pontuação da mãe possui uma maior correlação que dos seus próprios filhos, indicando também que o ambiente gerido pelos pais também pode influenciar o sucesso dos filhos no espaço de uma vida.
-</description>
-</item>
-
-     
-        <item>
-  <title>Stanford Encyclopedia of Philosophy Para Kindle</title>
-  <link>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</link>
-  <pubDate>2018-07-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</guid>
-  <description>A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.
-Para realizar esta operação será necessário usar as seguintes ferramentas:
- wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:
-Este batch baixa todo o conteúdo do site da Stanford em um único diretório. O processo pode demorar mais ou menos, dependendo da sua banda, mas aqui em casa (50MB) demorou cerca de meia-hora pra mais.
-Este batch chama dois outros batch, call calibreremovehead.bat e call calibreremovebottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.
-Esta batch gera os índices das entradas baseado em seus títulos, e os nomes dos arquivos serão usados para links no TOC do Calibre.
-Algumas entradas possuem o marcador em, que deve ser retirado antes de ordenar os títulos.
-Se não ordenarmos por título o único índice de nosso livro será inútil.
-Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado doublekiller.exe, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:
-Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag a, no formato que o Calibre espera:
-Por fim, antes de usar o Calibre é necessário juntar os arquivos de template em um arquivo final de TOC, o calibre.html. Ao final desse processo passaremos ao Calibre em si.
-Para realizar este passo basta arrastar ou abrir o arquivo html central que foi criado, e a partir dele iniciar a conversão. Note que após arrastar já será criado um zip com todos os HTMLs relacionados.
-Após abrir pelo Calibre ele insere na biblioteca e é só converter para MOBI (Kindle) ou EPUB (outros leitores) ou qualquer outro formato desejado. A nota final aqui é que como se trata de um arquivo gigantesco (50 MB em HTML zipado, 80 MB em MOBI) é melhor baixar a versão 64 bits do Calibre e ter muita memória RAM. Voilà!
-E por hoje é só. Se tudo der certo você poderá copiar e colar dentro do seu leitor todas as entradas de uma enciclopédia indispensável para quem está estudando filosofia. Enjoy.
-</description>
-</item>
-
-     
-        <item>
-  <title>Confirmation Theory: Hume&#39;s Refutation of Induction</title>
-  <link>http://www.caloni.com.br/confirmation-theory/</link>
-  <pubDate>2017-06-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/confirmation-theory/</guid>
-  <description>Este recorte se trata da explicação do filósofo Michael Huemer sobre a &amp;quot;refutação&amp;quot; de Hume sobre indução. De acordo com Huemer, &amp;quot;Hume&#39;s &#39;refutation&#39; of induction essentially goes as follows:&amp;quot;
- There are only three possible kinds of knowledge: (a) &#39;relations of ideas,&#39; which are things that are true by definition, (b) direct observations, and (c) knowledge based on inductive reasoning, where an inductive inference is a generalization from experience. Any generalization from experience presupposes &#39;the Uniformity Principle&#39; -- i.e., that the course of nature is uniform, or that the future will resemble the past. So inductive knowledge can only be justified if this presupposition is justified. The Uniformity Principle is not true by definition. Nor is its truth is direcly perceived. And since all inductive inference presupposes the Uniformity Principle, any inductive argument for it would be circular. So the Uniformity principle cannot be justified. (from 1,4,5,6) Hence, no inductive conclusion is justified.  Fonte: http://www.owl232.net/confirma.htm
-</description>
-</item>
-
-     
-        <item>
-  <title>Prefácio de O Capital Vol. 1</title>
-  <link>http://www.caloni.com.br/prefacio-de-o-capital-vol-1/</link>
-  <pubDate>2017-06-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/prefacio-de-o-capital-vol-1/</guid>
-  <description>Embora se trate de um rascunho, os Grundrisse possuem extraordinária relevância, pelas ideias que, no todo ou em parte, só nele ficaram registradas e, sobretudo, pelas informações de natureza metodológica. Uma dessas ideias é a de que o desenvolvimento das forças produtivas pelo modo de produção capitalista chegaria a um ponto em que a contribuição do trabalho vivo se tornaria insignificante em comparação com a dos meios de produção, de tal maneira que perderia qualquer propósito aplicar a lei do valor como critério de produtividade do trabalho e de distribuição do produto social. Ora, sem lei do valor, carece de sentido a própria valorização do capital. Assim, o capitalismo deverá extinguir-se não pelo acúmulo de deficiências produtivas, porém, ao contrário, em virtude da pletora de sua capacidade criadora de riqueza.
-</description>
-</item>
-
-     
-        <item>
-  <title>Why People Are Irrational about Politics</title>
-  <link>http://www.caloni.com.br/why-people-are-irrational-about-politics/</link>
-  <pubDate>2017-06-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/why-people-are-irrational-about-politics/</guid>
-  <description>A teoria da &amp;quot;Irracionalidade Racional&amp;quot; do filósofo Michael Huemer estabelece uma base teórica que nos permite afirmar que qualquer discussão política é em sua essência irracional:
-The theory of Rational Irrationality holds that it is often instrumentally rational to be epistemically irrational. In more colloquial (but less accurate) terms: people often think illogically because it is in their interests to do so.
-An interesting implication emerges from the consideration of the mechanisms of belief fixation. Normally, intelligence and education are aides to acquiring true beliefs. But when an individual has non-epistemic belief preferences, this need not be the case; high intelligence and extensive knowledge of a subject may eve worsen an individual¿s prospects for obtaining a true belief (see chart below). The reason is that a biased person uses his intelligence and education as tools for rationalizing beliefs. Highly intelligent people can think of rationalizations for their beliefs in situations in which the less intelligent would be forced to give up and concede error, and highly educated people have larger stores of information from which to selectively search for information supporting a desired belief. Thus, it is nearly impossible to change an academic¿s mind about anything important, particularly in his own field of study. This is particularly true of philosophers (my own occupation), who are experts at argumentation.
-The problem of political irrationality is the greatest social problem humanity faces. It is a greater problem than crime, drug addiction, or even world poverty, because it is a problem that prevents us from solving other problems.
-Original: http://www.owl232.net/irrationality.htm Traduzido: https://criticanarede.com/irracionalidadepolitica.html
-</description>
-</item>
-
-     
-        <item>
-  <title>Os fundamentos praxeológicos da Teoria Legal Libertária</title>
-  <link>http://www.caloni.com.br/os-fundamentos-praxeologicos-da-teoria-legal-libertaria/</link>
-  <pubDate>2017-05-28</pubDate>
-  
-  <guid>http://www.caloni.com.br/os-fundamentos-praxeologicos-da-teoria-legal-libertaria/</guid>
-  <description>Em essência, a ética libertária não ambiciona buscar o que é certo, mas em determinar o que com certeza não pode ser justificado. Este meu artigo cita alguns pontos vitais do artigo de Lacombi Lauss.
-Este raciocínio não deduz um &amp;quot;dever ser&amp;quot; de um &amp;quot;ser&amp;quot;; ele apenas enfatiza a autocontradição ao se negar uma proposição de dever ser o homesteanding ou a autopropriedade.
-Apesar do nome &amp;quot;propriedade privada&amp;quot;, é necessário que suas fronteiras estejam publicamente visíveis e objetivamente determinadas, pois somente assim a divisão entre o seu e o meu estará clara e o comportamento ético será possível.
-O fronteiramento atua como uma comunicação não-verbal, funcionando como uma declaração da justiça da apropriação, pois qualquer retardatário terá uma reivindicação necessariamente pior que o homesteader original (ou quem obteve o bem contratualmente com ele), já que o elo entre este e seu bem é objetivamente apurável e mostra, praxeologicamente, que, no passado, o atual dono teve um maior interesse no recurso, concretizado pela sua ação apropriadora. Os retardatários nada têm a reclamar daqueles que primeiro fizeram uso de um bem, pois o homesteading é um movimento superior de Pareto i.e. gera bem-estar sem prejudicar nenhuma outra pessoa, envolvida ou não na ação -, em virtude da lógica da ação (e inação) do homem. De fato, se ele usa seu trabalho para apropriar algum recurso natural, então ele necessariamente valoriza essa coisa. Portanto, ele deve ter obtido utilidade em sua apropriação. Ao mesmo tempo, a sua ação não faz com que ninguém fique em situação pior, pois, com a apropriação de recursos previamente sem dono, nada é tirado de outrem. Além disso, a inação das outras pessoas, que comprovadamente não se apropriaram de tais bens, mostra uma preferência de não usufruí-los. Assim, elas não perdem utilidade no processo.
-Com esses conceitos em mente, pode-se observar que, se existisse uma regra ética segundo a qual os cidadãos pacíficos teriam que punir agressores, então, além de irrealista, ela iria contradizer a já estabelecida norma da autopropriedade, pois o indivíduo pacífico que negar segui-la teria também que ser agredido. Além disso, uma regra ética distinguindo pessoas em grupos como &amp;quot;pacíficos&amp;quot; e &amp;quot;agressores&amp;quot; sequer passaria no primeiro teste formal da universalização.
-Tomemos, para fins de ilustração, o socialismo marxista como exemplo. A partir dessa nossa perspectiva, fica claro que tal filosofia política está longe de ser um sistema igualitário, visto que, declarar todos como coproprietários de tudo resolve os problemas das diferenças de propriedade apenas nominalmente, mas não resolve o real problema subjacente: diferenças de poder para controlar. O problema de determinar o que deve ser feito com os meios de produção ainda existe e deve ser resolvido de algum modo, sabido que não há nenhuma harmonia pré-estabelecida e presincronizada de interesses entre todas as pessoas, mas, ao contrário, algum grau de desacordo. Apenas uma opinião sobre o que deve ser feito pode de fato prevalecer e as outras devem serem excluídas. Entretanto, então novamente outras desigualdades aparecerão entre o povo: a opinião de um indivíduo ou de algum grupo deve sobrepor-se às dos demais.
-No socialismo, também, diferenças reais entre controladores e não controladores devem necessariamente existir; mas são determinadas de modo arbitrário, pelas vias da regra do mais forte daqueles que detém maior poder político.
-Fonte: https://ideallibertario.wordpress.com/2016/04/25/os-fundamentos-praxeologicos-da-teoria-legal-libertaria/
-</description>
-</item>
-
-     
-        <item>
-  <title>Uma prova simples e modesta da existência do livre-arbítrio</title>
-  <link>http://www.caloni.com.br/livre-arbitrio/</link>
-  <pubDate>2017-05-28</pubDate>
-  
-  <guid>http://www.caloni.com.br/livre-arbitrio/</guid>
-  <description>Uma prova simples e modesta do livre-arbítrio, ou pelo menos que refute o &amp;quot;determinismo duro&amp;quot; (que não admite nenhuma possibilidade de alternativas na ação) é dada pelo filósofo Michael Huemer através de 7 premissas e uma conclusão:
- A respeito do livre arbítrio, nós devemos sempre evitar acreditar no que é falso (racionalmente). O que deveria ser feito pode ser feito (não se pode fazer o impossível). Se o determinismo (duro) é verdadeiro, então qualquer coisa que pode ser feita será feita (não há alternativa). Eu acredito no livre arbítrio (premissa). Com respeito ao livre arbítrio, nós podemos evitar evitar acreditar no que é falso (de 1,2). Se o determinismo é verdadeiro, então com respeito ao livre arbítrio, nós evitamos acreditar no que é falso (de 3,5). Se o determinismo é verdadeiro, então o livre arbítrio é verdadeiro (de 6,8). O livre arbítrio é verdadeiro  Do original:
- With respect to the free-will issue, we should refrain from believing falsehoods. (premise) Whatever should be done can be done. (premise) If determinism is true, then whatever can be done, is done. (premise) I believe MFT. (premise) With respect to the free-will issue, we can refrain from believing falsehoods. (from 1,2) If determinism is true, then with respect to the free will issue, we refrain from believing falsehoods. (from 3,5) If determinism is true, then MFT is true. (from 6,4) MFT is true. (from 7)  O núcleo do raciocínio é que vemos que se o determinismo é verdadeiro o livre arbítrio é verdadeiro; do contrário evitaríamos acreditar nele. E como de fato alguns de nós acreditam nele (bastaria apenas um), ele é verdadeiro, tornando o determinismo auto-refutável.
-Há quatro objeções à lógica aplicada no raciocínio, sendo que algumas delas são interessantes, outras não. Sugiro dar uma lida no original. A mais interessante de todas é a primeira, que afirma a premissa (1) implorar a questão. No entanto, como Huemer desenvolve, a questão só consegue de fato cair na falácia circular de quem desenvolver o raciocínio já assumir que o determinismo é verdadeiro. Porém, se este for o caso, não há abertura para o desenvolvimento racional da questão, que é a própria conclusão final de Huemer. Ao aceitar o determinismo, as premissas básicas da própria lógica não podem ser aceitas, já que os conceitos de falso e verdadeiro são inúteis.
-E esse é um ótimo motivo para acreditar em livre arbítrio.
-Fonte: http://www.owl232.net/fwill.htm.
-</description>
-</item>
-
-     
-        <item>
-  <title>À procura de vida extraterrestre</title>
-  <link>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</link>
-  <pubDate>2009-07-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</guid>
-  <description>Faz uns bons dez anos que eu instalei pela primeira vez em meu Pentium 133 MHz o seti@home, um programinha que se propunha a localizar vida extraterrena através de emissões de rádio capturadas pelas nossas potentes antenas de Arecibo. Ele dizia fazer isso durante o tempo ocioso do meu processador. Como eu sou uma pessoa que costuma costumava confiar bastante nas pessoas, além de ser fã incondicional do filme Contato, instalei sem medo.
-Algum tempo se passou e hoje volto a instalar o mesmo programa, agora envolto em um invólucro de programas de mesmo teor chamado Boinc, que junta todas essas redes de trabalho em equipe. O computador é usado hoje em dia para diversos trabalhos que exigem um certo esforço no processamento que torna proibitivo alocar máquinas somente para isso (se não impossível do ponto de vista geográfico).
-Eis uma lista dos principais projetos disponíveis através do Boinc que me chamaram a atenção:
- Climateprediction.net busca prever as possíveis consequências para o mundo das futuras transformações no clima. CPUGrid.net é uma simulação molecular de proteínas otimizada para as GPUs da NVidia e o Playstation 3. Superlink@Technion e ajude os cientistas a encontrar os prováveis genes causadores de fatalidades como câncer, a diabetes, hipertensão e esquizofrenia. Chess960@home para análise de uma variante do xadrez tradicional que sempre coloca as peças iniciais em posições aleatórias. PrimeGrid é um gerador de uma base de dados pública de números primos sequenciais, além de procurar por números primos gêmeos gigantes (vai saber). Quantum Monte Carlo at Home não é o que parece: Estudo da estrutura e da reatividade de moléculas usando a Química Quântica (?).  Dentre eles, acabei ficando mesmo com o bom e velho seti@home. Pode me chamar de egoísta, mas mesmo que encontrem a cura do câncer, não será muito produtivo para mim, que possuo questões existenciais que, acredito eu, facilitariam a compreensão das pessoas acerca da nossa extrema pequenez nesse universo, nos colocando cada vez mais no cantinho de nossa existência.
-Escolha o seu!
-</description>
-</item>
-
-     
-        <item>
-  <title>A Inteligência do if: Parte 2</title>
-  <link>http://www.caloni.com.br/a-inteligencia-do-if-parte-2/</link>
-  <pubDate>2007-06-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-inteligencia-do-if-parte-2/</guid>
-  <description>Vimos na primeira parte desse artigo como o if revolucionou o mundo da computação ao trazer um salto que depende de condições anteriores e, portanto, depende do estado do programa. A ele chamamos de salto condicional. Também vimos como o resto das construções lógicas de uma linguagem são apenas derivações montadas a partir de saltos condicionais e incondicionais. Nesta segunda parte veremos como implementar um saldo condicional baseando-se no fato de que o computador pode apenas realizar operações matemáticas. Afinal de contas, um computador não &amp;quot;pensa&amp;quot;.
-Uma condição, item necessário para o funcionamento do salto condicional, nada mais é do que o conjunto de um cálculo matemático e o seu resultado, sendo o salto dependente desse resultado. Geralmente o resultado usado é uma flag, um indicador, definida pela arquitetura, como o armazenador de resultado para comparações de igualdade. Na plataforma 8086, por exemplo, as instruções que comparam memória definem uma flag chamada de Zero Flag (ZF) que é modificada sempre logo após executada uma instrução da categoria de comparações de valores.
-É comum nas arquitetura o resultado de uma comparação ser igual a zero se os elementos são iguais e diferente de zero se são diferentes. O resultado, então, denota a diferença entre as memórias comparadas, e se não há diferença o resultado é zero.
-set memA, 1set memB, 1cmp memA, memB # ZF=0set memA, 1set memB, 0cmp memA, memB # ZF=1 Mas como de fato comparar? Aí é que reside a mágica das portas lógicas e operações booleanas. A comparação acima pode ser feita com uma porta lógica XOR, o OU-eXclusivo, por exemplo, e o resultado pode ser obtido e armazenado se a saída for conectada a um flip-flop (um flip-flop, ou multivibrador biestável, é um circuito de computador capaz de armazenar o valor de 1 bit, o necessário para o nosso salto). Vamos por partes.
-Uma porta lógica é uma série de circuitos que recebe uma ou mais entradas e que resulta em uma saída, sendo as entradas e a saída representadas pelo sinal 1 e 0. As portas lógicas costumam ser nomeadas pela sua função na lógica booleana. Dessa forma, uma porta AND, ou E, é uma porta em que a saída será 1 se todas as suas entradas forem 1, e 0 se pelo menos uma de suas entradas for 0.
-Um flip-flop é o circuito que é usado para armazenar os resultados das portas lógicas de forma que após ter sido alimentado o valor não se perde. É o bloco mais fundamental de memória de um computador. Ele não se esquece depois que as entradas foram zeradas e pode ser reiniciado quando novas entradas forem fornecidas. É a maneira de gravar dados temporários na memória RAM da placa-mãe ou na memória cache do processador.
-O flip-flop serve para que o valor do ZF permaneça após a instrução XOR entre os registradores que serão comparados. Eis como funciona: é usada uma porta lógica XOR para cada um dos bits dos valores comparados, fazendo com que qualquer bit diferente tenha uma saída 1. Se todos os bits dos valores comparados forem iguais a zero, significa que os valores são idênticos. Para agrupar todas essas saídas é usada uma porta lógica OR, fazendo com que um único bit diferente de zero (ou mais) reflita na saída. A saída da porta OR, por sua vez, é invertida através da porta NOT colocada antes do flip-flop. Ou seja, se os valores forem idênticos (saída zero da porta OR) a saída final será 1, do contrário será zero.
-No final das contas, esse valor armazenado por um flip-flop é a flag ZF da arquitetura 8086. Se houver alguma diferença entre os valores, como foi o caso no exemplo acima, o valor final será o um invertido, ou seja, zero. Esse valor armazenado pode ser usado nas próximas instruções para realizar o salto, que dependerá do que estiver nessa flag. Dessa forma temos o nosso resultado realizado automaticamente através de um cálculo matemático.
-Um salto incondicional, como vimos na parte um, é um salto para um outro ponto no código que vai ser feito de qualquer forma. Pode ser uma instrução do processador saltar para um endereço definido em algum lugar da memória. O goto possui como destino o endereço X, sendo que X depende do que estiver em seu próprio endereço.
-001 set memA, 004002 jump memA003 code # not executed004 code005 ... Agora, para executar o salto condicional, precisamos não apenas de um, mas de dois endereços de destino, cada um deles com um endereço de memória. Podemos definir o primeiro endereço como o armazenador do salto se a condição for falsa, e o segundo endereço se a condição for verdadeira.
-001 set memA, 006002 set memB, 005003 cmp memC, memD004 jz memA005 code # ZF=1006 code # ZF=0007 ... Se os valores em memC e memD forem iguais a comparação feita na linha 003 deixará o ZF igual a 0 e portanto o comando jz (jump if zero, saltar se zero) irá realizar o salto para a linha 006, que é o endereço contido em memA. Caso contrário não será feito o salto, ou seja, a próxima instrução será a da linha 005, a mesma contida em memB.
-Agora você pode estar se perguntando por que existe o endereço em memB, já que se a condição for falsa o código simplesmente seguirá o fluxo normal. Bom, este memB é meramente figurativo, pois estou tentando demonstrar como não existe, de fato, uma &amp;quot;inteligência&amp;quot; na instrução de comparação que determine a igualdade de dois valores. Tudo se resume a circuitos realizando cálculos matemáticos.
-Para isso continue imaginando o memB sendo usado como o endereço a ser usado caso a condição falhe. Esse endereço está localizado logo após o memA na memória. Se memA estiver em 080, memB estará em 081.
-080 memA # 006081 memB # 005 Dessa forma, para executar o salto baseado em um resultado de 0 ou 1 (o Zero Flag) só temos que alterar o endereço da próxima instrução para o valor do endereço de comparação mais o valor de ZF, que pode ser 1 ou 0. Se for 0 será o próprio endereço da condição (memA), mas se for 1 será esse endereço mais 1 (ZF), ou seja, memB.
-001 set memA, 006002 set memB, 005003 cmp memC, memD # muda ZF004 jump [memA &#43; ZF]005 code # ZF=1006 code # ZF=0007 ... Lembre-se que essa é apenas uma demonstração de como pode funcionar um salto condicional através de cálculos matemáticos. De maneira alguma estou afirmando que é feito dessa forma. Aliás, existem inúmeras formas de realizar esse salto. Uma segunda solução seria adicionar a defasagem (offset) entre o endereço da próxima instrução e o endereço do salto. Meu objetivo foi apenas ilustrar que, dado um problema, pode haver várias soluções. Talvez mais para a frente veremos como é implementado um if em assembly, subindo mais um nível de abstração. Por enquanto estamos apenas trabalhando no nível filosófico. O mais importante de todos.
-</description>
-</item>
-
-     
-    
-  </channel>
-</rss>

@@ -1,64 +1,0 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>learning on Blogue do Caloni</title>
-    <link>http://www.caloni.com.br/tags/learning/</link>
-    <description>Recent content in learning on Blogue do Caloni</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Tue, 24 Apr 2018 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://www.caloni.com.br/tags/learning/" rel="self" type="application/rss+xml" />
-    
-     
-        <item>
-  <title>Lista Ligada; tá Ligado?</title>
-  <link>http://www.caloni.com.br/lista-ligada/</link>
-  <pubDate>2018-04-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/lista-ligada/</guid>
-  <description>Uma lista ligada é uma lista de alguma coisa onde os elementos se ligam um no outro, ou seja, um elemento tem a referência do próximo. O tipo dos elementos de uma lista ligada pode ser inteiros, strings ou estruturas inteiras. Independente do que for, você vai precisar de uma estrutura. Sabe por quê? Porque existe além dos dados em si mais uma informação que você precisará guardar em cada elemento de sua lista: o próximo elemento. E é daí que surge a ligação da lista ligada.
-struct Node{int number;struct Node* next;}; Sua estrutura pode ser simples e direta. Digamos uma lista ligada de números vai ter o número que esse elemento armazena e o endereço para o próximo elemento. Em C guardamos o endereço de uma variável usando um ponteiro para o mesmo tipo de elemento (no caso um struct Node).
-O elemento mais importante de sua lista ligada é o primeiro elemento, pois sem ele você não consegue mais voltar ao início. Isso pode ser uma variável especial que não é usada para nada exceto indicar qual o primeiro elemento da sua lista. Essa variável não pode mudar, pois precisamos sempre ter uma referência para o início da lista, a não ser que o primeiro elemento seja removido (veremos adiante). Ele pode ser simplesmente um ponteiro para o &amp;quot;próximo&amp;quot; elemento,que no caso o primeiro elemento.
-struct Node* head = NULL;
-Este ponteiro começa em NULL porque a lista está vazia. Mas assim que inserirmos um item ele deixará de ser nulo.
-struct Node* node = (struct Node*) malloc(sizeof(struct Node));node-&amp;gt;number = 10;node-&amp;gt;next = NULL;head = node; Pronto, agora a lista não está mais vazia e a cabeça da lista aponta para o primeiro elemento. Note que você precisa sempre inicializar o membro next com NULL, uma vez que ele é o último elemento da lista e não possui próximo.
-Para inserir um novo elemento você pode inseri-lo no começo, no fim ou no meio de sua lista. No começo é o mais fácil, pois já temos o endereço do primeiro elemento.
-struct Node* node = (struct Node*) malloc(sizeof(struct Node));node-&amp;gt;number = 10;node-&amp;gt;next = next;head = node; Para inserir um novo elemento no final da lista você terá que percorrê-la até achar o próximo elemento cujo membro next é igual a NULL, o que quer dizer que não há mais próximo. Nesse caso é importante saber se a lista está vazia. Se estiver basta atualizar a cabeça da lista e está pronto (como já visto).
-struct Node* lnode = head;if( ! lnode ){head = node;}else{while( lnode-&amp;gt;next )lnode = lnode-&amp;gt;next;lnode-&amp;gt;next = node;} Se formos sempre inserir um novo elemento no final também é interessante termos um ponteiro para o último elemento (o tail), que também pode ser um ponteiro e começa com NULL. Quando for inserido o primeiro elemento ele também será o último, então devem ser atualizados os ponteiros head e tail com o mesmo valor.
-struct Node* tail = NULL; É preciso prestar atenção quando temos muitas variáveis com o estado de sua lista sobrando no código. Cada atualização na lista envolve atualizar todos os endereços envolvidos. Preste atenção sempre na hora que estiver escrevendo e depurando seu código ou se arrependerá por horas a fio em um fim-de-semana perdido.
-Acho que remover elementos da lista ligada é a parte mais complicada, pois temos que atualizar o elemento anterior, se houver, para que o próximo dele seja o próximo do próximo.
-void del(struct Node* node){struct Node* pnode = NULL;struct Node* cnode = head;while( cnode ){if( cnode == element )break;pnode = cnode;cnode = cnode-&amp;gt;next;}if( cnode == element ){if( pnode ){pnode-&amp;gt;next = cnode-&amp;gt;next;}else{head = cnode-&amp;gt;next;}}} Para simplificar programação, depuração e análise de problemas a lista duplamente ligada, apesar de ser uma estrutura mais complexa, acaba nos dando mais controle sobre os elementos de uma lista. Mas este é assunto para próximo post.
-</description>
-</item>
-
-     
-        <item>
-  <title>A fila das threads</title>
-  <link>http://www.caloni.com.br/a-fila-das-threads/</link>
-  <pubDate>2009-04-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-fila-das-threads/</guid>
-  <description>Em um ambiente multithreading diversas threads disputam &amp;quot;a tapas&amp;quot; a atenção do processador (CPU). Certo? Podemos dizer que, em um ambiente com muito processamento a realizar, de certa forma é isso que acontece. São threads e mais threads rodando um pedacinho de código cada vez que passam pelo processador.
-Um ambiente complexo como um sistema operacional executando dezenas (às vezes centenas) de programas é repleto de pequenos detalhes que podem fazer o iniciante logo desanimar quando tentar depurar um programa com mais de uma thread. De fato, eu já percebi que muitos não vão saber nem como começar a pensar sobre o problema.
-Uma forma de visualizar o cenário multithread começa na fila das threads. Elas estão indo em direção ao guichê das CPUs onde vão conseguir tempo de processamento para rodar seu código. Depois que elas esgotam seu tempo elas se dirigem para o final da fila esperando por mais tempo para executar mais código.
-Para simplificar este cenário vamos imaginar duas threads iniciando com o mesmo código. Esse código incrementa um contador global até ele chegar a dez, quando a função retorna e as threads terminam.
-int count = 0;increment() {while( count &amp;lt; 10 ) {count&#43;&#43;;print(tid, count);}}main() {thread t1(increment);thread t2(increment);} O tid no pseudo-código acima é sinônimo para Thread ID, o identificador único de uma thread, que costuma ser um número. Para simplificar vamos dar ao id os apelidos de t1 e t2. Esta é uma possível saída do código acima, dependendo de quantos processadores e cores possui a máquina:
-t1 1t1 2t1 3t1 4t1 5t1 6t1 7t1 8t1 9t1 10 Pelo jeito a primeira thread não deu chance para a outra executar. Isso acontece por causa do pequeno espaço de tempo que é necessário para realizar a tarefa de incrementar uma variável. É tão pequena a tarefa que nem foi suficiente para a primeira thread ficar sem tempo e a CPU mandar ela para o fim da fila. Por isso a segunda thread nunca chegou a incrementar o contador.
-Quando uma thread quer realizar algum processamento, ela precisa entrar na fila das threads ativas, que aguardam pela CPU que irá atendê-las. Nessa fila ela pega uma senha e aguarda a sua vez. Só que cada vez que uma thread é atendida ela ganha um tempo limitado de atendimento, que na arquitetura do sistema operacional é chamado de quantum ou time slice. Se o quantum de uma thread estoura, ou a thread não tem mais nada pra fazer, ela sai do guichê de atendimento e volta a ficar inativa, ou volta para o final da fila, aguardando por mais processamento.
-Uma thread pode opcionalmente ir para o final da fila por conta própria. Para isso, basta que ela chame uma função do sistema operacional pedindo para dormir. Por isso geralmente essa função é chamada de sleep na API do sistema operacional. Nessa função costuma haver um parâmetro de quanto tempo a thread deseja dormir. Se for maior que zero ela vai para a fila de threads dormindo até passar esse tempo, para depois se dirigir à fila de threads ativas, aguardar para ser processada. Se o tempo passado for exatamente zero ela vai direto para essa última fila, mas ficará sem executar do mesmo jeito, pois esta é a fila de quem está aguardando pela sua próxima fatia de tempo de processamento.
-Se chamarmos a função para dormir no código da thread antes de voltar a incrementar o contador é possível que a segunda thread tenha chance de executar.
-increment() {while( count &amp;lt; 10 ) {count&#43;&#43;;print(tid, count);sleep();}} Agora cada thread, depois de incrementar uma vez o contador, volta para o final da fila. Dessa forma vemos uma thread de cada vez incrementando o mesmo contador.
-t1 1t2 2t1 2t2 3t1 4t2 4t2 6t2 7t1 5t1 8t2 8t2 9t2 10 Peraí, o mesmo contador? Isso pode gerar problemas. Se duas threads tentarem incrementar o mesmo contador ao mesmo tempo, quem garante que elas não irão incrementar o mesmo valor? Bom, se você é bom observador já deve ter reparado que na execução acima ocorreu exatamente isso, com mais de uma thread incrementando o contador com o mesmo valor.
-Para forçar isso acontecer mais rápido e de maneira mais gritante podemos fazer a thread ir para o final da fila antes de incrementarmos e após pegarmos o valor atual do contador. Note que nesses testes a saída muda completamente dependendo de quantos processadores sua máquina tem. O resultado às vezes pode ser bem bizarro do que o visto nesse artigo. 1
-increment() {while( count &amp;lt; 10 ) {int c = count;sleep();c&#43;&#43;;print(tid, c);count = c;}} O código acima pode gerar a seguinte saída:
-t1 1t2 1t1 2t2 2t1 3t2 3t1 4t2 4t1 5t2 5t2 6t1 6t2 7t1 7t1 8t2 8t2 9t1 9t2 10t1 10 Explicando mais uma vez com mais detalhes: quando uma thread guarda o valor do contador na variável local e volta para o final da fila, ela deixa de armazenar o contador atualizado para apenas depois que todas as outras threads passarem na sua frente. Só que as outras threads também pegam o mesmo valor do contador, pois ele ainda não foi alterado. Quando chega a hora da segunda passada no guichê das CPUs, todas as threads incrementaram o mesmo valor do contador. Se houvesse apenas um processador em uma máquina o fluxo de execução do ponto de vista do processamento único para duas threads ficaria mais ou menos o seguinte (zzz é quando uma thread dorme):
-t1 c = count (0)t1 zzzt2 c = count (0)t2 zzzt1 c&#43;&#43; (1)t2 c&#43;&#43; (1)t1 print c (1)t2 print c (1)t1 count = c (1)t2 count = c (1)t1 c = count (1)t1 zzzt2 c = count (1)t2 zzz... O exemplo acima forçou essa situação, mas é preciso lembrar que isso pode acontecer mesmo sem a thread dormir. É possível que o tempo da thread se esgote e ela pare de ser atendida justo na hora que iria salvar a variável c no contador global. Dessa forma, ela vai para o final da fila à força e, quando voltar a ser atendida, uma outra thread já terá lido o valor anterior para ela própria incrementar.
-O que gostaríamos que acontecesse para corrigir o problema é forçar a segunda thread a esperar antes que a primeira termine todo o processo de incrementar e salvar no contador global, o que resolveria o nosso problema (o wait no exemplo abaixo é uma thread aguardando e não fazendo nada):
-t1 c = count (0)t1 zzzt2 waitt1 c&#43;&#43; (1)t2 waitt1 print c (1)t2 waitt1 count = c (1)t2 waitt1 readyt2 c = count (1)t1 waitt2 c&#43;&#43; (2)t1 waitt2 print c (2)t1 waitt2 count = c (2)t2 readyt1 c = count (2)t2 wait... Esse wait do fluxo, ou seja, deixar a próxima thread aguardando a que chegou primeiro incrementar, pode ser obtido se utilizarmos um mecanismo de acesso exclusivo fornecido pelo sistema operacional. Uma outra história para contar, que chamarei de &amp;quot;A sala da fila das threads&amp;quot;.
-  Eu mesmo em meus testes não pude usar sleep passando zero como o tempo para dormir porque meu número de processadores não permite que eu faça esse experimento, já que sempre vão existir processadores dispostos a reprocessar a thread que acabou de ir para o final de sua fila. &amp;#x21a9;&amp;#xfe0e;
-   </description>
-</item>
-
-     
-    
-  </channel>
-</rss>

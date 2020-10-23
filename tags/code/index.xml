@@ -974,21 +974,6 @@ Mas talvez com C&#43;&#43; 17&#43; os cabelos passem a cair sozinho...
 
      
         <item>
-  <title>Ativando Ubuntu No Windows 10</title>
-  <link>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</link>
-  <pubDate>2017-08-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</guid>
-  <description>Pensei que o Ubuntu já estivesse na Windows Store disponível para qualquer gamer instalar (não sei por que um gamer faria isso). Mas não. Ainda é necessário fazer os passos de desenvolvedor expert de Windows para ativar esta opção.
-Primeiro, vá nas configurações e ative o Developer Mode:
-Depois vá em Adicionar/Remover Programas e ative o Windows Subsystem for Linux (Beta):
-Reinicie a máquina, abra o prompt de comando, digite bash e enter. Ele irá perguntar se quer instalar o Ubuntu, diga que sim, e depois de um tempo já terá o melhor dos dois mundos: o melhor ambiente gráfico com o melhor ambiente de programação.
-Cywgin quem?
-</description>
-</item>
-
-     
-        <item>
   <title>Migrando Imagens Para Imgur</title>
   <link>http://www.caloni.com.br/migrando-imagens-para-imgur/</link>
   <pubDate>2017-07-28</pubDate>
@@ -4493,20 +4478,6 @@ Pelo que eu vi, no geral, acredito que aos poucos irei voltar para os tópicos q
   Criando e usando IOCTLs. Essa vai ser ótima!
   A necessidade inevitável de mexer com o registro do sistema
   Tudo isso aliado aos exemplos e à teoria latente do Windows 2000 Device Driver Book (minha primeira leitura) irá dar um upgrade forçado aos meus neurônios. Espero sobreviver para contar o final da história.
-</description>
-</item>
-
-     
-        <item>
-  <title>Aprendizado em kernel mode</title>
-  <link>http://www.caloni.com.br/aprendizado-em-kernel-mode/</link>
-  <pubDate>2008-08-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/aprendizado-em-kernel-mode/</guid>
-  <description>Hoje terminei minha primeira leitura de Memory Dump Analysis Vol. 1, e qual não foi a minha surpresa ao encontrar entre os últimos posts justamente o que eu estava precisando: um guia de livros que se deve ler para começar a programar em kernel mode.
-O melhor de tudo nem é a lista de livros, cujos títulos já estão batidos na minha cabeça de tanto meu amigo Ferdinando comentar a respeito. A grande sacada foi ele ter feito um roteiro no estilo &amp;quot;leia esse livro primeiro, depois comece com esse e ao mesmo tempo acompanhe aquele, sempre atento ao Windows Internals&amp;quot;. As coisas não ficam mais fáceis (ler 8 livros, todos com média de 700 páginas), mas pelo menos ficam mais organizadas, tem começo, meio e fim (será?).
-Claro, esse é o método Dmitry Vostokov, o que não quer dizer que funciona com qualquer um. No entanto, gosto de suas buscas de padrão, analogias de dumps com o mundo real, abstrações filosóficas e, principalmente, as explicações das telas azuis em UML. Se entendo facilmente essa forma de explicar, é possível que esse método facilite um poucos as coisas não-tão-fáceis de fazer para mim.
-Agora só falta começar =).
 </description>
 </item>
 

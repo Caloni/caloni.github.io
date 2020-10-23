@@ -102,12 +102,34 @@ E por isso que este representante do Dogma 95 até que é bem feito, o que faz p
 
      
         <item>
+  <title>Bispo e Cavalo</title>
+  <link>http://www.caloni.com.br/bispo-e-cavalo/</link>
+  <pubDate>2020-09-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/bispo-e-cavalo/</guid>
+  <description>Já havia estudado este final há muito tempo e nem lembrava mais. Ter empatada uma partida porque não consegui dar mate forçado com bispo e cavalo é o que me fez rever o estudo. Assisti alguns vídeos e pratiquei com alguns estudos no Lichess. Por fim, me pus a jogar com o computador até entender a dinâmica de cercar o rei e realizar o movimento de W com o cavalo. Eu sei que ainda terão partidas que me sentirei acuado por conta do tempo, mas é bom agora voltar a ter o mínimo de arcabouço lógico por trás desse fascinante e difícil final. Tão difícil que até GMs não conseguem aplicar às vezes.
+</description>
+</item>
+
+     
+        <item>
   <title>Jejum de Dopamina</title>
   <link>http://www.caloni.com.br/jejum-de-dopamina/</link>
   <pubDate>2020-08-29</pubDate>
   
   <guid>http://www.caloni.com.br/jejum-de-dopamina/</guid>
   <description>Na verdade é um jejum de super estímulos, que tem por objetivo apagar o incêndio causado pelos neuroreceptores de dopamina de hábitos compulsivos em busca de prazer fácil para uma vez estabilizado em níveis saudáveis observarmos os gatilhos que nos faz voltar para esses hábitos, observando nossos impulsos para voltar a essas atividades, geralmente associados ao nosso estado emocional interno. Apenas dessa forma, seguindo o modelo de terapia cognitiva, para que o equilíbrio do sistema dopamínico se mantenha, e possamos apreciar como se deve atividades vistas hoje como chatas, como ler, escrever, meditar, passear ao ar livre. Ouvir.
+</description>
+</item>
+
+     
+        <item>
+  <title>CPU Fritando com Intel Turbo Boost</title>
+  <link>http://www.caloni.com.br/cpu-fritando/</link>
+  <pubDate>2020-08-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpu-fritando/</guid>
+  <description>É a segunda vez que isso acontece e esqueci quando foi a primeira. O cooler do notebook começa a assoprar que nem louco e em poucos minutos o computador desliga. O processo se repete, sempre que faço alguma atividade que exige mais processamento. Baixo o HW Monitor da CPUID e verifico que a CPU está alcançando limites acima de 90 graus celsius, e para segurança ela se auto-desliga. A solução? Ir em opções de energia do SO e trocar o limite máximo que a CPU pode ser usada de 100% para 99%. Isso mesmo, apenas abaixe um por cento. Com isso você está desabilitando o Intel Turbo Boost, que aparentemente não conhece limites físicos e sai fritando a CPU quando é necessário. Mas isso desgasta os chips e destrói a vida útil do sistema. E minha máquina já é rápida o suficiente para conseguir viver sem mais um Boost na minha vida.
 </description>
 </item>
 
@@ -551,6 +573,21 @@ Há vários tutoriais na internet sobre seu uso (como o da Atlasian), além do p
 
      
         <item>
+  <title>Ativando Ubuntu No Windows 10</title>
+  <link>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</link>
+  <pubDate>2017-08-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/ativando-ubuntu-no-windows-10/</guid>
+  <description>Pensei que o Ubuntu já estivesse na Windows Store disponível para qualquer gamer instalar (não sei por que um gamer faria isso). Mas não. Ainda é necessário fazer os passos de desenvolvedor expert de Windows para ativar esta opção.
+Primeiro, vá nas configurações e ative o Developer Mode:
+Depois vá em Adicionar/Remover Programas e ative o Windows Subsystem for Linux (Beta):
+Reinicie a máquina, abra o prompt de comando, digite bash e enter. Ele irá perguntar se quer instalar o Ubuntu, diga que sim, e depois de um tempo já terá o melhor dos dois mundos: o melhor ambiente gráfico com o melhor ambiente de programação.
+Cywgin quem?
+</description>
+</item>
+
+     
+        <item>
   <title>Entrando na Zona com Vim</title>
   <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
   <pubDate>2017-01-05</pubDate>
@@ -645,6 +682,20 @@ Assim como no vocabulário comum corrente, em que existem palavras dificilmente 
 O fato é que não há escapatória para quem trabalha nessa área, e no fundo isso é uma coisa boa, pois é da leitura técnica em inglês que podemos estender o nosso conhecimento além das barreiras do ponto com ponto br e encontrar conteúdo extremamente interessante (e inédito em nossa língua) para aprender. Se não estivéssemos abarrotados de estrangeirismos talvez fosse um pouco mais difícil fazer o switch entre essas duas linguagens.
   Ironicamente 12 anos depois deste artigo ser escrito o verbo bugar virou uma gíria corrente entre jovens. &amp;#x21a9;&amp;#xfe0e;
    </description>
+</item>
+
+     
+        <item>
+  <title>Aprendizado em kernel mode</title>
+  <link>http://www.caloni.com.br/aprendizado-em-kernel-mode/</link>
+  <pubDate>2008-08-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/aprendizado-em-kernel-mode/</guid>
+  <description>Hoje terminei minha primeira leitura de Memory Dump Analysis Vol. 1, e qual não foi a minha surpresa ao encontrar entre os últimos posts justamente o que eu estava precisando: um guia de livros que se deve ler para começar a programar em kernel mode.
+O melhor de tudo nem é a lista de livros, cujos títulos já estão batidos na minha cabeça de tanto meu amigo Ferdinando comentar a respeito. A grande sacada foi ele ter feito um roteiro no estilo &amp;quot;leia esse livro primeiro, depois comece com esse e ao mesmo tempo acompanhe aquele, sempre atento ao Windows Internals&amp;quot;. As coisas não ficam mais fáceis (ler 8 livros, todos com média de 700 páginas), mas pelo menos ficam mais organizadas, tem começo, meio e fim (será?).
+Claro, esse é o método Dmitry Vostokov, o que não quer dizer que funciona com qualquer um. No entanto, gosto de suas buscas de padrão, analogias de dumps com o mundo real, abstrações filosóficas e, principalmente, as explicações das telas azuis em UML. Se entendo facilmente essa forma de explicar, é possível que esse método facilite um poucos as coisas não-tão-fáceis de fazer para mim.
+Agora só falta começar =).
+</description>
 </item>
 
      
