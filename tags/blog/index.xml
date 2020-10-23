@@ -5,19 +5,20 @@
     <description>Recent content in blog on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/blog/" rel="self" type="application/rss+xml" />
     
      
         <item>
   <title>TIL: Today I Learned</title>
   <link>http://www.caloni.com.br/til/</link>
-  <pubDate>2020-10-11</pubDate>
+  <pubDate>2020-10-22</pubDate>
   
   <guid>http://www.caloni.com.br/til/</guid>
   <description>Se você guardar o mínimo de conhecimento que aprendeu em um dia de sua vida e relembrá-lo ao longo dos anos não vai perceber qualquer diferença, pois com a internet fica fácil recuperar o conhecimento com nova pesquisa. No entanto, na internet está também você e seu conhecimento em forma de posts, comentários, podcasts ou qualquer tipo de conteúdo que você produziu. Não custa manter a rotina de gravar o que foi aprendido em um dia para tentar capturar a essência de cada um deles. Quem sabe algo de esclarecedor sobre nós mesmos não pode surgir disso.
-  2020-08-07: aprendi que usando ponto (.) antes de rodar um comando no terminal Linux é possível definir variáveis de ambiente. Com isso consigo definir o ambiente para fazer cross compiling em Golang no Linux para Windows, gravando as variáveis em um arquivo executável &amp;quot;export GOOS=windows; export GOARCH=amd64; etc&amp;quot; e chamando com &amp;quot;. meu_arquivo&amp;quot; no terminal.
-  2020-10-22: aprendi que para desabilitar expiração de senhas no Oracle o comando alter user user_name identified by new_password account unlock; resolve. Para as senhas não expirarem novamente em ambiente de desenv é só usar o comando ALTER PROFILE &amp;quot;DEFAULT&amp;quot; LIMIT PASSWORD_VERIFY_FUNCTION NULL; uma vez no banco.
+  2020-08-07: ao usar ponto (.) antes de rodar um comando no terminal Linux é possível definir variáveis de ambiente. Com isso consigo definir o ambiente para fazer cross compiling em Golang no Linux para Windows, gravando as variáveis em um arquivo executável &amp;quot;export GOOS=windows; export GOARCH=amd64; etc&amp;quot; e chamando com &amp;quot;. meu_arquivo&amp;quot; no terminal.
+  2020-10-22: para desabilitar expiração de senhas no Oracle o comando alter user user_name identified by new_password account unlock; resolve. Para as senhas não expirarem novamente em ambiente de desenv é só usar o comando ALTER PROFILE &amp;quot;DEFAULT&amp;quot; LIMIT PASSWORD_VERIFY_FUNCTION NULL; uma vez no banco.
+  2020-10-22: para apagar tags dos posts é possível usar o seguinte comando sed -e &amp;quot;s/\[ \&amp;quot;tag\&amp;quot;[,]*/[/&amp;quot; -e &amp;quot;s/[,]* \&amp;quot;tag\&amp;quot; ]/ ]/&amp;quot; -e &amp;quot;s/, \&amp;quot;tag\&amp;quot;, /, /&amp;quot;.
   </description>
 </item>
 
@@ -101,6 +102,31 @@ E por isso que este representante do Dogma 95 até que é bem feito, o que faz p
 
      
         <item>
+  <title>Jejum de Dopamina</title>
+  <link>http://www.caloni.com.br/jejum-de-dopamina/</link>
+  <pubDate>2020-08-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/jejum-de-dopamina/</guid>
+  <description>Na verdade é um jejum de super estímulos, que tem por objetivo apagar o incêndio causado pelos neuroreceptores de dopamina de hábitos compulsivos em busca de prazer fácil para uma vez estabilizado em níveis saudáveis observarmos os gatilhos que nos faz voltar para esses hábitos, observando nossos impulsos para voltar a essas atividades, geralmente associados ao nosso estado emocional interno. Apenas dessa forma, seguindo o modelo de terapia cognitiva, para que o equilíbrio do sistema dopamínico se mantenha, e possamos apreciar como se deve atividades vistas hoje como chatas, como ler, escrever, meditar, passear ao ar livre. Ouvir.
+</description>
+</item>
+
+     
+        <item>
+  <title>Pacotes Nuget Again</title>
+  <link>http://www.caloni.com.br/pacotes-nuget-again/</link>
+  <pubDate>2020-08-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/pacotes-nuget-again/</guid>
+  <description>Agora que mexo com .net no trabalho surgem problemas de &amp;quot;marinheiro de primeira viagem&amp;quot; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.
+Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Durante a compilação tudo estava lindo e maravilhoso. Porém, na hora de rodar, a exceção de I/O dizendo que não conseguiu carregar o assembly na versão certa pula na minha frente.
+Pesquisa de lá, pesquisa de cá, fuça de cá, fuça de lá, encontrei acho que pela segunda vez a solução. Se trata mesmo da versão errada sendo utilizada, mas não na compilação, mas na execução. É preciso definir a versão correta no arquivo de configuração.
+Feito isso todo o mundo maravilhoso de .nerd volta a fazer sentido.
+</description>
+</item>
+
+     
+        <item>
   <title>Close Remote Socket</title>
   <link>http://www.caloni.com.br/close-remote-socket/</link>
   <pubDate>2020-07-05</pubDate>
@@ -127,6 +153,19 @@ Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando 
 
      
         <item>
+  <title>Pgn2art</title>
+  <link>http://www.caloni.com.br/pgn2art/</link>
+  <pubDate>2020-06-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/pgn2art/</guid>
+  <description>Meu sonho de consumo para acompanhar partidas de xadrez é às cegas, apenas lendo ou ouvindo o próximo lance e imaginando em minha cabeça o tabuleiro. Porém, enquanto não tenho essa habilidade, um meio-termo aceitável é ver um tabuleiro em ascii art se modificando a cada lance. É possível acompanhar uma partida dessa forma como se estivesse lendo um livro, e por isso esse formato é prático, também, pois posso jogar esse ascii art no meu Kindle.
+Usando a biblioteca python-chess fiz um pequeno script que recebe o endereço de PGNs (o formato com que se grava partidas de xadrez) por URL ou path local e cospe esses tabuleiros em ascii art. Com isso pode redirecionar para um arquivo texto e enviar para o Kindle ou ler de qualquer lugar, em formato estático, a tradução da partida.
+O próximo passo, antes de ler às cegas, é transformar a leitura do tabuleiro bidimensional para a leitura do formato FEN, que é o formato usado para gravar posições de um tabuleiro.
+</description>
+</item>
+
+     
+        <item>
   <title>C&#43;&#43; Co Routines</title>
   <link>http://www.caloni.com.br/cpp-co-routines/</link>
   <pubDate>2020-06-21</pubDate>
@@ -136,6 +175,35 @@ Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando 
 No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C&#43;&#43; tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.
 A primeira ressalva diz respeito à alocação dinâmica. Ao usar esse modelo de rotinas cooperativas o programador é obrigado a alocar espaço para o estado dinamicamente, o que fere duas premissas da linguagem: o controle absoluto do modelo de execução para o programador e a certeza que ele irá apenas pagar em performance o que ele usar. Se os fãs da linguagem fossem religiosos, eles diriam agora que esta não foi uma decisão muito cristã do comitê.
 Eu continuo defendendo que a linguagem C seja usada caso surjam contra-indicações na prática da STL.
+</description>
+</item>
+
+     
+        <item>
+  <title>Oscar</title>
+  <link>http://www.caloni.com.br/oscar/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/oscar/</guid>
+  <description>Quando o chefão do Oscar faz um discurso dizendo que agora oficialmente serão dez os indicados a melhor filme para promover representatividade, diversidade e todos os ades de quem é ista, ele não está sendo um cara legal. Ele está apenas revelando o quanto o Oscar e/ou a sociedade como um todo funciona e o que irão fazer a respeito: nada. Porque nada é o que este povo que se diz politicamente consciente está acostumado a fazer para mostrar que sabe de algo que você, alienado, não sabe, e farão algo a respeito. Bom, resumo da história como sempre: não, não sabem e não, não farão. Não sabem matemática e não farão uma revolução. Provarão ignorância na arte dos números e hipocrisia e conveniência na arte política.
+Vamos abrir o discurso para a lógica: eu tenho mil filmes disputando a lista entre os indicados. Apenas cinco poderão ser escolhidos. Os cinco imediatamente abaixo destes cinco ficarão de fora. Pelas novas regras esses cinco também entrariam pelo tapete vermelho, e com isso, de acordo com o resto da divulgação, aumentaria a representatividade para o prêmio principal da noite. Essa palavra, diversidade, vale lembrar, atualmente quer dizer indicar não apenas homens héteros brancos, mas também mulheres e homens de todas as cores, sexualidade e planeta.
+Bom, essa conta não vai fechar. Não existem apenas dez tipos combinados de gênero, cor e sexualidade (e planeta) para que todos estejam de fato representados na premiação. Se já não é suficiente entre os cinco mais votados, qual a mágica estatística que reza que os dez primeiros o serão suficientes? Vou repetir com outras palavras e deixar a pergunta no ar: se os cinco indicados de hoje são de homens héteros brancos por que os cinco imediatamente abaixo na colocação serão com gêneros, cores e sexualidade diversos?
+Se você é de humanas não precisa responder, mas continue levantando suas bandeiras para outro canto.
+</description>
+</item>
+
+     
+        <item>
+  <title>Teoria, Prática e Código</title>
+  <link>http://www.caloni.com.br/teoria-pratica-codigo/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/teoria-pratica-codigo/</guid>
+  <description>Quando se está aprendendo programação é muito bom praticar escrevendo código. Muitos querem aprender a programar e não começam programando, e se você já começou colocando a mão na massa, parabéns por isso.
+Agora, para avançar nos estudos, além da prática, a teoria tem que avançar. E teoria vai além dos estudos de livros e vídeo-aulas. É possível aprender muito mais rápido lendo o código dos outros, disponível aos milhões pela internet. A vinda do GitHub veio para democratizar esse acesso e descomplicar os caminhos de colaboração. Agora você pode encontrar um bug no código de uma pessoa do outro lado do mundo e mandar a correção para todos envolvidos no projeto validarem. O quão sensacional é isso?
+Ler código de outra pessoa pode ser desafiador no começo porque é necessário seguir um raciocínio diferente, que não saiu de sua cabeça. Não é a maneira que você resolveria um problema, mas, se o código estiver correto, é uma maneira igualmente válida. E possivelmente melhor. Por estar fora da zona de conforto se torna uma oportunidade para aprender coisas que não estão exatamente nem na teoria nem na prática. É a experiência de outra pessoa traduzida em código.
+Note que não digo essas coisas apenas do meu código, que não é perfeito nem exemplar, mas de qualquer código que resolva um problema que você está estudando resolver. Ler código é como ter o texto de um livro, mas compactado. Tem muitas ideias legais para copiar e usar, uma vez que você aprendeu o que o código faz.
+Mas para isso é necessário quase o mesmo esforço usado para programar. Parece fácil, mas está longe disso. A boa notícia é que vai economizar muito tempo se persistir em entender.
 </description>
 </item>
 
@@ -163,6 +231,17 @@ Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um co
   <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades. E isso justo agora que ando estudando awk. Então não deu outra: usei esta linguagem clássica como ferramenta para esta conversão.
 O código ficou, em minha humilde opinião, elegante e pequeno, pois se aproveita da composição das periodicidades. Ou seja, o período de cinco minutos é a consolidação de cinco linhas de um minuto, mas a de quinze minutos não são quinze linhas de um minuto, mas três de cinco minutos, que já estão sendo calculados a cada cinco linha. E assim por diante. Usando os arrays associativos do awk é possível manter o estado de cada candle até o momento de gerar a saída desejada, que no exemplo que codifiquei ficou como um comando SQL de insert em um banco fictício que grava cada tipo de candle em uma tabela.
 O uso de um array por candle simplificou o código, pois ao criar uma função que manipula o candle que está finalizando e o próximo eu posso simplesmente passá-los como argumentos. Dessa forma eu só preciso compor os filtros de linhas de acordo com o resto da divisão do seu número. No exemplo inicial, o candle de cinco minutos está finalizando quando RN é igual a cinco ou múltiplos de cinco, enquanto um novo candle se inicia em múltiplos de seis.
+</description>
+</item>
+
+     
+        <item>
+  <title>The Eyes of Fritz Lang</title>
+  <link>http://www.caloni.com.br/the-eyes-of-fritz-lang/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/the-eyes-of-fritz-lang/</guid>
+  <description>Um documentário chato, cheio de pessoas elogiando a figura de Fritz Lang em sua fase nos EUA sem substância. Meia-hora quase insuportável de velhos babando ovo para este alemão que narrou sua fuga da Alemanha nazista quando se descobriu que ele fugiu &amp;quot;aos poucos&amp;quot;, e que dizem ser judeu quando apenas sua avó era (e se converteu católica). Sua visão cinematográfica não está descrita aqui, apenas opiniões pessoas sobre este cineasta. Uma perda de tempo para os que buscam informação, e uma curiosidade boba para os fãs desse cinema.
 </description>
 </item>
 
@@ -209,6 +288,44 @@ No final do dia todos os bugs conterão uma correção trivial escondida do outr
 
      
         <item>
+  <title>A Padeira do Bairro</title>
+  <link>http://www.caloni.com.br/a-padeira-do-bairro/</link>
+  <pubDate>2020-05-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-padeira-do-bairro/</guid>
+  <description>Este curta de Éric Rohmer veio de brinde no DVD de A Carreira de Suzane, mas é até bem longo, com 20 minutos de duração. É uma sessão dupla, praticamente, pois com a atração principal tendo menos de uma hora é natural assistir esse em seguida. E ele trata também da análise de mulheres a partir do pensamento de um homem obcecado por uma dama alta e que se veste bem que sempre encontra pelos seus caminhos no bairro. Após o primeiro contato ela some por três semanas, o que faz com que ele desenvolva o péssimo hábito de comer todo dia um doce da padaria da esquina. Se a moça demorasse mais ele muito provavelmente teria engordado muito e ela nem o reconheceria.
+Este é um filme que se constrói na tensão da espera. Possui assim como a atração principal um narrador protagonista. E há algumas brincadeiras cinematográficas de Rohmer o suficiente para nos entreter. Como o corte abrupto para acelerar os passos de um homem na rua. Um curta sobre relacionamentos nunca pode ser ruim. Esse tem o jeito de um causo contado por um amigo. Ou seja, delicioso de acompanhar. Como um doce da padaria do bairro quando não temos nada mais o que fazer.
+</description>
+</item>
+
+     
+        <item>
+  <title>Fechado Para Reformas</title>
+  <link>http://www.caloni.com.br/fechado-para-reformas/</link>
+  <pubDate>2020-05-19</pubDate>
+  
+  <guid>http://www.caloni.com.br/fechado-para-reformas/</guid>
+  <description>Quase três mil posts durante quinze anos nessa vida de blogue e percebo que chegou a hora de atingir a maioridade. Escrever um rascunho e publicá-lo na internet não me torna melhor escritor que qualquer YouTuber de primeira viagem que não edita seu conteúdo ou tuítes que simplificam o pensamento humano de tal forma que ele parece totalmente válido ou inválido. Perde-se as nuances. A voz do autor fica solta demais para ser relevante nesse mar de informação que nos afogamos todos os dias (e noites).
+Para me tornar um escritor profissional eu devo revisar. Revisar é o que irá extrair valor dos meus textos. Brutos como estão nem eu consigo mais enxergar a virtude de escrever. O conteúdo não é nada se não for seguido pela arte da composição. E essa arte só se conquista compondo, lapidando, com o esforço de conseguir acabar uma obra com esmero e excelência, e ainda que não se consiga por completo esse é o caminho a ser seguido.
+Portanto, coloquei todos meus textos antigos para revisão, e os novos nascem no repositório como rascunhos, o que quer dizer que o texto não aparecerá em sua primeira versão no blog. O bebê não está pronto ainda. É durante a gestação que ele irá ganhar corpo e desenvolver sua mente. A edição, além de correções gramaticais, reorganiza o pensamento contido já no rascunho, mas não totalmente consolidado para ser consumido por outro ser humano que não seja o autor.
+Escrever é coisa séria. Depois de tanto praticar, acredito que seja a hora de constatar este fato, tirar a poeira das milhares de páginas que já compus e tentar arrumar tempo para me atualizar na arte de criar telepatia para leitores do futuro.
+</description>
+</item>
+
+     
+        <item>
+  <title>Bode Caloni Cast Live</title>
+  <link>http://www.caloni.com.br/bode-caloni-cast-live/</link>
+  <pubDate>2020-05-14</pubDate>
+  
+  <guid>http://www.caloni.com.br/bode-caloni-cast-live/</guid>
+  <description>Alguns caras em uma noite de quinta-feira falando sobre aleatoriedades que giram em torno de cinema, social justice (justiça social), anime e o melhor filme de todos: The Room. O primeiro bodecast live do grupo C/C&#43;&#43; Brasil foi sucesso de participantes e fracasso de público (só veio o Matheus e o Elias). Descobrimos que o Gianni, fundador do grupo do Telegram, tem o péssimo costume de largar os filmes pela metade. Também descobrimos que Cosmos é o projeto secreto de @drmadera para criar vida no fundo de seu home-office. E de quebra houve uma invasão de neo-São-Joseenses, um povo muito simpático que citou alguns filmes malucos para comentarmos.
+Infelizmente a live terminou mais cedo porque o Gianni não pagou a conta de internet o sinal caiu e nos derrubou a todos ao mesmo tempo. Se quiser que façamos mais como esse dê um curtir no vídeo e comente com sugestões, críticas, etc. Comente por lá. Aqui só eu tenho voz.
+</description>
+</item>
+
+     
+        <item>
   <title>Bug no Calonibot Rodando Como Serviço</title>
   <link>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</link>
   <pubDate>2020-05-10</pubDate>
@@ -217,6 +334,45 @@ No final do dia todos os bugs conterão uma correção trivial escondida do outr
   <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero...
 Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço. Foi o que eu fiz no caso do calonibot, que atualiza seu próprio repositório de tempos em tempos porque nele está contido o index.xml principal do site para ele realizar uma busca mais completa quando você pedir a ele (que é atualizado sempre que publico um novo artigo).
 Para que isso funcione para repositórios configurados com chave ssh você terá que copiar essa chave para o diretório /root/.ssh, como se fosse a home do seu usuário. Depois de feito isso reinicie o serviço e ele deverá funcionar como novo.
+</description>
+</item>
+
+     
+        <item>
+  <title>O Bug Mais Bizarro que já Resolvi</title>
+  <link>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</link>
+  <pubDate>2020-05-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</guid>
+  <description>Máquina IBM velha e empoeirada. Criptografia blowfish. Assembly 16 bits. Programa residente. E nenhum depurador funcionando. Tudo o que eu tinha se resumia em dois itens de inventário: o conhecimento, adquirido aos poucos do sistema, e minha imaginação. Era uma amena semana de abril em 2008 isolado em uma sala. Tudo que havia em volta eram papéis com anotações feitas. Observava uma nova pista todo dia, embora sem ter muita certeza. Àquela altura qualquer coisa serviria.
+Do outro lado da sala, uma estagiária recém-chegada na empresa observava de longe, talvez com uma certa curiosidade, ou medo, daquele rapaz ligar e desligar um desktop empoeirado enquanto a cada aperto do botão de ligar ele olhava fixamente para a tela por uma ou às vezes duas horas seguidas. Ficava a manhã inteira observando um único boot em câmera lenta. A câmera mais lenta possível, dessas que capturam o bater de asas de um beija-flor. Cada movimentação de um registrador demorava vários minutos de reflexão.
+Toda essa odisseia começou com o cara do suporte, um sujeito bonachão que atraía os bugs mais bizarros para nossos sistemas só de olhar para eles. Não eram os piores bugs, mas com certeza os mais bizarros. E quando digo bizarro estou falando de bugs que não dá para imaginar acontecendo na vida real. Quando esse sujeito aparecia junto surgiam bugs na própria Matrix; um gato preto passa duas vezes seguidas pela porta, mas não caminhando: flutuando próximo do teto.
+O sujeito chegou na sala de desenvolvimento falando dessa máquina que tinha acabado de chegar do cliente. Haviam instalado a criptografia de disco. Os dados não estavam perdidos, pois o Windows ainda mostrava o seu logo esvoaçante segundos depois de ligarmos o velho desktop de guerra, que já havia vivido pelo menos duas décadas a vida de escritório e não seria agora que deixaria seus dados sumirem sem mais nem menos. Nada disso. O problema era que se você desligasse e ligasse de novo, nada mais aparecia. Tela preta. Sem logo esvoaçante ou cursor piscando. O disco rígido não se mexia. Era um mistério completo.
+Mas o bizarro mesmo não era isso, mas o que vinha depois. Você desligava a pobre máquina, novamente. Apertava o botão de ligar. E como uma mulher nos seus trinta ainda não vividos, ela subia com tudo no lugar: logo do Windows, barulhinho irritante da sua tela de boas vindas e as agulhas do disco magnético piscando freneticamente. Tudo certo mais uma vez na terra do Tio Bill. Era possível logar na máquina e usá-la o resto do dia com todos os dados criptografados íntegros.
+Agora, sim, o bug está completamente descrito: nos boots ímpares a máquina não bootava. Nos boots pares não havia nada de errado (ou vice-versa). Antes que você comece a confabular o que poderia ser, um cacoete que todos nós, programadores, costumamos ter, já aviso que nesse bug não há relação com energia ou memória RAM. Você podia desligar a máquina e tirar da tomada. Ir tomar um café. Uma hora depois coloca a tomada de novo e a liga. A bendita não funciona. Tire a tomada novamente. Mais um café. Desenergizada novamente, botão de ligar. E tudo estava certinho.
+A criptografia desse sistema operava em dois níveis, necessários naquela época. O PC é uma monstruosidade construída em camadas legadas, uma em cima da outra. Abaixo de tudo existe a BIOS que controla todo mundo. Até um certo ponto, pelo menos. O que importa é que nesse primeiro momento do boot não existe sistema operacional. Não existe a querida proteção de memória que os SOs implementam (com a ajuda da arquitetura) para isolar os programas, onde qualquer violação de memória é tratada graciosamente com uma mensagem de erro. Não, mano. Aqui é o modo real. Fica esperto, que se um ponteiro ficar doido você vai levar tiro pra tudo quanto é lado. Ou como diria Morpheus: &amp;quot;Welcome... to the desert... of the real.&amp;quot;
+Nesse ambiente pesadão e promíscuo, onde as memórias se encostam e trocam de valores sem qualquer pudor, programas residentes se mantém em memória através do famigerado hook de interrupções. Interrupções é como chamamos as funções originais escritas e armazenadas na BIOS. Ponteiros de funções com código carregado da sua memória. Fazer um hook de uma interrupção é se colocar na frente de uma função dessas, trocando o ponteiro de função pelo endereço de sua função na memória. Então, por exemplo, se um programa roda e consegue sobrescrever o endereço da interrupção responsável por escrever na tela, esse programa pode ligar e desligar pixels que o programa original nem imagina. E em vez do logo esvoaçante e inofensivo do Windows, você poderia escrever o que seria o antepassado do gemidão do zap, versão ASCII Art.
+No caso de um programa de criptografia de disco a interrupção mais importantes é... acertou: a de disco. Uma interrupção de disco é responsável por ler e escrever dados de e para o disco. No primeiro momento do boot é vital para o sistema operacional que ele consiga ler setores do disco onde ele próprio está armazenado. Ele deve conseguir ler seus dados do disco, mesmo criptografados, e esses dados precisam ser descriptografados antes que exista um driver de criptografia instalado no Sistema Operacional no ar. É o dilema do ovo e da galinha. É aí que entra o que chamamos de programa residente, o que contém a função de criptografia e cujo endereço é colocado no lugar da interrupção da BIOS para comandos de disco.
+É claro que contando isso para vocês a posteriori parece mais fácil, mas meu primeiro instinto foi espetar o WinDbg, o depurador de sistema do Windows, nessa máquina. Porém, rapidamente descobri que não existia sistema operacional para ser depurado. O Windows nem conseguiu subir ainda, quanto mais deixar as pessoas depurarem ele. Então a solução foi apelar para o SoftIce 16 bits, um depurador em modo real, que funciona até que bem sozinho. Porém, o próprio depurador já é um programa residente, e não funciona tão bem quando existem outros programas residentes querendo espaço no disco. Como o programa de criptografia instalava um hook na int13 (essa é a interrupção de disco), as sessões de depuração nessa fase ficavam estranhas rapidamente. O depurador de modo real travava nas primeiras passadas de código. Não havia memória o suficiente ou as chamadas das ints entravam em conflito. De qualquer forma, quando memória entra em conflito no modo real, o barato fica loko, e o jeito é começar tudo de novo em um novo boot (par ou ímpar, mas sempre o segundo).
+Então o jeito foi usar o debug.com. Este era um programa que vinha no pacote MS-DOS e em alguns Windows mais velhos que consistia em um depurador de modo real. Era possível carregar um segmento de um arquivo ou da memória real para este depurador e ele seguia passo a passo para você a execução do programa. Em assembly de modo real, claro. Esse foi o jeito que eu consegui ir entendendo o fluxo de execução, pois eram muitos valores e variáveis. Eventualmente até o debug.com também travava, mas isso não importava tanto, pois era possível ir mapeando seu funcionamento aos poucos, anotando as descoberta uma a uma em um pedaço de papel. Uma técnica que pode ser interessante se você se encontrar em tal situação é escrever as ints 3 (interrupção de breakpoint) diretamente na memória do programa e deixar ela ser ativada para depois que capotar sobrescrever com o código antigo. Eventualmente isso também travava. Daí nesse momento o jeito era fingir que estava tudo bem e continuar a execução de um outro ponto, anotando em um pedaço de papel o estado dos registradores e da memória até o momento, para depois ir ligando os pontos.
+Depois de alguns dias nesse modus operandi o mundo externo importava cada vez menos. Eu só enxergava registradores sendo movidos, valores sendo empilhados e desempilhados. Na hora do café, esse era o meu tema favorito, para desespero dos meus colegas. Comecei a vislumbrar a possibilidade de existir um bug no código do algoritmo de criptografia. O algoritmo usado se chama Blowfish, um cifrador simétrico em bloco. Seu funcionamento é basicamente pegar um bloco de dados a serem criptografados, aplicar uma chave, e cuspir o mesmo tamanho do bloco de volta. Ele se chama simétrico porque aplicando a mesma chave a um bloco criptografado obtém-se o bloco original.
+Não lembro como tive esse insight, mas essa alternância típica dos algoritmos simétricos fazia tocar alguns sinos na minha cabeça de que o bug bizarro dos boots ímpares e pares poderia estar relacionado de alguma forma. Só não sabia ainda como.
+Pois bem: bora aprender como funciona esse algoritmo, passo a passo, pois o código usado no sistema estava obviamente escrito em assembly. Não é um código difícil em C, mas um tanto extenso em Assembly. De qualquer forma, tudo é possível se você está trancado em uma sala sem ninguém para importunar. Tudo que você precisa é de tempo e paciência. E café. Não se esqueça do café.
+A semana passou rápido. Tudo que me lembro é que de fato foi uma semana de 40 ou mais horas, embora para mim o tempo tivesse parado. A mágica de estar compenetrado em um problema e fazer parte do problema, e eventualmente da solução, me fez descobrir a origem do bug. E a semana inteira se condensou em alguns poucos momentos de prazer em ter capturado esse desgraçado. Irei descrevê-lo agora.
+Tudo começa com o IV: o Initialization Vector. Ele é um array de bytes usado em algoritmos criptográficos para diminuir a previsibilidade da série de bytes resultantes do algoritmo. Sem o IV pode-se usar força bruta com várias chaves até encontrar a certa. Com o IV, que é alterado de maneira previsível, mas difícil de rastrear, a mesma chave gera séries de bytes completamente diferentes, impedindo esse tipo de ataque.
+O que estava acontecendo nesse caso para o boot estar intermitente era que, como comentado no commit que gloriosamente assinei, as escritas em disco durante o boot gravavam a série de bytes com um IV invertido. Portanto, na hora de ler bytes do disco ele entregaria os dados errados, obviamente, e a máquina não bootaria. Porém, como o algoritmo blowfish é simétrico, e pelo boot conter sempre os mesmos dados no disco, uma segunda escrita feita em um segundo boot inverteria o IV já invertido, gravando os dados originalmente invertidos da maneira correta, e a vida nessa versão de boot seguia feliz e contente, com logo esvoaçante até a música de boas vindas do Windows. Bootando pela terceira vez era repetido o problema do boot pela primeira vez, e assim por diante. Essa era a mágica do boot bizarro desta máquina, a única máquina que descobrimos que escrevia nos setores do disco durante o boot. A maioria apenas lia setores onde estava o sistema operacional para carregá-lo.
+Descrevendo a descoberta desse bug hoje, doze anos após o ocorrido, ainda não entendo como consegui descobri-lo. Porém, ele exigiu tanta concentração que me lembro com um prazer indescritível de ter sido capaz de fazê-lo. Todo o tempo despendido se tornou uma marca de felicidade em minha memória, gravada em meu HD temporário desta vida. Lembrarei desses momentos com carinho, e como ela está criptografada também, entenderei que em alguns momentos ela irá soar amarga, mas em vários outros irei ter certeza de ter sido um feito e tanto para um ser humano entender uma máquina em seus detalhes mais obscuros. Esta é a verdadeira felicidade da profissão.
+</description>
+</item>
+
+     
+        <item>
+  <title>A Pista (La Jetée)</title>
+  <link>http://www.caloni.com.br/la-jetee/</link>
+  <pubDate>2020-04-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/la-jetee/</guid>
+  <description>Este curta de Chris Marker ficou conhecido como um dos melhores filmes já feitos pela lista de críticos consecutivas vezes. E não é à toa. Sua história é uma poesia do começo ao fim, uma ode à fragilidade da existência humana e aos seus sentimentos e desejos. É uma narrativa pautada em fotos desastrosa no sentido humano, e igualmente aterradora. Nos faz pensar sobre as próprias escolhas da vida, sobre o passado e o futuro, e como o tempo, o nosso tempo, se dissolve a olho nu.
 </description>
 </item>
 
@@ -257,6 +413,50 @@ Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus art
 
      
         <item>
+  <title>Ilha das Flores</title>
+  <link>http://www.caloni.com.br/ilha-das-flores/</link>
+  <pubDate>2020-04-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/ilha-das-flores/</guid>
+  <description>Esse curta passava na escola. Muitos de vocês devem lembrar. Eu me lembro. O que eu mais me lembro era o uso cômico das palavras. A cadência em definir o que é um ser humano, um porco, um tomate, e repetir essas definições, cria humor, uma quase conexão com o espectador, e ao final se torna intenso, choca e nos faz, ou deveria fazer, pensar na pobreza, miséria, etc. É um curta sociológico, do pessoal de humanas, e pode impactar crianças e pessoas de humanas. Mas por trás da emoção há Jorge Furtado e seu jogo de palavras em seu primeiro curta documental. É um roteiro esperto, dinâmico e didático. E enviesado. Aquelas questões que pairam no ar quando abaixo desse ar repousa um cérebro condicionado de humanas. Ainda assim, uma ótima reflexão. Reflete até hoje em nossos pensamentos. Quase parece que tem algo a dizer.
+</description>
+</item>
+
+     
+        <item>
+  <title>Barbosa</title>
+  <link>http://www.caloni.com.br/barbosa/</link>
+  <pubDate>2020-04-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/barbosa/</guid>
+  <description>Barbosa foi o goleiro que deixou passar o segundo gol do Uruguai na Copa do Mundo no Brasil em 1950, arrebatando a taça de nossas mãos nos últimos minutos do campeonato. Certos da vitória, os duzentos mil espectadores e todo o Brasil por tabela saíram do estádio boquiabertos. A magia deste curta de Jorge Furtado e Ana Luiza Azevedo é explorar gêneros e possibilidades em uma história auto-contida que usa trucagens para disfarçar seu baixo orçamento, como uma profundidade de campo reduzidíssima. A história se passa em um estádio, e é difícil conseguir dezenas de milhares de figurantes para esta tarefa. De qualquer forma, o resultado é ainda melhor, pois mescla com filmagens da época, e realiza na montagem uma brincadeira que nos deixa imersos naquele pesadelo dos 2x1.
+</description>
+</item>
+
+     
+        <item>
+  <title>O Dia em que Dorival Encarou a Guarda</title>
+  <link>http://www.caloni.com.br/o-dia-em-que-dorival-encarou-a-guarda/</link>
+  <pubDate>2020-04-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/o-dia-em-que-dorival-encarou-a-guarda/</guid>
+  <description>Filme conceitual que brinca com as voltas que a vida dá. É o segundo curta-metragem do diretor Jorge Furtado junto de José Pedro Goulart e nele já podemos ver algumas ideias de recursividade, de como o homem se olha no espelho e vê ele mesmo. Nada muda nesta vida, e as brincadeiras de metalinguagem que Furtado escreve com Giba Assis Brasil e Ana Luiza Azevedo contém a semente dos seus longas, assim como seu próximo curta, que fala sobre a inevitabilidade do nosso passado por sermos parte de tudo isso.
+</description>
+</item>
+
+     
+        <item>
+  <title>Temporal</title>
+  <link>http://www.caloni.com.br/temporal/</link>
+  <pubDate>2020-04-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/temporal/</guid>
+  <description>Este curta capenga foi o primeiro assinado por Jorge Furtado, diretor sulista de O Homem Que Copiava. Ele mistura toda a miscelânea de pensamentos pseudo-liberais-progressitas da juventude que faz faculdade de artes. Essa tentativa de ridicularizar a sociedade brasileira tradicional cristã pode dar bons frutos, mas Furtado e Goulart estão mais interessados em tentar ridicularizar ambos os lados. Uma festa a fantasia nos faz pensar quem está vestindo fantasia de fato: uma congregação cristã ou um bando de jovens desmiolados. E no âmago desse simples curta, os efeitos visuais são de péssima qualidade. Digno de um trabalho de conclusão de curso e para se divertir com os amigos, passando para eles e para impressionar as menininhas.
+</description>
+</item>
+
+     
+        <item>
   <title>Winmock</title>
   <link>http://www.caloni.com.br/winsock-mock/</link>
   <pubDate>2020-04-10</pubDate>
@@ -265,6 +465,24 @@ Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus art
   <description>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em C são funções com nome bem definido e assinatura flexível você não precisa declarar a assinatura da função, ou pode mudar no meio do caminho.
 Existe um recurso interessante da winsock, um define chamado INCLWINSOCKAPIPROTOTYPES, que pode desabilitar a publicação das assinaturas das funções de socket do header winsock2.h. E por que isso é importante? Porque essas assinaturas já possuem a informação que essas funções deverão ser importadas de uma DLL (no caso a Ws232.dll). Isso muda o nome da função C. Além disso, a convenção de chamada da API do Windows é baseada em Pascal, e não cdecl, sendo a desvantagem não existir número de argumentos variáveis na pilha.
 As funções C do winsock/socket, connect, send, recv, select, etc, são apenas funções C cujos nomes são conhecidíssimos. Elas são linkadas com programas que usam alguma biblioteca de socket. Nada impede que nós mesmos sobrescrevamos essas funções para implementá-las em nosso programa. É isso o que o uso do define acima possibilita: ele evita a importação direto da DLL da Microsoft e com isso você pode usar uma implementação de terceiros ou a sua própria, que não precisa se comunicar com a rede.
+</description>
+</item>
+
+     
+        <item>
+  <title>Callback Hell</title>
+  <link>http://www.caloni.com.br/callback-hell/</link>
+  <pubDate>2020-04-09</pubDate>
+  
+  <guid>http://www.caloni.com.br/callback-hell/</guid>
+  <description>Foi aprendendo sobre kernel do Windows que eu descobri que a linguagem C suporta todas as abstrações que um homem crescido precisa para desenvolver sistemas. Também aprendi que você precisa ser um homem crescido para saber usar direito.
+A linguagem C possui 32 palavras-chave e nenhuma parafusadeira elétrica. Existe um motivo para isso: fazer tudo na mão desenvolve o caráter. Se não desenvolve, pelo menos escancara a má pessoa que você é.
+Olhe para o sistema de callbacks, por exemplo. É uma ferramenta poderosa. Com ponteiros de função e endereços de estrutura você pode chamar quem você quiser a hora que quiser. Há tantas possibilidades que é muito fácil errar.
+Aí que surge o famigerado Callback Hell.
+Esse termo se popularizou através da linguagem Javascript por causa que em Javascript é muito fácil deixar a coisas pra depois. Você deixa seu callback pra ser chamado uma outra hora e esquece dele. E ele faz o mesmo. E mais uma vez. E de novo. Você entendeu a ideia.
+No final das contas, depurar código Javascript escrito por outra pessoa seria uma sala no inferno reservada para aqueles programadores que acharam durante a vida que resolveriam todos os problemas do mundo até às 18:00. Tudo que eles precisavam fazer era criar mais um pequeno callback no finalzinho daquela função. Como se diz em Go Horse Power, &amp;quot;commit e era isso&amp;quot;.
+A linguagem C permite você fazer a mesma coisa. Basta que o endereço da estrutura que você passou como contexto do seu callback tenha um ponteiro de função que vai ser chamado passando mais um membro dessa estrutura como contexto, que irá conter outro ponteiro de função que... você entendeu a ideia.
+No final das contas, depurar um código em C escrito por uma pessoa que evita resolver problemas de arquitetura criando mais um callback deve demonstrar como existem pessoas sem caráter que sabem declarar um ponteiro de função. Cuidado com essas pessoas. Elas podem te levar até uma salinha reservada no inferno.
 </description>
 </item>
 
@@ -322,6 +540,17 @@ Há vários tutoriais na internet sobre seu uso (como o da Atlasian), além do p
 
      
         <item>
+  <title>What Did Jack Do?</title>
+  <link>http://www.caloni.com.br/what-did-jack-do/</link>
+  <pubDate>2020-03-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/what-did-jack-do/</guid>
+  <description>O diretor David Lynch coloca à prova nossa capacidade de avaliação de um trabalho cinematográfico. A Netflix coloca no ar este curta experimental desse diretor experimental em que um macaco é interrogado por um investigador (o próprio Lynch) e sua boca se mexe através de um truque dos mais baratos de colocar uma boca humana falando em cima da boca do animal. Funciona? Eu não me arrisco dizer. Não há nada para se ver por aqui senão uma cópia barata digital que brinca com noir e diálogos que tentam fugir do comum. Mas não adianta: o trabalho de Lynch com o macaquinho é fofinho demais para sair algo além disso.
+</description>
+</item>
+
+     
+        <item>
   <title>Entrando na Zona com Vim</title>
   <link>http://www.caloni.com.br/entrando-na-zona-com-vim/</link>
   <pubDate>2017-01-05</pubDate>
@@ -360,6 +589,20 @@ Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opç�
 
      
         <item>
+  <title>A resolução do bitcoin</title>
+  <link>http://www.caloni.com.br/a-resolucao-do-bitcoin/</link>
+  <pubDate>2016-01-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-resolucao-do-bitcoin/</guid>
+  <description>Recentemente está havendo fuxicos sobre o último texto de Mike Hearn, um dos desenvolvedores do projeto &amp;quot;Bitcoin Core&amp;quot;, que desenha o comportamento da blockchain e acessórios. Nele Mike, que está sendo já há um tempo crítico das mudanças que tem ocorrido no projeto (incluindo um fork pra lá de controverso), pondera sobre o que pode ser o início do fim do experimento bitcoin, graças perifericamente à mudança mais estúpida já feita talvez no projeto, o RBF (replace by fee), que distorce completamente a visão original do paper do Satoshi, criador do Bitcoin, mas principalmente ao já conhecido controle massivo dos servidores atrás do Grande Firewall da China. O detalhe é que nem um nem outro acontecimento deveria se tornar decisivo para o futuro do Bitcoin, cujo teor é ser descentralizado &amp;quot;by design&amp;quot;. Porém, quando as questões técnicas caem no colo dos humanos, eles tendem como primatas a jogar merda para tudo que é bom e moral.
+Meus amigos já sabem que considero a criação de moedas digitais um próximo passo prá lá de grande em direção a um mundo mais justo e livre, principalmente das amarras de um sistema jurássico de controle coercitivo de indivíduos chamado Estado ou governo. Falo especificamente do bitcoin, o mais famoso e o mais popular das moedas digitais. Portanto, não deixa de ser um baque entender como esses projetos poderão sucumbir mais cedo ou mais tarde ao mundo real.
+De qualquer forma, como costumo dizer, serão anos interessantes no reino das criptomoedas e na economia em geral. Com isso, não quero dizer necessariamente que elas irão dominar o sistema financeiro e em breve veremos o fim do dinheiro estatal. Pode querer dizer isso, o que seria ótimo. No entanto, pode também querer dizer, como estamos presenciando hoje, que teremos dados mais concretos dos motivos por trás de por que moedas digitais são impossíveis de escalar no nível tecnológico atual. O mais provável IMHO é que no futuro vejamos algo no meio entre esses dois extremos. Mas não exatamente no meio =)
+Por enquanto, resta seguir se informando sobre como o projeto do bitcoin vai evoluindo, e como as moedas alternativas, criadas ou a ser criadas, vão se adaptando a essas notícias. Uma boa fonte de conhecimento sempre é o Hacker News, que contém os links direto ao ponto e os comentários de pessoas geralmente com algo a acrescentar. Diferente de mim, mero curioso de plantão.
+</description>
+</item>
+
+     
+        <item>
   <title>Novos Atalhos Aprendidos no Vim</title>
   <link>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</link>
   <pubDate>2012-06-09</pubDate>
@@ -368,6 +611,59 @@ Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opç�
   <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
 A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But it&#39;s a different set of commands for everybody&amp;quot; (grifo meu).
  &amp;lt;C-W&amp;gt;&amp;lt;C-W&amp;gt; Alterna entre janelas. &amp;lt;C-W&amp;gt;-c Fecha a janela atual. &amp;lt;C-W&amp;gt;-o Fecha todas as janelas menos a atual. :ball Abre todos os buffers em janelas distintas. g &amp;lt;C-G&amp;gt; Conta linhas, palavras, etc, no texto todo ou na seleção atual.  </description>
+</item>
+
+     
+        <item>
+  <title>À procura de vida extraterrestre</title>
+  <link>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</link>
+  <pubDate>2009-07-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-procura-de-vida-extraterrestre/</guid>
+  <description>Faz uns bons dez anos que eu instalei pela primeira vez em meu Pentium 133 MHz o seti@home, um programinha que se propunha a localizar vida extraterrena através de emissões de rádio capturadas pelas nossas potentes antenas de Arecibo. Ele dizia fazer isso durante o tempo ocioso do meu processador. Como eu sou uma pessoa que costuma costumava confiar bastante nas pessoas, além de ser fã incondicional do filme Contato, instalei sem medo.
+Algum tempo se passou e hoje volto a instalar o mesmo programa, agora envolto em um invólucro de programas de mesmo teor chamado Boinc, que junta todas essas redes de trabalho em equipe. O computador é usado hoje em dia para diversos trabalhos que exigem um certo esforço no processamento que torna proibitivo alocar máquinas somente para isso (se não impossível do ponto de vista geográfico).
+Eis uma lista dos principais projetos disponíveis através do Boinc que me chamaram a atenção:
+ Climateprediction.net busca prever as possíveis consequências para o mundo das futuras transformações no clima. CPUGrid.net é uma simulação molecular de proteínas otimizada para as GPUs da NVidia e o Playstation 3. Superlink@Technion e ajude os cientistas a encontrar os prováveis genes causadores de fatalidades como câncer, a diabetes, hipertensão e esquizofrenia. Chess960@home para análise de uma variante do xadrez tradicional que sempre coloca as peças iniciais em posições aleatórias. PrimeGrid é um gerador de uma base de dados pública de números primos sequenciais, além de procurar por números primos gêmeos gigantes (vai saber). Quantum Monte Carlo at Home não é o que parece: Estudo da estrutura e da reatividade de moléculas usando a Química Quântica (?).  Dentre eles, acabei ficando mesmo com o bom e velho seti@home. Pode me chamar de egoísta, mas mesmo que encontrem a cura do câncer, não será muito produtivo para mim, que possuo questões existenciais que, acredito eu, facilitariam a compreensão das pessoas acerca da nossa extrema pequenez nesse universo, nos colocando cada vez mais no cantinho de nossa existência.
+Escolha o seu!
+</description>
+</item>
+
+     
+        <item>
+  <title>A Alça Dentro do Fio Gerou um Bloqueio da Morte</title>
+  <link>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</link>
+  <pubDate>2008-10-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</guid>
+  <description>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções no mínimo curiosas. O exemplar em questão era o primeiro Windows Internals, publicado após o lançamento da primeira versão do Windows NT, uma plataforma escrita (quase) inteiramente do zero para suplantar as versões 9x (Windows 95 e 98), que herdaram do DOS algumas partes indesejáveis em sistemas operacionais modernos.
+Sabe-se lá por que essa edição foi traduzida. É interessante notar que naquela época foi dado um tratamento especial a alguns termos e conceitos já comuns no dia-a-dia do programador americano, apesar de quase nenhum desses termos ter se mantido em sua versão original. Os exemplos mais gritantes são as threads (fios ou linhas), os dead locks (bloqueios da morte) e os handles (alças). Apesar de não ter nada contra traduzir termos do inglês para português (e vice-versa) algumas coisas incomodam em tradução de livros técnicos.
+Um bom exemplo são ponteiros. Ler em um dado capítulo &amp;quot;(...) é muito importante inicializar seus ponteiros antes de usá-los&amp;quot; para, depois de nos acostumarmos com o termo, ler em outro capítulo &amp;quot;(...) sabe-se que a pior desgraça para um programador C são os famigerados apontadores selvagens&amp;quot;. Você resolveria esse tipo de problema definindo um vocabulário em comum com todo o livro (importantíssimo se ele está sendo traduziro por mais de uma pessoa) e ainda informaria o leitor qual o termo original, caso ele precise pesquisar sobre ele fora do livro. Com essa informação, que pode ser usada apenas nos primeiros usos da palavra ou em um glossário à parte, agradaria gregos e troianos: &amp;quot;os ponteiros em C (pointers) são um recurso rico e necessário para a escrita de programas de baixo/médio nível&amp;quot;.
+Um exemplo notável é o famoso livro de algoritmos em C da O&#39;Reilly, que mesmo na nova edição com uma errata de 49 itens foi possível detectar mais erros. Um exemplo que me lembro era de uma função do algoritmo bitree. Nele havia uma variável com o nome orig que três linhas abaixo estava &amp;quot;traduzida&amp;quot; para original. É importante aqui diferenciar que no original não consta esse erro da troca do nome da variável.
+Isso acaba sendo pior do que não colocar a versão em inglês, pois dá a impressão que não existe significado a ser explicado. Por exemplo, ver antes do capítulo sobre threads a passagem &amp;quot;... quando um fio espera o outro e vice-versa, acontece o terrível bug da trava da morte&amp;quot;. Para quem não descobriu o que foi escrito no original, se trata de duas threads (fios) causando um deadlock (trava da morte), cujo termo inclusive é usado no seu original na Wikipédia em português.
+Esses exemplos, salvo o exemplo do livro de algoritmos, foram criados para ilustrar os tipos de erros mais comuns em traduções de livros técnicos, e não estão relacionados com qualquer livro em específico. Então o que era inicialmente para ajudar as pessoas que estão iniciando alguns conceitos acaba por prejudicar ainda mais o aprendizado, gerando aquele tipo de confusão que só com ajuda extra (internet, professor, colega) pode ser resolvida.
+Assim como no vocabulário comum corrente, em que existem palavras dificilmente adaptáveis ou traduzíveis em um termo comum, como shopping e show, no meio técnico brotam as mais variadas expressões &amp;quot;estrangeirísticas&amp;quot;. Algumas são muito difíceis de encontrar seu primo lusófono, como link e login. Outros, no entanto, exageram um pouco as coisas, a ponto de conjugarmos um verbo em inglês usando nosso sistema gramatical: se você &amp;quot;stopar&amp;quot; o &amp;quot;debugador&amp;quot; vai &amp;quot;crashear&amp;quot; todo o sistema, porque esse software tá &amp;quot;bugado&amp;quot;! 1
+O fato é que não há escapatória para quem trabalha nessa área, e no fundo isso é uma coisa boa, pois é da leitura técnica em inglês que podemos estender o nosso conhecimento além das barreiras do ponto com ponto br e encontrar conteúdo extremamente interessante (e inédito em nossa língua) para aprender. Se não estivéssemos abarrotados de estrangeirismos talvez fosse um pouco mais difícil fazer o switch entre essas duas linguagens.
+  Ironicamente 12 anos depois deste artigo ser escrito o verbo bugar virou uma gíria corrente entre jovens. &amp;#x21a9;&amp;#xfe0e;
+   </description>
+</item>
+
+     
+        <item>
+  <title>Estranho</title>
+  <link>http://www.caloni.com.br/estranho/</link>
+  <pubDate>2008-03-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/estranho/</guid>
+  <description>Bom, é hora de dizer tchau. Essa é minha última semana escovando bits na empresa onde estava por três anos. É estranho e esquisito dizer isso, mas me sinto um tanto aliviado. Nessa empreitada, porém, aprendi algumas coisas que valem a pena colocar na bagagem. Sempre é melhor entender do que criticar.
+Por exemplo, vejamos a palavra estranho: quantas vezes você já pronunciou essa palavra quando estava diante de um problema daqueles esotéricos? Muitas vezes, não foi? E os problemas não-esotéricos?
+Quando nos acostumamos a usar uma palavra para aliviar a dor de não entendermos o que está acontecendo diante de nós, visto pelos nossos próprios olhos, estamos nos condicionando a parar de cutucar nosso cérebro para encontrar uma resposta rápida e racional para o que está acontecendo. Em suma: nos fechamos ao mundo falando &amp;quot;estranho&amp;quot;.
+Não por esse motivo, mas por estarmos cansados de tanto ouvir falar essa palavra, eu e meu amigo Thiago começamos a instituir uma &amp;quot;taxa simbólica&amp;quot; de 1 (um) real para os que proferirem a dita cuja, e passamos a usar o dinheiro arrecadado para o bem da comunidade, comprando o que nós, programadores, mais veneramos nos momentos de debugging: bolachas!
+Essa &amp;quot;medida provisória&amp;quot; aos poucos foi se alastrando pelas mesas do departamento, ao ponto máximo de todos da área técnica, além do diretor comercial, colaborar para a nossa &amp;quot;caixinha de um real&amp;quot;.
+Criamos um ambiente livre de estranhos. E criamos um trauma em nossas cabeças. A partir das primeiras semanas, toda vez que estávamos em algum lugar em que uma pessoa desconhecida (um estranho) dizia a palavra, soava um sino em nossas cabeças, quase fazendo com que nossa mão acusadoramente se erguesse e fizesse o gesto com o dedo indicando que a pessoa, a partir daquele momento, estava devendo um real para nossa caixinha comunitária.
+E assim fomos indo, meses a fio, sem falar essa palavra na presença dos fiscais do um real, que éramos todos nós. A proibição foi linear e englobou todas as situações de vida social em que poderíamos nos expressar: no trabalho, no almoço, por mensagem instantânea, por e-mail, pelo celular, fora do trabalho, nos artigos do blogue...
+Pois é, caro leitor, nos artigos do blogue. Se você procurar nestes últimos três anos qualquer menção à palavra &amp;quot;estranho&amp;quot; por aqui com certeza não irá encontrar.
+Até agora, quando finalmente foi quebrado o encanto. Quer dizer, oficialmente a cobrança está extinta, mas nossas mentes sempre irão conter esse sino acusador tocando no ônibus, nas ruas, no cinema, no shopping, em casa. Enfim, nos códigos estranhos de nossa vida.
+</description>
 </item>
 
      
