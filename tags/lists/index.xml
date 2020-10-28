@@ -19,6 +19,7 @@
   2020-08-07: ao usar ponto (.) antes de rodar um comando no terminal Linux é possível definir variáveis de ambiente. Com isso consigo definir o ambiente para fazer cross compiling em Golang no Linux para Windows, gravando as variáveis em um arquivo executável &amp;quot;export GOOS=windows; export GOARCH=amd64; etc&amp;quot; e chamando com &amp;quot;. meu_arquivo&amp;quot; no terminal.
   2020-10-22: para desabilitar expiração de senhas no Oracle o comando alter user user_name identified by new_password account unlock; resolve. Para as senhas não expirarem novamente em ambiente de desenv é só usar o comando ALTER PROFILE &amp;quot;DEFAULT&amp;quot; LIMIT PASSWORD_VERIFY_FUNCTION NULL; uma vez no banco.
   2020-10-22: para apagar tags dos posts é possível usar o seguinte comando sed -e &amp;quot;s/\[ \&amp;quot;tag\&amp;quot;[,]*/[/&amp;quot; -e &amp;quot;s/[,]* \&amp;quot;tag\&amp;quot; ]/ ]/&amp;quot; -e &amp;quot;s/, \&amp;quot;tag\&amp;quot;, /, /&amp;quot;.
+  2020-10-26: para dar sleep em C&#43;&#43; moderno com resolução de milissegundos é std::this_thread::sleep_for(std::chrono::milliseconds(200));. É tão intuitivo que achei preciso anotar.
   </description>
 </item>
 
