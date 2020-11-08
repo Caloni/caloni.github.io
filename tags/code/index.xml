@@ -475,23 +475,6 @@ UPDATE: Embora use a função WSASocketW o Boost.Asio não suporta a parametriza
 
      
         <item>
-  <title>A Maneira Errada de Começar um Projeto é com Visual Studio</title>
-  <link>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</link>
-  <pubDate>2018-12-11</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
-  <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
-Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.
-Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária. No caso da Microsoft há os precompiled headers, que sujam o projeto antes mesmo do tempo de compilação ser um problema. E agora descobri que os arquivos estão sendo gerados em UNICODE Windows.
-Se você tiver o mesmo problema e quiser corrigir segue o passo-a-passo: salve os arquivos com um encoding de gente grande como utf8. Fim do passo-a-passo.
-Isso pode ser obtido na janela de &amp;quot;Save As&amp;quot; do Visual Studio. Há uma flecha para baixo do lado do botão Save onde você pode abrir a opção &amp;quot;Save with Encoding&amp;quot;.
-Na prática, troque possivelmente de &amp;quot;Unicode - Codepage 1200&amp;quot; para &amp;quot;Unicode (UTF-8 without signature) - Codepage 65001&amp;quot;. A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.
-A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.
-</description>
-</item>
-
-     
-        <item>
   <title>Boost.Bind e os Erros Escrotos</title>
   <link>http://www.caloni.com.br/boost-bind-e-os-erros-escrotos/</link>
   <pubDate>2018-10-01</pubDate>
@@ -1319,22 +1302,6 @@ Este é um guia bem básico, mas atende os requisitos de quem quer começar a me
 
      
         <item>
-  <title>A Linguagem de Programação C&#43;&#43;: O Início</title>
-  <link>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</link>
-  <pubDate>2016-11-29</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</guid>
-  <description>O livro-base sobre a linguagem C&#43;&#43; e como programar nela tem o nome pouco criativo &amp;quot;The C&#43;&#43; Programming Language&amp;quot;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhar a linguagem em 1979, quando ainda a chamada de &amp;quot;C com Classes&amp;quot;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula -- como o novo conceito de Orientação a Objetos -- que carecia do mais importante na época: velocidade (só na época?). Já linguagens mais antigas como BCPL eram bem rápidas, mas eram tão simples que pareciam mais um Assembly glorificado. Havia, portanto, a necessidade de preencher a área de computação com alguma coisa bem no meio.
-Stroustrup não fez tudo do zero, nem fez tudo de uma vez. A primeira necessidade era apenas criar uma abstração já existente na linguagem C, mas que ainda não havia sido integrada à sintaxe: o contexto de uma estrutura, que se assemelha a uma proto-classe, ou para alguns já é até uma classe, pois possui membros e métodos:
-A grande sacada é que no meio de toda essa sintaxe de chamada de método havia a passagem de um parâmetro escondido, o this, que se referia à uma instância específica da classe: um objeto.
-Isso equivaleria a uma struct em C com funções que recebessem um this adaptado:
-Esse tipo de abstração nem é tão complicada assim. O ojetivo eram vários: conseguir proteger os membros de acesso indevido, abstrair o comportamento de um objeto. Com o tempo Stroustrup foi realmente criando algo de novo e muito mais difícil de se manter em C.
-Algo para um próximo post =)
-</description>
-</item>
-
-     
-        <item>
   <title>Quantos handles sua aplicação está abrindo?</title>
   <link>http://www.caloni.com.br/quantos-handles/</link>
   <pubDate>2016-11-29</pubDate>
@@ -1834,9 +1801,8 @@ Com essa forma de fazer serviços, há uma dupla vantagem:
   
   <guid>http://www.caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github/</guid>
   <description>Semana passada fiquei sabendo que o vídeo da minha palestra &amp;quot;Depurando até o fim do mundo&amp;quot; do TDC 2014 estava disponível online. Resolvi assistir para ver se aprendia alguma coisa. A despeito do palestrante ser muito ruim, ele disse uma coisa interessante: com o Debugging Tools (WinDbg para os íntimos) seria possível além de indexar os símbolos (PDBs para os íntimos) usando o esquema de Symbol Server que a própria Microsoft adota usar algumas ferramentas embutidas para conseguir obter o fonte através de um símbolo indexado.
-E de onde viria esse fonte? Bom, a priori é necessário que exista algum controle de fonte para que as versões estivessem já &amp;quot;indexadas&amp;quot; nesse controle e fossem mapeados com strings internas no PDB. Através dessas strings o WinDbg ao analisar um crash dump ou até mesmo depurando um processo com o uso do PDB conseguiria baixar os fontes automagicamente desse controle de fonte, desde que ele estivesse acessível (na internet, na intranet da própria empresa, na rede, em um disco rígido externo ou na própria máquina do desenvolvedor que não quer se matar para conseguir obter a versão exatada dos fontes daquele binário).
-O detalhe que o palestrante (Caloni é o nome do sujeito) citou era que já existiam scripts prontos para realizar essa tarefa para os controles de fonte mais comuns, sendo que os mais comuns são: Source Safe (?????), CVS (????????) e, claro, Subversion! (?!?!?!?!??!??!?!).
-OK, pelo visto o pessoal da Microsoft mora em uma caverna ou não estão muito interessados em indexar os fontes para alguns controles de fonte que estão surgindo por aí, como Git sendo um exemplo aleatório.
+E de onde viria esse fonte? Bom, a priori é necessário que exista algum controle de fonte para que as versões estivessem já &amp;quot;indexadas&amp;quot; nesse controle e fossem mapeados com strings internas no PDB. Através dessas strings o WinDbg ao analisar um crash dump ou até mesmo depurando um processo com o uso do PDB conseguiria baixar os fontes automagicamente desse controle de fonte, desde que ele estivesse acessível (na internet, na intranet da própria empresa, na rede, em um disco rígido externo ou na própria máquina do desenvolvedor que não quer se matar para conseguir obter a versão exata dos fontes daquele binário).
+O detalhe que o palestrante (Caloni é o nome do sujeito) citou era que já existiam scripts prontos para realizar essa tarefa para os controles de fonte mais comuns, sendo que os mais comuns são: Source Safe (?????), CVS (????????) e, claro, Subversion! (?!?!?!?!??!??!?!). OK, pelo visto o pessoal da Microsoft mora em uma caverna ou não estão muito interessados em indexar os fontes para alguns controles de fonte que estão surgindo por aí, como Git sendo um exemplo aleatório.
 Já que o tal do Caloni disse que ainda não fizeram scripts para controles mais modernos. Nenhum descentralizado ainda está na lista. Os scripts são feitos em Perl, ou seja, estão disponíveis em uma linguagem um pouco mais fácil que .BAT. Ou talvez não. De qualquer forma, não parece muito difícil de entender a dinâmica do WinDbg e simplesmente gerar o que tem que gerar dentro dos PDBs.
 Pensando nisso, resolvi fazer uma primeira versão, em Python, de um script em que você passa alguns dados e ele processa seus PDBs. Depois você pode jogá-los em um Symbol Server e quando o WinDbg encontrá-lo através de um binário analisado, este irá conter o endereço no GitHub e um comando do Curl para baixá-lo, passando a exibi-lo imediatamente na tela do WinDbg. E nada mais lógico do que criar um repositório no GitHub para compartilhá-lo, certo?
 O funcionamento é muito simples, mas pede muitos parâmetros (recomendo criar um batch para armazená-los). Então vejamos:
@@ -2253,26 +2219,6 @@ PS: Bom, estou na próxima fase. Veremos o que o futuro nos espera. Esse program
 O padrão do lambda é supor que sua função embutida e enlatada não precisa retornar nada, o que torna a sintaxe mais simples: é um void AlgumaCoisa(argumentos). No entanto, para algoritmos como o findif isso não funciona, então é necessário retornar algo. E, no caso de findif, chamá-lo mais de uma vez pode ser feito facilmente criando uma variável lambda:
 O tipo de retorno que colocamos através de uma flechinha é obrigatória? De fato, não. Se eu omiti-la vai funcionar do mesmo jeito porque o único ponto de saída da minha função retorna um bool.
 Esses compiladores estão ficando cada vez mais espertos.
-</description>
-</item>
-
-     
-        <item>
-  <title>A moda agora é levar lambda na função</title>
-  <link>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</link>
-  <pubDate>2014-03-28</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</guid>
-  <description>A nova moda de programar C&#43;&#43; nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
-O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.
-Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;quot;pain in the ass&amp;quot;.
-Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:
-Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.
-Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):
-Apesar disso gerar INTERNALCOMPILERERROR em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar...
-Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo. Por exemplo:
-&amp;quot;Caraca, mas o que é esse código alienígena?&amp;quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C&#43;&#43; e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.
-E não é só isso. Tem muito mais esquisitices de onde veio essa.
 </description>
 </item>
 
@@ -3946,9 +3892,9 @@ A boa notícia é que o salvamento é mais simples do que parece: coloque todas 
 Confuso? Se estiver, ainda bem. Isso quer dizer que estamos novamente em um daqueles artigos com &amp;quot;pseudo-parábolas&amp;quot;, a maneira mais ilustrada de explicar as coisas.
 Os SOs modernos possuem inúmeras maneiras de controlar e monitorar o acesso a recursos do sistema. Neste breve artigo irei falar apenas de um: o critical section, ou, em tradução livre, &amp;quot;seção crítica&amp;quot;. O &amp;quot;seção&amp;quot; desse nome diz respeito a uma seção do programa, ou seja, um pedaço de código mesmo. Um pedaço de código crítico.
 Resumidamente, um critical section é um recurso que apenas uma thread por vez pode obter. Para que outra thread tenha acesso ao mesmo critical section, a primeira thread que o obteve deve soltá-lo. Enquanto ela não solta, as outras threads ficam paradas, esperando pela chave, na sala trancada.
-Do ponto de vista do programador, o critical secton é apenas uma estrutura que é usada na chamada de quatro funções básicas: para inicializar o recurso, para entrar na seção crítica.aspx), para sair da seção crítica.aspx) e para liberar o recurso.aspx) (quando aquele critical section não mais será usado).
+Do ponto de vista do programador o critical secton é apenas uma estrutura que é usada na chamada de quatro funções básicas: para inicializar o recurso, para entrar na seção crítica, para sair da seção crítica e para liberar o recurso, quando aquele critical section não será usado mais.
 Falando assim, parece simples. Bom, na verdade é simples, mesmo. Tudo que você precisa para corrigir o programa do artigo anterior é criar um critical section e fazer com que as threads obtenham-no antes de mexer com o contador compartilhado.
-Para finalizar, algo para pensar: se uma thread só consegue um critical section depois que outra thread soltá-lo, o que acontece se essa outra thread estiver esperando por outro critical section que uma thread que aguarda estiver segurando?
+#include &amp;lt;windows.h&amp;gt;#include &amp;lt;stdio.h&amp;gt;#define MAX_COUNTER 10int g_counter = 0;CRITICAL_SECTION g_cs;DWORD WINAPI Increment(){DWORD tid = GetCurrentThreadId();while( g_counter &amp;lt; MAX_COUNTER ){// esse é o começo de nossa // seção crítica// só uma thread entra// por vez por aquiEnterCriticalSection(&amp;amp;g_cs);int temp = g_counter;temp = temp &#43; 1;Sleep(0); // indo para // o final da filag_counter = temp;// esse é o fim de nossa // seção crítica// a partir dessa chamada // outra thread pode // entrar pelo começoLeaveCriticalSection(&amp;amp;g_cs);printf(&amp;quot;Counter: %d&amp;quot;&amp;quot;\t\tThread: %d\n&amp;quot;, temp, tid);}return 0;}int main(){HANDLE threads[3];DWORD tids[3];// precisamos inicializar // nosso recurso de // seção críticaInitializeCriticalSection(&amp;amp;g_cs);for( int i = 0; i &amp;lt; 3; &#43;&#43;i ){threads[i] = CreateThread(NULL, 0, IncrementGlobalCounter, 0, 0, &amp;amp;tids[i]);printf(&amp;quot;Thread %i: %d\n&amp;quot;, i, tids[i]);}// aguarda as threadsWaitForMultipleObjects(3, threads, TRUE, INFINITE);// agora precisamos liberar o // recurso de seção críticaDeleteCriticalSection(&amp;amp;g_cs);} Para finalizar, algo para pensar: se uma thread só consegue um critical section depois que outra thread soltá-lo, o que acontece se essa outra thread estiver esperando por outro critical section que uma thread que aguarda estiver segurando?
 Acabamos de ilustrar um procedimento muito simples para cagar completamente no código e gerar um travamento que pode demorar de horas a semanas para ser detectado e resolvido. É o conhecido deadlock. Se você não entendeu ainda, imagine que, para voltar à sala das threads, a primeira thread que saiu precisa de duas chaves; só que ela só pegou a primeira, e a segunda está dentro da sala. Para pegar a segunda chave, ela precisa entrar na sala, só que a sala está trancada pelas duas chaves!
 Deadlocks são sempre indesejáveis, e é por isso que existem diversas técnicas para tentar evitá-los. A mais conhecida é sempre obter os critical sections na mesma ordem. Dessa forma a obtenção de recursos é hierarquizada, o que impede que dois CSs estejam no mesmo nível de obtenção, evitando que duas threads distintas os obtenham.
 Espero que tenha ficado claro nossa breve explanação de como podemos controlar programas multithreading. Espero, pois a próxima tarefa é entender outros conceitos mais abstratos e virtuais, como funções virtuais e classes abstratas.
@@ -5174,21 +5120,20 @@ Enfim, tudo que temos que lembrar durante um merge do Bazaar é ver os conflitos
   <pubDate>2008-05-01</pubDate>
   
   <guid>http://www.caloni.com.br/acessando-memoria-fisica-no-windbg/</guid>
-  <description>Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte integrante do sistema operacional. Podemos saber mais sobre isso lendo o artigo do Strauss sobre gerenciamento de memória no Windows.
+  <description>Como muitos devem saber, acessar memória virtual no WinDbg é coisa de criança, assim como em todo depurador decente. Se estamos falando de kernel mode então, nem se fala! A memória virtual é parte integrante do sistema operacional. Podemos saber mais sobre isso na apresentação do Strauss sobre gerenciamento de memória no Windows.
 Porém, existem situações, como a que passei essa semana, onde é preciso saber e alterar o conteúdo da memória de verdade, mesmo. Quando eu falo &amp;quot;de verdade mesmo&amp;quot; estou falando em acessar a memória através do seu endereçamento real, que conta do zero até o final da sua memória RAM, sem divisão de processos e sem proteções de acesso.
 Para isso é que serve um depurador de verdade, mesmo.
-No modo real, onde vivem sistemas como o MS-DOS e programas como o Turbo C, a memória é acessada através do par de coordenadas conhecido como segmento e offset. Entre outros motivos, isso acontece porque em um determinado momento da história o 8086 possuía 16 bits em seus registradores, mas conseguia endereçar até seiscentos e quarenta quilobytes, o que resulta em seiscentos e quarenta vezes mil e vinte e quatro, ou seja, seiscentos e cinquenta e cinco mil, trezentos e sessenta bytes, um número dez vezes maior do que sessenta e cinco mil, quinhentos e trinta e seis, ou dois elevado a dezesseis, o maior número representado por dezesseis bits.
+No modo real, onde vivem sistemas como o MS-DOS e programas como o Turbo C, a memória é acessada através do par de coordenadas conhecido como segmento e offset. Entre outros motivos, isso acontece porque em um determinado momento da história o 8086 possuía 16 bits em seus registradores, mas conseguia endereçar até 640 quilobytes, o que resulta em 640 vezes 1024, ou seja, 655366 bytes, um número dez vezes maior do que 65536 mil, ou 2 elevado a 16, o maior número representado por 16 bits.
 Dessa forma, foi necessário o uso de mais 4 bits para fazer a coisa funcionar, pois como podemos notar logo abaixo, a representação do último byte de 640 KB exige isso:
-Para conseguir esses 4 bits adicionais foram usados dois registradores em conjunto, o segmento e o offset. Funciona assim: o segmento é multiplicado por 16 (ou deslocado 4 bits à esquerda) e logo depois é somado com o offset, resultando no endereçamento desejado:
-Ou seja, para acessar o byte de número 595764, ou 0x91734, podemos usar o segmento 0x9022 com o offset 0x1514. A soma desses dois com o segmento deslocado irá resultado no endereço flag, ou seja, aquele que obtemos se contarmos a memória do zero até o final da RAM.
-Na época, a RAM não costumava ser de valores como 2GB ou até 4GB, mas em KB mesmo. Isso explica a limitação do 8086 em endereçar até 640 KB.
+10 16 16 16 16 decA 0 0 0 0 hex1010 0000 0000 0000 0000 bin Para conseguir esses 4 bits adicionais foram usados dois registradores em conjunto, o segmento e o offset. Funciona assim: o segmento é multiplicado por 16 (ou deslocado 4 bits à esquerda) e logo depois é somado com o offset, resultando no endereçamento desejado:
+segment: 0x 9022offset: 0x 15140x 90220x 1514 (&#43;)real addr: 0x 91734 Ou seja, para acessar o byte de número 595764, ou 0x91734 podemos usar o segmento 0x9022 com o offset 0x1514. A soma desses dois com o segmento deslocado irá resultado no endereço flag, ou seja, aquele que obtemos se contarmos a memória do zero até o final da RAM. Importante lembrar que na época a RAM não costumava ser de valores como 2GB ou até 4GB, mas em KB mesmo. Isso explica a limitação do 8086 em endereçar até 640 KB.
 Se nós repararmos bem, veremos que esse método implica em conseguirmos acessar o mesmo byte com um conjunto de segmentos e offsets diferentes, já que a soma pode ser resultado de operandos diversos. Esse é o chamado efeito de overlapping da memória segmentada, onde os programadores em assembly daquela época tinham que tomar alguns cuidados básicos para não atravessar a memória dos outros. No nosso exemplo acima, por exemplo, seria bem mais fácil chamar nosso bytezinho de segmento 0x9000, offset 0x1734.
-É verdade! Então, o WinDbg possui alguns comandos extendidos e formas de representar essa memória real, atualmente limitada não mais em 640 KB, mas até onde seus pentes de RAM agüentarem. Os mais comuns são os que imitam os nossos conhecidos dumps de memória: db, dc, dd... Temos daí as extensões !db, !dc, !dd... (note a exclamação do início).
-Simples, assim.
+0x 90000x 1734 (&#43;)0x 91734 É verdade! Então, o WinDbg possui alguns comandos extendidos e formas de representar essa memória real, atualmente limitada não mais em 640 KB, mas até onde seus pentes de RAM agüentarem. Os mais comuns são os que imitam os nossos conhecidos dumps de memória: db, dc, dd... Temos daí as extensões !db, !dc, !dd... (note a exclamação do início).
+windbg -kllkd&amp;gt; !db 91734# 91734 00 (...) .....# 91744 00 (...) .....# 91754 00 (...) .....# 91764 00 (...) .....# 91774 00 (...) .....# 91784 00 (...) .....# 91794 00 (...) ..... Simples, assim. O sinal de # no início do dump de memória denota memória real.
 Infelizmente, o WinDbg não nos permite ler certas regiões da memória por conta do cacheamento feito pelo processador. Para permitir a leitura em todas as condições, existem três flags que podem ser utilizados:
  c lê da memória cacheada uc lê da memória não-cacheada wc lê da memória de escrita combinada  Nesse caso é possível, embora fique por sua conta e risco, ler qualquer memória não-cacheada usando-se a flag uc.
 É possível fazer mais brincadeiras usando os comandos comuns do WinDbg e uma notação diferente da memória. No entanto, é preciso tomar alguns cuidados quando mexer com isso. É recomendado o uso de uma máquina-vítima para esses testes, e não depuração local como estou fazendo.
-É isso aí. Não espero que você use muitas vezes essa forma de acessar memória. Só que eu usei e... nunca se sabe =)
+ descrição example------------ ----------% 32, 64 bits %6400000&amp;amp; real 8086 &amp;amp;9000:1734# real 8086 #4C É isso aí. Não espero que você use muitas vezes essa forma de acessar memória. Só que eu usei e... nunca se sabe =)
 </description>
 </item>
 
@@ -6757,23 +6702,6 @@ A simple victim of all this can be an executable using a poorly written DLL, jus
 In order to the see the locking code in action, copy the DLL and EXE source files and use the following commands to generate the executable files:
 It is important to remember that a DllMain dependant code is a very, very bad thing. Nevertheless, there are some particular cases the only place to run our code is inside DllMain. In these cases, when detected, try to run a side by side communication with your locked thread using an event object (or equivalent) before it really returns. Using this craft the thread can warn the waiting thread that the important thing to be done is done, and the waiting thread can go to sleep and stop waiting forever locked threads.
  NT Loader (MSJ Sep 99) - Matt Pietrek mgrier&#39;s WebLog - NT Loader team participant  </description>
-</item>
-
-     
-        <item>
-  <title>A mobilidade das variáveis no printf</title>
-  <link>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</link>
-  <pubDate>2007-09-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
-  <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
-O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
-Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir):
-O segundo que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:
-É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm.
-É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?
-Conforme o printf interpreta a string de formatação, ele vai &amp;quot;comendo&amp;quot; (no bom sentido) os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente. Como os próximos 32 bits de nosso int64 estão zerados, faz sentido o printf imprimir (null) no lugar da string, pois este é o comportamento padrão da função quando o ponteiro é nulo. Agora, se tivéssemos um int realmente grande - vulgo &amp;quot;intão&amp;quot; - daí as coisas seriam diferentes:
-</description>
 </item>
 
      

@@ -91,7 +91,13 @@ A moda agora é levar lambda na função
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças<a href="https://github.com/Caloni/blog/blob/master/content/posts/a-moda-agora-e-levar-lambda-na-funcao.md">.</a>
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2014-03-28<a href="https://github.com/Caloni/blog/blob/master/content/posts/a-moda-agora-e-levar-lambda-na-funcao.md">.</a>
   
 
 </p>
@@ -106,11 +112,75 @@ A moda agora é levar lambda na função
 <p>O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.</p>
 <p>Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &quot;pain in the ass&quot;.</p>
 <p>Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:</p>
+<pre><code>void NewYearMail(Person&amp; p)
+{
+  p.age += 1;
+  SendMail(p);
+}
+
+int main()
+{
+  vector&lt;Person&gt; people;
+  GetAnniversaries(people);
+  for_each(people.begin(),
+    people.end(),
+    NewYearMail);
+}
+</code></pre>
 <p>Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.</p>
 <p>Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):</p>
-<p>Apesar disso gerar INTERNALCOMPILERERROR em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar...</p>
-<p>Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo. Por exemplo:</p>
+<pre><code>int main()
+{
+  struct NewYearMail
+  {
+    void operator()(Person&amp; p)
+    {
+      p.age += 1;
+      SendMail(p);
+    }
+  };
+
+vector&lt;Person&gt; people;
+GetAnniversaries(people);
+for_each(people.begin(),
+  people.end(),
+  NewYearMail);
+}
+</code></pre>
+<p>Apesar disso gerar &quot;internal compiler error&quot; em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar, um resquício de inveja de Pascal permitir função dentro de função e C não.</p>
+<p>Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo:</p>
+<pre><code>int main()
+{
+  vector&lt;Person&gt; people;
+  GetAnniversaries(people);
+
+  for_each(people.begin(), 
+    people.end(), 
+    [&amp;](Person&amp; p)
+    {
+      p.age += 1;
+      SendMail(p);
+    }
+  );
+}
+</code></pre>
 <p>&quot;Caraca, mas o que é esse código alienígena?&quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C++ e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.</p>
+<pre><code>int main()
+{
+  int numbers[] = { 
+    1, 2, 3, 4, 5, 
+    6, 7, 8, 9, 10 };
+
+  for_each(&amp;numbers[0],
+    &amp;numbers[10],
+    [&amp;] // capture scope
+    (int n) // arguments
+    {
+      cout &lt;&lt; n &lt;&lt; ' ';
+    }
+  );
+}
+</code></pre>
 <p>E não é só isso. Tem muito mais esquisitices de onde veio essa.</p>
 
             
@@ -120,7 +190,7 @@ A moda agora é levar lambda na função
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/ccpp">ccpp</a> 
     
 
 

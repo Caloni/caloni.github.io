@@ -82,15 +82,21 @@
       
       <div class="container">
         <p class="title">
-
+ <a class="external" href="https://www.infoq.com/br/presentations/depurando-ate-o-fim-do-mundo/">
 Depurando até o fim do mundo e de volta de novo: source server com GitHub
-
+</a>
 </p>
 
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças<a href="https://github.com/Caloni/blog/blob/master/content/posts/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github.md">.</a>
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2015-05-26<a href="https://github.com/Caloni/blog/blob/master/content/posts/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github.md">.</a>
   
 
 </p>
@@ -102,11 +108,10 @@ Depurando até o fim do mundo e de volta de novo: source server com GitHub
 
             
               <p>Semana passada fiquei sabendo que o vídeo da minha palestra &quot;Depurando até o fim do mundo&quot; do TDC 2014 estava disponível online. Resolvi assistir para ver se aprendia alguma coisa. A despeito do palestrante ser muito ruim, ele disse uma coisa interessante: com o Debugging Tools (WinDbg para os íntimos) seria possível além de indexar os símbolos (PDBs para os íntimos) usando o esquema de Symbol Server que a própria Microsoft adota usar algumas ferramentas embutidas para conseguir obter o fonte através de um símbolo indexado.</p>
-<p>E de onde viria esse fonte? Bom, a priori é necessário que exista algum controle de fonte para que as versões estivessem já &quot;indexadas&quot; nesse controle e fossem mapeados com strings internas no PDB. Através dessas strings o WinDbg ao analisar um crash dump ou até mesmo depurando um processo com o uso do PDB conseguiria baixar os fontes automagicamente desse controle de fonte, desde que ele estivesse acessível (na internet, na intranet da própria empresa, na rede, em um disco rígido externo ou na própria máquina do desenvolvedor que não quer se matar para conseguir obter a versão exatada dos fontes daquele binário).</p>
-<p>O detalhe que o palestrante (Caloni é o nome do sujeito) citou era que já existiam scripts prontos para realizar essa tarefa para os controles de fonte mais comuns, sendo que os mais comuns são: Source Safe (?????), CVS (????????) e, claro, Subversion! (?!?!?!?!??!??!?!).</p>
-<p>OK, pelo visto o pessoal da Microsoft mora em uma caverna ou não estão muito interessados em indexar os fontes para alguns controles de fonte que estão surgindo por aí, como Git sendo um exemplo aleatório.</p>
+<p>E de onde viria esse fonte? Bom, a priori é necessário que exista algum controle de fonte para que as versões estivessem já &quot;indexadas&quot; nesse controle e fossem mapeados com strings internas no PDB. Através dessas strings o WinDbg ao analisar um crash dump ou até mesmo depurando um processo com o uso do PDB conseguiria baixar os fontes automagicamente desse controle de fonte, desde que ele estivesse acessível (na internet, na intranet da própria empresa, na rede, em um disco rígido externo ou na própria máquina do desenvolvedor que não quer se matar para conseguir obter a versão exata dos fontes daquele binário).</p>
+<p>O detalhe que o palestrante (Caloni é o nome do sujeito) citou era que já existiam scripts prontos para realizar essa tarefa para os controles de fonte mais comuns, sendo que os mais comuns são: Source Safe (?????), CVS (????????) e, claro, Subversion! (?!?!?!?!??!??!?!). OK, pelo visto o pessoal da Microsoft mora em uma caverna ou não estão muito interessados em indexar os fontes para alguns controles de fonte que estão surgindo por aí, como Git sendo um exemplo aleatório.</p>
 <p>Já que o tal do Caloni disse que ainda não fizeram scripts para controles mais modernos. Nenhum descentralizado ainda está na lista. Os scripts são feitos em Perl, ou seja, estão disponíveis em uma linguagem um pouco mais fácil que .BAT. Ou talvez não. De qualquer forma, não parece muito difícil de entender a dinâmica do WinDbg e simplesmente gerar o que tem que gerar dentro dos PDBs.</p>
-<p>Pensando nisso, resolvi fazer uma primeira versão, em Python, de um script em que você passa alguns dados e ele processa seus PDBs. Depois você pode jogá-los em um Symbol Server e quando o WinDbg encontrá-lo através de um binário analisado, este irá conter o endereço no GitHub e um comando do Curl para baixá-lo, passando a exibi-lo imediatamente na tela do WinDbg. E nada mais lógico do que criar um repositório no GitHub para compartilhá-lo, certo?</p>
+<p>Pensando nisso, resolvi fazer uma primeira versão, em Python, de um script em que você passa alguns dados e ele processa seus PDBs. Depois você pode jogá-los em um Symbol Server e quando o WinDbg encontrá-lo através de um binário analisado, este irá conter o endereço no GitHub e um comando do Curl para baixá-lo, passando a exibi-lo imediatamente na tela do WinDbg. E nada mais lógico do que criar um <a href="https://github.com/Caloni/GitIndex">repositório no GitHub</a> para compartilhá-lo, certo?</p>
 <p>O funcionamento é muito simples, mas pede muitos parâmetros (recomendo criar um batch para armazená-los). Então vejamos:</p>
 <ul>
 <li>dbgtools é o caminho onde está o Debugging Tools for Windows;</li>
@@ -124,7 +129,7 @@ Depurando até o fim do mundo e de volta de novo: source server com GitHub
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/code">code</a> 
     
 
 

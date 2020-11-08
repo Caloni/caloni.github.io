@@ -116,6 +116,21 @@ E assim terminamos mais uma sessão simples e rápida de debug. Quer dizer, simp
 
      
         <item>
+  <title>A Linguagem de Programação C&#43;&#43;: O Início</title>
+  <link>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</link>
+  <pubDate>2016-11-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</guid>
+  <description>O livro-base sobre a linguagem C&#43;&#43; e como programar nela tem o nome pouco criativo &amp;quot;The C&#43;&#43; Programming Language&amp;quot;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhá-la em 1979, quando ainda a chamava de &amp;quot;C com Classes&amp;quot;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula, como o novo conceito de Orientação a Objetos, que carecia do mais importante na época: velocidade (só na época?). Já linguagens mais antigas como BCPL eram bem rápidas, mas eram tão simples que pareciam mais um Assembly glorificado. Havia, portanto, a necessidade de preencher a área de computação com alguma coisa bem no meio.
+Stroustrup não fez tudo do zero, nem fez tudo de uma vez. A primeira necessidade era apenas criar uma abstração já existente na linguagem C, mas que ainda não havia sido integrada à sintaxe: o contexto de uma estrutura, que se assemelha a uma proto-classe, ou para alguns já é até uma classe, pois possui membros e métodos:
+class Cpp{int x;int GetX();};int Cpp::GetX(){return x;}void Func(Cpp cpp){int y = 33 &#43; cpp.GetX();}int main(){Cpp cpp;cpp.x = 42;Func(cpp);} A grande sacada é que no meio de toda essa sintaxe de chamada de método havia a passagem de um parâmetro escondido, o this, que se referia à uma instância específica da classe: um objeto.
+int Cpp::GetX(){return this-&amp;gt;x;} Isso equivaleria a uma struct em C com funções que recebessem um this adaptado:
+struct C{int x;};int C_GetX(C* pThis){return pThis-&amp;gt;x;}void Func(C c){int y = 33 &#43; C_GetX(&amp;amp;c);}int main(){struct C c;c.x = 42;Func(c);} Esse tipo de abstração nem é tão complicada assim. O ojetivo eram vários: conseguir proteger os membros de acesso indevido, abstrair o comportamento de um objeto. Com o tempo Stroustrup foi realmente criando algo de novo e muito mais difícil de se manter em C. Algo para um próximo post =)
+</description>
+</item>
+
+     
+        <item>
   <title>C, C&#43;&#43;, Engenharia Reversa e Todo o Resto</title>
   <link>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</link>
   <pubDate>2015-04-27</pubDate>
@@ -144,6 +159,26 @@ Como havia explicado anteriormente, existem três processos principais e clássi
 O preprocessamento é um trocador de textos. No máximo há macros, em que é possível passar argumentos (no formato texto). Exemplos são include, ifdef e define.
 A compilação é o núcleo da linguagem. Regras de sintaxe e gramática são validadas aqui pelo compilador. Cada compilação bem-sucedida recebe uma unidade de tradução e cospe um arquivo-objeto, que ainda não é executável, mas que já passou pela validação da linguagem.
 Por fim, a linkedição junta todos os arquivos-objeto, procurando ligar os nomes das funções e variáveis referenciadas um pelo outro. Os nomes externos são importantes neste passo para que o linker encontre as lacunas que precisa para consertar os saltos e assim gerar o executável final, que pode ser um programa com uma função main ou uma biblioteca dinâmica carregada por outro programa compilado seguindo esses três passos.
+</description>
+</item>
+
+     
+        <item>
+  <title>A moda agora é levar lambda na função</title>
+  <link>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</link>
+  <pubDate>2014-03-28</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</guid>
+  <description>A nova moda de programar C&#43;&#43; nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
+O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.
+Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;quot;pain in the ass&amp;quot;.
+Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:
+void NewYearMail(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.
+Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):
+int main(){struct NewYearMail{void operator()(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}};vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Apesar disso gerar &amp;quot;internal compiler error&amp;quot; em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar, um resquício de inveja de Pascal permitir função dentro de função e C não.
+Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo:
+int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(), people.end(), [&amp;amp;](Person&amp;amp; p){p.age &#43;= 1;SendMail(p);});} &amp;quot;Caraca, mas o que é esse código alienígena?&amp;quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C&#43;&#43; e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.
+int main(){int numbers[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };for_each(&amp;amp;numbers[0],&amp;amp;numbers[10],[&amp;amp;] // capture scope(int n) // arguments{cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &#39; &#39;;});} E não é só isso. Tem muito mais esquisitices de onde veio essa.
 </description>
 </item>
 
@@ -207,12 +242,13 @@ Ainda acredito em tudo isso que C&#43;&#43; proporciona e irá continuar proporc
   
   <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
   <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
-O mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
-Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir):
-O segundo que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:
-É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm.
-É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?
-Conforme o printf interpreta a string de formatação, ele vai &amp;quot;comendo&amp;quot; (no bom sentido) os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente. Como os próximos 32 bits de nosso int64 estão zerados, faz sentido o printf imprimir (null) no lugar da string, pois este é o comportamento padrão da função quando o ponteiro é nulo. Agora, se tivéssemos um int realmente grande - vulgo &amp;quot;intão&amp;quot; - daí as coisas seriam diferentes:
+O erro mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
+void f(wchar_t* arg){printf(&amp;quot;%s&amp;quot;, arg);return 0;} Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir). Imagine um printf em que a string de formatação é algo como &amp;quot;%s%d%s%f%s%d%f%d%s%f%s%d&amp;quot;. Agora imagine os parâmetros passados e a necessidade dos tipos baterem um a um. É, você entendeu o drama.
+O segundo erro que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:
+char ch = getc();printf(&amp;quot;%d&amp;quot;, ch); É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm. É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?
+Funções com quantidade variável de argumentos como o printf devem interpretar os argumentos que ele sabe que são passados para entender quais os outros argumentos que estão na pilha. Ele interpreta a string de formatação e vai &amp;quot;comendo&amp;quot; os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente.
+Dica: se você encontrar problemas de crash ou corrompimento de pilha e houver um printf ou derivados, como funções de logs que confiam no printf, experimente desabilitar a chamada dessas funções e ver se o problema permanece. Isso pode ser feito pelo preprocessador:
+#define printf#define sprintf#define LOG Ao definir os nomes das funções usadas para nada não haverá a chamada da função, apesar do código compilar exatamente igual, exceto a chamada. Ou seja, se houver problemas em algum printf ele sumirá. A partir daí é só ir comentando e descomentando as partes do código até encontrar.
 </description>
 </item>
 

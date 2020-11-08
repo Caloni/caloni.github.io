@@ -5,9 +5,20 @@
     <description>Recent content in lists on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 22 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/lists/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Palestras</title>
+  <link>http://www.caloni.com.br/palestras/</link>
+  <pubDate>2020-11-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/palestras/</guid>
+  <description>Segue a lista de palestras que ministrei ao longo dos anos que possuem alguns slides úteis (os com slides inúteis não estão disponíveis e devem estar na memória dos que assistiram ou em algum post perdido por aí). Have fun =)
+ Antidebugging: Eu Não Quero que Você Mexa no Meu Código Depurando até o Fim do Mundo Engenharia Reversa para Principiantes Entendendo a Compilação Patch de Emergência Pôquer Online Resumo de Debug Remoto Stack Overflow Troubleshooting em Equipes Remotas com Debugging Tools  </description>
+</item>
+
      
         <item>
   <title>TIL: Today I Learned</title>
