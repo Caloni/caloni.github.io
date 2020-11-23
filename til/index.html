@@ -121,6 +121,9 @@ TIL: Today I Learned
 <li>
 <p>2020-10-26: para dar sleep em C++ moderno com resolução de milissegundos é <code>std::this_thread::sleep_for(std::chrono::milliseconds(200));</code>. É tão intuitivo que achei preciso anotar.</p>
 </li>
+<li>
+<p>2020-11-21: para eliminar qualquer nova-linha em uma string C após ler uma linha da entrada usar uma desconhecida função padrão: <code>buffer[strcspn(buffer, &quot;\r\n&quot;)] = 0;</code>.</p>
+</li>
 </ul>
 
             
