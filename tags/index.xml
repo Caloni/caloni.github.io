@@ -5,16 +5,26 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
   <title>draft</title>
   <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-12-06</pubDate>
+  <pubDate>2020-12-08</pubDate>
   
   <guid>http://www.caloni.com.br/tags/draft/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>blog</title>
+  <link>http://www.caloni.com.br/tags/blog/</link>
+  <pubDate>2020-12-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/blog/</guid>
   <description></description>
 </item>
 
@@ -75,16 +85,6 @@
   <pubDate>2020-11-01</pubDate>
   
   <guid>http://www.caloni.com.br/tags/reviews/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>blog</title>
-  <link>http://www.caloni.com.br/tags/blog/</link>
-  <pubDate>2020-10-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/blog/</guid>
   <description></description>
 </item>
 
