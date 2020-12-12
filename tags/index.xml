@@ -5,14 +5,14 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
   <title>draft</title>
   <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2020-12-08</pubDate>
+  <pubDate>2020-12-12</pubDate>
   
   <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
@@ -20,11 +20,31 @@
 
      
         <item>
+  <title>coffee</title>
+  <link>http://www.caloni.com.br/tags/coffee/</link>
+  <pubDate>2020-12-09</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/coffee/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>blog</title>
   <link>http://www.caloni.com.br/tags/blog/</link>
-  <pubDate>2020-12-06</pubDate>
+  <pubDate>2020-12-08</pubDate>
   
   <guid>http://www.caloni.com.br/tags/blog/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>lists</title>
+  <link>http://www.caloni.com.br/tags/lists/</link>
+  <pubDate>2020-12-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/lists/</guid>
   <description></description>
 </item>
 
@@ -60,16 +80,6 @@
 
      
         <item>
-  <title>lists</title>
-  <link>http://www.caloni.com.br/tags/lists/</link>
-  <pubDate>2020-11-08</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/lists/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>cinemaqui</title>
   <link>http://www.caloni.com.br/tags/cinemaqui/</link>
   <pubDate>2020-11-07</pubDate>
@@ -85,16 +95,6 @@
   <pubDate>2020-11-01</pubDate>
   
   <guid>http://www.caloni.com.br/tags/reviews/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>coffee</title>
-  <link>http://www.caloni.com.br/tags/coffee/</link>
-  <pubDate>2020-10-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/coffee/</guid>
   <description></description>
 </item>
 
