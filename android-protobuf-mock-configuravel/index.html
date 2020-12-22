@@ -13,13 +13,13 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Android protobuf, mock configurável</title>
+  <title>Blogue do Caloni - Android Protobuf, Mock Configurável</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Android protobuf, mock configurável"/>
+  <meta property="og:title" content="Android Protobuf, Mock Configurável"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/android-protobuf-mock-configuravel/"/>
@@ -83,14 +83,20 @@
       <div class="container">
         <p class="title">
 
-Android protobuf, mock configurável
+Android Protobuf, Mock Configurável
 
 </p>
 
         <p class="subtitle">
 
   
-    Este é um rascunho e está sujeito a mudanças<a href="https://github.com/Caloni/blog/blob/master/content/posts/android-protobuf-mock-configuravel.md">.</a>
+    Wanderley Caloni,
+    
+      
+    
+      
+    
+    2017-02-06<a href="https://github.com/Caloni/blog/blob/master/content/posts/android-protobuf-mock-configuravel.md">.</a>
   
 
 </p>
@@ -106,13 +112,9 @@ Android protobuf, mock configurável
 <p>Mas, você deve estar se perguntando: se é para Android, por que C++? Bom, uma vez que você baixou os fontes do protobuf é necessário gerar o compilador. Você poderia baixar um binário compilado, mas usar direto dos fontes garante que os unit tests estão todos alinhados e que não haverão problemas de versão.</p>
 <p>Os guias contidos nos READMEs espalhados pelo fonte, começando pelo primeiro exigido na página do GitHub, são muito bem explicados. Não deve ser nenhum problema segui-los, desde que se atente em colocar os caminhos necessários no path, como a localização do JDK (que pode ser o que vem no Android Studio, mesmo) e abrir um prompt com as variáveis de ambiente para a compilação via Visual Studio. Eu recomendo baixar uma versão estável entre as releases, e pode já baixar a 3 em diante, que contém um monte de features novas e legais.</p>
 <p>Depois de compilar o protoc e colocá-lo no devido lugar, há uma questão importante: a versão em Java usa um gerenciador de build do Apache que funciona muito naquelas para Windows, dando erro nos testes e na instalação. Minha solução foi simplesmente usar a segunda opção descrita no README: compilar o Descriptor.proto e com ele gerar todos os .java necessários para sua compilação. Com isso fica até mais simples montar no projeto Android uma solução mais enxuta, apenas com as classes necessárias (no meu caso, pelo menos o JsonFormat e dependências).</p>
-<p>A grande vantagem do Android Studio é que ele já escaneia os diretórios do projeto, sendo apenas necessário copiar os fontes e ele já integra no projeto. A partir daí os imports funcionam e ele compila tudo junto. Resolvido.</p>
-<p>Para a parte do mock eu recomendo usar o sistema de variáveis do Gradle. Ele mantém uma lista de variáveis em um formato específico no arquivo app/build.gradle:</p>
-<p>Você pode jogar direto o valor que deseja, mas há uma solução ainda mais elegante que usa um arquivo apartado chamado local.properties, onde é ideal não jogar no controle de fonte, e de onde todo desenvolvedor pode customizar. No caso de ServerMockData, ele pode ser um json com sua mensagem protobuf já certinha para uso, como se esses fossem os dados do server:</p>
-<p>Isso pode estar errado (parênteses demais), mas você entendeu a ideia. É possível jogar um json nesse arquivo e depois o Android e o Gradle irão jogá-lo diretament em uma classe estática, a BuildConfig:</p>
-<p>A partir dessa string é possível obter rapidamente a mensagem equivalente:</p>
-<p>DICA: O Android Studio tem um botão esperto em sua interface onde, depois de alterado o local.properties, é possível refazer o BuildConfig.</p>
-<p>E com isso podemos ter o protocol buffers e um sistema de mock simples e prático para a depuração e testes locais com nosso app que vai revolucionar o mundo =)</p>
+<p>A grande vantagem do Android Studio é que ele já escaneia os diretórios do projeto, sendo apenas necessário copiar os fontes e ele já integra no projeto. A partir daí os imports funcionam e ele compila tudo junto. Para a parte do mock eu recomendo usar o sistema de variáveis do Gradle. Ele mantém uma lista de variáveis no arquivo app/build.gradle. Você pode jogar direto o valor que deseja, mas há uma solução ainda mais elegante que usa um arquivo apartado chamado local.properties, onde é ideal não jogar no controle de fonte, e de onde todo desenvolvedor pode customizar.</p>
+<p>No caso de ServerMockData, ele pode ser um json com sua mensagem protobuf já certinha para uso, como se esses fossem os dados do server. É possível jogar um json nesse arquivo e depois o Android e o Gradle irão jogá-lo diretament em uma classe estática, a BuildConfig. A partir dessa string é possível obter rapidamente a mensagem equivalente.</p>
+<p>O Android Studio tem um botão esperto em sua interface onde, depois de alterado o local.properties, é possível refazer o BuildConfig. E com isso podemos ter o protocol buffers e um sistema de mock simples e prático para a depuração e testes locais com o próximo app que vai revolucionar o mundo =).</p>
 
             
 
@@ -121,7 +123,7 @@ Android protobuf, mock configurável
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/code">code</a> 
     
 
 
