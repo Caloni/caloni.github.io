@@ -75,6 +75,12 @@
 <div style="min-height:56vh">
 
     
+  <div style="padding-bottom: 1em;"></div>
+  <input type="text" name="filter" value="" id="filter" placeholder="enter to select" style="width: 100%; font-size: 1.5rem; margin-top: 1em; margin-bottom: 0.5em;" title=""/></br>
+  <button id="filterbutton" style="font-size: 1rem;" onclick="ApplyFilter($('#filter').val());">select</button>
+  <button id="removebutton" style="font-size: 1rem;" onclick="ApplyNotFilter($('#filter').val());">remove</button>
+  <button id="randombutton" style="font-size: 1rem;" onclick="window.location = randomPost;">random</button>
+
 
     <div><big><b><span style="visibility: hidden; padding: 5px;" name="results" id="results">...</span></b></big></div>
 <table class="sortable" style="width: 100%;">
