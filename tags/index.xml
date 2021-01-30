@@ -5,9 +5,19 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 17 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 Jan 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2021-01-28</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>blog</title>
@@ -45,16 +55,6 @@
   <pubDate>2021-01-12</pubDate>
   
   <guid>http://www.caloni.com.br/tags/wines/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2021-01-02</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
 </item>
 
@@ -115,16 +115,6 @@
   <pubDate>2020-11-07</pubDate>
   
   <guid>http://www.caloni.com.br/tags/cinemaqui/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>reviews</title>
-  <link>http://www.caloni.com.br/tags/reviews/</link>
-  <pubDate>2020-11-01</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/reviews/</guid>
   <description></description>
 </item>
 
