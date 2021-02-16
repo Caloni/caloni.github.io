@@ -105,20 +105,83 @@ Aprenda a usar sua API
           <div class="content">
 
             
-              <p>É conhecido que uma das desvantagens de se programar diretamente em Win32 API é a dificuldade de se entender os parâmetros e o retorno das funções. Concordo em parte. Constituída de boa documentação, parte da culpa dos programas mal-feitos reside na preguiça do programador em olhar a documentação por completo.</p>
+              <p>É conhecido que uma das desvantagens de se programar diretamente em Win32 API é a dificuldade de se entender os parâmetros e o retorno das funções. Concordo em parte. Constituída de <a href="http://msdn.microsoft.com">boa documentação</a>, parte da culpa dos programas mal-feitos reside na preguiça do programador em olhar a documentação por completo.</p>
 <p>A Win32 API está longe de ser perfeita, mas pelo menos está razoavelmente documentada, e é na leitura atenta da documentação que iremos encontrar as respostas que precisamos para que o programa funcione.</p>
 <p>Vejamos alguns exemplos.</p>
+<h4 id="1-createfile">1. CreateFile</h4>
 <p>O código abaixo parece bem razoável:</p>
-<p>No entanto, está errado.</p>
-<p>É fato que a maioria das funções que retornam handles retornam NULL para indicar o erro na tentativa de obter o recurso. Ao comparar o retorno com NULL, o programador geralmente faz uma chamada a GetLastError.aspx) para saber o que aconteceu. No entanto, uma das funções mais usadas, a CreateFile, não retorna NULL, mas INVALIDHANDLEVALUE.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	HANDLE hFile <span style="color:#f92672">=</span> CreateFile(<span style="color:#e6db74">&#34;c:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">tests</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">myfile.txt&#34;</span>, GENERIC_READ, 
+		FILE_SHARE_READ, NULL, OPEN_EXISTING, <span style="color:#ae81ff">0</span>, NULL);
+
+	<span style="color:#66d9ef">if</span>( hFile )
+	{
+		DWORD read <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		CHAR buffer[<span style="color:#ae81ff">100</span>];
+
+		<span style="color:#66d9ef">if</span>( ReadFile(hFile, buffer, <span style="color:#66d9ef">sizeof</span>(buffer), <span style="color:#f92672">&amp;</span>read, NULL) )
+		{
+			WriteBuffer(buffer);
+		}
+
+		CloseHandle(hFile);
+	}
+}
+
+ 
+
+</code></pre></div><p>No entanto, está errado.</p>
+<p>É fato que a maioria das funções que retornam <em>handles</em> retornam NULL para indicar o erro na tentativa de obter o recurso. Ao comparar o retorno com NULL, o programador geralmente faz uma chamada a <a href="http://msdn.microsoft.com/en-us/library/ms679360(VS.85).aspx">GetLastError</a> para saber o que aconteceu. No entanto, uma das funções mais usadas, a CreateFile, não retorna NULL, mas INVALID_HANDLE_VALUE.</p>
 <p>Sendo assim, o código acima deveria ser:</p>
-<p>Taí uma função que muitos erraram. Erraram tanto que eles fizeram uma nova versão menos complicada. Como está escrito no MSDN.aspx):</p>
-<p>&quot;The GetVersionEx function was developed because many existing applications err when examining the packed DWORD value returned by GetVersion, transposing the major and minor version numbers.&quot;</p>
+<pre><code>if( hFile != INVALID_HANDLE_VALUE )
+</code></pre>
+<h4 id="2-getversion">2. GetVersion</h4>
+<p>Taí uma função que muitos erraram. Erraram tanto que eles fizeram uma nova versão menos complicada. Como está escrito no <a href="http://msdn.microsoft.com/en-us/library/ms724439(VS.85).aspx">MSDN</a>:</p>
+<!-- raw HTML omitted -->
 <p>O motivo de tantos erro pode ter sido o fato que o valor retornado é uma estrutura de bits dentro de um DWORD, coisa que nem todos programadores C sabem lidar muito bem, e o fato de ser uma função muito utilizada por todos (pegar a versão do sistema operacional).</p>
 <p>Eis a tabela de campos do retorno de GetVersion:</p>
+<pre><code>Platform                                High-order bit   Next 7 bits     Low-order byte
+-------------------------------------   --------------   ------------    --------------
+Windows NT 3.51                         0                Build number    3
+Windows NT 4.0                          0                Build number    4
+Windows 2000 or Windows XP              0                Build number    5
+Windows 95, Windows 98, or Windows Me   1                Reserved        4
+Win32s with Windows 3.1                 1                Build number    3
+</code></pre>
 <p>Mesmo que não seja tão difícil, pode ser ambíguo. Por exemplo, como saber se o Windows é 95, 98 ou ME?</p>
 <p>O código abaixo, muito usado por todos que suportam ainda o Windows mais velhinhos, verifica se estamos rodando em plataforma NT ou 9x.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	DWORD winVer <span style="color:#f92672">=</span> GetVersion();
+	BOOL isPlatformNT <span style="color:#f92672">=</span> winVer <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0x80000000</span> <span style="color:#f92672">?</span> FALSE : TRUE;
+
+	<span style="color:#66d9ef">if</span>( isPlatformNT )
+		printf(<span style="color:#e6db74">&#34;Plataforma NT</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	<span style="color:#66d9ef">else</span>
+		printf(<span style="color:#e6db74">&#34;Bem-vindo ao parque dos dinossauros!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+	<span style="color:#66d9ef">return</span> isPlatformNT <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><p><img src="/images/jurassicpark.PNG" alt="jurassicpark.PNG"></p>
+<h4 id="3-closehandle-mesmo">3. CloseHandle. Mesmo??</h4>
 <p>Nem sempre o handle que obtemos é fechado com CloseHandle. As funções abaixo retornam handles que devem ser desalocados com as funções à direita:</p>
+<pre><code>Função que obtém recurso         Função que libera recurso
+------------------------         -------------------------
+LoadLibrary                      FreeLibrary
+RegOpenKey                       RegCloseKey
+GetDC                            ReleaseDC
+BeginPaint                       EndPaint
+</code></pre>
+<h4 id="4-tem-mais">4. Tem mais?</h4>
 <p>Sempre tem. Algumas dicas úteis para o dia-a-dia de um programador Win32 API são:</p>
 <ul>
 <li>
@@ -143,7 +206,7 @@ Aprenda a usar sua API
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

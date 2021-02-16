@@ -26,9 +26,20 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Pergunta de um leitor:
-Resposta do Autor: Por que C é zoado :P
-OK, a verdade é que não existem (existiam?) muitas regras de sintaxe a serem respeitadas na linguagem pelo compilador. Antigamente, se..."/>
+        content="
+Pergunta de um leitor:
+Leitor: Olhe essa bizarrice em C:
+void func()
+{
+
+}
+
+int main()
+{
+   func(&#34;sbrubles&#34;);
+   return 0;
+}
+Leitor: Embora isso seja permitido, caso você coloque...&lt;/!--&gt;"/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,17 +118,73 @@ Convenção de Chamada
           <div class="content">
 
             
-              <p>Pergunta de um leitor:</p>
+              <!-- raw HTML omitted -->
+<p>Pergunta de um leitor:</p>
+<h4 id="leitor-olhe-essa-bizarrice-em-c">Leitor: Olhe essa bizarrice em C:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>()
+{
+
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   func(<span style="color:#e6db74">&#34;sbrubles&#34;</span>);
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h4 id="leitor-embora-isso-seja-permitido-caso-você-coloque-void-funcvoid-já-não-funciona-mais-por-quê">Leitor: Embora isso seja permitido, caso você coloque &quot;void func(void)&quot; já não funciona mais. Por quê?</h4>
 <p>Resposta do Autor: Por que C é zoado :P</p>
-<p>OK, a verdade é que não existem (existiam?) muitas regras de sintaxe a serem respeitadas na linguagem pelo compilador. Antigamente, se não fosse colocado nenhum tipo de retorno era como se ele fosse int por default. Da mesma forma, se não colocar parâmetros vale tudo. É como se fossem os três pontinhos do printf. Afinal, você não ia querer ficar repetindo os parâmetros no .c e no .h, não é mesmo :D</p>
+<p>OK, a verdade é que não existem (existiam?) muitas regras de sintaxe a serem respeitadas na linguagem pelo compilador. Antigamente, se não fosse colocado nenhum tipo de retorno era como se ele fosse <strong>int</strong> por <em>default</em>. Da mesma forma, se não colocar parâmetros vale tudo. É como se fossem os três pontinhos do <strong>printf</strong>. Afinal, você não ia querer ficar repetindo os parâmetros no .c e no .h, não é mesmo :D</p>
 <p>Isso me lembra também que havia a declaração &quot;arcaica&quot; da linguagem (já era arcaica antes mesmo do padrão de 1998 sair):</p>
-<p>Sim, sua suposição a respeito do vaargs faz todo sentido. E não, os parâmetros não são inutilizados justamente porque a função chamada pode fazer o que quiser que no retorno o chamador limpa a pilha (e o chamador sabe como ele empilhou os parâmetros-extra).</p>
-<p>O padrão de chamada da linguagem (lembra disso?) é cdecl. Isso quer dizer que o chamador é que &quot;limpa a sujeira&quot; depois da chamada. Isso é o que permite o &quot;milagre&quot; do printf (oooohhh ooohh oooooohhhh... sons de anjos cantando) receber n argumentos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>()
+<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> sbrubles; <span style="color:#75715e">/* isso é um argumento de entrada */</span>
+{
+}
+</code></pre></div><h4 id="leitor-ok-entendi-mas-voltando-para-meu-primeiro-exemplo-supostamente-usar-um-va_args-pra-ler-alguma-coisa-certamente-leria-os-parâmetros-certo-e-este-parâmetro-só-fica-inutilizado-ou-chega-a-dar-algum-problema-mais-sério">Leitor: OK, entendi. Mas voltando para meu primeiro exemplo: supostamente usar um va_args pra ler &quot;alguma coisa&quot; certamente leria os parâmetros, certo? E este parâmetro, só fica inutilizado ou chega a dar algum problema mais sério?</h4>
+<p>Sim, sua suposição a respeito do <strong>va_args</strong> faz todo sentido. E não, os parâmetros não são inutilizados justamente porque a função chamada pode fazer o que quiser que no retorno o chamador limpa a pilha (e o chamador sabe como ele empilhou os parâmetros-extra).</p>
+<p>O <strong>padrão de chamada</strong> da linguagem (lembra disso?) é <strong>cdecl</strong>. Isso quer dizer que o chamador é que &quot;limpa a sujeira&quot; depois da chamada. Isso é o que permite o &quot;milagre&quot; do <strong>printf</strong> (oooohhh ooohh oooooohhhh... <em>sons de anjos</em>) receber n argumentos.</p>
 <p>Só vai dar problema se definir outro padrão de chamada ou se a função chamada mexer no que não devia (se esperar outros tipos ou número de argumentos, por exemplo).</p>
-<p>Agora que sabemos disso, o comportamento do valist nem deve parecer tão mágico assim. Na verdade, apenas saber que a pilha é onde estão todas as variáveis locais e os endereços de retorno das funções é o suficiente para explorar essa área de memória.</p>
-<p>Porém, o uso canônico na linguagem C e a forma mais educada de navegar nos parâmetros extras é usando o header stdarg.h. Isso porque C é uma linguagem independente de plataforma, e a priori não temos a mínima ideia de como os dados estão estruturados no computador. Essa visão das variáveis locais e etc é apenas algo que sabemos sobre a arquitetura PC (8086) porque já brincamos demais de assembly e seus registradores.</p>
-<p>Uma versão de quem já manja dos internals da arquitetura onde está programando e não se importa com portabilidade poderia simplesmente caminhar pela pilha a partir do endereço de argc.</p>
-<p>Repetindo: isso não é bonito, apesar de simpático. No entanto, se o objetivo é explorar a arquitetura, fique à vontade para navegar pela pilha a partir do endereço das variáveis locais.</p>
+<h3 id="stdargs-na-mão">StdArgs na mão</h3>
+<p>Agora que sabemos disso, o comportamento do <strong>va_list</strong> nem deve parecer tão mágico assim. Na verdade, apenas saber que a pilha é onde estão todas as variáveis locais e os endereços de retorno das funções é o suficiente para explorar essa área de memória.</p>
+<p>Porém, o uso canônico na linguagem C e a forma mais educada de navegar nos parâmetros extras é usando o header stdarg.h. Isso porque C é uma linguagem independente de plataforma, e <em>a priori</em> não temos a mínima ideia de como os dados estão estruturados no computador. Essa visão das variáveis locais e etc é apenas algo que sabemos sobre a arquitetura PC (8086) porque já brincamos demais de <em>assembly</em> e seus registradores.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> argc, ...);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> resultado <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>);
+}
+
+<span style="color:#75715e">// soma.cpp
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdarg.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> argc, ...)
+{
+    <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+	va_list vl;
+	va_start(vl, argc);
+    <span style="color:#66d9ef">while</span>( <span style="color:#f92672">--</span>argc )
+    {
+	    <span style="color:#66d9ef">int</span> next <span style="color:#f92672">=</span> va_arg(vl, <span style="color:#66d9ef">int</span>);
+        ret <span style="color:#f92672">+=</span> next;
+    }
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><p>Uma versão de quem já manja dos internals da arquitetura onde está programando e não se importa com portabilidade poderia simplesmente caminhar pela pilha a partir do endereço de argc.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> argc, ...)
+{
+	<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> argv <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>argc <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+
+	<span style="color:#66d9ef">while</span> ( argc<span style="color:#f92672">--</span> )
+	{
+		<span style="color:#66d9ef">int</span> next <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>argv<span style="color:#f92672">++</span>;
+		ret <span style="color:#f92672">+=</span> next;
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><p>Repetindo: isso não é bonito, apesar de simpático. No entanto, se o objetivo é explorar a arquitetura, fique à vontade para navegar pela pilha a partir do endereço das variáveis locais.</p>
 
             
 
@@ -126,7 +193,7 @@ Convenção de Chamada
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

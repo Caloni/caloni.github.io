@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="No entanto, num belo dia, qual não foi minha surpresa ao notar umas pastinhas chamadas atl21, atl30 e atl71 dentro da distribuição do WDK (o finado DDK, renomeado sabe-se-lá-por-quê)? Pelo visto, tem..."/>
+        content="Eu simplemente não entendo a organização dos cabeçalhos e fontes dos SDKs da Microsoft. Houve uma vez em que o ATL era distribuído junto com o SDK, e dessa forma conseguíamos usar o WTL sem ônus...."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,23 +105,80 @@ Como usar WTL com o ATL do DDK
           <div class="content">
 
             
-              <p>No entanto, num belo dia, qual não foi minha surpresa ao notar umas pastinhas chamadas atl21, atl30 e atl71 dentro da distribuição do WDK (o finado DDK, renomeado sabe-se-lá-por-quê)? Pelo visto, tem alguém arrastando coisa errada pra onde não devia nos instaladores de Seattle. Esses estagiários!</p>
+              <p><a href="/images/wdkandatl.png"><img src="http://i.imgur.com/OoiV6X7.png" alt="wdkandatl.png"></a>Eu simplemente não entendo a organização dos cabeçalhos e fontes dos SDKs da Microsoft. Houve uma vez em que o <a href="http://www.1bit.com.br/content.1bit/weblog/sopa_de_letrinhas_ATL">ATL</a> era distribuído junto com o SDK, e dessa forma conseguíamos usar o <a href="http://www.1bit.com.br/content.1bit/weblog/sopa_de_letrinhas_wtl">WTL</a> sem ônus. Porém, um belo dia, isso é retirado do pacote, para tristeza dos que já haviam convertido a biblioteca de janelas para fonte aberto.</p>
+<p>No entanto, num belo dia, qual não foi minha surpresa ao notar <a href="http://i.imgur.com/OoiV6X7.png">umas pastinhas</a> chamadas atl21, atl30 e atl71 dentro da distribuição do WDK (o finado DDK, renomeado sabe-se-lá-por-quê)? Pelo visto, tem alguém arrastando coisa errada pra onde não devia nos instaladores de Seattle. Esses estagiários!</p>
 <p>O fato é que eles fizeram isso, e agora é possível ter o WTL mais novo compilado com o WDK. E nem é tão difícil assim.</p>
-<p>A primeira coisa a fazer é obter o tal doWDK. Para variar um pouco, agora existe um processo de registro antes de obter acesso ao download, mais ou menos nos termos da Borland para baixar o Builder / Turbo / Developer Studio.</p>
-<p>Aliás, para os que baixaram esses produtos gratuitos da Borland versão C++ e não funcionou em algumas máquinas, como foi o meu caso, está disponível para baixar uma versão mais nova; dessa vez não vi nenhum problema na compilação e depuração. Ainda.</p>
-<p>Após instalado, em qualquer lugar da sua escolha, configure no seu Visual Studio Express o caminho de onde se encontra a pasta atl71 (ou a 30, ou a 21). Aproveite também para colocar a pasta do WTL e o diretório de LIBs:</p>
+<p>A primeira coisa a fazer é obter o tal doWDK. Para variar um pouco, agora existe um <a href="http://www.microsoft.com/whdc/DevTools/WDK/WDKpkg.mspx">processo de registro</a> antes de obter acesso ao <em>download</em>, mais ou menos nos termos da Borland para baixar o <a href="http://cc.codegear.com/free/turbo">Builder</a> / <a href="http://cc.codegear.com/free/turbo">Turbo</a> / <a href="http://cc.codegear.com/free/turbo">Developer Studio</a>.</p>
+<!-- raw HTML omitted -->
+<p>Após instalado, em qualquer lugar da sua escolha, configure no seu <a href="http://www.microsoft.com/Express/">Visual Studio Express</a> o caminho de onde se encontra a pasta atl71 (ou a 30, ou a 21). Aproveite também para colocar a pasta do WTL e o diretório de LIBs:</p>
+<p><img src="http://i.imgur.com/TJyNrlE.png" alt="Configurando o diretório de cabeçalhos no Visual Studio."></p>
+<p><img src="http://i.imgur.com/VLryS9L.png" alt="Configurando o diretório de biblioteca no Visual Studio."></p>
 <p>Isso vai fazer com que pelo menos os exemplos que vêem com o WTL compilem.</p>
 <p>No entanto, você verá o seguinte erro durante a compilação dos recursos:</p>
+<pre><code>------ Build started: Project: MTPad, Configuration: Debug Win32 ------
+Compiling resources...
+Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+Linking...
+CVTRES : fatal error CVT1100: &lt;font color=&quot;#ff0000&quot;&gt;duplicate resource&lt;/font&gt;.  type:MANIFEST, name:1, language:0x0409
+LINK : fatal error LNK1123: failure during conversion to COFF: file invalid or corrupt
+Build log was saved at &quot;file://c:\Lng\WTL\Samples\MTPad\Debug\BuildLog.htm&quot;
+MTPad - 2 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+</code></pre>
 <p>Para resolver esse problema, remova a inclusão do arquivo de manifesto no arquivo RC:</p>
+<pre><code>2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    &quot;#include &quot;&quot;atlres.h&quot;&quot;\r\n&quot;
+    &quot;\0&quot;
+END
+
+&lt;font color=&quot;#ff0000&quot;&gt;3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    &quot;CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST &quot;&quot;res\\\\MTPad.exe.manifest&quot;&quot;\r\n&quot;
+    &quot;\0&quot;
+END&lt;/font&gt;
+
+#endif    // APSTUDIO_INVOKED
+
+...
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+&lt;font color=&quot;#ff0000&quot;&gt;CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST &quot;res\\MTPad.exe.manifest&quot;&lt;/font&gt;
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+</code></pre>
 <p>Depois dessa alteração, deve ainda existir o seguinte erro de linquedição:</p>
+<pre><code>------ Build started: Project: MTPad, Configuration: Debug Win32 ------
+Compiling resources...
+Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+Linking...
+&lt;font color=&quot;#ff0000&quot;&gt;mtpad.obj : error LNK2019: unresolved external symbol
+   &quot;void * __stdcall ATL::__AllocStdCallThunk(void)&quot; (bla bla bla)
+mtpad.obj : error LNK2019: unresolved external symbol
+   &quot;void __stdcall ATL::__FreeStdCallThunk(void *)&quot; (bla bla bla)
+&lt;/font&gt;.\Debug/MTPad.exe : fatal error LNK1120: 2 unresolved externals
+Build log was saved at &quot;file://c:\Lng\WTL\Samples\MTPad\Debug\BuildLog.htm&quot;
+MTPad - 3 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+</code></pre>
 <p>Esse problema ocorre porque as funções de alocação e desalocação de memória da ATL estão em outra LIB que os exemplos da WTL desconhecem. Para resolver, basta incluir essa nova dependência:</p>
+<pre><code>#pragma comment(lib, &quot;&lt;strong&gt;atlthunk.lib&lt;/strong&gt;&quot;)
+</code></pre>
 <p>E pronto! Agora temos todo o poder das 500 milhões de classes da ATL aliadas à ilimitada flexibilidade das classes de janelas da WTL.</p>
+<h4 id="para-aprender-a-usar-wtl">Para aprender a usar WTL</h4>
 <ul>
 <li>
-<p>Explicando a sopa de letrinhas da programação C/C++ para Windows: WTL</p>
+<p><a href="http://www.1bit.com.br/content.1bit/weblog/sopa_de_letrinhas_wtl">Explicando a sopa de letrinhas da programação C/C++ para Windows: WTL</a></p>
 </li>
 <li>
-<p>WTL for MFC Programmers</p>
+<p><a href="http://www.codeproject.com/KB/wtl/wtl4mfc1.aspx">WTL for MFC Programmers</a></p>
 </li>
 </ul>
 
@@ -132,7 +189,7 @@ Como usar WTL com o ATL do DDK
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

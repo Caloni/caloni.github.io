@@ -105,26 +105,319 @@ Conversor de Houaiss para Babylon - parte 1
           <div class="content">
 
             
-              <p>Este artigo é sobre desmontar e montar novamente. Iremos descobrir como as entradas do dicionário Houaiss eletrônico estão gravadas em um primeiro momento, para depois remontarmos essa informação de maneira que ela possa ser usada em outro dicionário de uso mais flexível, o Babylon. Ou seja, este não é um guia de vandalismo. Estava apenas querendo usar um dicionário de qualidade excelente em outro dicionário cuja interface é muito boa.</p>
-<p>Considero o Houaiss o melhor dicionário da atualidade, uso todo santo dia e tenho todo o respeito por ele. Possuo uma cópia legalizada exatamente por isso. Além, é óbvio, pelo escandaloso cinismo que seria se eu, desenvolvedor de software, pirateasse os que utilizo. Porém, acredito que tudo tenha um limite: respeito os direitos de quem desenvolve o programa se o programa se dá ao respeito de ser pago. Quer dizer, eu realmente uso muito esse dicionário, e ele é útil para mim. Logo, nada mais justo do que adquiri-lo como manda a lei.</p>
+              <p>Este artigo é sobre desmontar e montar novamente. Iremos descobrir como as entradas do <a href="http://compare.buscape.com.br/categoria?id=30&amp;lkout=1&amp;kw=houaiss&amp;site_origem=1293522">dicionário Houaiss eletrônico</a> estão gravadas em um primeiro momento, para depois remontarmos essa informação de maneira que ela possa ser usada em outro dicionário de uso mais flexível, o <a href="http://www.babylon.com">Babylon</a>. Ou seja, este não é um guia de vandalismo. Estava apenas querendo usar um dicionário de qualidade excelente em outro dicionário cuja interface é muito boa.</p>
+<p><strong>Sobre pirataria</strong></p>
+<p>Considero o Houaiss o melhor dicionário da atualidade, uso todo santo dia e tenho todo o respeito por ele. Possuo uma cópia legalizada exatamente por isso. Além, é óbvio, pelo escandaloso cinismo que seria se eu, desenvolvedor de <em>software</em>, pirateasse os que utilizo. Porém, acredito que tudo tenha um limite: respeito os direitos de quem desenvolve o programa se o programa se dá ao respeito de ser pago. Quer dizer, eu realmente uso muito esse dicionário, e ele é útil para mim. Logo, nada mais justo do que adquiri-lo como manda a lei.</p>
 <p>Assim como adquiri o Houaiss, também comprei o Babylon, um programa-dicionário, cuja interface permite buscar o significado das palavras lidas no computador simplesmente clicando nelas. A qualidade de seu dicionário português embutido é medíocre, mas o que ele ganha mesmo é em sua interface fácil para acessar palavras. Exatamente por faltar um dicionário em português de peso no Babylon, e eu ter adquirido outro muito melhor, quis que ambos funcionassem juntos, ou seja, acesso o Babylon e tenho o resultado adicional desse meu dicionário tupiniquim.</p>
-<p>O Babylon possui um mecanismo para criação de dicionários chamado Babylon Builder. É muito simples e fácil de usar (além de ser gratuito). Sabendo que possuo ambas as licenças desses dois programas me sinto mais aliviado em tentar desencriptar a base de dados do primeiro para construir um dicionário para o segundo, e assim realizar meu sonho de consumo: um Babylon com um dicionário de peso!</p>
+<p>O Babylon possui um mecanismo para criação de dicionários chamado <a href="http://www.babylon.com/display.php?id=15&amp;tree=3&amp;level=2">Babylon Builder</a>. É muito simples e fácil de usar (além de ser gratuito). Sabendo que possuo ambas as licenças desses dois programas me sinto mais aliviado em tentar desencriptar a base de dados do primeiro para construir um dicionário para o segundo, e assim realizar meu sonho de consumo: um Babylon com um dicionário de peso!</p>
+<p><a href="/images/houaiss-license.png"><img src="http://i.imgur.com/y35XTT7.png" alt="Licença do Houaiss"></a></p>
+<h4 id="instalação">Instalação</h4>
 <p>É necessário que, na hora da instalação, seja escolhida a opção de copiar os arquivos para o disco. Estarei utilizando o path padrão de um Windows em português, que é &quot;C:\Arquivos de Programas\Houaiss&quot;.</p>
+<p><a href="/images/houaiss-install.png"><img src="http://i.imgur.com/XDSMDu9.png" alt="Instalação do Houaiss"></a></p>
 <p>A estrutura de diretórios interna da instalação é bem simples:</p>
 <ul>
-<li>Raiz. Arquivos de ajuda, desinstalador, executável principal, etc.</li>
-<li>Quadros. Figuras com conhecimentos gerais, como calendários, signos, línguas mais faladas, etc.</li>
-<li>Dicionário. Provavelmente onde está todo o dicionário, cerca de 120 MB.</li>
+<li>
+<p><strong>Raiz</strong>. Arquivos de ajuda, desinstalador, executável principal, etc.</p>
+</li>
+<li>
+<p><strong>Quadros</strong>. Figuras com conhecimentos gerais, como calendários, signos, línguas mais faladas, etc.</p>
+</li>
+<li>
+<p><strong>Dicionario</strong>. Provavelmente onde está todo o dicionário, cerca de 120 MB.</p>
+</li>
 </ul>
-<p>Se analisarmos o conteúdo dos arquivos dentro da pasta Dicionario vamos descobrir que ele se parece com &quot;garbage nonsense&quot;, apesar de existir um certo padrão. O padrão revela que pode se tratar de uma criptografia muito simples, talvez até um simples XOR.</p>
-<p>Sabendo que o conteúdo do dicionário está em arquivos localizados no disco, e que teoricamente o programa não deve copiar todo o conteúdo para a memória, iremos depurar o processo do dicionário de olho nas chamadas da função ReadFile.aspx) quando clicarmos em uma definição de palavra.</p>
-<p>Ao clicar na definição de &quot;programa-fonte&quot;, o breakpoint é ativado:</p>
-<p>Depois da leitura, não temos muitas alternativas a não ser fazer o tracking de chamadas até que o mesmo buffer esteja desencriptado. Esse é o caminho natural das coisas, mas poderia haver complicações secundárias, como uma cópia de buffer antes de seu uso. Estou usando passos simples porque realmente foi muito simples descobrir o segredo da ofuscação.</p>
-<p>Pois bem. Logo depois de chamar a função Houaiss2+0xb8a6c magicamente o buffer incompreensível se transformou no início da definição da palavra &quot;programa-fonte&quot;. Como não temos o programa-fonte do Houaiss, teremos que descer mais um nível no &quot;assemblão&quot;, mesmo.</p>
+<p>Se analisarmos o conteúdo dos arquivos dentro da pasta Dicionario vamos descobrir que ele se parece com &quot;<em>garbage nonsense</em>&quot;, apesar de existir um certo padrão. O padrão revela que pode se tratar de uma criptografia muito simples, talvez até um simples XOR.</p>
+<pre><code>for %i in (*.*) do type %i | less
+</code></pre>
+<p><a href="/images/cmd.gif"><img src="http://i.imgur.com/u3IQ3aD.gif" alt="Saída dos arquivos do dicionário"></a></p>
+<h4 id="análise">Análise</h4>
+<p>Sabendo que o conteúdo do dicionário está em arquivos localizados no disco, e que teoricamente o programa não deve copiar todo o conteúdo para a memória, iremos depurar o processo do dicionário de olho nas chamadas da função <a href="http://msdn2.microsoft.com/en-us/library/aa365467(VS.85).aspx">ReadFile</a> quando clicarmos em uma definição de palavra.</p>
+<pre><code>windbg -pn houaiss2.exe
+0:001&gt; bp kernel32!ReadFile &quot;dd @$csp L6&quot; $$ Dando uma olhada nos parâmetros
+g
+</code></pre>
+<p>Ao clicar na definição de &quot;programa-fonte&quot;, o <em>breakpoint</em> é ativado:</p>
+<pre><code>0012fa70  0040a7a9 00000200 &lt;span style=&quot;color: #ff0000;&quot;&gt;08bbf1d0 00000200 &lt;/span&gt;0012fa80  0012fa88 00000000
+eax=0012fa88 ebx=00000200 ecx=00000200 edx=08bbf1d0 esi=08bbf1d0 edi=00000200
+eip=7c80180e esp=0012fa70 ebp=0012facc iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+kernel32!ReadFile:
+7c80180e 6a20            push    20h
+
+$$ O buffer de saída é &lt;span style=&quot;color: #ff0000;&quot;&gt;08bbf1d0 
+&lt;/span&gt;
+$$ O número de bytes lidos é &lt;span style=&quot;color: #ff0000;&quot;&gt;200&lt;/span&gt;
+
+
+0:000&gt; db 08bbf1d0 L80
+08bbf1d0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf1e0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf1f0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf200  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf210  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf220  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf230  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+08bbf240  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
+
+
+0:000&gt; bp /1 @$ra &quot;db 08bbf1d0 L80&quot;
+0:000&gt; g
+08bbf1d0  1f 65 67 64 5c 67 56 62-56 22 5b 64 63 69 5a 02  .egd\gVbV&quot;[dciZ.
+08bbf1e0  ff 38 68 23 62 23 02 ff-59 70 51 5e 15 68 4d 4d  .8h#b#..YpQ^.hMM
+08bbf1f0  72 02 ff 49 5e 63 5b 02-ff 2f 65 67 64 5c 67 56  r..I^c[../egd\gV
+08bbf200  62 56 15 59 5a 15 58 64-62 65 6a 69 56 59 64 67  bV.YZ.XdbejiVYdg
+08bbf210  15 5a 62 15 68 6a 56 15-5b 64 67 62 56 15 64 67  .Zb.hjV.[dgbV.dg
+08bbf220  5e 5c 5e 63 56 61 21 15-56 63 64 69 56 59 64 15  ^\^cVa!.VcdiVYd.
+08bbf230  65 5a 61 64 15 65 67 64-5c 67 56 62 56 59 64 67  eZad.egd\gVbVYdg
+08bbf240  15 5a 62 15 6a 62 56 15-61 5e 63 5c 6a 56 5c 5a  .Zb.jbV.a^c\jV\Z
+eax=00000001 ebx=00000200 ecx=7c801898 edx=7c90eb94 esi=08bbf1d0 edi=00000200
+eip=0040a7a9 esp=0012fa88 ebp=0012facc iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+Houaiss2+0xa7a9:
+0040a7a9 85c0            test    eax,eax
+</code></pre>
+<p>Depois da leitura, não temos muitas alternativas a não ser fazer o <em>tracking</em> de chamadas até que o mesmo <em>buffer</em> esteja desencriptado. Esse é o caminho natural das coisas, mas poderia haver complicações secundárias, como uma cópia de <em>buffer</em> antes de seu uso. Estou usando passos simples porque realmente foi muito simples descobrir o segredo da ofuscação.</p>
+<pre><code>0:000&gt; p
+Houaiss2+0xa7ab:
+0040a7ab 7507            jne     Houaiss2+0xa7b4 (0040a7b4)              [br=1]
+0:000&gt; p
+Houaiss2+0xa7b4:
+0040a7b4 8b0424          mov     eax,dword ptr [esp]  ss:0023:0012fa88=00000200
+0:000&gt; p
+Houaiss2+0xa7b7:
+0040a7b7 5a              pop     edx
+0:000&gt; p
+Houaiss2+0xa7b8:
+0040a7b8 5f              pop     edi
+0:000&gt; p
+Houaiss2+0xa7b9:
+0040a7b9 5e              pop     esi
+0:000&gt; p
+Houaiss2+0xa7ba:
+0040a7ba 5b              pop     ebx
+0:000&gt; p
+Houaiss2+0xa7bb:
+0040a7bb c3              ret
+0:000&gt; p
+Houaiss2+0xb9062:
+004b9062 8945f8          mov     dword ptr [ebp-8],eax ss:0023:0012fac4=00000000
+0:000&gt; p
+Houaiss2+0xb9065:
+004b9065 0375f8          add     esi,dword ptr [ebp-8] ss:0023:0012fac4=00000200
+0:000&gt; p
+Houaiss2+0xb9068:
+004b9068 807b1900        cmp     byte ptr [ebx+19h],0       ds:0023:090cf1f9=01
+0:000&gt; p
+Houaiss2+0xb906c:
+004b906c 7410            je      Houaiss2+0xb907e (004b907e)             [br=0]
+0:000&gt; p
+Houaiss2+0xb906e:
+004b906e 8b4df8          mov     ecx,dword ptr [ebp-8] ss:0023:0012fac4=00000200
+0:000&gt; p
+Houaiss2+0xb9071:
+004b9071 8b933c200300    mov     edx,dword ptr [ebx+3203Ch] ds:0023:0910121c=00000000
+0:000&gt; p
+Houaiss2+0xb9077:
+004b9077 8bc3            mov     eax,ebx
+0:000&gt; p
+Houaiss2+0xb9079:
+004b9079 e8eef9ffff      &lt;span style=&quot;color: #ff0000;&quot;&gt;call Houaiss2+0xb8a6c (004b8a6c)&lt;/span&gt;
+
+
+0:000&gt; p
+Houaiss2+0xb9
+
+
+0:000&gt; db 08bbf1d0 L80
+08bbf1d0  2a 70 72 6f 67 72 61 6d-61 2d 66 6f 6e 74 65 0d  *programa-fonte.
+08bbf1e0  0a 43 73 2e 6d 2e 0d 0a-64 7b 5c 69 20 73 58 58  .Cs.m...d{\i sXX
+08bbf1f0  7d 0d 0a 54 69 6e 66 0d-0a 3a 70 72 6f 67 72 61  }..Tinf..:progra
+08bbf200  6d 61 20 64 65 20 63 6f-6d 70 75 74 61 64 6f 72  ma de computador
+08bbf210  20 65 6d 20 73 75 61 20-66 6f 72 6d 61 20 6f 72   em sua forma or
+08bbf220  69 67 69 6e 61 6c 2c 20-61 6e 6f 74 61 64 6f 20  iginal, anotado
+08bbf230  70 65 6c 6f 20 70 72 6f-67 72 61 6d 61 64 6f 72  pelo programador
+08bbf240  20 65 6d 20 75 6d 61 20-6c 69 6e 67 75 61 67 65   em uma linguage
+</code></pre>
+<p>Pois bem. Logo depois de chamar a função Houaiss2+0xb8a6c magicamente o <em>buffer</em> incompreensível se transformou no início da definição da palavra &quot;programa-fonte&quot;. Como não temos o programa-fonte do Houaiss, teremos que descer mais um nível no &quot;assemblão&quot;, mesmo.</p>
 <p>(Note que reexecutei os passos anteriores para cair na mesma condição)</p>
-<p>Estamos diante de um loop, que, ao analisar o valor de ecx, sabemos que se repete 0x200 vezes, que é exatamente o número de bytes lidos pela função ReadFile. Coincidência? Seria, se não estivesse bem no meio do loop a referência ao próprio buffer usado na leitura (08bbf1d0).</p>
-<p>Acredito que para todo profissional de engenharia reversa a parte mais emocionante é a descoberta do grande segredo por trás do desafio, o porquê das coisas estarem como estão e o que fazer para desfazer a mágica da segurança: a chave!</p>
-<p>Note que essa operação é realizada para cada byte lido do buffer usado na leitura do arquivo. Conseqüentemente, não é difício de imaginar que o valor 0x0B é a chave usada para ofuscar o dicionário em arquivo, subtraindo esse valor de cada byte. Para desfazer a ofuscação, portanto, basta adicionar novamente o mesmo valor, que é exatamente o que faz a instrução assembly acima, e o meu singelo código de desofuscação do dicionário Houaiss abaixo:</p>
+<pre><code>Houaiss2+0xb9079:
+004b9079 e8eef9ffff      call    Houaiss2+0xb8a6c (004b8a6c)
+0:000&gt; &lt;span style=&quot;color: #ff0000;&quot;&gt;t&lt;/span&gt;
+
+
+eax=08bbf1a0 ebx=08bbf1a0 ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a6c esp=0012fa98 ebp=0012facc iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+Houaiss2+0xb8a6c:
+004b8a6c 53              push    ebx
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a6d esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+Houaiss2+0xb8a6d:
+004b8a6d 03ca            add     ecx,edx
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a6f esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000206
+Houaiss2+0xb8a6f:
+004b8a6f 49              dec     ecx
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=000001ff edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a70 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000216
+Houaiss2+0xb8a70:
+004b8a70 2bca            sub     ecx,edx
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=000001ff edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a72 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000206
+Houaiss2+0xb8a72:
+004b8a72 7c12            jl      Houaiss2+0xb8a86 (004b8a86)             [br=0]
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=000001ff edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a74 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000206
+Houaiss2+0xb8a74:
+004b8a74 41              inc     ecx
+0:000&gt; p
+eax=08bbf1a0 ebx=08bbf1a0 ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a75 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000216
+&lt;span style=&quot;color: #ff0000;&quot;&gt;Houaiss2+0xb8a75&lt;/span&gt;:
+004b8a75 33db            xor     ebx,ebx
+0:000&gt; p
+eax=08bbf1a0 ebx=00000000 ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a77 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+Houaiss2+0xb8a77:
+004b8a77 8a5c1030        mov     &lt;span style=&quot;color: #ff0000;&quot;&gt;bl&lt;/span&gt;,byte ptr [eax+&lt;span style=&quot;color: #ff0000;&quot;&gt;edx&lt;/span&gt;+30h]  ds:0023:&lt;span style=&quot;color: #ff0000;&quot;&gt;08bbf1d0&lt;/span&gt;=1f
+0:000&gt; p
+eax=08bbf1a0 ebx=0000001f ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a7b esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl zr na pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
+Houaiss2+0xb8a7b:
+004b8a7b 83c30b          &lt;span style=&quot;color: #ff0000;&quot;&gt;add ebx,0Bh
+&lt;/span&gt;0:000&gt; p
+eax=08bbf1a0 ebx=0000002a ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a7e esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000212
+Houaiss2+0xb8a7e:
+004b8a7e 885c1030        mov     byte ptr [eax+&lt;span style=&quot;color: #ff0000;&quot;&gt;edx&lt;/span&gt;+30h],&lt;span style=&quot;color: #ff0000;&quot;&gt;bl &lt;/span&gt;ds:0023:&lt;span style=&quot;color: #ff0000;&quot;&gt;08bbf1d0&lt;/span&gt;=1f
+0:000&gt; p
+eax=08bbf1a0 ebx=0000002a ecx=00000200 edx=00000000 esi=00000200 edi=02fe8661
+eip=004b8a82 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000212
+Houaiss2+0xb8a82:
+004b8a82 42              &lt;span style=&quot;color: #ff0000;&quot;&gt;inc edx
+&lt;/span&gt;0:000&gt; p
+eax=08bbf1a0 ebx=0000002a ecx=00000200 edx=00000001 esi=00000200 edi=02fe8661
+eip=004b8a83 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+Houaiss2+0xb8a83:
+004b8a83 49              &lt;span style=&quot;color: #ff0000;&quot;&gt;dec ecx
+&lt;/span&gt;0:000&gt; p
+eax=08bbf1a0 ebx=0000002a ecx=&lt;span style=&quot;color: #ff0000;&quot;&gt;000001ff &lt;/span&gt;edx=&lt;span style=&quot;color: #ff0000;&quot;&gt;00000001 &lt;/span&gt;esi=00000200 edi=02fe8661
+eip=004b8a84 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000216
+Houaiss2+0xb8a84:
+004b8a84 75ef            jne
+&lt;span style=&quot;color: #ff0000;&quot;&gt;Houaiss2+0xb8a75&lt;/span&gt; (004b8a75)             [br=1]
+0:000&gt; p
+eax=08bbf1a0 ebx=0000002a ecx=000001ff edx=00000001 esi=00000200 edi=02fe8661
+eip=004b8a75 esp=0012fa94 ebp=0012facc iopl=0         nv up ei pl nz ac pe nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000216
+&lt;span style=&quot;color: #ff0000;&quot;&gt;Houaiss2+0xb8a75&lt;/span&gt;:
+004b8a75 33db            xor     ebx,ebx
+...
+</code></pre>
+<p>Estamos diante de um <em>loop</em>, que, ao analisar o valor de ecx, sabemos que se repete 0x200 vezes, que é exatamente o número de bytes lidos pela função ReadFile. Coincidência? Seria, se não estivesse bem no meio do _loop _a referência ao próprio <em>buffer</em> usado na leitura (08bbf1d0).</p>
+<p>Acredito que para todo profissional de engenharia reversa a parte mais emocionante é a descoberta do grande segredo por trás do desafio, o porquê das coisas estarem como estão e o que fazer para desfazer a mágica da segurança: <strong>a chave</strong>!</p>
+<pre><code>Houaiss2+0xb8a7b:
+004b8a7b 83c30b          &lt;span style=&quot;color: #ff0000;&quot;&gt;add ebx,0Bh&lt;/span&gt;
+</code></pre>
+<p>Note que essa operação é realizada para cada byte lido do <em>buffer</em> usado na leitura do arquivo. Conseqüentemente, não é difício de imaginar que o valor 0x0B é a chave usada para ofuscar o dicionário em arquivo, subtraindo esse valor de cada byte. Para desfazer a ofuscação, portanto, basta adicionar novamente o mesmo valor, que é exatamente o que faz a instrução _assembly _acima, e o meu singelo código de desofuscação do dicionário Houaiss abaixo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define _CRT_SECURE_NO_DEPRECATE
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//#define HOUAISS_PATH &#34;C:\\Projects\\Temp\\HouaissReader\\Houaiss\\&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> WINAPI <span style="color:#a6e22e">WinMain</span>(HINSTANCE, HINSTANCE, PSTR cmdLine, <span style="color:#66d9ef">int</span>)
+{
+	CHAR HOUAISS_PATH[MAX_PATH] <span style="color:#f92672">=</span> { };
+
+	sscanf(cmdLine, <span style="color:#e6db74">&#34;-p </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%[^</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]s&#34;</span>, HOUAISS_PATH);
+
+	<span style="color:#66d9ef">if</span>( HOUAISS_PATH[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+	{
+		MessageBox(NULL, <span style="color:#e6db74">&#34;How to use:</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">HouCalc.exe -p </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">HouaissPath</span><span style="color:#ae81ff">\\\&#34;</span><span style="color:#e6db74">&#34;</span>, 
+			<span style="color:#e6db74">&#34;Houaiss Decipher v. alpha&#34;</span>, <span style="color:#ae81ff">0</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	}
+
+	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> fileIdx <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; fileIdx <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">64</span>; <span style="color:#f92672">++</span>fileIdx )
+	{
+		CHAR path1[MAX_PATH];
+		CHAR path2[MAX_PATH];
+
+		sprintf(path1, <span style="color:#e6db74">&#34;%sdeah%03d.dhx&#34;</span>, HOUAISS_PATH, fileIdx);
+		sprintf(path2, <span style="color:#e6db74">&#34;%sdeah%03d.txt&#34;</span>, HOUAISS_PATH, fileIdx);
+
+		HANDLE file1 <span style="color:#f92672">=</span> CreateFile(path1, GENERIC_READ, FILE_SHARE_READ,
+			NULL, OPEN_EXISTING, <span style="color:#ae81ff">0</span>, NULL);
+
+		HANDLE file2 <span style="color:#f92672">=</span> CreateFile(path2, GENERIC_READ <span style="color:#f92672">|</span> GENERIC_WRITE, <span style="color:#ae81ff">0</span>,
+			NULL, CREATE_ALWAYS, <span style="color:#ae81ff">0</span>, NULL);
+
+		<span style="color:#66d9ef">if</span>( file1 <span style="color:#f92672">!=</span> INVALID_HANDLE_VALUE <span style="color:#f92672">&amp;&amp;</span> file2 <span style="color:#f92672">!=</span> INVALID_HANDLE_VALUE )
+		{
+			DWORD fileSize <span style="color:#f92672">=</span> GetFileSize(file1, NULL);
+
+			<span style="color:#66d9ef">if</span>( SetFilePointer(file2, fileSize, NULL, FILE_BEGIN) )
+			{
+				SetEndOfFile(file2);
+
+				HANDLE map1 <span style="color:#f92672">=</span> CreateFileMapping(file1, NULL, PAGE_READONLY, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, NULL);
+				HANDLE map2 <span style="color:#f92672">=</span> CreateFileMapping(file2, NULL, PAGE_READWRITE, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, NULL);
+
+				<span style="color:#66d9ef">if</span>( map1 <span style="color:#f92672">&amp;&amp;</span> map2 )
+				{
+					PBYTE view1 <span style="color:#f92672">=</span> (PBYTE) MapViewOfFile(map1, FILE_MAP_READ, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+					PBYTE view2 <span style="color:#f92672">=</span> (PBYTE) MapViewOfFile(map2, FILE_MAP_WRITE, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+
+					<span style="color:#66d9ef">if</span>( view1 <span style="color:#f92672">&amp;&amp;</span> view2 )
+					{
+						<span style="color:#66d9ef">for</span>( DWORD i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> fileSize; <span style="color:#f92672">++</span>i )
+						{
+							view2[i] <span style="color:#f92672">=</span> view1[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x0B</span>;
+						}
+					}
+
+					<span style="color:#66d9ef">if</span>( view1 )
+						UnmapViewOfFile(view1);
+					<span style="color:#66d9ef">if</span>( view2 )
+						UnmapViewOfFile(view2);
+				}
+
+				<span style="color:#66d9ef">if</span>( map1 )
+					CloseHandle(map1);
+				<span style="color:#66d9ef">if</span>( map2 )
+					CloseHandle(map2);
+			}
+		}
+
+		<span style="color:#66d9ef">if</span>( file1 )
+			CloseHandle(file1);
+		<span style="color:#66d9ef">if</span>( file2 )
+			CloseHandle(file2);
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+ 
+
+</code></pre></div><h4 id="nos-próximos-capítulos">Nos próximos capítulos</h4>
 <p>Parte da mágica já foi feita, talvez a mais importante e divertida. Daqui pra lá deixaremos o WinDbg de lado e analisaremos o formato em que o texto do dicionário é armazenado, ignorando sua ofuscação básica, que não é mais um problema. Como o artigo já está extenso o suficiente, vou deixar a continuação dessa empreitada para uma futura publicação.</p>
 
             
@@ -134,7 +427,7 @@ Conversor de Houaiss para Babylon - parte 1
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

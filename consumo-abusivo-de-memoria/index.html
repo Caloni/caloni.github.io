@@ -27,7 +27,7 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Era um belo dia em um ambiente de processamento fictício de filas fictícias e threads fictícias. Eis um belo código com filas, threads e processamentos feitos em stop-motion:
-Se olharmos de perto o..."/>
+#include..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,30 +107,176 @@ Consumo abusivo de memória
 
             
               <p>Era um belo dia em um ambiente de processamento fictício de filas fictícias e threads fictícias. Eis um belo código com filas, threads e processamentos feitos em stop-motion:</p>
-<p>Se olharmos de perto o processamento e a memória consumida por esse processo, veremos que no início existe um boom de ambos, mas após um momento de pico, o processamento praticamente pára, mas a memória se mantém:</p>
-<p>Depois de pesquisar por meus tweets favoritos, fica fácil ter a receita para verificarmos isso usando nosso depurador favorito: WinDbg!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt; // critical section, create thread...</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt; // nossa lista interna</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt; // randomização</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Queue</span> <span style="color:#75715e">// uma fila (duh)
+</span><span style="color:#75715e"></span>{
+    size_t bufferSize; <span style="color:#75715e">// cada item é um buffer de tamanho fixo
+</span><span style="color:#75715e"></span>    DWORD wait; <span style="color:#75715e">// antes de processar, aguardemos esse tempo fixo
+</span><span style="color:#75715e"></span>    CRITICAL_SECTION cs; <span style="color:#75715e">// stl é thread-safe, pero no mucho
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span> items; <span style="color:#75715e">// os itens!
+</span><span style="color:#75715e"></span>};
+
+DWORD WINAPI <span style="color:#a6e22e">InsertItems</span>(LPVOID pvQueue) <span style="color:#75715e">// insere, insere, insere....
+</span><span style="color:#75715e"></span>{
+    Queue<span style="color:#f92672">&amp;</span> queue <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(Queue<span style="color:#f92672">*</span>) pvQueue;
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>; <span style="color:#f92672">++</span>i ) <span style="color:#75715e">// 10k itens!
+</span><span style="color:#75715e"></span>    {
+        <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[queue.bufferSize];
+        memset(buffer, (<span style="color:#66d9ef">int</span>) (i <span style="color:#f92672">%</span> (<span style="color:#e6db74">&#39;Z&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;A&#39;</span>)) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;A&#39;</span>, queue.bufferSize); <span style="color:#75715e">// teoricamente de A a Z
+</span><span style="color:#75715e"></span>        buffer[queue.bufferSize <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// string C pra facilitar nossa depuração
+</span><span style="color:#75715e"></span>        EnterCriticalSection(<span style="color:#f92672">&amp;</span>queue.cs); <span style="color:#75715e">// deixa eu entrar!
+</span><span style="color:#75715e"></span>        queue.items.push_back(buffer);
+        LeaveCriticalSection(<span style="color:#f92672">&amp;</span>queue.cs); <span style="color:#75715e">// deixa eu sair!
+</span><span style="color:#75715e"></span>        Sleep(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// dá uma dormidinha (sempre menor dormidinhas do processamento)
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">return</span> ERROR_SUCCESS; <span style="color:#75715e">// &#34;tá tudo certo!&#34; (by Starcraft 2)
+</span><span style="color:#75715e"></span>}
+
+DWORD WINAPI <span style="color:#a6e22e">ProcessItems</span>(LPVOID pvQueue) <span style="color:#75715e">// processa, processa, processa...
+</span><span style="color:#75715e"></span>{
+    Queue<span style="color:#f92672">&amp;</span> queue <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(Queue<span style="color:#f92672">*</span>) pvQueue;
+    DWORD wait <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+    Sleep(<span style="color:#ae81ff">10000</span>); <span style="color:#75715e">// como um advogado oportunista, aguardamos por alguém pra processar
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span>( <span style="color:#f92672">!</span> queue.items.empty() ) <span style="color:#75715e">// agora vai até esvaziar o recinto
+</span><span style="color:#75715e"></span>    {
+        EnterCriticalSection(<span style="color:#f92672">&amp;</span>queue.cs); <span style="color:#75715e">// deixa eu entrar!
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> queue.items.front();
+        queue.items.pop_front();
+        LeaveCriticalSection(<span style="color:#f92672">&amp;</span>queue.cs); <span style="color:#75715e">// deixa eu sair!
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">delete</span> [] buffer;
+        Sleep(queue.wait); <span style="color:#75715e">// aguarda por... por quanto mesmo?
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">return</span> ERROR_SUCCESS; <span style="color:#75715e">// &#34;tá tudo certo!&#34; (by Starcraft 2)
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[]) <span style="color:#75715e">// No princípio havia a pilha, quando Deus disse: &#39;int main!&#39;
+</span><span style="color:#75715e"></span>{
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> size_t QUEUES_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">// número de filas sendo processadas
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> size_t QUEUE_ITEM_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x1000</span>; <span style="color:#75715e">// 1KB é o chunk alocado por item
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> DWORD WAIT_TIMES[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">1000</span> }; <span style="color:#75715e">// alguém vai esperar demais
+</span><span style="color:#75715e"></span>
+    Queue queues[QUEUES_SIZE]; <span style="color:#75715e">// as filas
+</span><span style="color:#75715e"></span>    HANDLE queueThreads[QUEUES_SIZE <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// as threads que processam as filas
+</span><span style="color:#75715e"></span>
+    srand((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)time(<span style="color:#ae81ff">0</span>)); <span style="color:#75715e">// randomizemos tudo
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span>( size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> QUEUES_SIZE; <span style="color:#f92672">++</span>i )
+    {
+        queues[i].bufferSize <span style="color:#f92672">=</span> QUEUE_ITEM_SIZE <span style="color:#f92672">+</span> i; <span style="color:#75715e">// para diferenciarmos as filas
+</span><span style="color:#75715e"></span>        queues[i].wait <span style="color:#f92672">=</span> WAIT_TIMES[ rand() <span style="color:#f92672">%</span> (<span style="color:#66d9ef">sizeof</span>(WAIT_TIMES) <span style="color:#f92672">/</span> <span style="color:#66d9ef">sizeof</span>(DWORD)) ]; <span style="color:#75715e">// vamos esperar por... por quanto mesmo?
+</span><span style="color:#75715e"></span>        InitializeCriticalSection(<span style="color:#f92672">&amp;</span>queues[i].cs); <span style="color:#75715e">// deu crash em algumas situações em release (stl deveria ser thread-safe...)
+</span><span style="color:#75715e"></span>        queueThreads[i] <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, InsertItems, <span style="color:#f92672">&amp;</span>queues[i], <span style="color:#ae81ff">0</span>, NULL); <span style="color:#75715e">// criamos thread de inserção
+</span><span style="color:#75715e"></span>        queueThreads[QUEUES_SIZE <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, ProcessItems, <span style="color:#f92672">&amp;</span>queues[i], <span style="color:#ae81ff">0</span>, NULL); <span style="color:#75715e">// criamos thread de processamento
+</span><span style="color:#75715e"></span>    }
+
+    WaitForMultipleObjects(QUEUES_SIZE <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>, queueThreads, TRUE, INFINITE); <span style="color:#75715e">// espera a &#39;gaguera&#39;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// &#34;tá tudo certo!&#34; (by Starcraft 2)
+</span><span style="color:#75715e"></span>}
+ 
+
+</code></pre></div><p>Se olharmos de perto o processamento e a memória consumida por esse processo, veremos que no início existe um boom de ambos, mas após um momento de pico, o processamento praticamente pára, mas a memória se mantém:</p>
+<p><a href="/images/MemoryGraph.png"><img src="http://i.imgur.com/hoxWfdi.png" alt=""></a></p>
+<p>Depois de pesquisar <a href="https://twitter.com/#!/caloni/status/138632431765954560">por meus tweets favoritos</a>, fica fácil ter a receita para verificarmos isso usando nosso depurador favorito: <!-- raw HTML omitted -->Visual Studio<!-- raw HTML omitted --> WinDbg!</p>
+<p><a href="/images/TweetHeap.png"><img src="http://i.imgur.com/ZKVVT0O.png" alt=""></a></p>
 <p>windbg -pn MemoryConsumption.exe</p>
+<p><a href="/images/MemorySummary.png"><img src="http://i.imgur.com/Bzb2XVY.png" alt=""></a></p>
 <p>Achamos onde está a memória consumida. Agora precisamos de dicas do que pode estar consumindo essa memória. Vamos começar por listar os chunks alocados por tamanho de alocação:</p>
-<p>O Top 3 é de tamanhos conhecidos pelo código, de 1024 a 1024 + QUEUESSIZE - 1. O de tamanho 1037, por exemplo, possui 0x25e5 blocos alocados. Vamos listar cada um deles:</p>
-<p>A listagem do depurador nos dá o endereço onde o chunk foi alocado no heap e o endereço devolvido para o usuário, onde colocamos nossas tralhas. Através de ambos é possível trackear a pilha da chamada que alocou cada pedaço de memória. Isso, claro, se previamente tivermos habilitado essa informação através do GFlags.aspx):</p>
+<pre><code>0:004&gt; !heap -stat -h 0
+Allocations statistics for
+ heap @ 00670000
+group-by: TOTSIZE max-display: 20
+
+
+ size #blocks total ( %) (percent of total busy bytes)
+ 1037 25e5 - 2667433 (33.04)
+ 1025 25e6 - 263da3e (32.90)
+ 1024 25e4 - 2639410 (32.89)
+...
+</code></pre>
+<p>O Top 3 é de tamanhos conhecidos pelo código, de 1024 a 1024 + QUEUES_SIZE - 1. O de tamanho 1037, por exemplo, possui 0x25e5 blocos alocados. Vamos listar cada um deles:</p>
+<pre><code>0:004&gt; !heap -flt s 1037
+ _HEAP @ 420000
+ _HEAP @ 670000
+ HEAP_ENTRY Size Prev Flags UserPtr UserSize - state
+&lt;span style=&quot;color: #ff0000;&quot;&gt; 00558600 0221 0000 [00] 00558618 01037 - (busy)&lt;/span&gt;         &lt;--- vamos usar esse primeiro mais tarde
+ 0055fd38 0221 0221 [00] 0055fd50 01037 - (busy)
+ 00561f48 0221 0221 [00] 00561f60 01037 - (busy)
+ 00565260 0221 0221 [00] 00565278 01037 - (busy)
+ 0056c998 0221 0221 [00] 0056c9b0 01037 - (busy)
+ 0056daa0 0221 0221 [00] 0056dab8 01037 - (busy)
+ 0056eba8 0221 0221 [00] 0056ebc0 01037 - (busy)
+ 00570db8 0221 0221 [00] 00570dd0 01037 - (busy)
+ 00572fc8 0221 0221 [00] 00572fe0 01037 - (busy)
+ 005740d0 0221 0221 [00] 005740e8 01037 - (busy)
+ 0058abc8 0221 0221 [00] 0058abe0 01037 - (busy)
+ 00595618 0221 0221 [00] 00595630 01037 - (busy)
+ 00599a38 0221 0221 [00] 00599a50 01037 - (busy)
+ 0059de58 0(...)
+</code></pre>
+<p>A listagem do depurador nos dá o endereço onde o chunk foi alocado no heap e o endereço devolvido para o usuário, onde colocamos nossas tralhas. Através de ambos é possível trackear a pilha da chamada que alocou cada pedaço de memória. Isso, claro, se previamente tivermos habilitado essa informação através do <a href="http://msdn.microsoft.com/en-us/library/windows/hardware/ff549596(v=vs.85).aspx">GFlags</a>:</p>
+<p><a href="/images/GFlagsMemoryStack.png"><img src="http://i.imgur.com/JeqoBju.png" alt=""></a></p>
+<pre><code>0:004&gt; !heap -p -a &lt;span style=&quot;color: #ff0000;&quot;&gt;00558600&lt;/span&gt;
+ address 00558600 found in
+ _HEAP @ 670000
+ HEAP_ENTRY Size Prev Flags UserPtr UserSize - state
+ &lt;span style=&quot;color: #ff0000;&quot;&gt;00558600 0221 0000 [00] 00558618 01037 - (busy)&lt;/span&gt;
+ Trace: b7a24
+ 7722dfa2 ntdll!RtlAllocateHeap+0x00000274
+ 5b628343 MSVCR100D!_heap_alloc_base+0x00000053
+ 5b63697c MSVCR100D!_nh_malloc_dbg+0x000002dc
+ 5b63671f MSVCR100D!_nh_malloc_dbg+0x0000007f
+ 5b6366cc MSVCR100D!_nh_malloc_dbg+0x0000002c
+ 5b639c5b MSVCR100D!malloc+0x0000001b
+ 5b627db1 MSVCR100D!operator new+0x00000011
+ e84dee MemoryConsumption!operator new[]+0x0000000e
+&lt;span style=&quot;color: #ff0000;&quot;&gt; e818be MemoryConsumption!InsertItems+0x0000004e&lt;/span&gt;
+ 7679339a kernel32!BaseThreadInitThunk+0x0000000e
+ 771e9ef2 ntdll!__RtlUserThreadStart+0x00000070
+ 771e9ec5 ntdll!_RtlUserThreadStart+0x0000001b
+</code></pre>
 <p>Dessa forma temos onde cada memória foi alocada, o que nos dará uma informação valiosa, dependendo qual o tipo de problema estamos tentando resolver.</p>
+<pre><code>0:004&gt; u &lt;span style=&quot;color: #ff0000;&quot;&gt;e818be&lt;/span&gt;
+MemoryConsumption!InsertItems+0x4e [c:\...\memoryconsumption.cpp @ 18]:
+00e818be 83c404 add esp,4
+00e818c1 898514ffffff mov dword ptr [ebp-0ECh],eax
+00e818c7 8b9514ffffff mov edx,dword ptr [ebp-0ECh]
+00e818cd 8955e0 mov dword ptr [ebp-20h],edx
+00e818d0 8b45f8 mov eax,dword ptr [ebp-8]
+00e818d3 8b08 mov ecx,dword ptr [eax]
+00e818d5 51 push ecx
+00e818d6 8b45ec mov eax,dword ptr [ebp-14h]
+</code></pre>
 <p>Outra informação relevante é o que está gravado na memória, que pode nos dar insights de que tipo de objeto estamos lidando:</p>
-<p>Não é o caso, mas vamos supor que fosse um objeto/tipo conhecido. Poderíamos simplesmente &quot;importar&quot; o tipo diretamente do PDB que estamos para modelar a memória que encontramos em volta. Mais detalhes em outro artigo.</p>
+<pre><code>0:004&gt; db &lt;span style=&quot;color: #ff0000;&quot;&gt;00558618&lt;/span&gt;
+00558618 c0 b7 8c 0b 98 03 55 00-00 00 00 00 00 00 00 00 ......U.........
+00558628 13 10 00 00 01 00 00 00-15 94 00 00 fd fd fd fd ................
+00558638 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+00558648 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+00558658 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+00558668 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+00558678 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+00558688 51 51 51 51 51 51 51 51-51 51 51 51 51 51 51 51 QQQQQQQQQQQQQQQQ
+</code></pre>
+<p>Não é o caso, mas vamos supor que fosse um objeto/tipo conhecido. Poderíamos simplesmente &quot;importar&quot; o tipo diretamente do PDB que estamos para modelar a memória que encontramos em volta. Mais detalhes <a href="http://www.caloni.com.br/importando-tipos-de-outros-projetos">em outro artigo</a>.</p>
+<h4 id="funçõesclasses-usadas-nesse-artigo">Funções/classes usadas nesse artigo</h4>
 <ul>
 <li>
-<p>CreateThread.aspx). Cria uma nova linha de execução.</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682453(v=vs.85).aspx">CreateThread</a>. Cria uma nova linha de execução.</p>
 </li>
 <li>
-<p>WaitForMultipleObjects.aspx). Pode aguardar diferentes linhas de execução terminarem.</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms687025(v=vs.85).aspx">WaitForMultipleObjects</a>. Pode aguardar diferentes linhas de execução terminarem.</p>
 </li>
 <li>
-<p>std::list. Lista na STL para inserir/remover objetos na frente e atrás (ui).</p>
+<p><a href="http://www.cplusplus.com/reference/stl/list/front/">std::list</a>. Lista na STL para inserir/remover objetos na frente e atrás (ui).</p>
 </li>
 <li>
-<p>Initialize.aspx), Enter.aspx) e LeaveCriticalSection.aspx). Uma maneira simples de criar blocos de entrada atômica (apenas uma thread entra por vez).</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms683472(v=vs.85).aspx">Initialize</a>, <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682608(v=vs.85).aspx">Enter</a> e <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684169(v=vs.85).aspx">LeaveCriticalSection</a>. Uma maneira simples de criar blocos de entrada atômica (apenas uma thread entra por vez).</p>
 </li>
 <li>
-<p>memset. Se você não sabe usar memset, provavelmente não entendeu nada desse artigo.</p>
+<p><a href="http://www.cplusplus.com/reference/clibrary/cstring/memset/">memset</a>. Se você não sabe usar memset, provavelmente não entendeu nada desse artigo.</p>
 </li>
 </ul>
 
@@ -141,7 +287,7 @@ Consumo abusivo de memória
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Depois de vários comentários (na época que o saite tinha comentários) de pessoas tendo problemas em converter seus dicionários Houaiss para o formato Babylon, resolvi criar vergonha na cara e dar uma..."/>
+        content="Depois de vários comentários de pessoas tendo problemas em converter seus dicionários Houaiss para o formato Babylon, resolvi criar vergonha na cara e dar uma pequena melhora na versão beta do..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,14 +105,35 @@ Segunda versão do Houaiss2Babylon
           <div class="content">
 
             
-              <p>Depois de vários comentários (na época que o saite tinha comentários) de pessoas tendo problemas em converter seus dicionários Houaiss para o formato Babylon, resolvi criar vergonha na cara e dar uma pequena melhora na versão beta do conversor.</p>
+              <p>Depois de <a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-2#comment-757">vários comentários</a> de pessoas tendo problemas em converter seus dicionários Houaiss para o formato Babylon, resolvi criar vergonha na cara e dar uma pequena melhora na versão beta do conversor.</p>
 <p>Agora a maioria dos erros que houver será descrita por uma mensagem no seguinte formato:</p>
-<p>O primeiro erro acima ocorre principalmente se não houver algum Houaiss instalado que o programa possa detectar. Resolva este problema fazendo uma busca no Buscapé.</p>
+<p><img src="/images/houaiss2babylonerror.PNG" alt="houaiss2babylonerror.PNG"></p>
+<p>O primeiro erro acima ocorre principalmente se não houver algum Houaiss instalado que o programa possa detectar. Resolva este problema <a href="http://compare.buscape.com.br/categoria?id=30&amp;lkout=1&amp;kw=Dicionario+Houaiss&amp;site_origem=1293522">fazendo uma busca no Buscapé</a>.</p>
 <p>Abaixo segue a função criada para exibir essas mensagens:</p>
-<p>Se você notou, a função acima pode receber um número de argumentos variáveis para formatar a string da mensagem principal do erro, além de exibir seu código. Essa mágica pode ser feita usando-se o cabeçalho padrão &quot;stdarg.h&quot;. Através dele temos acesso ao tipo valist, que representa uma lista de argumentos variáveis.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MessageError</span>(DWORD err, PCSTR msg, ...)
+{
+	CHAR errBuffer[<span style="color:#ae81ff">100</span>];
+	CHAR msgBuffer[ERR_STR_BUF_SIZE];
+	va_list vaList;
+
+	va_start(vaList, msg);
+	vsprintf(msgBuffer, msg, vaList);
+	va_end(vaList);
+
+	sprintf(errBuffer, <span style="color:#e6db74">&#34; Erro de sistema número %d.&#34;</span>, (<span style="color:#66d9ef">int</span>) err);
+	strcat(msgBuffer, errBuffer);
+
+	MessageBox(NULL, msgBuffer, STR_PROJECT_NAME, MB_OK <span style="color:#f92672">|</span> MB_ICONERROR);
+}
+
+ 
+
+</code></pre></div><h4 id="um-pouco-sobre-argumentos-variáveis">Um pouco sobre argumentos variáveis</h4>
+<p>Se você notou, a função acima pode receber um número de argumentos variáveis para formatar a string da mensagem principal do erro, além de exibir seu código. Essa mágica pode ser feita usando-se o cabeçalho padrão &quot;stdarg.h&quot;. Através dele temos acesso ao tipo va_list, que representa uma lista de argumentos variáveis.</p>
 <p>Pela convenção de chamada da linguagem C (e C++), quem desmonta a pilha é o chamador. Sendo assim, a função chamada não precisa conhecer o número de argumentos com que foi chamado.</p>
-<p>A função de formatação de string é uma variante do conhecidíssimo printf, na versão que recebe um tipo valist. Muito útil para formatação de logs.</p>
-<p>A versão beta do Houaiss2Babylon está para sair. Não estarei mais atualizando o saite do projeto no LaunchPad. Aguardem por mais novidades no próprio blogue.</p>
+<p>A função de formatação de string é uma variante do conhecidíssimo printf, na versão que recebe um tipo va_list. Muito útil para formatação de logs.</p>
+<h4 id="atualizado">Atualizado</h4>
+<p>A versão beta do Houaiss2Babylon está para sair. <strong>Não estarei mais atualizando</strong> o saite do projeto no LaunchPad. Aguardem por mais novidades no próprio blogue.</p>
 
             
 
@@ -121,7 +142,7 @@ Segunda versão do Houaiss2Babylon
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

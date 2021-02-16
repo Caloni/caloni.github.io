@@ -107,19 +107,174 @@ Por que o Visual Studio gera executáveis mutantes
 
             
               <blockquote>
-<p>Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que contém uma boa dica para quem já entendeu o passo-a-passo da compilação, mas ainda tem sérios problemas quando os projetos ficam gigantes.</p>
+<p><em>Esse é um post antigo que encontrei no meio dos meus emails de 2006, mas que contém uma boa dica para quem já entendeu o <a href="../entendendo-a-compilacao">passo-a-passo da compilação</a>, mas ainda tem sérios problemas quando os projetos ficam gigantes.</em></p>
 </blockquote>
 <p>Essa é a segunda vez que encontro esse mesmo problema. Como acredito que outras almas podem estar sofrendo do mesmo mal, coloco aqui uma breve descrição de como o VC8 faz para gerar um executável que, mesmo não dependendo das DLLs de runtime, não são executados em sistemas que suportam a interpretação do &quot;.manifest&quot;. De canja, um pequeno programa que exibe a lista dos programas instalados no sistema.</p>
 <p>Primeiro, precisamos de um solution que contenha um projeto console e uma LIB. O projeto console deve usar a LIB para fazer alguma coisa. No exemplo abaixo, estarei listando os programas instalados no Windows (os mostrados no painel de controle através da opção &quot;Adicionar/remover programas&quot;.</p>
-<p>Observação importante: para ignorar todas as estripulias da versão Debug, todos os testes foram compilados em Release.</p>
-<p>Primeiramente, modifico a configuração padrão dos dois projetos para não depender da DLL de runtime do VC. Isso está em Project, Properties, C/C++, Code Generation, Runtime Library. Depois executo em uma máquina virtual sem as runtimes do VC8 instaladas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** library.h
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#pragma once
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> InstalledSoftwareList;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getInstalledSoftware</span>(InstalledSoftwareList<span style="color:#f92672">&amp;</span>);
+
+<span style="color:#75715e">/** library.cpp
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;library.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt; // aqui precisamos do windows para as funções de registro</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt; // suporte a unicode condicional</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define SW_ROOT_KEY &#34;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall&#34;
+</span><span style="color:#75715e">#define SW_DISPLAY_NAME &#34;DisplayName&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/** Retorna o número de elementos em um array. */</span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, size_t Sz<span style="color:#f92672">&gt;</span>
+DWORD SizeofArray(<span style="color:#66d9ef">const</span> T(<span style="color:#f92672">&amp;</span>arr)[Sz]) { <span style="color:#66d9ef">return</span> Sz; }
+
+<span style="color:#75715e">/** Retorna lista com descrição de cada programa instalado no sistema. */</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getInstalledSoftware</span>(InstalledSoftwareList<span style="color:#f92672">&amp;</span> installedSoftware)
+{
+   HKEY swRoot <span style="color:#f92672">=</span> NULL;
+   DWORD err <span style="color:#f92672">=</span> RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T(SW_ROOT_KEY), <span style="color:#ae81ff">0</span>, KEY_READ, <span style="color:#f92672">&amp;</span>swRoot);
+
+   <span style="color:#66d9ef">if</span>( err <span style="color:#f92672">==</span> ERROR_SUCCESS )
+   {
+      DWORD swIndex <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      TCHAR swKeyName[MAX_PATH] <span style="color:#f92672">=</span> _T(<span style="color:#e6db74">&#34;&#34;</span>);
+
+      <span style="color:#75715e">// para cada chave dentro da raiz de programas instalados
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">while</span>( (err <span style="color:#f92672">=</span> RegEnumKey(swRoot, swIndex<span style="color:#f92672">++</span>, swKeyName, SizeofArray(swKeyName))) 
+         <span style="color:#f92672">==</span> ERROR_SUCCESS )
+      {
+         HKEY swCurrent <span style="color:#f92672">=</span> NULL;
+         err <span style="color:#f92672">=</span> RegOpenKeyEx(swRoot, swKeyName, <span style="color:#ae81ff">0</span>, KEY_READ, <span style="color:#f92672">&amp;</span>swCurrent);
+
+         <span style="color:#66d9ef">if</span>( err <span style="color:#f92672">==</span> ERROR_SUCCESS )
+         {
+            CHAR swDisplay[MAX_PATH] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>; <span style="color:#75715e">// vamos obter a string já em mb
+</span><span style="color:#75715e"></span>            DWORD swDisplaySz <span style="color:#f92672">=</span> SizeofArray(swDisplay);
+
+            <span style="color:#66d9ef">if</span>( (err <span style="color:#f92672">=</span> RegQueryValueExA(swCurrent, SW_DISPLAY_NAME, <span style="color:#ae81ff">0</span>, NULL, 
+               <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>PBYTE<span style="color:#f92672">&gt;</span>(swDisplay), <span style="color:#f92672">&amp;</span>swDisplaySz)) <span style="color:#f92672">==</span> ERROR_SUCCESS )
+            {
+               installedSoftware.push_back(swDisplay);
+            }
+
+            RegCloseKey(swCurrent);
+         }
+      }
+
+      <span style="color:#75715e">// se não tem mais itens, então não é um erro
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span>( err <span style="color:#f92672">==</span> ERROR_NO_MORE_ITEMS )
+         err <span style="color:#f92672">=</span> ERROR_SUCCESS;
+      RegCloseKey(swRoot);
+   }
+   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">int</span>(err);
+}
+
+<span style="color:#75715e">/** console.cpp
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../library/library.h&#34; // include da nossa lib</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   <span style="color:#66d9ef">int</span> ret;
+   InstalledSoftwareList swList;
+
+   cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;MSVC Mutant - v. beta</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+      <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;by Wanderley Caloni (www.caloni.com.br)</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>;
+
+   <span style="color:#75715e">// obtém a lista de programas instalados e exibe na tela
+</span><span style="color:#75715e"></span>   ret <span style="color:#f92672">=</span> getInstalledSoftware(swList);
+
+   <span style="color:#66d9ef">if</span>( ret <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+   {
+      cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Programs installed on your system</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+         <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;=================================</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+      copy(swList.begin(), swList.end(), ostream_iterator<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span>(cout, <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>));
+
+   }
+   <span style="color:#66d9ef">else</span>
+      cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Error &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ret <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; trying to list installed programs.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+
+   <span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><p><em><strong>Observação importante</strong>: para ignorar todas as estripulias da versão Debug, todos os testes foram compilados em Release.</em></p>
+<p>Primeiramente, modifico a configuração padrão dos dois projetos para não depender da DLL de runtime do VC. Isso está em <strong>Project, Properties, C/C++, Code Generation, Runtime Library</strong>. Depois executo em uma máquina virtual sem as runtimes do VC8 instaladas:</p>
+<pre><code>MSVC Mutant - v. beta
+by Wanderley Caloni (www.caloni.com.br)
+
+Programs installed on your system
+=================================
+Windows XP Service Pack 2
+WebFldrs XP
+VMware Tools
+</code></pre>
 <p>Perfeito. Exatamente o que eu queria: um executável console que não dependesse de DLL nenhuma exceto as que já estão instaladas em um Windows ordinário.</p>
-<p>Agora, vamos imaginar que esse é um daqueles projetos enormes de 5 * 10 ^ 42 de linhas (obs: dramatização) e que meu aplicativo console está linkado com cerca de 3 * 10 ^ 666 de LIBs. E uma delas (a library do exemplo) está com a configuração original, ou seja, com a dependência da DLL de runtime. E ela usa a STL. Provavelmente o aplicativo console não irá compilar, mas isso não é problema, pois estamos acostumados a colocar a msvcrt.lib na lista de LIBs ignoradas, pois em muitos outros casos (que não vale a pena discutir aqui) esse workaround é válido. E tudo volta a funcionar. Quer dizer, linkar:</p>
+<p>Agora, vamos imaginar que esse é um daqueles projetos enormes de <strong>5 * 10 ^ 42</strong> de linhas (obs: dramatização) e que meu aplicativo console está linkado com cerca de <strong>3 * 10 ^ 666</strong> de LIBs. E uma delas (a library do exemplo) está com a configuração original, ou seja, com a dependência da DLL de runtime. E ela usa a STL. Provavelmente o aplicativo console não irá compilar, mas isso não é problema, pois estamos acostumados a colocar a msvcrt.lib na lista de LIBs ignoradas, pois em muitos outros casos (que não vale a pena discutir aqui) esse workaround é válido. E tudo volta a funcionar. Quer dizer, linkar:</p>
 <p>O sistema no pode executar o programa especificado.</p>
 <p>Tudo bem, meu executável não é mutante ainda. Mas agora vamos trocar a chamada da nossa função que usa STL por uma função que não usa:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** library.h
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">doesNothing</span>();
+
+<span style="color:#75715e">/** library.cpp
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">/** Essa função não faz nada. Quer dizer, ela retorna 0. Mas é só isso. */</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">doesNothing</span>()
+{
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/** console.cpp
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;../library/library.h&#34; // include da nossa lib</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   <span style="color:#66d9ef">int</span> ret;
+
+   <span style="color:#75715e">// não faz nada. bom, chama uma função. mas isso é quase nada.
+</span><span style="color:#75715e"></span>   ret <span style="color:#f92672">=</span> doesNothing();
+
+   <span style="color:#66d9ef">return</span> ret;
+}
+</code></pre></div><pre><code>Linking
+=======
+library.lib(library.obj) : warning LNK4049: locally 
+ defined symbol __invalid_parameter_noinfo imported
+
+Running
+=======
+O sistema no pode executar o programa especificado.
+
+Depends
+=======
+Error: The Side-by-Side configuration information in &quot;blablabla\CONSOLE.EXE&quot; 
+ contains errors.
+Falha na inicialização do aplicativo devido a configuração incorreta.
+A reinstalação do aplicativo pode resolver o problema (14001).
+</code></pre>
 <p>Agora sim, a mutação fez efeito! Temos um aplicativo que não depende da DLL de runtime, mas que no meio das n LIBs que ele utiliza existe uma configurada com a dependência. Ignorando a msvcrt.lib e um warning na compilação encontramos uma mensagem de erro um tanto exdrúxula.</p>
 <p>Até agora, a maneira que eu tenho utilizado para rastrear esse problema é não ignorar a msvcrt e ir tirando as dependências das LIBs pouco a pouco, até que ocorra o erro de símbolo duplicado. Algo assim:</p>
-<p>Se você tiver realmente 3 * 10 ^ 666 de LIBs, boa sorte =).</p>
+<pre><code>MSVCRT.lib(ti_inst.obj) : error LNK2005: &quot;private: __thiscall 
+ type_info::type_info(class type_info const &amp;)&quot; (??0type_info@@AAE@ABV0@@Z) 
+ already defined in LIBCMT.lib(typinfo.obj)
+MSVCRT.lib(ti_inst.obj) : error LNK2005: &quot;private: class type_info &amp; __thiscall 
+ type_info::operator=(class type_info const &amp;)&quot; (??4type_info@@AAEAAV0@ABV0@@Z) 
+ already defined in LIBCMT.lib(typinfo.obj)
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; 
+ use /NODEFAULTLIB:library
+Blablabla\console.exe : fatal error LNK1169: one or more multiply defined symbols found
+</code></pre>
+<p>Se você tiver realmente <strong>3 * 10 ^ 666</strong> de LIBs, boa sorte =).</p>
 
             
 
@@ -128,7 +283,7 @@ Por que o Visual Studio gera executáveis mutantes
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

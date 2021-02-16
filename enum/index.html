@@ -27,7 +27,16 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Padrão C (ISO/IEC 9899:1990)
-Uma enumeração faz duas coisas: define um novo tipo, parecido com um inteiro, e cria uma lista de constantes com nomes significativos. A definição técnica do tipo de um..."/>
+6.5.2.2 enum-specifier
+ &lt;strong&gt;enum&lt;/strong&gt;
+
+
+Padrão C&#43;&#43; (ISO/IEC 14882:1998)
+
+type-specifier
+ enum-specifier
+
+enum-specifier..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,17 +116,169 @@ Enum
 
             
               <p>Padrão C (ISO/IEC 9899:1990)</p>
-<p>Uma enumeração faz duas coisas: define um novo tipo, parecido com um inteiro, e cria uma lista de constantes com nomes significativos. A definição técnica do tipo de um enum é mais complicada, mas basicamente ele é um novo int.</p>
+<pre><code>6.5.2.2 enum-specifier
+ &lt;strong&gt;enum&lt;/strong&gt;
+
+
+Padrão C++ (ISO/IEC 14882:1998)
+
+type-specifier
+ enum-specifier
+
+enum-specifier
+ &lt;strong&gt;enum&lt;/strong&gt;
+</code></pre>
+<p>Uma enumeração faz duas coisas: define um novo tipo, parecido com um inteiro, e cria uma <strong>lista de constantes com nomes significativos</strong>. A definição técnica do tipo de um enum é mais complicada, mas basicamente ele é um novo int.</p>
 <p>Como funciona: definimos uma lista com cada elemento tendo um valor inteiro, geralmente único. Todos os nomes usados na lista passam a fazer parte do espaço de nomes atual e funcionam como constantes com o seu valor definido no início.</p>
-<p>Obs.: Os elementos que não possuem valor definido são definidos automaticamente como o valor do elemento anterior acrescidos de um. Se for o primeiro elemento, seu valor padrão é zero.</p>
-<p>Detalhe bizarro: você sabia que, apesar da vírgula ser usada para separar valores de enumeração, ela pode também terminar uma listagem? Por algum motivo exdrúxulo (se alguém quiser explicar), um valor de enumeração foi definido de tal forma que sempre poderá existir uma vírgula terminando ele:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FileType</span> <span style="color:#75715e">// criamos o novo tipo inteiro FileType
+</span><span style="color:#75715e"></span>{
+   Binary <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e">// Binary é uma constante com valor igual a 1
+</span><span style="color:#75715e"></span>   Text <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#75715e">// Text é uma constante com seu sizeof igual a sizeof(FileType)
+</span><span style="color:#75715e"></span>   Mixed <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> <span style="color:#75715e">// Todas as constantes da enumeração são do mesmo tipo
+</span><span style="color:#75715e"></span>};
+ 
+
+</code></pre></div><p>Obs.: Os elementos que não possuem valor definido são definidos automaticamente como o valor do elemento anterior acrescidos de um. Se for o primeiro elemento, seu valor padrão é zero.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Numbers</span>
+{
+   zero,  <span style="color:#75715e">// igual a zero
+</span><span style="color:#75715e"></span>   one,   <span style="color:#75715e">// igual a um
+</span><span style="color:#75715e"></span>   two,   <span style="color:#75715e">// igual a dois
+</span><span style="color:#75715e"></span>   three  <span style="color:#75715e">// igual a tres
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Hexa</span>
+{
+   JulioCesar <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+   Lucio <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+   Juan,                <span style="color:#75715e">// Juan = 3 + 1 = 4
+</span><span style="color:#75715e"></span>   Gilberto Silva <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,
+   Felipe Melo          <span style="color:#75715e">// 6 + 1 = 7
+</span><span style="color:#75715e"></span>}; 
+
+</code></pre></div><p><em>Detalhe bizarro</em>: você sabia que, apesar da vírgula ser usada para separar valores de enumeração, ela pode também terminar uma listagem? Por algum motivo exdrúxulo (se alguém quiser explicar), um valor de enumeração foi definido de tal forma que sempre poderá existir uma vírgula terminando ele:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">VirgulaSafada</span> { 
+   um <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, 
+   dois, 
+   tres, <span style="color:#75715e">// o que essa vírgula no final tá fazendo aqui?
+</span><span style="color:#75715e"></span>}; 
+
+</code></pre></div><h4 id="uso-prático">Uso prático</h4>
 <p>Geralmente usamos enumerações para definir valores únicos (tag) em um argumento de função, ou, mais moderno, como substituto daqueles antigos defines em C para mapas de bits. Nesse último caso não usamos o tipo da enumeração, pois ele pode conter apenas um valor único definido, e não um conjunto deles:</p>
-<p>Note que usamos uma enumeração nesse último caso para termos um nome significativo para uma flag, além desse nome fazer de fato parte dos nomes do programa, e não um define que, para o compilador, não existe.</p>
-<p>Como os tipos da enumeração passam a pertencer ao namespace atual, eles podem se misturar facilmente com todos os nomes daquele namespace. Dessa forma, é útil e bem organizado definir um prefixo para os nomes, que pode ser formado pelas iniciais do nome da enumeração, como no exemplo acima (fom = FileOpenMode).</p>
-<p>O surgimento do enum veio como evolução de uma prática já consagrada pelo uso na linguagem C, que eram as listas de valores constantes criados através de defines com algum prefixo em comum (FILESHARE, SWSHOW, etc). Portanto, sempre que se encontrar em uma situação para criar esse tipo de lista, a enumeração é o caminho atualmente ideal.</p>
-<p>Perguntado por um leitor sobre qual a diferença prática do último exemplo, onde temos praticamente o mesmo resultado entre usar defines e enumerações, imaginei que a mesma dúvida pode ter surgido para várias pessoas, porque é uma boa dúvida. Dá a entender que o autor deste artigo está se atentando a preciosismos da linguagem (e está mesmo!), mas à vezes as aparências enganam.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ModoDeServir</span>
+{
+   assado,
+   cozido,
+   frito,
+   cru
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Cook</span>(Prato p, ModoDeServir ms);
+
+main()
+{
+   Cook(frango, cozido);
+}
+
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FileOpenMode</span>
+{
+   fomRead   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0001</span>,
+   fomWrite  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0002</span>,
+   fomOver   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0004</span>,
+   fomDel    <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0008</span>,
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">OpenFile</span>(DWORD fileOpenMode);
+
+main()
+{
+   OpenFile(fomRead <span style="color:#f92672">|</span> fomWrite);
+} 
+
+</code></pre></div><p>Note que usamos uma enumeração nesse último caso para termos um nome significativo para uma flag, além desse nome fazer de fato parte dos nomes do programa, e não um define que, para o compilador, não existe.</p>
+<h4 id="boas-práticas">Boas práticas</h4>
+<p>Como os tipos da enumeração passam a pertencer ao namespace atual, eles podem se misturar facilmente com todos os nomes daquele namespace. Dessa forma, é útil e bem organizado definir um prefixo para os nomes, que pode ser formado pelas iniciais do nome da enumeração, como no exemplo acima (fom = <strong>F</strong>ile<strong>O</strong>pen<strong>M</strong>ode).</p>
+<p><img src="http://i.imgur.com/wNCAYCX.png" alt="enum-namespace.png"></p>
+<p>O surgimento do enum veio como evolução de uma prática já consagrada pelo uso na linguagem C, que eram as listas de valores constantes criados através de defines com algum prefixo em comum (FILE_SHARE_*, SW_SHOW_*, etc). Portanto, sempre que se encontrar em uma situação para criar esse tipo de lista, a enumeração é o caminho atualmente ideal.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// A listagem abaixo pode virar um enum...
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define FOM_READ   0x0001
+</span><span style="color:#75715e">#define FOM_WRITE  0x0002
+</span><span style="color:#75715e">#define FOM_OVER   0x0004
+</span><span style="color:#75715e">#define FOM_DEL    0x0008
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// ... como este aqui!
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FileOpenMode</span>
+{
+   FOM_READ   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0001</span>,
+   FOM_WRITE  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0002</span>,
+   FOM_OVER   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0004</span>,
+   FOM_DEL    <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0008</span>,
+};
+
+<span style="color:#75715e">// esse pedaço de código abaixo...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   OpenFile(path, FOM_WRITE);
+}
+
+<span style="color:#75715e">// ... vira isso após ser pré-processado...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   OpenFile(path, <span style="color:#ae81ff">0x0002</span>);
+}
+
+<span style="color:#75715e">// ... mas isso se fossem usados enums...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   OpenFile(path, FOM_WRITE); <span style="color:#75715e">// FOM_WRITE faz parte da linguagem
+</span><span style="color:#75715e"></span>}
+ 
+
+</code></pre></div><h4 id="atualização-e-qual-a-diferença">Atualização: e qual a diferença?</h4>
+<p>Perguntado <a href="http://www.caloni.com.br/blog/enum#comment-17806">por um leitor</a> sobre qual a diferença prática do último exemplo, onde temos praticamente o mesmo resultado entre usar defines e enumerações, imaginei que a mesma dúvida pode ter surgido para várias pessoas, porque é uma boa dúvida. Dá a entender que o autor deste artigo está se atentando a preciosismos da linguagem (e está mesmo!), mas à vezes as aparências enganam.</p>
 <p>Para ilustrar melhor fiz um mais elaborado. Aqui, estamos lendo pedaços de dados que tiveram que ser alinhados com alguma &quot;gordura&quot;.</p>
-<p>Aviso para os programadores mais calejados, eu omiti propositalmente os parênteses obrigatórios para qualquer define que tenha cálculos matemáticos, para ilustrar que muitas vezes o que vemos antes não é o que aparece depois.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// alinhamento obrigatório pelo leiaute dos dados
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define CHUNKSZ_BASE 0x5000
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define CHUNKSZ_TINY   0x1000 + CHUNKSZ_BASE
+</span><span style="color:#75715e">#define CHUNKSZ_SMALL  0x2000 + CHUNKSZ_BASE
+</span><span style="color:#75715e">#define CHUNKSZ_MEDIUM 0x4000 + CHUNKSZ_BASE
+</span><span style="color:#75715e">#define CHUNKSZ_HUGE   0x8000 + CHUNKSZ_BASE
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// alinhamento obrigatório pelo leiaute dos dados
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> chunkSizeBase <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x5000</span>;
+
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ChunkSize</span>
+{
+   chunkszTiny   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x1000</span> <span style="color:#f92672">+</span> chunkSizeBase,
+   chunkszSmall  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x2000</span> <span style="color:#f92672">+</span> chunkSizeBase,
+   chunkszMedium <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x4000</span> <span style="color:#f92672">+</span> chunkSizeBase,
+   chunkszHuge   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x8000</span> <span style="color:#f92672">+</span> chunkSizeBase,
+};
+
+<span style="color:#75715e">// Fonte original
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#75715e">// lendo quadro pedaços de dados (tamanho médio)
+</span><span style="color:#75715e"></span>   ReadChunkFromFile(file, CHUNKSZ_MEDIUM <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+
+	<span style="color:#75715e">// lendo quadro pedaços de dados (tamanho médio)
+</span><span style="color:#75715e"></span>   ReadChunkFromFile(file, chunkszMedium <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+}
+
+<span style="color:#75715e">// Pós-processado
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#75715e">// lendo sei lá o que (perde alinhamento)
+</span><span style="color:#75715e"></span>   ReadChunkFromFile(file, <span style="color:#ae81ff">0x4000</span> <span style="color:#f92672">+</span> CHUNKSZ_BASE <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+
+	<span style="color:#75715e">// lendo quadro pedaços de dados (tamanho médio)
+</span><span style="color:#75715e"></span>   ReadChunkFromFile(file, chunkszMedium <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+}
+
+ 
+
+</code></pre></div><p><em>Aviso para os programadores mais calejados, eu omiti propositalmente os parênteses obrigatórios para qualquer define que tenha cálculos matemáticos, para ilustrar que muitas vezes o que vemos <strong>antes</strong> não é o que aparece <strong>depois.</strong></em></p>
 
             
 
@@ -126,7 +287,7 @@ Enum
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

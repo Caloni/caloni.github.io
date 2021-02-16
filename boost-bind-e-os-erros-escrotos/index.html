@@ -106,15 +106,111 @@ Boost.Bind e os Erros Escrotos
 
             
               <p>Estou voltando a programar algumas coisas no boost. Algo que eu perdi ao me isolar do movimento de modernização do C++ foi a capacidade brilhante da biblioteca boost em encapsular e abstrair conceitos de engenharia de software de maneira portável e mantendo a filosofia por trás da STL, que ainda é a melhor maneira de trabalhar algoritmos já criada em qualquer linguagem de programação séria.</p>
-<p>Isso não quer dizer que a linguagem C++ está indo para um bom caminho. Muito pelo contrário. Uma miríade de questões semânticas dividem opiniões e nunca resolvem de fato problemas do mundo real. Verdadeiros arcabouços masturbatórios, o comitê da linguagem se debate em vão quando tenta buscar maneiras de tornar uma linguagem arcaica em um exemplo de expressividade.</p>
-<p>Isso às vezes não importa muito para o dia-a-dia, mas outras vezes importa. Veja o caso da biblioteca Boost.Bind, uma das mais antigas a entrar para o projeto. Sua função é simples: expandir o conceito do std::bind para quantos argumentos for necessário. Isso foi criado na época com a ajuda de inúmeros overloads da função (em modo template), mas hoje é possível fazer com variadic templates. Seu uso é simples, intuitivo, direto, e resolve muitos problemas de encaixe de código:</p>
-<p>No entanto, o que era para ser um uso simples e direto de uma feature bem-vinda ao cinto de utilidades do programador C++ se transforma em um pesadelo quando as coisas não se encaixam tão bem:</p>
-<p>Vou plotar aqui todas as mensagens de erro para sentir o drama:</p>
-<p>Este é o erro encontrado usando o último Visual Studio (2017 15.9.0 Preview 2.0) e o Boost 1.68.0. A primeira linha deveria significar alguma coisa (que é para onde todo programador C++ deve olhar):</p>
-<p>Mas não. Se olharmos para o código-fonte onde ocorreu o problema, a caixa de encaixe perfeito se quebra:</p>
+<p>Isso não quer dizer que a <strong>linguagem C++</strong> está indo para um bom caminho. Muito pelo contrário. Uma miríade de questões semânticas dividem opiniões e nunca resolvem de fato problemas do mundo real. Verdadeiros arcabouços masturbatórios, o comitê da linguagem se debate em vão quando tenta buscar maneiras de tornar uma linguagem arcaica em um exemplo de expressividade.</p>
+<p>Isso às vezes não importa muito para o dia-a-dia, mas outras vezes importa. Veja o caso da biblioteca <strong>Boost.Bind</strong>, uma das mais antigas a entrar para o projeto. Sua função é simples: expandir o conceito do <code>std::bind</code> para quantos argumentos for necessário. Isso foi criado na época com a ajuda de inúmeros overloads da função (em modo template), mas hoje é possível fazer com variadic templates. Seu uso é simples, intuitivo, direto, e resolve muitos problemas de encaixe de código:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;boost/bind.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Handler</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> CallHandler(Handler<span style="color:#f92672">&amp;&amp;</span> handler)
+{
+    handler();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handler1</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;handler1: x=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, y=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    CallHandler(boost<span style="color:#f92672">::</span>bind(handler1, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>));
+}
+</code></pre></div><p>No entanto, o que era para ser um uso simples e direto de uma feature bem-vinda ao cinto de utilidades do programador C++ se transforma em um pesadelo quando as coisas não se encaixam tão bem:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;boost/bind.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Handler</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> CallHandler(Handler<span style="color:#f92672">&amp;&amp;</span> handler)
+{
+    handler();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handler1</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;handler1: x=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, y=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handler2_fail</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> z)
+{
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;handler1: x=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, y=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, z=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> z <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    CallHandler(boost<span style="color:#f92672">::</span>bind(handler1, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>));
+    CallHandler(boost<span style="color:#f92672">::</span>bind(handler2_fail, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>));
+}
+</code></pre></div><p>Vou plotar aqui todas as mensagens de erro para sentir o drama:</p>
+<pre><code>1&gt;------ Build started: Project: boost_bind_result_type_error, Configuration: Debug Win32 ------
+1&gt;boost_bind_result_type_error.cpp
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(75): error C2825: 'F': must be a class or namespace when followed by '::'
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(1284): note: see reference to class template instantiation 'boost::_bi::result_traits&lt;R,F&gt;' being compiled
+1&gt;        with
+1&gt;        [
+1&gt;            R=boost::_bi::unspecified,
+1&gt;            F=void (__cdecl *)(int,int,int)
+1&gt;        ]
+1&gt;c:\projects\caloni\static\samples\boost_bind_result_type_error\boost_bind_result_type_error.cpp(23): note: see reference to class template instantiation 'boost::_bi::bind_t&lt;boost::_bi::unspecified,void (__cdecl *)(int,int,int),boost::_bi::list2&lt;boost::_bi::value&lt;T&gt;,boost::_bi::value&lt;T&gt;&gt;&gt;' being compiled
+1&gt;        with
+1&gt;        [
+1&gt;            T=int
+1&gt;        ]
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(54): note: see reference to class template instantiation 'boost::arg&lt;9&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(53): note: see reference to class template instantiation 'boost::arg&lt;8&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(52): note: see reference to class template instantiation 'boost::arg&lt;7&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(51): note: see reference to class template instantiation 'boost::arg&lt;6&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(50): note: see reference to class template instantiation 'boost::arg&lt;5&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(49): note: see reference to class template instantiation 'boost::arg&lt;4&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(48): note: see reference to class template instantiation 'boost::arg&lt;3&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(47): note: see reference to class template instantiation 'boost::arg&lt;2&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\placeholders.hpp(46): note: see reference to class template instantiation 'boost::arg&lt;1&gt;' being compiled
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(75): error C2510: 'F': left of '::' must be a class/struct/union
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(75): error C3646: 'type': unknown override specifier
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(75): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(1284): error C2039: 'type': is not a member of 'boost::_bi::result_traits&lt;R,F&gt;'
+1&gt;        with
+1&gt;        [
+1&gt;            R=boost::_bi::unspecified,
+1&gt;            F=void (__cdecl *)(int,int,int)
+1&gt;        ]
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(1284): note: see declaration of 'boost::_bi::result_traits&lt;R,F&gt;'
+1&gt;        with
+1&gt;        [
+1&gt;            R=boost::_bi::unspecified,
+1&gt;            F=void (__cdecl *)(int,int,int)
+1&gt;        ]
+1&gt;Done building project &quot;boost_bind_result_type_error.vcxproj&quot; -- FAILED.
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+</code></pre><p>Este é o erro encontrado usando o último Visual Studio (2017 15.9.0 Preview 2.0) e o Boost 1.68.0. A primeira linha deveria significar alguma coisa (que é para onde todo programador C++ deve olhar):</p>
+<pre><code>1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(75): error C2825: 'F': must be a class or namespace when followed by '::'
+</code></pre><p>Mas não. Se olharmos para o código-fonte onde ocorreu o problema, a caixa de encaixe perfeito se quebra:</p>
+<p><img src="https://i.imgur.com/MsRp03e.png" alt=""></p>
 <p>O que isso quer dizer? O que aconteceu? Onde que eu errei?</p>
 <p>Claro que ao final da longa listagem de erros (que se torna ainda mais longa, dependendo de quantos argumentos sua função tem) há alguma luz no fim do túnel:</p>
-<p>Mas claro que essa luz pode estar ofuscada quando os tipos dos argumentos são templates de templates de templates... enfim. Deu pra entender onde o caos consegue chegar quando se trata de harmonizar uma biblioteca perfeita com uma linguagem em constante construção.</p>
+<pre><code>1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(1284): error C2039: 'type': is not a member of 'boost::_bi::result_traits&lt;R,F&gt;'
+1&gt;        with
+1&gt;        [
+1&gt;            R=boost::_bi::unspecified,
+1&gt;            F=void (__cdecl *)(int,int,int)
+1&gt;        ]
+1&gt;c:\libs\vcpkg\installed\x86-windows\include\boost\bind\bind.hpp(1284): note: see declaration of 'boost::_bi::result_traits&lt;R,F&gt;'
+1&gt;        with
+1&gt;        [
+1&gt;            R=boost::_bi::unspecified,
+1&gt;            F=void (__cdecl *)(int,int,int)
+1&gt;        ]
+</code></pre><p>Mas claro que essa luz pode estar ofuscada quando os tipos dos argumentos são templates de templates de templates... enfim. Deu pra entender onde o caos consegue chegar quando se trata de harmonizar uma biblioteca perfeita com uma linguagem em constante construção.</p>
 
             
 
@@ -123,7 +219,7 @@ Boost.Bind e os Erros Escrotos
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

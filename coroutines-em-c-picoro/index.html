@@ -107,17 +107,51 @@ Coroutines Em C: Picoro
             
               <p>Tantas linguagens hoje em dia tentando implementar a abstração de corrotinas e inserindo mais camadas de abstração (fibras e cereais)... há duas implementações já no Boost, ambas dependendo de uma biblioteca de contexto de stack que é dependente de arquitetura (programada em Assembly).</p>
 <p>E aqui está a linguagem C com sua elegância, minimalismo e a filosofia &quot;just works&quot;, por mais ou menos 50 anos.</p>
-<p>Estava pesquisando sobre bibliotecas de corrotinas em C e encontrei a Picoro, de Tony Finch. Três coisas me encantaram nela:</p>
+<p>Estava pesquisando sobre bibliotecas de corrotinas em C e encontrei a <a href="http://dotat.at/cgi/~fanf/dotat/~fanf/dotat/git/picoro.git">Picoro</a>, de Tony Finch. O repositório pode ser baixado <a href="git://git.chiark.greenend.org.uk/~fanf/picoro.git">por este link</a>. Três coisas me encantaram nela:</p>
 <ol>
 <li>portabilidade (fácil de testar em qualquer arquitetura).</li>
 <li>simplificade (um header e um .c com menos de 200 linhas, e a maioria são comentários).</li>
 <li>manutenção (o último commit é de 2010, ou seja, ninguém mais mexeu nela por nove anos).</li>
 </ol>
 <p>Ela é uma biblioteca feita para resolver o problema mais básico de toda corrotina: troca de contexto. Isso é feito de maneira descentralizada, embora ela inicie com uma corrotina principal: a primeira que constrói uma corrotina. A partir dessa é possível criar outras e dar resume em qualquer uma delas que não tenha terminado.</p>
-<p>A linguagem C já implementa troca de contexto através das funções padrão setjmp e longjmp. Há um tipo dependente de arquitetura, jmpbuf, que é usado para guardar o contexto. O salto é feito no estilo da função fork do Unix, ou seja, não há inclusão de mais nenhuma sintaxe diferente do usual: é um if que retorna 0 (contexto principal) ou não-0 (estamos em outro contexto).</p>
-<p>O picoro organiza tudo isso em torno de uma lista ligada. Aliás, de duas listas ligadas: running e idle, onde o head de cada uma delas é usado para verificar se há corrotinas paradas ou em execução. Há algumas regras básicas para que tudo funcione. Por exemplo, uma corrotina que já foi executada até o final ou que está bloqueada pela chamada de resume não pode ser posta para rodar.</p>
-<p>Vamos começar com um exemplo simples: apenas um corrotina que recebe um inteiro e incrementa três vezes. A cada vez que ele incrementa ele devolve o controle de execução via yield. O main cria três dessas corrotinas e dá resume em cada uma delas três vezes, finalizando a execução de todas. Ao final, o counter final é de 9.</p>
-<p>É importante observar que o uso de troca de contexto pode facilmente consumir a pilha, pois ela está sendo compartilhada com muitas funções em paralelo. Para reservar espaço a <code>coroutinestart</code> aloca um array de 16 KB (fixo). Esses detalhes de implementação podem ser alterados, pois a biblioteca é tão mínima e simples de entender que construir qualquer coisa em cima dela é trivial.</p>
+<p>A linguagem C já implementa troca de contexto através das funções padrão <code>setjmp</code> e <code>longjmp</code>. Há um tipo dependente de arquitetura, <code>jmp_buf</code>, que é usado para guardar o contexto. O salto é feito no estilo da função <code>fork</code> do Unix, ou seja, não há inclusão de mais nenhuma sintaxe diferente do usual: é um if que retorna 0 (contexto principal) ou não-0 (estamos em outro contexto).</p>
+<p>O picoro organiza tudo isso em torno de uma lista ligada. Aliás, de duas listas ligadas: <code>running</code> e <code>idle</code>, onde o head de cada uma delas é usado para verificar se há corrotinas paradas ou em execução. Há algumas regras básicas para que tudo funcione. Por exemplo, uma corrotina que já foi executada até o final ou que está bloqueada pela chamada de <code>resume</code> não pode ser posta para rodar.</p>
+<p>Vamos começar com um exemplo simples: apenas um corrotina que recebe um inteiro e incrementa três vezes. A cada vez que ele incrementa ele devolve o controle de execução via yield. O <code>main</code> cria três dessas corrotinas e dá resume em cada uma delas três vezes, finalizando a execução de todas. Ao final, o counter final é de 9.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;..\picoro\picoro.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">mycoroutine</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> arg)
+{
+	<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> counter <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>) arg;
+	(<span style="color:#f92672">*</span>counter) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+	yield(arg);
+	(<span style="color:#f92672">*</span>counter) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+	yield(arg);
+	(<span style="color:#f92672">*</span>counter) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+	<span style="color:#66d9ef">return</span> arg;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">int</span> i;
+	coro coroutines[<span style="color:#ae81ff">3</span>];
+	<span style="color:#66d9ef">int</span> maxi <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(coroutines) <span style="color:#f92672">/</span> <span style="color:#66d9ef">sizeof</span>(coro);
+
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> maxi; <span style="color:#f92672">++</span>i)
+		coroutines[i] <span style="color:#f92672">=</span> coroutine(mycoroutine);
+
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> maxi; <span style="color:#f92672">++</span>i)
+		resume(coroutines[i], <span style="color:#f92672">&amp;</span>counter);
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> maxi; <span style="color:#f92672">++</span>i)
+		resume(coroutines[i], <span style="color:#f92672">&amp;</span>counter);
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> maxi; <span style="color:#f92672">++</span>i)
+		resume(coroutines[i], <span style="color:#f92672">&amp;</span>counter);
+
+    printf(<span style="color:#e6db74">&#34;final counter: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, counter);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>É importante observar que o uso de troca de contexto pode facilmente consumir a pilha, pois ela está sendo compartilhada com muitas funções em paralelo. Para reservar espaço a <code>coroutine_start</code> aloca um array de 16 KB (fixo). Esses detalhes de implementação podem ser alterados, pois a biblioteca é tão mínima e simples de entender que construir qualquer coisa em cima dela é trivial.</p>
 
             
 
@@ -126,15 +160,15 @@ Coroutines Em C: Picoro
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/a-espia-vermelha/">&#x25C1; A Espiã Vermelha</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/dias-vazios/">&#x25B7; Dias Vazios</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/minhas-familias/">&#x25C1; Minhas Famílias</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/deep-work-flow/">&#x25B7; Deep Work =&gt; Flow</a></span>
 
         </div>
 

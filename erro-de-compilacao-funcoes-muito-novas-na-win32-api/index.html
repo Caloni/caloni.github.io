@@ -107,19 +107,139 @@ Erro de compilação: funções muito novas na Win32 API
             
               <p>Quando fala-se em depuração geralmente o pensamento que vem é de um código que já foi compilado e está rodando em alguma outra máquina e gerando problemas não detectados nos testes de desenvolvedor. Mas nem sempre é assim. Depuração pode envolver problemas durante a própria compilação. Afinal de contas, se não está compilando, ou foi compilado errado, é porque já existem problemas antes mesmo da execução começar.</p>
 <p>O fonte abaixo, por exemplo, envolve um detalhe que costuma atormentar alguns programadores, ou por falta de observação ou documentação (ou ambos).</p>
-<p>Tirando o fato que o retorno void não é mais um protótipo padrão da função main e que a definição da enumeração COMPUTERNAMEFORMAT dentro da função main é no mínimo suspeita, podemos testar a compilação e verificar que existe exatamente um erro grave neste fonte:</p>
-<p>A função GetComputerNameEx parece não ter sido definida, apesar de estarmos incluindo o header windows.h, que é o pedido pela documentação do MSDN. Esse tipo de problema acontece na maioria das vezes por dois motivos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+	<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">_COMPUTER_NAME_FORMAT</span>
+	{
+		ComputerNameNetBIOS,
+		ComputerNameDnsHostname,
+		ComputerNameDnsDomain,
+		ComputerNameDnsFullyQualified,
+		ComputerNamePhysicalNetBIOS,
+		ComputerNamePhysicalDnsHostname,
+		ComputerNamePhysicalDnsDomain,
+		ComputerNamePhysicalDnsFullyQualified,
+		ComputerNameMax
+	} COMPUTER_NAME_FORMAT;
+
+	COMPUTER_NAME_FORMAT CF <span style="color:#f92672">=</span> ComputerNameDnsDomain;
+
+	<span style="color:#66d9ef">char</span> szDomainName[MAX_COMPUTERNAME_LENGTH];
+
+	DWORD dwSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(szDomainName);
+
+	<span style="color:#75715e">//GetComputerName(szDomainName, &amp;dwSize);
+</span><span style="color:#75715e"></span>	GetComputerNameEx(CF, szDomainName, <span style="color:#f92672">&amp;</span>dwSize);
+} 
+
+</code></pre></div><p>Tirando o fato que o retorno void não é mais um protótipo padrão da função main e que a definição da enumeração COMPUTER_NAME_FORMAT dentro da função main é no mínimo suspeita, podemos testar a compilação e verificar que existe exatamente um erro grave neste fonte:</p>
+<pre><code>&lt;strong&gt;cl getcomputername.cpp
+getcomputername.cpp(26) : error C3861: 'GetComputerNameEx': identifier not found&lt;/strong&gt;
+</code></pre>
+<p>A função GetComputerNameEx parece não ter sido definida, apesar de estarmos incluindo o <em>header</em> windows.h, que é o pedido pela <a href="http://msdn2.microsoft.com/en-us/library/ms724301.aspx">documentação do MSDN</a>:</p>
+<h4 id="requirements">Requirements</h4>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Esse tipo de problema acontece na maioria das vezes por dois motivos:</p>
 <ol>
-<li>o header responsável não foi incluído (não é o caso, como vimos),</li>
-<li>é necessário especificar a versão mínima do sistema operacional.</li>
+<li>
+<p>o <em>header</em> responsável não foi incluído (não é o caso, como vimos),</p>
+</li>
+<li>
+<p>é necessário especificar a versão mínima do sistema operacional.</p>
+</li>
 </ol>
 <p>De fato, se criarmos coragem e abrirmos o arquivo winbase.h, que é onde a função é definida de fato, e procurarmos pela função GetComputerNameEx encontramos a seguinte condição:</p>
-<p>Ou seja, para que essa função seja visível a quem inclui o windows.h, é necessário antes definir que a versão mínima do Windows será a 0x0500, ou seja, Windows 2000 (vulgo Windows 5.0). Aliás, é como aparece na documentação. Um pouco de observação nesse caso seria o suficiente para resolver o caso, já que tanto abrindo o header quanto olhando no exemplo do MSDN nos levaria a crer que é necessário definir essa macro:</p>
-<p>Outra observação que poderia ter ajudado na hora de codificar seria dar uma olhada no que os caras escrevem na seção de advertências (remarks) da documentação:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#if (_WIN32_WINNT &gt;= 0x0500)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> _COMPUTER_NAME_FORMAT {
+    ComputerNameNetBIOS,
+    ComputerNameDnsHostname,
+    ComputerNameDnsDomain,
+    ComputerNameDnsFullyQualified,
+    ComputerNamePhysicalNetBIOS,
+    ComputerNamePhysicalDnsHostname,
+    ComputerNamePhysicalDnsDomain,
+    ComputerNamePhysicalDnsFullyQualified,
+    ComputerNameMax
+} COMPUTER_NAME_FORMAT ;
+
+WINBASEAPI
+BOOL
+WINAPI
+<span style="color:#a6e22e">GetComputerNameExA</span> (
+    __in    COMPUTER_NAME_FORMAT NameType,
+    __out_ecount_part_opt(<span style="color:#f92672">*</span>nSize, <span style="color:#f92672">*</span>nSize <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) LPSTR lpBuffer,
+    __inout LPDWORD nSize
+    );
+WINBASEAPI
+BOOL
+WINAPI
+<span style="color:#a6e22e">GetComputerNameExW</span> (
+    __in    COMPUTER_NAME_FORMAT NameType,
+    __out_ecount_part_opt(<span style="color:#f92672">*</span>nSize, <span style="color:#f92672">*</span>nSize <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) LPWSTR lpBuffer,
+    __inout LPDWORD nSize
+    );
+<span style="color:#75715e">#ifdef UNICODE
+</span><span style="color:#75715e">#define GetComputerNameEx  GetComputerNameExW
+</span><span style="color:#75715e">#else
+</span><span style="color:#75715e">#define GetComputerNameEx  GetComputerNameExA
+</span><span style="color:#75715e">#endif </span><span style="color:#75715e">// !UNICODE
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#endif </span><span style="color:#75715e">// _WIN32_WINNT
+</span><span style="color:#75715e"></span> 
+
+</code></pre></div><p>Ou seja, para que essa função seja visível a quem inclui o windows.h, é necessário antes definir que a versão mínima do Windows será a 0x0500, ou seja, Windows 2000 (vulgo Windows 5.0). Aliás, é como aparece na documentação. Um pouco de observação nesse caso seria o suficiente para resolver o caso, já que tanto abrindo o <em>header</em> quanto olhando no exemplo do MSDN nos levaria a crer que é necessário definir essa macro:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define _WIN32_WINNT 0x0500
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_tmain</span>(<span style="color:#66d9ef">void</span>)
+{
+	TCHAR buffer[<span style="color:#ae81ff">256</span>] <span style="color:#f92672">=</span> TEXT(<span style="color:#e6db74">&#34;&#34;</span>);
+	TCHAR szDescription[<span style="color:#ae81ff">8</span>][<span style="color:#ae81ff">32</span>] <span style="color:#f92672">=</span> {TEXT(<span style="color:#e6db74">&#34;NetBIOS&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;DNS hostname&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;DNS domain&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;DNS fully-qualified&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;Physical NetBIOS&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;Physical DNS hostname&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;Physical DNS domain&#34;</span>), 
+	TEXT(<span style="color:#e6db74">&#34;Physical DNS fully-qualified&#34;</span>)};
+	<span style="color:#66d9ef">int</span> cnf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	DWORD dwSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(buffer);
+
+	<span style="color:#66d9ef">for</span>( cnf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; cnf <span style="color:#f92672">&lt;</span> ComputerNameMax; cnf<span style="color:#f92672">++</span> )
+	{
+		<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>GetComputerNameEx( (COMPUTER_NAME_FORMAT)cnf, buffer, <span style="color:#f92672">&amp;</span>dwSize) )
+		{
+			_tprintf(TEXT(<span style="color:#e6db74">&#34;GetComputerNameEx failed (%d)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>),
+			GetLastError());
+			<span style="color:#66d9ef">return</span>;
+		}
+			<span style="color:#66d9ef">else</span> _tprintf(TEXT(<span style="color:#e6db74">&#34;%s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>), szDescription[cnf], buffer);
+
+		dwSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(buffer);
+		ZeroMemory(buffer, dwSize);
+	}
+} 
+
+</code></pre></div><p>Outra observação que poderia ter ajudado na hora de codificar seria dar uma olhada no que os caras escrevem na seção de advertências (<em>remarks) <em>da documentação</em>:</em></p>
 <blockquote>
-<p>To compile an application that uses this function, define the WIN32WINNT macro as 0x0500 or later. For more information, see Using the Windows Headers.</p>
+<p>_To compile an application that uses this function, define the <em>WIN32_WINNT macro as 0x0500 or later. For more information, see <a href="http://msdn2.microsoft.com/en-us/library/aa383745.aspx">Using the Windows Headers</a>.</em></p>
 </blockquote>
-<p>Podemos também notar pela definição do COMPUTERNAMEFORMAT dentro do main que o código estava no meio do caminho de cometer um sacrilégio: declarar funções e estruturas que já estão definidas nos headers da API. Portanto, se você já encontrou algum código parecido com esse, é hora de colocar em prática algumas teorias de refactoring.</p>
+<p>Podemos também notar pela definição do COMPUTER_NAME_FORMAT dentro do main que o código estava no meio do caminho de cometer um sacrilégio: declarar funções e estruturas que já estão definidas nos <em>headers</em> da API. Portanto, se você já encontrou algum código parecido com esse, é hora de colocar em prática algumas teorias de <em><a href="http://en.wikipedia.org/wiki/Code_refactoring">refactoring</a>.</em></p>
 
             
 
@@ -128,7 +248,7 @@ Erro de compilação: funções muito novas na Win32 API
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

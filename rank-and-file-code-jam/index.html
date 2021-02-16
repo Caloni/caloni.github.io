@@ -13,13 +13,13 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Rank and File</title>
+  <title>Blogue do Caloni - Rank and File (Code Jam)</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Rank and File"/>
+  <meta property="og:title" content="Rank and File (Code Jam)"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/rank-and-file-code-jam/"/>
@@ -83,7 +83,7 @@
       <div class="container">
         <p class="title">
 
-Rank and File
+Rank and File (Code Jam)
 
 </p>
 
@@ -105,10 +105,25 @@ Rank and File
           <div class="content">
 
             
-              <p>Passou o Round 1A do Code Jam, e para variar, fui muito mal, só respondendo a primeira questão. A segunda me fez ficar pensando um tempo desproporcional sobre como encaixar as diferentes linhas e colunas para achar a linha restante.</p>
+              <p>Passou o Round 1A do Code Jam, e para variar, fui muito mal, só respondendo a primeira questão. A <a href="https://code.google.com/codejam/contest/4304486/dashboard#s=p1">segunda</a> me fez ficar pensando um tempo desproporcional sobre como encaixar as diferentes linhas e colunas para achar a linha restante.</p>
 <p>Basicamente, o problema pede que, dado um quadrado de tamanho N, e 2*N-1 linhas fornecidas (que podem ser linhas ou colunas), imprimir a Nésima linha. A regra das linhas é que ela possui números crescentes.</p>
-<p>Bom, não consegui chegar numa solução para o problema errado (encaixar as linhas), mas fui, como sempre, dar uma espiada nas respostas dos competidores, em especial a do primeiro colocado. O grande barato de competições como essa é aprender com a inteligência e genialidade dos outros. Para mim, esse é um exemplo de genialidade:</p>
-<p>Obs.: O código está higienizado, pois esse pessoal usa bastante macros, etc.</p>
+<p>Bom, não consegui chegar numa solução para o problema errado (encaixar as linhas), mas fui, como sempre, dar uma espiada nas respostas dos competidores, em especial a do <a href="https://code.google.com/codejam/contest/4304486/scoreboard#vf=1">primeiro colocado</a>. O grande barato de competições como essa é aprender com a inteligência e genialidade dos outros. Para mim, esse é um exemplo de genialidade:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cnt[<span style="color:#ae81ff">2501</span>] <span style="color:#f92672">=</span> {}; <span style="color:#75715e">// zerando o array
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); i<span style="color:#f92672">++</span>)
+	{
+		cin <span style="color:#f92672">&gt;&gt;</span> j;
+		cnt[j] <span style="color:#f92672">^=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// inverte primeiro bit do inteiro
+</span><span style="color:#75715e"></span>	}
+	printf(<span style="color:#e6db74">&#34;Case #%d:&#34;</span>, t);
+	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2500</span>; i<span style="color:#f92672">++</span>)
+		<span style="color:#66d9ef">if</span> (cnt[i]) 
+			cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i; <span style="color:#75715e">// se não for zero (ou seja, ímpar) imprime
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div><p><em>Obs.: O código está higienizado, pois esse pessoal usa bastante macros, etc.</em></p>
 <p>A solução basicamente decide isolar duas questões: achar os números que faltam nas sequência e imprimi-los na ordem. Para o primeiro, varre todas as sequências sinalizando qual deles tem a quantidade ímpar (ou seja, não está representado em todas as linhas e colunas, pois do contrário seria par). Depois ele resolve a segunda questão simplesmente imprimindo os números ímpares encontrados, já na ordem (no array de valores possíveis).</p>
 <p>Simples, rápido, eficiente. E correto.</p>
 <p>É esse tipo de coisa que faz valer a pena uma competição dessas.</p>
@@ -120,7 +135,7 @@ Rank and File
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

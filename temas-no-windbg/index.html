@@ -105,13 +105,18 @@ Temas no WinDbg
           <div class="content">
 
             
-              <p>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).</p>
+              <p><a href="http://i.imgur.com/ivqb6MO.png"><img src="http://i.imgur.com/X3IFGZb.thumbnail.png" alt="WinDbg Workspace (Visual Studio like)"></a>Desde a versão <a href="http://www.microsoft.com/whdc/devtools/debugging/whatsnew.mspx">6.4.7.2</a> que o WinDbg fornece uma subpasta chamada <strong>Themes</strong>, onde lá estão diversos <em>workspaces</em> configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).</p>
+<h4 id="primeira-coisa-limpe-todos-seus-dados">Primeira coisa: limpe todos seus dados</h4>
 <p>O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:</p>
+<pre><code>reg delete HKCU\Software\Microsoft\WinDbg
+</code></pre>
+<h4 id="segunda-coisa-execute-o-tema-que-mais-gostar">Segunda coisa: execute o tema que mais gostar</h4>
 <p>Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.</p>
+<h4 id="configurando-o-que-importa">Configurando o que importa</h4>
 <p>Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:</p>
 <ul>
 <li>
-<p>Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath+.</p>
+<p>Diretórios de símbolos. Você pode começar com <strong>.symfix</strong>, que vai montar uma string padrão, e adicionar mais diretórios com <strong>.sympath+</strong>.</p>
 </li>
 <li>
 <p>Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor.</p>
@@ -120,8 +125,17 @@ Temas no WinDbg
 <p>Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.</p>
 </li>
 </ul>
-<p>Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.</p>
+<h4 id="ajuste-fino">Ajuste fino</h4>
+<p>Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o <em>workspace</em>, que a partir daí será o padrão sempre que abrir o depurador.</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<h4 id="configure-corretamente-onde-seu-código-fonte-vai-abrir">Configure corretamente onde seu código-fonte vai abrir</h4>
+</blockquote>
+<p>_Para que os arquivos fonte caiam no lugar que você escolheu, durante a configuração, abra um código-fonte e coloque no lugar que gostaria de ver todos os fontes listados, junto com um placeholder (um arquivo C usado como localizador, existem 5 dentro da pasta themes). Após isso, feche o código-fonte, mas mantenha o placeholder. Depois é só fechar o WinDbg salvando as configurações. Tudo deve funcionar como previsto (ou você esqueceu alguma coisa)._<!-- raw HTML omitted --></p>
 <p>Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).</p>
+<pre><code>reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg
+</code></pre>
+<h4 id="para-um-guia-completo">Para um guia completo</h4>
 <p>Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)</p>
 
             
@@ -131,7 +145,7 @@ Temas no WinDbg
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

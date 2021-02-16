@@ -105,8 +105,42 @@ Houaiss para Babylon em Python!
           <div class="content">
 
             
-              <p>O Fabio Montefuscolo expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o código que ele escreveu utiliza todo esse potencial:</p>
+              <p>O <a href="https://gist.github.com/fabiomontefuscolo">Fabio Montefuscolo</a> expandiu mais ainda o acesso do conversor Houaiss para Babylon implementando uma versão em Python, uma linguagem que estou aprendendo a adorar. Tudo é mais simples, rápido e direto em Python, e o <a href="https://gist.github.com/fabiomontefuscolo/9234485">código que ele escreveu</a> utiliza todo esse potencial:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python2</span>
+<span style="color:#75715e"># -*- coding: utf-8 -*-</span>
 
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Coloque esse script na pasta com os arquivos dhx.</span>
+<span style="color:#75715e"># O resultado estarÃ¡ em iso-8859-1</span>
+<span style="color:#75715e">#</span>
+
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Segui o tutorial em http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-1</span>
+<span style="color:#75715e">#</span>
+
+<span style="color:#f92672">import</span> os
+
+files <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>listdir(<span style="color:#e6db74">&#39;.&#39;</span>)
+
+<span style="color:#66d9ef">for</span> arq <span style="color:#f92672">in</span> files:
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> arq<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#39;dhx&#39;</span>):
+        <span style="color:#66d9ef">continue</span>
+
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Abrindo &#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;&#39;</span> <span style="color:#f92672">%</span> arq
+    origin <span style="color:#f92672">=</span> open(arq, <span style="color:#e6db74">&#39;r&#39;</span>)
+    target <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.txt&#39;</span> <span style="color:#f92672">%</span> arq, <span style="color:#e6db74">&#39;w+&#39;</span>)
+
+    char <span style="color:#f92672">=</span> origin<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">while</span> char:
+        byte <span style="color:#f92672">=</span> ord(char) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x0B</span>
+        new_char <span style="color:#f92672">=</span> chr(byte <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>)
+        target<span style="color:#f92672">.</span>write(new_char)
+        char <span style="color:#f92672">=</span> origin<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">1</span>)
+
+    origin<span style="color:#f92672">.</span>close()
+    target<span style="color:#f92672">.</span>close()
+
+</code></pre></div>
             
 
           </div>
@@ -114,7 +148,7 @@ Houaiss para Babylon em Python!
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

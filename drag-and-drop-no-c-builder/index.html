@@ -105,16 +105,75 @@ Drag and drop no C&#43;&#43; Builder
           <div class="content">
 
             
-              <p>O sistema de drag and drop do C++ Builder é muito fácil de usar, integrado que está com o sistema de classes e objetos do framework. Tanto para o objeto de drag quanto para o objeto de drop tudo que temos que fazer é definirmos a propriedade DragMode para dmAutomatic como mostra a figura. Isso fará com que toda a troca de mensagens seja manipulada automaticamente pela VCL.</p>
-<p>A parte (ridídula) do código fica por conta da manipulação do evento de drop. Para aceitar um objeto, devemos tratar o evento OnDragOver. Basta isso para que a variável Accept tenha seu valor default definido para true. Podemos, entretanto, escolher se iremos ou não tratar um possível drop de um objeto. Verificando seu tipo, por exemplo:</p>
-<p>A parte mais interessante do código fica por conta da hora que o objeto é &quot;jogado&quot;, no evento OnDragDrop. Nela recebemos o ponteiro para o Sender (como sempre), que é o target object, e um Source. Geralmente para manipular o source object é necessário antes realizar um cast para um tipo mais conhecido.</p>
-<p>E mais uma vez voilà! Pouquíssimas linhas de código e um movimentador e empilhador de controles. Dois detalhes merecem ser destacados:</p>
+              <p>O sistema de <em>drag and drop</em> do C++ Builder é muito fácil de usar, integrado que está com o sistema de classes e objetos do <em>framework</em>. Tanto para o objeto de <em>drag</em> quanto para o objeto de <em>drop</em> tudo que temos que fazer é definirmos a propriedade <strong>DragMode</strong> para <strong>dmAutomatic</strong> como mostra a figura. Isso fará com que toda a troca de mensagens seja manipulada automaticamente pela VCL.</p>
+<p><a href="/images/trocatroca.gif"><img src="http://i.imgur.com/lJTNRc9.gif" alt="Troca-troca"></a></p>
+<p>A parte (ridídula) do código fica por conta da manipulação do evento de drop. Para aceitar um objeto, devemos tratar o evento <strong>OnDragOver</strong>. Basta isso para que a variável <strong>Accept</strong> tenha seu valor <em>default</em> definido para <em>true</em>. Podemos, entretanto, escolher se iremos ou não tratar um possível drop de um objeto. Verificando seu tipo, por exemplo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TMain<span style="color:#f92672">::</span>FormDragOver(TObject <span style="color:#f92672">*</span>Sender, TObject <span style="color:#f92672">*</span>Source,
+      <span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y, TDragState State, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">&amp;</span>Accept)
+{
+	Accept <span style="color:#f92672">=</span> true;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TMain<span style="color:#f92672">::</span>ListBoxDragOver(TObject <span style="color:#f92672">*</span>Sender, TObject <span style="color:#f92672">*</span>Source,
+      <span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y, TDragState State, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">&amp;</span>Accept)
+{
+	Accept <span style="color:#f92672">=</span> <span style="color:#66d9ef">dynamic_cast</span><span style="color:#f92672">&lt;</span>TWinControl<span style="color:#f92672">*&gt;</span>( Source ) <span style="color:#f92672">?</span> true <span style="color:#f92672">:</span> false;
+} 
+
+</code></pre></div><p>A parte mais interessante do código fica por conta da hora que o objeto é &quot;jogado&quot;, no evento <strong>OnDragDrop</strong>. Nela recebemos o ponteiro para o Sender (como sempre), que é o <em>target object</em>, e um Source. Geralmente para manipular o <em>source object</em> é necessário antes realizar um <em>cast</em> para um tipo mais conhecido.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TMain<span style="color:#f92672">::</span>ListBoxDragDrop(TObject <span style="color:#f92672">*</span>Sender, TObject <span style="color:#f92672">*</span>Source, 
+	<span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y)
+{
+	<span style="color:#66d9ef">if</span>( TListBox<span style="color:#f92672">*</span> listBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">dynamic_cast</span><span style="color:#f92672">&lt;</span>TListBox<span style="color:#f92672">*&gt;</span>(Sender) )
+	{
+		TWinControl<span style="color:#f92672">*</span> winCtrl <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>TWinControl<span style="color:#f92672">*&gt;</span>(Source);
+
+		<span style="color:#66d9ef">if</span>( listBox <span style="color:#f92672">!=</span> winCtrl )
+		{
+			listBox<span style="color:#f92672">-&gt;</span>Items<span style="color:#f92672">-&gt;</span>Add(winCtrl<span style="color:#f92672">-&gt;</span>Name);
+			winCtrl<span style="color:#f92672">-&gt;</span>Visible <span style="color:#f92672">=</span> false;
+		}
+	}
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TMain<span style="color:#f92672">::</span>FormDragDrop(TObject <span style="color:#f92672">*</span>Sender, TObject <span style="color:#f92672">*</span>Source,
+	<span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y)
+{
+	<span style="color:#66d9ef">if</span>( TForm<span style="color:#f92672">*</span> form <span style="color:#f92672">=</span> <span style="color:#66d9ef">dynamic_cast</span><span style="color:#f92672">&lt;</span>TForm<span style="color:#f92672">*&gt;</span>(Sender) )
+	{
+		TControl<span style="color:#f92672">*</span> ctrl <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+		<span style="color:#66d9ef">if</span>( TListBox<span style="color:#f92672">*</span> listBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">dynamic_cast</span><span style="color:#f92672">&lt;</span>TListBox<span style="color:#f92672">*&gt;</span>( Source ) )
+		{
+			<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> listBox<span style="color:#f92672">-&gt;</span>Count; <span style="color:#f92672">++</span>i )
+			{
+				<span style="color:#66d9ef">if</span>( listBox<span style="color:#f92672">-&gt;</span>Selected[i] )
+				{
+					ctrl <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>FindChildControl(listBox<span style="color:#f92672">-&gt;</span>Items<span style="color:#f92672">-&gt;</span>Strings[i]);
+					listBox<span style="color:#f92672">-&gt;</span>Items<span style="color:#f92672">-&gt;</span>Delete(i);
+					<span style="color:#66d9ef">break</span>;
+				}
+			}
+		}
+		<span style="color:#66d9ef">else</span>
+			ctrl <span style="color:#f92672">=</span> <span style="color:#66d9ef">dynamic_cast</span><span style="color:#f92672">&lt;</span>TControl<span style="color:#f92672">*&gt;</span>(Source);
+
+		<span style="color:#66d9ef">if</span>( ctrl )
+		{
+			ctrl<span style="color:#f92672">-&gt;</span>Top <span style="color:#f92672">=</span> Y;
+			ctrl<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> X;
+			ctrl<span style="color:#f92672">-&gt;</span>Visible <span style="color:#f92672">=</span> true;
+		}
+	}
+} 
+
+</code></pre></div><p>E mais uma vez <em>voilà</em>! Pouquíssimas linhas de código e um movimentador e empilhador de controles. Dois detalhes merecem ser destacados:</p>
 <ul>
 <li>
-<p>O uso de dynamic_cast em cima dos ponteiros da VCL é uma maneira saudável de checar a integridade dos tipos recebidos - particularmente do Sender. O uso do primeiro parâmetro dos tratadores de eventos também torna o código menos preso à componentes específicos do formulário;</p>
+<p>O uso de <strong>dynamic_cast</strong> em cima dos ponteiros da VCL é uma maneira saudável de checar a integridade dos tipos recebidos - particularmente do <strong>Sender</strong>. O uso do primeiro parâmetro dos tratadores de eventos também torna o código menos preso à componentes específicos do formulário;</p>
 </li>
 <li>
-<p>O método FindChildControl é deveras útil quando não temos certeza da existência de um controle. Geralmente é uma boa idéia confiar no sistema de gerenciamento de componentes da VCL. Não é à toa que existe um <em>framework</em> por baixo do ambiente RAD.</p>
+<p>O método <strong>FindChildControl</strong> é deveras útil quando não temos certeza da existência de um controle. Geralmente é uma boa idéia confiar no sistema de gerenciamento de componentes da VCL. Não é à toa que existe um <em>framework</em> por baixo do ambiente RAD.</p>
 </li>
 </ul>
 
@@ -125,7 +184,7 @@ Drag and drop no C&#43;&#43; Builder
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -105,11 +105,26 @@ Como compilar em somente um passo
           <div class="content">
 
             
-              <p>Uma das primeiras perguntas do teste do Joel é saber se você pode compilar todo o projeto em apenas um passo. Essa é uma questão essencial e um desafio para muitas equipes. Perdem-se horas sagradas para gerar um novo Release.</p>
+              <p>Uma das primeiras perguntas do <a href="http://brazil.joelonsoftware.com/Articles/TheJoelTest.html">teste do Joel</a> é saber se você pode compilar todo o projeto em apenas um passo. Essa é uma <strong>questão essencial</strong> e um desafio para muitas equipes. Perdem-se horas sagradas para gerar um novo Release.</p>
 <p>Compilação automática geralmente está disponível nas ferramentas de desenvolvimento. Se você estiver usando o Visual Studio, por exemplo, é possível fazer isso com uma linha:</p>
-<p>Se não for exatamente o que você precisa, basta fazer uma pesquisa de quinze minutos e encontrar os parâmetros corretos. O objetivo é: eu rodo esse comando em cima do projeto inteiro em uma máquina zerada e ele simplesmente compila.</p>
-<p>É lógico que ter apenas um solution/workspace para guardar projetos médios e grandes é inviável. Demora para carregar no ambiente e possuem dezenas de dependências. Isso já foi tentado duas vezes nas duas empresas em que trabalhei e não funcionou. Talvez por isso seja necessário criar um script que rode o comando acima para todas as soluções do projeto, o que não muda muito o modus operandi da coisa:</p>
-<p>Note que meu script usa a estrutura padronizada dos diretórios de um projeto, onde cada tipo de componente tem sua pasta e solução.</p>
+<pre><code>devenv minha-solução.sln /Rebuild Release
+</code></pre>
+<p>Se não for exatamente o que você precisa, basta fazer uma <a href="http://www.google.com/search?q=visual%20studio%20automatic%20build">pesquisa de quinze minutos</a> e encontrar os parâmetros corretos. O objetivo é: <strong>eu rodo esse comando em cima do projeto inteiro em uma máquina zerada e ele simplesmente compila</strong>.</p>
+<h4 id="múltiplas-soluções">Múltiplas soluções</h4>
+<p>É lógico que ter apenas um <em>solution/workspace</em> para guardar projetos médios e grandes é inviável. Demora para carregar no ambiente e possuem dezenas de dependências. Isso já foi tentado duas vezes nas duas empresas em que trabalhei e não funcionou. Talvez por isso seja necessário criar um <em>script</em> que rode o comando acima para todas as soluções do projeto, o que não muda muito o <em>modus operandi</em> da coisa:</p>
+<pre><code>call :Build ..\Libraries\Libraries.sln
+call :Build ..\Services\Services.sln
+call :Build ..\Drivers\Drivers.sln
+call :Build ..\Tools\Tools.sln
+goto :eof
+
+
+:Build
+echo %1...
+devenv &quot;%1&quot; /Rebuild Release
+exit /b %errorlevel%
+</code></pre>
+<p>Note que meu script usa a <a href="http://www.caloni.com.br/projeto-modelo">estrutura padronizada dos diretórios de um projeto</a>, onde cada tipo de componente tem sua pasta e solução.</p>
 <p>Aos poucos você pode ir colocando &quot;frescurinhas&quot; em seu build (executa Debug e Release, roda automatizado no servidor, faz testes unitários, incrementa o número da versão, ...), mas algumas premissas sempre se mantêm:</p>
 <ul>
 <li>
@@ -119,7 +134,7 @@ Como compilar em somente um passo
 <p>Deve ser possível usar qualquer máquina de desenvolvimento para isso</p>
 </li>
 </ul>
-<p>Regras simples de ser seguidas se você usar sempre a máxima do KISS.</p>
+<p>Regras simples de ser seguidas se você usar sempre a máxima do <a href="http://en.wikipedia.org/wiki/KISS_principle">KISS</a>.</p>
 
             
 
@@ -128,7 +143,7 @@ Como compilar em somente um passo
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

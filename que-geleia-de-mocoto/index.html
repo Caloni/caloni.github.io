@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o..."/>
+        content="
+A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,14 +106,113 @@ Que geleia de mocotó
           <div class="content">
 
             
-              <p>A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o C++, que passei a usar para essa fase. É burrice aliada a pressão. Duas horas e meia para entender um problema é o tipo de coisa que me deixa pensando mais no tempo do que no problema. Tenho que melhorar isso.</p>
-<p>De qualquer forma, esse final de semana que passou foi dedicado a resolver o primeiro problema e quem sabe escrever um post a respeito. Imagino que todos tenham acesso ao enunciado e aos casos de teste, mas, por via das dúvidas, aqui vai uma descrição adaptada:</p>
+              <p><a href="/images/14065766204_532438eaed_n.jpg"><img src="http://i.imgur.com/iqT5sSy.jpg" alt="cowblet-cover"></a></p>
+<p>A primeira bateria de problemas da segunda fase do Code Jam me mostrou o porquê do seu nome: meu cérebro ficou feito geleia (ha ha ha). Não consegui resolver nenhum problema a tempo, mas não culpo o C++, que passei a usar para essa fase. É burrice aliada a pressão. Duas horas e meia para entender um problema é o tipo de coisa que me deixa pensando mais no tempo do que no problema. Tenho que melhorar isso.</p>
+<p>De qualquer forma, esse final de semana que passou foi dedicado a resolver o primeiro problema e quem sabe escrever um post a respeito. Imagino que todos tenham acesso ao <a href="http://code.google.com/codejam/contest/2984486/dashboard#s=p0">enunciado</a> e aos casos de teste, mas, por via das dúvidas, aqui vai uma descrição adaptada:</p>
 <p>Você é um fazendeiro hi-tech com uma vaca que tem um tablet. Não especifica se esse cowblet é um iPad, mas é uma possibilidade, já que como nenhum plugue parece encaixar nas tomadas de sua fazenda, é muito provável que você seja um Applemaníaco com um monte de gadgets que precisam de conversor vindos direto do eBay.</p>
+<p><a href="/images/14065766314_c07ca93e24_o.jpg"><img src="http://i.imgur.com/igQqWOa.jpg" alt="cowblet"></a></p>
 <p>Através do eBay também veio um engenheiro chinês cuja missão é resolver esse gato que o Sr. Fazendeiro fez em sua fazenda. Tudo que ele precisa fazer é girar gigantescos switches (ou disjuntores) que invertem a polaridade binária de cada um dos pino dos conectores das tomadas. Quando um plugue de dispositivo e uma tomada possuem a mesma configuração de bits é possível conectá-los. O objetivo final é que todos os N plugues conectem nas N tomadas depois de virados Y switches, sendo que quanto menos switches melhor (afinal, eles são gigantescos, e o chinês supõe-se que seja pequeno).</p>
-<p>O primeiro pensamento do programador preguiçoso (go, horse, go!) manda que usemos a velha força bruta e testemos todas as combinações possíveis de disjuntores, peguemos o com menor número de bits setados (inicialmente, todos estão em 0) e zás! Porém, o caso de teste tamanho large pressupõe que o limite de pinos das tomadas pode chegar a 40, o que seria responsável por nada mais nada menos que 2^40 combinações diferentes, ou 1.099.511.627.776 para ser exato. Isso dá mais de 1 trilhão! Mesmo que nosso código seja extremamente rápido e demore apenas um milissegundo para cada combinação, serão mais de 34 anos desperdiçados, que poderiam estar melhor investidos minerando bitcoins.</p>
-<p>Dessa forma, temos que traçar uma solução baseada nas combinações entre as tomadas e plugues, que, pelos limites da versão large dos casos de teste, podem ter a quantidade de 150, o que dá 150 * 150 = 22500 combinações de XOR.</p>
+<p><a href="/images/14065765834_6bf738e020_o.png"><img src="http://i.imgur.com/WGFkBW1.png" alt="ProblemA"></a></p>
+<p>O primeiro pensamento do programador preguiçoso (go, horse, go!) manda que usemos a velha força bruta e testemos todas as combinações possíveis de disjuntores, peguemos o com menor número de bits setados (inicialmente, todos estão em 0) e zás! Porém, o caso de teste tamanho <em>large</em> pressupõe que o limite de pinos das tomadas pode chegar a 40, o que seria responsável por nada mais nada menos que 2^40 combinações diferentes, ou 1.099.511.627.776 para ser exato. Isso dá mais de 1 trilhão! Mesmo que nosso código seja extremamente rápido e demore apenas um milissegundo para cada combinação, serão mais de 34 anos desperdiçados, que poderiam estar melhor investidos minerando bitcoins.</p>
+<p><a href="/images/14042619426_9b12f4468d_o.png"><img src="http://i.imgur.com/8p1mbvh.png" alt="Tomadao"></a></p>
+<p>Dessa forma, temos que traçar uma solução baseada nas combinações entre as tomadas e plugues, que, pelos limites da versão large dos casos de teste, podem ter a quantidade de 150, o que dá 150*150 = 22500 combinações de XOR.</p>
+<p><a href="/images/14065469895_97cb03a986_n.jpg"><img src="http://i.imgur.com/m2eUW9a.jpg" alt="WP_000773"></a></p>
 <p>Sim, de XOR. O XOR aqui pode ser usado para detectarmos qual a combinação de switches precisamos para que cada tomada encaixa em cada dispositivo. Esse é o nosso conjunto universo de giros de disjuntores. Com esse conjunto em mãos fica fácil saber quais combinações são possíveis de encaixar todos os dispositivos: basta contar!</p>
-<p>Observação: note que retirei o wrapper costumeiro dos exercícios do Code Jam para não poluir demais o exemplo com código. E, na verdade, essa parte do código está compartilhada com todas as soluções (reuse!).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;CodeJam.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAX_SWITCHES <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>;
+
+<span style="color:#66d9ef">__int64</span> <span style="color:#a6e22e">StringToInt</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> L)
+{
+	<span style="color:#66d9ef">__int64</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> L; l; <span style="color:#f92672">--</span>l )
+	{
+		<span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> s[L<span style="color:#f92672">-</span>l];
+		<span style="color:#66d9ef">if</span>( c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;1&#39;</span> )
+			ret <span style="color:#f92672">|=</span> ((<span style="color:#66d9ef">__int64</span>)<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>));
+	}
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">CountBits</span>(<span style="color:#66d9ef">__int64</span> value)
+{
+	<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">while</span>( value )
+	{
+		<span style="color:#66d9ef">if</span>( value <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span> )
+			<span style="color:#f92672">++</span>ret;
+		value <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>;
+	}
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">TestCase</span>(std<span style="color:#f92672">::</span>istream<span style="color:#f92672">&amp;</span> is, std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os)
+{
+	<span style="color:#66d9ef">int</span> N, L;
+	is <span style="color:#f92672">&gt;&gt;</span> N <span style="color:#f92672">&gt;&gt;</span> L;
+
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">__int64</span><span style="color:#f92672">&gt;</span> outlets;
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">__int64</span><span style="color:#f92672">&gt;</span> devices;
+	string eletricItem;
+
+	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n <span style="color:#f92672">&lt;</span> N; <span style="color:#f92672">++</span>n )
+	{
+		is <span style="color:#f92672">&gt;&gt;</span> eletricItem;
+		outlets.push_back(StringToInt(eletricItem, L));
+	}
+
+	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n <span style="color:#f92672">&lt;</span> N; <span style="color:#f92672">++</span>n )
+	{
+		is <span style="color:#f92672">&gt;&gt;</span> eletricItem;
+		devices.push_back(StringToInt(eletricItem, L));
+	}
+
+	<span style="color:#66d9ef">typedef</span> map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">__int64</span>, set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> SwitchOcurrences;
+	SwitchOcurrences switchOcurrences;
+	
+	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n <span style="color:#f92672">&lt;</span> N; <span style="color:#f92672">++</span>n )
+	{
+		<span style="color:#66d9ef">__int64</span> outlet <span style="color:#f92672">=</span> outlets[n];
+
+		<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n2 <span style="color:#f92672">&lt;</span> N; <span style="color:#f92672">++</span>n2 )
+		{
+			<span style="color:#66d9ef">__int64</span> device <span style="color:#f92672">=</span> devices[n2];
+			<span style="color:#66d9ef">__int64</span> connection <span style="color:#f92672">=</span> outlet <span style="color:#f92672">^</span> device;
+			switchOcurrences[connection].insert(n);
+		}
+	}
+
+	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> switchOcurrences.begin(); it <span style="color:#f92672">!=</span> switchOcurrences.end(); )
+	{
+		<span style="color:#66d9ef">if</span>( it<span style="color:#f92672">-&gt;</span>second.size() <span style="color:#f92672">!=</span> N )
+			it <span style="color:#f92672">=</span> switchOcurrences.erase(it);
+		<span style="color:#66d9ef">else</span>
+			<span style="color:#f92672">++</span>it;
+	}
+
+	<span style="color:#66d9ef">if</span>( switchOcurrences.size() )
+	{
+		<span style="color:#66d9ef">int</span> switches <span style="color:#f92672">=</span> MAX_SWITCHES <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+
+		for_each(switchOcurrences.begin(), switchOcurrences.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">const</span> SwitchOcurrences<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&amp;</span> ocurrence)
+		{
+			<span style="color:#66d9ef">int</span> bits <span style="color:#f92672">=</span> CountBits(ocurrence.first);
+			switches <span style="color:#f92672">=</span> min(switches, bits);
+		});
+
+		os <span style="color:#f92672">&lt;&lt;</span> switches <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
+	<span style="color:#66d9ef">else</span> os <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;NOT POSSIBLE</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+}
+
+</code></pre></div><p><em>Observação: note que retirei o wrapper costumeiro dos exercícios do Code Jam para não poluir demais o exemplo com código. E, na verdade, essa parte do código está compartilhada com todas as soluções (reuse!).</em></p>
 <p>O que aprendi dessa pequena aventura foi: não importa o quanto um problema pareça fácil, anotar em um pedaço de papel é o caminho mais curto entre a mente e o código.</p>
 <p>Que venha a segunda bateria de problemas!</p>
 
@@ -123,7 +223,7 @@ Que geleia de mocotó
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

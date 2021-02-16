@@ -105,10 +105,104 @@ Como Publicar Seu Blog Em Hugo Para Ebook
           <div class="content">
 
             
-              <p>Eu publico meu blog inteiro de tempos em tempos para um ebook que construo formatando primeiro em html através de um tema do Hugo, o parser de blog que estou usando no momento porque ele suporta 2500 posts sem reclamar. É uma receita simples de sucesso se você precisar ter todo seu conteúdo indexado para rápida referência ou leitura cronológica.</p>
-<p>A primeira coisa a ser feita é preparar um tema para formatar seu html. Eu já tenho um linkado no meu blogue e que precisa apenas formatar o index.html, pois todo o conteúdo e índices estarão lá. Segue um exemplo atual que uso. Ele possui índice alfabético, inclusão de um arquivo-diário que mantenho, listagem das categorias (com índices para cada uma delas) e listagem cronológica (e link para pular direto para o conteúdo).</p>
-<p>Como eu uso Kindle eu construo a partir desse html um arquivo .mobi, mas creio ser simples de construir qualquer outro formato através desse html final. No caso do Kindle preciso de alguns arquivos para usar o kindlegen (a ferramenta da Amazon) que mantenho na pasta static do hugo, como o .ncx e o .opf (além da capa, cover.jpg). Uso uma batch muito pequena para fazer todos os passos e copiar o .mobi resultante para meu Kindle (conectado por um cabo USB e com um drive montado em K:).</p>
-<p>Importante lembrar que a codificação do hugo (utf8) deve bater com a codificação esperada pelo gerador de ebook. Que me lembre não há muito mais segredos. Basta escrever e de vez em quando rodar o script novamente =)</p>
+              <p>Eu publico meu blog inteiro de tempos em tempos para um ebook que construo formatando primeiro em html através de um tema do <a href="https://gohugo.io/">Hugo</a>, o parser de blog que estou usando no momento porque ele suporta 2500 posts sem reclamar. É uma receita simples de sucesso se você precisar ter todo seu conteúdo indexado para rápida referência ou leitura cronológica.</p>
+<p>A primeira coisa a ser feita é preparar um tema para formatar seu html. Eu já tenho um <a href="https://github.com/Caloni/book/tree/f1663ad104f51459fe7d17e9ce1e0305901330b4">linkado no meu blogue</a> e que precisa apenas formatar o index.html, pois todo o conteúdo e índices estarão lá. Segue um exemplo atual que uso. Ele possui índice alfabético, inclusão de um arquivo-diário que mantenho, listagem das categorias (com índices para cada uma delas) e listagem cronológica (e link para pular direto para o conteúdo).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+  &lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;Blogue do Caloni&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content-type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf8&#34;</span>&gt;
+  &lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;min-height:100vh;display:flex;flex-direction:column&#34;</span>&gt;
+    &lt;<span style="color:#f92672">section</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flex:1&#34;</span>&gt;
+      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;columns&#34;</span>&gt;
+          &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;column&#34;</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;begin&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always;&#34;</span>&gt;Índices&lt;/<span style="color:#f92672">h2</span>&gt;
+            &lt;<span style="color:#f92672">ul</span>&gt;
+              &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#daytoday&#34;</span>&gt;DayToDay&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+              &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#idx&#34;</span>&gt;Alfabético&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+              &lt;<span style="color:#f92672">ul</span>&gt;
+                &lt;<span style="color:#f92672">li</span>&gt;{{ $letters := split &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34; &#34;&#34; }}
+                  {{ range $letters }}
+                    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#letter{{ . }}&#34;</span>&gt;{{ . }}&lt;/<span style="color:#f92672">a</span>&gt;
+                  {{ end }}
+                &lt;/<span style="color:#f92672">li</span>&gt;
+              &lt;/<span style="color:#f92672">ul</span>&gt;
+              &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#cat&#34;</span>&gt;Categorias&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+              &lt;<span style="color:#f92672">ul</span>&gt;
+                {{ range $key, $value := .Site.Taxonomies.categories }}
+	               &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#{{ $key }}&#34;</span>&gt;{{ $key | humanize }}({{ len $value }})&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+                {{ end }}
+              &lt;/<span style="color:#f92672">ul</span>&gt;
+              &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#posts&#34;</span>&gt;Data (ir para Conteúdo)&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+              &lt;<span style="color:#f92672">ul</span>&gt;
+                {{ range .Site.RegularPages }}
+                    &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#{{ .UniqueID }}&#34;</span>&gt;{{ .Title }} &lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+                {{ end }}
+              &lt;/<span style="color:#f92672">ul</span>&gt;
+            &lt;/<span style="color:#f92672">ul</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;daytoday&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always;&#34;</span>&gt;DayToDay&lt;/<span style="color:#f92672">h2</span>&gt;
+            &lt;<span style="color:#f92672">pre</span>&gt; {{readFile &#34;..\\caloni.txt&#34;}} &lt;/<span style="color:#f92672">pre</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;idx&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always;&#34;</span>&gt;Índice Alfabético&lt;/<span style="color:#f92672">h2</span>&gt;
+            &lt;<span style="color:#f92672">ul</span>&gt;
+            <span style="color:#75715e">&lt;!-- create a list with all uppercase letters --&gt;</span>
+            {{ $letters := split &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34; &#34;&#34; }}
+            <span style="color:#75715e">&lt;!-- range all pages sorted by their title --&gt;</span>
+            {{ range .Data.Pages.ByTitle }}
+              <span style="color:#75715e">&lt;!-- get the first character of each title. Assumes that the title is never empty! --&gt;</span>
+              {{ $firstChar := substr .Title 0 1 | upper }}
+              <span style="color:#75715e">&lt;!-- in case $firstChar is a letter --&gt;</span>
+              {{ if $firstChar | in $letters }}
+                <span style="color:#75715e">&lt;!-- get the current letter --&gt;</span>
+                {{ $curLetter := $.Scratch.Get &#34;curLetter&#34; }}
+                <span style="color:#75715e">&lt;!-- if $curLetter isn&#39;t set or the letter has changed --&gt;</span>
+                {{ if ne $firstChar $curLetter }}
+                  <span style="color:#75715e">&lt;!-- update the current letter and print it --&gt;</span>
+                  {{ $.Scratch.Set &#34;curLetter&#34; $firstChar }}
+                  &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;letter{{ $firstChar }}&#34;</span>&gt;{{ $firstChar }}&lt;/<span style="color:#f92672">h3</span>&gt;
+                {{ end }}
+                &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#{{ .UniqueID }}&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+              {{ end }}
+            {{ end }}
+            &lt;/<span style="color:#f92672">ul</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cat&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always;&#34;</span>&gt;Índice por Categoria&lt;/<span style="color:#f92672">h2</span>&gt;
+            &lt;<span style="color:#f92672">ul</span>&gt;
+            {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+              {{ if eq &#34;categories&#34; $taxonomyname }}
+                {{ range $key, $value := $taxonomy }}
+                  &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ $key }}&#34;</span>&gt;{{ $key | humanize }}&lt;/<span style="color:#f92672">h3</span>&gt;
+                    &lt;<span style="color:#f92672">ul</span>&gt;
+                      {{ range $value.Pages }}
+                        &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#{{ .UniqueID }}&#34;</span>&gt;{{ .Title }} &lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+                      {{ end }}
+                    &lt;/<span style="color:#f92672">ul</span>&gt;
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            &lt;/<span style="color:#f92672">ul</span>&gt;
+            &lt;<span style="color:#f92672">h2</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always;&#34;</span>&gt;Conteúdo&lt;/<span style="color:#f92672">h2</span>&gt;
+            {{ range .Site.RegularPages }}
+              &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page-break-before: always&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .UniqueID }}&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">h3</span>&gt; {{ dateFormat &#34;2006-01-02&#34; .Date }} {{ .Content }}
+              {{ partial &#34;taglist.html&#34; . }}
+            {{ end }}
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">br</span>&gt;
+          &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">section</span>&gt;
+  &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Como eu uso Kindle eu construo a partir desse html um arquivo .mobi, mas creio ser simples de construir qualquer outro formato através desse html final. No caso do Kindle preciso de alguns arquivos para usar o <a href="https://www.amazon.com/gp/feature.html?ie=UTF8&amp;docId=1000765211">kindlegen</a> (a ferramenta da Amazon) que mantenho na pasta <code>static</code> do hugo, como o <code>.ncx</code> e o <code>.opf</code> (além da capa, <code>cover.jpg</code>). Uso uma batch muito pequena para fazer todos os passos e copiar o <code>.mobi</code> resultante para meu Kindle (conectado por um cabo USB e com um drive montado em K:).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat"><span style="color:#75715e">rem @echo off</span>
+hugo -D --theme book --destination book
+<span style="color:#66d9ef">pushd</span> book
+<span style="color:#75715e">rem iconv -f UTF-8 -t LATIN1 index.html &gt; book.html</span>
+cp index.html book.html
+kindlegen.exe book.opf -o caloni.mobi
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exist</span> k:\ <span style="color:#66d9ef">copy</span> /y caloni.mobi k:\documents
+<span style="color:#66d9ef">popd</span>
+</code></pre></div><p>Importante lembrar que a codificação do hugo (utf8) deve bater com a codificação esperada pelo gerador de ebook. Que me lembre não há muito mais segredos. Basta escrever e de vez em quando rodar o script novamente =)</p>
 
             
 
@@ -117,7 +211,7 @@ Como Publicar Seu Blog Em Hugo Para Ebook
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -106,12 +106,48 @@ Pacotes perdidos do NuGet em projetos C&#43;&#43; no Visual Studio
 
             
               <p>É muito bom (para quem gosta) usar a IDE e viver feliz sem precisar se preocupar em digitar comandos estranhos no prompt. Porém, essa vida acaba quando ocorre o primeiro erro inexplicável, aquele tipo de erro que não importa onde você olhe, não há nada para olhar. Até você apelar para ferramentas de macho.</p>
-<p>Que nem hoje de manhã, quando fui inocentemente baixar uma versão limpa do tiodb e após baixar todos os pacotes do NuGet, o gerenciador de pacotes do Visual Studio (inclusive para C++, agora) acusou a falta do boost, sendo que ele havia acabado de baixá-lo.</p>
+<p>Que nem hoje de manhã, quando fui inocentemente baixar uma versão limpa do <a href="https://github.com/tiodb/tiodb">tiodb</a> e após baixar todos os pacotes do <a href="https://docs.microsoft.com/pt-br/nuget/consume-packages/overview-and-workflow">NuGet</a>, o gerenciador de pacotes do Visual Studio (inclusive para C++, agora) acusou a falta do boost, sendo que ele havia acabado de baixá-lo:</p>
+<p><img src="http://i.imgur.com/HUp5S4K.png" alt=""></p>
+<p><img src="http://i.imgur.com/IfVDNN9.png" alt=""></p>
+<p><img src="http://i.imgur.com/Yi8kVgC.png" alt=""></p>
 <p>Os pacotes do projeto ficam todos na raiz do diretório da solução na sub-pasta packages. Observando o que foi baixado lá, verifiquei que a versão do boost estava ok: ele havia baixado a 1.61 como pedido, mas o erro dizia respeito justamente a um desses pacotes.</p>
-<p>O maior problema disso é que não há muitas opções na IDE que resolvam. O arquivo packages.config deveria manter essas dependências, o que de fato ele faz. As opções do projeto (as abinhas do Visual Studio onde ficam as configurações) não possuem nada relacionado ao NuGet.</p>
-<p>Então não tem jeito. Há algo de podre dentro desse projeto e o próprio Visual Studio não vai resolver. Grep nele!</p>
-<p>Note (e é preciso prestar atenção!) que o projeto server/tio/tioserver.vcxproj referencia a pasta packages como se ela existisse dentro do projeto. Porém, como já sabemos, ela existe na raiz da solution, que fica duas pastas &quot;para trás&quot;. Isso nos indica que talvez o NuGet ainda não esteja tão redondo e que um possível teste é mudar esses valores na mão e ver o que acontece.</p>
-<p>Recarregado o projeto no Visual Studio após a intervenção cirúrgica, tudo voltou a funcionar. A lição de hoje é: nunca confie completamente em uma IDE. Às vezes o bom e velho grep e o bom e velho editor de sua escolha podem resolver uma situação.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Projects\tiodb<span style="color:#75715e">&gt;dir /b packages</span>
+boost.1.61.0.0
+boost_chrono-vc140.1.61.0.0
+boost_date_time-vc140.1.61.0.0
+boost_filesystem-vc140.1.61.0.0
+boost_program_options-vc140.1.61.0.0
+boost_regex-vc140.1.61.0.0
+boost_system-vc140.1.61.0.0
+boost_thread-vc140.1.61.0.0
+</code></pre></div><p>O maior problema disso é que não há muitas opções na IDE que resolvam. O arquivo packages.config deveria manter essas dependências, o que de fato ele faz. As opções do projeto (as abinhas do Visual Studio onde ficam as configurações) não possuem nada relacionado ao NuGet.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;packages&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_chrono-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_date_time-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_filesystem-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_program_options-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_regex-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_system-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;boost_thread-vc140&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.61.0.0&#34;</span> <span style="color:#a6e22e">targetFramework=</span><span style="color:#e6db74">&#34;native&#34;</span> <span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/packages&gt;</span>
+</code></pre></div><p>Então não tem jeito. Há algo de podre dentro desse projeto e o próprio Visual Studio não vai resolver. Grep nele!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Projects\tiodb<span style="color:#75715e">&gt;grep -r -i &#34;boost.*1.61&#34; --include=*proj .</span>
+./server/tio/tioserver.vcxproj:    &lt;Import Project=<span style="color:#e6db74">&#34;packages\boost.1.61.0.0\build\native\boost.targets&#34;</span> Condition=<span style="color:#e6db74">&#34;Exists(&#39;packages\boost.1.61.0.0\build\native\boost.targets&#39;)&#34;</span> /&gt;
+./server/tio/tioserver.vcxproj:    &lt;Error Condition=<span style="color:#e6db74">&#34;!Exists(&#39;packages\boost.1.61.0.0\build\native\boost.targets&#39;)&#34;</span> Text=<span style="color:#e6db74">&#34;$([System.String]::Format(&#39;$(ErrorText)&#39;, &#39;packages\boost.1.61.0.0\build\native\boost.targets&#39;))&#34;</span> /&gt;
+...
+</code></pre></div><p>Note (e é preciso prestar atenção!) que o projeto server/tio/tioserver.vcxproj referencia a pasta packages como se ela existisse dentro do projeto. Porém, como já sabemos, ela existe na raiz da solution, que fica duas pastas &quot;para trás&quot;. Isso nos indica que talvez o NuGet ainda não esteja tão redondo e que um possível teste é mudar esses valores na mão e ver o que acontece.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">gvim server\tio\tioserver.vcxproj
+:%s/packages\\boost/..\\..\\packages\\boost/g<span style="color:#75715e"></span>
+:wq<span style="color:#75715e"></span>
+</code></pre></div><p><img src="http://i.imgur.com/BLUS8XJ.png" alt=""></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">1&gt;------ Build started: Project: tioclientdll, Configuration: Debug x64 ------
+<span style="color:#ae81ff">2</span>&gt;------ Build started: Project: tioserver, Configuration: Debug x64 ------
+<span style="color:#ae81ff">2</span>&gt;  tioserver.vcxproj -&gt; C:\Projects\tiocoin\tiodb\server\tio\..\..\bin\x64\Debug\tio.exe
+<span style="color:#ae81ff">2</span>&gt;  tioserver.vcxproj -&gt; ..\..\bin\x64\Debug\tio.pdb (Full PDB)
+========== Build: 2 succeeded, 0 failed, 3 up-to-date, 0 skipped ==========
+</code></pre></div><p>Recarregado o projeto no Visual Studio após a intervenção cirúrgica, tudo voltou a funcionar. A lição de hoje é: nunca confie completamente em uma IDE. Às vezes o bom e velho grep e o bom e velho editor de sua escolha podem resolver uma situação.</p>
 
             
 
@@ -120,7 +156,7 @@ Pacotes perdidos do NuGet em projetos C&#43;&#43; no Visual Studio
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

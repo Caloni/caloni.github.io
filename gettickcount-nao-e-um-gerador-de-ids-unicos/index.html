@@ -106,8 +106,86 @@ GetTickCount não é um gerador de IDs únicos
 
             
               <p>Muitas vezes uma solução intuitiva não é exatamente o que esperamos que seja quando o código está rodando. Gerar IDs únicos, por exemplo. Se você analisar por 5 minutos pode chegar à conclusão que um simples GetTickCount, que tem resolução de clock boa e que se repete apenas depois de 50 dias pode ser um ótimo facilitador para gerar IDs exclusivos durante o dia.</p>
+<p><a href="/images/TimeTravel.jpg"><img src="http://i.imgur.com/buOxKgQ.jpg" alt=""></a></p>
 <p>Porém, nada como código para provar que estamos errados:</p>
-<p>O motivo do GetTickCount retornar números iguais remete tanto ao fato que o espaço de tempo entre uma execução e outra pode ser muito pequeno quanto ao fato de várias threads podem ser executadas efetivamente ao mesmo tempo em ambientes de dois ou mais cores.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+list<span style="color:#f92672">&lt;</span>DWORD<span style="color:#f92672">&gt;</span> g_ticks;
+list<span style="color:#f92672">&lt;</span>LONG<span style="color:#f92672">&gt;</span> g_increments;
+
+DWORD WINAPI <span style="color:#a6e22e">Ticks</span>(PVOID)
+{
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span>; <span style="color:#f92672">++</span>i )
+    {
+        DWORD tick <span style="color:#f92672">=</span> GetTickCount();
+        g_ticks.push_back(tick);
+        Sleep(rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">20</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+DWORD WINAPI <span style="color:#a6e22e">Increment</span>(PVOID)
+{
+    <span style="color:#66d9ef">static</span> LONG st_prevIncrement <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span>; <span style="color:#f92672">++</span>i )
+    {
+        LONG increment <span style="color:#f92672">=</span> InterlockedIncrement(<span style="color:#f92672">&amp;</span>st_prevIncrement);
+        g_increments.push_back(increment);
+        Sleep(rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">20</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">const</span> size_t threadsCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+    HANDLE threads[threadsCount];
+
+    srand((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>) time(<span style="color:#ae81ff">0</span>));
+
+    <span style="color:#66d9ef">for</span>( size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> threadsCount <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; <span style="color:#f92672">++</span>i )
+        threads[i] <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, Ticks, NULL, <span style="color:#ae81ff">0</span>, NULL);
+    <span style="color:#66d9ef">for</span>( size_t i <span style="color:#f92672">=</span> threadsCount <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&lt;</span> threadsCount; <span style="color:#f92672">++</span>i )
+        threads[i] <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, Increment, NULL, <span style="color:#ae81ff">0</span>, NULL);
+
+    WaitForMultipleObjects(threadsCount, threads, TRUE, INFINITE);
+
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> g_ticks.begin(); it <span style="color:#f92672">!=</span> g_ticks.end(); <span style="color:#f92672">++</span>it )
+    {
+        DWORD tick <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>it;
+        size_t tickOccurrence <span style="color:#f92672">=</span> count(g_ticks.begin(), g_ticks.end(), tick);
+
+        <span style="color:#66d9ef">if</span>( tickOccurrence <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> )
+        {
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Ocorrencia de tick duplicado!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> g_increments.begin(); it <span style="color:#f92672">!=</span> g_increments.end(); <span style="color:#f92672">++</span>it )
+    {
+        DWORD tick <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>it;
+        size_t incrementOccurrence <span style="color:#f92672">=</span> count(g_increments.begin(), g_increments.end(), tick);
+
+        <span style="color:#66d9ef">if</span>( incrementOccurrence <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> )
+        {
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Ocorrencia de incremento duplicado!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+}
+
+ 
+
+</code></pre></div><p>O motivo do GetTickCount retornar números iguais remete tanto ao fato que o espaço de tempo entre uma execução e outra pode ser muito pequeno quanto ao fato de várias threads podem ser executadas efetivamente ao mesmo tempo em ambientes de dois ou mais cores.</p>
 <p>Já o motivo do InterlockedIncrement funcionar sempre é porque aqui estamos usando uma solução de incremento atômico, ou seja, usamos a mesma base contadora e incrementamos ela em uma operação que não pode ocorrer ao mesmo tempo com outra thread.</p>
 <p>O que aprendemos aqui? Que por mais que seja intuitiva uma solução, nunca podemos nos basear nas nossas falhas cabeças. Um computador está aí não apenas para ser mais rápido, mas para ser assertivo em nossas elucubrações. Nesse sentido, é o nosso companheiro vulcaniano.</p>
 
@@ -118,7 +196,7 @@ GetTickCount não é um gerador de IDs únicos
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

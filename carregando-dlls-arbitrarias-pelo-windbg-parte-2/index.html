@@ -105,44 +105,206 @@ Carregando DLLs arbitrárias pelo WinDbg - parte 2
           <div class="content">
 
             
-              <p>Como pudemos ver no artigo anterior, o processo para carregar uma DLL pelo WinDbg é muito extenso, enfadonho e sujeito a erros. Por esse motivo, e para tornar as coisas mais divertidas, resolvi transformar tudo aquilo em um simples script que pode ser executado digitando apenas uma linha.</p>
-<p>Se trata do meu primeiro script grande para o WinDbg, por isso, peço que tenham dó de mim =).</p>
-<p>Um script no WinDbg nada mais é que uma execução em batch: um arquivo texto cheio de comandos que poderíamos digitar manualmente, mas que preferimos guardar para poupar nossos dedos.</p>
-<p>Existem quatro maneiras diferentes de chamar um script no WinDbg, todas muito parecidas, variando apenas se são permitidos espaços antes do nome do arquivo e se os comandos são condensados, isto é, as quebras de linhas substituídas por ponto-e-vírgula para executar tudo em uma linha só.</p>
+              <p>Como pudemos ver no <a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg">artigo anterior</a>, o processo para carregar uma DLL pelo WinDbg é muito extenso, enfadonho e sujeito a erros. Por esse motivo, e para tornar as coisas mais divertidas, resolvi transformar tudo aquilo em um simples <em>script</em> que pode ser executado digitando apenas uma linha.</p>
+<p>Se trata do meu primeiro <em>script</em> grande para o WinDbg, por isso, peço que tenham dó de mim =).</p>
+<h4 id="_scripts_-para-o-windbg"><em>Scripts</em> para o WinDbg</h4>
+<p>Um <em>script</em> no WinDbg nada mais é que uma execução em <em>batch</em>: um arquivo texto cheio de comandos que poderíamos digitar manualmente, mas que preferimos guardar para poupar nossos dedos.</p>
+<p>Existem quatro maneiras diferentes de chamar um _script _no WinDbg, todas muito parecidas, variando apenas se são permitidos espaços antes do nome do arquivo e se os comandos são <strong>condensados</strong>, isto é, as quebras de linhas substituídas por ponto-e-vírgula para executar tudo em uma linha só.</p>
 <ul>
-<li>$&lt;nome-do-arquivo - não permite espaços e condensa comandos.</li>
-<li>$&gt;&lt;nome-do-arquivo - não permite espaços e não condensa comandos.</li>
-<li>$$&lt;nome-do-arquivo - permite espaços e condensa comandos.</li>
-<li>$$&gt;&lt;nome-do-arquivo - permite espaços e não condensa comandos.</li>
-<li>$$&gt;a&lt;nome-do-arquivo - igual ao anterior, e ainda permite passar argumentos.</li>
+<li>
+<p><strong>$&lt;</strong>nome-do-arquivo - não permite espaços e condensa comandos.</p>
+</li>
+<li>
+<p><strong>$&gt;&lt;</strong>nome-do-arquivo - não permite espaços e não condensa comandos.</p>
+</li>
+<li>
+<p><strong>$$&lt;</strong>nome-do-arquivo - permite espaços e condensa comandos.</p>
+</li>
+<li>
+<p><strong>$$&gt;&lt;</strong>nome-do-arquivo - permite espaços e não condensa comandos.</p>
+</li>
+<li>
+<p><strong>$$&gt;a&lt;</strong>nome-do-arquivo - igual ao anterior, e ainda permite passar argumentos.</p>
+</li>
 </ul>
-<p>OBS: a ajuda do WinDbg descreve as diferenças dos comandos acima de forma adversa, afirmando que os comandos '&lt;'  não condensam as linhas e os '&gt;&lt;' o fazem, quando na realidade é o contrário. Não se deixe enganar por esse detalhe.</p>
-<p>No caso do script desse artigo, utilizaremos a última forma, pois precisamos de um argumento para funcionar: o nome da DLL. Caso você não digite esse argumento, a ajuda do script será impressa:</p>
-<p>Não há qualquer dificuldade. Tudo que você tem que fazer é baixar o script que carrega DLLs e salvá-lo em um lugar de sua preferência. Depois é só digitar o comando que carrega scripts, o path de nosso script e o nome da DLL a ser carregada em uma das três formas exibidas. Eu costumo criar uma pasta chamada &quot;scripts&quot; dentro do diretório de instalação do Debugging Tools, o que quer dizer que posso simplesmente chamar todos meus scripts (ou seja, 1) dessa maneira:</p>
+<!-- raw HTML omitted -->
+<p>No caso do <em>script</em> desse artigo, utilizaremos a última forma, pois precisamos de um argumento para funcionar: <strong>o nome da DLL</strong>. Caso você não digite esse argumento, a ajuda do <em>script</em> será impressa:</p>
+<pre><code>How to use:
+$$&gt;a&lt;path\LoadLibrary.txt mydll.dll
+$$&gt;a&lt;path\LoadLibrary.txt c:\\path\\mydll.dll
+$$&gt;a&lt;path\LoadLibrary.txt &quot;c:\\path with space\\mydll.dll&quot;
+</code></pre>
+<h4 id="modo-de-usar">Modo de usar</h4>
+<p>Não há qualquer dificuldade. Tudo que você tem que fazer é baixar o <a href="/images/loadlibrary.txt"><em>script</em> que carrega DLLs</a> e salvá-lo em um lugar de sua preferência. Depois é só digitar o comando que carrega <em>scripts</em>, o <em>path</em> de nosso <em>script</em> e o nome da DLL a ser carregada em uma das três formas exibidas. Eu costumo criar uma pasta chamada &quot;<em>scripts</em>&quot; dentro do diretório de instalação do Debugging Tools, o que quer dizer que posso simplesmente chamar todos meus <em>scripts</em> (ou seja, 1) dessa maneira:</p>
+<pre><code>$$&gt;a&lt;scripts\LoadLibrary.txt mydll.dll
+</code></pre>
 <p>Abaixo um pequeno teste que fiz carregando a DLL do Direct Draw (ddraw.dll) na nossa vítima de plantão:</p>
+<pre><code>&lt;font color=&quot;#ff0000&quot;&gt;windbg notepad.exe&lt;/font&gt;
+Microsoft (R) Windows Debugger Version 6.8.0004.0 X86
+Copyright (c) Microsoft Corporation. All rights reserved.
+CommandLine: notepad.exe
+Symbol search path is: SRV*C:\Symbols*http://msdl.microsoft.com/downloads/symbols
+Executable search path is:
+ModLoad: 01000000 01014000   notepad.exe
+ModLoad: 7c900000 7c9b0000   ntdll.dll
+ModLoad: 7c800000 7c8f5000   C:\WINDOWS\system32\kernel32.dll
+...
+ModLoad: 73000000 73026000   C:\WINDOWS\system32\WINSPOOL.DRV
+(8e8.214): Break instruction exception - code 80000003 (first chance)
+eax=001a1eb4 ebx=7ffdf000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4
+eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+ntdll!DbgBreakPoint:
+7c901230 cc              int     3
+0:000&gt; &lt;font color=&quot;#ff0000&quot;&gt;$$&gt;a&lt;scripts\LoadLibrary.txt ddraw.dll&lt;/font&gt;
+&lt;font color=&quot;#ff0000&quot;&gt;Trying to load the following module:
+00280000  &quot;ddraw.dll&quot;
+&lt;/font&gt;ModLoad: 73760000 737a9000   C:\WINDOWS\system32\&lt;font color=&quot;#ff0000&quot;&gt;ddraw.dll&lt;/font&gt;
+ModLoad: 73bc0000 73bc6000   C:\WINDOWS\system32\DCIMAN32.dll
+ModLoad: 76390000 763ad000   C:\WINDOWS\system32\IMM32.DLL
+ModLoad: 629c0000 629c9000   C:\WINDOWS\system32\LPK.DLL
+ModLoad: 74d90000 74dfb000   C:\WINDOWS\system32\USP10.dll
+Freed 0 bytes starting at 00280000
+eax=001a1eb4 ebx=7ffdf000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4
+eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+ntdll!DbgBreakPoint:
+7c901230 cc              int     3
+</code></pre>
 <p>Simples e indolor.</p>
-<p>Vamos agora dar uma olhada no script completo e dissecar as linhas pausadamente. Dessa forma entenderemos como a função inteira funciona e como usar os comandos isoladamente para criar novos scripts.</p>
-<p>Como podemos ver, ele é um pouco grandinho. Por isso mesmo que ele é um script, já que não precisamos, sempre que formos usar este comando, ficar olhando para o fonte.</p>
+<h4 id="entendendo-o-código">Entendendo o código</h4>
+<p>Vamos agora dar uma olhada no <em>script</em> completo e dissecar as linhas pausadamente. Dessa forma entenderemos como a função inteira funciona e como usar os comandos isoladamente para criar novos <em>scripts</em>.</p>
+<pre><code>&lt;font color=&quot;#339966&quot;&gt;$$
+$$ @brief Loads a module inside the debuggee process.
+$$ @author Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+$$ @date 2007-11
+$$
+&lt;/font&gt;.if( &lt;font color=&quot;#000000&quot;&gt;${/d:&lt;/font&gt;&lt;font color=&quot;#0000ff&quot;&gt;$arg1&lt;/font&gt;} )
+{
+    r &lt;font color=&quot;#ff9900&quot;&gt;$t2&lt;/font&gt; = @&lt;font color=&quot;#0000ff&quot;&gt;$ip&lt;/font&gt;
+    .foreach /pS 5 ( addr { .dvalloc 0x1000 } ) { r&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; = addr }
+    r &lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; = @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; + 0x100
+    eza @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; &quot;${&lt;font color=&quot;#0000ff&quot;&gt;$arg1&lt;/font&gt;}&quot;
+    .echo Trying to load the following module:
+    da @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt;
+    &lt;font color=&quot;#339966&quot;&gt;$$ push &lt;/font&gt;&lt;font color=&quot;#339966&quot;&gt;$ip&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; 0x68
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x01 @&lt;font color=&quot;#ff6600&quot;&gt;$t2&lt;/font&gt;
+&lt;font color=&quot;#339966&quot;&gt;    $$ pushfd&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x05 0x9c
+&lt;font color=&quot;#339966&quot;&gt;    $$ pushad&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x06 0x60
+&lt;font color=&quot;#339966&quot;&gt;    $$ push &lt;/font&gt;&lt;font color=&quot;#339966&quot;&gt;$t0&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x07 0x68
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x08 @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt;
+&lt;font color=&quot;#339966&quot;&gt;    $$ call LoadLibrary&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x0c 0xe8
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x0d ( kernel32!LoadLibraryA - @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; - 0x11 )
+&lt;font color=&quot;#339966&quot;&gt;    $$ popad&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x11 0x61
+&lt;font color=&quot;#339966&quot;&gt;    $$ popfd&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x12 0x9d
+&lt;font color=&quot;#339966&quot;&gt;    $$ ret&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x13 0xc3
+    r &lt;font color=&quot;#0000ff&quot;&gt;$ip&lt;/font&gt; = @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt;
+    bp /1 @&lt;font color=&quot;#ff6600&quot;&gt;$t2&lt;/font&gt; &quot;.dvfree @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; 0&quot;
+    g
+}
+.else
+{
+   .echo How to use:
+   .echo $$&gt;a&lt;path\LoadLibrary.txt mydll.dll
+   .echo $$&gt;a&lt;path\LoadLibrary.txt c:\\path\\mydll.dll
+   .echo $$&gt;a&lt;path\LoadLibrary.txt &quot;c:\\path with space\\mydll.dll&quot;
+}
+</code></pre>
+<p>Como podemos ver, ele é um pouco grandinho. Por isso mesmo que ele é um <em>script</em>, já que não precisamos, sempre que formos usar este comando, ficar olhando para o fonte.</p>
 <p>Por falar em olhar, uma primeira olhada revela a seguinte estrutura:</p>
-<p>Qualquer semelhança com as instruções em C não é mera coincidência. Essa estrutura de fato verifica se o resultado dentro do .if é verdadeiro. No caso o script verifica se o primeiro parâmetro foi passado, já que os argumentos são acessíveis através dos alias (apelidos) $arg1 - $argn. Essa maneira de usar os argumentos passados no WinDbg ainda não foi documentada, mas encontrei essa dica em um artigo do Roberto Farah, um grande escritor de scripts para o WinDbg.</p>
+<pre><code>.if( &lt;font color=&quot;#000000&quot;&gt;${/d:&lt;/font&gt;&lt;font color=&quot;#0000ff&quot;&gt;$arg1&lt;/font&gt;} )
+{
+   ...
+}
+.else
+{
+   ...
+}
+</code></pre>
+<p>Qualquer semelhança com as instruções em C não é mera coincidência. Essa estrutura de fato verifica se o resultado dentro do .if é verdadeiro. No caso o <em>script</em> verifica se o primeiro parâmetro foi passado, já que os argumentos são acessíveis através dos <em>alias</em> (apelidos) <strong>$arg1 - $argn</strong>. Essa maneira de usar os argumentos passados no WinDbg ainda não foi documentada, mas encontrei essa dica em <a href="http://blogs.msdn.com/debuggingtoolbox/archive/2007/05/03/windbg-script-get-portable-executable-headers.aspx">um artigo do Roberto Farah</a>, um grande escritor de <em>scripts</em> para o WinDbg.</p>
 <p>Da mesma forma, o que não deve ser nenhuma surpresa, o WinDbg suporta comentários. Todas as linhas que contêm '$$' isoladamente são comentários, e seu conteúdo da direita é ignorado, salvo se for encontrado um ponto-e-vírgula.</p>
 <p>A primeira coisa que fazemos para carregar a DLL é salvar o estado do registrador IP, que indica onde está a próxima instrução:</p>
+<pre><code>    r &lt;font color=&quot;#ff9900&quot;&gt;$t2&lt;/font&gt; = @&lt;font color=&quot;#0000ff&quot;&gt;$ip&lt;/font&gt;
+</code></pre>
 <p>Feito isso, usamos um comando não tão comum, mas que pode ser muito útil nos casos em que precisamos capturar algum dado da saída de um comando do WinDbg e usá-lo em outro comando.</p>
+<h4 id="foreach">.foreach</h4>
 <p>A estrutura do .foreach deixa o usuário especificar dois grupos de comandos: o primeiro grupo irá gerar uma saída que pode ser aproveitada no segundo grupo.</p>
-<p>A opção &quot;/pS 5&quot; diz ao comando para pular 5 posições antes de capturar o token que será usado no próximo comando. Os tokens são divididos por espaço. Sendo a saída de &quot;.dvalloc 0x1000&quot;</p>
+<pre><code>.foreach /pS 5 &lt;font color=&quot;#339966&quot;&gt;$$pula;&lt;/font&gt; ( &lt;font color=&quot;#ff0000&quot;&gt;addr&lt;/font&gt; &lt;font color=&quot;#339966&quot;&gt;$$alias;&lt;/font&gt; { .dvalloc 0x1000 &lt;font color=&quot;#339966&quot;&gt;$$saída;&lt;/font&gt; } ) { r&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; = &lt;font color=&quot;#ff0000&quot;&gt;addr&lt;/font&gt; }
+</code></pre>
+<p>A opção <strong>&quot;/pS 5&quot;</strong> diz ao comando para pular 5 posições antes de capturar o <em>token</em> que será usado no próximo comando. Os <em>tokens</em> são divididos por espaço. Sendo a saída de <strong>&quot;.dvalloc 0x1000&quot;</strong></p>
+<pre><code>Allocated 1000 bytes starting at 00280000
+</code></pre>
 <p>Pulando 5 posições iremos capturar o endereço onde a memória foi alocada. E é isso mesmo que queremos!</p>
-<p>O sinônimo do endereço (alias) se torna &quot;addr&quot;, apelido que usamos ao executar o segundo comando, que armazena o endereço no registrador temporário $t0:</p>
-<p>Após alocada a memória, gravamos o parâmetro de LoadLibrary, o path da DLL a ser carregada, em seu início.</p>
-<p>O código assembly que irá chamar fica um ponto à frente, mas na mesma memória alocada.</p>
-<p>Conforme as técnicas vão cada vez ficando mais &quot;não-usuais&quot;, mais difícil fica achar um nome para a coisa. Essa técnica de escrever o assembly de um código através de escritas em hexadecimal dentro de um script do WinDbg eu chamei de &quot;script assembly&quot;. Se tiver um nome melhor, não se acanhe em usá-lo. E me deixe saber =).</p>
-<p>Cada comentário de uma instrução em assembly é seguido pela escrita dessa instrução usando o comando e. Se trata de um código bem trivial, fora alguns detalhes que merecem mais atenção.</p>
+<pre><code>1         2    3     4        &lt;font color=&quot;#ff0000&quot;&gt;5&lt;/font&gt;  6
+Allocated 1000 bytes starting at &lt;font color=&quot;#ff0000&quot;&gt;00280000&lt;/font&gt;
+</code></pre>
+<p>O sinônimo do endereço (<em>alias</em>) se torna <strong>&quot;addr&quot;</strong>, apelido que usamos ao executar o segundo comando, que armazena o endereço no registrador temporário $t0:</p>
+<pre><code>r&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; = addr
+</code></pre>
+<p>Após alocada a memória, gravamos o parâmetro de LoadLibrary, o <em>path</em> da DLL a ser carregada, em seu início.</p>
+<pre><code>eza @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; &quot;${&lt;font color=&quot;#0000ff&quot;&gt;$arg1&lt;/font&gt;}&quot;
+</code></pre>
+<p>O código _assembly _que irá chamar fica um ponto à frente, mas na mesma memória alocada.</p>
+<pre><code>r &lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; = @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; + 0x100
+</code></pre>
+<h4 id="_script-assembly_"><em>Script assembly</em></h4>
+<p>Conforme as técnicas vão cada vez ficando mais &quot;não-usuais&quot;, mais difícil fica achar um nome para a coisa. Essa técnica de escrever o <em>assembly</em> de um código através de escritas em hexadecimal dentro de um <em>script</em> do WinDbg eu chamei de <em>&quot;script assembly</em>&quot;. Se tiver um nome melhor, não se acanhe em usá-lo. E me deixe saber =).</p>
+<pre><code>    &lt;font color=&quot;#339966&quot;&gt;$$ push &lt;/font&gt;&lt;font color=&quot;#339966&quot;&gt;$ip&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; 0x68
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x01 @&lt;font color=&quot;#ff6600&quot;&gt;$t2&lt;/font&gt;
+&lt;font color=&quot;#339966&quot;&gt;    $$ pushfd&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x05 0x9c
+&lt;font color=&quot;#339966&quot;&gt;    $$ pushad&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x06 0x60
+&lt;font color=&quot;#339966&quot;&gt;    $$ push &lt;/font&gt;&lt;font color=&quot;#339966&quot;&gt;$t0&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x07 0x68
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x08 @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt;
+&lt;font color=&quot;#339966&quot;&gt;    $$ call LoadLibrary&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x0c 0xe8
+    ed @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x0d ( kernel32!LoadLibraryA - @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; - 0x11 )
+&lt;font color=&quot;#339966&quot;&gt;    $$ popad&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x11 0x61
+&lt;font color=&quot;#339966&quot;&gt;    $$ popfd&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x12 0x9d
+&lt;font color=&quot;#339966&quot;&gt;    $$ ret&lt;/font&gt;
+    eb @&lt;font color=&quot;#ff0000&quot;&gt;$t1&lt;/font&gt; + 0x13 0xc3
+</code></pre>
+<p>Cada comentário de uma instrução em <em>assembly</em> é seguido pela escrita dessa instrução usando o comando <strong>e</strong>. Se trata de um código bem trivial, fora alguns detalhes que merecem mais atenção.</p>
+<h4 id="pushfd-pushad-popad-popfd">pushfd, pushad, popad, popfd</h4>
 <p>Os comandos acima servem para salvar e restaurar o estado dos registradores e das flags de execução. Isso permite que possamos executar o código virtualmente em qualquer posição que pararmos no código depurado, já que retornamos tudo como estava ao final da execução do LoadLibrary. É claro que isso não garante que o código estará 100% estável em todas as condições, mas já ajuda um bocado.</p>
-<p>Uma chamada através do opcode call (código em hexa 0xe80c) é bem comum e se trata de uma chamada relativa, baseada no estado do Instruction Pointer atual mais o valor especificado. Por isso mesmo que fazemos o cálculo usando o endereço de onde será escrita a próxima instrução, que é o valor que teremos em IP quando este call for executado:</p>
-<p>Quando o código estiver completamente escrito na memória alocada, um disassembly dele retornará algo parecido com o código abaixo:</p>
-<p>Você pode ver com seus próprio olhos se editar o script comentando o último comando (g), executando o script e executando o disassembly do IP.</p>
-<p>Somos um script bem comportado (na medida do possível) e por isso colocamos um breakpoint temporário no final para, quando retornarmos para o código atual, desalocarmos a memória usada para a escrita e execução das instruções.</p>
-<p>Eu não me responsabilizo por qualquer (mau) uso do script aqui disponibilizado, assim como as eventuais perdas de código-fonte, trilhas de HD e placas de memória RAM pela sua execução. Assim sendo, bom divertimento.</p>
-<p>O criador do DriverEntry me questionou se não seria mais fácil, em vez de escrever todos os opcodes em hexa, usar o comando a, que permite entrar o código assembly diretamente a partir de um endereço especificado. Essa realmente é uma ótima idéia, e de fato eu tentei isso no começo de meus testes. Porém, infelizmente para scripts isso não funciona bem. A partir do comando a o prompt fica esperando uma entrada do usuário, não lendo o assembly que estaria no próprio script. Pior ainda, a escrita do assembly não permite usar os registradores temporários, como $t0 ou $t1, o que nos força a escrever um código dependende de valores constantes. Por esses motivos, tive que apelar para o comando e, que é a forma mais confusa de escrever e entender assembly. Nesse tipo de edição é vital comentar bem cada linha que se escreve.</p>
+<h4 id="call">call</h4>
+<p>Uma chamada através do opcode <strong>call</strong> (código em hexa 0xe80c) é bem comum e se trata de uma <strong>chamada relativa</strong>, baseada no estado do <em>Instruction Pointer</em> atual mais o valor especificado. Por isso mesmo que fazemos o cálculo usando o endereço de onde será escrita a próxima instrução, que é o valor que teremos em IP quando este <strong>call</strong> for executado:</p>
+<pre><code>( kernel32!LoadLibraryA - &lt;font color=&quot;#ff0000&quot;&gt;@$t1 - 0x11&lt;/font&gt; )
+</code></pre>
+<p>Quando o código estiver completamente escrito na memória alocada, um <em>disassembly</em> dele retornará algo parecido com o código abaixo:</p>
+<pre><code>push    offset ntdll!DbgBreakPoint (7c901230) &lt;font color=&quot;#339966&quot;&gt;; empilhamos o IP atual (endereço de retorno)&lt;/font&gt;
+pushfd &lt;font color=&quot;#339966&quot;&gt;; salva estado das flags atual&lt;/font&gt;
+pushad &lt;font color=&quot;#339966&quot;&gt;; salva estado dos registradores atual&lt;/font&gt;
+push    8F0000h &lt;font color=&quot;#339966&quot;&gt;; empilha endereço do path da dll a ser carregada&lt;/font&gt;
+call    kernel32!LoadLibraryA (7c801d77) ; chamamos LoadLibraryA
+popad &lt;font color=&quot;#339966&quot;&gt;; restaura estado dos registradores&lt;/font&gt;
+popfd &lt;font color=&quot;#339966&quot;&gt;; restaura estado das flags&lt;/font&gt;
+ret &lt;font color=&quot;#339966&quot;&gt;; retorna para o ponto onde o depurador parou (no caso, 7c901230)&lt;/font&gt;
+</code></pre>
+<p>Você pode ver com seus próprio olhos se editar o <em>script</em> comentando o último comando (g), executando o <em>script</em> e executando o <em>disassembly</em> do IP.</p>
+<pre><code>u @$ip
+</code></pre>
+<h4 id="limpando-a-bagunça">Limpando a bagunça</h4>
+<p>Somos um <em>script</em> bem comportado (na medida do possível) e por isso colocamos um <em>breakpoint</em> temporário no final para, quando retornarmos para o código atual, desalocarmos a memória usada para a escrita e execução das instruções.</p>
+<pre><code>bp /1 @&lt;font color=&quot;#ff6600&quot;&gt;$t2&lt;/font&gt; &quot;.dvfree @&lt;font color=&quot;#ff00ff&quot;&gt;$t0&lt;/font&gt; 0&quot;
+</code></pre>
+<h4 id="_disclaimer-_e-outras-histórias">_Disclaimer _e outras histórias</h4>
+<p>Eu não me responsabilizo por qualquer (mau) uso do <em>script</em> aqui disponibilizado, assim como as eventuais perdas de código-fonte, trilhas de HD e placas de memória RAM pela sua execução. Assim sendo, bom divertimento.</p>
+<h4 id="atualização">Atualização</h4>
+<p>O criador do <a href="http://www.driverentry.com.br">DriverEntry</a> me questionou se não seria mais fácil, em vez de escrever todos os opcodes em hexa, usar o comando <strong>a</strong>, que permite entrar o código <em>assembly</em> diretamente a partir de um endereço especificado. Essa realmente é uma ótima idéia, e de fato eu tentei isso no começo de meus testes. Porém, infelizmente para <em>scripts</em> isso não funciona bem. A partir do comando <strong>a</strong> o <em>prompt</em> fica esperando uma entrada do usuário, não lendo o <em>assembly</em> que estaria no próprio <em>script</em>. Pior ainda, a escrita do <em>assembly</em> não permite usar os registradores temporários, como $t0 ou $t1, o que nos força a escrever um código dependende de valores constantes. Por esses motivos, tive que apelar para o comando <strong>e</strong>, que é a forma mais confusa de escrever e entender _assembly. _Nesse tipo de edição é vital comentar bem cada linha que se escreve.</p>
 
             
 
@@ -151,7 +313,7 @@ Carregando DLLs arbitrárias pelo WinDbg - parte 2
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

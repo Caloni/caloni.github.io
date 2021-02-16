@@ -105,11 +105,33 @@ Gabaritos
           <div class="content">
 
             
-              <p>Um template -- ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: gabarito -- é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).</p>
+              <p>Um <strong>template</strong> -- ou, como é na tradução da primeira edição de The C++ Programming Language, de Bjarne Stroustrup, aqui no Brasil: <strong>gabarito</strong> -- é um molde que pode ser usado por diferentes tipos para traduzir o mesmo algoritmo, ou pelo menos a mesma intenção de algoritmo (por pela sobrecarga de operadores é possível que o comportamento de tipos diferentes pode ser diferente).</p>
 <p>Em C++, fazer uma função template é muito simples:</p>
-<p>Continuando nosso tema de fazer as mesmas coisas em C, templates não é tão simples, pois não existe de fato na linguagem. Templates são interpretados pelo compilador, que gera um esqueleto de algoritmo que é usado para preencher código de todos os tipos utilizados. Em C isso era feito usando macros. Porém, macros não fazem parte da linguagem C. É apenas uma ferramenta chamada pré-processador que substitui texto antes do programa ser compilado. É através do pré-processador que, por exemplo, os headers são incluídos em um código-fonte. Isso já foi explicado em um artigo bem velhinho, e mais recentemente em uma palestra.</p>
-<p>Eu não recomendaria usar macros em C++, assim como não recomendo em C. Porém, em C é a única opção para reciclar algoritmos de maneira estática. Exceto se você usar ponteiros de função, o que adiciona pouco overhead, mas se perde, assim como a técnica de macro, a informação dos tipos. A própria libc contém uma função, qsort, que é &quot;genérica&quot; através do uso de ponteiros sem tipo (void*) e ponteiro de função. A função ordena elementos de uma lista, mas para isso depende da função de comparação que é passada por parâmetro. Essa função recebe dois void* que deve comparar. Além disso, o leiaute na memória tem que ser fixo, contínuo, pois é assim que a função consegue mover os elementos. Ou seja, bem limitado.</p>
-<p>Dessa forma, não pretendo ensinar a usar &quot;templates&quot; em C, mas a usá-los em C++ com foco em C. Um amigo conhecido de vocês, o Fernando/DriverEntry, utilizou essa técnica com maestria em alguns códigos kernel-mode que ele desenvolveu, e é uma maneira válida de se aproveitar de uma linguagem mais &quot;alto nível&quot; como C++ em ambientes limitados como o código que trabalha com o S.O.. Como a API do kernel lida com abstrações em C, seus objetos necessariamente não são objetos no sentido C++, mas os famigerados &quot;ponteiros opacos&quot;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">bool</span> Compare(T<span style="color:#f92672">&amp;</span> var1, T<span style="color:#f92672">&amp;</span> var2)
+{
+	<span style="color:#66d9ef">return</span> var1 <span style="color:#f92672">&lt;</span> var2;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+	<span style="color:#66d9ef">double</span> dx <span style="color:#f92672">=</span> <span style="color:#ae81ff">100.0</span>, dy <span style="color:#f92672">=</span> <span style="color:#ae81ff">10.0</span>;
+
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;x is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ( Compare(x, y) <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;lesser&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bigger&#34;</span> ) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; than y</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;dx is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ( Compare(dx, dy) <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;lesser&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bigger&#34;</span> ) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; than dy</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+}
+</code></pre></div><p><img src="http://i.imgur.com/84Ptrvk.png" alt=""></p>
+<p>Continuando nosso tema de fazer as mesmas coisas em C, <strong>templates</strong> não é tão simples, pois não existe de fato na linguagem. Templates são interpretados pelo compilador, que gera um esqueleto de algoritmo que é usado para preencher código de todos os tipos utilizados. Em C isso era feito usando macros. Porém, macros não fazem parte da linguagem C. É apenas uma ferramenta chamada pré-processador que substitui texto antes do programa ser compilado. É através do pré-processador que, por exemplo, os headers são incluídos em um código-fonte. Isso já foi explicado em um <a href="/os-diferentes-erros-na-linguagem-c">artigo</a> bem velhinho, e mais recentemente em uma <a href="/entendendo-a-compilacao">palestra</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// qual o tipo de x e y? qualquer um que faça comparação
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define MACRO(x, y) x &lt; y
+</span></code></pre></div><p>Eu não recomendaria usar macros em C++, assim como não recomendo em C. Porém, em C é a única opção para reciclar algoritmos de maneira estática. Exceto se você usar ponteiros de função, o que adiciona pouco overhead, mas se perde, assim como a técnica de macro, a informação dos tipos. A própria libc contém uma função, <a href="http://www.cplusplus.com/reference/cstdlib/qsort/"><strong>qsort</strong></a>, que é &quot;genérica&quot; através do uso de ponteiros sem tipo (void*) e ponteiro de função. A função ordena elementos de uma lista, mas para isso depende da função de comparação que é passada por parâmetro. Essa função recebe dois void* que deve comparar. Além disso, o leiaute na memória tem que ser fixo, contínuo, pois é assim que a função consegue mover os elementos. Ou seja, bem limitado.</p>
+<p><img src="http://i.imgur.com/3TkGFkN.png" alt=""></p>
+<p>Dessa forma, não pretendo ensinar a usar &quot;templates&quot; em C, mas a usá-los em C++ com foco em C. Um amigo conhecido de vocês, o <a href="http://driverentry.com.br/">Fernando/DriverEntry</a>, utilizou essa técnica com maestria em alguns códigos kernel-mode que ele desenvolveu, e é uma maneira válida de se aproveitar de uma linguagem mais &quot;alto nível&quot; como C++ em ambientes limitados como o código que trabalha com o S.O.. Como a API do kernel lida com abstrações em C, seus objetos necessariamente não são objetos no sentido C++, mas os famigerados &quot;ponteiros opacos&quot;.</p>
 <p>Mais sobre isso em um próximo post.</p>
 
             
@@ -119,7 +141,7 @@ Gabaritos
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

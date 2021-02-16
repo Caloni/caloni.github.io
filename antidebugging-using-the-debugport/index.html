@@ -82,9 +82,9 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="/ppt/antidebugging-eu-nao-quero-que-vc-mexa-no-meu-codigo.pdf">
+
 Antidebugging using the DebugPort
-</a>
+
 </p>
 
         <p class="subtitle">
@@ -124,9 +124,114 @@ Antidebugging using the DebugPort
 <p>Process exit</p>
 </li>
 </ul>
-<p>In the case of connecting into a existent process, the API DebugActiveProcess is called. Since this call, if successful, the caller program is free now to call the API DebugActiveProcess looking for debugging events. The main loop for a debugger is, so, pretty simple:</p>
-<p>The interesting detail about this communication process is that a program can be debugged actively only for ONE debugger. In other words, while there's a process A debugging process B, no one besides A can debug and break B.Using this principle, we can imagine a debugging protection based on this exclusivity, creating a protector process that connects to the protected process and &quot;debugs&quot; it:</p>
-<p>The needed steps to test the code above are:</p>
+<p>In the case of connecting into a existent process, the API <a href="http://www.google.com/url?sa=t&amp;ct=res&amp;cd=1&amp;url=http%3A%2F%2Fmsdn2.microsoft.com%2Fen-us%2Flibrary%2Fms679295.aspx&amp;ei=cqDERvWoA4GKerippJ0M&amp;usg=AFQjCNFzrdQ83SQzTQxBiT9iEauTFyUPcA&amp;sig2=4p-HOh1Wk6uhDYD0ceEMDw">DebugActiveProcess</a> is called. Since this call, if successful, the caller program is free now to call the API <a href="http://www.google.com/url?sa=t&amp;ct=res&amp;cd=1&amp;url=http%3A%2F%2Fmsdn2.microsoft.com%2Fen-us%2Flibrary%2Fms679295.aspx&amp;ei=cqDERvWoA4GKerippJ0M&amp;usg=AFQjCNFzrdQ83SQzTQxBiT9iEauTFyUPcA&amp;sig2=4p-HOh1Wk6uhDYD0ceEMDw">DebugActiveProcess</a>, looking for debugging events. The main loop for a debugger is, so, pretty simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DebugLoop</span>()
+{
+	<span style="color:#66d9ef">bool</span> exitLoop <span style="color:#f92672">=</span> false;
+
+	<span style="color:#66d9ef">while</span>( <span style="color:#f92672">!</span> exitLoop )
+	{
+		DEBUG_EVENT debugEvt;
+
+		<span style="color:#75715e">// Wait for some debug event.
+</span><span style="color:#75715e"></span>		WaitForDebugEvent(<span style="color:#f92672">&amp;</span>debugEvt, INFINITE);
+
+		<span style="color:#75715e">// Let us see what it is about.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">switch</span>( debugEvt.dwDebugEventCode )
+		{
+			<span style="color:#75715e">// This one...
+</span><span style="color:#75715e"></span>
+			<span style="color:#75715e">// That one...
+</span><span style="color:#75715e"></span>
+			<span style="color:#75715e">// Process is going out. We get out the loop and go away.
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">case</span> EXIT_PROCESS_DEBUG_EVENT:
+			exitLoop <span style="color:#f92672">=</span> true;
+			<span style="color:#66d9ef">break</span>;
+		}
+
+		<span style="color:#75715e">// We need to unfreeze the thread who sent the debug event.
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Otherwise, it stays frozen forever!
+</span><span style="color:#75715e"></span>		ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
+	}
+} 
+
+</code></pre></div><p>The interesting detail about this communication process is that a program can be debugged actively only for ONE debugger. In other words, while there's a process A debugging process B, no one besides A can debug and break B.Using this principle, we can imagine a debugging protection based on this exclusivity, creating a protector process that connects to the protected process and &quot;debugs&quot; it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @brief Antidebug protection based on DebugPort aquisition.
+</span><span style="color:#75715e">* @author Wanderley Caloni (wanderley@caloni.com.br)
+</span><span style="color:#75715e">* @date 2007-08
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* Every debugger needs a debugging loop. In this loop it catches
+</span><span style="color:#75715e">debugging events sent by the operating system.
+</span><span style="color:#75715e">*/</span>
+DWORD <span style="color:#a6e22e">DebugLoop</span>()
+{
+	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+	<span style="color:#66d9ef">bool</span> exitLoop <span style="color:#f92672">=</span> false;
+
+	<span style="color:#66d9ef">while</span>( <span style="color:#f92672">!</span> exitLoop )
+	{
+		DEBUG_EVENT debugEvt;
+
+		WaitForDebugEvent(<span style="color:#f92672">&amp;</span>debugEvt, INFINITE);
+
+		<span style="color:#66d9ef">switch</span>( debugEvt.dwDebugEventCode )
+		{
+			<span style="color:#75715e">// Process going out. We get out the loop and leave.
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">case</span> EXIT_PROCESS_DEBUG_EVENT:
+			exitLoop <span style="color:#f92672">=</span> true;
+
+			<span style="color:#66d9ef">break</span>;
+		}
+
+		<span style="color:#75715e">// Necessary, since the current thread is frozen.
+</span><span style="color:#75715e"></span>		ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#75715e">/* Attachs to the protected process againt debugging. Actually, we protect it
+</span><span style="color:#75715e">againt debugging being its debugger.
+</span><span style="color:#75715e">*/</span>
+DWORD <span style="color:#a6e22e">AntiAttach</span>(DWORD pid)
+{
+	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+
+	<span style="color:#66d9ef">if</span>( pid )
+	{
+		BOOL dbgActProc;
+
+		dbgActProc <span style="color:#f92672">=</span> DebugActiveProcess(pid);
+
+		<span style="color:#66d9ef">if</span>( dbgActProc )
+			DebugLoop();
+		<span style="color:#66d9ef">else</span>
+			ret <span style="color:#f92672">=</span> GetLastError();
+	}
+	<span style="color:#66d9ef">else</span>
+		ret <span style="color:#f92672">=</span> ERROR_INVALID_HANDLE;
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#75715e">/* In the beginning, God said: &#39;int main!&#39;
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[])
+{
+	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+
+	<span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> )
+	{
+		DWORD pid <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">1</span>]);
+		ret <span style="color:#f92672">=</span> AntiAttach(pid);
+	}
+
+	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
+} 
+
+</code></pre></div><p>The needed steps to test the code above are:</p>
 <ol>
 <li>
 <p>Compile the code</p>
@@ -145,7 +250,9 @@ Antidebugging using the DebugPort
 </li>
 </ol>
 <p>After the attach process, the debug port is occupied, and the communication between the debugger and debuggee is made throug LPC. Bellow we can see a little illustration of how things work:</p>
+<p><a href="/images/debug-port2.gif"><img src="http://i.imgur.com/dVz6dYQ.gif" alt="debug-port2.gif"></a></p>
 <p>Basically the process stay receiving debugging events (through the LPC message queue) until the final event, the process exit. Notice that if someone try to terminate the protector process the debuggee process will be terminated, too.</p>
+<h4 id="flawless-ok">Flawless? OK...</h4>
 <p>The strength in this protection is that it doesn't affect the code understanding and readability. In fact the code that protects is in another process. The weakness, I would say, it is your visibility. Everyone that will try to attack the solution will se two processes being created, what gives him/her something to think about...</p>
 <p>That's why thinking about the implementation is vital. Particularly the main point to be thought is the debugger/debuggee union. As much as better these two pieces were packed, harder to the attacker will be to separate them. An additional idea is to use the same technique in the opposite way, in other words, the debuggee process to attach into the debugger.</p>
 <p>This time I'm not going to say that there's a easy solution. Maybe because I haven't though enough about the problem. Ideas?</p>
@@ -157,7 +264,7 @@ Antidebugging using the DebugPort
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Aproveitando que utilizei a mesma técnica semana passada para desenvolver um vírus para Ethical Hacking, republico aqui este artigo que já está mofando no Code Projet, mas que espero que sirva de..."/>
+        content="
+RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &quot;Three Ways to Inject Your Code into Another Process&quot;. No entanto, não utilizei código algum....&lt;/!--&gt;"/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,19 +106,100 @@ RmThread: rode código em processo vizinho
           <div class="content">
 
             
-              <p>Aproveitando que utilizei a mesma técnica semana passada para desenvolver um vírus para Ethical Hacking, republico aqui este artigo que já está mofando no Code Projet, mas que espero que sirva de ajuda pra muita gente que gosta de fuçar nos internals do sistema. Boa leitura!</p>
-<p>RmThread é um projeto que fiz baseado em uma das três idéias do artigo de Robert Kuster , &quot;Three Ways to Inject Your Code into Another Process&quot;. No entanto, não utilizei código algum. Queria aprender sobre isso, pesquisei pela internet, e me influenciei pela técnica CreateRemoteThread &amp; LoadLibrary. O resto foi uma mistura de &quot;chamada de funções certas&quot; e MSDN.</p>
+              <!-- raw HTML omitted -->
+<p>RmThread é um projeto que fiz baseado em uma das três idéias do artigo de <a href="http://www.codeproject.com/script/profile/whos_who.asp?id=136330">Robert Kuster</a> , <a href="http://www.codeproject.com/threads/winspy.asp">&quot;Three Ways to Inject Your Code into Another Process&quot;</a>. No entanto, não utilizei código algum. Queria aprender sobre isso, pesquisei pela internet, e me influenciei pela técnica <strong>CreateRemoteThread</strong> &amp; <strong>LoadLibrary</strong>. O resto foi uma mistura de &quot;chamada de funções certas&quot; e MSDN.</p>
 <p>O projeto que fiz é útil para quem precisa rodar algum código em um processo vizinho, mas não quer se preocupar em desenvolver a técnica para fazer isso. Quer apenas escrever o código que vai ser executado remotamente. O projeto de demonstração, RmThread.exe, funciona exatamente como a técnica citada anteriormente. Você diz qual o processo a ser executado e a DLL a ser carregada, e ele inicia o processo e carrega a DLL em seu contexto. O resto fica por conta do código que está na DLL.</p>
-<p>Para fazer a DLL, existe um projeto de demonstração que se utiliza de uma técnica que descobri para fazer rodar algum código a partir da execução de DllMain sem ficar escravo de suas limitações (você só pode chamar com segurança funções localizadas na kernel32.dll).</p>
+<p>Para fazer a DLL, existe um projeto de demonstração que se utiliza de uma técnica que descobri para fazer rodar algum código a partir da execução de <strong>DllMain</strong> sem ficar escravo de suas limitações (você só pode chamar com segurança funções localizadas na kernel32.dll).</p>
+<h4 id="usando-o-código">Usando o código</h4>
 <p>Existem três funções que poderão ser utilizadas pelo seu programa:</p>
-<p>Eis a rotina principal simplificada demonstrando como é simples a utilização das funções:</p>
-<p>A parte mais complicada talvez seja o que fazer quando a sua DLL é carregada. Considerando que ao ser chamada em seu ponto de entrada, o código da DLL possui algumas limitações (uma já citada; para mais, vide a ajuda de DllMain no MSDN), fiz uma &quot;execução alternativa&quot;, criando uma thread na função DllMain:</p>
-<p>A função da thread, por sua vez, é esperar pela finalização da thread DllMain (temos o handle dessa thread armazenado em ghThrDllMain), fazer o que tem que fazer, e retornar, liberando ao mesmo tempo o handle da DLL criado para si:</p>
-<p>A marca TODO é aonde seu código deve ser colocado (você pode tirar o MessageBox, se quiser). Como DllMain já foi previamente executada, essa parte do código está livre para fazer o que quiser no contexto do processo vizinho.</p>
-<p>Um detalhe interessante é que é necessária a chamada de FreeLibraryAndExitThread. Do contrário, após chamar FreeLibrary, o código a ser executado depois (um simples return) estaria em um endereço de memória inválido, já que a DLL não está mais carregada. O resultado não seria muito agradável.</p>
-<p>Um problema chato (que você poderá encontrar) é que, se a DLL não for carregada com sucesso, não há uma maneira trivial de obter o código de erro da chamada de LoadLibrary. Uma vez que a thread inicia e termina nessa função API, o LastError se perde. Alguma idéia?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** Run process and get rights for running remote threads. */</span>
+HANDLE <span style="color:#a6e22e">CreateAndGetProcessGodHandle</span>(LPCTSTR lpApplicationName, LPTSTR lpCommandLine);
+
+<span style="color:#75715e">/** Load DLL in another process. */</span>
+HMODULE <span style="color:#a6e22e">RemoteLoadLibrary</span>(HANDLE hProcess, LPCTSTR lpFileName);
+
+<span style="color:#75715e">/** Free DLL in another process. */</span>
+BOOL <span style="color:#a6e22e">RemoteFreeLibrary</span>(HANDLE hProcess, HMODULE hModule); 
+
+</code></pre></div><p>Eis a rotina principal simplificada demonstrando como é simples a utilização das funções:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//...
+</span><span style="color:#75715e">// Start process and get handle with powers.
+</span><span style="color:#75715e"></span>hProc <span style="color:#f92672">=</span> CreateAndGetProcessGodHandle(tzProgPath, tzProgArgs);
+
+<span style="color:#66d9ef">if</span>( hProc <span style="color:#f92672">!=</span> NULL )
+{
+	<span style="color:#75715e">// Load DLL in the create process context.
+</span><span style="color:#75715e"></span>	HMODULE hDll <span style="color:#f92672">=</span> RemoteLoadLibrary(hProc, tzDllPath);
+
+	<span style="color:#66d9ef">if</span>( hDll <span style="color:#f92672">!=</span> NULL )
+		RemoteFreeLibrary(hProc, hDll);
+
+	CloseHandle(hProc);
+}
+<span style="color:#75715e">//... 
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>A parte mais complicada talvez seja o que fazer quando a sua DLL é carregada. Considerando que ao ser chamada em seu ponto de entrada, o código da DLL possui algumas limitações (uma já citada; para mais, vide a ajuda de <strong>DllMain</strong> no MSDN), fiz uma &quot;execução alternativa&quot;, criando uma <em>thread</em> na função <strong>DllMain</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">BOOL APIENTRY <span style="color:#a6e22e">DllMain</span>(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+{
+	<span style="color:#66d9ef">switch</span>( ul_reason_for_call )
+	{
+		<span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH:
+		{
+			DWORD dwThrId;
+
+			<span style="color:#75715e">// Fill global variable with handle copy of this thread.
+</span><span style="color:#75715e"></span>
+			BOOL bRes <span style="color:#f92672">=</span>
+			DuplicateHandle(GetCurrentProcess(),
+				GetCurrentThread(),
+				GetCurrentProcess(),
+				g_hThrDllMain,
+				<span style="color:#ae81ff">0</span>,
+				FALSE,
+				<span style="color:#ae81ff">0</span>);
+
+			<span style="color:#66d9ef">if</span>( bRes <span style="color:#f92672">==</span> FALSE )
+				<span style="color:#66d9ef">break</span>;
+
+			<span style="color:#75715e">// Call function that do the useful stuff with its DLL handle.
+</span><span style="color:#75715e"></span>			CloseHandle(CreateThread(NULL,
+				<span style="color:#ae81ff">0</span>,
+				RmThread,
+				(LPVOID) LoadLibrary(g_tzModuleName),
+				<span style="color:#ae81ff">0</span>,
+				dwThrId));
+				}
+			<span style="color:#66d9ef">break</span>;
+			<span style="color:#75715e">//... 
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>A função da <em>thread</em>, por sua vez, é esperar pela finalização da <em>thread</em> <strong>DllMain</strong> (temos o <em>handle</em> dessa <em>thread</em> armazenado em g**_hThrDllMain**), fazer o que tem que fazer, e retornar, liberando ao mesmo tempo o _handle_ da DLL criado para si:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/**
+</span><span style="color:#75715e">* Sample function, called remotely for RmThread.exe.
+</span><span style="color:#75715e">*/</span>
+DWORD WINAPI <span style="color:#a6e22e">RmThread</span>(LPVOID lpParameter)
+{
+	HMODULE hDll <span style="color:#f92672">=</span> (HMODULE) lpParameter;
+	LPCTSTR ptzMsg <span style="color:#f92672">=</span> _T(<span style="color:#e6db74">&#34;Congratulations! You called RmThread.dll successfully!&#34;</span>);
+
+	<span style="color:#75715e">// Wait DllMain termination.
+</span><span style="color:#75715e"></span>	WaitForSingleObject(g_hThrDllMain, INFINITE);
+
+	<span style="color:#75715e">//TODO: Put your remote code here.
+</span><span style="color:#75715e"></span>	MessageBox(NULL,
+		ptzMsg,
+		g_tzModuleName,
+		MB_OK : MB_ICONINFORMATION);
+
+	<span style="color:#75715e">// Do what the function name says.
+</span><span style="color:#75715e"></span>	FreeLibraryAndExitThread(hDll, <span style="color:#ae81ff">0</span>);
+} 
+
+</code></pre></div><p>A marca TODO é aonde seu código deve ser colocado (você pode tirar o <strong>MessageBox</strong>, se quiser). Como <strong>DllMain</strong> já foi previamente executada, essa parte do código está livre para fazer o que quiser no contexto do processo vizinho.</p>
+<p>Um detalhe interessante é que é necessária a chamada de <strong>FreeLibraryAndExitThread</strong>. Do contrário, após chamar <strong>FreeLibrary</strong>, o código a ser executado depois (um simples <strong>return</strong>) estaria em um endereço de memória inválido, já que a DLL não está mais carregada. O resultado não seria muito agradável.</p>
+<h4 id="pontos-de-interesse">Pontos de interesse</h4>
+<p>Um problema chato (que você poderá encontrar) é que, se a DLL não for carregada com sucesso, não há uma maneira trivial de obter o código de erro da chamada de <strong>LoadLibrary</strong>. Uma vez que a thread inicia e termina nessa função API, o LastError se perde. Alguma idéia?</p>
 <ul>
-<li>Endereço do artigo (e fontes) no Code Project</li>
+<li><a href="http://www.codeproject.com/KB/threads/RmThread.aspx">Endereço do artigo (e fontes) no Code Project</a></li>
 </ul>
 
             
@@ -127,7 +209,7 @@ RmThread: rode código em processo vizinho
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

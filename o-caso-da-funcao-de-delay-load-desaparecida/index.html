@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Todos os projetos do Visual Studio 6 estavam compilando normalmente com a nova modificação do código-fonte, uma singela chamada a uma função.aspx) da DLL iphlpapi.dll. No entanto, ainda restava a..."/>
+        content="Todos os projetos do Visual Studio 6 estavam compilando normalmente com a nova modificação do código-fonte, uma singela chamada a uma função da DLL iphlpapi.dll. No entanto, ainda restava a compilação..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,23 +105,45 @@ O caso da função de Delay Load desaparecida
           <div class="content">
 
             
-              <p>Todos os projetos do Visual Studio 6 estavam compilando normalmente com a nova modificação do código-fonte, uma singela chamada a uma função.aspx) da DLL iphlpapi.dll. No entanto, ainda restava a compilação para Windows 95, um legado que não era permitido esquecer devido ao parque antigo de máquinas e sistemas operacionais de nossos clientes.</p>
+              <p>Todos os projetos do Visual Studio 6 estavam compilando normalmente com a nova modificação do código-fonte, uma singela chamada a uma <a href="http://msdn.microsoft.com/en-us/library/aa366012(VS.85).aspx">função</a> da DLL <strong>iphlpapi.dll</strong>. No entanto, ainda restava a compilação para Windows 95, um legado que não era permitido esquecer devido ao parque antigo de máquinas e sistemas operacionais de nossos clientes.</p>
 <p>Ora, acontece que a função em questão não existe em Windows 95! O que fazer?</p>
-<p>Essa é uma situação comum e controlada, que chega a ser quase um padrão de projeto: funções novas demais. A saída? Não chamar a função quando o sistema não for novo o suficiente. Isso pode ser resolvido facilmente com uma chamada a GetVersion.aspx).</p>
-<p>Porém, um outro problema decorrente dessa situação é que a função chamada estaticamente cria um link de importação da DLL para o executável. Ou seja, uma dependência estática. Dependências estáticas necessitam ser resolvidas antes que o programa execute, e o carregador (loader) de programas do sistema é responsável por essa verificação.</p>
-<p>Para verificar a existência de todas as DLLs e funções necessárias para nosso programa podemos utilizar o mundialmente conhecido Dependency Walker:</p>
+<p>Essa é uma situação comum e controlada, que chega a ser quase um padrão de projeto: <strong>funções novas demais</strong>. A saída? Não chamar a função quando o sistema não for novo o suficiente. Isso pode ser resolvido facilmente com uma chamada a <a href="http://msdn.microsoft.com/en-us/library/ms724439(VS.85).aspx">GetVersion</a>.</p>
+<p>Porém, um outro problema decorrente dessa situação é que a função chamada estaticamente cria um <em>link</em> de importação da DLL para o executável. Ou seja, uma <strong>dependência estática</strong>. Dependências estáticas necessitam ser resolvidas antes que o programa execute, e o carregador (<em>loader</em>) de programas do sistema é responsável por essa verificação.</p>
+<p>Para verificar a existência de todas as DLLs e funções necessárias para nosso programa podemos utilizar o mundialmente conhecido <a href="http://www.dependencywalker.com/">Dependency Walker</a>:</p>
+<pre><code>depends meu_executa&lt;strike&gt;&lt;/strike&gt;vel.exe
+</code></pre>
+<p><img src="/images/depends_meu_executavel.PNG" alt="depends_meu_executavel.PNG"></p>
 <p>Se a função ou DLL não existe no sistema, o seguinte erro costuma ocorrer (isso depende da versão do Sistema Operacional):</p>
+<p><img src="/images/loader_erro.PNG" alt="loader_erro.PNG"></p>
 <p>Mas nem tudo está perdido!</p>
+<h4 id="visual-studio-delay-load-dll">Visual Studio Delay Load DLL</h4>
 <p>Existe uma LIB no Visual Studio que serve para substituir a dependência estática de uma DLL pela verificação dinâmica da existência de suas funções quando, e se, for executada a função no programa.</p>
 <p>Essa LIB contém algumas funções-chave que o Visual Studio utiliza ser for usado o seguinte parâmetro de compilação:</p>
-<p>A função principal se chama &quot;delayLoadHelper@8&quot;, ou seja, é uma função com convenção de chamada WINAPI (stdcall) que recebe dois parâmetros.</p>
+<pre><code>/delayload:iphlpapi.dll
+</code></pre>
+<p>A função principal se chama &quot;__delayLoadHelper@8&quot;, ou seja, é uma função com convenção de chamada WINAPI (stdcall) que recebe dois parâmetros.</p>
 <p>Isso costuma sempre funcionar, sendo que tive uma grande surpresa com os seguintes erros de compilação na versão do programa que deve ser executada em Windows 95:</p>
+<pre><code>--------------------Configuration: Project - Win32 Win95 Release--------------------
+Linking...
+iphlpapi.lib(iphlpapi.dll) : error LNK2001: unresolved external symbol ___delayLoadHelper@8
+release/meu_executavel.exe : fatal error LNK1120: 1 unresolved externals
+Error executing link.exe.
+
+meu_executavel.exe - 3 error(s), 0 warning(s)
+</code></pre>
 <p>Isso, é claro, depois de ter checado e rechecado a existência da LIB de Delay Load na lista de LIBs a serem lincadas:</p>
-<p>Acontece que eu conheço algumas ferramentas que podem sempre me ajudar em situações de compilação e linque: Process Monitor e dumpbin.</p>
+<p><img src="/images/delayimp.PNG" alt="delayimp.PNG"></p>
+<h4 id="e-agora-josé">E agora, José?</h4>
+<p>Acontece que eu conheço algumas ferramentas que podem sempre me ajudar em situações de compilação e linque: <a href="http://technet.microsoft.com/en-us/sysinternals/bb896645.aspx?PHPSESSID=d926">Process Monitor</a> e <a href="http://support.microsoft.com/kb/177429">dumpbin</a>.</p>
 <p>O Process Monitor pode ser usado para obter exatamente a localização da LIB que estamos tentando verificar:</p>
+<p><img src="/images/delayimpprocmon.PNG" alt="delayimpprocmon.PNG"></p>
 <p>Após localizar o local, podemos listar seus símbolos, mais precisamente a função &quot;delayLoadHelper&quot;:</p>
+<pre><code>C:\DDK\3790\lib\w2k\i386&gt;dumpbin /symbols delayimp.lib | grep delayLoadHelper
+108 00000000 SECT3C notype ()    External     | ___delayLoadHelper2@8
+</code></pre>
 <p>A análise mostra que a função possui um &quot;2&quot; no final de seu nome, causando o erro de linque.</p>
-<p>Essa função, pelo visto, tem mudado de nome desde o Visual C++ 6, o que fez com que LIBs mais novas não funcionassem com essa versão do Visual Studio.</p>
+<h4 id="mudanças-na-função__delayloadhelper">Mudanças na função__delayLoadHelper</h4>
+<p>Essa função, <a href="http://msdn.microsoft.com/en-us/library/2b054ds4.aspx">pelo visto</a>, tem mudado de nome desde o Visual C++ 6, o que fez com que LIBs mais novas não funcionassem com essa versão do Visual Studio.</p>
 <p>Para sanar o problema, existem duas coisas que podem ser feitas:</p>
 <ol>
 <li>
@@ -140,7 +162,7 @@ O caso da função de Delay Load desaparecida
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

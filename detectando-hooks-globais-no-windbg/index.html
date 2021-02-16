@@ -27,7 +27,7 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um hook global:
-Vamos analisar cada..."/>
+bp..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,19 +106,57 @@ Detectando hooks globais no WinDbg
           <div class="content">
 
             
-              <p>Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um hook global:</p>
+              <p>Nada como um comando prático para aprender rapidamente uma técnica. Nesse caso, tive que usar o comando abaixo para localizar o momento em que um executável instala um <em>hook</em> global:</p>
+<pre><code>bp user32!SetWindowsHookExA &quot;j poi(esp+4*4) 'g' ; '.echo *** GLOBAL HOOK ***; g'&quot;
+</code></pre>
 <p>Vamos analisar cada um dos subcomandos novos um a um.</p>
-<p>No WinDbg é possível definir um ou mais comandos que são executados quando um breakpoint é acionado. Esses comandos ficam entre aspas duplas e podem conter as mesmas coisas que digitamos na linha de comando. Alguns comandos, porém, são mais úteis que outros nesse contexto. Por exemplo, o comando &quot;.echo&quot;. Podemos digitar .echo na linha de comando do WinDbg. O que acontece?</p>
-<p>Exatamente o que o comando se dispõe a fazer: imprimir seus argumentos na tela. E qual a vantagem nisso? Nenhuma, se estamos na linha de comando. Mas muita se estivermos colocando um breakpoint onde queremos contar o número de vezes que passamos por lá, o comando tem serventia:</p>
+<h4 id="comandos-acionados-por-_breakpoints_">Comandos acionados por <em>breakpoints</em></h4>
+<p>No WinDbg é possível definir um ou mais comandos que são executados quando um <em>breakpoint</em> é acionado. Esses comandos ficam entre aspas duplas e podem conter as mesmas coisas que digitamos na linha de comando. Alguns comandos, porém, são mais úteis que outros nesse contexto. Por exemplo, o comando &quot;.echo&quot;. Podemos digitar .echo na linha de comando do WinDbg. O que acontece?</p>
+<pre><code>7c901230 cc              int     3
+0:000&gt; .echo O que acontece?
+O que acontece?
+</code></pre>
+<p>Exatamente o que o comando se dispõe a fazer: <strong>imprimir seus argumentos na tela</strong>. E qual a vantagem nisso? Nenhuma, se estamos na linha de comando. Mas muita se estivermos colocando um <em>breakpoint</em> onde queremos contar o número de vezes que passamos por lá, o comando tem serventia:</p>
+<pre><code>0:000&gt; bp $exentry &quot;.echo Passou pelo entry point; g&quot;
+0:000&gt; g
+ModLoad: 5cb70000 5cb96000   C:WINDOWSsystem32ShimEng.dll
+ModLoad: 6f880000 6fa4a000   C:WINDOWSAppPatchAcGenral.DLL
+ModLoad: 76b40000 76b6d000   C:WINDOWSsystem32WINMM.dll
+ModLoad: 774e0000 7761d000   C:WINDOWSsystem32ole32.dll
+...
+ModLoad: 5ad70000 5ada8000   C:WINDOWSsystem32UxTheme.dll
+ModLoad: 76390000 763ad000   C:WINDOWSsystem32IMM32.DLL
+&lt;font color=&quot;#ff0000&quot;&gt;Passou pelo entry point&lt;/font&gt;
+ModLoad: 74720000 7476b000   C:WINDOWSsystem32MSCTF.dll
+ModLoad: 755c0000 755ee000   C:WINDOWSsystem32msctfime.ime
+ModLoad: 10000000 10006000   C:Program FilesMouseToolMT.dll
+</code></pre>
 <p>Se essa mensagem fosse exibida mais de uma vez, poderíamos supor que é possível existir algum tipo de infecção na execução do aplicativo, como quando o código inicial carrega o original e volta a executar o mesmo ponto.</p>
-<p>O objetivo aqui é &quot;preparar o terreno&quot; (ficar residente) antes que o código original seja executado. Com um simples breakpoint e um simples .echo conseguimos visualizar esse tipo de ataque. Outra possibilidade é que se trata daqueles executáveis &quot;empacotados&quot; por meio de algum encriptador de códigos como UPX, que desempacota o código e reexecuta o ponto de entrada do executável.</p>
+<p><a href="/images/codigo-malicioso.gif"><img src="http://i.imgur.com/f90hl3p.gif" alt="Código Malicioso"></a></p>
+<p>O objetivo aqui é &quot;preparar o terreno&quot; (ficar residente) antes que o código original seja executado. Com um simples <em>breakpoint</em> e um simples .echo conseguimos visualizar esse tipo de ataque. Outra possibilidade é que se trata daqueles executáveis &quot;empacotados&quot; por meio de algum encriptador de códigos como <a href="http://www.google.com.br/search?q=UPX">UPX</a>, que desempacota o código e reexecuta o ponto de entrada do executável.</p>
 <p>Claro, esse é apenas um uso que podemos fazer desses comandos.</p>
-<p>Aprendi o comando j antes do .if, por isso acabo usando mais o primeiro, mas ambos possuem similaridades. O formato desse comando é exatamente como um &quot;if-else&quot;:</p>
-<p>Se Expression for verdadeiro, Command1 será executado; do contrário, Command2 será. Se você não precisa do else basta usar um comando vazio ' '. A escolha é sua em usar aspas simples ou nada. Se usar aspas simples, é possível colocar mais de um comando, que foi o que eu fiz no else:</p>
-<p>Tudo depende do uso que você fizer desde comando. Algumas peculiaridades existem com relação ao uso de aspas duplas, simples, sem aspas, com ponto-e-vírgula, etc, mas são coisas que, como diz o Thiago, &quot;só se aprende na dor&quot;.</p>
-<p>Lembram-se de nossa peregrinação pela pilha de chamadas quando fizemos um hook na função MessageBox pelo WinDbg? Aqui é a mesma coisa, pois estou analisando um parâmetro passado na pilha (esp): o ID da thread para onde vai o hook:</p>
+<h4 id="o-comando-j-ou-if">O comando j ou if</h4>
+<p>Aprendi o comando <strong>j</strong> antes do <strong>.if</strong>, por isso acabo usando mais o primeiro, mas ambos possuem similaridades. O formato desse comando é exatamente como um &quot;<em>if-else</em>&quot;:</p>
+<pre><code>j Expression Command1 ; Command2
+j Expression 'Command1' ; 'Command2'
+</code></pre>
+<p>Se <strong>Expression</strong> for verdadeiro, <strong>Command1</strong> será executado; do contrário, <strong>Command2</strong> será. Se você não precisa do <em>else</em> basta usar um comando vazio ' '. A escolha é sua em usar aspas simples ou nada. Se usar aspas simples, é possível colocar mais de um comando, que foi o que eu fiz no <em>else</em>:</p>
+<pre><code>'.echo *** GLOBAL HOOK ***; g'&quot;
+</code></pre>
+<p>Tudo depende do uso que você fizer desde comando. Algumas peculiaridades existem com relação ao uso de aspas duplas, simples, sem aspas, com ponto-e-vírgula, etc, mas são coisas que, como diz o <a href="http://www.codebehind.wordpress.com">Thiago</a>, &quot;só se aprende na dor&quot;.</p>
+<h4 id="brincando-com-a-pilha-de-novo">Brincando com a pilha (de novo)</h4>
+<p>Lembram-se de nossa peregrinação pela pilha de chamadas quando fizemos um <a href="http://www.caloni.com.br/brincando-com-o-windbg"><em>hook</em> na função MessageBox</a> pelo WinDbg? Aqui é a mesma coisa, pois estou analisando um parâmetro passado na pilha (esp): o ID da <em>thread</em> para onde vai o <em>hook</em>:</p>
+<pre><code>HHOOK &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/ms644990.aspx&quot; title=&quot;SetWindowsHookEx no MSDN&quot;&gt;SetWindowsHookEx&lt;/a&gt;(
+    int idHook,
+    HOOKPROC lpfn,
+    HINSTANCE hMod,
+    DWORD dwThreadId &lt;font color=&quot;#339966&quot;&gt;// Identifier of the thread (...) to be associated&lt;/font&gt;
+    );
+</code></pre>
 <p>Relembrando nosso passeio pela pilha, ao entrar em uma função stdcall, os primeiros 4 bytes são o endereço de retorno, os próximos o primeiro parâmetro e assim por diante. O que quer dizer que:</p>
-<p>É o apontado do quarto parâmetro (4<em>4) que está sendo verificado. Concluindo, se o parâmetro dwThreadId for igual a zero, estamos diante de um hook global, e é o momento em que meu .echo vai exibir na tela &quot;</em>** GLOBAL HOOK ***&quot;. Do contrário, a execução vai continuar silenciosamente.</p>
+<pre><code>poi ( esp + (4 * 4) )
+</code></pre>
+<p>É o apontado do quarto parâmetro (4<em>4) que está sendo verificado. Concluindo, se o parâmetro <strong>dwThreadId</strong> for igual a zero, estamos diante de um <em>hook</em> global, e é o momento em que meu .echo vai exibir na tela &quot;</em>** GLOBAL HOOK ***&quot;. Do contrário, a execução vai continuar silenciosamente.</p>
 
             
 
@@ -127,7 +165,7 @@ Detectando hooks globais no WinDbg
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

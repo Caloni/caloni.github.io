@@ -105,11 +105,35 @@ Migrando Imagens Para Imgur
           <div class="content">
 
             
-              <p>Depois de migrar meus blogues para o Hugo decidi deixar o repositório mais magro migrando as imagens para um serviço de imagens. O imgur me pareceu uma solução simples com uma interface rápida (e uma API Python). Para realizar essa tarefa você vai precisar das ferramentas de sempre: grep, sed, python, vim. E lá vamos nós.</p>
+              <p>Depois de migrar meus blogues para o <a href="https://gohugo.io">Hugo</a> decidi deixar o repositório mais magro migrando as imagens para um serviço de imagens. O <a href="http://imgur.com/">imgur</a> me pareceu uma solução simples com uma interface rápida (e uma API Python). Para realizar essa tarefa você vai precisar das ferramentas de sempre: grep, sed, python, vim. E lá vamos nós.</p>
 <p>Meu primeiro passo foi realmente limpar a pasta de imagens, eliminando as que não estavam sendo usadas. A pasta de imagens ficou se acumulando por anos, e muitas imagens foram sendo carregadas através dos Wordpress da vida e plugins que deram resize nas imagens, gerando várias cópias no processo. Tudo inútil e dispendioso.</p>
-<p>O principal problema de subir tudo para o imgur é que os nomes dos arquivos irão mudar e perder a referências usadas no texto. Para conseguir renomear os arquivos dentro dos artigos é necessário conectar no serviço do imgur e através dele obter o nome original do arquivo, disponível na propriedade name:</p>
-<p>Executando este script será possível gerar um log no formato nome-original-do-arquivo =&gt; id-da-imagem-usado-pelo-imgur. O ID deles também é usado para link direto da imagem, de onde virá o comando sed que vai substituir nos artigos os nomes originais pelo link do imgur:</p>
-<p>Lembrar de apagar o all.md. Ele só foi usado para gerar a saída mais simples do grep.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat"><span style="color:#66d9ef">dir</span> /b imagens\*.* &gt; images.bat
+<span style="color:#75715e">rem transformar cada linha de images.bat em:</span>
+<span style="color:#75715e">rem grep -c imagem.png all.md</span>
+images.bat &gt; result.log
+<span style="color:#75715e">rem a partir do vim juntar o resultado das linhas e apagar os resultados não-zerados</span>
+<span style="color:#75715e">rem imagem-found.png</span>
+<span style="color:#75715e">rem 1</span>
+<span style="color:#75715e">rem imagem-not-found.png</span>
+<span style="color:#75715e">rem 0</span>
+v/<span style="color:#ae81ff">^[</span>0-9]/j
+v/0$/d
+<span style="color:#75715e">rem pronto; agora é só rodar o result.log como bat</span>
+</code></pre></div><p>O principal problema de subir tudo para o imgur é que os nomes dos arquivos irão mudar e perder a referências usadas no texto. Para conseguir renomear os arquivos dentro dos artigos é necessário conectar no serviço do imgur e através dele obter o nome original do arquivo, disponível na propriedade <strong>name</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> auth
+
+client <span style="color:#f92672">=</span> auth<span style="color:#f92672">.</span>authenticate()
+f <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;images.txt&#39;</span>)
+imgs <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readlines()
+<span style="color:#66d9ef">for</span> img <span style="color:#f92672">in</span> imgs:
+    img <span style="color:#f92672">=</span> img<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+    imgur <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>get_image(img)
+    origname <span style="color:#f92672">=</span> imgur<span style="color:#f92672">.</span>link[imgur<span style="color:#f92672">.</span>link<span style="color:#f92672">.</span>find(img):]<span style="color:#f92672">.</span>replace(img, imgur<span style="color:#f92672">.</span>name)
+    <span style="color:#66d9ef">print</span> origname, <span style="color:#e6db74">&#39;=&gt;&#39;</span>, img
+
+</code></pre></div><p>Executando este script será possível gerar um log no formato <strong><!-- raw HTML omitted --> =&gt; <!-- raw HTML omitted --></strong>. O ID deles também é usado para link direto da imagem, de onde virá o comando sed que vai substituir nos artigos os nomes originais pelo link do imgur:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">sed -i <span style="color:#e6db74">&#34;s/&lt;nome-original-do-arquivo&gt;/http\/\/:\/&lt;link-da-imagem-no-imgur&gt;/&lt;id-do-imgur&gt;.&lt;extensao&gt;/&#34;</span> *.md
+</code></pre></div><p>Lembrar de apagar o all.md. Ele só foi usado para gerar a saída mais simples do grep.</p>
 
             
 
@@ -118,7 +142,7 @@ Migrando Imagens Para Imgur
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

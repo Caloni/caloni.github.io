@@ -26,8 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue (na época que o blogue tinha comentários) e tive o prazer de conhecer no 4o. EPA-CCPP.
-É possível, apesar..."/>
+        content="Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue e tive o prazer de conhecer no 4o. EPA-CCPP.
+É possível, apesar de bizarro, colocar um bloco try-catch em..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,11 +106,80 @@ Try-catch flutuante
           <div class="content">
 
             
-              <p>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue (na época que o blogue tinha comentários) e tive o prazer de conhecer no 4o. EPA-CCPP.</p>
+              <p>Esse detalhe da linguagem quem me fez descobrir foi o <strong>Yorick</strong>, que <a href="http://www.caloni.com.br/quando-o-ponteiro-nulo-nao-e-invalido#comment-345">costuma comentar</a> no blogue e tive o prazer de conhecer no <a href="http://www.caloni.com.br/blog/epa-ccpp-4-nossa-comunidade-ganhando-forma">4o. EPA-CCPP</a>.</p>
 <p>É possível, apesar de bizarro, colocar um bloco try-catch em torno da lista de inicialização de variáveis de um construtor. Essa característica da linguagem permite que possamos capturar alguma exceção lançada por algum construtor de algum membro da classe. A construção em código ficaria no estilo abaixo:</p>
+<pre><code>Class::Class() try : initialization-list
+{
+    // Class constructor body
+}
+catch(...) // note: this IS right!
+{
+    // do something about
+    // just like &quot;throw&quot; over here
+}
+</code></pre>
 <p>Apesar dessa capacidade, não conseguimos parar o lançamento da exceção. Após seu lançamento, caímos no bloco catch abaixo do corpo do construtor e a exceção é lançada novamente, como se houvesse uma intrução throw no final do catch.</p>
 <p>O exemplo abaixo demonstra um código de uma classe que captura a exceção durante a inicialização dos membros. Na seguida o catch da função main é executada, provando que a exceção de fato não é &quot;salva&quot; no primeiro bloco.</p>
-<p>Testei esse código nos seguintes compiladores:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* This class explodes */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Explode</span>
+{
+	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+		Explode(<span style="color:#66d9ef">int</span> x) 
+		{
+			m_x <span style="color:#f92672">=</span> x;
+			<span style="color:#66d9ef">throw</span> x;
+		}
+
+		<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>()
+		{
+			std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The number: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> m_x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+		}
+
+	<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">int</span> m_x;
+};
+
+<span style="color:#75715e">/* This class is going to be exploded */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Victim</span>
+{
+	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+		Victim() <span style="color:#66d9ef">try</span> <span style="color:#f92672">:</span> m_explode(<span style="color:#ae81ff">5</span>)
+		{
+			std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;You&#39;re supposed to NOT seeing this...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+		}
+		<span style="color:#66d9ef">catch</span>(...) 
+		{ 
+			std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Something BAD hapenned</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+			std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;We&#39;re going to blow up</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+			<span style="color:#75715e">// just like &#39;throw&#39; over here
+</span><span style="color:#75715e"></span>		}
+
+		<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>()
+		{
+			m_explode.print();
+		}
+
+	<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+		Explode m_explode;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">try</span>
+	{
+		Victim vic;
+	}
+	<span style="color:#66d9ef">catch</span>(...)
+	{
+		std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Something BAD BAD happenned...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	}
+}
+
+ 
+
+</code></pre></div><p>Testei esse código nos seguintes compiladores:</p>
 <ul>
 <li>
 <p>Visual Studio 6. Falhou, demonstrando desconhecer a sintaxe.</p>
@@ -135,6 +204,10 @@ Try-catch flutuante
 </li>
 </ul>
 <p>A saída esperada é a seguinte:</p>
+<pre><code>Something BAD hapenned
+We're going to blow up
+Something BAD BAD happenned...
+</code></pre>
 
             
 
@@ -143,7 +216,7 @@ Try-catch flutuante
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

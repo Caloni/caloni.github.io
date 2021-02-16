@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Pois bem. O mesmo amigo que me recomendou que escrevesse sobre o assunto do ponteiro nulo achou um livro sobre armadilhas em C com um exemplo que demonstra exatamente o contrário: dependendo da..."/>
+        content="Existe coisa mais prazerosa do que admitir um erro que foi cometido na mesma semana? Existe: quando você sabia que estava certo, mas resolveu usar o senso comum por falta de provas.
+Pois bem. O mesmo..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,9 +106,14 @@ Quando o ponteiro nulo não é inválido
           <div class="content">
 
             
-              <p>Pois bem. O mesmo amigo que me recomendou que escrevesse sobre o assunto do ponteiro nulo achou um livro sobre armadilhas em C com um exemplo que demonstra exatamente o contrário: dependendo da plataforma, ponteiros nulos são sim válidos.</p>
-<p>Nesse caso, se tratava de um programa que iria rodar em um microprocessador, daqueles que o DQ costuma programar. Pois bem. Quando o dito cujo ligava era necessário chamar uma rotina que estava localizada exatamente no endereço 0. Para fazer isso, o código era o seguinte:</p>
-<p>Nada mais simples: um cast do endereço 0 (apesar de normalmente inválido, 0 pode ser convertido para endereço) para ponteiro de função que não recebe parâmetros e não retorna nada, seguido de deferência (&quot;o apontado de&quot;) e chamada (a dupla final de parênteses).</p>
+              <p><a href="http://www.codinghorror.com/blog/"><img src="http://i.imgur.com/aa8w09b.png" alt="Coding Horror"></a>Existe coisa mais prazerosa do que admitir um erro que foi cometido na mesma semana? Existe: quando você sabia que estava certo, mas resolveu usar o senso comum por falta de provas.</p>
+<p>Pois bem. O mesmo amigo que me recomendou que escrevesse sobre o assunto do ponteiro nulo achou um livro sobre <a href="http://www.literateprogramming.com/ctraps.pdf">armadilhas em C</a> com um exemplo que demonstra exatamente o contrário: dependendo da plataforma, <strong>ponteiros nulos são sim válidos</strong>.</p>
+<p>Nesse caso, se tratava de um programa que iria rodar em um microprocessador, daqueles que o <a href="http://dqsoft.blospot.com">DQ</a> costuma programar. Pois bem. Quando o dito cujo ligava era necessário chamar uma rotina que estava localizada exatamente no endereço 0. Para fazer isso, o código era o seguinte:</p>
+<pre><code>( * (void(*)()) 0 ) ();
+</code></pre>
+<p>Nada mais simples: um _cast _do endereço 0 (apesar de normalmente inválido, 0 pode ser convertido para endereço) para ponteiro de função que não recebe parâmetros e não retorna nada, seguido de deferência (&quot;o apontado de&quot;) e chamada (a dupla final de parênteses).</p>
+<pre><code>&lt;font color=&quot;#0000ff&quot;&gt;(* &lt;/font&gt;&lt;font color=&quot;#008000&quot;&gt;(void(*)())&lt;/font&gt; 0 &lt;font color=&quot;#0000ff&quot;&gt;) &lt;/font&gt;&lt;font color=&quot;#ff0000&quot;&gt;()&lt;/font&gt;;
+</code></pre>
 <p>É bem o que o autor diz depois de jogar esta expressão: &quot;expressions like these strike terror into the hearts of C programmers&quot;. É lógico que isso não é bem verdade para as pessoas que acompanham este blogue =)</p>
 
             
@@ -117,7 +123,7 @@ Quando o ponteiro nulo não é inválido
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

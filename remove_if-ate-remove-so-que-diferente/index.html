@@ -13,20 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - removeif até remove, só que diferente</title>
+  <title>Blogue do Caloni - remove_if até remove, só que diferente</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="removeif até remove, só que diferente"/>
+  <meta property="og:title" content="remove_if até remove, só que diferente"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/remove_if-ate-remove-so-que-diferente/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="A surpresa de hoje foi descobrir (vejam só) que o removeif, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove..."/>
+        content="A surpresa de hoje foi descobrir (vejam só) que o remove_if, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -83,7 +83,7 @@
       <div class="container">
         <p class="title">
 
-removeif até remove, só que diferente
+remove_if até remove, só que diferente
 
 </p>
 
@@ -105,13 +105,127 @@ removeif até remove, só que diferente
           <div class="content">
 
             
-              <p>A surpresa de hoje foi descobrir (vejam só) que o removeif, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove elementos, mas os sobrescreve.</p>
-<p>Imagine uma função que usa removeif para remover todas as idades de potenciais lolitas:</p>
-<p>Ou até sua contraparte usando um array C:</p>
-<p>Um uso trivial pode não cuspir um resultado trivial, ou seja, os elementos não serão removidos como se espera:</p>
-<p>Isso ocorre porque o comportamento do removeif é copiar todos os elementos que retornem false (não remova) e pular elementos que retornem true (remova). No entanto, o tamanho do contêiner, e consequentemente seu ponteiro end(), permanecem o mesmo.</p>
-<p>De acordo com o saite cplusplus.com, o algoritmo STL é previsível, simples, e por isso mesmo sujeito a otimizações do compilador:</p>
-<p>Para obtermos qual seria o &quot;novo end()&quot;, precisamos obter esse valor do retorno de removeif. Com base nisso, podemos alterar o tamanho do contêiner ajustado:</p>
+              <p>A surpresa de hoje foi descobrir (vejam só) que o remove_if, como todo algoritmo da STL, deve ser olhado de perto antes de usado. Nesse caso em específico porque, apesar do nome, a função NÃO remove elementos, mas os sobrescreve.</p>
+<p>Imagine uma função que usa remove_if para remover todas as idades de potenciais lolitas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RemoveIfLolita</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> ages)
+{
+	remove_if(ages.begin(), ages.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+}
+</code></pre></div><p>Ou até sua contraparte usando um array C:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RemoveIfLolita</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ages, <span style="color:#66d9ef">int</span> size)
+{
+	remove_if(ages, ages <span style="color:#f92672">+</span> size, [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+}
+</code></pre></div><p>Um uso trivial pode não cuspir um resultado trivial, ou seja, os elementos não serão removidos como se espera:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RemoveIfLolita</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ages, <span style="color:#66d9ef">int</span> size)
+{
+	remove_if(ages, ages <span style="color:#f92672">+</span> size, [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RemoveIfLolita</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> ages)
+{
+	remove_if(ages.begin(), ages.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ages;
+
+	ages.push_back(<span style="color:#ae81ff">10</span>);
+	ages.push_back(<span style="color:#ae81ff">21</span>);
+	ages.push_back(<span style="color:#ae81ff">66</span>);
+	ages.push_back(<span style="color:#ae81ff">18</span>);
+	ages.push_back(<span style="color:#ae81ff">16</span>);
+	ages.push_back(<span style="color:#ae81ff">15</span>);
+	ages.push_back(<span style="color:#ae81ff">8</span>);
+	ages.push_back(<span style="color:#ae81ff">24</span>);
+	ages.push_back(<span style="color:#ae81ff">12</span>);
+	ages.push_back(<span style="color:#ae81ff">20</span>);
+	ages.push_back(<span style="color:#ae81ff">13</span>);
+
+	RemoveIfLolita(ages);
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Vector (&#34;</span> <span style="color:#f92672">&lt;&lt;</span> ages.size() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;):</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	for_each(ages.begin(), ages.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { cout <span style="color:#f92672">&lt;&lt;</span> age <span style="color:#f92672">&lt;&lt;</span> endl; });
+
+	<span style="color:#66d9ef">int</span> newAges[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">13</span> };
+	<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> newAgesSz <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>) ( <span style="color:#66d9ef">sizeof</span>(newAges) <span style="color:#f92672">/</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>) );
+	RemoveIfLolita(newAges, newAgesSz);
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Array (&#34;</span> <span style="color:#f92672">&lt;&lt;</span> newAgesSz <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;):</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	for_each(newAges, newAges <span style="color:#f92672">+</span> newAgesSz, [<span style="color:#f92672">&amp;</span>] (<span style="color:#66d9ef">int</span> age) { cout <span style="color:#f92672">&lt;&lt;</span> age <span style="color:#f92672">&lt;&lt;</span> endl; } );
+}
+
+</code></pre></div><p><a href="/images/12056971746_f5852acde2_o.png"><img src="http://i.imgur.com/AzliFSS.png" alt="RemoveIfErrado"></a></p>
+<p>Isso ocorre porque o comportamento do remove_if é copiar todos os elementos que retornem false (não remova) e pular elementos que retornem true (remova). No entanto, o tamanho do contêiner, e consequentemente seu ponteiro end(), permanecem o mesmo.</p>
+<p><a href="/images/12056450103_9cc50c00e2_o.png"><img src="http://i.imgur.com/JHucsWz.png" alt="RemoveIfComportamento"></a></p>
+<p>De acordo com <a href="http://www.cplusplus.com/reference/algorithm/remove_if/">o saite cplusplus.com</a>, o algoritmo STL é previsível, simples, e por isso mesmo sujeito a otimizações do compilador:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForwardIterator</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UnaryPredicate</span><span style="color:#f92672">&gt;</span>
+ForwardIterator remove_if (ForwardIterator first, ForwardIterator last,
+	UnaryPredicate pred)
+{
+	ForwardIterator result <span style="color:#f92672">=</span> first;
+	<span style="color:#66d9ef">while</span> (first<span style="color:#f92672">!=</span>last) {
+		<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>pred(<span style="color:#f92672">*</span>first)) {
+			<span style="color:#f92672">*</span>result <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>first;
+			<span style="color:#f92672">++</span>result;
+		}
+		<span style="color:#f92672">++</span>first;
+	}
+	<span style="color:#66d9ef">return</span> result;
+}
+
+</code></pre></div><p>Para obtermos qual seria o &quot;novo end()&quot;, precisamos obter esse valor do retorno de remove_if. Com base nisso, podemos alterar o tamanho do contêiner ajustado:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">RemoveIfLolita</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ages, <span style="color:#66d9ef">int</span> size)
+{
+	<span style="color:#66d9ef">auto</span> newEnd <span style="color:#f92672">=</span> remove_if(ages, ages <span style="color:#f92672">+</span> size, [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+	<span style="color:#66d9ef">return</span> newEnd <span style="color:#f92672">-</span> ages;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">RemoveIfLolita</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> ages)
+{
+	<span style="color:#66d9ef">auto</span> newEnd <span style="color:#f92672">=</span> remove_if(ages.begin(), ages.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { <span style="color:#66d9ef">return</span> age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">18</span>; } );
+	ages.resize(distance(ages.begin(), newEnd));
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ages;
+
+	ages.push_back(<span style="color:#ae81ff">10</span>);
+	ages.push_back(<span style="color:#ae81ff">21</span>);
+	ages.push_back(<span style="color:#ae81ff">66</span>);
+	ages.push_back(<span style="color:#ae81ff">18</span>);
+	ages.push_back(<span style="color:#ae81ff">16</span>);
+	ages.push_back(<span style="color:#ae81ff">15</span>);
+	ages.push_back(<span style="color:#ae81ff">8</span>);
+	ages.push_back(<span style="color:#ae81ff">24</span>);
+	ages.push_back(<span style="color:#ae81ff">12</span>);
+	ages.push_back(<span style="color:#ae81ff">20</span>);
+	ages.push_back(<span style="color:#ae81ff">13</span>);
+
+	RemoveIfLolita(ages);
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Vector (&#34;</span> <span style="color:#f92672">&lt;&lt;</span> ages.size() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;):</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	for_each(ages.begin(), ages.end(), [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> age) { cout <span style="color:#f92672">&lt;&lt;</span> age <span style="color:#f92672">&lt;&lt;</span> endl; });
+
+	<span style="color:#66d9ef">int</span> newAges[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">13</span> };
+	<span style="color:#66d9ef">int</span> newAgesSz <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>) ( <span style="color:#66d9ef">sizeof</span>(newAges) <span style="color:#f92672">/</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>) );
+	newAgesSz <span style="color:#f92672">=</span> RemoveIfLolita(newAges, newAgesSz);
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Array (&#34;</span> <span style="color:#f92672">&lt;&lt;</span> newAgesSz <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;):</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	for_each(newAges, newAges <span style="color:#f92672">+</span> newAgesSz, [<span style="color:#f92672">&amp;</span>] (<span style="color:#66d9ef">int</span> age) { cout <span style="color:#f92672">&lt;&lt;</span> age <span style="color:#f92672">&lt;&lt;</span> endl; } );
+}
+
+</code></pre></div><p><a href="/images/12059866914_0a75cb036a_o.png"><img src="http://i.imgur.com/Q7f2N1G.png" alt="RemoveIfFunciona"></a></p>
 <p>Esse C++... intuitivo como nunca!</p>
 
             
@@ -121,7 +235,7 @@ removeif até remove, só que diferente
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

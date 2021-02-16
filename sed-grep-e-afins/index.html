@@ -108,26 +108,90 @@ Sed, Grep e afins
               <p>Esse artigo é resultado de eu ter me matado para conseguir encontrar a forma correta de usar o aplicativo sed para fazer uma filtragem simples nos resultados de uma listagem de arquivos.</p>
 <p>Primeiramente, eu gostaria de expressar minha total surpresa ao não conseguir encontrar um guia simples e confiável de uso dessas ferramentas na web. Existem três teorias: ou eu não sei usar as palavras mágicas certas no Google, ou a indexação das páginas realmente importantes sobre o assunto não funcionam com o Google, ou de fato não existe documentação fácil sobre o tema.</p>
 <p>Como esta é uma exceção em anos de &quot;googadas&quot;, eu fico com a terceira opção.</p>
+<h4 id="algumas-explicações-que-merecem-ser-explicadas">Algumas explicações que merecem ser explicadas</h4>
 <p>Existem algumas ferramentas que já salvaram minha vida uma dúzia de vezes e devo admitir que são tão poderosas e flexíveis quanto difíceis de usar:</p>
 <ul>
-<li>Grep. Use esta se quiser fazer uma busca, qualquer busca, em um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.</li>
-<li>Sed. Use esta se quiser processar a entrada de um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.</li>
-<li>Sort. Use esta se quiser ordenar qualquer coisa da entrada padrão (inclusive arquivos, conjunto de arquivos...).</li>
+<li>
+<p><strong>Grep</strong>. Use esta se quiser <strong>fazer uma busca</strong>, qualquer busca, em um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.</p>
+</li>
+<li>
+<p><strong>Sed</strong>. Use esta se quiser <strong>processar a entrada</strong> de um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.</p>
+</li>
+<li>
+<p><strong>Sort</strong>. Use esta se quiser <strong>ordenar</strong> qualquer coisa da entrada padrão (inclusive arquivos, conjunto de arquivos...).</p>
+</li>
 </ul>
-<p>Essas ferramentas são nativas do ambiente Linux, mas podem ser instaladas no Windows através do Cygwin, do Mingw ou nativamente através das ferramentas GnuWin32.</p>
+<!-- raw HTML omitted -->
 <p>O que eu queria era processar a saída de um programa de forma que eu tivesse a lista de todas as extensões dos arquivos. Por exemplo, para a seguinte entrada:</p>
+<pre><code>c:\path\arquivo1.cpp
+c:\path\arquivo2.h
+c:\arquivo3.hpp
+c:\path\path2\arquivo4.cpp
+</code></pre>
 <p>Eu gostaria de uma saída no seguinte formato:</p>
+<pre><code>.cpp
+.h
+.hpp
+</code></pre>
 <p>Basicamente é isso.</p>
-<p>Sabendo que processamento de entrada estaria envolvido, logo pensei em utilizar o sed para a tarefa. Justiça seja feita, depois de eu perder uma hora e meia em pesquisa eu encontrei um tutorial muito bom para quem está começando a entender melhor o funcionamento do sed, e é nele que me baseei para resolver meu problema e escrever este artigo.</p>
-<p>Obs.: sim, eu conheço os tutoriais do Aurélio, e aprendi regex através do livro dele. Contudo, seu guia do sed não é tão bom quanto parece, e apesar de lê-lo de cabo a rabo, acabei precisando de ajuda extra.</p>
-<p>Para filtrar o path do arquivo, e ao mesmo tempo retirar seu nome, podemos usar o seguinte comando (fora outras trilhões de variantes):</p>
+<p>Sabendo que <strong>processamento de entrada</strong> estaria envolvido, logo pensei em utilizar o sed para a tarefa. Justiça seja feita, depois de eu perder uma hora e meia em pesquisa eu encontrei um <a href="http://www.cs.hmc.edu/qref/sed.html">tutorial muito bom</a> para quem está começando a entender melhor o funcionamento do sed, e é nele que me baseei para resolver meu problema e escrever este artigo.</p>
+<!-- raw HTML omitted -->
+<p>Para filtrar o _path _do arquivo, e ao mesmo tempo retirar seu nome, podemos usar o seguinte comando (fora outras trilhões de variantes):</p>
+<pre><code>programa | sed -e &quot;s/^.*\\//&quot; -e &quot;s/.*\.\(.*\)/\1/&quot;
+</code></pre>
 <p>Após esse processamento, a saída é um monte de extensões vindas de um monte de arquivos:</p>
-<p>Como podemos ver e é óbvio de imaginar, muitas extensões irão se repetir. Para eliminar as repetições e ordenar a saída da saída corretamente, usamos o comando sort:</p>
+<pre><code>cpp
+h
+cpp
+h
+c
+h
+cpp
+h
+mak
+vcproj
+h
+cpp
+h
+cpp
+h
+cpp
+h
+cpp
+h
+c
+h
+txt
+c
+cpp
+h
+mak
+vcproj
+cpp
+h
+...
+</code></pre>
+<p>Como podemos ver e é óbvio de imaginar, muitas extensões irão se repetir. Para eliminar as repetições e <strong>ordenar</strong> a saída da saída corretamente, usamos o comando sort:</p>
+<pre><code>programa | sed -e &quot;s/^.*\\//&quot; -e &quot;s/.*\.\(.*\)/\1/&quot; | sort -u
+</code></pre>
+<h4 id="algumas-coisas-que-eu-reaprendi-hoje">Algumas coisas que eu (re)aprendi hoje</h4>
 <ul>
-<li>Os caracteres .*[]^$\ dão problemas se usados sem escape no sed, pois fazem parte dos comandos para procurar expressões regulares. Use-os com o caractere de escape .</li>
-<li>Para concatenar comandos no sed, use sempre -e &quot;comando&quot;. A ordem de execução dos comandos é a ordem em que eles são inseridos na linha de comando, ou seja, podemos confiar que no segundo comando o primeiro já terá sido executado e assim por diante.</li>
-<li>Para fazer o escape das barras do caminho de um arquivo temos que usar o conjunto / (obs.: caminhos em formato Unix). Para evitar esse uso enfadonho podemos substituir o caractere de divisão do comando s colocando-o na frente: s#/path#/outropath#</li>
-<li>Para agrupar expressõe, use sempre &quot;(&quot; e &quot;)&quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.</li>
+<li>
+<p>Os caracteres .*[]^$\ dão problemas se usados sem escape no sed, pois fazem parte dos comandos para procurar expressões regulares. Use-os com o caractere de escape .</p>
+</li>
+<li>
+<p>Para concatenar comandos no sed, use sempre -e &quot;comando&quot;. A ordem de execução dos comandos é a ordem em que eles são inseridos na linha de comando, ou seja, podemos confiar que no segundo comando o primeiro já terá sido executado e assim por diante.</p>
+</li>
+<li>
+<p>Para fazer o escape das barras do caminho de um arquivo temos que usar o conjunto / (obs.: caminhos em formato Unix). Para evitar esse uso enfadonho podemos substituir o caractere de divisão do comando s colocando-o na frente:</p>
+<ul>
+<li>s/path/muito/muito/muito/longo.cpp/outropath/muito/muito/longo.cpp/
+s#/path/muito/muito/muito/longo.cpp#/outropath/muito/muito/longo.cpp#</li>
+</ul>
+</li>
+<li>
+<p>Para agrupar expressõe, use sempre &quot;(&quot; e &quot;)&quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.</p>
+</li>
 </ul>
 
             
@@ -137,7 +201,7 @@ Sed, Grep e afins
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

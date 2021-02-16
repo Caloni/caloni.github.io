@@ -27,7 +27,19 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Padrão C (ISO/IEC 9899:1990)
-Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida..."/>
+6.5.3 type-qualifier
+ const
+ volatile
+
+
+Padrão C&#43;&#43; (ISO/IEC 14882:1998)
+
+cv-qualifier
+ const
+ volatile
+
+Qualificadores de tipo
+Chamamos de qualificador de tipo..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,20 +119,78 @@ Const e Volatile
 
             
               <p>Padrão C (ISO/IEC 9899:1990)</p>
-<p>Chamamos de qualificador de tipo as palavrinhas mágicas const e volatile. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida do programa.</p>
+<pre><code>6.5.3 type-qualifier
+ const
+ volatile
+
+
+Padrão C++ (ISO/IEC 14882:1998)
+
+cv-qualifier
+ const
+ volatile
+</code></pre>
+<h4 id="qualificadores-de-tipo">Qualificadores de tipo</h4>
+<p>Chamamos de qualificador de tipo as palavrinhas mágicas **const **e <strong>volatile</strong>. Na prática elas definem como uma determinada variável será usada e se comportará durante a vida do programa.</p>
+<h4 id="const">Const</h4>
 <p>Uma variável const não pode ser alterada pelo programa durante sua execução, apenas durante sua inicialização:</p>
-<p>No exemplo acima, o valor de pi não pode mais ser alterado. Só que repare que ele foi, em determinado momento, alterado com um valor constante: na sua inicialização. Isso quer dizer que pi:</p>
+<pre><code>const float pi = 3.14; // até onde sabemos, pi não irá mudar neste Universo
+</code></pre>
+<p>No exemplo acima, o valor de pi não pode mais ser alterado. Só que repare que ele foi, em determinado momento, alterado com um valor constante: na sua inicialização. Isso quer dizer que:</p>
 <ul>
-<li>é uma variável no programa representada por um local na memória endereçável pelo programa;</li>
-<li>não é um define do pré-processador que irá virar uma constante literal (3.14, por exemplo).</li>
+<li>
+<p>pi é uma variável no programa representada por um local na memória **endereçável **pelo programa</p>
+</li>
+<li>
+<p>pi não é um define do pré-processador que irá virar uma constante literal (3.14, por exemplo)</p>
+<p>// eu posso endereçar uma constante,
+// desde que qualifique corretamente meu ponteiro
+const float* ppi = &amp; pi;</p>
+</li>
 </ul>
+<p><img src="http://i.imgur.com/V6eR9ln.png" alt="const-memory.png"></p>
 <p>Teoricamente a região da memória que contiver uma variável const pode ser qualificada pelo sistema operacional como somente-leitura, mas isso não é uma obrigação. É obrigação do compilador avisar sobre tentativas de alteração da variável no meio do programa, mas nem sempre é possível enxergar que a memória não é alterável. Dessa forma, resultados imprevisíveis podem ocorrer.</p>
+<p><img src="http://i.imgur.com/d51bAIH.png" alt="const-gpf.png"></p>
+<h4 id="uso-prático">Uso prático</h4>
 <p>Eu costumo usar variáveis const no lugar de defines. Além de ganhar na tipagem as constantes não precisam ser necessariamente globais, nem acessíveis por outros módulos. Um outro uso muito comum é criar variáveis locais que você sabe que não devem ser alteráveis por ninguém, como o tamanho de matrizes primitivas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">namespace</span> Math
+{
+	<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> Pi <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>;
+}
+
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">func1</span>(<span style="color:#66d9ef">int</span> x)
+{
+	<span style="color:#66d9ef">float</span> calc <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> Math<span style="color:#f92672">::</span>Pi;
+	<span style="color:#66d9ef">return</span> calc;
+}
+
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">func2</span>(<span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">const</span> size_t PathSize <span style="color:#f92672">=</span> MAX_PATH <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+	<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">char</span> path[PathSize];
+	<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>}
+ 
+
+</code></pre></div><h4 id="volatile">Volatile</h4>
 <p>O significado do volatile teoricamente muda de implementação para implementação, mas na prática é uma forma de definir uma variável que está sendo acessada por outros programas/threads/entidades espíritas que podem alterar o seu valor sem seu programa notar quando.</p>
-<p>O exemplo clássico da API Win32 é o InterlockedIncrement, que realiza operações atômicas em valores inteiros. Para fazer isso é necessário usar um recurso interno disponível pelo processador que irá modificar a memória sem intrusão de outras threads/processadores.</p>
+<p><img src="http://i.imgur.com/carbzjo.jpg" alt="Se concentre! Não é esse tipo de volatile!"></p>
+<p>O exemplo clássico da API Win32 é o <a href="http://msdn.microsoft.com/en-us/library/ms683614%28VS.85%29.aspx">InterlockedIncrement</a>, que realiza operações atômicas em valores inteiros. Para fazer isso é necessário usar um recurso interno disponível pelo processador que irá modificar a memória sem intrusão de outras threads/processadores.</p>
+<p><img src="http://i.imgur.com/3mqVrqA.png" alt="interlocked-increment.png"></p>
+<h4 id="uso-prático-1">Uso prático</h4>
 <p>Variáveis volatile geralmente interagem de alguma forma com o sistema em que rodam, e são representadas por ponteiros para memória retornada por esse sistema ou documentada como sendo de uso específico.</p>
+<h4 id="const-e-volatile">Const e Volatile</h4>
 <p>É possível que exista uma variável que não pode ser modificada pelo seu programa, mas é modificada pelo sistema, de forma que ela é uma mutante!</p>
-<p>A definição de gsystemClock é de uma memória que não pode ser alterada; só que ela é, pelo sistema. Então a variável também é volatile. No entanto, independente de ser const ou volatile, o tipo nunca será alterado, apenas qualificado. São duas coisas diferentes na linguagem.</p>
+<pre><code>/// endereça o relógio do sistema, atualizado a cada 1/100 milissegundos
+const volatile int* g_systemClock = (const volatile int*) 0x7689B9D4;
+</code></pre>
+<p><a href="http://fotos-videos-incriveis.blogspot.com/2009/04/tubarao-mutante.html"><img src="http://i.imgur.com/4zUSxmJ.jpg" alt="mutante.jpg"> </a></p>
+<p>A definição de *g_systemClock é de uma memória que não pode ser alterada; só que ela é, pelo sistema. Então a variável também é volatile. No entanto, independente de ser const ou volatile, o tipo nunca será <strong>alterado</strong>, apenas <strong>qualificado</strong>. São duas coisas diferentes na linguagem.</p>
 
             
 
@@ -129,7 +199,7 @@ Const e Volatile
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

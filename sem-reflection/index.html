@@ -27,7 +27,9 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Em C&#43;&#43; não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:
-OK, foi apenas um exemplo..."/>
+class MyClass
+{
+public:..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,11 +109,57 @@ Sem reflection
 
             
               <p>Em C++ não temos (ainda) a possibilidade de listarmos, por exemplo, a lista de métodos de um determinado tipo, a fim de chamá-lo pelo nome em tempo de execução. Algo assim:</p>
-<p>OK, foi apenas um exemplo tosco de como seria um reflection em C++.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">void</span> Method1();
+        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Method2</span>();
+        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Method3</span>();
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        MyClass c;
+        <span style="color:#66d9ef">if</span>( <span style="color:#66d9ef">auto</span> m <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeid</span>(c).methods.getaddresof(<span style="color:#e6db74">&#34;Method1&#34;</span>) )
+                m();
+}
+ 
+
+</code></pre></div><p>OK, foi apenas um exemplo tosco de como seria um reflection em C++.</p>
 <p>Porém, existem algumas maneiras de contornar esse problema. A solução, é claro, depende de qual problema você está tentando resolver.</p>
 <p>Vamos supor, por exemplo, que você queira cadastrar funções para serem chamadas de maneira uniforme pelo prompt de comando. Vamos chamar nossa classe tratadora de CommandPrompt.</p>
-<p>Internamente, para armazenar as funções de acordo com o nome dado, basta criarmos um mapeamento entre esses dois tipos e fazemos a amarração necessária para o método principal de parseamento:</p>
-<p>Essa solução não é exatamente um reflection, mas apenas parte do que o verdadeiro reflection possibilita. Existem outras funcionalidades, como traits, que a STL já consegue se virar razoavelmente bem, por exemplo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (Method<span style="color:#f92672">*</span>)(vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> args);
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CommandPrompt</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">void</span> Add(string name, Method m); <span style="color:#75715e">// adiciona novo método
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Interact</span>(ostream<span style="color:#f92672">&amp;</span> os, istream<span style="color:#f92672">&amp;</span> is); <span style="color:#75715e">// começa interação com usuário
+</span><span style="color:#75715e"></span>};
+ 
+
+</code></pre></div><p>Internamente, para armazenar as funções de acordo com o nome dado, basta criarmos um mapeamento entre esses dois tipos e fazemos a amarração necessária para o método principal de parseamento:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> map<span style="color:#f92672">&lt;</span>string, Method<span style="color:#f92672">&gt;</span> MethodList; <span style="color:#75715e">// uma variável desse tipo armazena todas as funções
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> CommandPrompt<span style="color:#f92672">::</span>Interact(ostream<span style="color:#f92672">&amp;</span> os, istream<span style="color:#f92672">&amp;</span> is)
+{
+        <span style="color:#66d9ef">while</span>( is )
+        {
+                string func;
+                vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> args;
+
+                <span style="color:#66d9ef">if</span>( ParseLine(is, func, args) )
+                {
+                        <span style="color:#75715e">// se a função desejada está em nossa lista,
+</span><span style="color:#75715e"></span>                        <span style="color:#75715e">// podemos chamá-la, mesmo sem conhecer qual é
+</span><span style="color:#75715e"></span>                        <span style="color:#66d9ef">if</span>( Method m <span style="color:#f92672">=</span> m_funcs[func] )
+                                m(args);
+                }
+        }
+}
+ 
+
+</code></pre></div><p>Essa solução não é exatamente um reflection, mas apenas parte do que o verdadeiro reflection possibilita. Existem outras funcionalidades, como traits, que a STL já consegue se virar razoavelmente bem, por exemplo.</p>
 
             
 
@@ -120,7 +168,7 @@ Sem reflection
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

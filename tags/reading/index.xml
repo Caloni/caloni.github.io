@@ -203,6 +203,30 @@ Fontes citadas:
 
      
         <item>
+  <title>Stanford Encyclopedia of Philosophy Para Kindle</title>
+  <link>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</link>
+  <pubDate>2018-07-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/stanford-encyclopedia-of-philosophy-para-kindle/</guid>
+  <description>A enciclopédia mais completa e de maior respeito da internet não é um enciclopédia geral, mas uma de filosofia. Está hospedada na Universidade de Stanford e possui revisão por pares e toda a autoridade de ser escrita por especialistas nos verbetes em questão. O único problema (até agora) era não ser possível baixá-la para degustar no Kindle. Até agora.
+Para realizar esta operação será necessário usar as seguintes ferramentas:
+ wget sed sort Calibre  O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:
+calibre_download.bat (baixa conteúdo do site da Stanford) Este batch baixa todo o conteúdo do site da Stanford em um único diretório. O processo pode demorar mais ou menos, dependendo da sua banda, mas aqui em casa (50MB) demorou cerca de meia-hora pra mais.
+wget --recursive --domains plato.stanford.edu --page-requisites --no-parent --convert-links --restrict-file-names=windows --no-directories --html-extension https://plato.stanford.edu/contents.html calibre_clean_files.bat (limpa início e fim das entradas) Este batch chama dois outros batch, call calibre_remove_head.bat e call calibre_remove_bottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.
+calibre_remove_head.bat for %%i in (index.html.*.html) do sed -n -i &amp;quot;/BEGIN ARTICLE HTML/,$p&amp;quot; %%icalibre_remove_bottom.bat for %%i in (index.html.*.html) do sed -i &amp;quot;/END ARTICLE HTML/,$d&amp;quot; %%icalibre_entries.bat (gera índice com as entradas) Esta batch gera os índices das entradas baseado em seus títulos, e os nomes dos arquivos serão usados para links no TOC do Calibre.
+if exist calibre_entries.txt del calibre_entries.txtfor %%i in (index.html.*.html) do calibre_title.bat %%i &amp;gt;&amp;gt; calibre_entries.txtsed -i -e &amp;quot;s/&amp;lt;em&amp;gt;//&amp;quot; -e &amp;quot;s/&amp;lt;\/em&amp;gt;//&amp;quot; calibre_entries.txtcalibre_entries_clean.bat (limpa formatação das entradas) Algumas entradas possuem o marcador em, que deve ser retirado antes de ordenar os títulos.
+sed -i -e &amp;quot;s/&amp;lt;em&amp;gt;//&amp;quot; -e &amp;quot;s/&amp;lt;\/em&amp;gt;//&amp;quot; calibre_entries.txtcalibre_entries_sort.bat (ordena entradas por título) Se não ordenarmos por título o único índice de nosso livro será inútil.
+sort calibre_entries.txt &amp;gt; calibre_entries_sorted.txtApagar duplicatas Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado doublekiller.exe, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:
+calibre_entries_to_template.bat (converte entradas da enciclopédia para o template do Calibre) Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag a, no formato que o Calibre espera:
+sed -e &amp;quot;s/\(^.*\) \(index.*$\)/ &amp;lt;a href=\&amp;quot;\2\&amp;quot;&amp;gt;\1&amp;lt;\/a&amp;gt;&amp;lt;br\/&amp;gt;/&amp;quot; calibre_entries_sorted.txt &amp;gt; calibre_template_entries.htmlcalibre_merge_templates.bat (junta início, meio e fim do template do Calibre) Por fim, antes de usar o Calibre é necessário juntar os arquivos de template em um arquivo final de TOC, o calibre.html. Ao final desse processo passaremos ao Calibre em si.
+copy /Y calibre_template_begin.html&#43;calibre_template_entries.html&#43;calibre_template_end.html calibre.htmlUsar Calibre para abrir calibre.html Para realizar este passo basta arrastar ou abrir o arquivo html central que foi criado, e a partir dele iniciar a conversão. Note que após arrastar já será criado um zip com todos os HTMLs relacionados.
+Converter HTML zipado em outros formatos Após abrir pelo Calibre ele insere na biblioteca e é só converter para MOBI (Kindle) ou EPUB (outros leitores) ou qualquer outro formato desejado. A nota final aqui é que como se trata de um arquivo gigantesco (50 MB em HTML zipado, 80 MB em MOBI) é melhor baixar a versão 64 bits do Calibre e ter muita memória RAM. Voilà!
+E por hoje é só. Se tudo der certo você poderá copiar e colar dentro do seu leitor todas as entradas de uma enciclopédia indispensável para quem está estudando filosofia. Enjoy.
+</description>
+</item>
+
+     
+        <item>
   <title>Just the Arguments</title>
   <link>http://www.caloni.com.br/just-the-arguments/</link>
   <pubDate>2018-02-27</pubDate>
@@ -288,6 +312,30 @@ Fonte: http://www.owl232.net/fwill.htm.
 
      
         <item>
+  <title>Mastery: The Keys to Success and Long-Term Fulfillment</title>
+  <link>http://www.caloni.com.br/livro-mastering-the-key-to-success-and-long-term-fulfillment/</link>
+  <pubDate>2017-03-14</pubDate>
+  
+  <guid>http://www.caloni.com.br/livro-mastering-the-key-to-success-and-long-term-fulfillment/</guid>
+  <description>O livro de George Leonard é um curto e didático passeio através dos mistérios que tornam o ser humano cada vez mais habituado ao seu &amp;quot;eudaimonia&amp;quot; aristotélico, ou seja, o estado de plenitude do ser que está ao alcance de todos que se derem a liberdade da melhora contínua em qualquer coisa que fizermos nesse mundo.
+Ele parte do princípio que para melhorarmos em qualquer aspecto de nossa vida, seja uma habilidade em um esporte ou na cozinha ou até na faxina, é necessário amar a prática do dia-a-dia e se esforçar de vez em quando para atingir cada vez níveis mais altos, em uma graduação torta, mas constante, de auto-melhora progressiva e agradável. Seria a síntese da vida no próprio conceito aristotélico, onde a virtude do ser humano está em atingir a perfeição de cada uma de suas virtudes e tentar sempre manter-se em equilíbrio.
+Como contra-exemplos ele cita três típicos personas que tentam burlar o caminho duro e legítimo da auto-melhora:
+ The Dabbler. Esse é o que queima no começo e logo depois desiste. The Obsessive. Esse é o obstinado em sempre melhorar, mas que por isso mesmo entra em uma espiral de terror e auto-mutilação. The Hacker. Esse é o que adora atalhos, mas nunca consegue manter-se firme pela falta da excelência na prática.  Leonard é incisivo contra a cultura americana que foca nos resultados em vez de no caminho para a perfeição. Ele também é crítico de nossa cultura imediatista do Ocidente, que desiste fácil quando algo é difícil, e que quer a todo custo o prêmio instantâneo do que o prazer de sentir estar melhorando a cada novo dia. Ele de certa forma flerta com o caminho das pedras que os russos parecem dominar tanto, onde para se aprender bem algo é necessário prática, prática e... prática.
+Através de cinco dicas-chave, instruction, practice, surrender, intentionality e the edge, o autor nos explica a forma com que o dia-a-dia se traduz de maneira simples em como receber instrução válida para melhorar, a prática contínua, a capacidade de abrir mão do ego e obedecer às ordens do mestre de maneira honesta, a visão clara do objetivo para que não se perca no caminho, e, por fim, aquele boost temporário que irá te levar para o novo nível, sempre ligeiramente acima do anterior, e que após uma pequena queda irá lhe colocar em um novo patamar, onde através da constância irá te manter lá.
+Até o próximo boost.
+Depois há uma visão dos perigos mais comuns que nos levam para longe da prática do mastering, e como evitá-los ou tratá-los. É um guia simples, e como todo o livro, fácil de acompanhar e lembrar.
+Por fim, seus últimos capítulos são mais voltados para a prática esportista e o uso do exercício físico contínuo para conseguir energia e se manter eternamente como um mestre: disposto a se entregar pela auto-melhora. Sempre um eterno aprendiz.
+Citações Favoritas  To love the plateau is to love the eternal now, to enjoy the inevitable spurts of progress and the fruits of accomplish- The Master&#39;s Journey 49 ment, then serenely to accept the new plateau that waits just beyond them.
+  Ultimately, the master and the master&#39;s path are one.
+  In terms of energy, it&#39;s better to make a wrong choice than none at all.
+  Ultimately, nothing in this life is &amp;quot;commonplace,&amp;quot; nothing is &amp;quot;in between.&amp;quot; The threads that join your every act, your every thought, are infinite. All paths of mastery eventually merge.
+  Are you willing to wear your white belt?
+ &amp;quot;Mastering&amp;quot; está disponível em formato físico na Amazon e outras livrarias, e no formato ebook em coleções particulares. Não sei se há tradução em português.
+</description>
+</item>
+
+     
+        <item>
   <title>Introdução à Introdução à Computação</title>
   <link>http://www.caloni.com.br/introducao-a-introducao-a-computacao/</link>
   <pubDate>2014-07-01</pubDate>
@@ -299,6 +347,33 @@ Antes mesmo da invenção do computador nós usávamos outras coisas para armaze
 Passando por romanos, persas, chineses e a Revolução Industrial, a narrativa cômica de Gonick nos leva para as entranhas do sistema computacional moderno com as invenções do já citado Babbage e Herman Hollerith. Este último revolucionou o processamento de dados do censo populacional e fundou a ainda de pé IBM, onde o escovador-de-bits em kernel Fernando (do blogue DriverEntry) atualmente vive suas peripécias.
 E por falar em bits, essa é uma parte importante desta saga, pois foi com o conceito binário que toda a lógica computacional evoluiu. Iniciando com simples eletricidade e a tecnologia de circuito que permite que acendamos e apaguemos uma lâmpada e terminando na mágica mais pura, simples e poderosa para os programadores (de hardware e sofware): o flip-flop. Gonick chega ao cúmulo de explicar todas as invenções da época encontrando sua necessidade de fatos do dia-a-dia -- como as telefonistas -- se transformando em uma espécie de Tanenbaum desenhista. Das válvulas aos semicondutores, o livro engrossa nosso conhecimento a cada imagem, fazendo-nos repensar novamente o que já havíamos cansado de aprender na faculdade ou em livros ou na internet.
 Sua Parte II, o espaguete lógico, acredito que seja o que mais interessa a nós, programadores. Por isso espero dissecá-lo com um pouco menos de palavras e um pouco mais de código. Até lá!
+</description>
+</item>
+
+     
+        <item>
+  <title>Crash Dump Analysis: o livro</title>
+  <link>http://www.caloni.com.br/crash-dump-analysis-o-livro/</link>
+  <pubDate>2008-04-17</pubDate>
+  
+  <guid>http://www.caloni.com.br/crash-dump-analysis-o-livro/</guid>
+  <description>Para quem acabou de terminar o Advanced Windows Debugging (como eu) e não consegue ler no computador os complicados artigos de Dmitry Vostokov (como eu), &amp;quot;seus problemas acabaram-se&amp;quot;: acabou de ser lançado o Memory Dump Analysis Volume 1 em hardware! Em modelos portáveis (paperback) e desktop (hardcover).
+Se você perder um pouco de tempo lendo o índice online, perceberá que boa parte do conteúdo (se não todo) está em seu sítio, disponível gratuitamente. Porém, não há nada como ter um livro organizado para ler no conforto do ônibus para o serviço (ou do metrô para casa). Ainda mais depois de ter aguçado os sentidos com o livro de Mario Hewardt e Daniel Pravat.
+Selecionei alguns tópicos que acredito que por si só já valeria a pena a aquisição do livro:
+  Crashes and Hangs Differentiated
+ Você sabe diferenciar quando uma aplicação trava e quando ela emperra?    Minidump Analysis
+ Este item está no capítulo sobre análise profissional.    Raw Stack Data Analysis
+ Nunca é tarde para aprender sobre a pilha; de novo.    Symbols and Images
+  X64 Interrupts
+  Trap Commands (on x86 and x64)
+  Bugchecks Depicted
+ Capítulo essencial, complemento necessário do AWD; boa parte do kernel mode ficou de fora do livro de Windows, espero que esse capítulo cubra essa carência.    Manual Stack Trace Reconstruction
+ Isso vai ser legal =)    WinDbg Tips and Tricks
+ Provavelmente um dos mais úteis capítulos; não há nada como economizar tempo de debugging com um truque esperto na manga.    WinDbg Scripts
+ Com certeza esse capítulo ficaria mais rico com a ajuda do Farah; mesmo assim, deve estar recheado de código para otimizar tempo.    Crash Dump Analysis Patterns
+ A coleção de todas as idiossincrasias encontradas por Dmitry em todos esses anos (meses?) de blogue.    The Origin of Crash Dumps
+  UML and Device Drivers
+ Este é um tópico que eu defendo, e que só uma pessoa como Dmitry consegue entender: usar UML para descrever o funcionamento do kernel mode. Além de tornar as coisas mais simples de enxergar, é uma ótima oportunidade de migração de &amp;quot;coder to developer&amp;quot; para o pessoal de baixo nível.    Enfim, estou coçando os dedos para comprar logo um exemplar. Já sei pelo menos que com certeza serã a versão em brochura, pois não agüento mais fazer exercício muscular com o mais novo integrante da minha maleta.
 </description>
 </item>
 

@@ -106,17 +106,70 @@ Patch de emergência
 
             
               <p>Após um projeto muito bem sucedido, entregue no prazo e homologado em tempo recorde, você e sua equipe estão aproveitando suas devidas férias nas Bahamas, tomando água de coco na sombra de uma palmeira e apreciando a beleza natural da região. Ambas as belezas. =)</p>
+<p><img src="http://i.imgur.com/ggKPJuT.jpg" alt="Club-med-beach-governors-harbour-eleuthera-bahamas">]</p>
 <p>Mas eis que liga o seu gerente para o celular vermelho que te entregou no caso de emergências críticas e te avisa que um problema crítico foi detectado em um serviço crítico: o detector de pares. Consegue ver o erro?</p>
-<p>Oh, meu Deus!</p>
+<p><img src="http://i.imgur.com/wHctVe6.png" alt="Detector de Pares"></p>
+<!-- raw HTML omitted -->
 <p>Com toda a calma do mundo, você saca o seu netbook, baixa a versão homologada do controle de fonte e descobre facilmente o problema, gerando um patch e recompilando o projeto.</p>
-<p>Feliz da vida, avisa o seu chefe que a única coisa que precisam trocar é o serviço crítico. Parar, trocar o arquivo, reiniciar o serviço. Simples.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DoProcess</span>()
+{
+	<span style="color:#66d9ef">int</span> nextNumber <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">1000</span>;
+	<span style="color:#75715e">//bool even = nextNumber % 2;
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">bool</span> even <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>(nextNumber <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>);
+	printf(<span style="color:#e6db74">&#34;%d =&gt; %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, nextNumber, even <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;even&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;odd&#34;</span>);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	srand( time(<span style="color:#ae81ff">0</span>) );
+
+	<span style="color:#66d9ef">while</span>( true )
+	{
+		DoProcess();
+		Sleep(<span style="color:#ae81ff">3000</span>);
+	}
+}
+
+ 
+
+</code></pre></div><p>Feliz da vida, avisa o seu chefe que a única coisa que precisam trocar é o serviço crítico. Parar, trocar o arquivo, reiniciar o serviço. Simples.</p>
 <p>Porém, ele lhe avisa que esse é um serviço crítico, que não pode parar por nenhum segundo sequer. A atualização terá que ser feita sem parar o ciclo ininterrupto de pares/ímpares chegando do gerador de números randômicos.</p>
 <p>Mais uma vez calmo da vida, você diz que isso é coisa de criança. Tudo que precisa fazer é atualizar a versão certa na memória. O arquivo poderá ser renomeado e, quando o serviço puder ser reiniciado, a versão nova será executada. Enquanto isso, o patch na memória bastará para corrigir o problema e não causar nenhum momento inoperante.</p>
 <p>Tudo que você precisa é abrir o processo pelo WinDbg, encontrar a versão defeituosa e substituir os bytes certos.</p>
-<p>Nota: O parâmetro -pv permite depurar um processo de forma não-invasiva, mas as threads serão suspensas. Já com -pvr podemos depurar de forma não-invasiva e ainda conseguir manter as threads do processo rodando.</p>
+<p><img src="http://i.imgur.com/zrZQir4.png" alt="Corrigindo versão"></p>
+<!-- raw HTML omitted -->
 <p>Analisando o disassembly da função nova e antiga podemos perceber que o tamanho delas não mudou (bom sinal), mas o uso dos registradores e a lógica interna teve uma alteração significativa (mau sinal):</p>
+<pre><code>Função antiga: bool even = nextNumber % 2;
+test    edx,edx
+setne   al
+mov     byte ptr [ebp-1],al
+movzx   ecx,byte ptr [ebp-1]
+test    ecx,ecx
+je      criticalservice!DoProcess+0x3f (0040105f)
+
+Função nova: bool even = !(nextNumber % 2);
+neg     edx
+sbb     edx,edx
+inc     edx
+mov     byte ptr [ebp-1],dl
+movzx   eax,byte ptr [ebp-1]
+test    eax,eax
+je      criticalservice!DoProcess+0x3f (0040105f)
+</code></pre>
 <p>Podemos começar escrevendo a função nova da memória do processo de teste para um arquivo, e lendo em seguida para cima da função antiga. Só que para isso temos que nos certificar que os endereços que referenciam para fora da função sejam os mesmos. Nesse caso, felizmente, são.</p>
+<pre><code>0:001&gt; .writemem c:\tests\newfunc.dat criticalservice!DoProcess 0040107e
+Writing 5f bytes.
+</code></pre>
 <p>Em seguida iremos sobrescrever a função antiga no processo em execução. Para evitar crashes é vital que tenhamos certeza que a função não estará sendo executada nesse momento. No nosso caso basta aguardar a entrada na função Sleep da API, que dorme por 3 segundos, tempo suficiente para a atualização.</p>
+<p><img src="http://i.imgur.com/bMI63Ka.png" alt="Live Patch!"></p>
+<pre><code>0:000&gt; .readmem c:\tests\newfunc.dat criticalservice!DoProcess 0040107e
+Reading 5f bytes.
+</code></pre>
 <p>Atualizada a função, apenas nos lembramos de renomear o arquivo antigo e atualizar o novo para evitar reativar o problema. Agora podemos voltar para a apreciação das belezas da natureza...</p>
 
             
@@ -126,7 +179,7 @@ Patch de emergência
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

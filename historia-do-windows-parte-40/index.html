@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Em meio a uma febre de consumismo, no dia 24 de agosto de 1995, foi lançado a revolução no sistema gráfico da Microsoft: a interface do Windows 95. Ela foi considerada muito mais amigável que suas..."/>
+        content="Windows 95
+Em meio a uma febre de consumismo, no dia 24 de agosto de 1995, foi lançado a revolução no sistema gráfico da Microsoft: a interface do Windows 95. Ela foi considerada muito mais amigável..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,22 +106,100 @@ História do Windows - parte 4.0
           <div class="content">
 
             
-              <p>Em meio a uma febre de consumismo, no dia 24 de agosto de 1995, foi lançado a revolução no sistema gráfico da Microsoft: a interface do Windows 95. Ela foi considerada muito mais amigável que suas versões anteriores, que já vimos nesta série da <a href="/historia-do-windows">História do Windows</a>. Ainda possuía a vantagem de não necessitar mais de uma instalação prévia do DOS, passou a suportar nomes de arquivos longos, incluir suporte a TCP/IP e dial-up networking integrados. Muitas mudanças foram feitas no sistema em si, como a passagem para 32 bits (como já vimos, parcial) e o novo conceito de threads, que é o que veremos com mais detalhes nesse artigo.</p>
+              <p><strong>Windows 95</strong></p>
+<p>Em meio a uma febre de consumismo, no dia 24 de agosto de 1995, foi lançado a revolução no sistema gráfico da Microsoft: a interface do Windows 95. Ela foi considerada muito mais amigável que suas versões anteriores. Ainda possuía a vantagem de não necessitar mais de uma instalação prévia do DOS, passou a suportar nomes de arquivos longos, incluir suporte a TCP/IP e <em>dial-up networking</em> integrados. Muitas mudanças foram feitas no sistema em si, como a passagem para 32 bits (como já vimos, parcial) e o novo conceito de <em>threads</em>, que é o que veremos com mais detalhes nesse artigo.</p>
+<p><a href="/images/windows95.png"><img src="http://i.imgur.com/c0Hy10P.png" alt="Windows 95"></a></p>
 <blockquote>
-<p>Bem, o &quot;novo conceito&quot; de threads já havia sido implementado no Windows NT desde o &quot;scratch&quot;. O conceito já existia no início do projeto, mas não no velho Windows 3. 1 de 16 bits, que foi a versão anterior ao 95. Parte dos requisitos do sistema foi que ele seria compatível com o NT no nível de aplicativo, o que de fato aconteceu.</p>
+<p>_Bem, o &quot;novo conceito&quot; de __threads já havia sido implementado no Windows NT desde o &quot;scratch&quot;. O conceito já existia no início do projeto, mas não no velho Windows 3. 1 de 16 bits, que foi a versão anterior ao 95. Parte dos requisitos do sistema foi que ele seria compatível com o NT no nível de aplicativo, o que de fato aconteceu. _</p>
 </blockquote>
-<p>Para esse milagre da multiplicação das threads acontecer a Microsoft foi obrigada a portar boa parte do código de 16 bits para 32 e entrar em modo protegido. Mesmo assim, um legado razoável do MS-DOS permaneceu debaixo dos panos, suportando o novo sistema operacional através de suas interrupções e código residente.</p>
+<p>Para esse milagre da multiplicação das <em>threads</em> acontecer a Microsoft foi obrigada a portar boa parte do código de 16 bits para 32 e entrar em <a href="http://en.wikipedia.org/wiki/Protected_mode">modo protegido</a>. Mesmo assim, um legado razoável do MS-DOS permaneceu debaixo dos panos, suportando o novo sistema operacional através de suas interrupções e código residente.</p>
 <p>Com o lançamento da nova versão do NT, foi necessário modernizar a interface para ser compatível com o Windows 95, o que fez com que o Windows 4.0 fosse mais bonitinho. No entanto, o núcleo dos dois sistemas era completamente diferente. Enquanto um era 32 bits puro desde o primeiro int main, o outro era um sistema de compatibilidade para fornecer um Windows caseiro que fosse vendável e desse à Microsoft o retorno financeiro esperado. Deu certo por um bom tempo, até a chegada do Windows XP, que uniu as duas famílias de sistemas operacionais, pois descontinuou o Windows ME e tornou o Windows 2000 Professional mais amigável para o uso geral.</p>
-<p>Uma thread é uma linha de execução de código. Ser um sistema multithreading significa que ele permite que múltiplas linhas de execução de código rodem em paralelo e, dependendo do número de processadores, ao mesmo tempo.</p>
-<p>Em uma plataforma com apenas um processador, como é natural supor, apenas uma thread roda de cada vez. Contudo, o tempo de execução das threads é dividido entre elas, de forma que aparentemente todas elas rodam ao mesmo tempo. Essa unidade de divisão do tempo de execução é conhecido como Quantum, ou Time Slice, e é caracterizado como o tempo em que uma thread fica rodando até que outra thread tome o seu lugar, ou seja, ocorra uma troca de contexto (switch context).</p>
-<p>Como podemos ver, quando uma thread é criada ela ganha seu primeiro time slice (se não iniciar suspensa) e divide o tempo de processamento com outras threads que executam no mesmo processador.</p>
-<p>Para exemplificar o uso de threads, resolvi fazer um programa que pode nos ser útil no futuro. Se trata de um quebrador de senhas por força bruta. Isso quer dizer que enquanto uma thread fica cuidando das mensagens da janela, como digitação e movimentação, uma segunda thread irá ficar constantemente tentanto descobrir sua senha digitada por tentativa e erro. Toda vez que é alterado um caractere na senha, a thread quebradora reinicia seu trabalho.</p>
-<p>Se você está apenas acompanhando estes artigos sem ter se aprofundado em um livro ou o MSDN, algumas coisas podem parecer novas demais, como a maneira que usei para criar a janela. Diferente de CreateWindow, podemos usar funções que criam o que é chamado de caixa de diálogo (dialog box), que nada mais é que uma janela modal, como a mostrada pelo MessageBox (ou até a System.Windows.Forms.MessageBox). Para isso é necessário desenhar uma janela através de um arquivo de resource, com a extensão rc. Porém, podemos ver que não é difícil entender como um arquivo de resources funciona:</p>
+<h4 id="como-funciona-o-sistema-de-threads">Como funciona o sistema de threads</h4>
+<p>Uma <em>thread</em> é uma linha de execução de código. Ser um sistema <em>multithreading</em> significa que ele permite que múltiplas linhas de execução de código rodem em paralelo e, dependendo do <a href="http://compare.buscape.com.br/categoria?lkout=1&amp;id=22&amp;kw=quad+core&amp;site_origem=1293522">número de processadores</a>, ao mesmo tempo.</p>
+<p>Em uma plataforma com apenas um processador, como é natural supor, apenas uma <em>thread</em> roda de cada vez. Contudo, o tempo de execução das <em>threads</em> é dividido entre elas, de forma que <strong>aparentemente</strong> todas elas rodam ao mesmo tempo. Essa unidade de divisão do tempo de execução é conhecido como <em>Quantum</em>, ou _<a href="http://en.wikipedia.org/wiki/Preemption_%28computing%29#Time_slice">Time Slice</a>, _e é caracterizado como o tempo em que uma <em>thread</em> fica rodando até que outra <em>thread</em> tome o seu lugar, ou seja, ocorra uma <strong>troca de contexto</strong> (<em>switch context).</em></p>
+<p><a href="/images/threads.gif"><img src="http://i.imgur.com/7EcQtPT.gif" alt="Threads"></a></p>
+<p>Como podemos ver, quando uma <em>thread</em> é criada ela ganha seu primeiro <em>time slice</em> (se não iniciar suspensa) e divide o tempo de processamento com outras <em>threads</em> que executam no mesmo processador.</p>
+<h4 id="mãos-ao-código">Mãos ao código</h4>
+<p>Para exemplificar o uso de <em>threads</em>, resolvi fazer um programa que pode nos ser útil no futuro. Se trata de um quebrador de senhas por <a href="http://pt.wikipedia.org/wiki/For%C3%A7a_bruta">força bruta</a>. Isso quer dizer que enquanto uma <em>thread</em> fica cuidando das mensagens da janela, como digitação e movimentação, uma segunda <em>thread</em> irá ficar constantemente tentanto descobrir sua senha digitada por tentativa e erro. Toda vez que é alterado um caractere na senha, a <em>thread</em> quebradora reinicia seu trabalho.</p>
+<p><a href="/images/pwdbreaker.png"><img src="http://i.imgur.com/hfqFtIF.png" alt="PwdBreaker screenshot"></a></p>
+<p>Você pode baixar o código fonte, que não é muito complicado, <a href="/images/pwdbreaker.7z">aqui</a>.</p>
+<p>Se você está apenas acompanhando estes artigos sem ter se aprofundado em um <a href="http://compare.buscape.com.br/categoria?lkout=1&amp;id=3482&amp;kw=programacao+windows+c++&amp;site_origem=1293522">livro</a> ou o <a href="http://msdn.microsoft.com">MSDN</a>, algumas coisas podem parecer novas demais, como a maneira que usei para criar a janela. Diferente de CreateWindow, podemos usar funções que criam o que é chamado de caixa de diálogo (<em>dialog box</em>), que nada mais é que uma janela modal, como a mostrada pelo <a href="http://msdn2.microsoft.com/en-us/library/ms645505.aspx">MessageBox</a> (ou até a <a href="http://msdn2.microsoft.com/en-us/library/system.windows.forms.messagebox.aspx">System.Windows.Forms.MessageBox</a>). Para isso é necessário desenhar uma janela através de um arquivo de <em>resource</em>, com a extensão rc. Porém, podemos ver que não é difícil entender como um arquivo de <em>resources</em> funciona:</p>
+<p><a href="/images/dialogbox.png"><img src="http://i.imgur.com/LL5L2yn.png" alt="Dialog Box no RC"></a></p>
 <p>Também não deve ser muita surpresa saber que uma caixa de diálogo também possui sua função de janela, que é praticamente idêntica a do CreateWindow. A diferença está mais no tratamento das mensagens.</p>
-<p>A surpresa maior deve ficar por conta da nova thread, que é criada através da função da API CreateThread:</p>
-<p>Assim como na criação de janelas, é passada uma função de callback. Só que diferente de uma função de janela, essa função não é executada na mesma thread que criou a janela, mas é um novo &quot;int main&quot; para uma nova linha de execução, que irá rodar em paralelo com a primeira. Essa segunda linha de execução termina quando retornamos dessa função, que no nosso exemplo é nunca, mas poderia ser quando fosse terminada sua tarefa.</p>
-<p>Depois que uma thread termina, existem maneiras das outras threads ficarem sabendo e até obterem seu código de retorno. Isso pode ser feito utilizando-se o handle retornado pela função CreateThread, uma duplicação desse mesmo handle ou até a obtenção de um novo handle através do identificador da thread, o Thread Id (TID).</p>
-<p>Bom, acho que para explicar o uso de um sistema multithreading em um artigo só não basta. Mas para explicar por que sua senha deve ter mais de três caracteres, acho que é o bastante. Até a próxima.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">INT_PTR CALLBACK <span style="color:#a6e22e">DialogProc</span>(HWND hwndDlg, UINT uMsg, 
+							WPARAM wParam, LPARAM lParam)
+{
+	INT_PTR ret <span style="color:#f92672">=</span> TRUE;
+
+	<span style="color:#66d9ef">switch</span>( uMsg )
+	{
+	<span style="color:#66d9ef">case</span> WM_INITDIALOG:
+		g_singleDialogHandle <span style="color:#f92672">=</span> hwndDlg;
+		StartBruteForceThread();
+		<span style="color:#66d9ef">break</span>;
+	<span style="color:#66d9ef">case</span> WM_COMMAND:
+		<span style="color:#66d9ef">if</span>( LOWORD(wParam) <span style="color:#f92672">==</span> IDC_EDIT1 <span style="color:#f92672">&amp;&amp;</span> HIWORD(wParam) <span style="color:#f92672">==</span> EN_CHANGE )
+		{
+			TCHAR pwd[MAX_PATH];
+
+			<span style="color:#66d9ef">if</span>( GetDlgItemText(hwndDlg, IDC_EDIT1, 
+				pwd, SIZEOF_ARRAY(pwd)) )
+			{
+				lstrcpy(g_currentPassword, pwd);
+				g_currentPasswordSize <span style="color:#f92672">=</span> lstrlen(pwd);
+
+				RestartBruteForceThread();
+			}
+		}
+		<span style="color:#66d9ef">break</span>;
+	<span style="color:#66d9ef">case</span> WM_CLOSE:
+		EndDialog(hwndDlg, TRUE);
+		<span style="color:#66d9ef">break</span>;
+	<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		ret <span style="color:#f92672">=</span> FALSE;
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+} 
+
+</code></pre></div><p>A surpresa maior deve ficar por conta da nova <em>thread</em>, que é criada através da função da API <a href="http://msdn2.microsoft.com/en-us/library/ms682453.aspx">CreateThread</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">StartBruteForceThread</span>()
+{
+	g_bruteForceContinue <span style="color:#f92672">=</span> TRUE;
+	g_bruteForceThread <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, BruteForceThread, NULL, 
+		<span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span>g_bruteForceThreadId);
+} 
+
+</code></pre></div><p>Assim como na criação de janelas, é passada uma função de <em>callback</em>. Só que diferente de uma função de janela, essa função não é executada na mesma <em>thread</em> que criou a janela, mas é um novo &quot;int main&quot; para uma nova linha de execução, que irá rodar em paralelo com a primeira. Essa segunda linha de execução termina quando retornamos dessa função, que no nosso exemplo é nunca, mas poderia ser quando fosse terminada sua tarefa.</p>
+<p><a href="/images/createbruteforcethread.gif"><img src="http://i.imgur.com/gL0bxux.gif" alt="CreateThread exemplificada"></a></p>
+<p>Depois que uma <em>thread</em> termina, existem maneiras das outras _threads _ficarem sabendo e até obterem seu código de retorno. Isso pode ser feito utilizando-se o <em>handle</em> retornado pela função CreateThread, uma duplicação desse mesmo <em>handle</em> ou até a obtenção de um novo <em>handle</em> através do identificador da _thread, _o <em>Thread Id</em> (TID).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">DWORD WINAPI <span style="color:#a6e22e">ThreadProc</span>(PVOID param)
+{
+	<span style="color:#75715e">// Executing in a new thread...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> ERROR_SUCCESS; <span style="color:#75715e">// Exiting the function, finalizing the thread.
+</span><span style="color:#75715e"></span>} 
+
+</code></pre></div><p>Bom, acho que para explicar o uso de um sistema <em>multithreading</em> em um artigo só não basta. Mas para explicar por que sua senha deve ter mais de três caracteres, acho que é o bastante. Até a próxima.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>( g_bruteForceContinue )
+{
+	<span style="color:#66d9ef">if</span>( lstrcmp(currentPassword, breakPassword) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> )
+	{
+		IncrementPassword(breakPassword, 
+			SIZEOF_ARRAY(breakPassword) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+	}
+
+	SetDlgItemText(g_singleDialogHandle, IDC_EDIT2, breakPassword);
+} 
+
+</code></pre></div><h4 id="para-saber-mais">Para saber mais</h4>
+<ul>
+<li>
+<p><a href="http://www.caloni.com.br/search/historia%20do%20windows%20-%20parte">Outros artigos sobre a história do windows</a></p>
+</li>
+<li>
+<p><a href="http://www.geek.com.br/posts/13665-windows-95-quinze-anos-de-grandes-feitos-e-telas-azuis">Windows 95: quinze anos de grandes feitos e telas azuis</a></p>
+</li>
+</ul>
 
             
 
@@ -129,7 +208,7 @@ História do Windows - parte 4.0
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

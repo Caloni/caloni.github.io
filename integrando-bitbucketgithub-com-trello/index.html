@@ -106,23 +106,127 @@ Integrando BitBucket/GitHub com Trello
 
             
               <p>Eu nem acredito que estou escrevendo sobre desenvolvimento web, mas como foi algo que me fez dedicar algumas horas do meu fim-de-semana, e não encontrei facilmente uma solução já feita, acredito que pode ser útil para mais alguém que usa Trello e GitHub (ou BitBucket).</p>
-<p>Mas o que é Trello? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards. Em cada board vivem L listas, e em cada lista vivem C cards. Cada card pode conter comentários, histórico de mudanças, labels, checklists, due dates e todas as tranqueiras que geralmente existe em uma lista de tarefas. É um sistema online, desenvolvido pela empresa do Joel Spolsky (o mesmo do excelente blogue de programador Joel on Software (ou em português, e que contém algo que eu adoro em sistemas web: atalhos!</p>
+<p>Mas o que é <a href="www.trello.com">Trello</a>? Basicamente é um TodoList feito da maneira mais inteligente possível: uma lista de listas de listas! Os espaços, ou desktops, onde você organiza suas tarefas são chamados de Boards. Em cada board vivem L listas, e em cada lista vivem C cards. Cada card pode conter comentários, histórico de mudanças, labels, checklists, due dates e todas as tranqueiras que geralmente existe em uma lista de tarefas. É um sistema online, desenvolvido pela empresa do Joel Spolsky (o mesmo do excelente blogue de programador <a href="http://www.joelonsoftware.com/">Joel on Software</a> (ou em <a href="http://brazil.joelonsoftware.com/">português</a>, e que contém algo que eu adoro em sistemas web: atalhos!</p>
+<p><a href="/images/14518444517_f550bb7bcb_o.png"><img src="http://i.imgur.com/747UasT.png" alt="Atalhos do Trello"></a></p>
 <p>A ideia que tive foi usar os webhooks dos saites de repositórios de fontes para permitir comentar dentro dos cards o commit que foi feito, sua mensagem e o linque para o commit. OK, mas por que não usar o sistema de issues dos já feitos pra isso GitHub e BitBucket? Ele já faz isso muito melhor. De fato. Porém, fica espalhado pelos repositórios, e não é sempre que uma tarefa envolve código (comprar pão, por exemplo). Além do mais, praticamente qualquer serviço desses oferece hooks para a integração de outros projetos/serviços, então se um dia nascer mais um sistema de controle de fonte ou mais um saite que organiza essas tralhas haverá um hook e consequentemente mais uma adaptação do meu código PHP.</p>
 <p>E por que PHP? Bom, PHP é uma linguagem fácil de mexer (se parece com C, mas é um script) e praticamente qualquer servidor web do universo, mesmo o mais baratinho, vem com o pacote Apache + PHP (e geralmente uma base MySql). Dessa forma, é uma solução que pode ser implantada fácil e rapidamente.</p>
-<p>Vamos começar pelo mais difícil que o resto vai fácil: comentar pela API do Trello. Sua API é beta, assim como sua documentação, então tive arrancar significado inexistente em seu help, mas acabou funcionando. Como qualquer API web, você precisa de uma chave, segredo e a permissão do usuário. Com essa permissão é possível comentar em todas as boards que esse usuário específico tem acesso.</p>
-<p>Pelo menos a parte de geração de chave/segredo é simples. Depois disso, mesmo nessa página já é possível conseguir uma chave de acesso para o seu usuário.</p>
+<h2 id="comentando-no-trello">Comentando no Trello</h2>
+<p>Vamos começar pelo mais difícil que o resto vai fácil: comentar pela API do Trello. Sua <a href="https://trello.com/docs/">API é beta</a>, assim como sua documentação, então tive arrancar significado inexistente em seu help, mas acabou funcionando. Como qualquer API web, você precisa de uma chave, segredo e a permissão do usuário. Com essa permissão é possível comentar em todas as boards que esse usuário específico tem acesso.</p>
+<p>Pelo menos a parte de <a href="https://trello.com/1/appKey/generate">geração de chave/segredo é simples</a>, tanto que se você clicou nesse linque, já conseguiu gerar uma =).</p>
+<p>Depois disso, mesmo nessa página já é possível conseguir uma chave de acesso para o seu usuário.</p>
+<p><a href="/images/14704960285_af9a772c2e_o.png"><img src="http://i.imgur.com/oQ97bDI.png" alt="Pedindo autorização para o Trello"></a></p>
 <p>Por fim, para fazer o código que irá comentar dentro de um card no Trello, basta usar dois ou três métodos que lidam com enviar coisas pela web (não me pergunte mais que isso):</p>
-<p>As informações AQUIVAISUACHAVE e AQUIVAISEUTOKENDEACESSO você já obteve no linque de geração de key/secret. Já o IDDOCARD é algo que depende de em qual lista seu card está, mas felizmente também existe um shortlink único e imutável para cada card no sistema:</p>
-<p>Basta usar o ID em Base64-ou-o-que-o-valha no lugar de IDDOCARD que já estamos OK. Depois que este código conseguir ser executado, basta ter acesso à internet que ele irá escrever &quot;Hello, World&quot; no cartão referenciado:</p>
-<p>Muito bem. Primeira parte da missão concluída.</p>
-<p>Como o GitHub é um dos serviços de repositório de fontes mais famoso, vamos torná-lo nosso caso de sucesso. Basicamente você deve ir no seu repositório do coração (essa é a parte ruim: se você tem mais de um coração, vai ter que repetir esse mesmo procedimento para todos os outros repositórios dos seus outros corações), Settings, Webhooks &amp; Services.</p>
-<p>Lembre-se de colocar seu código PHP em um servidor visível na web. Lembre-se também de usar o método de envio urlencoded do payload para simplificar seu tratamento. Para simplificar ainda mais o processo, coloque qualquer coisa no segredo (não validaremos neste post, mas #ficadica de segurança se você não quer que outros acessem seu PHP inadvertidamente).</p>
-<p>Pois bem. No código que irá receber o payload do GitHub precisamos de duas coisas: saber qual a estrutura que vai ser recebida e como localizar o id do card onde iremos enviar a informação. Nesse caso, mais uma vez, para simplificar, vamos procurar pelo próprio linque permanente do cartão na mensagem do commit. Aliás, doS commitS (sendo um push, é provável que o evento seja gerado com diversos commits aninhados).</p>
-<p>Agora é só testar. Posso pegar esse mesmo artigo e comitá-lo no repositório do blogue usando o linque único do card da tarefa de escrever este artigo. Ou seja, aqui é Inception na veia, mermão!</p>
-<p>O que vai deixar você perplexo é entender como esse texto está sendo comitado antes mesmo de eu comitar este texto ;).</p>
-<p>E o negócio é rápido, viu?</p>
-<p>A única coisa que muda no caso do BitBucket é a tela onde deve ser inserido seu webhook (método POST, sempre) e a estrutura JSon que é enviada. De lambuja, eis o que deve ser feito com esse payload:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
 
+$url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://trello.com/1/cards/ID_DO_CARD/actions/comments&#39;</span>;
+
+$msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Hello, World!&#39;</span>;
+
+$data <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+        <span style="color:#e6db74">&#39;key&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SUA_CHAVE&#39;</span>, 
+        <span style="color:#e6db74">&#39;token&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SEU_TOKEN_DE_ACESSO&#39;</span>,
+        <span style="color:#e6db74">&#39;text&#39;</span> <span style="color:#f92672">=&gt;</span> $msg
+        );
+
+$options <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+        <span style="color:#e6db74">&#39;http&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;header&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;Content-type: application/x-www-form-urlencoded</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>,
+            <span style="color:#e6db74">&#39;method&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+            <span style="color:#e6db74">&#39;content&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">http_build_query</span>($data),
+            ),
+        );
+
+$context  <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream_context_create</span>($options);
+
+$result <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>($url, <span style="color:#66d9ef">false</span>, $context);
+
+<span style="color:#75715e">?&gt;</span>
+
+</code></pre></div><p>As informações <em>AQUI_VAI_SUA_CHAVE</em> e <em>AQUI_VAI_SEU_TOKEN_DE_ACESSO</em> você já obteve no linque de geração de key/secret. Já o <em>ID_DO_CARD</em> é algo que depende de em qual lista seu card está, mas felizmente também existe um shortlink único e imutável para cada card no sistema:</p>
+<p><a href="/images/14518342338_6f134a993d_o.png"><img src="http://i.imgur.com/xONdnSw.png" alt="ID único de um Card"></a></p>
+<p>Basta usar o ID em Base64-ou-o-que-o-valha no lugar de <em>ID_DO_CARD</em> que já estamos OK. Depois que este código conseguir ser executado, basta ter acesso à internet que ele irá escrever &quot;Hello, World&quot; no cartão referenciado:</p>
+<p><a href="/images/14724898543_8b758cc7ac_o.png"><img src="http://i.imgur.com/rbCigTV.png" alt="Hello, World!"></a></p>
+<p>Muito bem. Primeira parte da missão concluída.</p>
+<h2 id="terminando-com-github">Terminando com GitHub</h2>
+<p>Como o <a href="www.github.com">GitHub</a> é um dos serviços de repositório de fontes mais famoso, vamos torná-lo nosso caso de sucesso. Basicamente você deve ir no seu repositório do coração (essa é a parte ruim: se você tem mais de um coração, vai ter que repetir esse mesmo procedimento para todos os outros repositórios dos seus outros corações), Settings, Webhooks &amp; Services.</p>
+<p><a href="/images/14724974103_f8f8fb7e78_o.png"><img src="http://i.imgur.com/4Lph9w6.png" alt="Adicionando um WebHook ao GitHub"></a></p>
+<p>Lembre-se de colocar seu código PHP em um servidor visível na web. Lembre-se também de usar o método de envio urlencoded do payload para simplificar seu tratamento. Para simplificar ainda mais o processo, coloque qualquer coisa no segredo (não validaremos neste post, mas #ficadica de segurança se você não quer que outros acessem seu PHP inadvertidamente).</p>
+<p>Pois bem. No código que irá receber o payload do GitHub precisamos de duas coisas: saber qual <a href="https://developer.github.com/webhooks/">a estrutura que vai ser recebida</a> e <em>como localizar o id do card onde iremos enviar a informação</em>. Nesse caso, mais uma vez, para simplificar, vamos procurar pelo próprio linque permanente do cartão na mensagem do commit. Aliás, doS commitS (sendo um push, é provável que o evento seja gerado com diversos commits aninhados).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+
+$pushData <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($_POST[<span style="color:#e6db74">&#39;payload&#39;</span>]);
+
+<span style="color:#66d9ef">foreach</span>( $pushData<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">commits</span> <span style="color:#66d9ef">as</span> $c )
+{
+    $msg <span style="color:#f92672">=</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">message</span>;
+    $pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#http[s]*://trello.com/c/([A-Za-z0-9]+)#&#39;</span>;
+    <span style="color:#66d9ef">if</span>( <span style="color:#a6e22e">preg_match</span>($pattern, $msg, $matches) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+        <span style="color:#66d9ef">continue</span>;
+
+    $url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://trello.com/1/cards/&#39;</span> <span style="color:#f92672">.</span> $matches[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;/actions/comments&#39;</span>;
+    $msg <span style="color:#f92672">=</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">message</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39; Commit: &#39;</span> <span style="color:#f92672">.</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">url</span>;
+    $data <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;key&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SUA_CHAVE&#39;</span>, 
+            <span style="color:#e6db74">&#39;token&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SEU_TOKEN_DE_ACESSO&#39;</span>,
+            <span style="color:#e6db74">&#39;text&#39;</span> <span style="color:#f92672">=&gt;</span> $msg
+            );
+
+    $options <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;http&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(
+                <span style="color:#e6db74">&#39;header&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;Content-type: application/x-www-form-urlencoded</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>,
+                <span style="color:#e6db74">&#39;method&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+                <span style="color:#e6db74">&#39;content&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">http_build_query</span>($data),
+                ),
+            );
+
+    $context  <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream_context_create</span>($options);
+
+    $result <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>($url, <span style="color:#66d9ef">false</span>, $context);
+}
+<span style="color:#75715e">?&gt;</span>
+
+</code></pre></div><p>Agora é só testar. Posso pegar esse mesmo artigo e comitá-lo no <a href="https://github.com/Caloni/Caloni.com.br">repositório do blogue</a> usando o linque único do card da tarefa de escrever este artigo. Ou seja, aqui é Inception na veia, mermão!</p>
+<p><a href="/images/14702001611_acb9318ba7_o.png"><img src="http://i.imgur.com/NzQPB9o.png" alt="Comitando o artigo para gerar evento que irá comentar no Trello para continuar este artigo que estou comitando.."></a></p>
+<p>O que vai deixar você perplexo é entender como esse texto está sendo comitado antes mesmo de eu comitar este texto ;).</p>
+<p><a href="/images/14518530070_25f639d741_o.png"><img src="http://i.imgur.com/ZIPNSpV.png" alt="Resultado do meu commit"></a></p>
+<p>E o negócio é rápido, viu?</p>
+<p><a href="/images/14518796667_9d4bcc159e_o.png"><img src="http://i.imgur.com/vVmuKb7.png" alt="E o negócio é rápido, viu?"></a></p>
+<h2 id="_adendo-bitbucket_"><em>Adendo: BitBucket</em></h2>
+<p>A única coisa que muda no caso do <a href="www.bitbucket.org">BitBucket</a> é a tela onde deve ser inserido seu webhook (método POST, sempre) e a estrutura JSon que é enviada. De lambuja, eis o que deve ser feito com esse payload:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+
+$bitData <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($_POST[<span style="color:#e6db74">&#34;payload&#34;</span>]);
+
+<span style="color:#66d9ef">foreach</span>( $bitData<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">commits</span> <span style="color:#66d9ef">as</span> $c )
+{
+    $msg <span style="color:#f92672">=</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">message</span>;
+    $pattern <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#http[s]*://trello.com/c/([A-Za-z0-9]+)#&#39;</span>;
+    <span style="color:#66d9ef">if</span>( <span style="color:#a6e22e">preg_match</span>($pattern, $msg, $matches) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+        <span style="color:#66d9ef">continue</span>;
+
+    $url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://trello.com/1/cards/&#39;</span> <span style="color:#f92672">.</span> $matches[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;/actions/comments&#39;</span>;
+    $msg <span style="color:#f92672">=</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">message</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39; Commit: &#39;</span> <span style="color:#f92672">.</span> $bitData<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">canon_url</span> <span style="color:#f92672">.</span> $bitData<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">repository</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">absolute_url</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;commits/&#39;</span> <span style="color:#f92672">.</span> $c<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">raw_node</span>;
+    $data <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;key&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SUA_CHAVE&#39;</span>, 
+            <span style="color:#e6db74">&#39;token&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;AQUI_VAI_SEU_TOKEN_DE_ACESSO&#39;</span>,
+            <span style="color:#e6db74">&#39;text&#39;</span> <span style="color:#f92672">=&gt;</span> $msg
+            );
+
+    $options <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+            <span style="color:#e6db74">&#39;http&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(
+                <span style="color:#e6db74">&#39;header&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;Content-type: application/x-www-form-urlencoded</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>,
+                <span style="color:#e6db74">&#39;method&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+                <span style="color:#e6db74">&#39;content&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">http_build_query</span>($data),
+                ),
+            );
+
+    $context  <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream_context_create</span>($options);
+
+    $result <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>($url, <span style="color:#66d9ef">false</span>, $context);
+}
+<span style="color:#75715e">?&gt;</span>
+
+</code></pre></div>
             
 
           </div>
@@ -130,7 +234,7 @@ Integrando BitBucket/GitHub com Trello
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

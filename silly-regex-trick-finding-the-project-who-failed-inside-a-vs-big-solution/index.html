@@ -107,9 +107,24 @@ Silly regex trick: finding the project who failed inside a big VS solution
             
               <p>I know what you going to think about this one: &quot;silly trick&quot;. That's why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who cares about productivity.</p>
 <p>Let's say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?</p>
+<p><a href="/images/find-error-regex2.png"><img src="http://i.imgur.com/hDJdrX8.png" alt="Find Error in VS projects using regex"></a></p>
 <p>Note that you need to enable &quot;Regular Expressions&quot; option in the Find Dialog (not shown here).</p>
 <p>What I'm saying inside this regex is &quot;find the first number different from zero followed by a space and the letters err&quot;. This lead us to the first project who has at least one error:</p>
+<pre><code>------ Build started: Project: FailedProj, Configuration: Release Win32 ------
+Compiling...
+stdafx.cpp
+Compiling...
+FailedProj.cpp
+.FailedProj.cpp(2477) : error C2039: 'Blablabla' : is not a member of 'IBlabla'
+Build log was saved at &quot;file://c:Projects...ReleaseBuildLog.htm&quot;
+FailedProj -
+</code></pre>
+<p>2 err</p>
+<pre><code>or(s), 0 warning(s)
+</code></pre>
 <p>If you think &quot;what about when a project generates more than 9 errors? the regex wouldn't be able to catch this case&quot;, well, you're right. Anyway, that's the quicker form to search for the unsuccessful project inside a big solution. A more complex yet complete regex would be:</p>
+<pre><code>[1-9][0-9]* err
+</code></pre>
 <p>For me, the first version is enough. It is faster to type, simpler to catch and solves my problem. I hope it can solve yours =)</p>
 
             
@@ -119,7 +134,7 @@ Silly regex trick: finding the project who failed inside a big VS solution
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

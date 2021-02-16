@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C&#43;&#43; de sua..."/>
+        content="
+Em C e C&#43;&#43; as regras de sintaxe são extremamente flexíveis. Essa liberdade toda se manteve no decorrer dos tempos porque se trata de uma das idéias fundamentais da linguagem C, motivo de sua criação....&lt;/!--&gt;"/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,17 +106,39 @@ Curiosidades inúteis: o operador de subscrito em C&#43;&#43;
           <div class="content">
 
             
-              <p>Este artigo é uma reedição de meu blogue antigo, guardado para ser republicado durante minhas miniférias. Esteja à vontade para sugerir outros temas obscuros sobre a linguagem C ou C++ de sua preferência. Boa leitura!</p>
-<p>Em C e C++ as regras de sintaxe são extremamente flexíveis. Essa liberdade toda se manteve no decorrer dos tempos porque se trata de uma das idéias fundamentais da linguagem C, motivo de sua criação. Me lembro certa vez que, bitolado em C Standard 89, usei uma sintaxe não lá muito usual para acessar um elemento de um array. Foi apenas um experimento de estudante, coisa que nunca vi em código algum e queria comprovar.</p>
-<p>As regras de acesso a elementos de um array (subscrito) são definidas não em termos do array, mas em termos de um ponteiro e de um índice. &quot;Me dê um ponteiro para T e um inteiro e te retorno um lvalue do tipo T&quot;. Essa é a idéia geral. A mesma idéia, com pequenas alterações, se manteve em C++. Eis parte do parágrafo que fala sobre isso:</p>
+              <!-- raw HTML omitted -->
+<p>Em C e C++ as regras de sintaxe são extremamente flexíveis. Essa liberdade toda se manteve no decorrer dos tempos porque se trata de uma das idéias fundamentais da linguagem C, motivo de sua criação. Me lembro certa vez que, bitolado em C Standard 89, usei uma sintaxe não lá muito usual para acessar um elemento de um <em>array</em>. Foi apenas um experimento de estudante, coisa que nunca vi em código algum e queria comprovar.</p>
+<h4 id="a-regra-para-acessar-_arrays_-é-não-existem-_arrays_">A regra para acessar <em>arrays</em> é: não existem <em>arrays</em></h4>
+<p>As regras de acesso a elementos de um <em>array</em> (subscrito) são definidas não em termos do <em>array</em>, mas em termos de um ponteiro e de um índice. &quot;Me dê um ponteiro para T e um inteiro e te retorno um <em>lvalue</em> do tipo T&quot;. Essa é a idéia geral. A mesma idéia, com pequenas alterações, se manteve em C++. Eis parte do parágrafo que fala sobre isso:</p>
+<!-- raw HTML omitted -->
 <blockquote>
-<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &quot;pointer to T&quot; and the other shall have enumeration or integral type. The result is an lvalue of type &quot;T&quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ). - C++: International Standard ISO/IEC 14882 First Edition 1998-09-01</p>
+<p><em>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &quot;pointer to T&quot; and the other shall have enumeration or integral type. The result is an lvalue of type &quot;T&quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ).</em></p>
 </blockquote>
-<p>Isso traduzido em miúdos quer dizer que com duas expressões formando a construção E1 [ E2 ], sendo uma delas do tipo ponteiro para um tipo e a outra do tipo integral, o resultado é equivalente a *( (E1) + (E2) ). Como no código abaixo:</p>
-<p>A teoria comprovada na prática: temos duas expressões no formato E1 [ E2 ] sendo uma do tipo ponteiro para char e a outra do tipo int, exatamente como a regra define. O detalhe obscuro que permaneceu durante a evolução dessas duas linguagens é que a regra de acesso a elementos não define a ordem das expressões. Assim sendo, me aproveito dessa flexibilidade e inverto os elementos do subscrito:</p>
-<p>Isso também compila e tem o mesmo resultado, pois também é equivalente a *( (E1) + (E2) ). No final dá na mesma. E do jeito que está a inversão nem dá tanto susto assim, pois estamos lidando com duas variáveis. A coisa começa a ficar mais IOCCC se colocarmos em vez de uma delas uma constante:</p>
+<blockquote>
+<p><strong>C++: International Standard ISO/IEC 14882 First Edition 1998-09-01</strong></p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>Isso traduzido em miúdos quer dizer que com duas expressões formando a construção <strong>E1 [ E2 ]</strong>, sendo uma delas do tipo <strong>ponteiro para um tipo</strong> e a outra do tipo <strong>integral</strong>, o resultado é equivalente a *<strong>( (E1) + (E2) )</strong>. Como no código abaixo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">char</span> ditado[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Diga-me com que programas e eu te direi quem és.&#34;</span>;
+	<span style="color:#66d9ef">int</span> indice <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+
+	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;E a linguagem é: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ditado[indice] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+} 
+
+</code></pre></div><p>A teoria comprovada na prática: temos duas expressões no formato E1 [ E2 ] sendo uma do tipo <strong>ponteiro para char</strong> e a outra do tipo <strong>int</strong>, exatamente como a regra define. O detalhe obscuro que permaneceu durante a evolução dessas duas linguagens é que a regra de acesso a elementos <strong>não define a ordem das expressões</strong>. Assim sendo, me aproveito dessa flexibilidade e inverto os elementos do subscrito:</p>
+<pre><code>   std::cout &lt;&lt; &lt;span class=&quot;string&quot;&gt;&quot;E a linguagem é: &quot;&lt;/span&gt; &lt;&lt; indice[ditado] &lt;&lt; std::endl;
+</code></pre>
+<p>Isso também compila e tem o mesmo resultado, pois também é equivalente a *( (E1) + (E2) ). No final dá na mesma. E do jeito que está a inversão nem dá tanto susto assim, pois estamos lidando com duas variáveis. A coisa começa a ficar mais <a href="http://www.ioccc.org/">IOCCC</a> se colocarmos em vez de uma delas uma constante:</p>
+<pre><code>   std::cout &lt;&lt; &lt;span class=&quot;string&quot;&gt;&quot;E a linguagem é: &quot;&lt;/span&gt; &lt;&lt; 8[ditado] &lt;&lt; std::endl;
+</code></pre>
 <p>Isso ainda é válido, certo? Os tipos das expressões estão de acordo com a regra. Fica simples de visualizar se sempre pensarmos no &quot;equivalente universal&quot; *( (E1) + (E2) ). Até coisas bizarras como essa acabam ficando simples:</p>
-<p>Nota do autor: esse tipo de &quot;recurso obscuro&quot; dificilmente passará por uma revisão de código, e com razão, dado que não é um método útil e muito menos conhecido. Sábio é saber evitar. Não acredito, porém, que o conhecimento de certos detalhes da linguagem em que se programa sejam completamente inúteis. Conhecimento nunca é demais, pois quanto mais se conhece maior é o número de ferramentas conceituais que se dispõe para resolver um certo problema. Em muitas vezes o &quot;conhecimento inútil&quot; de hoje se torna um guia sábio quando se precisa de bons conceitos sobre a coisa toda. No entanto, que não venha um boi-corneta me dizer que esse código fere as boas práticas de programação. Tenho dito.</p>
+<pre><code>   std::cout &lt;&lt; 5[&lt;span class=&quot;string&quot;&gt;&quot;Isso Compila?&quot;&lt;/span&gt;] &lt;&lt; std::endl;
+</code></pre>
+<p><em>Nota do autor: esse tipo de &quot;recurso obscuro&quot; dificilmente passará por uma revisão de código, e com razão, dado que não é um método útil e muito menos conhecido. Sábio é saber evitar. Não acredito, porém, que o conhecimento de certos detalhes da linguagem em que se programa sejam completamente inúteis. Conhecimento nunca é demais, pois quanto mais se conhece maior é o número de ferramentas conceituais que se dispõe para resolver um certo problema. Em muitas vezes o &quot;conhecimento inútil&quot; de hoje se torna um guia sábio quando se precisa de bons conceitos sobre a coisa toda. No entanto, que não venha um <a href="http://www.google.com.br/search?q=boi+corneta+site%3Asualingua.com.br">boi-corneta</a> me dizer que esse código fere as boas práticas de programação. Tenho dito.</em></p>
 
             
 
@@ -124,7 +147,7 @@ Curiosidades inúteis: o operador de subscrito em C&#43;&#43;
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

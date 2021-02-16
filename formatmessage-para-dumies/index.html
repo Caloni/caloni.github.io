@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Já foi comentado em alguns círculos de ótimos programadores que a função da Win32 API FormatMessage é uma das criaturas mais bizarras já criadas.
+        content="
+Já foi comentado em alguns círculos de ótimos programadores que a função da Win32 API FormatMessage é uma das criaturas mais bizarras já criadas.
 O objetivo da FormatMessage é formatar uma string,..."/>
 
   
@@ -106,45 +107,150 @@ FormatMessage para... dumies?
           <div class="content">
 
             
-              <p>Já foi comentado em alguns círculos de ótimos programadores que a função da Win32 API FormatMessage é uma das criaturas mais bizarras já criadas.</p>
+              <p><a href="http://www.caloni.com.br/blog/formatmessage-para-dumies/peixe-gelatinoso-bizarro-do-brasil-conhece-esse-pais/"><img src="http://i.imgur.com/8ZZjHlM.jpg" alt="Peixe Gelatinoso Bizarro do Brasil (conhece esse país?)"></a></p>
+<p>Já foi comentado em alguns círculos de ótimos programadores que a função da Win32 API <a href="http://msdn.microsoft.com/en-us/library/ms679351%28VS.85%29.aspx">FormatMessage</a> é uma das criaturas mais bizarras já criadas.</p>
 <p>O objetivo da FormatMessage é formatar uma string, assim como sprintf, mas voltado mais a escrever uma descrição de um código de erro. Sendo assim ela é essencial para que o usuário não receba um número no lugar de uma explicação de por que a operação falhou.</p>
 <p>Os códigos de erro que ela se propõe a formatar podem ser os erros padrões descritos em winerror.h ou qualquer outro código cuja explicação esteja em algum módulo carregado pelo processo (DLL ou o próprio executável). Isso nos dá a liberdade de, por exemplo, criar uma DLL apenas com códigos e descrições dos erros dos nossos produtos.</p>
 <p>Para que seja criada a mensagem final, uma definição de mensagem é requirida como entrada, que pode vir do próprio chamador ou da já mencionada tabela de erros de algum módulo qualquer. No caso de querermos a descrição de um erro de sistema (em winerror.h, retornado por GetLastError ou similares) a definição da mensagem já está embutida no sistema, bastando para nós passarmos o código.</p>
 <p>É importante lembrar que, como estamos falando de uma descrição de erro, ou seja, de um texto, este pode vir em diversos idiomas, sendo que é nossa obrigação também definir para qual idioma desejamos traduzir nosso código de erro, sendo também nossa obrigação, no caso de mensagens específicas do nosso programa, fornecer o modelo da mensagem nos idiomas que formos suportar.</p>
 <p>O resto da função funciona mais ou menos como o sprintf, cuspindo a mensagem-modelo em uma saída formatada de acordo com os parâmetros de entrada.</p>
-<p>As flags do parâmetro dwFlags mudam radicalmente o funcionamento da rotina, o que me lembra de outra figura bizarra: o realloc da biblioteca padrão.</p>
+<pre><code>DWORD WINAPI FormatMessage(
+   __in      DWORD dwFlags,
+   __in_opt  LPCVOID lpSource,
+   __in      DWORD dwMessageId,
+   __in      DWORD dwLanguageId,
+   __out     LPTSTR lpBuffer,
+   __in      DWORD nSize,
+   __in_opt  va_list *Arguments
+);
+</code></pre>
+<h4 id="flags">Flags</h4>
+<p>As flags do parâmetro dwFlags mudam radicalmente o funcionamento da rotina, o que me lembra de outra figura bizarra: o <a href="http://www.cplusplus.com/reference/clibrary/cstdlib/realloc/">realloc da biblioteca padrão</a>.</p>
 <p>No caso do FormatMessage, a variável dwFlags se divide em dois para especificar dois grupos de opções distintos. A parte maior contém as opções armazenadas tradicionalmente como um mapa de bits, enquanto o byte menos significativo define como será tratada a saída final, com respeito às novas linhas e qual será a largura máxima de uma linha na saída.</p>
+<p><a href="http://www.caloni.com.br/blog/formatmessage-para-dumies/peixe-gelatinoso-bizarro-do-brasil-conhece-esse-pais/"><img src="http://i.imgur.com/8nKXyBs.png" alt="Flags para FormatMessage"></a></p>
+<h4 id="source">Source</h4>
 <p>O parâmetro mais polêmico é o que possui vários significados. No caso de lpSource, existem dois significados possíveis:</p>
 <ol>
 <li>
-<p>FORMAT_MESSAGE_FROM_HMODULE. Ele é um HANDLE para um módulo.</p>
+<p><strong>FORMAT_MESSAGE_FROM_HMODULE</strong>. Ele é um HANDLE para um módulo.</p>
 </li>
 <li>
-<p>FORMAT_MESSAGE_FROM_STRING. Ele é um ponteiro para string.</p>
+<p><strong>FORMAT_MESSAGE_FROM_STRING</strong>. Ele é um ponteiro para string.</p>
 </li>
 </ol>
-<p>Isso explica por que essas duas flags são exclusivas: ou uma ou outra. Mesmo que a flag FORMATMESSAGEFROMSYSTEM seja usada, a função tentará achar a definição da mensagem no módulo especificado por lpSource primeiro, antes de ir buscar nas tabelas do sistema.</p>
+<p>Isso explica por que essas duas flags são exclusivas: ou uma ou outra. Mesmo que a flag FORMAT_MESSAGE_FROM_SYSTEM seja usada, a função tentará achar a definição da mensagem no módulo especificado por lpSource primeiro, antes de ir buscar nas tabelas do sistema.</p>
+<h4 id="o-código-do-erro">O código do erro</h4>
 <p>Chamado de dwMessageId, esse é o argumento onde podemos passar um código de GetLastError ou nossos próprios códigos de erro. Se já tivermos uma string em lpSource, no entanto, não faz sentido existir um código de erro.</p>
-<p>Para definir o idioma é usado o mesmo sistema de resources: monta-se uma DWORD com MAKELANGID que contém informações do idioma primário e secundário. Se quisermos usar o idioma padrão do sistema (99% dos casos) basta passarmos o retorno de MAKELANGID(LANGNEUTRAL, SUBLANGNEUTRAL).</p>
-<p>Mais um argumento polêmico. Se a flag FORMATMESSAGEALLOCATEBUFFER, lpBuffer não é um buffer, mas um ponteiro que será preechido com um endereço de memória alocada usando a função API LocalAlloc. Isso quer dizer que, após usar a mensagem formatada, devemos desalocar essa memória com LocalFree.</p>
+<h4 id="idioma">Idioma</h4>
+<p>Para definir o idioma é usado o mesmo sistema de resources: monta-se uma DWORD com MAKELANGID que contém informações do idioma primário e secundário. Se quisermos usar o idioma padrão do sistema (99% dos casos) basta passarmos o retorno de MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL).</p>
+<h4 id="buffer-de-saída">Buffer de saída</h4>
+<p>Mais um argumento polêmico. Se a flag FORMAT_MESSAGE_ALLOCATE_BUFFER, lpBuffer não é um buffer, mas um ponteiro que será preechido com um endereço de memória alocada usando a função API LocalAlloc. Isso quer dizer que, após usar a mensagem formatada, devemos desalocar essa memória com LocalFree.</p>
 <p>Por outro lado, se o buffer for nosso, então seu tamanho deve ser especificado no próximo argumento, nSize.</p>
-<p>Só que nem o parâmetro que especifica o tamanho do buffer é simples, assim. Se for especificado a flag FORMATMESSAGEALLOCATEBUFFER, em vez de não fazer sentido esse argumento, ele significa o número MÍNIMO de caracteres que devem ser alocados, independente do tamanho da mensagem.</p>
-<p>Obs.: Lembre-se que são caracteres, e não bytes. Se estivermos programando em UNICODE o número de bytes dobra.</p>
-<p>Essa seria uma lista simples de argumentos valist que, para quem já fez funções ao estilo printf sabe muito bem usar. A lógica da função determina que os valores &quot;%1&quot;, &quot;%2&quot; e assim por diante dentro da definição de mensagem sejam trocados por estes argumentos.</p>
+<h4 id="tamanho-do-buffer">Tamanho do buffer</h4>
+<p>Só que nem o parâmetro que especifica o tamanho do buffer é simples, assim. Se for especificado a flag FORMAT_MESSAGE_ALLOCATE_BUFFER, em vez de não fazer sentido esse argumento, ele significa o número MÍNIMO de caracteres que devem ser alocados, independente do tamanho da mensagem.</p>
+<p><em>Obs.: Lembre-se que são caracteres, e não bytes. Se estivermos programando em UNICODE o número de bytes dobra.</em></p>
+<h4 id="argumentos">Argumentos</h4>
+<p>Essa seria uma lista simples de argumentos va_list que, para quem já fez funções ao estilo printf sabe muito bem usar. A lógica da função determina que os valores &quot;%1&quot;, &quot;%2&quot; e assim por diante dentro da definição de mensagem sejam trocados por estes argumentos.</p>
 <p>Se eles são strings terminadas em nulo (interpretação padrão), inteiros ou estruturas específicas, isso vai depender da mensagem que está sendo formatada, o que é outro if a ser lembrado na hora de formatar mensagens do sistema.</p>
-<p>Também é importante lembrar que, uma vez chamada a função, o conteúdo de valist não pode ser usado novamente se não for reinicializado com vaend seguido de vastart.</p>
-<p>Agora, se todo esse negócio de vasbrubles é muito complicado pra você, é possível passar um array de DWORDPTRs com o uso da flag FORMATMESSAGEARGUMENTARRAY.</p>
+<p>Também é importante lembrar que, uma vez chamada a função, o conteúdo de va_list não pode ser usado novamente se não for reinicializado com va_end seguido de va_start.</p>
+<p>Agora, se todo esse negócio de va_sbrubles é muito complicado pra você, é possível passar um array de DWORD_PTRs com o uso da flag FORMAT_MESSAGE_ARGUMENT_ARRAY.</p>
+<h4 id="retorno">Retorno</h4>
 <p>Se tudo der certo e você passar todos os argumentos certinhos, o retorno é o número de caracteres armazenados no buffer de saída, independente dele ter sido alocado dinamicamente ou não. Ah, sim, excluindo o nulo terminador.</p>
 <p>Se der errado a função retorna zero. É possível obter o erro através de GetLastError, o que muito provavelmente será 87 nas primeiras vezes que você usar essa função.</p>
-<p>Pensou que acabaria por aqui? E qual o significado das sequências de escape dentro da mensagem-modelo? O formato básico para inserção de um argumento segue o padrão %n!format-string!.</p>
-<p>Onde n é o número que identifica o argumento, como já vimos, e format-string é um espaço reservado para identificarmos o tipo do argumento e como ele aparecerá na mensagem de saída.</p>
-<p>Existe uma longa explicação sobre o uso de controladores de largura e precisão da saída formatada e sua localização na lista de argumentos, cujo número irá depender se estamos usando valist ou array de DWORDPTRs, sendo que alguns problemas podem surgir se repetirmos esses números de inserção. Em dois momentos da explicação o artigo seja a sugerir que seja usada a função StringCchPrintf, primeiro por que FormatMessage não suporta formatação de ponto flutuantes, e segundo, porque, mesmo que seja possível formatar valores de 64 bits, seria mais fácil se você usasse outra função.</p>
+<h4 id="escapes-na-definição-de-mensagem">Escapes na definição de mensagem</h4>
+<p>Pensou que acabaria por aqui? E qual o significado das sequências de escape dentro da mensagem-modelo? O formato básico para inserção de um argumento segue o seguinte padrão:</p>
+<p>%n!<!-- raw HTML omitted -->!</p>
+<p>Onde n é o número que identifica o argumento, como já vimos, e <!-- raw HTML omitted --> é um espaço reservado para identificarmos o tipo do argumento e como ele aparecerá na mensagem de saída.</p>
+<p>Existe uma longa explicação sobre o uso de controladores de largura e precisão da saída formatada e sua localização na lista de argumentos, cujo número irá depender se estamos usando va_list ou array de DWORD_PTRs, sendo que alguns problemas podem surgir se repetirmos esses números de inserção. Em dois momentos da explicação o artigo seja a sugerir que seja usada a função StringCchPrintf, primeiro por que FormatMessage não suporta formatação de ponto flutuantes, e segundo, porque, mesmo que seja possível formatar valores de 64 bits, seria mais fácil se você usasse outra função.</p>
 <p>Ainda existe um uso específico para &quot;%0&quot;, que é evitar quebra de linha durante a formatação da mensagem, inclusive no final. Esse uso entra em conflito com o nosso flag quando este determina um número máximo de caracteres por linha.</p>
 <p>Ainda existe &quot;de bônus&quot; outras strings para preencher limitações que o próprio printf possui, como %%, %t, etc.</p>
-<p>Como os programadores habituados com ataques de stack overrun devem deduzir, uma mensagem-modelo mal intencionada pode conter sequências de inserção que não existem na formatação habitual, forçando o vazamento de bytes na string final, o que pode forçar ataques planejados. Como o próprio artigo diz, usar um código de erro arbitrário retornado por uma API qualquer e usar FormatMessage sem a flag FORMATMESSAGEIGNOREINSERTS pode levar a resultados desastrosos.</p>
+<h4 id="falha-de-segurança">Falha de segurança</h4>
+<p>Como os programadores habituados com ataques de stack overrun devem deduzir, uma mensagem-modelo mal intencionada pode conter sequências de inserção que não existem na formatação habitual, forçando o vazamento de bytes na string final, o que pode forçar ataques planejados. Como o próprio artigo diz, usar um código de erro arbitrário retornado por uma API qualquer e usar FormatMessage sem a flag FORMAT_MESSAGE_IGNORE_INSERTS pode levar a resultados desastrosos.</p>
+<h4 id="exemplos">Exemplos</h4>
 <p>Esse também é um bônus da MSDN, que te presenteia com exemplos de código tão fantasiosos quanto a própria função, veja o primeiro exemplo, por exemplo:</p>
-<p>Depois ele chega a reimplementar o exemplo usando valist, o que é muito interessante, mas... bom, deixa pra lá. Vamos fazer nosso próprio teste.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">windows.h</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">stdio.h</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    LPWSTR pMessage <span style="color:#f92672">=</span> L<span style="color:#f92672">%</span><span style="color:#ae81ff">1</span><span style="color:#f92672">!</span>.s<span style="color:#f92672">!</span> <span style="color:#f92672">%</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">%</span><span style="color:#ae81ff">5</span><span style="color:#f92672">!</span>s<span style="color:#f92672">!</span>;
+    DWORD_PTR pArgs[] <span style="color:#f92672">=</span> { (DWORD_PTR)<span style="color:#ae81ff">4</span>, (DWORD_PTR)<span style="color:#ae81ff">2</span>, (DWORD_PTR)LBill,   <span style="color:#f92672">%</span><span style="color:#ae81ff">1</span><span style="color:#f92672">!</span>.s<span style="color:#f92672">!</span> refers back to the first insertion string in pMessage
+         (DWORD_PTR)LBob,                                                 <span style="color:#f92672">%</span><span style="color:#ae81ff">4</span> refers back to the second insertion string in pMessage
+         (DWORD_PTR)<span style="color:#ae81ff">6</span>, (DWORD_PTR)LBill };                                <span style="color:#f92672">%</span><span style="color:#ae81ff">5</span><span style="color:#f92672">!</span>s<span style="color:#f92672">!</span> refers back to the third insertion string in pMessage
+    <span style="color:#66d9ef">const</span> DWORD size <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+    WCHAR buffer[size];
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>FormatMessage(FORMAT_MESSAGE_FROM_STRING  FORMAT_MESSAGE_ARGUMENT_ARRAY,
+                       pMessage, 
+                       <span style="color:#ae81ff">0</span>,
+                       buffer, 
+                       size, 
+                       (va_list)pArgs))
+    {
+        wprintf(LFormat message failed with <span style="color:#ae81ff">0</span>x<span style="color:#f92672">%</span>xn, GetLastError());
+        <span style="color:#66d9ef">return</span>;
+    }
+
+     Buffer contains   Bi Bob   Bill.
+    wprintf(LFormatted message <span style="color:#f92672">%</span>sn, buffer);
+}
+ 
+
+</code></pre></div><p>Depois ele chega a reimplementar o exemplo usando va_list, o que é muito interessante, mas... bom, deixa pra lá. Vamos fazer nosso próprio teste.</p>
+<h4 id="uso-padrão-para-getlasterror">Uso padrão para GetLastError</h4>
 <p>Esse é o uso clássico: precisamos de uma descrição de um código de erro para o usuário; um código Win32. A chamada para esse tipo de uso pode ser encapsulada em uma função mais simples:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define _CRT_SECURE_NO_WARNINGS </span><span style="color:#75715e">// quanta frescura...
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+wstring <span style="color:#a6e22e">GetErrorDescription</span>(DWORD errNumber)
+{
+	wstring ret;
+	<span style="color:#66d9ef">bool</span> msgOk <span style="color:#f92672">=</span> false;
+	LPVOID lpMsgBuf <span style="color:#f92672">=</span> NULL;
+
+	<span style="color:#66d9ef">if</span>( FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER <span style="color:#75715e">// aloque pra mim (não sei o tamanho)
+</span><span style="color:#75715e"></span>		<span style="color:#f92672">|</span> FORMAT_MESSAGE_FROM_SYSTEM <span style="color:#75715e">// descrição do erro está no sistema
+</span><span style="color:#75715e"></span>		<span style="color:#f92672">|</span> FORMAT_MESSAGE_IGNORE_INSERTS, <span style="color:#75715e">// ignora os inserts pra não sofrer com hackerzinhos
+</span><span style="color:#75715e"></span>		NULL, <span style="color:#75715e">// sem fonte:
+</span><span style="color:#75715e"></span>		errNumber, <span style="color:#75715e">// a fonte é o código de erro
+</span><span style="color:#75715e"></span>		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), <span style="color:#75715e">// idioma padrão
+</span><span style="color:#75715e"></span>		(LPTSTR)<span style="color:#f92672">&amp;</span>lpMsgBuf,<span style="color:#75715e">// isso é um ponteiro para um ponteiro para um buffer que será alocado
+</span><span style="color:#75715e"></span>		<span style="color:#ae81ff">0</span>, <span style="color:#75715e">// nada disso
+</span><span style="color:#75715e"></span>		NULL <span style="color:#75715e">// e nem disso
+</span><span style="color:#75715e"></span>		) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> ) <span style="color:#75715e">// maior que zero quer dizer &#34;beleza!&#34;
+</span><span style="color:#75715e"></span>	{
+		<span style="color:#66d9ef">if</span>( lpMsgBuf ) <span style="color:#75715e">// só pra...
+</span><span style="color:#75715e"></span>		{
+			ret <span style="color:#f92672">=</span> (PCWSTR) lpMsgBuf; <span style="color:#75715e">// ok, vamos usar essa string
+</span><span style="color:#75715e"></span>			msgOk <span style="color:#f92672">=</span> true;
+			LocalFree(lpMsgBuf); <span style="color:#75715e">// não precisamos mais da memória alocada
+</span><span style="color:#75715e"></span>		}
+	}
+
+	<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span> msgOk ) <span style="color:#75715e">// alguma coisa não deu certo
+</span><span style="color:#75715e"></span>	{
+		<span style="color:#66d9ef">wchar_t</span> msgBuf[<span style="color:#ae81ff">100</span>]; <span style="color:#75715e">// o suficiente
+</span><span style="color:#75715e"></span>		_snwprintf(msgBuf, <span style="color:#ae81ff">100</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Unknown error (code %d)&#34;</span>, errNumber);
+		ret <span style="color:#f92672">=</span> msgBuf;
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#66d9ef">int</span> CALLBACK <span style="color:#a6e22e">wWinMain</span>(HINSTANCE, HINSTANCE, PWSTR errNumberStr, <span style="color:#66d9ef">int</span>)
+{
+	<span style="color:#66d9ef">int</span> errNumber <span style="color:#f92672">=</span> _wtoi(errNumberStr);
+	wstring errDesc <span style="color:#f92672">=</span> GetErrorDescription(errNumber);
+	MessageBox(NULL, errDesc.c_str(), <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;GetLastError&#34;</span>, MB_OK <span style="color:#f92672">|</span> MB_ICONINFORMATION);
+	<span style="color:#66d9ef">return</span> errNumber;
+}
+ 
+
+</code></pre></div><p><img src="http://i.imgur.com/rnrw5UN.png" alt="Saída do nosso projetinho"></p>
 <p>Existem milhares de forma de usar essa função, como você deve ter percebido pelos parâmetros. Não seja tímido: se você conhece algum truquezinho esperto e quer compartilhar com os usuários da FormatMessage, essa é a hora!</p>
 
             
@@ -154,7 +260,7 @@ FormatMessage para... dumies?
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

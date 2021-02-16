@@ -13,20 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Entrando na Zona com Vim</title>
+  <title>Blogue do Caloni - Entrando na zona com Vim</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Entrando na Zona com Vim"/>
+  <meta property="og:title" content="Entrando na zona com Vim"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/entrando-na-zona-com-vim/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Se você é programador é bem provável que já tenha ouvido falar em Flow ou The Zone. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do..."/>
+        content="Se você é programador é bem provável que já tenha ouvido falar em [Flow] 1 ou [The Zone] 2. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -82,9 +82,9 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="https://github.com/Caloni/vim/blob/master/vimrc">
-Entrando na Zona com Vim
-</a>
+
+Entrando na zona com Vim
+
 </p>
 
         <p class="subtitle">
@@ -105,20 +105,32 @@ Entrando na Zona com Vim
           <div class="content">
 
             
-              <p>Se você é programador é bem provável que já tenha ouvido falar em <a href="https://en.wikipedia.org/wiki/Flow(psychology)">Flow</a> ou <a href="https://hn.algolia.com/?query=the%20zone">The Zone</a>. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &quot;zona&quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.</p>
+              <p>Se você é programador é bem provável que já tenha ouvido falar em [Flow] <a href="https://en.wikipedia.org/wiki/Flow_(psychology)">1</a> ou [The Zone] <a href="https://hn.algolia.com/?query=the%20zone">2</a>. Se for leitor assíduo do Hacker News, então, nem se fala. De qualquer forma, uma das maneira mais produtivas do programador programar é entrar na famosa &quot;zona&quot;. É lá que muito de nós nascemos. Lembra a primeira vez que mexeu em um computador ou afim e ficou tão obcecado que não viu o tempo passar? Pois bem. Você esteve na zona. E estar nela é um bom lugar para trabalhar.</p>
 <p>Na zona, principalmente resolvendo problemas complexos, o importante é poder construir uma estrutura em sua mente com a ajuda de alguns aparatos, como um caderno de anotações, stickers, lousa ou seu editor preferido. Meu editor preferido para navegar (flow) por um código é sem sombra de dúvida o Vim, pois ele é apenas uma tela que preenche todo meu campo de visão e possui comandos em que eu consigo facilmente acessar o conteúdo que preciso relembrar. Quando estou obtendo o diagnóstico de um log, por exemplo, posso rapidamente ir construindo um modelo mental da solução navegando entre arquivos de log e código-fonte através de tags e buscas em regex.</p>
 <p>A primeira vantagem do Vim em relação a outros editores é sua capacidade de abrir arquivos grandes. Um log de 1GB pode ser um desafio para um Notepad da vida, e até para um Visual Studio, mas no Vim tudo que você precisa é de memória disponível. E mesmo que não tenha, o Windows se vira bem no gerenciamento de swap (ou Linux, tanto faz).</p>
-<p>Para navegar no código, existem duas técnicas que não necessitam de nenhum plugin. A primeira é a busca por regex, que pode ser feita com os comandos :vimgrep ou :grep, sendo que o primeiro busca em um padrão de arquivos (usando wildcard) e o segundo dentro dos buffers já abertos (útil se você já tiver uma sessão ativa; mais sobre isso depois).</p>
-<p>O bom é que, no caso de logs, se você buscar por expressões unívocas, isso já fica no histórico de seus comandos e você pode usar quando quiser para voltar para esses logs (ou se você for maluco e guardar de cabeça seus marks, pode criar um mark de vez).</p>
-<p>A segunda técnica de navegar no código é através das tags que são montadas pela ferramenta ctags. Ela é genérica o suficiente para suportar várias linguagens, mas pode ser usada até para qualquer sequência de palavras. Há plugins que realizam essa varredura do fonte automática, mas particularmente não gosto de encher meu Vim de plugins, sendo que o único que uso que me lembro é o MRU (porque o Vim ainda não suporta algo do gênero internamente). De qualquer forma, tudo que eu preciso fazer para atualizar as tags de um projeto é abrir o readme do projeto (que geralmente fica na pasta raiz) e rodar meu atalho.</p>
-<p>Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects, SomeProject, Folder1, Folder2, Folder3, File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cair em SomeProject.</p>
-<pre><code>set tags=tags;
-</code></pre>
-<p>Como no Windows o atalho padrão do comando tag do Vim (<code>C-]</code>) não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados).</p>
-<pre><code>map &lt;C-K&gt; &lt;C-]&gt;
-</code></pre>
-<p>Depois de dar uma olhada no log, encontrar os métodos que você precisa analisar, seu fluxo, etc, você terá um monte de buffers relevantes abertos nas linhas relevantes. Seria muito bom se tudo isso pudesse ser guardado em um estado para que você continue amanhã ou em sua próxima sessão de flow. Para isso existe o comando :mksession.</p>
-<p>Por último: o comando :source roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.</p>
+<p>Para navegar no código, existem duas técnicas que não necessitam de nenhum plugin. A primeira é a busca por regex, que pode ser feita com os comandos <a href="http://vimdoc.sourceforge.net/htmldoc/quickfix.html#:vimgrep">:vimgrep</a> ou <a href="http://vimdoc.sourceforge.net/htmldoc/quickfix.html#:grep">:grep</a>, sendo que o primeiro busca em um padrão de arquivos (usando wildcard) e o segundo dentro dos buffers já abertos (útil se você já tiver uma sessão ativa; mais sobre isso depois).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; No Vim não é necessário digitar o comando completo; note que esse wildcard busca pastas recursivamente</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">vimg</span> <span style="color:#e6db74">/regex/</span> \<span style="color:#a6e22e">Projects</span>\<span style="color:#a6e22e">SomeProject</span>\**\*.<span style="color:#a6e22e">cpp</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; Isso busca em todos os buffers abertos cujo arquivo tem a extensão de C++</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">grep</span> <span style="color:#a6e22e">regex</span> *.<span style="color:#a6e22e">cpp</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>O bom é que, no caso de logs, se você buscar por expressões unívocas, isso já fica no histórico de seus comandos e você pode usar quando quiser para voltar para esses logs (ou se você for maluco e guardar de cabeça seus marks, pode criar um mark de vez).</p>
+<p>A segunda técnica de navegar no código é através das tags que são montadas pela ferramenta ctags. Ela é genérica o suficiente para suportar várias linguagens, mas pode ser usada até para qualquer sequência de palavras. Há plugins que realizam essa varredura do fonte automática, mas particularmente não gosto de encher meu Vim de plugins, sendo que o único que uso que me lembro é o <a href="http://www.vim.org/scripts/script.php?script_id=521">MRU</a> (porque o Vim ainda não suporta algo do gênero internamente). De qualquer forma, tudo que eu preciso fazer para atualizar as tags de um projeto é abrir o readme do projeto (que geralmente fica na pasta raiz) e rodar meu atalho.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; Roda recursivamente e otimiza para C++ e Python.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">S</span>-<span style="color:#a6e22e">F5</span>&gt; :!<span style="color:#a6e22e">ctags</span> --<span style="color:#a6e22e">tag</span>-<span style="color:#a6e22e">relative</span>=<span style="color:#a6e22e">yes</span> --<span style="color:#a6e22e">recurse</span> --<span style="color:#a6e22e">c</span>++-<span style="color:#a6e22e">kinds</span>=+<span style="color:#a6e22e">p</span> --<span style="color:#a6e22e">python</span>-<span style="color:#a6e22e">kinds</span>=-<span style="color:#a6e22e">i</span> --<span style="color:#a6e22e">fields</span>=+<span style="color:#a6e22e">iaS</span> --<span style="color:#a6e22e">extra</span>=+<span style="color:#a6e22e">q</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Busca pelo arquivo tags na pasta atual e vai subindo a hierarquia.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">set</span> <span style="color:#a6e22e">tags</span>=<span style="color:#a6e22e">tags</span>;<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Isso vai gerar um arquivo ctags na pasta do projeto que será usada automaticamente para procurar pelas tags que eu preciso. O pulo do gato na verdade é o ponto-e-vírgula após o nome do arquivo ao setar a variável tags. Isso faz com que o Vim não busque apenas o arquivo tags na pasta atual, mas em toda hierarquia. Então se você estiver na pasta Projects\SomeProject\Folder1\Folder2\Folder3\File.cpp e tiver gerado o arquivo tags na pasta SomeProject para todo o projeto, ao usar o comando de busca de tag ele eventualmente vai abrir esse arquivo tags, pois ele vai procurando em Folder3, Folder2, Folder1 e cai em SomeProject.</p>
+<p>Como no Windows o atalho padrão do comando tag do Vim não funciona também preciso fazer uma pequena adaptação técnica (e de quebra já uso para navegar nos próximos resultados):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">K</span>&gt; &lt;<span style="color:#a6e22e">C</span>-]&gt;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; O bom é que o first e o next ficam um do lado do outro.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">map</span> &lt;<span style="color:#a6e22e">C</span>-<span style="color:#a6e22e">J</span>&gt; :<span style="color:#a6e22e">tnext</span>&lt;<span style="color:#a6e22e">CR</span>&gt;<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Depois de dar uma olhada no log, encontrar os métodos que você precisa analisar, seu fluxo, etc, você terá um monte de buffers relevantes abertos nas linhas relevantes. Seria muito bom se tudo isso pudesse ser guardado em um estado para que você continue amanhã ou em sua próxima sessão de flow. Para isso existe o comando <a href="http://vimdoc.sourceforge.net/htmldoc/starting.html#:mksession">:mksession</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; Salva estado atual dos buffers</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">mksession</span> \<span style="color:#a6e22e">temp</span>\<span style="color:#a6e22e">analise</span>.<span style="color:#a6e22e">vim</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">&#34; Restaura um estado salvo anteriomente</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>:<span style="color:#a6e22e">so</span> \<span style="color:#a6e22e">temp</span>\<span style="color:#a6e22e">analise</span>.<span style="color:#a6e22e">vim</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>O comando <a href="http://vimdoc.sourceforge.net/htmldoc/repeat.html#:source">:source</a> roda um script vim que possui comandos guardados. Ele é um arquivo texto semelhante ao vimrc.</p>
 <p>Basicamente é isso. Tudo o que você precisa em sua análise de fonte e de log se encontra na ponta de seus dedos. Não é necessário abrir nenhuma pasta nem terminal. Simplesmente navegue através do Vim para descobrir o problema e seja feliz em sua zona.</p>
 
             
@@ -128,7 +140,7 @@ Entrando na Zona com Vim
         <div class="taglist">
             
     
-      <a href="/tags/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

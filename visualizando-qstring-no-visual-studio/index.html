@@ -107,9 +107,41 @@ Visualizando QString no Visual Studio
             
               <p>O Qt não é um framework que pode apenas ser usado no QtCreator. Através de um projeto bem configurado pelo CMake, por exemplo, é possível ter um projeto que pode ser compilado e depurado tanto nas ferramentas do Qt quanto no Visual Studio. No entanto, na hora de depurar algumas coisas são difíceis de fazer. Por exemplo: como olhar o conteúdo de uma QString?</p>
 <p>O Visual Studio utiliza um mecanismo que lembra os comandos bizarros que se usa no WinDbg, mexendo com registradores e tal. Através dessa combinação é possível dizer para o depurador como interpretar determinados tipos de objetos. Ele já vem obviamente pronto para std::string, CString (ATL) e deveria vir com QString, de tão famosa que é. Mas a versão do Visual Studio 2015 não vem. O jeito então é editar diretamente o arquivo onde ficam esses padrões.</p>
-<p>O nome do arquivo é autoexp.dat e ele fica em uma pasta no estilo Program Files, Microsoft Visual Studio, Common7, Packages, Debugger. É melhor você retirar ele dessa pasta antes de sobrescrevê-lo para não ter erro de acesso. Ao abri-lo verá que no começo há vários comentários que explicam como é o funcionamento desse padrão.</p>
-<p>Felizmente (e também obviamente) o pessoal do Qt já fez uma entrada na wiki que explica como fazer para interpretar corretamente uma QString. Eles mesmos admitem que a coisa ficou difícil desde a última versão (Qt 5), mas ainda assim é possível. E, se tudo falhar, ainda é possível usar a janela de Watch:</p>
-<p>Mas não foi o caso dessa vez. Tudo funcionou perfeitamente assim que incluí os valores da Wiki logo no começo da sessão Visualizer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e">; AutoExp.Dat - templates for automatically expanding data</span>
+</code></pre></div><p>O nome do arquivo é <strong>autoexp.dat</strong> e ele fica em uma pasta no estilo Program Files, Microsoft Visual Studio, Common7, Packages, Debugger. É melhor você retirar ele dessa pasta antes de sobrescrevê-lo para não ter erro de acesso. Ao abri-lo verá que no começo há vários comentários que explicam como é o funcionamento desse padrão.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e">; type=[text]&lt;member[,format]&gt;...</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; type		Name of the type (may be followed by &lt;*&gt; for template</span>
+<span style="color:#75715e">;			types such as the ATL types listed below).</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; text		Any text.Usually the name of the member to display,</span>
+<span style="color:#75715e">;			or a shorthand name for the member.</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; member	Name of a member to display.</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; format	Watch format specifier. One of the following:</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">;	Letter	Description					Sample		   Display</span>
+<span style="color:#75715e">;	------	--------------------------	------------   -------------</span>
+<span style="color:#75715e">;	d,i		Signed decimal integer		0xF000F065,d   -268373915</span>
+<span style="color:#75715e">;	u		Unsigned decimal integer	0x0065,u	   101</span>
+<span style="color:#75715e">;	o		Unsigned octal integer		0xF065,o	   0170145</span>
+<span style="color:#75715e">;	x,X		Hexadecimal integer			61541,X		   0X0000F065</span>
+<span style="color:#75715e">;	l,h		long or short prefix for	00406042,hx    0x0c22</span>
+<span style="color:#75715e">;			  d, i, u, o, x, X</span>
+<span style="color:#75715e">;	f		Signed floating-point		3./2.,f		   1.500000</span>
+<span style="color:#75715e">;	e		Signed scientific-notation	3./2.,e		   1.500000e+000</span>
+<span style="color:#75715e">;	g		Shorter of e and f			3./2.,g		   1.5</span>
+<span style="color:#75715e">;	c		Single character			0x0065,c	   &#39;e&#39;</span>
+<span style="color:#75715e">;	s		Zero-terminated string		pVar,s		   &#34;Hello world&#34;</span>
+<span style="color:#75715e">;	su		Unicode string				pVar,su		   &#34;Hello world&#34;</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; For details of other format specifiers see Help under:</span>
+<span style="color:#75715e">; &#34;format specifiers/watch variable&#34;</span>
+</code></pre></div><p>Felizmente (e também obviamente) o pessoal do Qt já fez <a href="https://wiki.qt.io/IDE_Debug_Helpers">uma entrada na wiki</a> que explica como fazer para interpretar corretamente uma QString. Eles mesmos admitem que a coisa ficou difícil desde a última versão (Qt 5), mas ainda assim é possível. E, se tudo falhar, ainda é possível usar a janela de Watch:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">(char*)str.d + str.d-&gt;offset,su
+</code></pre></div><p>Mas não foi o caso dessa vez. Tudo funcionou perfeitamente assim que incluí os valores da Wiki logo no começo da sessão <strong>Visualizer</strong>.</p>
+<p><img src="http://i.imgur.com/3dnGwGK.gif" alt=""></p>
 
             
 
@@ -118,7 +150,7 @@ Visualizando QString no Visual Studio
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

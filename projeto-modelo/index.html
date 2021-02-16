@@ -106,8 +106,18 @@ Projeto-modelo
 
             
               <p>É muito difícil construir um modelo de pastas que sirva para a maioria dos projetos que tivermos que colocar na fôrma. Ainda mais se esses projetos tiverem que futuramente fazer parte da mesma ramificação. Foi pensando em várias coisas que chegamos a uma versão beta que pode ajudar aqueles que ficam pensando durantes dias antes mesmo de colocar as mãos no código.</p>
-<p>Antes de começar a pensar em como as pastas estarão alinhadas, é importante saber como funcionará o controle de código do seu projeto. Como eu disse sobre o Bazaar, a estrutura inicial permitirá a junção de dois projetos distintos se estes compartilharem do mesmo commit no começo de suas vidas.</p>
+<h4 id="primeira-coisa-controle-de-código">Primeira coisa: controle de código</h4>
+<p>Antes de começar a pensar em como as pastas estarão alinhadas, é importante saber como funcionará o controle de código do seu projeto. Como <a href="http://www.caloni.com.br/como-estou-trabalhando-com-o-bazaar">eu disse sobre o Bazaar</a>, a estrutura inicial permitirá a junção de dois projetos distintos se estes compartilharem do mesmo commit no começo de suas vidas.</p>
 <p>Portanto, trate de iniciar a estruturação em um projeto-modelo que já contenha pelo menos um commit: o das pastas vazias já estruturadas.</p>
+<pre><code>bzr init _Template
+cd _Template
+bzr mkdir Docs
+bzr mkdir Interface
+bzr ...
+bzr ci -m &quot;Projeto-modelo. Herde desse projeto sua estrutura inicial&quot;
+</code></pre>
+<h4 id="estruturação-proposta">Estruturação proposta</h4>
+<p><img src="http://i.imgur.com/HyuSdjb.png" alt="projeto-modelo2.png"></p>
 <p>Build. Essa pasta contém tudo que é necessário para compilar e testar o projeto como um todo. Idealmente a execução da batch build.bat deve executar todo o processo. Após a compilação, é de competência dos componentes na subpasta Tests fazer os testes básicos do projeto para se certificar de que tudo está funcionando como deveria.</p>
 <p>Common. Aqui devem ser colocados aqueles includes que servem para vários pontos do projeto. Está exemplificado pelo arquivo de versão (Version.h), pois todos os arquivos devem referenciar uma única versão do produto. Podem existir Outras definições básicas, como nome do produto, dos arquivos, etc. É aqui que são gravadas as interfaces que permitem dependência circular entre os componentes (e.g. Interface de componentes COM).</p>
 <p>Docs. Aqui deve ser colocada toda a documentação que diz respeito ao projeto. A organização interna ainda não foi definida, pois imagina-se ser possível usar diversas fontes, como doxygen, casos de uso, bugs, arquivos de projeto e UML. Foi exemplificado com o arquivo todo.txt e changes.txt, que deve ter sempre a lista de coisas a fazer e a lista de coisas já feitas, respectivamente, tendo, portanto, que ser sempre atualizados.</p>
@@ -118,8 +128,9 @@ Projeto-modelo
 <p>Resources. A origem de todas as imagens, sons, cursores, etc de um projeto devem residir primeiramente na pasta Resources. A divisão interna desse item fica a critério do designer responsável, pois ele pode dividir tanto por função (Install, Interface) quanto por elementos (Images, Sounds).</p>
 <p>Services. Além dos drivers e das interfaces alguns projetos necessitam de processos &quot;invisíveis&quot; que devem fazer algo no sistema. Isso inclui serviços do Windows, GINAs, componentes COM e coisas do gênero. Devem ser colocados nessa pasta e distribuídos como no exemplo, em Service1 e Service2.</p>
 <p>Tools. Além dos componentes essenciais para o funcionamento do software também existem aqueles componentes que fornecem mais poder ao usuário, ao pessoal do suporte ou ao próprio time de desenvolvimento. Essas são as ferramentas de suporte que permitem a fácil identificação de erros no programa ou a configuração mais avançada de um item que a Interface não cobre. Adicionalmente foi colocada a subpasta Develop, que deve conter ferramentas usadas estritamente durante a fase de desenvolvimento.</p>
+<h4 id="testes">Testes</h4>
 <p>Todos os componentes que disponibilizarem unidades de testes devem conter uma pasta Tests dentro de si. Essa padronização permite facilmente a localização de testes internos aos componentes. Além disso, os arquivos executáveis de testes devem sempre terminar seu nome com Test, o que permite a automatização do processo de teste durante o build.</p>
-<p>Acredito que este esboço esteja muito bom. É o modelo inicial que estou utilizando nos projetos da empresa e de casa.</p>
+<p>Acredito que este esboço esteja muito bom. É o modelo inicial que estou utilizando nos projetos da empresa e de casa. Deixo disponível <a href="/images/_template.7z">aqui</a> para download. Críticas e sugestões são bem-vindas.</p>
 
             
 
@@ -128,7 +139,7 @@ Projeto-modelo
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -27,9 +27,14 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Nos últimos dias me deparei com o seguinte (pseudo-)código:
-Dentro de MyClass a seguinte estrutura:
-Então eu me pergunto: qual a função da classe em um código desses?
-Bjarne Stroustrup desde o começo,..."/>
+int main(int argc, const char **argv)
+{
+    MyClass obj;
+    HRESULT hr = obj.init();
+
+    if ( SUCCEEDED(hr) )
+    {
+        if (..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -109,13 +114,59 @@ Se você não precisa de classe você não precisa de classe
 
             
               <p>Nos últimos dias me deparei com o seguinte (pseudo-)código:</p>
-<p>Dentro de MyClass a seguinte estrutura:</p>
-<p>Então eu me pergunto: qual a função da classe em um código desses?</p>
-<p>Bjarne Stroustrup desde o começo, em seu livro The C++ Programming Language, sugere que C++ não é uma linguagem unicamente orientada a objetos, mas multi-paradigmas. Hoje, em 2017, ela é uma linguagem genérica e até funcional. Na época poderia ser usada como orientada a objetos, mas também como estruturada e imperativa comum. O goto funciona até hoje.</p>
-<p>Então o erro no código acima é supor mecanicamente que como é C++ precisa ter classe. Não. O código não precisa ter uma classe. No entanto, seu código precisa ter classe. Entendeu?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
+{
+    MyClass obj;
+    HRESULT hr <span style="color:#f92672">=</span> obj.init();
+
+    <span style="color:#66d9ef">if</span> ( SUCCEEDED(hr) )
+    {
+        <span style="color:#66d9ef">if</span> ( args have <span style="color:#e6db74">&#34;cmd1&#34;</span> )
+        {
+            hr <span style="color:#f92672">=</span> obj.cmd1();
+        }
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( args have <span style="color:#e6db74">&#34;cmd2&#34;</span> )
+        {
+            hr <span style="color:#f92672">=</span> obj.cmd2();
+        }
+        ... <span style="color:#75715e">// você entendeu a ideia
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><p>Dentro de MyClass a seguinte estrutura:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    HRESULT m_result <span style="color:#f92672">=</span> S_OK;
+
+    HRESULT <span style="color:#a6e22e">init</span>();
+    HRESULT <span style="color:#a6e22e">cmd1</span>();
+    HRESULT <span style="color:#a6e22e">cmd2</span>();
+    <span style="color:#75715e">// você pegou a ideia
+</span><span style="color:#75715e"></span>};
+</code></pre></div><p>Então eu me pergunto: qual a função da classe em um código desses?</p>
+<p>Bjarne Stroustrup desde o começo, em seu livro <a href="https://www.google.com.br/search?q=the+c%2B%2B+programming+language">The C++ Programming Language</a>, sugere que C++ não é uma linguagem unicamente orientada a objetos, mas multi-paradigmas. Hoje, em 2017, ela é uma linguagem genérica e até funcional. Na época poderia ser usada como orientada a objetos, mas também como estruturada e imperativa comum. O goto funciona até hoje.</p>
+<p>Então o erro no código acima é supor mecanicamente que como é C++ precisa ter classe.</p>
+<p><img src="https://i.imgur.com/OoGOCOL.jpg" alt=""></p>
+<p>Não. O código não precisa ter uma classe. No entanto, seu código precisa ter classe. Entendeu?</p>
 <p>Ter classe é para poucos. É para programadores que se preocupam com a relação entre funcionalidade, estilo, arquitetura e todos os inúmeros elementos que tornam um código perfeito. Para ser perfeito, um código precisa levar em conta tantos elementos que apenas um programador acordado, obsessivo, fora da matrix, conseguiria observar o que deve ser feito.</p>
 <p>Uma pequena sugestão:</p>
-<p>É a melhor solução? Não. Só uma ideia para tornar o código simples de entender, enxuto para manter, com apenas o modelito básico. Tem até um map para evitar encher de ifs. Mas não precisaria se você tem meia-dúzia de funções.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
+{
+    MyMap cmds;
+
+    <span style="color:#66d9ef">if</span> ( SUCCEEDED(init()) )
+    {
+        cmds[args]();
+    }
+}
+
+HRESULT <span style="color:#a6e22e">init</span>();
+HRESULT <span style="color:#a6e22e">cmd1</span>();
+HRESULT <span style="color:#a6e22e">cmd2</span>();
+<span style="color:#75715e">// você pegou a ideia
+</span></code></pre></div><p>É a melhor solução? Não. Só uma ideia para tornar o código simples de entender, enxuto para manter, com apenas o modelito básico. Tem até um map para evitar encher de ifs. Mas não precisaria se você tem meia-dúzia de funções.</p>
 <p>E note que eu disse funções, não classe. E é possível ter classe sem classes.</p>
 
             
@@ -125,7 +176,7 @@ Se você não precisa de classe você não precisa de classe
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -105,18 +105,19 @@ Problemas comuns no WinDbg e suas soluções
           <div class="content">
 
             
-              <p>Depois de uma agradável manhã e tarde acompanhando o curso de desenvolvimento de drivers do meu amigo Ferdinando voltei para a casa para brincar um pouco mais com o mundo kernel e voltar a encontrar problemas com o WinDbg &amp; Cia que há mais ou menos 1 ano atrás não tinha.</p>
-<p>Pesquisando por um problema específico envolvendo PDBs reencontrei o blogue do Ken Johnson, MVP Microsoft e analista por profissão e diversão, é conhecido por suas excelentes contribuições no mundo da depuração de sistema (notadamente WinDbg). Existe um post específico que ele escreveu para economizar tempo com problemas que ocorrem de vez em quando em uma sessão ou outra de depuração, mas nunca paramos tempo o suficiente para resolver.</p>
+              <p>Depois de uma agradável manhã e tarde acompanhando o <a href="http://driverentry.com.br/blog/?page_id=16">curso de desenvolvimento de drivers do meu amigo Ferdinando</a> voltei para a casa para brincar um pouco mais com o mundo kernel e voltar a encontrar problemas com o WinDbg &amp; Cia que há mais ou menos 1 ano atrás não tinha.</p>
+<p>Pesquisando por um problema específico envolvendo PDBs reencontrei o <a href="http://www.nynaeve.net/">blogue do Ken Johnson</a>, MVP Microsoft e analista por profissão e diversão, é conhecido por suas excelentes contribuições no mundo da depuração de sistema (notadamente WinDbg). Existe um post específico que ele escreveu para economizar tempo com problemas que ocorrem de vez em quando em uma sessão ou outra de depuração, mas nunca paramos tempo o suficiente para resolver.</p>
 <p>Além de outros, ele lista alguns que particularmente já aconteceram comigo ou com colegas de depuração:</p>
-<p>O WinDbg demora um tempo absurdo para processar o carregamento dos módulos e está usando tempo máximo de processamento em apenas uma CPU.</p>
+<p><strong>O WinDbg demora um tempo absurdo para processar o carregamento dos módulos e está usando tempo máximo de processamento em apenas uma CPU.</strong></p>
 <p>Isso ocorre porque existem breakpoints ainda  não resolvidos. Resolva deixando apenas esses tipos de breakpoints que são absolutamente necessários, pois cada vez que um módulo é carregado o depurador precisa fazer o parser de cada um deles para verificar se ele já consegue resolve-lo.</p>
-<p>Às vezes, porém, existe algum lixo nos workspaces carregados por ele que permanecem mesmo depois de apagarmos todos os breakpoints inúteis ou reiniciar o sistema. Em último caso, sempre podemos apagar o workspace do registro, em HKCU\Software\Microsoft\Windbg\Workspaces.</p>
-<p>O WinDbg continua demorando décadas para analisar o carregamento, mas agora nem consome tanta CPU assim.</p>
-<p>Isso ocorre porque na cadeia de paths para procurar por símbolos existe algum endereço de rede/internet errado que faz com que ele tenha que caminhar em falso diversas vezes. Esse e outros erros de símbolos sempre poderão ser analisados através do universal !sym noisy, que imprime todo tipo de informação útil do que pode dar errado durante um .reload explícito (eu digitei) ou implícito (lazy reload).</p>
-<p>O WinDbg continua recusando carregar um símbolo que eu sei que existe e sei que é válido.</p>
-<p>Talvez ele exista, mas por algum motivo foi copiado corrompido para o symbol server. Mais uma vez, !sym noisy nele e deve acontecer algum erro de EPDBCORRUPT. Nesse caso, apague o PDB culpado e tente de novo.</p>
-<p>E, como brinde, um grande aliado da produtividade: como evitar que o WinDbg bloqueie seu PDB enquanto você precisa constantemente recompilar seu driver:</p>
-<p>Fonte: Blog do Nynaeve.</p>
+<p>Às vezes, porém, existe algum lixo nos workspaces carregados por ele que permanecem mesmo depois de apagarmos todos os breakpoints inúteis ou reiniciar o sistema. Em último caso, sempre podemos apagar o workspace do registro, em <strong>HKCU\Software\Microsoft\Windbg\Workspaces</strong>.</p>
+<p><strong>O WinDbg continua demorando décadas para analisar o carregamento, mas agora nem consome tanta CPU assim.</strong></p>
+<p>Isso ocorre porque na cadeia de paths para procurar por símbolos existe algum endereço de rede/internet errado que faz com que ele tenha que caminhar em falso diversas vezes. Esse e outros erros de símbolos sempre poderão ser analisados através do universal <strong>!sym noisy</strong>, que imprime todo tipo de informação útil do que pode dar errado durante um .reload explícito (eu digitei) ou implícito (lazy reload).</p>
+<p><strong>O WinDbg continua recusando carregar um símbolo que eu sei que existe e sei que é válido.</strong></p>
+<p>Talvez ele exista, mas por algum motivo foi copiado corrompido para o symbol server. Mais uma vez, <strong>!sym noisy</strong> nele e deve acontecer algum erro de <strong>E_PDB_CORRUPT</strong>. Nesse caso, apague o PDB culpado e tente de novo.</p>
+<p>E, como brinde, um grande aliado da produtividade: <strong>como evitar que o WinDbg bloqueie seu PDB enquanto você precisa constantemente recompilar seu driver:</strong></p>
+<p>.reload -u modulo</p>
+<p>Fonte: Blog do <a href="http://www.nynaeve.net/?p=164">Nynaeve</a>.</p>
 
             
 
@@ -125,7 +126,7 @@ Problemas comuns no WinDbg e suas soluções
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

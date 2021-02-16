@@ -26,8 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:
-Quem diz o asterisco fazer parte do tipo e não da variável tem razão...."/>
+        content="A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int * var. Explicação:
+Quem diz o asterisco fazer parte do tipo e não da variável tem razão. Pensando..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,12 +106,15 @@ Const Int Pointer Var
           <div class="content">
 
             
-              <p>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é const int pointer var. Explicação:</p>
+              <p>A melhor forma de declarar variáveis ponteiros (constante ou não, mas segue o exemplo) é <code>const int * var</code>. Explicação:</p>
 <p>Quem diz o asterisco fazer parte do tipo e não da variável tem razão. Pensando dessa forma ele tem que ficar próximo do tipo.</p>
-<p>Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade. Ou seja, int pointer var significa que pointer var equivale a um int (constante ou não, mas preciso dessa variável não-const para o exemplo). É por isso que pointer var igual a dez possui o mesmo valor de atribuição do que int var seguido de var igual a dez, ou seja, pointer var é sinônimo do l-value var (se var fosse um inteiro e não um ponteiro).</p>
-<p>Além disso, outro argumento pró-proximidade da variável é que declarações de múltiplas variáveis na mesma linha precisam de múltiplos asteriscos: const int pointer var1, pointer var2, pointer var3.</p>
-<p>Portanto, como ambos os lados estão certos, separar o asterisco de ambos não dá prioridade a nenhuma forma que o programador poderá interpretar essa decisão, seja como parte do tipo ou da variável. Cada programador com seu próprio estilo irá enxergar em const int pointer  var a proximidade com int ou com var de acordo com seu próprio bias (e estará certo em sua análise).</p>
-
+<pre><code>const int* var
+</code></pre><p>Porém, outra forma de interpretar a variável é que ela equivale a um inteiro quando usado com asterisco, o que também é verdade. Ou seja, <code>int *var</code> significa que <code>*var</code> equivale a um <code>int</code> (constante ou não, mas preciso dessa variável não-const para o exemplo). É por isso que <code>*var = 10</code> possui o mesmo valor de atribuição do que <code>int var; var = 10</code>, ou seja, <code>*var</code> é sinônimo do l-value <code>var</code> (se var fosse um inteiro e não um ponteiro).</p>
+<p>Além disso, outro argumento pró-proximidade da variável é que declarações de múltiplas variáveis na mesma linha precisam de múltiplos asteriscos: <code>const int *var1, *var2, *var3</code>.</p>
+<p>Portanto, como ambos os lados estão certos, separar o asterisco de ambos não dá prioridade a nenhuma forma que o programador poderá interpretar essa decisão, seja como parte do tipo ou da variável. Cada programador com seu próprio estilo irá enxergar em <code>const int * var</code> a proximidade com <code>int</code> ou com <code>var</code> de acordo com seu próprio bias (e estará certo em sua análise).</p>
+<p>Ergo:</p>
+<pre><code>qualifier type * name;
+</code></pre>
             
 
           </div>
@@ -119,7 +122,7 @@ Const Int Pointer Var
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 
@@ -127,7 +130,7 @@ Const Int Pointer Var
 
         <div class="navigation-bottom">
             <span class="next-in-section"><a href="http://www.caloni.com.br/longa-jornada-noite-adentro/">&#x25C1; Longa Jornada Noite Adentro</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/familia-rodante/">&#x25B7; Família Rodante</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/openssh-windows/">&#x25B7; OpenSSH no Windows</a></span>
 
         </div>
 

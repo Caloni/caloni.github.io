@@ -82,9 +82,9 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="https://github.com/Caloni/sep_to_kindle">
+
 Stanford Encyclopedia of Philosophy Para Kindle
-</a>
+
 </p>
 
         <p class="subtitle">
@@ -113,16 +113,38 @@ Stanford Encyclopedia of Philosophy Para Kindle
 <li>sort</li>
 <li>Calibre</li>
 </ul>
-<p>O projeto de conversão (disponível aqui) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:</p>
+<p>O projeto de conversão (disponível <a href="https://github.com/Caloni/sep_to_kindle">aqui</a>) foi feito pensando em usuários do Windows, mas pode ser adaptado facilmente para qualquer ambiente. Se trata de um conjunto de arquivos batch (script) que realiza vários comandos, a saber:</p>
+<h3 id="calibre_downloadbat-baixa-conteúdo-do-site-da-stanford">calibre_download.bat (baixa conteúdo do site da Stanford)</h3>
 <p>Este batch baixa todo o conteúdo do site da Stanford em um único diretório. O processo pode demorar mais ou menos, dependendo da sua banda, mas aqui em casa (50MB) demorou cerca de meia-hora pra mais.</p>
-<p>Este batch chama dois outros batch, call calibreremovehead.bat e call calibreremovebottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.</p>
+<pre><code>wget --recursive --domains plato.stanford.edu --page-requisites --no-parent --convert-links --restrict-file-names=windows --no-directories --html-extension https://plato.stanford.edu/contents.html 
+</code></pre><h3 id="calibre_clean_filesbat-limpa-início-e-fim-das-entradas">calibre_clean_files.bat (limpa início e fim das entradas)</h3>
+<p>Este batch chama dois outros batch, call calibre_remove_head.bat e call calibre_remove_bottom.bat, que limpam das entradas os cabeçalhos e finais em comum que são repetitivos e desnecessários para gerar um ebook, como links úteis de navegação. Como as entradas do site já possuem marcadores, isso facilitou o trabalho.</p>
+<h4 id="calibre_remove_headbat">calibre_remove_head.bat</h4>
+<pre><code>for %%i in (index.html.*.html) do sed -n -i &quot;/BEGIN ARTICLE HTML/,$p&quot; %%i
+</code></pre><h4 id="calibre_remove_bottombat">calibre_remove_bottom.bat</h4>
+<pre><code>for %%i in (index.html.*.html) do sed -i &quot;/END ARTICLE HTML/,$d&quot; %%i
+</code></pre><h3 id="calibre_entriesbat-gera-índice-com-as-entradas">calibre_entries.bat (gera índice com as entradas)</h3>
 <p>Esta batch gera os índices das entradas baseado em seus títulos, e os nomes dos arquivos serão usados para links no TOC do Calibre.</p>
-<p>Algumas entradas possuem o marcador em, que deve ser retirado antes de ordenar os títulos.</p>
+<pre><code>if exist calibre_entries.txt del calibre_entries.txt
+for %%i in (index.html.*.html) do calibre_title.bat %%i &gt;&gt; calibre_entries.txt
+sed -i -e &quot;s/&lt;em&gt;//&quot; -e &quot;s/&lt;\/em&gt;//&quot; calibre_entries.txt
+</code></pre><h3 id="calibre_entries_cleanbat-limpa-formatação-das-entradas">calibre_entries_clean.bat (limpa formatação das entradas)</h3>
+<p>Algumas entradas possuem o marcador <strong>em</strong>, que deve ser retirado antes de ordenar os títulos.</p>
+<pre><code>sed -i -e &quot;s/&lt;em&gt;//&quot; -e &quot;s/&lt;\/em&gt;//&quot; calibre_entries.txt
+</code></pre><h3 id="calibre_entries_sortbat-ordena-entradas-por-título">calibre_entries_sort.bat (ordena entradas por título)</h3>
 <p>Se não ordenarmos por título o único índice de nosso livro será inútil.</p>
-<p>Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado doublekiller.exe, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:</p>
-<p>Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag a, no formato que o Calibre espera:</p>
+<pre><code>sort calibre_entries.txt &gt; calibre_entries_sorted.txt
+</code></pre><h3 id="apagar-duplicatas">Apagar duplicatas</h3>
+<p>Ao final do processo com o wget percebi que algumas entradas foram baixadas mais de uma vez. Várias delas. Por isso eliminei as duplicatas usando um programa Windows chamado <a href="https://www.bigbangenterprises.de/en/doublekiller/">doublekiller.exe</a>, mas basta você usar qualquer ferramenta que encontra os .html da mesma pasta que possuem o mesmo hash e eliminar as duplicadas. Isso deve ser feito nesse passo antes de:</p>
+<h3 id="calibre_entries_to_templatebat-converte-entradas-da-enciclopédia-para-o-template-do-calibre">calibre_entries_to_template.bat (converte entradas da enciclopédia para o template do Calibre)</h3>
+<p>Essa parte do processo precisa converter as entradas no formato Título Link para entradas HTML com a tag <strong>a</strong>, no formato que o Calibre espera:</p>
+<pre><code>sed -e &quot;s/\(^.*\) \(index.*$\)/        &lt;a href=\&quot;\2\&quot;&gt;\1&lt;\/a&gt;&lt;br\/&gt;/&quot; calibre_entries_sorted.txt &gt; calibre_template_entries.html
+</code></pre><h3 id="calibre_merge_templatesbat-junta-início-meio-e-fim-do-template-do-calibre">calibre_merge_templates.bat (junta início, meio e fim do template do Calibre)</h3>
 <p>Por fim, antes de usar o Calibre é necessário juntar os arquivos de template em um arquivo final de TOC, o calibre.html. Ao final desse processo passaremos ao Calibre em si.</p>
+<pre><code>copy /Y calibre_template_begin.html+calibre_template_entries.html+calibre_template_end.html calibre.html
+</code></pre><h3 id="usar-calibre-para-abrir-calibrehtml">Usar Calibre para abrir calibre.html</h3>
 <p>Para realizar este passo basta arrastar ou abrir o arquivo html central que foi criado, e a partir dele iniciar a conversão. Note que após arrastar já será criado um zip com todos os HTMLs relacionados.</p>
+<h3 id="converter-html-zipado-em-outros-formatos">Converter HTML zipado em outros formatos</h3>
 <p>Após abrir pelo Calibre ele insere na biblioteca e é só converter para MOBI (Kindle) ou EPUB (outros leitores) ou qualquer outro formato desejado. A nota final aqui é que como se trata de um arquivo gigantesco (50 MB em HTML zipado, 80 MB em MOBI) é melhor baixar a versão 64 bits do Calibre e ter muita memória RAM. Voilà!</p>
 <p>E por hoje é só. Se tudo der certo você poderá copiar e colar dentro do seu leitor todas as entradas de uma enciclopédia indispensável para quem está estudando filosofia. Enjoy.</p>
 
@@ -133,15 +155,15 @@ Stanford Encyclopedia of Philosophy Para Kindle
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/reading">reading</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/por-dentro-do-roteiro-tom-stempel/">&#x25C1; Por Dentro do Roteiro</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/python27-protobuf-py2exe-cx_freeze/">&#x25B7; Python27, protobuf, py2exe e buildexe</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/o-doutor-da-felicidade/">&#x25C1; O Doutor da Felicidade</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/escrevendo-curtas-l-g-bayao/">&#x25B7; Escrevendo Curtas</a></span>
 
         </div>
 

@@ -105,21 +105,63 @@ O que acontece quando o contador estoura
           <div class="content">
 
             
-              <p>Dois conceitos de programação relacionados a limites computacionais são bem conhecidos do programador: o famigerado overflow e o não-tão-famoso underflow (embora seja fácil imaginar que ele é o oposto do primeiro). O primeiro ocorre quando somamos a uma variável inteira não-nula um valor cujo resultado não consegue ser representado pelo tamanho de memória usado para armazenar esse tipo inteiro (que pode ser um caractere, um inteiro curto, inteiro longo e por aí vai). O underflow, por outro lado (outro lado mesmo), é o resultado de uma subtração que não pode ser representado pelo número de bits do seu tipo inteiro.</p>
+              <p>Dois conceitos de programação relacionados a limites computacionais são bem conhecidos do programador: o famigerado <em>overflow</em> e o não-tão-famoso <em>underflow</em> (embora seja fácil imaginar que ele é o oposto do primeiro). O primeiro ocorre quando somamos a uma variável inteira não-nula um valor cujo resultado não consegue ser representado pelo tamanho de memória usado para armazenar esse tipo inteiro (que pode ser um caractere, um inteiro curto, inteiro longo e por aí vai). O <em>underflow</em>, por outro lado (outro lado mesmo), é o resultado de uma subtração que não pode ser representado pelo número de bits do seu tipo inteiro.</p>
 <p>Nada melhor que um código para ilustrar melhor esses dois ilustres acontecimentos:</p>
-<p>O indicador de que algo está errado é simples: como diabos foi um número positivo virar negativo, já que eu somei ao invés de subtrair? No entanto, computacionalmente parece extremamente correto: o próximo número após o maior valor positivo possível é o menor número negativo possível.</p>
-<p>Nos computadores atuais tudo no final acaba sendo representado por zeros e uns, até o sinal de negativo dos números menores que zero. Por isso mesmo, para que consigamos usar números menores que zero, precisamos gastar um bit para indicar que este número é negativo. Existem muitas representações interessantes, dentre as quais a mais popular acabou sendo a de complemento de dois. A regra é simples:</p>
-<p>Toda representação binária que tiver o bit mais significativo ligado (o bit mais à esquerda) significa um número negativo cujo valor absoluto se obtém invertendo-se o resto dos bits e adicionando um.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> INT_MAX; <span style="color:#75715e">// máximo inteiro que pode ser armazenado no tipo int
+</span><span style="color:#75715e"></span>
+	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// se é o máximo, é um valor positivo
+</span><span style="color:#75715e"></span>	x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;  <span style="color:#75715e">// mas basta um empurrãozinho para que
+</span><span style="color:#75715e"></span>	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// a casa caia
+</span><span style="color:#75715e"></span>} 
+
+</code></pre></div><pre><code>Saída
+=====
+2147483647
+-2147483648
+</code></pre>
+<p>O indicador de que algo está errado é simples: como diabos foi um número positivo virar negativo, já que eu <strong>somei</strong> ao invés de <strong>subtrair</strong>? No entanto, computacionalmente parece extremamente correto: o próximo número após o maior valor positivo possível é o menor número negativo possível.</p>
+<h4 id="complemento-de-dois">Complemento de dois</h4>
+<p>Nos computadores atuais tudo no final acaba sendo representado por zeros e uns, até o sinal de negativo dos números menores que zero. Por isso mesmo, para que consigamos usar números menores que zero, precisamos gastar um bit para <strong>indicar que este número é negativo</strong>. Existem muitas representações interessantes, dentre as quais a mais popular acabou sendo a de <strong>complemento de dois</strong>. A regra é simples:</p>
+<!-- raw HTML omitted -->
 <p>Quando o bit mais à esquerda não está ligado o valor absoluto é ele mesmo; ou seja, é um número positivo, incluindo o zero. Como vamos ver, isso facilita em muito os cálculos para o computador. Para nós, a coisa não fica lá muito difícil. Só precisamos lembrar que, em hexadecimal, todos os valores que tiverem o byte mais significativo igual ou maior que 8 (que é 1000 em binário) é negativo e temos que aplicar o método de complemento de dois para obter seu valor absoluto. Vejamos o valor -8, por exemplo:</p>
 <ol>
-<li>Primeiro temos a representação real (em um byte): 1111 1000.</li>
-<li>O bit mais significativo está ligado: é um número negativo. Descartamos o sinal, fica 111 1000.</li>
-<li>Devemos agora inverter todos os bits: 111 1000 se torna 000 0111.</li>
-<li>Por fim, somamos um: 000 0111 + 1 = 000 1000.</li>
-<li>Como vimos no parágrafo anterior, 000 1000, ou simplesmente 1000, é 8. Na verdade, -8!</li>
+<li>
+<p>Primeiro temos a representação real (em um byte): <strong>1111 1000</strong>.</p>
+</li>
+<li>
+<p>O bit mais significativo está ligado: é um número negativo. Descartamos o sinal, fica <strong>111 1000</strong>.</p>
+</li>
+<li>
+<p>Devemos agora inverter todos os bits: <strong>111 1000</strong> se torna <strong>000 0111</strong>.</p>
+</li>
+<li>
+<p>Por fim, somamos um: <strong>000 0111 + 1 = 000 1000</strong>.</p>
+</li>
+<li>
+<p>Como vimos no parágrafo anterior, <strong>000 1000</strong>, ou simplesmente <strong>1000</strong>, é <strong>8</strong>. Na verdade, <strong>-8</strong>!</p>
+</li>
 </ol>
+<!-- raw HTML omitted -->
+<blockquote>
+<h4 id="interessante">Interessante</h4>
+</blockquote>
+<p>_O que significa, na notação complemento de dois, a representação onde estão todos os bits ligados, independente do número de bytes?_<!-- raw HTML omitted --></p>
+<h4 id="agora-fica-fácil-pelo-menos-deveria">Agora fica fácil (pelo menos deveria)</h4>
 <p>Se alterarmos o código acima para imprimir na saída os números hexadecimais, obteremos a seguinte saída:</p>
-<p>E o mais legal é que agora sabemos que o primeiro número é o maior valor positivo possível nesse tamanho de int, pois possui todos os bits ligados exceto o bit de sinal. Já o segundo número, o primeiro incrementado de 1, possui todos os bits desligados exceto o bit de sinal: é o menor número negativo possível!</p>
+<pre><code>7fffffff
+80000000
+</code></pre>
+<p>E o mais legal é que agora sabemos que o primeiro número é o <strong>maior valor positivo possível</strong> nesse tamanho de <strong>int</strong>, pois possui todos os bits ligados <strong>exceto o bit de sinal</strong>. Já o segundo número, o primeiro incrementado de 1, possui todos os bits desligados <strong>exceto o bit de sinal</strong>: é o menor número negativo possível!</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<h4 id="para-pensar">Para pensar</h4>
+</blockquote>
+<p><em>Consegue imaginar como os cálculos são feitos pelo computador? Curioso? Então <a href="http://en.wikipedia.org/wiki/Twos_complement">dê uma olhada</a></em>.<!-- raw HTML omitted --></p>
 
             
 
@@ -128,7 +170,7 @@ O que acontece quando o contador estoura
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

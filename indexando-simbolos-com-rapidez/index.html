@@ -106,16 +106,32 @@ Indexando símbolos com rapidez
 
             
               <p>Trabalhar com inúmeros projetos de diferentes clientes e diferentes binários pode ser uma loucura. Quando o mundo é Windows, algumas medidas precisam ser padronizadas para evitar a perda de informação durante todo o processo de desenvolvimento, testes, deploy e manutenção.</p>
-<p>A respeito do deploy e manutenção, um dos principais é manter o código sempre atualizado, limpo e asseado, além de estar dentro de pelo menos um controle de fonte, de preferência distribuído (Mercurial, Git, Bazaar).</p>
+<p>A respeito do deploy e manutenção, um dos principais é manter o código sempre atualizado, limpo e asseado, além de estar dentro de pelo menos um controle de fonte, de preferência distribuído (<a href="http://caloni.com.br/guia-basico-de-controle-de-codigo-mercurial">Mercurial</a>, <a href="http://caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github">Git</a>, <a href="http://caloni.com.br/guia-basico-de-repositorios-no-bazaar">Bazaar</a>).</p>
 <p>Porém, voltando ao mundo Windows, os fontes não são apenas a única fonte de preocupação e zelo. Os binários também são importante. Binários eu digo os EXEs, DLLs geradas, além dos seus símbolos (PDBs), que contém o mapa entre aquele monte de 1s e 0s e o código-fonte de onde ele saiu.</p>
-<p>Nós da BitForge costumamos pelo menos indexar binários com fonte, através dos resources do binário. Como isso é feito? Basicamente editando o arquivo RC na parte da versão do binário e inserindo o hash do commit usado para gerar aquele binário. Com isso qualquer binário produzido possui seu pai (&quot;use the source, Luke!&quot;). Usamos um script em Python muito simples e muito eficaz para isso, que indexa .NET e C++ (através do Visual Studio, mas não está com muitas amarras de ambiente):</p>
-<p>Quando algum binário parar na máquina de algum cliente em algum lugar do universo, basta olhar para os detalhes pelo Windows Explorer, e ele estará lá.</p>
-<p>Através desses códigos em hexa podemos capturar o commit exato de onde saiu o binário. Tudo, é claro, confiando no procedimento de toda a equipe: apenas gerar um binário a partir de um commit publicado. Você também pode exibir a versão dos binários em uma pasta através das colunas do Windows Explorer.</p>
-<p>Outro detalhe de binários é que eles vivem sendo sobrescritos. Todo &quot;Project, Build&quot; sobrescreve o binário anterior, que pode ter sido justamente o enviado para o cliente. Se o cliente não possuir nenhum procedimento de armazenamento de versões dos binários gerados (às vezes ele nem precisa, essa é nossa função) não há como obter os símbolos de binários que podem gerar problemas futuros (todo software tem bug).</p>
-<p>Para resolver isso, o mínimo que se deve fazer é super-simples e nada difícil: crie uma pasta em algum lugar, nomeie essa pasta seu servidor de símbolos, a cada novo binário que será entregue, indexe o binário e os seus símbolos. Como? Com o &quot;Debugging Tools for Windows&quot;.aspx), como dizia um amigo meu, é mamão com açúcar:</p>
-<p>Essa e outra técnicas de indexar fontes e binário você pode ver no meu projeto, artigo, palestra e vídeo de demonstração. Se você for cego, ainda tem a vantagem da áudio-narração do vídeo. Brincadeira, ainda não temos isso.</p>
-<p>Com o poder do Windows Explorer, desde o Windows 95 podemos otimizar nossas tarefas nos baseando na extensão dos arquivos que estamos lidando. No caso do indexador de símbolos, eu simplesmente utilizo uma batch que contém exatamente a linha acima (com a diferença de %1 no lugar de MINHA-PASTA-COM-BINÁRIOS) que eu chamo direto do Explorer através de um comando que inseri no registro. Eis o comando:</p>
-<p>Você pode seguir o passo-a-passo dessas linhas e gerar seu próprio registro. Após feito isso, surgirá um novo comando para qualquer DLL que você clicar com o outro botão do mouse. Você também pode gerar o mesmo comando para EXEs, bastando realizar o mesmo passo-a-passo na pasta exefile em vez de dllfile.</p>
+<p>Nós da <a href="http://www.bitforge.com.br">BitForge</a> costumamos pelo menos indexar binários com fonte, através dos resources do binário. Como isso é feito? Basicamente editando o arquivo RC na parte da versão do binário e inserindo o hash do commit usado para gerar aquele binário. Com isso qualquer binário produzido possui seu pai (&quot;use the source, Luke!&quot;). Usamos um script em Python muito simples e muito eficaz para isso, que indexa .NET e C++ (através do Visual Studio, mas não está com muitas amarras de ambiente):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rc_new_content <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;^.*ProductVersion.*$&#39;</span>, product_version_string, rc_original_content, flags<span style="color:#f92672">=</span>re<span style="color:#f92672">.</span>MULTILINE)
+rc_new_content <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;^.*FILEVERSION.*$&#39;</span>, file_version_string, rc_new_content, flags<span style="color:#f92672">=</span>re<span style="color:#f92672">.</span>MULTILINE)
+</code></pre></div><p>Quando algum binário parar na máquina de algum cliente em algum lugar do universo, basta olhar para os detalhes pelo Windows Explorer, e ele estará lá:</p>
+<p><img src="http://i.imgur.com/mogZt3n.png" alt=""></p>
+<p>Através desse a2f3c... podemos capturar o commit exato de onde saiu o binário. Tudo, é claro, confiando no procedimento de toda a equipe: apenas gerar um binário a partir de um commit publicado.</p>
+<p>Você também pode exibir a versão dos binários em uma pasta através das colunas do Windows Explorer:</p>
+<p><img src="http://i.imgur.com/vfY2oan.png" alt=""></p>
+<h3 id="indexando-símbolos-e-binários">Indexando símbolos e binários</h3>
+<p>Outro detalhe de binários é que eles vivem sendo sobrescritos. Todo &quot;Project, Build&quot; sobrescreve o binário anterior, que pode ter sido justamente o enviado para o cliente. Se o cliente não possuir nenhum procedimento de armazenamento de versões dos binários gerados (às vezes ele nem precisa, essa é nossa função) não há como obter os símbolos de binários que podem gerar problemas futuros (todo <em>software</em> tem bug).</p>
+<p>Para resolver isso, o mínimo que se deve fazer é super-simples e nada difícil: crie uma pasta em algum lugar, nomeie essa pasta seu servidor de símbolos, a cada novo binário que será entregue, indexe o binário e os seus símbolos. Como? Com o <a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff551063(v=vs.85).aspx">&quot;Debugging Tools for Windows&quot;</a>, como dizia um amigo meu, é mamão com açúcar:</p>
+<pre><code>&quot;c:\Tools\DbgTools(x86)\symstore&quot; add /r /f &lt;MINHA-PASTA-COM-BINÁRIOS&gt; /s c:\Tools\Symbols /t &quot;IndexSymbols&quot;
+</code></pre><p>Essa e outra técnicas de indexar fontes e binário você pode ver no meu <a href="https://github.com/Caloni/GitIndex">projeto</a>, <a href="http://caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github">artigo</a>, <a href="http://caloni.com.br/ccppbr-rio-12/">palestra</a> e <a href="https://www.youtube.com/watch?v=mZewxqlFShA">vídeo de demonstração</a>. Se você for cego, ainda tem a vantagem da áudio-narração do vídeo. Brincadeira, ainda não temos isso.</p>
+<h3 id="simplificando">Simplificando</h3>
+<p>Com o poder do Windows Explorer, desde o Windows 95 podemos otimizar nossas tarefas nos baseando na extensão dos arquivos que estamos lidando. No caso do indexador de símbolos, eu simplesmente utilizo uma batch que contém exatamente a linha acima (com a diferença de %1 no lugar de &lt;MINHA-PASTA-COM-BINÁRIOS&gt;) que eu chamo direto do Explorer através de um comando que inseri no registro. Eis o comando:</p>
+<pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\dllfile\shell\Index Symbols]
+
+[HKEY_CLASSES_ROOT\dllfile\shell\Index Symbols\command]
+@=&quot;cmd.exe /c c:\\tools\\indexsymbols.bat  \&quot;%1\&quot;&quot;
+</code></pre><p>Você pode baixar um arquivo reg <a href="/download/index-symbols.reg">aqui</a>, copiar as linhas acima em um .reg que você gerar, ou simplesmente seguir o passo-a-passo dessas linhas e gerar seu próprio registro. Após feito isso, surgirá um novo comando para qualquer DLL que você clicar com o outro botão do mouse:</p>
+<p><img src="http://i.imgur.com/tvCCYcm.png" alt=""></p>
+<p>Você também pode gerar o mesmo comando para EXEs, bastando realizar o mesmo passo-a-passo na pasta <strong>exefile</strong> em vez de <strong>dllfile</strong>.</p>
 <p>Procedimentos como esse devem ser uma coisa simples, não difícil. Programadores e pessoas são preguiçosas, e precisam de algum incentivo. E nesse caso, o incentivo é: o que você vai fazer quando der um crash com um binário que você não sabe de onde veio nem qual fonte foi usado para compilá-lo? Pois é.</p>
 
             
@@ -125,7 +141,7 @@ Indexando símbolos com rapidez
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

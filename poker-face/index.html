@@ -105,12 +105,117 @@ Poker Face
           <div class="content">
 
             
-              <p>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops aninhados (a versão large fica para outro post). Na verdade, estou aqui para expressar minha gratidão ao campeonato por ter aprendido mais uma bela lição vendo o código do primeiro colocado do primeiro round, vulgo Kaizero, um coreano que deu uma solução simples, rápida e prática para um problema de probabilidade tão error-prone que até os juízes do Google deram uma lambuja de alguns testes errados (sem contar que houve apenas a categoria small), e me fez pensar em quantas vezes pensamos em demasiado tentando encontrar a solução perfeita para algo que simplesmente... não precisa.</p>
-<p>Basta um hack e commit.</p>
+              <p>O segundo round da segunda fase do Code Jam passou nesse sábado. Disléxico que sou, consegui fazer apenas 8 pontos ¿ como todo mundo ¿ no teste small do problema B, que envolvia apenas dois loops aninhados (a versão large fica para outro post). Na verdade, estou aqui para expressar minha gratidão ao campeonato por ter aprendido mais uma bela lição vendo o código do primeiro colocado do primeiro round, vulgo <a href="https://code.google.com/codejam/contest/2984486/scoreboard?c=2984486#vf=1">Kaizero</a>, um coreano que deu uma solução simples, rápida e prática para um problema de probabilidade tão error-prone que até os juízes do Google deram uma lambuja de alguns testes errados (sem contar que houve apenas a categoria small), e me fez pensar em quantas vezes pensamos em demasiado tentando encontrar a solução perfeita para algo que simplesmente... não precisa.</p>
+<p>Basta um hack e <a href="http://pcottle.github.io/learnGitBranching/?NODEMO&amp;defaultTab=remote&amp;command=levels">commit</a>.</p>
+<h2 id="é-a-incerteza-idiota">É a incerteza, idiota!</h2>
+<p><a href="/images/14095237046_60ec978760_z.jpg"><img src="http://i.imgur.com/LmkKDXm.jpg" alt="Poker Jam"></a></p>
 <p>O problema reza que existem dois algoritmos para embaralhar uma sequência numérica (de 0 a N): o bom e o ruim. Ambos traçam um loop do iníco ao fim pegando aleatoriamente um elemento da lista e trocando de lugar com o elemento que está sendo varrido no momento.</p>
+<p><a href="/images/14118925924_300b85ff4c_z.jpg"><img src="http://i.imgur.com/UTQPIST.jpg" alt="ProperShuffle"></a></p>
 <p>A diferença entre o bom e o ruim é que o bom pega aleatoriamente apenas os elementos DEPOIS do elemento que está sendo varrido, enquanto o algoritmo ruim pega qualquer um dos elementos SEMPRE. Isso aparentemente e intuitivamente não parece interferir na aleatoriedade do embaralhamento, mas se levarmos ao extremo de embaralhar repetidas vezes somando a lista resultante percebemos uma tendência gritante do algoritmo ruim em manter o ordenamento inicial, ou pelo menos na média sempre tender para números menores no início e números maiores no fim, como pode ser visto nesse teste que fiz, gerado pelo Excel:</p>
-<p>O que eu tentei fazer durante meu fim-de-semana retrasado e o feriado foi encontrar um detector de aleatoriedade (aliás, encontrei um bem interessante chamado ent), tanto &quot;na mão&quot; quanto pesquisando. O que eu não imaginava foi que o teste que eu tinha feito no início usando uma simples planilha Excel era a solução óbvia (naquelas de é óbvio só depois que você vê). E foi essa a solução adotada por Kaizero.</p>
-<p>O que ele basicamente faz é acumular os resultados de três milhões de embaralhamentos feitos pelo algoritmo ruim e inferir através dos resultados que metade é bom e metade é ruim. O ruim fica do lado desbalanceado da sequência.</p>
+<p><a href="/images/14142661623_f58729a795_z.jpg"><img src="http://i.imgur.com/OL0hpLv.jpg" alt="Gráfico dos Algoritmos de Embaralhamento"></a></p>
+<p>O que eu tentei fazer durante meu fim-de-semana retrasado e o feriado foi encontrar um detector de aleatoriedade (aliás, encontrei um bem interessante chamado <a href="http://www.fourmilab.ch/random/">ent</a>), tanto &quot;na mão&quot; quanto pesquisando. O que eu não imaginava foi que o teste que eu tinha feito no início usando uma simples planilha Excel era a solução óbvia (naquelas de é óbvio só depois que você vê). E foi essa a solução adotada por Kaizero.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @author Kaizero
+</span><span style="color:#75715e">@desc Versão comentada (em português) e desofuscada do código do 
+</span><span style="color:#75715e">Code Jam 2014, 1A, problema 3 (Proper Shuffle)
+</span><span style="color:#75715e">por Wanderley Caloni (wanderley@caloni.com.br).
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#pragma warning(disable:4996) </span><span style="color:#75715e">// warning, pra que te quero...
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#75715e">// as variáveis monossilábicas...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> w[<span style="color:#ae81ff">1001</span>], C[<span style="color:#ae81ff">1001</span>][<span style="color:#ae81ff">1001</span>], O[<span style="color:#ae81ff">1001</span>];
+
+<span style="color:#75715e">// Note que uma delas (C) é uma tabela gigantesca:
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 1     2    3     4   ...  1001
+</span><span style="color:#75715e">// 2
+</span><span style="color:#75715e">// 3
+</span><span style="color:#75715e">// ...
+</span><span style="color:#75715e">// 1001
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// tabela verdade?
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> v[<span style="color:#ae81ff">1001</span>];
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span>
+{	
+	<span style="color:#66d9ef">int</span> ord, R;
+
+	<span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;</span>(<span style="color:#66d9ef">const</span> A <span style="color:#f92672">&amp;</span>p)<span style="color:#66d9ef">const</span>
+	{
+		<span style="color:#66d9ef">return</span> R <span style="color:#f92672">&lt;</span> p.R;
+	}
+}
+p[<span style="color:#ae81ff">1000</span>];
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	freopen(<span style="color:#e6db74">&#34;input.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>, stdin);
+	freopen(<span style="color:#e6db74">&#34;output.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>, stdout);
+
+	<span style="color:#66d9ef">int</span> i, TC, T, n, j;
+
+	srand((<span style="color:#66d9ef">unsigned</span>)time(NULL)); <span style="color:#75715e">// mexendo o saco de bingo...
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// a parte mais demorada: construir um contador gigante estilo 
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Excel com 3 milhões de iterações
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3000000</span>; i<span style="color:#f92672">++</span>)
+	{
+		<span style="color:#75715e">// 1. Preenchemos o array sequencial.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1000</span>; j<span style="color:#f92672">++</span>)
+		{
+			w[j] <span style="color:#f92672">=</span> j;
+		}
+
+		<span style="color:#75715e">// 2. Realizamos o algorimo ruim.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1000</span>; j<span style="color:#f92672">++</span>)
+		{
+			swap(w[j], w[rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">1000</span>]);
+		}
+
+		<span style="color:#75715e">// 3. Pesamos o resultado do algoritmo ruim.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1000</span>; j<span style="color:#f92672">++</span>)
+		{
+			C[j][w[j]]<span style="color:#f92672">++</span>;
+		}
+	}
+
+	<span style="color:#75715e">// agora a parte &#34;fácil&#34;...
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// ler número de casos de teste (sempre 120)
+</span><span style="color:#75715e"></span>	scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>TC);
+	<span style="color:#66d9ef">for</span> (T <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; T <span style="color:#f92672">&lt;=</span> TC; T<span style="color:#f92672">++</span>) <span style="color:#75715e">// iterar por cada linha
+</span><span style="color:#75715e"></span>	{
+		scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>n);
+		p[T].ord <span style="color:#f92672">=</span> T; <span style="color:#75715e">// guardando sua posição
+</span><span style="color:#75715e"></span>
+		<span style="color:#75715e">// lendo os números de todos os casos
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+		{
+			scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>O[i]);
+			p[T].R <span style="color:#f92672">+=</span> C[i][O[i]]; <span style="color:#75715e">// mas gravando o peso de cada posição (cálculo de 3M)
+</span><span style="color:#75715e"></span>		}
+	}
+
+	<span style="color:#75715e">// ordenando pelo peso de cada posição
+</span><span style="color:#75715e"></span>	sort(p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, p <span style="color:#f92672">+</span> TC <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">60</span>; i<span style="color:#f92672">++</span>)
+		v[p[i].ord] <span style="color:#f92672">=</span> true; <span style="color:#75715e">// metade tem que ser bom (a melhor metade)
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> TC; i<span style="color:#f92672">++</span>)
+	{
+		printf(<span style="color:#e6db74">&#34;Case #%d: &#34;</span>, i);
+		<span style="color:#66d9ef">if</span> (v[i])printf(<span style="color:#e6db74">&#34;GOOD</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		<span style="color:#66d9ef">else</span> printf(<span style="color:#e6db74">&#34;BAD</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	}
+}
+
+</code></pre></div><p>O que ele basicamente faz é acumular os resultados de três milhões de embaralhamentos feitos pelo algoritmo ruim e inferir através dos resultados que metade é bom e metade é ruim. O ruim fica do lado desbalanceado da sequência.</p>
+<p><a href="/images/14123599874_2f3c14a3f6_z.jpg"><img src="http://i.imgur.com/oe3heEP.jpg" alt="Tabelona"></a></p>
 <p>Tão óbvio, tão simples, tão elegante.</p>
 
             
@@ -120,7 +225,7 @@ Poker Face
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

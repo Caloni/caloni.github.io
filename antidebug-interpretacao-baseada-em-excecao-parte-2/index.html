@@ -82,9 +82,9 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="/ppt/antidebugging-eu-nao-quero-que-vc-mexa-no-meu-codigo.pdf">
+
 Antidebug: interpretação baseada em exceção (parte 2)
-</a>
+
 </p>
 
         <p class="subtitle">
@@ -105,9 +105,42 @@ Antidebug: interpretação baseada em exceção (parte 2)
           <div class="content">
 
             
-              <p>No primeiro artigo vimos como é possível &quot;enganar&quot; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</p>
+              <p>No <a href="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-1">primeiro artigo</a> vimos como é possível &quot;enganar&quot; o depurador através de exceções e assim fazer o atacante perder um tempo considerável tentando se desvencilhar dos breakpoints de mentira. Porém, vimos também que essa é uma solução difícil de manter no código-fonte, além de possuir o ponto fraco de ser facilmente contornada se descoberta. Agora é a hora de tornar as coisas mais fáceis de manter e ao mesmo tempo garantir maior dificuldade mesmo que o atacante descubra o que está acontecendo debaixo do seu nariz.</p>
 <p>O upgrade apresentado aqui continua utilizando o lançamento de exceções intrinsecamente, mas agora não depende mais da divisão do código em minifunções e chamá-las aos poucos. Em invés disso, temos apenas que pegar traços de código e colocá-los em torno de uma macro milagrosa que fará tudo o que quisermos. Isso, claro, depois de algumas marteladas que serão explicadas aqui.</p>
-<p>A solução acima está apresentada em pseudo-código para tornar mais claro o conceito. Note que existe uma espécie de &quot;retorno invisível&quot;, não baseado em retorno de pilha, envolvido. Para implementá-lo, contudo, podemos nos ajeitar com o velho e bom padrão C ANSI, com as rotinas setjmp (passo 1) e longjmp (passo 3). Para entender a implementação dessa funções na plataforma 8086 precisamos ter primeiro uma visão básica da estrutura de chamada de funções baseada em pilha.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Go back to place pre-defined by the restoration point.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LongJmp</span>(restorePoint)
+{
+	<span style="color:#75715e">// Here we will generate an exception to make things difficult.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// @todo Make a breakpoint exception and catch it.
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 3. We return to the if without using the stack, but from the restoration point.
+</span><span style="color:#75715e"></span>	GoBackToTheStartFunction(restorePoint);
+}
+
+<span style="color:#75715e">// Here everything begins.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">Start</span>()
+{
+	<span style="color:#75715e">// Obs.: follow the agreement flow according to the numbers.
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 1. First pass: we define a restoration point to the return of LongJmp.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 4. Second pass: we go back from the LongJmp function, but this time we get into the else.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>( RestorePointDefined() <span style="color:#f92672">==</span> Defined )
+	{
+		<span style="color:#75715e">// 2. We call the function that will return to the if.
+</span><span style="color:#75715e"></span>		LongJmp( <span style="color:#66d9ef">if</span> );
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+		<span style="color:#75715e">// 5. Call the real function, our true target.
+</span><span style="color:#75715e"></span>		CallTheUsefulFunction();
+	}
+
+	<span style="color:#75715e">// 6. End of execution.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+} 
+
+</code></pre></div><p>A solução acima está apresentada em pseudo-código para tornar mais claro o conceito. Note que existe uma espécie de &quot;retorno invisível&quot;, não baseado em retorno de pilha, envolvido. Para implementá-lo, contudo, podemos nos ajeitar com o velho e bom padrão C ANSI, com as rotinas setjmp (passo 1) e longjmp (passo 3). Para entender a implementação dessa funções na plataforma 8086 precisamos ter primeiro uma visão básica da estrutura de chamada de funções baseada em pilha.</p>
+<p><strong>Registradores, stack frame e call/ret</strong></p>
 <p>Registradores são variáveis reservadas do processador que podem ser utilizadas pelo código assembly da plataforma envolvida. Stack frame (estrutura da pilha) nada mais é que a hierarquia de chamadas das funções, o &quot;quem chamou quem&quot; em uma execução qualquer. Call e ret são instruções em assembly para chamar uma função (call) e sair de uma função (ret), respectivamente. Ambas alteram o stack frame.</p>
 <p>Imagine que você tem uma função, CallFunc, e outra função, Func, e que uma chame a outra. Para analisarmos apenas a chamada de função, e apenas isso, vamos considerar que Func não recebe nenhum parâmetro e não retorna nenhum valor. O código em C fica, então, assim:</p>
 <p>void Func()
@@ -120,24 +153,122 @@ Func();
 }</p>
 <p>Simples, não? Por esse mesmo motivo o disassembly terá que ser igualmente simples. Em CallFunc ele deverá conter a chamada da função (call) e em Func o retorno da chamada (ret). O resto que eventualmente aparecer está relacionado aos controles da versão Debug.</p>
 <p>Func:
-00411F73 previnstruction ; ESP = 0012FD38 (four bytes stacked up)
+00411F73 prev_instruction ; ESP = 0012FD38 (four bytes stacked up)
 00411F74 ret ; *ESP = 00411FA3 (return address)</p>
 <p>CallFunc:
-00411F9C previnstruction
+00411F9C prev_instruction
 00411F9E call Func (411424h) ; ESP = 0012FD3C
-00411FA3 nextinstruction</p>
+00411FA3 next_instruction</p>
 <p>A partir do assembly acima podemos concluir no mínimo duas coisas: 1. a pilha &quot;cresce&quot; para baixo, pois seu valor decrementou de quadro (0012FD3C para 0012FD38 são 4 byte a menos) e 2. o valor de retorno da função chamada é o endereço da próxima instrução após a chamada (call), no caso 00411FA3.</p>
 <p>Ora, da mesma forma que conseguimos acompanhar essa simples execução, o atacante também o fará. Por isso que no meio dessa chamada iremos colocar o lançamento de uma exceção e, no retorno, faremos não do modo convencional apresentado, mas por uma outra técnica que, ao invés de utilizar a instrução ret, seta &quot;manualmente&quot; o valor do registrador ESP (estado da pilha) e &quot;pula&quot; para a próxima instrução de CallFunc.</p>
 <p>Func:
-00411F60 throwexception
+00411F60 throw_exception
 00411F61 ...
-00411F73 catchexception
+00411F73 catch_exception
 00411F74 mov ESP, 0012FD3C ; ESP = 0012FD3C, como em CallFunc
-00411F75 jmp 00411FA3 ; &quot;pula&quot; para CallFunc::nextinstruction</p>
+00411F75 jmp 00411FA3 ; &quot;pula&quot; para CallFunc::next_instruction</p>
+<p><strong>Voltando à Terra Média</strong></p>
 <p>Toda essa esculhambada em assembly não precisa ser necessariamente feita em linguagem de baixo nível. Foi apenas uma maneira que encontrei pra ilustrar as diferenças entre retorno baseado em pilha e alteração no fluxo do código. Como já foi dito, para a sorte e o bem-estar de todos, essa mesma técnica pode ser implementada com funções C da biblioteca ANSI:</p>
-<p>Essa foi a técnica adicionada à solução do lançamento de exceções. O código final ficou mais claro:</p>
-<p>À primeira vista parece um desperdício o if estar diretamente no código (lembre-se que vamos utilizar a mesma estrutura condicional em várias e várias partes do código. Para tornar mais claro seu uso, resumir a chamada protegida e permitir que a proteção seja desabilitada em debug, vamos criar uma macro:</p>
-<p>Veja que como agora permitimos a seleção do anti-debug por chamada, fica mais fácil escolher quais os pontos a serem protegidos e quais não devem/podem por conta de perfomance ou outro detalhe obscuro que sempre existe na vida de um programador C++.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">jmp_buf env; <span style="color:#75715e">// Contains the next instruction (stack state).
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Func</span>()
+{
+	<span style="color:#75715e">// 3. Return using the &#34;nonconventional&#34; way
+</span><span style="color:#75715e"></span>	longjmp(env, <span style="color:#ae81ff">1</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">CallFunc</span>()
+{
+	<span style="color:#75715e">// 1. If we&#39;re setting, returns 0.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 2. If we&#39;re returning, returns a value different from 0.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>( setjmp(env) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+		Func();
+
+	<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// 4. Next instruction.
+</span><span style="color:#75715e"></span>} 
+
+</code></pre></div><p>Essa foi a técnica adicionada à solução do lançamento de exceções. O código final ficou mais claro:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** The only purpose of this function is to generate an exception.
+</span><span style="color:#75715e">*/</span>
+DWORD <span style="color:#a6e22e">LongJmp</span>(jmp_buf<span style="color:#f92672">*</span> env)
+{
+	<span style="color:#66d9ef">__try</span>
+	{
+		<span style="color:#66d9ef">__asm</span> <span style="color:#66d9ef">int</span> <span style="color:#ae81ff">3</span>
+	}
+		<span style="color:#66d9ef">__except</span>( EXCEPTION_EXECUTE_HANDLER )
+	{
+		longjmp(<span style="color:#f92672">*</span>env, <span style="color:#ae81ff">1</span>);
+	}
+
+	<span style="color:#66d9ef">return</span> ERROR_SUCCESS;
+}
+
+<span style="color:#75715e">/** And God said: &#39;int main!&#39;
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+
+	<span style="color:#66d9ef">while</span>( cin )
+	{
+		string line;
+
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Type something</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+		getline(cin, line);
+
+		jmp_buf env;
+
+		<span style="color:#66d9ef">if</span>( setjmp(env) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+		{
+			LongJmp(<span style="color:#f92672">&amp;</span>env);
+		}
+		<span style="color:#66d9ef">else</span>
+		{
+			cout <span style="color:#f92672">&lt;&lt;</span> line <span style="color:#f92672">&lt;&lt;</span> endl;
+		}
+	}
+
+	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
+} 
+
+</code></pre></div><p>À primeira vista parece um desperdício o if estar diretamente no código (lembre-se que vamos utilizar a mesma estrutura condicional em várias e várias partes do código. Para tornar mais claro seu uso, resumir a chamada protegida e permitir que a proteção seja desabilitada em debug, vamos criar uma macro:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** Use this macro instead LongJmp
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#define ANTIDEBUG(code)
+</span><span style="color:#75715e"></span>{
+	jmp_buf env;
+
+	<span style="color:#66d9ef">if</span>( setjmp(env) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+	{
+		LongJmp(<span style="color:#f92672">&amp;</span>env);
+	}
+	<span style="color:#66d9ef">else</span>
+	{
+		code;
+	}
+}
+
+<span style="color:#75715e">/** And God said: &#39;int main!&#39;
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+
+	<span style="color:#66d9ef">while</span>( cin )
+	{
+		string line;
+
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Type something</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+		getline(cin, line);
+
+		ANTIDEBUG(( cout <span style="color:#f92672">&lt;&lt;</span> line <span style="color:#f92672">&lt;&lt;</span> endl ));
+	}
+
+	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
+} 
+
+</code></pre></div><p>Veja que como agora permitimos a seleção do anti-debug por chamada, fica mais fácil escolher quais os pontos a serem protegidos e quais não devem/podem por conta de perfomance ou outro detalhe obscuro que sempre existe na vida de um programador C++.</p>
 
             
 
@@ -146,7 +277,7 @@ Func();
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

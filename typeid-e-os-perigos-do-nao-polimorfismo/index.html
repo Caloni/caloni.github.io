@@ -105,11 +105,81 @@ Typeid e os perigos do não-polimorfismo
           <div class="content">
 
             
-              <p>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n'água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C++ pode proporcionar.</p>
+              <p>Quando usamos o operador <em>typeid</em> geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o <a href="http://www.caloni.com.br/what-happens-inside-the-sizeof-operator"><em>sizeof</em></a>, que esse operador possui duas caras, às vezes damos com os burros n'água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C++ pode proporcionar.</p>
 <p>Eis um exemplo singelo, sem dramatização (com dramatização == &quot;500 linhas de código de produção além do código abaixo&quot;).</p>
-<p>O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &quot;ponteiro para objeto de classe não-polimórfica&quot;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &quot;não existe sobrecarga de execução sem que o programador queira&quot;.</p>
-<p>Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:</p>
-<p>Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;typeinfo&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Base()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Base()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+		m_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	}
+
+	<span style="color:#f92672">~</span>Base()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;~Base()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	}
+
+	<span style="color:#66d9ef">int</span> m_x;
+};
+
+<span style="color:#75715e">// como Base não é polimórfica (como vamos ver), Deriv paga o pato
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Deriv</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Deriv()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Deriv()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+
+		m_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+		m_y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	}
+
+	<span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Deriv() <span style="color:#75715e">// ela é polimórfica
+</span><span style="color:#75715e"></span>	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;~Deriv()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	}
+
+	<span style="color:#66d9ef">int</span> m_y;
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(Base<span style="color:#f92672">*</span> b) <span style="color:#75715e">// eu não sei que é uma derivada
+</span><span style="color:#75715e"></span>{
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(<span style="color:#f92672">*</span>b).name() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>; <span style="color:#75715e">// e nem o typeid número 1
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	Base<span style="color:#f92672">*</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Deriv(); <span style="color:#75715e">// o ponteiro é pra base, mas a instância é de derivada
+</span><span style="color:#75715e"></span>	func(b);
+} 
+
+</code></pre></div><pre><code>-----
+Saída:
+Base()
+Deriv()
+class Base
+</code></pre>
+<p>O <em>typeid</em> usado nesse exemplo será o estático, no estilo <em>typeid(type)</em>, porque o tipo do objeto para a função é de &quot;ponteiro para objeto de classe não-polimórfica&quot;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C++ só é aplicado se houver razão para tal, pois na linguagem a regra é que &quot;<strong>não existe sobrecarga de execução sem que o programador queira</strong>&quot;.</p>
+<p>Se o esperado pelo programador fosse um <em>class Deriv</em> na última linha da saída, ou seja, que o <em>typeid</em> utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Base() <span style="color:#75715e">// agora sou polimórfica também!
+</span><span style="color:#75715e"></span>{
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;~Base()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+} 
+
+</code></pre></div><pre><code>-----
+Saída:
+Base()
+Deriv()
+class Deriv ; como desejava o programador polimórfico
+</code></pre>
+<p>Esse é um erro equivalente ao chamar o operador <em>delete</em> usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um <em>leak</em> de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo _typeid _amigo-da-onça ;).</p>
 
             
 
@@ -118,7 +188,7 @@ Typeid e os perigos do não-polimorfismo
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

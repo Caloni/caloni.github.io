@@ -106,14 +106,132 @@ Warning de nível 4
 
             
               <p>Você já colocou aquele seu projeto favorito em /W4? Por padrão, o Visual Studio cria seus projetos com o nível de warnings e 3, porque o nível 4 é muito, muito chato. No entanto, algumas vezes ele serve para que seu código não fique apenas correto, mas bem documentado e apresentável. Vamos tentar?</p>
-<p>OK, este foi o nível 3 do tioserver, o projeto principal do tiodb, uma ferramenta para manter contêineres assináveis na memória e acessíveis via socket. Note que já existe um warning, mas vamos ignorar por enquanto. O objetivo aqui é descobrir quais os warnings mais comuns do projeto que você vai escolher. Vejamos o meu:</p>
-<p>Vamos ordenar e capturar apenas o código desses warnings para ver quantos ocorrem e quais os mais comuns:</p>
-<p>E a resposta é:</p>
-<p>Apenas quatro. Tão comuns que a maioria está até em ordem numérica e diz respeito a repetição de nomes em escopos diferentes, o que esconde os nomes do escopo anterior, mais amplo. O outro, o C4701, pode ser mais problemático, já que ele representa uma variável que potencialmente não foi inicializada, fonte comum daqueles erros de &quot;como é que essa variável virou isso?&quot;.</p>
+<pre><code class="language-log" data-lang="log">1&gt;------ Build started: Project: tioserver, Configuration: Debug x64 ------
+1&gt;  pch.cpp
+1&gt;  using Boost version 1_62
+1&gt;  tioclient.c
+1&gt;cl : Command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
+1&gt;  TioTcpSession.cpp
+1&gt;  TioTcpServer.cpp
+1&gt;  TioPython.cpp
+1&gt;  tio.cpp
+1&gt;  ContainerManager.cpp
+1&gt;  Command.cpp
+1&gt;  Generating Code...
+1&gt;  tioserver.vcxproj -&gt; C:\Projects\tiodb\server\tio\..\..\bin\x64\Debug\tio.exe
+1&gt;  tioserver.vcxproj -&gt; ..\..\bin\x64\Debug\tio.pdb (Full PDB)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+</code></pre><p>OK, este foi o nível 3 do tioserver, o projeto principal do <a href="https://github.com/tiodb">tiodb</a>, uma ferramenta para manter contêineres assináveis na memória e acessíveis via socket. Note que já existe um warning, mas vamos ignorar por enquanto. O objetivo aqui é descobrir quais os warnings mais comuns do projeto que você vai escolher. Vejamos o meu:</p>
+<p><img src="http://i.imgur.com/XjbqVh9.png" alt=""></p>
+<pre><code class="language-log" data-lang="log">1&gt;------ Rebuild All started: Project: tioserver, Configuration: Debug x64 ------
+1&gt;  pch.cpp
+1&gt;  using Boost version 1_62
+1&gt;  tioclient.c
+1&gt;c:\projects\tiodb\client\c\tioclient.c(218): warning C4701: potentially uninitialized local variable 'start' used
+1&gt;cl : Command line warning D9030: '/Gm' is incompatible with multiprocessing; ignoring /MP switch
+1&gt;  TioTcpSession.cpp
+1&gt;c:\projects\tiodb\server\tio\tiotcpsession.h(299): warning C4458: declaration of 'eventName' hides class member
+1&gt;  c:\projects\tiodb\server\tio\tiotcpsession.h(295): note: see declaration of 'tio::EXTRA_EVENT::eventName'
+1&gt;c:\projects\tiodb\server\tio\logdb.h(213): warning C4456: declaration of 'i' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\logdb.h(200): note: see declaration of 'i'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(81): warning C4456: declaration of 'handle' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(77): note: see declaration of 'handle'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(413): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(316): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpsession.cpp(127): warning C4457: declaration of 'key' hides function parameter
+1&gt;  c:\projects\tiodb\server\tio\tiotcpsession.cpp(114): note: see declaration of 'key'
+1&gt;  TioTcpServer.cpp
+1&gt;c:\projects\tiodb\server\tio\tiotcpsession.h(299): warning C4458: declaration of 'eventName' hides class member
+1&gt;  c:\projects\tiodb\server\tio\tiotcpsession.h(295): note: see declaration of 'tio::EXTRA_EVENT::eventName'
+1&gt;c:\projects\tiodb\server\tio\logdb.h(213): warning C4456: declaration of 'i' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\logdb.h(200): note: see declaration of 'i'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(81): warning C4456: declaration of 'handle' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(77): note: see declaration of 'handle'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(413): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(316): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(404): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(563): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(596): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(620): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(643): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(661): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(300): note: see declaration of 'b'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.cpp(2451): warning C4456: declaration of 'value' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.cpp(2338): note: see declaration of 'value'
+1&gt;  TioPython.cpp
+1&gt;  tio.cpp
+1&gt;c:\projects\tiodb\server\tio\tiotcpsession.h(299): warning C4458: declaration of 'eventName' hides class member
+1&gt;  c:\projects\tiodb\server\tio\tiotcpsession.h(295): note: see declaration of 'tio::EXTRA_EVENT::eventName'
+1&gt;c:\projects\tiodb\server\tio\logdb.h(213): warning C4456: declaration of 'i' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\logdb.h(200): note: see declaration of 'i'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(81): warning C4456: declaration of 'handle' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(77): note: see declaration of 'handle'
+1&gt;c:\projects\tiodb\server\tio\tiotcpserver.h(413): warning C4456: declaration of 'b' hides previous local declaration
+1&gt;  c:\projects\tiodb\server\tio\tiotcpserver.h(316): note: see declaration of 'b'
+1&gt;  ContainerManager.cpp
+1&gt;  Command.cpp
+1&gt;  Generating Code...
+1&gt;  tioserver.vcxproj -&gt; C:\Projects\tiodb\server\tio\..\..\bin\x64\Debug\tio.exe
+1&gt;  tioserver.vcxproj -&gt; ..\..\bin\x64\Debug\tio.pdb (Full PDB)
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
+</code></pre><p>Vamos ordenar e capturar apenas o código desses warnings para ver quantos ocorrem e quais os mais comuns:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#a6e22e">sort</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">s</span><span style="color:#e6db74">/c:\\.*: \(warning C[0-9]\+\).*$/</span>\<span style="color:#ae81ff">1</span>/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">sort</span> <span style="color:#a6e22e">u</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>E a resposta é:</p>
+<pre><code class="language-log" data-lang="log">warning C4456: declaration of 'identifier' hides previous local declaration
+warning C4457: declaration of 'identifier' hides function parameter
+warning C4458: declaration of 'identifier' hides class member
+warning C4701: potentially uninitialized local variable 'name' used
+</code></pre><p>Apenas quatro. Tão comuns que <a href="https://msdn.microsoft.com/en-us/library/mt694070.aspx">a maioria</a> está até em ordem numérica e diz respeito a repetição de nomes em escopos diferentes, o que esconde os nomes do escopo anterior, mais amplo. O outro, o <a href="https://msdn.microsoft.com/en-us/library/1wea5zwe.aspx">C4701</a>, pode ser mais problemático, já que ele representa uma variável que potencialmente não foi inicializada, fonte comum daqueles erros de &quot;como é que essa variável virou isso?&quot;.</p>
 <p>Felizmente só temos em um ponto do código:</p>
-<p>A correção é simples: inicialize a droga das suas variáveis zero (ou determine qual o comportamento no caso else).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//
+</span><span style="color:#75715e">// Contract: 
+</span><span style="color:#75715e">//		if no timeout, it will hang until all bytes are returned
+</span><span style="color:#75715e">//		if timeout is set, we can return less bytes than requested
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">socket_receive</span>(SOCKET socket, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> buffer, <span style="color:#66d9ef">int</span> len, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsigned</span><span style="color:#f92672">*</span> timeout_in_seconds)
+{
+	<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> char_buffer <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)buffer;
+	<span style="color:#66d9ef">int</span> received <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	time_t start;
+	<span style="color:#66d9ef">int</span> time_left;
+
+<span style="color:#75715e">#if _WIN32
+</span><span style="color:#75715e"></span>	FD_SET recvset;
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">timeval</span> tv;
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifdef _DEBUG
+</span><span style="color:#75715e"></span>	memset(char_buffer, <span style="color:#ae81ff">0xFF</span>, len);
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// se esse if não for verdadeiro, start fica com valor indefinido
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>(timeout_in_seconds)
+		start <span style="color:#f92672">=</span> time(NULL);
+
+	<span style="color:#66d9ef">while</span>(received <span style="color:#f92672">&lt;</span> len)
+	{
+		<span style="color:#66d9ef">if</span>(timeout_in_seconds)
+		{
+            <span style="color:#75715e">// C4701: potentially uninitialized local variable &#39;start&#39; used
+</span><span style="color:#75715e"></span>			time_left <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>timeout_in_seconds <span style="color:#f92672">-</span> (<span style="color:#66d9ef">int</span>)(time(NULL) <span style="color:#f92672">-</span> start);
+</code></pre></div><p>A correção é simples: inicialize a p***** das suas variáveis zero (ou determine qual o comportamento no caso else).</p>
 <p>Vamos dar uma olhada em um dos outros warnings:</p>
-<p>OK, isso é meio feio. A variável handle tinha acabado de ser criada logo antes da entrada do if. A não ser que sejam de fato variáveis distintas no código (apenas analisando a função inteira) elas poderiam ser reaproveitadas em apenas uma (até porque possuem o mesmo tipo). E se forem variáveis distintas... bem, coloque nomes distintos =)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    string containerName <span style="color:#f92672">=</span> container<span style="color:#f92672">-&gt;</span>GetName();
+    <span style="color:#66d9ef">unsigned</span> handle <span style="color:#f92672">=</span> session<span style="color:#f92672">-&gt;</span>RegisterContainer(containerName, container);
+    
+    <span style="color:#66d9ef">if</span>(session<span style="color:#f92672">-&gt;</span>UsesBinaryProtocol())
+    {
+        <span style="color:#75715e">// warning C4456: declaration of &#39;identifier&#39; hides previous local declaration
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">unsigned</span> handle <span style="color:#f92672">=</span> session<span style="color:#f92672">-&gt;</span>RegisterContainer(containerName, container);
+</code></pre></div><p>OK, isso é meio feio. A variável handle tinha acabado de ser criada logo antes da entrada do if. A não ser que sejam de fato variáveis distintas no código (apenas analisando a função inteira) elas poderiam ser reaproveitadas em apenas uma (até porque possuem o mesmo tipo). E se forem variáveis distintas... bem, coloque nomes distintos =)</p>
 <p>E aqui termina mais uma sessão de &quot;e se eu abrir mais os warnings do meu código&quot;. Espero que tenha aproveitado.</p>
 
             
@@ -123,7 +241,7 @@ Warning de nível 4
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

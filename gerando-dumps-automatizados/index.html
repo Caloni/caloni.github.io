@@ -107,8 +107,64 @@ Gerando dumps automatizados
 
             
               <p>Agora que a temporada das telas azuis passou estou às voltas com o nosso sistema de detecção de crashes, além de alguns dumps e logs pra relaxar de vez em quando.</p>
-<p>Fiquei impressionado com a simplicidade com que podemos capturar qualquer exceção que ocorra em um programa, independente da thread, e gravar um minidump com o contexto exato em que o problema ocorreu. O uso da função API SetUnhandledExceptionFilter aliado com a já citada na palestra MiniDumpWriteDump pode agilizar muito a correção de crashes triviais como Access Violation.</p>
+<p>Fiquei impressionado com a simplicidade com que podemos capturar qualquer exceção que ocorra em um programa, independente da thread, e gravar um minidump com o contexto exato em que o problema ocorreu. O uso da função API <a href="http://msdn.microsoft.com/en-us/library/ms680634%28VS.85%29.aspx">SetUnhandledExceptionFilter</a> aliado com a já citada na palestra <a href="http://msdn.microsoft.com/en-us/library/ms680360%28VS.85%29.aspx">MiniDumpWriteDump</a> pode agilizar muito a correção de crashes triviais como Access Violation.</p>
 <p>A mágica é tão bela que resolvi gravar um vídeo do que ocorreu quando compilei e testei o programa abaixo. Note que o tamanho do arquivo de dump ficou em torno dos 10 KB, ridículos nessa era de barateamento de espaço.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @file OnCrash
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">@brief Exemplo de como capturar exceções no seu programa.
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">@author Wanderley Caloni &lt;wanderley@caloni.com.br&gt;
+</span><span style="color:#75715e">@date 2010-08
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;dbghelp.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#pragma comment(lib, &#34;dbghelp.lib&#34;)
+</span><span style="color:#75715e"></span>
+LONG WINAPI <span style="color:#a6e22e">CrashHandler</span>(_EXCEPTION_POINTERS<span style="color:#f92672">*</span> ExceptionInfo)
+{
+	LONG ret <span style="color:#f92672">=</span> EXCEPTION_CONTINUE_SEARCH;
+	MINIDUMP_EXCEPTION_INFORMATION minidumpInfo;
+
+	minidumpInfo.ClientPointers <span style="color:#f92672">=</span> FALSE;
+	minidumpInfo.ThreadId <span style="color:#f92672">=</span> GetCurrentThreadId();
+	minidumpInfo.ExceptionPointers <span style="color:#f92672">=</span> ExceptionInfo;
+
+	HANDLE hFile <span style="color:#f92672">=</span> CreateFile(<span style="color:#e6db74">&#34;OnCrash.dmp&#34;</span>, GENERIC_WRITE, <span style="color:#ae81ff">0</span>, NULL, CREATE_ALWAYS, <span style="color:#ae81ff">0</span>, NULL);
+
+	<span style="color:#66d9ef">if</span>( hFile <span style="color:#f92672">!=</span> INVALID_HANDLE_VALUE )
+	{
+		MINIDUMP_TYPE dumpType <span style="color:#f92672">=</span> MiniDumpNormal;
+
+		<span style="color:#66d9ef">if</span>( MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
+			hFile, MiniDumpNormal, <span style="color:#f92672">&amp;</span>minidumpInfo, NULL, NULL) )
+		{
+			ret <span style="color:#f92672">=</span> EXCEPTION_EXECUTE_HANDLER;
+		}
+
+		CloseHandle(hFile);
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+DWORD WINAPI <span style="color:#a6e22e">CrashThread</span>(PVOID)
+{
+	<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#f92672">*</span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	SetUnhandledExceptionFilter(CrashHandler);
+	HANDLE crashThread <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, CrashThread, NULL, <span style="color:#ae81ff">0</span>, NULL);
+	WaitForSingleObject(crashThread, INFINITE);
+}
+ 
+
+</code></pre></div><p><a href="/images/finddump.htm"><img src="http://i.imgur.com/D5keozk.png" alt="oncrash.png"></a></p>
 <p>Espero com isso aliviar a carga pesada de A.V.s que sempre aparece quando menos se espera. Cuidar de toneladas de código legado exige algumas pitadas de automatização nos lugares certos. Como já dizia meu primeiro chefe: se a mente não pensa...</p>
 
             
@@ -118,7 +174,7 @@ Gerando dumps automatizados
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

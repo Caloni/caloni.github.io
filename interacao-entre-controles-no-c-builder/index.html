@@ -26,8 +26,9 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Para essa proeza precisaremos de:
-Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento..."/>
+        content="Como próxima lição da nossa jornada Borland, vamos aprender a fazer os controles de um form interagirem entre si com a força do pensamento.
+Para essa proeza precisaremos de:
+Dois..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,12 +107,37 @@ Interação entre controles no C&#43;&#43; Builder
           <div class="content">
 
             
-              <p>Para essa proeza precisaremos de:</p>
-<p>Bom, sabemos já como colocar esses caras no form principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento chama-se design).</p>
-<p>Agora no evento default do Button1 (duplo-clique nele) colocaremos o seguinte código:</p>
-<p>Percebeu? Não? Então rode e note o que acontece quando você aperta o botão.</p>
+              <p><a href="/images/cppbuilder-controls.png"><img src="http://i.imgur.com/DI06ffN.png" alt="C++ Builder Control"></a>Como próxima lição da nossa jornada Borland, vamos aprender a fazer os controles de um <em>form</em> interagirem entre si com a força do pensamento.</p>
+<p>Para essa proeza precisaremos de:</p>
+<pre><code>Dois &lt;strong&gt;TButtons&lt;/strong&gt;
+Um &lt;strong&gt;TEdit&lt;/strong&gt;
+Um &lt;strong&gt;TListBox&lt;/strong&gt;
+</code></pre>
+<p>Bom, sabemos já como colocar esses caras no <em>form</em> principal. Apenas espalhe-os de maneira que eles não fiquem uns em cima dos outros (essa técnica de espalhamento chama-se <em>design</em>).</p>
+<p>Agora no evento <em>default</em> do Button1 (duplo-clique nele) colocaremos o seguinte código:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>Button1Click(TObject <span style="color:#f92672">*</span>Sender)
+{
+	<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>Edit1<span style="color:#f92672">-&gt;</span>Text.IsEmpty() )
+	{
+		ListBox1<span style="color:#f92672">-&gt;</span>AddItem(Edit1<span style="color:#f92672">-&gt;</span>Text, <span style="color:#ae81ff">0</span>);
+		Edit1<span style="color:#f92672">-&gt;</span>Text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+	}
+} 
+
+</code></pre></div><p>Percebeu? Não? Então rode e note o que acontece quando você aperta o botão.</p>
 <p>Agora iremos fazer algo mais interessante ainda com o segundo botão. Coloque no evento default o seguinte código:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>Button1Click(TObject <span style="color:#f92672">*</span>Sender)
+{
+	<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>Edit1<span style="color:#f92672">-&gt;</span>Text.IsEmpty() )
+	{
+		ListBox1<span style="color:#f92672">-&gt;</span>AddItem(Edit1<span style="color:#f92672">-&gt;</span>Text, <span style="color:#ae81ff">0</span>);
+		Edit1<span style="color:#f92672">-&gt;</span>Text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+	}
+} 
+
+</code></pre></div><h4 id="é-só-isso">É só isso?</h4>
 <p>Mais simples, impossível. E com um pouco de imaginação, o mais besta dos aplicativos pode se tornar uma utilidade do dia a dia. Até sua mãe vai adorar.</p>
+<p><a href="/images/listadecompras.gif"><img src="http://i.imgur.com/GRoobs1.gif" alt="Lista de Compras"></a></p>
 
             
 
@@ -120,7 +146,7 @@ Interação entre controles no C&#43;&#43; Builder
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

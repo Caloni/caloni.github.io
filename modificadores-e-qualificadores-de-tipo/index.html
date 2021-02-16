@@ -26,8 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="@caloni poderia pensar em fazer um artigo sobre os modificadores de tipo em c? os mais complexo, acho eu: volatile, enum, union, extern, etc
-Uma coisa de cada vez: existem modificadores (ou..."/>
+        content="
+Uma coisa de cada vez: existem **modificadores **(ou qualificadores) de tipo e especificadores de tipo. Volatile e extern se encaixam na primeira categoria, enum e union na segunda. Veremos um pouco...&lt;/!--&gt;"/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,12 +106,70 @@ Modificadores e qualificadores de tipo
           <div class="content">
 
             
-              <p>@caloni poderia pensar em fazer um artigo sobre os modificadores de tipo em c? os mais complexo, acho eu: volatile, enum, union, extern, etc</p>
-<p>Uma coisa de cada vez: existem modificadores (ou qualificadores) de tipo e especificadores de tipo. Volatile e extern se encaixam na primeira categoria, enum e union na segunda. Veremos um pouco desses dois lados da linguagem em doses paliativas.</p>
+              <!-- raw HTML omitted -->
+<p>Uma coisa de cada vez: existem **modificadores **(ou qualificadores) de tipo e <strong>especificadores</strong> de tipo. <em>Volatile</em> e <em>extern</em> se encaixam na primeira categoria, <em>enum</em> e <em>union</em> na segunda. Veremos um pouco desses dois lados da linguagem em doses paliativas.</p>
+<h4 id="padrão-c-isoiec-98991990">Padrão C (ISO/IEC 9899:1990)</h4>
+<pre><code>6.5.2.2 enum-specifier
+ &lt;a href=&quot;http://www.caloni.com.br/enum&quot;&gt;enum&lt;/a&gt;
+
+6.5.3 type-qualifier
+ &lt;a href=&quot;http://www.caloni.com.br/const-e-volatile&quot;&gt;const&lt;/a&gt;
+ &lt;a href=&quot;http://www.caloni.com.br/const-e-volatile&quot;&gt;volatile&lt;/a&gt;
+
+6.5.2.1 struct-or-union
+ struct
+ union
+
+6.5.1 storage-class-specifier
+ typedef
+ extern
+ static
+ auto
+ register
+</code></pre>
+<h4 id="padrão-c-isoiec-148821998">Padrão C++ (ISO/IEC 14882:1998)</h4>
+<pre><code>type-specifier
+ &lt;a href=&quot;http://www.caloni.com.br/enum&quot;&gt;enum-specifier&lt;/a&gt;
+
+enum-specifier
+ &lt;a href=&quot;http://www.caloni.com.br/enum&quot;&gt;enum&lt;/a&gt;
+
+cv-qualifier
+ &lt;a href=&quot;http://www.caloni.com.br/const-e-volatile&quot;&gt;const&lt;/a&gt;
+ &lt;a href=&quot;http://www.caloni.com.br/const-e-volatile&quot;&gt;volatile&lt;/a&gt;
+
+class-key
+ class
+ struct
+ union
+
+storage-class-specifier
+ auto
+ register
+ static
+ extern
+ mutable
+
+decl-specifier
+ storage-class-specifier
+ typedef
+</code></pre>
+<h4 id="modificadores-de-tipo">Modificadores de tipo</h4>
 <p>Um modificador de tipo é opcional na definição de um tipo e deve estar sempre relacionado com a declaração de alguma variável. Ele determina, em termos gerais, qual será a função dessa variável. Ela pode ser modificada? Onde ela se encontra no programa? Como ela será modificada?</p>
 <p>Como exemplo rápido, temos abaixo uma variável que é atualizada pelo clock do processador e uma variável que não pode ser alterada após sua primeira atribuição:</p>
+<pre><code>volatile int* clockSecs = &lt;algum-endereço-do-sistema&gt;;
+
+
+const float pi = 3.14;
+</code></pre>
 <p>Fica meio óbvio que a primeira variável possui seu valor volátil, ou seja, muda conforme o tempo passa, e não depende do próprio código (pode mudar sem sua permissão). A segunda variável também tem um uso explícito, uma vez que o valor de pi nunca será alterado (não nesse Universo).</p>
+<h4 id="especificadores-de-tipo">Especificadores de tipo</h4>
 <p>Os especificadores de tipo possuem cada um sua peculiaridade. Os mais peculiares, que veremos nos próximos artigos, serão as enumerações e as construções bizarras de structs e unions.</p>
+<pre><code>enum Contador { um = 1, dois, tres, };
+
+
+union Atoms { struct { int part1; int part2; } parts; int64 total; };
+</code></pre>
 <p>Aqui não é um compêndio teórico sobre a linguagem. Vamos falar particularmente da programação Windows, mas esteja livre para dar seus pitacos com respeito a outros sistemas operacionais e suas implementações igualmente exdrúxulas =)</p>
 
             
@@ -121,7 +179,7 @@ Modificadores e qualificadores de tipo
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

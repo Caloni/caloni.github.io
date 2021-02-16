@@ -27,7 +27,7 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!
-Ele é leve, vem enrustido embutido..."/>
+Ele é leve, vem enrustido embutido...&lt;/!--&gt;&lt;/!--&gt;"/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,14 +106,44 @@ Bazaar gráfico
           <div class="content">
 
             
-              <p>Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do Bazaar para boiolas user-friendly!</p>
-<p>Ele é leve, vem enrustido embutido na última versão e pode economizar alguns page ups/downs no prompt do DOS. Ah, sim, antes que comentem, eu não uso o Tortoise for Bazaar porque instalar shell extensions, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.)</p>
-<p>Para exibir a lista de comandos &quot;amigáveis&quot;, digite no prompt os comandos do Bazaar filtrando-os para os que começam com &quot;q&quot;:</p>
+              <p><img src="http://i.imgur.com/ZWHaLwU.jpg" alt="Boiola quem usa esses comandos pink do Bazaar¿">Bom, já que por enquanto os assuntos de macho estão em falta (acabei de voltar de férias), apresento-lhes o maravilhoso mundo do <a href="http://www.caloni.com.br/guia-basico-de-repositorios-no-bazaar">Bazaar</a> <!-- raw HTML omitted -->para boiolas<!-- raw HTML omitted --> <em>user-friendly</em>!</p>
+<p>Ele é leve, vem <!-- raw HTML omitted -->enrustido<!-- raw HTML omitted --> embutido na última versão e pode economizar alguns <em>page ups/downs</em> no <em>prompt</em> do DOS. Ah, sim, antes que comentem, eu não uso o <a href="http://wiki.bazaar.canonical.com/TortoiseBzr">Tortoise for Bazaar</a> porque instalar <a href="http://en.wikipedia.org/wiki/Shell_extension#Extensibility"><em>shell extensions</em></a>, só os muito bem feitos. (Do contrário, bem-feito para quem instalou.)</p>
+<p>Para exibir a lista de comandos &quot;amigáveis&quot;, digite no <em>prompt</em> os comandos do Bazaar filtrando-os para os que começam com &quot;<strong>q</strong>&quot;:</p>
+<pre><code>bzr help commands | grep ^q.*
+
+qadd                 GUI for adding files or directories. [qbzr]
+qannotate            Show the origin of each line in a file. [qbzr]
+qbranch              Create a new copy of a branch. [qbzr]
+qbrowse              Show inventory. [qbzr]
+qcat                 View the contents of a file as of a given revision. [qbzr]
+qcommit              GUI for committing revisions. [qbzr]
+qconfig              Configure Bazaar. [qbzr]
+qdiff                Show differences in working tree in a GUI window. [qbzr]
+qgetnew              Creates a new working tree (either a checkout or full branch) [qbzr]
+qgetupdates          Fetches external changes into the working tree [qbzr]
+qinfo                 [qbzr]
+qinit                Initializes a new (possibly shared) repository. [qbzr]
+qlog                 Show log of a repository, branch, file, or directory in a Qt window. [qbzr]
+qmerge               Perform a three-way merge. [qbzr]
+qpull                Turn this branch into a mirror of another branch. [qbzr]
+qpush                Update a mirror of this branch. [qbzr]
+qrevert              Revert changes files. [qbzr]
+qtag                 Edit tags. [qbzr]
+</code></pre>
 <p>Os que eu mais uso no dia-a-dia são:</p>
+<h4 id="qlog-e-qbrowse">qlog e qbrowse</h4>
+<p><img src="http://i.imgur.com/kskAIzb.png" alt="Comando qlog do Bazaar"></p>
 <p>Diversão garantida. Por meio destes simples comandos podemos ver o histórico de commits e navegar pela árvore de pastas e arquivos com a anotação do último commit para cada elemento. Só para ter uma ideia de quanto uso isso, transformei-os em opções do Explorer.</p>
+<p><img src="http://i.imgur.com/UoeYg7V.png" alt="Bazaar Shell Extension na Mão"></p>
 <p>Além da utilidade básica, de quebra, o qbrowse pode te levar para um qlog filtrado, e o qlog pode te levar a um diff gráfico, que é o próximo comando que eu iria mostrar.</p>
+<p><img src="http://i.imgur.com/ejnlqLn.png" alt="Comando qbrowse do Bazaar"></p>
+<h4 id="qdiff">qdiff</h4>
 <p>Coisa linda de Deus. Existem dois modos de exibição, mas o padrão já é show de bola, mostrando as mudanças em todos os arquivos de um commit de uma só vez ou do arquivo/pasta especificado pelo comando. É lógico que é possível especificar qualquer faixa de commits que você quiser ver.</p>
+<p><img src="http://i.imgur.com/PZW0KOr.png" alt="Comando qdiff do Bazaar"></p>
 <p>Uma desvantagem desse comando é que ele oculta o resto das linhas do fonte e não mostra de jeito nenhum (pelo menos não descobri ainda como fazer isso). Sendo assim, para uma análise mais detalhada das diferenças no código-fonte sempre use um editor externo que consiga comparar arquivos inteiros (eu uso o WinMerge). Você pode colocar esse comando na forma de um diff personalizado, com o uso do qconfig.</p>
+<p><img src="http://i.imgur.com/TyYMS4s.png" alt="Comando qconfig do Bazaar"></p>
+<h4 id="bônus"> Bônus</h4>
+<p>Para quem não sabe fazer comandos de contexto no Explorer sem instalar Shell Extensions, deem uma olhada no <a href="/images/bzr.txt">REG exportado</a>.  Bom proveito.</p>
 
             
 
@@ -122,7 +152,7 @@ Bazaar gráfico
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais..."/>
+        content="
+Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,16 +106,329 @@ Geleia de Código
           <div class="content">
 
             
-              <p>Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais válido) e por aí vai o mimimi. Dessa forma, sempre passei ileso de eventos como o atual Google Code Jam, que pretende levar a categoria de código ofuscado para um novo patamar.</p>
+              <p><a href="/images/13878076723_dc8556a364_o.jpg"><img src="http://i.imgur.com/zXzJlL5.jpg" alt="jam2014"></a></p>
+<p>Não costumo participar de campeonatos de programação por alguns motivos vagos: é perda de tempo (não ganho nada com isso), sou um péssimo programador (ou pasteleiro), dá preguiça (esse é o mais válido) e por aí vai o mimimi. Dessa forma, sempre passei ileso de eventos como o atual <a href="https://code.google.com/codejam/contest/2974486/dashboard">Google Code Jam</a>, que pretende levar a categoria de código ofuscado para um novo patamar.</p>
 <p>No entanto, esse ano apareceram dois motivos que me levaram a gastar cinco minutos de paciência com as historinhas bestas da equipe do Google. Primeiro o Python, que desde 2013 tem renovado em mim a sensação que programar ainda é divertido (e que o pessoal da Microsoft e do padrão C++ tinham tirado de mim há muito tempo com seus compiladores cada vez mais complexos/lentos e as IDEs que demoram o tempo do cafezinho para abrir). Segundo o que move o mundo: a concorrência. Minha digníssima esposa, levada por alguns pontos-extra na faculdade (uma iniciativa até que louvável do professor), resolveu participar da primeira fase (a classificação desta fase também dava pontos).</p>
 <p>O fato é que depois desses cinco minutos eu simplesmente não consegui parar até o minuto final das 23 horas (horário de Brasília) de domingo, quando o tempo-limite esgotou. O aspecto mais divertido do Code Jam é que há liberdade total para a ferramenta que você pretende usar: linguagens de programação, Excel, uma calculadora ou apenas seu cérebro. Você recebe uma &quot;missão&quot; e um arquivo de entrada e precisa cuspir um arquivo de saída de acordo com a missão. Apenas isso. O resto fica por conta da criatividade dos codadores e gambiarreiros de plantão.</p>
 <p>Todos os exercícios levam em consideração um arquivo de entrada que possui em sua primeira linha o número de testes que serão feitos e em seguida um número determinado de linhas e parâmetros, geralmente divididos por espaço. O primeiro problema, por exemplo, apenas considerava a suposição de cartas em pequeno truque de mágica e recebia como entrada a disposição dessas cartas junto com a escolha da fileira que o participante dizia onde estava a carta escolhida.</p>
-<p>O segundo exercício já envolvia um jogo bem divertido em que o jogador ficava clicando em cookies como se não houvese amanhã. Esse deu um pouco mais de trabalho, mas foi mais divertido que o primeiro.</p>
-<p>Já o terceiro... o terceiro passa. Vamos para o quarto, um dos mais instigantes, pois envolve duas regras distintas de um jogo e a otimização das melhores estratégias para ambos. Isso consumiu bem mais tempo que os outros dois iniciais, pois lembro de ter me isolado por uma hora para conseguir colocar tudo na cabeça.</p>
-<p>Já o terceiro foi um fracasso total. Tentei de todas as maneiras resolver o impasse de descobrir qual disposição de um jogo de campo minado poderia ser resolvido em apenas um clique (parece o jogo oposto do viciado clicador de cookies), mas falhei miseravelmente. E desconfio o porquê. Primeiro entendo que meu perfeccionismo me impediu de realizar uma checagem padrão para exceções já conhecidas (quando há apenas uma linha ou coluna, quando há apenas um espaço sem minas, etc). Eu pensei: se o Google fez esse problema, ele deve ter bolado alguma solução genérica que independa de ifs. Bom, não que eu saiba. Depois de terminado o tempo dei uma olhada em algumas soluções dos competidores e não achei nenhuma solução que usasse algum algoritmo maluco e genérico (não achei nenhum indiano, contudo).</p>
+<pre><code>2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+3
+1 2 5 4
+3 11 6 15
+9 10 7 12
+13 14 8 16
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+
+f <span style="color:#f92672">=</span> open(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+total <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+
+<span style="color:#66d9ef">for</span> case <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, total):
+	guess1 <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+	row1 <span style="color:#f92672">=</span> None
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>):
+		row <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()
+		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> guess1:
+			row1 <span style="color:#f92672">=</span> row
+	guess2 <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+	row2 <span style="color:#f92672">=</span> None
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>):
+		row <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()
+		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> guess2:
+			row2 <span style="color:#f92672">=</span> row
+	cards <span style="color:#f92672">=</span> list(set(row1) <span style="color:#f92672">&amp;</span> set(row2))
+	<span style="color:#66d9ef">if</span> len(cards) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+		<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: &#39;</span> <span style="color:#f92672">+</span> cards[<span style="color:#ae81ff">0</span>]
+	<span style="color:#66d9ef">elif</span> len(cards) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+		<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: Bad magician!&#39;</span>
+	<span style="color:#66d9ef">else</span>:
+		<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: Volunteer cheated!&#39;</span>
+
+</code></pre></div><p>O segundo exercício já envolvia um jogo bem divertido em que o jogador ficava clicando em cookies como se não houvese amanhã. Esse deu um pouco mais de trabalho, mas foi mais divertido que o primeiro.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CookieClicker</span>(farmCost, farmIncrement, cookieTarget):
+	cookiePerSecond <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+	bestTime <span style="color:#f92672">=</span> cookieTarget <span style="color:#f92672">/</span> cookiePerSecond <span style="color:#75715e"># melhor tempo soh fazendo cookies</span>
+	cookieFarmTime <span style="color:#f92672">=</span> cookieTarget <span style="color:#f92672">/</span> (cookiePerSecond <span style="color:#f92672">+</span> farmIncrement) <span style="color:#75715e"># melhor tempo ja com fazenda criada</span>
+	farmTime <span style="color:#f92672">=</span> farmCost <span style="color:#f92672">/</span> cookiePerSecond <span style="color:#f92672">+</span> cookieFarmTime <span style="color:#75715e"># quanto vai custar fazer a fazenda e depois fazer cookies com a fazenda</span>
+	<span style="color:#66d9ef">while</span> farmTime <span style="color:#f92672">&lt;</span> bestTime: <span style="color:#75715e"># enquanto fazer a fazenda custar menos tempo que soh fazer cookies...</span>
+		bestTime <span style="color:#f92672">=</span> farmTime <span style="color:#75715e"># por enquanto melhor tempo</span>
+		cookiePerSecond <span style="color:#f92672">=</span> cookiePerSecond <span style="color:#f92672">+</span> farmIncrement <span style="color:#75715e"># novo tempo para fazer cookies (mais uma fazenda ja criada)</span>
+		farmTime <span style="color:#f92672">=</span> farmTime <span style="color:#f92672">-</span> cookieFarmTime <span style="color:#75715e"># tiramos o tempo de soh fazer cookies para fazer mais uma fazenda</span>
+		cookieFarmTime <span style="color:#f92672">=</span> cookieTarget <span style="color:#f92672">/</span> (cookiePerSecond <span style="color:#f92672">+</span> farmIncrement) <span style="color:#75715e"># novo tempo com mais uma fazenda criada</span>
+		farmTime <span style="color:#f92672">=</span> farmTime <span style="color:#f92672">+</span> farmCost <span style="color:#f92672">/</span> cookiePerSecond <span style="color:#f92672">+</span> cookieFarmTime <span style="color:#75715e"># agora com o novo tempo de fazer outra fazenda e soh cookies</span>
+	<span style="color:#66d9ef">return</span> bestTime
+
+f <span style="color:#f92672">=</span> open(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+total <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+
+<span style="color:#66d9ef">for</span> case <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, total <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+    args <span style="color:#f92672">=</span> [float(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()]
+    ret <span style="color:#f92672">=</span> CookieClicker(args[<span style="color:#ae81ff">0</span>], args[<span style="color:#ae81ff">1</span>], args[<span style="color:#ae81ff">2</span>])
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: &#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;{0:.7f}&#39;</span><span style="color:#f92672">.</span>format(ret)
+
+</code></pre></div><p>Já o terceiro... o terceiro passa. Vamos para o quarto, um dos mais instigantes, pois envolve duas regras distintas de um jogo e a otimização das melhores estratégias para ambos. Isso consumiu bem mais tempo que os outros dois iniciais, pois lembro de ter me isolado por uma hora para conseguir colocar tudo na cabeça.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BestBlock</span>(block, blocks):
+	bestBlock <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(blocks) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+		<span style="color:#66d9ef">if</span> blocks[i] <span style="color:#f92672">&lt;</span> block: <span style="color:#66d9ef">break</span>
+		bestBlock <span style="color:#f92672">=</span> blocks[i]
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> bestBlock:
+		bestBlock <span style="color:#f92672">=</span> blocks[<span style="color:#ae81ff">0</span>]
+	<span style="color:#66d9ef">return</span> bestBlock
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">War</span>(naomi, ken):
+	naomi <span style="color:#f92672">=</span> sorted(naomi)
+	ken <span style="color:#f92672">=</span> sorted(ken)
+	naomiCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">while</span> len(naomi):
+		naomiBlock <span style="color:#f92672">=</span> naomi[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+		kenBlock <span style="color:#f92672">=</span> BestBlock(naomiBlock, ken)
+		<span style="color:#66d9ef">if</span> naomiBlock <span style="color:#f92672">&gt;</span> kenBlock:
+			naomiCount <span style="color:#f92672">=</span> naomiCount <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#75715e">#print str(naomiBlock) + &#39; vs &#39; + str(kenBlock) + &#39;: &#39; + str(naomiCount)</span>
+		naomi<span style="color:#f92672">.</span>remove(naomiBlock)
+		ken<span style="color:#f92672">.</span>remove(kenBlock)
+	<span style="color:#66d9ef">return</span> naomiCount
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">WarCheat</span>(naomi, ken):
+	naomi <span style="color:#f92672">=</span> sorted(naomi)
+	ken <span style="color:#f92672">=</span> sorted(ken)
+	naomiCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">while</span> len(naomi):
+		naomiTold <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+		naomiBlock <span style="color:#f92672">=</span> naomi[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+		bestKen <span style="color:#f92672">=</span> ken[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+		<span style="color:#66d9ef">if</span> naomiBlock <span style="color:#f92672">&gt;</span> bestKen:
+			naomiTold <span style="color:#f92672">=</span> bestKen <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.00000001</span>
+		<span style="color:#66d9ef">else</span>:
+			naomiTold <span style="color:#f92672">=</span> bestKen <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.00000001</span>
+		kenBlock <span style="color:#f92672">=</span> BestBlock(naomiTold, ken)
+		naomiBlock <span style="color:#f92672">=</span> BestBlock(kenBlock, naomi)
+		<span style="color:#66d9ef">if</span> naomiBlock <span style="color:#f92672">&gt;</span> kenBlock:
+			naomiCount <span style="color:#f92672">=</span> naomiCount <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+		<span style="color:#75715e">#print str(naomiTold) + &#39;(&#39; + str(naomiBlock) + &#39;) vs &#39; + str(kenBlock) + &#39;: &#39; + str(naomiCount)</span>
+		naomi<span style="color:#f92672">.</span>remove(naomiBlock)
+		ken<span style="color:#f92672">.</span>remove(kenBlock)
+	<span style="color:#66d9ef">return</span> naomiCount
+
+f <span style="color:#f92672">=</span> open(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+total <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+
+<span style="color:#66d9ef">for</span> case <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, total <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+        f<span style="color:#f92672">.</span>readline()
+        naomi <span style="color:#f92672">=</span> [float(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()]
+        ken <span style="color:#f92672">=</span> [float(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()]
+        war <span style="color:#f92672">=</span> War(naomi, ken)
+        warCheat <span style="color:#f92672">=</span> WarCheat(naomi, ken)
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: &#39;</span> <span style="color:#f92672">+</span> str(warCheat)<span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> str(war)
+
+</code></pre></div><p>Já o terceiro foi um fracasso total. Tentei de todas as maneiras resolver o impasse de descobrir qual disposição de um jogo de campo minado poderia ser resolvido em apenas um clique (parece o jogo oposto do viciado clicador de cookies), mas falhei miseravelmente. E desconfio o porquê. Primeiro entendo que meu perfeccionismo me impediu de realizar uma checagem padrão para exceções já conhecidas (quando há apenas uma linha ou coluna, quando há apenas um espaço sem minas, etc). Eu pensei: se o Google fez esse problema, ele deve ter bolado alguma solução genérica que independa de ifs. Bom, não que eu saiba. Depois de terminado o tempo dei uma olhada em algumas soluções dos competidores e não achei nenhuma solução que usasse algum algoritmo maluco e genérico (não achei nenhum indiano, contudo).</p>
 <p>Eis a solução porca e mal-resolvida (alguns pontos do códido foram feitos depois de ver o código de outrem):</p>
-<p>Não, eu não usei o Google para descobrir a lógica por trás do problema. Vai que os caras ficam monitorando quem fica fazendo pesquisas. E, não, tampouco usei o Bing. Não sou masoquista a esse ponto.</p>
-<p>PS: Bom, estou na próxima fase. Veremos o que o futuro nos espera. Esse programador foi fisgado pelo campeonato de pastéis.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FieldToString</span>(field):
+        ret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+	<span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> field:
+		<span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> r:
+			ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> str(c)
+		ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+	<span style="color:#66d9ef">return</span> ret
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CountMines</span>(field, r, c):
+        ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        row <span style="color:#f92672">=</span> len(field)
+        col <span style="color:#f92672">=</span> len(field[<span style="color:#ae81ff">0</span>])
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> col <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>: ret <span style="color:#f92672">=</span> ret <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">return</span> ret
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ExpandClick</span>(field, r, c):
+        <span style="color:#66d9ef">if</span> field[r][c] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;0&#39;</span>: <span style="color:#66d9ef">return</span>
+
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Expand</span>(field, r, c):
+                <span style="color:#66d9ef">if</span> field[r][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;.&#39;</span>:
+                        field[r][c] <span style="color:#f92672">=</span> str(CountMines(field, r, c))
+                        ExpandClick(field, r, c)
+
+        row <span style="color:#f92672">=</span> len(field)
+        col <span style="color:#f92672">=</span> len(field[<span style="color:#ae81ff">0</span>])
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c)
+        <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c)
+        <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> col <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> c <span style="color:#f92672">&lt;</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> field[r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                Expand(field, r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FieldClicker</span>(field):
+	row <span style="color:#f92672">=</span> len(field)
+	col <span style="color:#f92672">=</span> len(field[<span style="color:#ae81ff">0</span>])
+        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(row):
+                <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(col):
+                        <span style="color:#66d9ef">if</span> field[r][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;C&#39;</span>:
+                                field[r][c] <span style="color:#f92672">=</span> str(CountMines(field, r, c))
+                                ExpandClick(field, r, c)
+                                <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">return</span> field
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FieldValidate</span>(field):
+        ret <span style="color:#f92672">=</span> True
+	row <span style="color:#f92672">=</span> len(field)
+	col <span style="color:#f92672">=</span> len(field[<span style="color:#ae81ff">0</span>])
+        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(row):
+                <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(col):
+                        <span style="color:#66d9ef">if</span> field[r][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;.&#39;</span>:
+                                ret <span style="color:#f92672">=</span> False
+                                <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">return</span> ret
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FieldRender</span>(row, col, mines):
+	field <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(row):
+                field<span style="color:#f92672">.</span>append([<span style="color:#e6db74">&#39;.&#39;</span>] <span style="color:#f92672">*</span> col)
+        <span style="color:#66d9ef">if</span> row <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+                nextRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                <span style="color:#66d9ef">while</span> mines:
+                        field[nextRow][nextCol] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*&#39;</span>
+                        nextRow <span style="color:#f92672">=</span> nextRow <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                        <span style="color:#66d9ef">if</span> nextRow <span style="color:#f92672">==</span> row:
+                                nextRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                                nextCol <span style="color:#f92672">=</span> nextCol <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                        mines <span style="color:#f92672">=</span> mines <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                field[<span style="color:#ae81ff">0</span>][col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+        <span style="color:#66d9ef">elif</span> col <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+                nextRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                <span style="color:#66d9ef">while</span> mines:
+                        field[nextRow][nextCol] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*&#39;</span>
+                        nextCol <span style="color:#f92672">=</span> nextCol <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                        <span style="color:#66d9ef">if</span> nextCol <span style="color:#f92672">==</span> col:
+                                nextRow <span style="color:#f92672">=</span> nextRow <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                        mines <span style="color:#f92672">=</span> mines <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                field[row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+	<span style="color:#66d9ef">elif</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>:
+                nextRow <span style="color:#f92672">=</span> row <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                <span style="color:#66d9ef">while</span> mines:
+                        field[nextRow][nextCol] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*&#39;</span>
+                        nextCol <span style="color:#f92672">=</span> nextCol <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                        <span style="color:#66d9ef">if</span> nextCol <span style="color:#f92672">==</span> col:
+                                nextRow <span style="color:#f92672">=</span> nextRow <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                        mines <span style="color:#f92672">=</span> mines <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                field[<span style="color:#ae81ff">0</span>][col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+        <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(len(field)):
+                        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(len(field[<span style="color:#ae81ff">0</span>])):
+                                field[r][c] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*&#39;</span>
+                <span style="color:#66d9ef">if</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">9</span> <span style="color:#f92672">and</span> row <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">and</span> col <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>:
+                        empties <span style="color:#f92672">=</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines
+                        nextRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                        nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                        <span style="color:#66d9ef">while</span> empties:
+                                
+	<span style="color:#66d9ef">return</span> field
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Mine</span>(row, col, mines):
+        <span style="color:#66d9ef">if</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> row <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> col <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Impossible!&#39;</span>
+	<span style="color:#66d9ef">if</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Impossible!&#39;</span>
+	<span style="color:#66d9ef">elif</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Impossible!&#39;</span>
+	<span style="color:#66d9ef">elif</span> row <span style="color:#f92672">*</span> col <span style="color:#f92672">-</span> mines <span style="color:#f92672">==</span> <span style="color:#ae81ff">7</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Impossible!&#39;</span>
+	<span style="color:#66d9ef">else</span>:
+		<span style="color:#66d9ef">return</span> FieldToString(FieldRender(row, col, mines))
+
+f <span style="color:#f92672">=</span> open(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+total <span style="color:#f92672">=</span> int(f<span style="color:#f92672">.</span>readline())
+
+<span style="color:#66d9ef">for</span> case <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, total <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+        field <span style="color:#f92672">=</span> [int(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readline()<span style="color:#f92672">.</span>split()]
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Case #&#39;</span> <span style="color:#f92672">+</span> str(case) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;: &#39;</span> <span style="color:#f92672">+</span> Mine(field[<span style="color:#ae81ff">0</span>], field[<span style="color:#ae81ff">1</span>], field[<span style="color:#ae81ff">2</span>])
+
+<span style="color:#75715e">#############################################################################3</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FieldRenderWrong</span>(row, col, mines):
+	field <span style="color:#f92672">=</span> []
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(row):
+		field<span style="color:#f92672">.</span>append([<span style="color:#e6db74">&#39;.&#39;</span>] <span style="color:#f92672">*</span> col)
+
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">GetNextRow</span>(field, clickRow, clickCol):
+                row <span style="color:#f92672">=</span> len(field)
+                col <span style="color:#f92672">=</span> len(field[<span style="color:#ae81ff">0</span>])
+                nextRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                nextCol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                rowDist <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                colDist <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(row):
+                        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(col):
+                                <span style="color:#66d9ef">if</span> field[r][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;.&#39;</span>:
+                                        rDist <span style="color:#f92672">=</span> abs(r <span style="color:#f92672">-</span> clickRow)
+                                        cDist <span style="color:#f92672">=</span> abs(c <span style="color:#f92672">-</span> clickCol)
+                                        totDist <span style="color:#f92672">=</span> rDist <span style="color:#f92672">+</span> cDist
+                                        currTotDist <span style="color:#f92672">=</span> rowDist <span style="color:#f92672">+</span> colDist
+                                        <span style="color:#66d9ef">if</span> totDist <span style="color:#f92672">&gt;</span> currTotDist:
+                                                nextRow <span style="color:#f92672">=</span> r
+                                                rowDist <span style="color:#f92672">=</span> rDist
+                                                nextCol <span style="color:#f92672">=</span> c
+                                                colDist <span style="color:#f92672">=</span> cDist
+                                        <span style="color:#66d9ef">else</span>:
+                                                rowCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                                                <span style="color:#66d9ef">for</span> r2 <span style="color:#f92672">in</span> range(row):
+                                                        <span style="color:#66d9ef">if</span> field[r2][c] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                                                                rowCount <span style="color:#f92672">=</span> rowCount <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                                                colCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+                                                <span style="color:#66d9ef">for</span> c2 <span style="color:#f92672">in</span> range(col):
+                                                        <span style="color:#66d9ef">if</span> field[r][c2] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;*&#39;</span>:
+                                                                colCount <span style="color:#f92672">=</span> colCount <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+                                                lastRow <span style="color:#f92672">=</span> rowCount <span style="color:#f92672">==</span> row <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                                                lastCol <span style="color:#f92672">=</span> colCount <span style="color:#f92672">==</span> col <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+                                                <span style="color:#66d9ef">if</span> lastRow <span style="color:#f92672">or</span> lastCol:
+                                                        nextRow <span style="color:#f92672">=</span> r
+                                                        rowDist <span style="color:#f92672">=</span> rDist
+                                                        nextCol <span style="color:#f92672">=</span> c
+                                                        colDist <span style="color:#f92672">=</span> cDist
+                <span style="color:#66d9ef">return</span> nextRow, nextCol
+
+        clickRow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        clickCol <span style="color:#f92672">=</span> col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+	field[clickRow][clickCol] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+        nextRow, nextCol <span style="color:#f92672">=</span> GetNextRow(field, clickRow, clickCol)
+	<span style="color:#66d9ef">while</span> mines:
+		field[nextRow][nextCol] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;*&#39;</span>
+		nextRow, nextCol <span style="color:#f92672">=</span> GetNextRow(field, clickRow, clickCol)
+		mines <span style="color:#f92672">=</span> mines <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">return</span> field
+
+</code></pre></div><p>Não, eu não usei o Google para descobrir a lógica por trás do problema. Vai que os caras ficam monitorando quem fica fazendo pesquisas. E, não, tampouco usei o Bing. Não sou masoquista a esse ponto.</p>
+<p><em>PS: Bom, estou na próxima fase. Veremos o que o futuro nos espera. Esse programador foi fisgado pelo campeonato de pastéis.</em></p>
 
             
 
@@ -123,7 +437,7 @@ Geleia de Código
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

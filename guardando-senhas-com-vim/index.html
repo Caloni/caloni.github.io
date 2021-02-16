@@ -13,13 +13,13 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Guardando Senhas com Vim</title>
+  <title>Blogue do Caloni - Guardando senhas com Vim</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Guardando Senhas com Vim"/>
+  <meta property="og:title" content="Guardando senhas com Vim"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/guardando-senhas-com-vim/"/>
@@ -83,7 +83,7 @@
       <div class="container">
         <p class="title">
 
-Guardando Senhas com Vim
+Guardando senhas com Vim
 
 </p>
 
@@ -105,13 +105,19 @@ Guardando Senhas com Vim
           <div class="content">
 
             
-              <p>Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta tão baratos quanto um XOR. E é aí que entra em cena o Vim 8.</p>
+              <p>Eu já sabia que havia um sistema de criptografia de arquivos no Vim. Isso pode ser útil para textos secretos, ou para enviar qualquer bobagem para outra pessoa que sabe de uma senha que só vocês conhecem. Porém, o método default de criptografia dele não me animava. O pkzip é usa um algoritmo fraco, e os inúmeros programas que quebram zips encriptados estão aí para demonstrar. Além do mais, o blowfish da versão 7 do Vim tem problemas em gerar seu salt que favorece ataques de força bruta <a href="https://dgl.cx/2014/10/vim-blowfish">tão baratos quanto um XOR</a>. E é aí que entra em cena o Vim 8.</p>
 <p>A nova versão do meu editor favorito não apresenta o defeito do algoritmo blowfish anterior, ou apresenta, mas dessa vez fornece uma versão atualizada (claro que, por razões de compatibilidade, foram mantidos os algoritmos anteriores).</p>
 <p>O que eu gosto no modelo do Vim de encriptar arquivos é que eles são encriptados apenas na escrita, e na leitura o usuário deve digitar a senha. Se a senha não correponder ao que foi usado para encriptá-lo, não há mensagem de erro: o editor irá simplesmente exibir o lixo gerado pela sua senha errada. Isso gera uma situação vantajosa e uma perigosa.</p>
 <p>A vantajosa é que não há como automatizar um brute force em cima de arquivos encriptados pelo Vim, pois não há muitos sinais de que o arquivo foi desencriptado. Claro, por amostragem de texto é possível saber se a senha foi ou não satisfatória, mas a beleza está em não existir nada específico na estrutura do editor que diga se a senha foi ou não bem sucedida.</p>
 <p>A perigosa é que uma vez que você digite a senha errada, muito cuidado com o lixo que você verá no seu buffer. Se por força do hábito for salvar o conteúdo, poderá perder o conteúdo do arquivo original, que estava encriptado com uma senha que você conhecia, mas que agora foi salvo após ter sido desencriptado com a senha errada. Ou seja, não há como reaver o conteúdo original a não ser com muito suor.</p>
 <p>O mais prático de tudo é usar esse modelo de arquivo encriptado pelo Vim para salvar senhas. Um arquivo de senhas pode ser tão simples quando login/senha de todas as senhas que você deseja guardar, e tão bem protegido quanto a força de sua senha master. Nada mais, nada menos. De quebra, um arquivo pequeno cujo backup pode ser sincronizado instantaneamente na nuvem (usando Google Drive, Dropbox ou One Drive), ou até mantido em um controle de fonte (embora ele seja tratado como binário).</p>
-<p>Se você gostou desse modelo, pesquise na ajuda do editor pelos comandos e opções &quot;cm&quot; e &quot;:X&quot;. Leia com atenção. Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler um artigo da invert (não me lembro o link).</p>
+<p>Se você gostou desse modelo, seguem os comandos para pesquisar (:help <!-- raw HTML omitted -->):</p>
+<pre><code>; define o algoritmo que será usado para encriptar arquivo
+:set cm=blowfish2
+
+; define senha de criptografia ao salvar arquivo
+:X
+</code></pre><p>Este post foi inspirado em meu próprio uso do Vim, mas mais inspirado ainda depois de ler <a href="https://invert.svbtle.com/using-vim-as-a-password-manager">o artigo da invert</a>.</p>
 
             
 
@@ -120,7 +126,7 @@ Guardando Senhas com Vim
         <div class="taglist">
             
     
-      <a href="/tags/blog">blog</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

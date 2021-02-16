@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.
+        content="Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de _downloads _e quase atingi meu limite de fluxo mensal no provedor.
 Devido a esse problema..."/>
 
   
@@ -106,42 +106,73 @@ Launchpad e a democracia do código-fonte
           <div class="content">
 
             
-              <p>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de downloads e quase atingi meu limite de fluxo mensal no provedor.</p>
-<p>Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.</p>
-<p>O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch). O esquema todo é organizado no formato comunidade, o que permite o compartilhamento não só de código, mas de bugs, traduções e, principalmente, idéias.</p>
+              <p>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de _downloads _e quase atingi meu limite de fluxo mensal no provedor.</p>
+<p>Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório <strong>sério</strong>. E aproveitando que já estou usando o <a href="http://bazaar-vcs.org/">Bazaar</a>, nada melhor que usar o <a href="https://launchpad.net/">Launchpad.net</a>.</p>
+<h4 id="e-o-que-é-o-launchpadnet">E o que é o Launchpad.net?</h4>
+<p>O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (<em>branch</em>). O esquema todo é organizado no formato comunidade, o que permite o compartilhamento não só de código, mas de <em>bugs</em>, traduções e, principalmente, idéias.</p>
 <p>A idéia é uma das primeiras que usa a modalidade de controle de fonte distribuído, e permite o uso do Bazaar como o controlador oficial, ou importação de outros controles de fonte, em um processo conhecido como espelhamento. Tudo foi feito de forma a amenizar o processo de migração dos sistemas de controle de código centralizado, como CVS e Subversion.</p>
-<p>Para ter acesso aos meus projetos iniciais é simples: basta usar o mesmo comando que é usado para obter um novo branch de um projeto do Bazaar:</p>
+<p>Para ter acesso aos meus projetos iniciais é simples: basta usar o mesmo comando que é usado para obter um novo <em>branch</em> de um projeto do Bazaar:</p>
 <ul>
-<li>MouseTool - Simulador de clique de mouse</li>
-<li>Influence Board - Complemento ao Winboard que mostra a influência das peças</li>
-<li>Conversor Houaiss Babylon - Converte de um dicionário para o outro</li>
+<li>
+<p><a href="http://www.caloni.com.br/mousetool">MouseTool</a> - Simulador de clique de mouse</p>
+<ul>
+<li></li>
 </ul>
+<p>bzr branch <a href="https://code.launchpad.net/mtool">https://code.launchpad.net/mtool</a></p>
+</li>
+<li>
+<p><a href="http://www.caloni.com.br/influence-board">Influence Board</a> - Complemento ao Winboard que mostra a influência das peças</p>
+<ul>
+<li></li>
+</ul>
+<p>bzr branch <a href="https://code.launchpad.net/infboard">https://code.launchpad.net/infboard</a></p>
+</li>
+<li>
+<p><a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-2">Conversor Houaiss Babylon</a> - Converte de um dicionário para o outro</p>
+<ul>
+<li></li>
+</ul>
+<p>bzr branch <a href="https://code.launchpad.net/houaiss2babylon">https://code.launchpad.net/houaiss2babylon</a></p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<blockquote>
+<h4 id="atualização">Atualização</h4>
+</blockquote>
+<p>_Aviso de plantão. Não irei mais atualizar os projetos acima no LaunchPad, pois estou considerando reorganizar os fontes para algo mais simplificado. Aguardem por novidades no próprio blogue. _<!-- raw HTML omitted --></p>
 <p>Como o Bazaar foi feito integrado com o Launchpad, também é possível usar um comando bem mais fácil:</p>
-<p>Assim como é possível usar comandos de repositório, também é possível navegar pelo histórico de mudanças do projeto simplesmente usando os linques acima no navegador de sua preferência. E é nessa hora que começa a ficar interessante publicar seu projeto na web. Por falar nisso, que tal aprender como</p>
-<p>Tudo que precisamos é de um login, facilmente obtido na página principal, e de registrar um projeto. Para criar o primeiro branch e fazermos alterações precisaremos também de um par de chaves pública e privada para a conexão SSH criada automaticamente pelo Bazaar. Tudo isso é facilmente possível com o uso das ferramentas do Putty, um cliente SSH para Windows.</p>
+<pre><code>bzr branch lp:project_name
+</code></pre>
+<p>Assim como é possível usar comandos de repositório, também é possível navegar pelo histórico de mudanças do projeto simplesmente usando os linques acima no navegador de sua preferência. E é nessa hora que começa a ficar interessante publicar seu projeto na <em>web</em>. Por falar nisso, que tal aprender como</p>
+<h4 id="criar-seu-próprio-projeto-no-launchpad">Criar seu próprio projeto no Launchpad</h4>
+<p>Tudo que precisamos é de um <em>login</em>, facilmente obtido na página principal, e de registrar um projeto. Para criar o primeiro _branch _e fazermos alterações precisaremos também de um <strong>par de chaves pública e privada</strong> para a conexão SSH criada automaticamente pelo Bazaar. Tudo isso é facilmente possível com o uso das ferramentas do <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">Putty</a>, um cliente SSH para Windows.</p>
 <p>Dessa forma os passos são os seguintes:</p>
 <ol>
 <li>
-<p>Criar um login</p>
+<p>Criar um <em>login</em></p>
 </li>
 <li>
 <p>Registrar um projeto</p>
 </li>
 <li>
-<p>Criar um par de chaves através do PuTTYgen</p>
+<p>Criar um par de chaves através do <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTYgen</a></p>
 </li>
 </ol>
-<p>ATENÇÃO
-Devido a alguns problemas, recomendo que use o texto exibido na tela do gerador de chaves em vez de copiar diretamente do arquivo da chave pública para o cadastro no saite. Guarde bem essas chaves com você, pois você as usará sempre que necessário fazer uma modificação no projeto.</p>
+<p><img src="http://i.imgur.com/68VrP6x.png" alt="puttygen.png"></p>
+<!-- raw HTML omitted -->
 <ol start="4">
 <li>
 <p>Atualizar no cadastro do saite (item &quot;Update SSH keys&quot;)</p>
 </li>
 <li>
-<p>Usar o Pageant para carregar a chave privada na memória</p>
+<p>Usar o <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html"><strong>Pageant</strong> </a>para carregar a chave privada na memória</p>
 </li>
+</ol>
+<p><img src="http://i.imgur.com/dpouXXG.png" alt="pageant.png"></p>
+<ol start="6">
 <li>
 <p>Use os comandos do Bazaar passando o usuário e o branch:</p>
+<p>bzr branch lp:~seu-usuario/projeto/branch</p>
 </li>
 </ol>
 <p>Simples e direto. E funciona!</p>
@@ -153,7 +184,7 @@ Devido a alguns problemas, recomendo que use o texto exibido na tela do gerador 
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

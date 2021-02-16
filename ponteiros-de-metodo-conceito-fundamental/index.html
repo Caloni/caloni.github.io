@@ -105,24 +105,89 @@ Ponteiros de método: conceito fundamental
           <div class="content">
 
             
-              <p>Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar até quem está acostumado com a aritmética de ponteiros avançada. Não é pra menos: é praticamente uma definição à parte, com algumas limitações e que deixa a desejar os quase sempre criativos programadores da linguagem, que vira e mexe estão pedindo mudanças no C++0x.</p>
+              <p><a href="/images/arrow-pointer.jpg"><img src="http://i.imgur.com/uIttDdG.jpg" alt="Arrow Pointer"></a>Diferente de ponteiros de função (funções globais ou estáticas) - que são a grosso modo ponteiros como qualquer um - os ponteiros de método possuem uma semântica toda especial que costuma intimidar até quem está acostumado com a aritmética de ponteiros avançada. Não é pra menos: é praticamente uma definição à parte, com algumas limitações e que deixa a desejar os quase sempre criativos programadores da linguagem, que vira e mexe estão pedindo mudanças no <a href="http://www.artima.com/cppsource/cpp0x.html">C++0x</a>.</p>
 <p>Três regras iniciais que devem ser consideradas para usarmos ponteiros para métodos são:</p>
 <ul>
 <li>
-<p>A semântica para lidar com ponteiros de método é totalmente diferente de ponteiros de função.</p>
+<p>A semântica para lidar com ponteiros de método é <strong>totalmente diferente</strong> de ponteiros de função.</p>
 </li>
 <li>
-<p>Ponteiros de método de classes distintas nunca se misturam.</p>
+<p>Ponteiros de método de classes distintas <strong>nunca</strong> se misturam.</p>
 </li>
 <li>
-<p>Para chamarmos um ponteiro de método precisamos sempre de um objeto da classe para a qual ele aponta.</p>
+<p>Para chamarmos um ponteiro de método precisamos sempre de um <strong>objeto da classe</strong> para a qual ele aponta.</p>
 </li>
 </ul>
 <p>Visto isso, passemos a um exemplo simples, um chamador de métodos aleatórios, que ilustra o princípio básico de utilização:</p>
-<p>Como podemos ver, para o typedef de ponteiros de método é necessário especificar o escopo da classe. Com isso o compilador já sabe que só poderá aceitar endereços de métodos pertencentes à mesma classe com o mesmo protótipo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#75715e">// declaramos que existe uma classe com esse nome
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FuzzyCall</span>;
+
+<span style="color:#75715e">// ponteiro para métodos da classe acima
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (FuzzyCall<span style="color:#f92672">::*</span>FP_Fuzzy)();
+
+<span style="color:#75715e">/** Classe que faz chamada de um método aleatório. */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FuzzyCall</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+
+	FuzzyCall()
+	{
+		srand(GetTickCount()); <span style="color:#75715e">// chacoalha o saco de bingo
+</span><span style="color:#75715e"></span>	}
+
+   FP_Fuzzy <span style="color:#a6e22e">GiveMeAMethod</span>() { <span style="color:#66d9ef">return</span> m_methods[rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>]; }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> MethodOne()   { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;One!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>; }
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MethodTwo</span>()   { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Two!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>; }
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MethodThree</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Three!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>; }
+
+	<span style="color:#66d9ef">static</span> FP_Fuzzy m_methods[<span style="color:#ae81ff">3</span>];
+};
+
+<span style="color:#75715e">/** Array com os métodos que podem ser chamados aleatoriamente. */</span>
+FP_Fuzzy FuzzyCall<span style="color:#f92672">::</span>m_methods[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> { <span style="color:#f92672">&amp;</span>MethodOne, <span style="color:#f92672">&amp;</span>MethodTwo, <span style="color:#f92672">&amp;</span>MethodThree };
+
+<span style="color:#75715e">/** Recebe um ponteiro para um método de FuzzyCall e chama com um objeto local. */</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">passThrough</span>(FP_Fuzzy pMethod)
+{
+	FuzzyCall fuzzyObject; <span style="color:#75715e">// esse é o objeto local
+</span><span style="color:#75715e"></span>	( fuzzyObject.<span style="color:#f92672">*</span>pMethod )(); <span style="color:#75715e">// essa é a chamada
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">/** No princípio Deus disse: &#39;int main!&#39;
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	FuzzyCall fuzzyObject1;
+	FP_Fuzzy pMethod;
+
+	<span style="color:#75715e">// pegamos um método da classe qualquer
+</span><span style="color:#75715e"></span>	pMethod <span style="color:#f92672">=</span> fuzzyObject1.GiveMeAMethod();
+
+	<span style="color:#75715e">// e passamos para uma outra função
+</span><span style="color:#75715e"></span>	passThrough(pMethod);
+} 
+
+</code></pre></div><p>Como podemos ver, para o <em>typedef</em> de ponteiros de método é necessário especificar o escopo da classe. Com isso o compilador já sabe que só poderá aceitar endereços de métodos pertencentes à mesma classe com o mesmo protótipo.</p>
 <p>Na hora de atribuir, usamos o operador de endereço e o nome do método (com escopo, se estivermos fora da classe). É importante notar que, diferente de ponteiros de função, o operador de endereço é obrigatório. Do contrário:</p>
+<pre><code>error C4867: 'FuzzyCall::MethodOne': function call missing argument list;
+use '&amp;FuzzyCall::MethodOne' to create a pointer to member
+</code></pre>
 <p>E, por fim, a chamada. Como é a chamada de um método, é quase intuitiva a necessidade de um objeto para chamá-la. Do contrário não teríamos um this para alterar o objeto em qualquer método não-estático, certo? Daí a necessidade do padrão C++ especificar dois operadores especialistas para esse fim, construídos a partir da combinação de operadores já existentes em C:</p>
-<p>Esses operadores obrigam o programador a sempre ter um objeto e um ponteiro. Daí não tem como errar. Infelizmente, devido à ordem de precedência, temos que colocar os parênteses em torno da expressão para chamar o método. Pelo menos fica equivalente ao que precisávamos fazer antes da padronização da linguagem C.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">FuzzyCall fuzzyObject; <span style="color:#75715e">// esse é o objeto local
+</span><span style="color:#75715e"></span>FuzzyCall<span style="color:#f92672">*</span> pFuzzy <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>fuzzyObject; <span style="color:#75715e">// ponteiro para esse mesmo objeto
+</span><span style="color:#75715e"></span>
+( fuzzyObject.<span style="color:#f92672">*</span>pMethod )(); <span style="color:#75715e">// [objeto] .* [ponteiro de método]
+</span><span style="color:#75715e"></span>( fuzzyObject<span style="color:#f92672">-&gt;*</span>pMethod )(); <span style="color:#75715e">// [ponteiro para objeto] -&gt;* [ponteiro de método] 
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>Esses operadores obrigam o programador a sempre ter um objeto e um ponteiro. Daí não tem como errar. Infelizmente, devido à ordem de precedência, temos que colocar os parênteses em torno da expressão para chamar o método. Pelo menos fica equivalente ao que precisávamos fazer antes da padronização da linguagem C.</p>
 
             
 
@@ -131,7 +196,7 @@ Ponteiros de método: conceito fundamental
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -105,25 +105,28 @@ CppTests
           <div class="content">
 
             
-              <p>Iniciei um novo projeto no GitHub que tem por objetivo ser minha prancheta de trabalhos para minha palestra no próximo encontro ccpp. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?</p>
+              <p>Iniciei um <a href="https://github.com/Caloni/ccpptests">novo projeto no GitHub</a> que tem por objetivo ser minha prancheta de trabalhos para minha palestra no <a href="/13-encontro-ccpp-indaiatuba-sp-2017-08-05">próximo encontro ccpp</a>. Há uma infinitude de coisinhas novas na linguagem C++, fora as adições à biblioteca STL, mas que devem passar despercebidas da maioria dos programadores, que está mais é querendo terminar seus próprio projetos. Enquanto alguns conceitos, sintaxes e métodos não se solidificam, vale a pena dar uma espiada no futuro?</p>
 <p>Depende.</p>
-<p>Dei uma olhada nas últimas modificações adicionadas no Visual Studio 2017 (versão 15.3 preview 1, mas o último lançado é o preview 5), e há muitos elementos IMHO supérfluos, mas que tendem a ser integrados aos poucos (I hope).</p>
+<p>Dei uma olhada nas <a href="https://blogs.msdn.microsoft.com/vcblog/2017/05/10/c17-features-in-vs-2017-3/">últimas modificações adicionadas no Visual Studio 2017</a> (versão 15.3 preview 1, mas o último lançado é o preview 5), e há muitos elementos IMHO supérfluos, mas que tendem a ser integrados aos poucos (I hope).</p>
 <p>A lista que achei interessante (com seu projeto):</p>
 <ul>
-<li>binary_literals_test. Perfumaria muito bem-vinda de uma linguagem feita para trabalhar também baixo nível.</li>
-<li>constexpr_test. Um teste que alguém fez na nossa lista ccpp do Telegram e que possui uma particularidade interessante (mais abaixo).</li>
-<li>for_range_generic_test. Ainda em teste, mas me parece a forma definitiva de iterar entre elementos em C++; completamente genérico.</li>
-<li>generic_lambdas_test. E por falar em genérico, este lambda tem muito a ver com programação funcional.</li>
-<li>has_include_test. Uma maneira elegante (apesar do nome feio) de ir migrando projetos/libs aos poucos.</li>
-<li>initializer_list. Só demonstrando o que já é velho (mas que ainda não comentei no blogue).</li>
-<li>nodiscard_test. Essa é uma das features mais curiosas para escrita de código robusta.</li>
-<li>sfinae_test. O SFINAE é um dos pilares do C++, e ele vem melhorando cada vez mais.</li>
-<li>static_assert_test. O que estava faltando que no Boost é macaco velho.</li>
-<li>user_defined_literals_test. Mais uma perfumaria; essa é bonitinha; para uso acadêmico.</li>
-<li>variable_templates_test. Mais algo já velho, que demonstro aqui com minha superlib de log.</li>
+<li><strong>binary_literals_test</strong>. Perfumaria muito bem-vinda de uma linguagem feita para trabalhar também baixo nível.</li>
+<li><strong>constexpr_test</strong>. Um teste que alguém fez na nossa lista ccpp do Telegram e que possui uma particularidade interessante (mais abaixo).</li>
+<li><strong>for_range_generic_test</strong>. Ainda em teste, mas me parece a forma definitiva de iterar entre elementos em C++; completamente genérico.</li>
+<li><strong>generic_lambdas_test</strong>. E por falar em genérico, este lambda tem muito a ver com programação funcional.</li>
+<li><strong>has_include_test</strong>. Uma maneira elegante (apesar do nome feio) de ir migrando projetos/libs aos poucos.</li>
+<li><strong>initializer_list</strong>. Só demonstrando o que já é velho (mas que ainda não comentei no blogue).</li>
+<li><strong>nodiscard_test</strong>. Essa é uma das features mais curiosas para escrita de código robusta.</li>
+<li><strong>sfinae_test</strong>. O <a href="https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">SFINAE</a> é um dos pilares do C++, e ele vem melhorando cada vez mais.</li>
+<li><strong>static_assert_test</strong>. O que estava faltando que no Boost é macaco velho.</li>
+<li><strong>user_defined_literals_test</strong>. Mais uma perfumaria; essa é bonitinha; para uso acadêmico.</li>
+<li><strong>variable_templates_test</strong>. Mais algo já velho, que demonstro aqui com minha <a href="/logs-em-servicos-e-outras-coisas">superlib de log</a>.</li>
 </ul>
-<p>A otimização no if através do uso da palavra-chave constexpr possibilita a criação de diferentes instâncias da chamada que não contém o if, mas um dos dois branches dependendo do tipo ser integral ou não.</p>
-<p>Para que a compilação dessa opção funcione no Visual Studio 2017 15.3 é necessário inserir o parâmetro /std:c++latest nas opções do projeto em C/C++, Command Line, Additional Options.</p>
+<h2 id="constexpr-para-especialização-em-ifs">constexpr para especialização em ifs</h2>
+<p>A otimização no if através do uso da palavra-chave <strong>constexpr</strong> possibilita a criação de diferentes instâncias da chamada que não contém o if, mas um dos dois branches dependendo do tipo ser integral ou não.</p>
+<p><img src="http://i.imgur.com/ivRwuGm.png" alt=""></p>
+<p>Para que a compilação dessa opção funcione no Visual Studio 2017 15.3 é necessário inserir o parâmetro /std:c++latest nas opções do projeto em <strong>C/C++, Command Line</strong>:</p>
+<p><img src="http://i.imgur.com/tPIS4wL.png" alt=""></p>
 <p>Todos (ou a maioria) deles ainda está em teste. Acabei de baixar o preview 5, conforma um dos membros da ML dos MVPs C++ me informou que saiu quentinha do forno. Em breve novidades.</p>
 
             
@@ -133,7 +136,7 @@ CppTests
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

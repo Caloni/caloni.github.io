@@ -82,9 +82,9 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="https://github.com/Caloni/cdefgeneric">
+
 C Resolve Tudo Clos
-</a>
+
 </p>
 
         <p class="subtitle">
@@ -106,13 +106,323 @@ C Resolve Tudo Clos
 
             
               <p>Continuando nossa série, conforme sugerido pelo @colemaker do grupo C/C++/42/Império do Brasil, a próxima ideia a ser implementada em C é o sistema polimórfico de chamadas do Lisp orientado a objetos. Esse sistema permite realizar a seguinte manobra:</p>
+<p><img src="https://i.imgur.com/VcPXDcJ.jpg" alt=""></p>
 <p>O aspecto-chave aqui, conforme eu descobri, é implementar a estratégia de prioridades entre as sobrecargas dos métodos de acordo com os tipos passados. Analisando bem por cima devemos sempre priorizar os métodos com os tipos mais específicos e ir realizando underpromotion até chegarmos no menos específico (se houver).</p>
-<p>A implementação está no GitHub. Para o sistema de tipos em C nada como fazer do zero:</p>
-<p>As estruturas estão usando STL. O quê? Mas não era C? Sim, você tem toda razão. Porém, estou usando uma lib mais conhecida. Há milhares de libs containers em C para você escolher para trocar a implementação. Lembre-se que o mais importante não é ser purista, mas atingir os objetivos. Como eventualmente veremos nessa série de artigos, o próprio C++ e toda a sua biblioteca pode ser implementada em C. Este é apenas um atalho para fins didáticos e de produtividade (como eu já falei, produtividade não é o foco aqui, mas enxergar por debaixo dos panos).</p>
-<p>Inicialmente feito em STL pela produtividade, a solução atual no GitHub é feita inteiramente em C usando a glib (lib comum em Linux com estrutura de dados, etc). O legal dessa biblioteca é que ela tem 20 anos (desde 1998) e já foi muito usada e testada, além de possuir estruturas e algoritmos simples que fazem parte do pacote básico de qualquer programador, como arrays, strings, hash tables.</p>
-<p>O código é bem simples. Mapas e listas com strings e ponteiros para organizar as estruturas por detrás do sistema de tipos que estamos implementando e seus métodos sobrecarregados. Cada método possui um nome, um endereço de ponteiro e o número dos seus argumentos. Todos os argumentos são do tipo polimórfico, seguindo o que provavelmente existe por detrás da própria implementação do Lisp.</p>
+<p>A implementação está <a href="https://github.com/Caloni/cdefgeneric">no GitHub</a>.</p>
+<h1 id="sistema-de-tipos">Sistema de tipos</h1>
+<p>Para o sistema de tipos em C nada como fazer do zero:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* defclass(foo, cclass_instance); */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> foo_instance { cclass_instance type; } foo_instance;
+<span style="color:#66d9ef">static</span> foo_instance foo <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;foo&#34;</span> };
+
+<span style="color:#75715e">/* defclass(bar, foo); */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> bar_instance { cclass_instance type; } bar_instance; 
+<span style="color:#66d9ef">static</span> bar_instance bar <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;bar&#34;</span> };
+</code></pre></div><h1 id="estruturas-de-dados">Estruturas de dados</h1>
+<p><del>As estruturas estão usando STL. O quê? Mas não era C? Sim, você tem toda razão. Porém, estou usando uma lib mais conhecida. Há milhares de libs containers em C para você escolher para trocar a implementação. Lembre-se que o mais importante não é ser purista, mas atingir os objetivos. Como eventualmente veremos nessa série de artigos, o próprio C++ e toda a sua biblioteca pode ser implementada em C. Este é apenas um atalho para fins didáticos e de produtividade (como eu já falei, produtividade não é o foco aqui, mas enxergar por debaixo dos panos).</del></p>
+<p>Inicialmente feito em STL pela produtividade, a solução atual no GitHub é feita inteiramente em C usando a <a href="https://developer.gnome.org/glib/">glib</a> (lib comum em Linux com estrutura de dados, etc). O legal dessa biblioteca é que ela tem 20 anos (desde 1998) e já foi muito usada e testada, além de possuir estruturas e algoritmos simples que fazem parte do pacote básico de qualquer programador, como arrays, strings, hash tables.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;cclos.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdarg.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;gmodule.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">typedef</span> GPtrArray Argv;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> _Method
+{
+	<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> fun;
+	Argv<span style="color:#f92672">*</span> argv;
+} Method;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>FP_Argv0)();
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>FP_Argv1)(cclass_instance<span style="color:#f92672">*</span>);
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>FP_Argv2)(cclass_instance<span style="color:#f92672">*</span>, cclass_instance<span style="color:#f92672">*</span>);
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>FP_Argv3)(cclass_instance<span style="color:#f92672">*</span>, cclass_instance<span style="color:#f92672">*</span>, cclass_instance<span style="color:#f92672">*</span>);
+
+<span style="color:#66d9ef">typedef</span> GHashTable ClassMap;
+<span style="color:#66d9ef">typedef</span> GPtrArray Methods;
+<span style="color:#66d9ef">typedef</span> GHashTable MethodMap;
+
+<span style="color:#66d9ef">static</span> ClassMap<span style="color:#f92672">*</span> g_classes;
+<span style="color:#66d9ef">static</span> MethodMap<span style="color:#f92672">*</span> g_methods;
+<span style="color:#66d9ef">static</span> Methods<span style="color:#f92672">*</span> g_calledMethods;
+
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">cdefgeneric_initialize</span>()
+{
+	g_classes <span style="color:#f92672">=</span> g_hash_table_new(g_str_hash, g_str_equal);
+	g_methods <span style="color:#f92672">=</span> g_hash_table_new(g_str_hash, g_str_equal);
+}
+
+
+Method<span style="color:#f92672">*</span> <span style="color:#a6e22e">method_new</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> fun, Argv<span style="color:#f92672">*</span> argv)
+{
+	Method<span style="color:#f92672">*</span> ret <span style="color:#f92672">=</span> (Method<span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(Method));
+	<span style="color:#66d9ef">if</span> (ret)
+	{
+		ret<span style="color:#f92672">-&gt;</span>fun <span style="color:#f92672">=</span> fun;
+		ret<span style="color:#f92672">-&gt;</span>argv <span style="color:#f92672">=</span> argv <span style="color:#f92672">?</span> argv : g_ptr_array_new();
+	}
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+Argv<span style="color:#f92672">*</span> <span style="color:#a6e22e">method_free</span>(Method<span style="color:#f92672">*</span> method, gboolean free_seg)
+{
+	Argv<span style="color:#f92672">*</span> ret <span style="color:#f92672">=</span> free_seg <span style="color:#f92672">?</span> g_ptr_array_free(method<span style="color:#f92672">-&gt;</span>argv, TRUE), NULL <span style="color:#f92672">:</span> method<span style="color:#f92672">-&gt;</span>argv;
+	free(method);
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">defclass</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> deriv)
+{
+	gboolean insertOk <span style="color:#f92672">=</span> g_hash_table_insert(g_classes, (gpointer<span style="color:#f92672">*</span>)name, (gpointer<span style="color:#f92672">*</span>)deriv);
+	<span style="color:#66d9ef">return</span> name;
+}
+
+<span style="color:#75715e">#define extractargv(argv, argc) \
+</span><span style="color:#75715e"></span>		va_list vl; <span style="color:#960050;background-color:#1e0010">\</span>
+		va_start(vl, argc); <span style="color:#960050;background-color:#1e0010">\</span>
+		<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> argc; <span style="color:#f92672">++</span>i) <span style="color:#960050;background-color:#1e0010">\</span>
+		{ <span style="color:#960050;background-color:#1e0010">\</span>
+			cclass_instance<span style="color:#f92672">*</span> arg <span style="color:#f92672">=</span> va_arg(vl, cclass_instance<span style="color:#f92672">*</span>); <span style="color:#960050;background-color:#1e0010">\</span>
+			g_ptr_array_add(argv, arg); <span style="color:#960050;background-color:#1e0010">\</span>
+		}
+
+<span style="color:#66d9ef">void</span> defmethod(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> fun, <span style="color:#66d9ef">int</span> argc, ...)
+{
+	Method<span style="color:#f92672">*</span> method <span style="color:#f92672">=</span> method_new(fun, NULL);
+	Methods<span style="color:#f92672">*</span> methods <span style="color:#f92672">=</span> (Methods<span style="color:#f92672">*</span>)g_hash_table_lookup(g_methods, name);
+	extractargv(method<span style="color:#f92672">-&gt;</span>argv, argc);
+	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>methods)
+	{
+		methods <span style="color:#f92672">=</span> g_ptr_array_new();
+		g_hash_table_insert(g_methods, (gpointer) name, (gpointer) methods);
+	}
+	g_ptr_array_add(methods, method);
+}
+
+<span style="color:#66d9ef">void</span> callmethod(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, Method<span style="color:#f92672">*</span> method)
+{
+	g_ptr_array_add(g_calledMethods, (gpointer) method<span style="color:#f92672">-&gt;</span>fun);
+	cclass_instance<span style="color:#f92672">**</span> argv <span style="color:#f92672">=</span> (cclass_instance <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>pdata;
+
+	<span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+	{
+		FP_Argv0 fun <span style="color:#f92672">=</span> (FP_Argv0)method<span style="color:#f92672">-&gt;</span>fun;
+		fun();
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+	{
+		FP_Argv1 fun <span style="color:#f92672">=</span> (FP_Argv1)method<span style="color:#f92672">-&gt;</span>fun;
+		fun(argv[<span style="color:#ae81ff">0</span>]);
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>)
+	{
+		FP_Argv2 fun <span style="color:#f92672">=</span> (FP_Argv2)method<span style="color:#f92672">-&gt;</span>fun;
+		fun(argv[<span style="color:#ae81ff">0</span>], argv[<span style="color:#ae81ff">1</span>]);
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>)
+	{
+		FP_Argv3 fun <span style="color:#f92672">=</span> (FP_Argv3)method<span style="color:#f92672">-&gt;</span>fun;
+		fun(argv[<span style="color:#ae81ff">0</span>], argv[<span style="color:#ae81ff">1</span>], argv[<span style="color:#ae81ff">2</span>]);
+	}
+}
+
+Method<span style="color:#f92672">*</span> find_method_by_fun(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> fun)
+{
+	Method<span style="color:#f92672">*</span> method <span style="color:#f92672">=</span> NULL;
+	Methods<span style="color:#f92672">*</span> methods <span style="color:#f92672">=</span> (Methods<span style="color:#f92672">*</span>) g_hash_table_lookup(g_methods, name);
+	<span style="color:#66d9ef">if</span> (methods)
+	{
+		Method<span style="color:#f92672">**</span> meths <span style="color:#f92672">=</span> (Method<span style="color:#f92672">**</span>)methods<span style="color:#f92672">-&gt;</span>pdata;
+		guint i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> methods<span style="color:#f92672">-&gt;</span>len)
+		{
+			Method<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> meths[i];
+			<span style="color:#66d9ef">if</span> (m<span style="color:#f92672">-&gt;</span>fun <span style="color:#f92672">==</span> fun)
+			{
+				method <span style="color:#f92672">=</span> m;
+				<span style="color:#66d9ef">break</span>;
+			}
+			<span style="color:#f92672">++</span>i;
+		}
+	}
+	<span style="color:#66d9ef">return</span> method;
+}
+
+<span style="color:#66d9ef">int</span> calcdistance_arg(cclass_instance<span style="color:#f92672">*</span> arg, cclass_instance<span style="color:#f92672">*</span> underpromo)
+{
+	<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> promo <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)arg<span style="color:#f92672">-&gt;</span>type;
+
+	<span style="color:#66d9ef">while</span> (strcmp(promo, underpromo<span style="color:#f92672">-&gt;</span>type) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>)
+	{
+		promo <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)g_hash_table_lookup(g_classes, (gpointer<span style="color:#f92672">*</span>)promo);
+		<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>promo <span style="color:#f92672">||</span> strlen(promo) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+		{
+			ret <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+			<span style="color:#66d9ef">break</span>;
+		}
+		<span style="color:#f92672">++</span>ret;
+	}
+
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#66d9ef">int</span> calcdistance(cclass_instance<span style="color:#f92672">**</span> args, cclass_instance<span style="color:#f92672">**</span> underpromo, <span style="color:#66d9ef">int</span> len)
+{
+	<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; <span style="color:#f92672">++</span>i)
+	{
+		<span style="color:#66d9ef">int</span> dist <span style="color:#f92672">=</span> calcdistance_arg(args[i], underpromo[i]);
+		<span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+		ret <span style="color:#f92672">+=</span> dist;
+	}
+	<span style="color:#66d9ef">return</span> ret;
+}
+
+<span style="color:#66d9ef">void</span> call_next_method(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, <span style="color:#66d9ef">int</span> argc, ...)
+{
+	Method<span style="color:#f92672">*</span> method <span style="color:#f92672">=</span> method_new(NULL, NULL);
+	extractargv(method<span style="color:#f92672">-&gt;</span>argv, argc);
+
+	<span style="color:#66d9ef">int</span> nextdist <span style="color:#f92672">=</span> <span style="color:#ae81ff">666</span>;
+	Methods<span style="color:#f92672">*</span> methods <span style="color:#f92672">=</span> (Methods<span style="color:#f92672">*</span>)g_hash_table_lookup(g_methods, name);
+	<span style="color:#66d9ef">if</span> (methods)
+	{
+		guint i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">while</span>( i <span style="color:#f92672">&lt;</span> methods<span style="color:#f92672">-&gt;</span>len )
+		{
+			Method<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> ((Method <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)methods<span style="color:#f92672">-&gt;</span>pdata)[i];
+			gboolean alreadyCalled <span style="color:#f92672">=</span> FALSE;
+			guint cms <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+			<span style="color:#66d9ef">while</span> (cms <span style="color:#f92672">&lt;</span> g_calledMethods<span style="color:#f92672">-&gt;</span>len)
+			{
+				<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> fun <span style="color:#f92672">=</span> ((<span style="color:#66d9ef">void</span> <span style="color:#f92672">**</span>)g_calledMethods<span style="color:#f92672">-&gt;</span>pdata)[cms];
+				<span style="color:#66d9ef">if</span> (fun <span style="color:#f92672">==</span> m<span style="color:#f92672">-&gt;</span>fun)
+				{
+					alreadyCalled <span style="color:#f92672">=</span> TRUE;
+					<span style="color:#66d9ef">break</span>;
+				}
+				<span style="color:#f92672">++</span>cms;
+			}
+
+			<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span> alreadyCalled)
+			{
+				<span style="color:#66d9ef">int</span> dist <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+
+				<span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> m<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len)
+					dist <span style="color:#f92672">=</span> calcdistance((cclass_instance <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>pdata, (cclass_instance <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)m<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>pdata, method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len);
+
+				<span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> dist <span style="color:#f92672">&lt;</span> nextdist)
+				{
+					<span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&lt;</span> nextdist)
+					{
+						method<span style="color:#f92672">-&gt;</span>fun <span style="color:#f92672">=</span> m<span style="color:#f92672">-&gt;</span>fun;
+						nextdist <span style="color:#f92672">=</span> dist;
+					}
+				}
+			}
+
+			<span style="color:#f92672">++</span>i;
+		}
+
+		<span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>fun)
+			callmethod(name, method);
+	}
+}
+
+<span style="color:#66d9ef">void</span> call(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name, <span style="color:#66d9ef">int</span> argc, ...)
+{
+	g_calledMethods <span style="color:#f92672">=</span> g_ptr_array_new();
+
+	Method<span style="color:#f92672">*</span> method <span style="color:#f92672">=</span> method_new(NULL, NULL);
+	extractargv(method<span style="color:#f92672">-&gt;</span>argv, argc);
+
+	<span style="color:#66d9ef">int</span> nextdist <span style="color:#f92672">=</span> <span style="color:#ae81ff">666</span>;
+	Methods<span style="color:#f92672">*</span> methods <span style="color:#f92672">=</span> g_hash_table_lookup(g_methods, name);
+	<span style="color:#66d9ef">if</span> (methods)
+	{
+		guint i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">while</span>( i <span style="color:#f92672">&lt;</span> methods<span style="color:#f92672">-&gt;</span>len )
+		{
+			Method<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> ((Method <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)methods<span style="color:#f92672">-&gt;</span>pdata)[i];
+			<span style="color:#66d9ef">int</span> dist <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+
+			<span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len <span style="color:#f92672">==</span> m<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len)
+				dist <span style="color:#f92672">=</span> calcdistance((cclass_instance <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>pdata, (cclass_instance <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>)m<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>pdata, method<span style="color:#f92672">-&gt;</span>argv<span style="color:#f92672">-&gt;</span>len);
+
+			<span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> dist <span style="color:#f92672">&lt;</span> nextdist)
+			{
+				<span style="color:#66d9ef">if</span> (dist <span style="color:#f92672">&lt;</span> nextdist)
+				{
+					method<span style="color:#f92672">-&gt;</span>fun <span style="color:#f92672">=</span> m<span style="color:#f92672">-&gt;</span>fun;
+					nextdist <span style="color:#f92672">=</span> dist;
+				}
+			}
+
+			<span style="color:#f92672">++</span>i;
+		}
+
+		<span style="color:#66d9ef">if</span> (method<span style="color:#f92672">-&gt;</span>fun)
+			callmethod(name, method);
+	}
+
+	method_free(method, TRUE);
+}
+
+</code></pre></div><p>O código é bem simples. Mapas e listas com strings e ponteiros para organizar as estruturas por detrás do sistema de tipos que estamos implementando e seus métodos sobrecarregados. Cada método possui um nome, um endereço de ponteiro e o número dos seus argumentos. Todos os argumentos são do tipo polimórfico, seguindo o que provavelmente existe por detrás da própria implementação do Lisp.</p>
+<h1 id="main">Main</h1>
 <p>O código que utiliza a clos.c é bem direto e enxuto. Como no Lisp.</p>
-<p>Futuros posts sobre C Resolve Tudo poderão utilizar a glib ou qualquer outra. Uma outra vantagem da linguagem C é que sua biblioteca padrão é muito enxuta, sendo fácil de ter disponível em seu ambiente um compilador C com a clib, e em cima dela você pode utilizar qualquer biblioteca de sua escolha para estruturas e algoritmos mais complexos. Ou fazer a sua própria.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;cclos.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* defclass(foo, cclass_instance); */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> foo_instance { cclass_instance type; } foo_instance;
+<span style="color:#66d9ef">static</span> foo_instance foo <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;foo&#34;</span> };
+
+<span style="color:#75715e">/* defclass(bar, foo); */</span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> bar_instance { cclass_instance type; } bar_instance; 
+<span style="color:#66d9ef">static</span> bar_instance bar <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;bar&#34;</span> };
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test_dispatch</span>()
+{
+	bar_instance x <span style="color:#f92672">=</span> bar;
+	bar_instance y <span style="color:#f92672">=</span> bar;
+	call(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span>x, <span style="color:#f92672">&amp;</span>y);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">thing_foo_foo</span>(cclass_instance<span style="color:#f92672">*</span> x, cclass_instance<span style="color:#f92672">*</span> y)
+{
+	printf(<span style="color:#e6db74">&#34;Both are of type FOO</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">thing_bar_foo</span>(cclass_instance<span style="color:#f92672">*</span> x, cclass_instance<span style="color:#f92672">*</span> y)
+{
+	printf(<span style="color:#e6db74">&#34;X is BAR, Y is FOO. Next...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	call_next_method(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#ae81ff">2</span>, x, y);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">thing_foo_bar</span>(cclass_instance<span style="color:#f92672">*</span> x, cclass_instance<span style="color:#f92672">*</span> y)
+{
+	printf(<span style="color:#e6db74">&#34;X is FOO, Y is BAR. Next...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	call_next_method(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#ae81ff">2</span>, x, y);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	cdefgeneric_initialize();
+	defclass(<span style="color:#e6db74">&#34;foo&#34;</span>, <span style="color:#e6db74">&#34;cclass&#34;</span>);
+	defclass(<span style="color:#e6db74">&#34;bar&#34;</span>, <span style="color:#e6db74">&#34;foo&#34;</span>);
+	defmethod(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#f92672">&amp;</span>thing_foo_foo, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span>foo, <span style="color:#f92672">&amp;</span>foo);
+	defmethod(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#f92672">&amp;</span>thing_bar_foo, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span>bar, <span style="color:#f92672">&amp;</span>foo);
+	defmethod(<span style="color:#e6db74">&#34;thing&#34;</span>, <span style="color:#f92672">&amp;</span>thing_foo_bar, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">&amp;</span>foo, <span style="color:#f92672">&amp;</span>bar);
+	test_dispatch();
+}
+</code></pre></div><p>Futuros posts sobre C Resolve Tudo poderão utilizar a glib ou qualquer outra. Uma outra vantagem da linguagem C é que sua biblioteca padrão é muito enxuta, sendo fácil de ter disponível em seu ambiente um compilador C com a clib, e em cima dela você pode utilizar qualquer biblioteca de sua escolha para estruturas e algoritmos mais complexos. Ou fazer a sua própria.</p>
 
             
 
@@ -121,7 +431,7 @@ C Resolve Tudo Clos
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

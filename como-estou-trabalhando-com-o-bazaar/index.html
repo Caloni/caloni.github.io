@@ -105,35 +105,110 @@ Como estou trabalhando com o Bazaar
           <div class="content">
 
             
-              <p>Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor Rafael, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para Dummies de como é possível organizar um ou mais projetos de forma a favorecer o refactoring e a liberdade de uso.</p>
-<p>Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os branches. O branch principal tem o mesmo nome do projeto. Isso na máquina de um desenvolvedor ficaria:</p>
-<p>No servidor de fontes geralmente teremos apenas o branch principal, apesar de que o desenvolvimento em paralelo seja permitido:</p>
+              <p>Depois de alguns ajustes e muitas perguntas do meu amigo-colega desenvolvedor <a href="http://www.sk5.com.br/">Rafael</a>, conseguimos definir alguns usos e costumes em nosso código controlado pelo Bazaar. Este é um guia para <em>Dummies</em> de como é possível organizar um ou mais projetos de forma a favorecer o _refactoring _e a liberdade de uso.</p>
+<h4 id="primeiro-passo-padrão-de-árvore">Primeiro passo: padrão de árvore</h4>
+<p>Nosso padrão de diretórios utiliza um repositório compartilhado e dentro, na mesma ramificação, os <em>branches.</em> O _branch _principal tem o mesmo nome do projeto. Isso na máquina de um desenvolvedor ficaria:</p>
+<pre><code>c:\src\project1
+             |
+             -- project1  (branch principal)
+             |
+             -- bug-da-tela-azul (branch secundário e temporário)
+             |
+             -- nova-tela-de-login (branch secundário e temporário)
+</code></pre>
+<p>No servidor de fontes geralmente teremos apenas o _branch _principal, apesar de que o desenvolvimento em paralelo seja permitido:</p>
+<pre><code>c:\src\project1
+             |
+             -- project1  (branch principal)
+             |
+             -- 2.4.1 (branch secundário em desenvolvimento paralelo)
+</code></pre>
+<h4 id="segundo-passo-projeto-modelo">Segundo passo: projeto-modelo</h4>
 <p>Foi criado um projeto modelo para que todos os projetos herdassem seu histórico. Para que isso? Bom, na eventualidade de partes de um projeto irem parar em outro (isso quase nunca acontece), isso pode ser feito sem perder todo o histórico do início do projeto.</p>
-<p>Resumindo: todos os projetos novos são branches do projeto-modelo.</p>
+<p>Resumindo: todos os projetos novos são _branches _do projeto-modelo.</p>
+<pre><code>bzr init-repo _template
+cd _template
+bzr init _template
+hack hack hack
+bzr commit -m &quot;Primeira versao de nosso projeto-modelo&quot;
+</code></pre>
 <p>Como podemos ver acima, o projeto modelo segue o mesmo padrão de repositório compartilhado. Os projetos que criarmos serão baseados nesse projeto modelo, mas em outro repositório compartilhado.</p>
+<pre><code>bzr init-repo novo-projeto
+bzr branch _template\_template novo-projeto\novo-projeto
+cd novo-projeto\novo-projeto
+hack hack hack
+bzr commit -m &quot;Primeira versao de nosso novo projeto&quot;
+</code></pre>
 <p>A ramificação dos projetos estará sempre no mesmo lugar, independente da pasta raiz.</p>
-<p>O controle distribuído de fontes não significa que não existe um servidor. Existe. O detalhe é que todos os desenvolvedores guardam todo o histórico do projeto com eles, igualzinho o servidor, que é apenas mais uma máquina com mais um branch.</p>
+<pre><code>c:\src\--_template
+       |     |
+       |     -- _template
+       |
+       -- novo-projeto
+       |     |
+       |     -- novo-projeto
+       |
+       -- mais-um-projeto
+             |
+             -- mais-um-projeto
+</code></pre>
+<h4 id="terceiro-passo-elegendo-um-servidor">Terceiro passo: elegendo um servidor</h4>
+<p>O controle distribuído de fontes não significa que não existe um servidor. Existe. O detalhe é que todos os desenvolvedores guardam todo o histórico do projeto com eles, igualzinho o servidor, que é apenas mais uma máquina com mais um <em>branch.</em></p>
 <p>O repositório do servidor pode ser criado com a opção que não cria o diretório de trabalho, que é onde os programadores mexem no código-fonte. Sendo um servidor, o código-fonte não é necessário, só a base de dados:</p>
+<pre><code>bzr init-repo --no-trees novo-projeto
+bar branch \\desenvolvedor\src\novo-projeto\novo-projeto novo-projeto\novo-projeto
+</code></pre>
+<h4 id="quarto-passo-tornando-disponível-o-servidor">Quarto passo: tornando disponível o servidor</h4>
 <p>O Bazzar possui um esquema de servidor embutido nele, que fica escutando em uma porta e se comunica em um protocolo otimizado. Nós gostamos desse esquema, pois protege os projetos de acidentes de usuários que podem apagar uma pasta sem querer.</p>
-<p>Para manter o Bazaar eternamente rodando, usamos o programa do DriverEntry que transforma qualquer coisa no formato de um serviço de gelo.</p>
+<p>Para manter o Bazaar eternamente rodando, usamos <a href="http://www.driverentry.com.br/blog/2007/02/prog2svc-servio-sem-trabalho.html">o programa do DriverEntry</a> que transforma qualquer coisa no formato de um serviço <a href="http://en.wikipedia.org/wiki/Wonder_Twins">de gelo</a>.</p>
+<pre><code>prog2svc -add Bazaar &quot;c:\program files\Bazaar\bzr.exe serve --allow-writes --diretory=c:\src&quot;
+</code></pre>
 <p>Ou não sei usar direito esse programa ou ele não permite uso de aspas no nome do aplicativo junto de argumentos. Por isso tive que editar o registro onde ele fica para colocar aspas duplas em torno do bzr.exe.</p>
+<p><a href="/images/bazaar-prog2svc.png"><img src="http://i.imgur.com/Md7EXVK.png" alt="bazaar-prog2svc.png"></a></p>
 <p>Após isso, ainda temos que configurar o serviço para iniciar automaticamente e usar um usuário conhecido. Enquanto o computador estiver ligado, mesmo que sem sessões abertas, nenhuma tela irá aparecer, mas o Bazaar estará rodando e ativo, escutando em sua porta padrão:</p>
-<p>Se estiver tudo certo, ao iniciar o serviço o Bazaar passará a ficar escutando e pronto para fazer commits e branches.</p>
-<p>Agora qualquer usuário da rede consegue fazer updates e commits. Um desenvolvedor novo faria o seguinte comando:</p>
-<p>Note que o usuário do Bazaar não é obrigado a criar um repositório compartilhado. Esse foi um padrão definido aqui e não necessariamente é o melhor.</p>
-<p>O Bazaar por ser muito flexível entra naquela categoria de &quot;Difícil de acertar a maneira certa de utilizar&quot;. Bom, mais ou menos. Eu sinceramente não acho que exista uma maneira errada de usar o Bazaar, mas vamos ver as maneiras mais comuns, que não são exclusivas entre si.</p>
-<p>É aquele que prefere fazer tudo localmente e só depois, bem depois, mandar seus commits para o servidor. Nesse caso o comando para começar a programar é branch.</p>
-<p>Nesse esquema o servidor e a máquina do desenvolvedor não trocam idéia se ele não quiser. Quando quiser, pode usar os comandos push, pull e merge. O push coloca coisas novas no servidor; o pull puxa coisas novas do servidor, e o merge é necessário quando existem conflitos entre as mudanças no fonte. Mais sobre conflitos em um futuro artigo.</p>
-<p>É o cara que quer sempre atualizar todas as modificações que ele faz imediatamente colocadas no servidor. Tudo bem. É só trabalhar no modo Source Safe (ou Subversion) com o comando checkout:</p>
-<p>Um checkout funciona como o branch, só que faz um bind (ligação) com o servidor. O que quer dizer que qualquer commit feito localmente irá parar imediatamente também no servidor, a não ser que seja usado o parâmetro --local.</p>
-<p>O modo checkout permite usar o comando update para ver se existem mudanças entre a máquina local e o servidor, diferente do modo standalone, onde o update apenas compara com o branch local e o diretório de trabalho.</p>
-<p>Como eu havia dito, uma coisa não exclui outra. Se você está trabalhando em um branch e deseja se conectar ao servidor para atualizar mudanças, basta usar o comando bind.</p>
-<p>O branch começará a trabalhar como um checkout.</p>
-<p>O contrário, que é fazer um checkout ficar desconectado é conseguido pelo comando unbind.</p>
-<p>Todos os novos commits serão feitos apenas localmente.</p>
-<p>Esses esquemas de conectado e desconectado podem ser usados no modo cliente x servidor ou tudo em uma máquina só. Por exemplo, uma série de mudanças em um projeto pode ser feito em um outro branch desconectado:</p>
-<p>Os commits de &quot;novo-branch&quot; não serão replicados para o branch &quot;projeto&quot;.</p>
-<p>No entanto, se é uma série de mudanças que devem ser colocadas imediatamente no branch principal, pode-se usar checkout.</p>
+<p><a href="/images/bazaar-service.png"><img src="http://i.imgur.com/ydtBG4o.png" alt="bazaar-service.png"></a></p>
+<p>Se estiver tudo certo, ao iniciar o serviço o Bazaar passará a ficar escutando e pronto para fazer _commits _e <em>branches</em>.</p>
+<p><a href="/images/bazaar-tcpview.png"><img src="http://i.imgur.com/FkKIdGa.png" alt="bazaar-tcpview.png"></a></p>
+<p>Agora qualquer usuário da rede consegue fazer _updates _e _commits. _Um desenvolvedor novo faria o seguinte comando:</p>
+<pre><code>bzr init-repo projeto
+bzr branch bzr://servidor/projeto projeto\projeto
+</code></pre>
+<!-- raw HTML omitted -->
+<h4 id="quinto-passo-ensinando-as-pessoas-a-usar">Quinto passo: ensinando as pessoas a usar</h4>
+<p>O Bazaar por ser muito flexível entra naquela categoria de &quot;<a href="http://www.driverentry.com.br/blog/2008/06/utilizando-o-registry-parte-2.html">Difícil de acertar a maneira certa de utilizar</a>&quot;. Bom, mais ou menos. Eu sinceramente não acho que exista uma maneira errada de usar o Bazaar, mas vamos ver as maneiras mais comuns, que não são exclusivas entre si.</p>
+<h4 id="desenvolvedor-_standalone_">Desenvolvedor <em>standalone</em></h4>
+<p>É aquele que prefere fazer tudo localmente e só depois, bem depois, mandar seus _commits _para o servidor. Nesse caso o comando para começar a programar é <strong>branch</strong>.</p>
+<pre><code>bzr branch bzr://servidor/projeto projeto\projeto
+</code></pre>
+<p>Nesse esquema o servidor e a máquina do desenvolvedor não trocam idéia se ele não quiser. Quando quiser, pode usar os comandos <strong>push</strong>, <strong>pull</strong> e <strong>merge</strong>. O push coloca coisas novas no servidor; o pull puxa coisas novas do servidor, e o merge é necessário quando existem conflitos entre as mudanças no fonte. Mais sobre conflitos em um futuro artigo.</p>
+<h4 id="desenvolvedor-conectado">Desenvolvedor conectado</h4>
+<p>É o cara que quer sempre atualizar todas as modificações que ele faz imediatamente colocadas no servidor. Tudo bem. É só trabalhar no modo Source Safe (ou Subversion) com o comando <strong>checkout</strong>:</p>
+<pre><code>bzr checkout bzr://servidor/projeto projeto\projeto
+</code></pre>
+<p>Um checkout funciona como o _branch, _só que faz um _bind _(ligação) com o servidor. O que quer dizer que qualquer _commit _feito localmente irá parar imediatamente também no servidor, a não ser que seja usado o parâmetro --local.</p>
+<pre><code>bzr commit -m &quot;Eu sei que isso vai ser feito aqui e no servidor&quot;
+bzr commit --local -m &quot;Apenas umas mudancinhas; depois jogo no servidor&quot;
+</code></pre>
+<p>O modo _checkout _permite usar o comando <strong>update</strong> para ver se existem mudanças entre a máquina local e o servidor, diferente do modo _standalone, _onde o _update _apenas compara com o _branch _local e o diretório de trabalho.</p>
+<pre><code>bzr update
+</code></pre>
+<h4 id="desenvolvedor-polivalente">Desenvolvedor polivalente</h4>
+<p>Como eu havia dito, uma coisa não exclui outra. Se você está trabalhando em um _branch _e deseja se conectar ao servidor para atualizar mudanças, basta usar o comando <strong>bind.</strong></p>
+<pre><code>bzr bind bzr://servidor/projeto projeto\projeto
+</code></pre>
+<p>O _branch _começará a trabalhar como um <em>checkout</em>.</p>
+<p>O contrário, que é fazer um _checkout _ficar desconectado é conseguido pelo comando <strong>unbind</strong>.</p>
+<pre><code>bzr unbind
+</code></pre>
+<p>Todos os novos _commits _serão feitos apenas localmente.</p>
+<h4 id="trabalhando-na-sua-máquina">Trabalhando na sua máquina</h4>
+<p>Esses esquemas de conectado e desconectado podem ser usados no modo cliente x servidor ou tudo em uma máquina só. Por exemplo, uma série de mudanças em um projeto pode ser feito em um outro _branch _desconectado:</p>
+<pre><code>bzr branch projeto novo-branch
+</code></pre>
+<p>Os _commits _de &quot;novo-branch&quot; não serão replicados para o _branch _&quot;projeto&quot;.</p>
+<p>No entanto, se é uma série de mudanças que devem ser colocadas imediatamente no _branch _principal, pode-se usar <strong>checkout</strong>.</p>
+<pre><code>bzr checkout projeto novo-branch
+</code></pre>
 <p>Existem diversas outras formas de usar o Bazaar, e isso está sob o controle do desenvolvedor. O importante para quem está migrando é saber definir alguns padrões (onde é o servidor principal, ramificação dos projetos) e o resto é só programar, exatamente como antes.</p>
 <!-- raw HTML omitted -->
 
@@ -144,7 +219,7 @@ Como estou trabalhando com o Bazaar
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -105,9 +105,26 @@ ProcessLeaker
           <div class="content">
 
             
-              <p>O artigo anterior mostrava como detectar o leak de um processo gerado pela retenção e não-liberação de handles para o Windows Explorer. O problema fora causado por um serviço malcriado. No entanto, a título de demonstração, criei um pequeno programinha sem-vergonha para fazer as coisas parecerem difíceis. No entanto o programa é bem fácil:</p>
-<p>Para usá-lo, basta abrir um Gerenciador de Tarefas com opção de exibir o PID dos processos.</p>
+              <p>O <a href="http://www.caloni.com.br/os-processos-fantasma">artigo anterior</a> mostrava como detectar o leak de um processo gerado pela retenção e não-liberação de handles para o Windows Explorer. O problema fora causado por um serviço malcriado. No entanto, a título de demonstração, criei um pequeno programinha sem-vergonha para fazer as coisas parecerem difíceis. No entanto o programa é bem fácil:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	DWORD pid;
+
+	<span style="color:#66d9ef">while</span>( scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>pid) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> )
+	{
+		HANDLE proc <span style="color:#f92672">=</span> OpenProcess(SYNCHRONIZE, FALSE, pid);
+	}
+}
+
+ 
+
+</code></pre></div><p>Para usá-lo, basta abrir um Gerenciador de Tarefas com opção de exibir o PID dos processos.</p>
+<p><a href="/images/taskmanagerpid.PNG"><img src="/images/taskmanagerpid.PNG" alt="taskmanagerpid.PNG"></a></p>
 <p>A partir daí, é só criar e matar várias instâncias do explorer.exe. Antes de matar um, digite o PID do novo processo no ProcessLeaker.</p>
+<p><img src="/images/processleaker.PNG" alt="processleaker.PNG"></p>
 <p>Para listar os processos perdidos, basta usar o comando &quot;!process 0 0&quot; no WinDbg depurando em kernel. O resto você já sabe.</p>
 
             
@@ -117,7 +134,7 @@ ProcessLeaker
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

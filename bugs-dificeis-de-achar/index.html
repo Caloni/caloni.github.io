@@ -105,19 +105,86 @@ Bugs Difíceis de Achar
           <div class="content">
 
             
-              <p>Saiu um artigo na Wired News sobre os piores bugs da história. Entre eles estão a explosão de um oleoduto soviético em plena guerra-fria (como se não bastasse chernobyl), o primeiro worm da Internet (que se aproveita de um buffer overflow da função gets) e o famoso erro de divisão em ponto flutuante do Pentium; um erro de cálculo de cerca de 0,006% que causou um prejuízo de 457 milhões de dólares para a Intel.</p>
-<p>Mas o que achei mais legal, apesar de não estar na lista, estava relacionado com o Mariner 1, primeira espaçonave de um programa da NASA para pesquisar Marte, Vênus e Mercúrio em voos automatizados. Mariner 1 não chegou a sair de órbita, pois houve uma falha na antena de comunicação entre módulos e um bug no programa do computador de bordo.</p>
+              <p>Saiu um artigo na Wired News sobre <a href="http://wired.com/news/technology/bugs/0,2924,69355,00.html?tw=wn_tophead_1">os piores bugs da história</a>. Entre eles estão a explosão de um oleoduto soviético em plena guerra-fria (como se não bastasse chernobyl), o primeiro worm da Internet (que se aproveita de um buffer overflow da função gets) e o famoso erro de divisão em ponto flutuante do Pentium; um erro de cálculo de cerca de 0,006% que causou um prejuízo de 457 milhões de dólares para a Intel.</p>
+<p>Mas o que achei mais legal, apesar de não estar na lista, estava relacionado com o <a href="http://en.wikipedia.org/wiki/Mariner_1">Mariner 1</a>, primeira espaçonave de um programa da NASA para pesquisar Marte, Vênus e Mercúrio em võos automatizados. Mariner 1 não chegou a sair de órbita, pois houve uma falha na antena de comunicação entre módulos e um bug no programa do computador de bordo.</p>
 <p>Falava-se que o bug havia sido gerado ao trocar uma vírgula por um ponto em um loop escrito em FORTRAN. Apesar de não ter sido esse o causador da falha do computador da nave do projeto Mariner, ele existiu de fato em outro projeto da NASA, o Mercury. A linha fatal no caso era essa:</p>
-<p>É óbvio que a intenção do programador foi fazer um loop até o label 17 dez vezes, pois a instrução para isso é:</p>
-<p>Mas pela troca da vírgula pelo ponto, e como em FORTRAN os caracteres de espaço não são significativos, a linha com o bug não representa mais um loop, mas uma atribuição à uma variável chamada &quot;DO17I&quot;:</p>
-<p>Esse detalhe esdrúxulo de uma das linguagens mais famosas da época nos leva a crer que antigamente os programadores deveriam estar muito mais atentos durante a digitação de código do que os programadores de hoje em dia, com seus ambientes com verificação sintática embutida. Existe inclusive um texto humorístico de longa data comparando programadores de verdade e programadores de linguagens estruturadas como PASCAL recém-saídos da faculdade, carinhosamente citados no texto como &quot;Quiche Eaters&quot; (comedores de pastelão).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran"><span style="color:#66d9ef">DO </span><span style="color:#ae81ff">17</span> I <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span> <span style="color:#ae81ff">10</span>
+</code></pre></div><p>É óbvio que a intenção do programador foi fazer um loop até o label 17 dez vezes, pois a instrução para isso é:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran"><span style="color:#66d9ef">DO </span><span style="color:#ae81ff">17</span> I <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>
+</code></pre></div><p>Mas pela troca da vírgula pelo ponto, e como em FORTRAN os caracteres de espaço não são significativos, a linha com o bug não representa mais um loop, mas uma atribuição à uma variável chamada &quot;DO17I&quot;:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran">DO17I <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.10</span>
+</code></pre></div><p>Esse detalhe esdrúxulo de uma das linguagens mais famosas da época nos leva a crer que antigamente os programadores deveriam estar muito mais atentos durante a digitação de código do que os programadores de hoje em dia, com seus ambientes com verificação sintática embutida. Existe inclusive um texto humorístico de longa data comparando programadores de verdade e programadores de linguagens estruturadas como PASCAL recém-saídos da faculdade, carinhosamente citados no texto como &quot;Quiche Eaters&quot; (comedores de pastelão).</p>
 <p>O tipo de erro de falta de atenção do programa da NASA lembra uma das mais duras críticas às linguagem C e C++: é fácil escrever um código errado do ponto de vista lógico mas sintaticamente correto (compilável). Alguns exemplos famosos:</p>
-<p>Dessa coleção de problemas, o compilador nos brinda com dois warnings:</p>
-<p>Agora imagine o número de horas noturnas em frente ao micro que você não poderia ter economizado em sua vida se aumentasse o nível de warning e lêsse-os de vez em quando? =)</p>
-<p>Colaborando com a lista de bugs difíceis de achar do artigo ai vai código/piadinha:</p>
-<p>Esse não é pego pelos alertas dos compiladores (pelo menos não pelos que eu uso)... É um bom motivo para usar const no lugar de define em alguns casos, ou no mínimo cercar o define por parênteses &quot;(&quot; e &quot;)&quot;</p>
-<p>Outro bug muito comum entre iniciantes é o de templates aninhados, apesar de que compiladores mais novos lidam melhor com o bug e trazem mensagens de erro mais claras:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">   <span style="color:#75715e">// batata entre os iniciantes
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">if</span>( isActived <span style="color:#f92672">&amp;&amp;</span> isTimeToLaunch );
+      doTheStuff();
 
+
+   <span style="color:#75715e">// dizem que até Brian Kernighan criticava
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">switch</span>( value )
+   {
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">:</span> 
+         evaluateSentence();
+
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">11</span><span style="color:#f92672">:</span> 
+         elevenException();
+   }
+
+
+   <span style="color:#75715e">// programado no notepad
+</span><span style="color:#75715e"></span>   value <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>;              <span style="color:#75715e">/* agora somos obrigados a atualizar a variável rates
+</span><span style="color:#75715e">   rates = value * 8;       /* nunca apague esta linha! */</span>
+
+
+   <span style="color:#75715e">// mais um &#34;top beginner&#34;
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">if</span>( newValue <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span> )
+      doSpecificStuff();
+
+
+   <span style="color:#75715e">// infelizmente isso é muito comum
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">calcPayment</span>()
+   {
+      <span style="color:#66d9ef">if</span>( testing <span style="color:#f92672">==</span> true ) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1000</span>;
+      <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>( newValue <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">500</span> ) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1500</span>;
+   }
+
+   <span style="color:#75715e">// o perigo dos brackets opcionais
+</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">if</span>( value <span style="color:#f92672">==</span> <span style="color:#ae81ff">12</span> )
+      <span style="color:#75715e">//func();
+</span><span style="color:#75715e"></span>   doSpecificStuff();
+</code></pre></div><p>Dessa coleção de problemas, o compilador nos brinda com dois warnings:</p>
+<pre><code>warning C4390: &quot;;&quot;: empty controlled statement found; is this the intent?
+warning C4715: &quot;calcPayment&quot;: not all control paths return a value
+Em nível 4 (o padrão de um projeto é 3) há um warning adicional:
+
+warning C4706: assignment within conditional expression
+</code></pre><p>Agora imagine o número de horas noturnas em frente ao micro que você não poderia ter economizado em sua vida se aumentasse o nível de warning e lêsse-os de vez em quando? =)</p>
+<h2 id="mais-um-bug">Mais um Bug</h2>
+<p>Colaborando com a lista de bugs difíceis de achar do artigo ai vai código/piadinha:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">/** 
+</span><span style="color:#75715e"> * The Hitch Hiker&#34;s Guide to the Galaxy 
+</span><span style="color:#75715e"> * The Answer to Life, the Universe, and Everything
+</span><span style="color:#75715e"> */</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define SIX    1 + 5
+</span><span style="color:#75715e">#define NINE   8 + 1
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The Answer to Life, &#34;</span>
+            <span style="color:#e6db74">&#34;the Universe, &#34;</span>
+            <span style="color:#e6db74">&#34;and Everything is &#34;</span> 
+         <span style="color:#f92672">&lt;&lt;</span> SIX <span style="color:#f92672">*</span> NINE 
+         <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
+}
+</code></pre></div><p>Esse não é pego pelos alertas dos compiladores (pelo menos não pelos que eu uso)... É um bom motivo para usar const no lugar de define em alguns casos, ou no mínimo cercar o define por parênteses &quot;(&quot; e &quot;)&quot;</p>
+<p>Outro bug muito comum entre iniciantes é o de templates aninhados, apesar de que compiladores mais novos lidam melhor com o bug e trazem mensagens de erro mais claras:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">list<span style="color:#f92672">&lt;</span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span>  <span style="color:#75715e">// inválido no caso, é assumido o operador de stream &#34;&gt;&gt;&#34;
+</span><span style="color:#75715e"></span>list<span style="color:#f92672">&lt;</span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> <span style="color:#75715e">// válido
+</span></code></pre></div>
             
 
           </div>
@@ -125,7 +192,7 @@ Bugs Difíceis de Achar
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

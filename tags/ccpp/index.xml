@@ -74,11 +74,11 @@ Já a diferença sintática e semântica dos operadores de função e cast é su
   <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
 Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.
 My first attempt was naive, but worked for test cases where there were no duplicated numbers, a detail I overlooked in the description and happenned the very first test (lucky me it is possible to download the test cases, input and output, giving in return some of the points accumulated solving other problems).
-So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.
-I still wasn&#39;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.
+/** Complete the runningMedian function below.*/vector&amp;lt;double&amp;gt; runningMedian(ofstream&amp;amp; fout, vector&amp;lt;int&amp;gt; a) {vector&amp;lt;double&amp;gt; ret;set&amp;lt;int&amp;gt; oa;for( int n: a ) {oa.insert(n);auto oaMidIt = oa.size() == 1 ? oa.begin(): next(oa.begin(), oa.size() / 2 - (oa.size() % 2 == 0 ? 1 : 0) );auto oaMidIt2 = next(oaMidIt);double median;if( oa.size() % 2 == 1 ) {median = *oaMidIt;}else {median = ( *oaMidIt &#43; *oaMidIt2 ) / 2.0;}fout &amp;lt;&amp;lt; median &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;ret.push_back(median);}return ret;} So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.
+BEGIN --&amp;gt; 12, 4, 5, 3, 8, 7 &amp;lt;-- END^ ^| |-- SORTED_ENDMEDIAN ^|-- NEWBOOL ODD = TRUE;{DOUBLE MEDIAN = ODD ? MEDIAN : (MEDIAN &#43; MEDIAN&#43;1) / 2NEW = SORTED_ENDRECURSIVE/ITERATIVE_INSERT(BEGIN, SORTED_END, MEDIAN, NEW)ODD = ! ODDSORTED_END&#43;&#43;} WHILE( SORTED_END != END )INSERT(BEG, END, NEW, MED, ODD) {MED = SZ/2 - (SZ_ODD ? 0 : 1)1, 2, 3, 5, 6 (4)-&amp;lt; ?RIGHT OR LEFT/*my playgroundvector&amp;lt;int&amp;gt; test = { 12, 4, 5, 3, 8, 7, 5, 5 };for (size_t new_element = 1; new_element &amp;lt; test.size(); &#43;&#43;new_element)insert_new_element(test, new_element);return 0;*/ I still wasn&#39;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.
 I was still trying in the window, thought, until in one of these iteractions with the compiler/debugger I achieved a simples, clearer solution, using only offsets from the vector instead of iterators.
-This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C&#43;&#43; solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.
-And it worked. Now what I learned looking the other solutions.
+void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){size_t begin = 0;size_t end = new_element;size_t sz = end - begin;size_t median= begin &#43; sz / 2 - (sz % 2 ? 0 : 1);while( sz &amp;gt; 1 ) {if( a[new_element] &amp;lt; a[median] ) end = median;elsebegin = median &#43; 1;sz = end - begin;median = median == begin? begin : begin &#43; sz / 2 - (sz % 2 ? 0 : 1);}size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];a.erase(a.begin() &#43; new_element);a.insert(a.begin() &#43; insert_offset, element);} This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C&#43;&#43; solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.
+void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){//...size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];//a.erase(a.begin() &#43; new_element);//a.insert(a.begin() &#43; insert_offset, element);memmove(&amp;amp;a[insert_offset &#43; 1], &amp;amp;a[insert_offset], (new_element - insert_offset) * sizeof(int));a[insert_offset] = element;} And it worked. Now what I learned looking the other solutions.
 There are incredible tools in C&#43;&#43;, even since 98 or 11, that are frequently overlooked, but it is important to notice that the language has a framework for processing: containers, algorithms and so on. By example, looking for other solutions I learned about the characteristics of multiset and priorityqueue (spoiler: both have a ordering predicate and are logarithmic). There are smart functions in algorithm, too, as lowerbound.
 A lot of solutions simply ignored the skeleton provided by the site and began its own code from scratch, eliminating the &amp;quot;request&amp;quot; that the numbers must be stored first in a vector. Sometimes, when there as skeleton in our life, we use them as guidelines, forgetting that &amp;quot;there is no spoon&amp;quot;.
 I hope you learned something, too. You can see my Hacker Rank attempts in the site (nickname caloni) or my GitHub repository.
@@ -95,22 +95,6 @@ I hope you learned something, too. You can see my Hacker Rank attempts in the si
   <description>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função. Uma vez que ele encontre ele retorna o próximo elemento. Na falta de próximo elemento ele simplesmente retorna uma string vazia que não é nulo, mas já indica que há o parâmetro na lista de argumento.
 Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos. Ao chamar essa função se passa o argc e o argv recebido no main e o terceiro argumento é apenas o nome de um argumento válido que pode ser recebido via linha de comando. O resultado é um ponteiro (obtido no próprio argv) da próxima string ou uma string C vazia constante (não precisa de alocação) se for o último argv. E caso ele não ache o retorno é NULL. Seu uso comum é uma linha apenas, ou uma linha para cada argumento buscado. Sua complexidade é linear, mas, ei, quem está querendo performance no início do programa?
 Uma última observação: dependendo do uso você pode ou não usar o retorno, e ele possui semântica booleana, pois caso o argumento não exista o retorno é NULL e por isso não cai dentro do if (pois NULL traduzido em booleano é false). Eis uma função para copiar e colar abusivamente.
-</description>
-</item>
-
-     
-        <item>
-  <title>Como Achar Erros no Printf via Dump</title>
-  <link>http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/</link>
-  <pubDate>2018-01-25</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/</guid>
-  <description>Às vezes, e apenas às vezes, é útil ter um dump do processo que acabou de capotar e ter um singelo backup do pdb (arquivo de símbolos) dos binários envolvidos nessa tragédia. Com alguns cliques pontuais e uma análise simples da stack, da variável e do código envolvido é possível chegar em um veredito sem muitas controversas se foi isso mesmo que gerou o crash. No caso peguei hoje um caso assim.
-Abrir um dump (dmp) pode ser feito pelo Visual Studio, Windbg ou sua ferramenta de análise favorita. Mais importante que isso é carregar seus símbolos adequadamente. Com o dump e símbolos abertos é possível analisar a stack de chamadas, o que nos revela que há um problema em uma função de Log. Como se trata de uma versão release não há muita informação da pilha, que pode fazer parte de uma stack modificada (otimização de código). Portanto, tudo que vier é lucro. Como variáveis.
-Demos sorte e é possível ver o que tem na variável de format, a mais importante de uma função de log estilo printf, pois geralmente é ela a responsável pelas dores de cabeça infernais.
-Através dessa string é possível buscar no código usando grep, vim ou até o Visual Studio. Com isso reduzimos nosso escopo de busca ao mínimo.
-E voilà! Temos uma chamada de log que teoricamente teria que passar uma string C, mas não passa nada. Isso quer dizer que a função de printf irá procurar na pilha pelo endereço de uma string, mas irá encontrar um endereço aleatório. Lendo esse endereço, que tem ótimas chances de ser inválido, ele irá capotar. Para dores de cabeças mais intensas, ele irá capotar aleatoriamente (ou na máquina do chefe, o mais provável).
-E assim terminamos mais uma sessão simples e rápida de debug. Quer dizer, simples e rápida para quem tem 20 anos de experiência nessas coisas. Os estagiários devem ter ficado de cabelos em pé.
 </description>
 </item>
 
@@ -230,26 +214,6 @@ struct CreateNewGUID{operator wstring (){wstring ret;// cria guidreturn re
 
      
         <item>
-  <title>Ode ao C&#43;&#43;</title>
-  <link>http://www.caloni.com.br/ode-ao-c/</link>
-  <pubDate>2008-04-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C&#43;&#43;?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.
-Cristiano -- Olá! Sou programador em basic (Vbasic/Qbasic), fico indignado, com pessoas que sabem entender a linguagem C&#43;&#43;, assembler... Como podem? Eu acho isto coisa de outro mundo! Será que eu tenho chances de aprender a linguagem?
-Strauss -- A resposta é simples: estudando. Eu tb comecei com QBasic e VB. Arrume um livro de C&#43;&#43; e estude. Treine bastante. E hoje em dia é mais fácil do que quando eu comecei, pq eu não tinha acesso à Internet. É simples assim... :-)
-Caloni -- Você pode ir tão longe quanto queira, mas pra isso a primeira coisa que vc tem que fazer é querer =).
-Strauss -- Acho que vou fazer um post sobre isso. &amp;quot;Por que C&#43;&#43;&amp;quot; :-) Vc podia me ajudar...
-Caloni -- Escrevi um textículo sobre o assunto da escolha, mas não visando o mercado:
-Strauss -- Legal. Vou colocar minha água mercadológica no feijão e colocar no site.
-Não quis alterar o texto original, mas colocaria, além de rapidez, o título economia de recursos. É incrível o quanto progredimos no quesito hardware todos esses anos, e mesmo assim, existem linguagens e ambientes que parecem ter fome suficiente para consumir tudo e deixar um computador de última geração parecer um micro &amp;quot;meio lerdinho&amp;quot;. Felizmente não preciso dar nome aos bois, pois todos sabem ou conhecem pelo menos uma linguagem com essa característica.
-Também não quis generalizar. C e C&#43;&#43; não são as duas únicas opções quando se fala em bom desempenho. Existe também assembly e linguagens de script, que chegam inclusive a ser mais flexíveis e rápidas (além de mais produtivas).
-Ainda acredito em tudo isso que C&#43;&#43; proporciona e irá continuar proporcionando por muto tempo. Para os que não seguiram o linque do artigo do Strauss, existe uma modesta lista de programas escritos nessa linguagem ao redor do planeta. Muitos são conhecidíssimos e usados nos quatro cantos do mundo, muitas vezes em mais de um sistema operacional. C&#43;&#43; está morto? Longe disso... talvez pareça assim em território nacional, mas esse é o motivo de meus votos de sucesso no início de nosso grupo C&#43;&#43;.
-</description>
-</item>
-
-     
-        <item>
   <title>A mobilidade das variáveis no printf</title>
   <link>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</link>
   <pubDate>2007-09-20</pubDate>
@@ -263,28 +227,6 @@ char ch = getc();printf(&amp;quot;%d&amp;quot;, ch); É mais sutil, também co
 Funções com quantidade variável de argumentos como o printf devem interpretar os argumentos que ele sabe que são passados para entender quais os outros argumentos que estão na pilha. Ele interpreta a string de formatação e vai &amp;quot;comendo&amp;quot; os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente.
 Dica: se você encontrar problemas de crash ou corrompimento de pilha e houver um printf ou derivados, como funções de logs que confiam no printf, experimente desabilitar a chamada dessas funções e ver se o problema permanece. Isso pode ser feito pelo preprocessador:
 #define printf#define sprintf#define LOG Ao definir os nomes das funções usadas para nada não haverá a chamada da função, apesar do código compilar exatamente igual, exceto a chamada. Ou seja, se houver problemas em algum printf ele sumirá. A partir daí é só ir comentando e descomentando as partes do código até encontrar.
-</description>
-</item>
-
-     
-        <item>
-  <title>C&#43;&#43;0x parcial no novo GCC 4.3</title>
-  <link>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</link>
-  <pubDate>2007-07-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
-  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C&#43;&#43;, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C&#43;&#43; já há algum tempo.
-Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para templates. Para eles deverá ser definida a nova palavra-chave staticassert, que irá ser composta de dois parâmetros:
-Podemos usá-la tanto no lugar da função assert quanto da diretiva #error. Mas seu uso mais interessante é como limite para a instanciação de templates:
-Existem outros lugares onde esse novo comando pode ser usado. Para saber quando usá-lo, lembre-se que a verificação é feita durante a compilação, diferente do assert tradicional, que é chamada em tempo de execução.
-Quem diria: depois de todos esse anos o pré-processador sofrerá um upgrade. O objetivo é ser compatível com o novo padrão da linguagem C, o C99. A maior novidade fica por conta do número variável de parâmetros para macros. A linha abaixo resume tudo:
-Ou seja, não será mais necessário usar o truque dos &amp;quot;parênteses duplos&amp;quot; em macros de log que formatam parâmetros.
-Considero essa mudança a mais interessante. Com ela será possível usar um número variável de parâmetros em templates. Basicamente isso permite que um dado template aceite um número variável de parâmetros e esses parâmetros sejam &amp;quot;expandidos&amp;quot; em inúmeras construções dentro do escopo desse template. Nada melhor para explicar que um exemplo, como o caso da herança múltipla. Imagine um template que precisa herdar de seus parâmetros, mas não quer especificar a quantidade:
-Outras pequenas correções também serão feitas para tornar a linguagem mais robusta:
-  Referências para lvalue.
-  Parâmetros default em funções-template.
-  Problema do fecha-templates duplo (&amp;gt;&amp;gt;).
-  Podemos esperar por outras grandes mudanças que irão ocorrer nesse novo padrão? Não exatamente. As principais estarão na biblioteca C&#43;&#43;, com a inclusão de diversas classes e funções do projeto Boost. O resto são pequenas correções e melhorias de uma linguagem que, cá entre nós, já está bem poderosa e complexa.
 </description>
 </item>
 

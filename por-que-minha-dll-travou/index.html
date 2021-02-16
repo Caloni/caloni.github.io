@@ -105,15 +105,98 @@ Por que minha DLL travou?
           <div class="content">
 
             
-              <p>Saiu um documento da Microsoft alertando sobre os perigos em colocar código no DllMain. É algo mais completo e didático do que as simples observações do help do MSDN. Vale a pena dar uma lida, especialmente por causa das explicações sobre o loader lock e seus efeitos colaterais.</p>
-<p>O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &quot;mutex&quot;) para sincronizar as chamadas. O resultado é que, em um processo, apenas um DllMain é chamado em um dado momento. Esse objeto é chamado de &quot;loader lock&quot; na documentação da Microsoft.</p>
-<p>O código abaixo é besta, mas representa o que já vi em muito código-fonte, e muitas vezes não consegui perceber o que estava acontecendo (tanto porque desconhecia a existência desse loader lock quanto o código estava obscuro demais pra entender mesmo). Os comentários dizem tudo:</p>
-<p>Uma simples vítima disso pode ser um pobre executável usando uma pobremente escrita DLL, assim como no código abaixo:</p>
-<p>Para ver o problema de lock em ação, copie os fontes da DLL e do EXEcutável e use os comandos abaixo para gerar os arquivos:</p>
-<p>É importante sempre lembrar que a Microsoft acha feio, muito feio você ficar dependendo do DllMain pra fazer alguma coisa, <strong>mas</strong> admite que em alguns casos o único lugar onde podemos rodar código é no DllMain. Nesses casos - e em alguns outros - <strong>utilize uma comunicação paralela com sua thread travadona</strong>, por meio de um evento ou algo do gênero, antes que ela realmente saia. Com isso a thread pode ainda não ter saído, mas pode avisar a thread principal que o que ela precisava fazer já foi feito.</p>
+              <p>Saiu um <a href="http://www.microsoft.com/whdc/driver/kernel/DLL_bestprac.mspx">documento da Microsoft</a> alertando sobre os perigos em colocar código no <strong>DllMain</strong>. É algo mais completo e didático do que as simples observações do <a href="http://msdn.microsoft.com/library/en-us/dllproc/base/dllmain.asp">help do MSDN</a>. Vale a pena dar uma lida, especialmente por causa das explicações sobre o <em>loader lock</em> e seus efeitos colaterais.</p>
+<h4 id="o-conceito">O conceito</h4>
+<p>O resumo da ópera é que o código do Windows chamador do DllMain das DLLs carregadas/descarregadas utiliza um objeto de acesso exclusivo (leia &quot;<em>mutex</em>&quot;) para sincronizar as chamadas. O resultado é que, em um processo, <strong>apenas um DllMain é chamado em um dado momento</strong>. Esse objeto é chamado de &quot;<em>loader lock</em>&quot; na documentação da Microsoft.</p>
+<p><a href="/images/loaderlock.gif"><img src="http://i.imgur.com/mjJ0Xmm.gif" alt="Loader Lock explained"></a></p>
+<h4 id="o-código">O código</h4>
+<p>O código abaixo é besta, mas representa o que já vi em muito código-fonte, e muitas vezes não consegui perceber o que estava acontecendo (tanto porque desconhecia a existência desse <em>loader lock</em> quanto o código estava obscuro demais pra entender mesmo). Os comentários dizem tudo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//
+</span><span style="color:#75715e">// LoaderLock.dll
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+HANDLE g_thrLock <span style="color:#f92672">=</span> NULL; <span style="color:#75715e">// locked thread handle
+</span><span style="color:#75715e"></span>BOOL g_getOut <span style="color:#f92672">=</span> FALSE; <span style="color:#75715e">// it would be useful to unlock the thread, but it&#39;s not
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/** The thread locker
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">The function of this thread is to lock. It tries to call DllMain (indirectly). 
+</span><span style="color:#75715e">In order to do this, it needs the loader lock. Unfortunately the main thread 
+</span><span style="color:#75715e">has got it before. The obvious result: this secondary thread is going to 
+</span><span style="color:#75715e">wait forever for a resource that will be never released.
+</span><span style="color:#75715e">*/</span>
+DWORD WINAPI <span style="color:#a6e22e">ThreadLock</span>(PVOID)
+{
+	<span style="color:#66d9ef">while</span>( true )
+	{
+		<span style="color:#75715e">// I&#39;m here to hinder, not to help
+</span><span style="color:#75715e"></span>		Sleep(<span style="color:#ae81ff">1000</span>);
+		<span style="color:#66d9ef">if</span>( g_getOut ) 
+			<span style="color:#66d9ef">break</span>;
+	}
+
+	<span style="color:#66d9ef">return</span> ERROR_ACCESS_DENIED; <span style="color:#75715e">// this does not work
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">/** The DllMain locker
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">The function of this DllMain is to show how not to code an DllMain. It creates 
+</span><span style="color:#75715e">a thread on the PROCESS_ATTACH event (bad sign). Not happy yet, it waits 
+</span><span style="color:#75715e">for the thread on the PROCESS_DETACH event (bad bad sign). As this thead has 
+</span><span style="color:#75715e">got the loader lock, the secondary thread will never reach the point 
+</span><span style="color:#75715e">where it returns.
+</span><span style="color:#75715e">*/</span>
+BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+	<span style="color:#66d9ef">if</span>( fdwReason <span style="color:#f92672">==</span> DLL_PROCESS_ATTACH )
+	{
+		<span style="color:#75715e">// creates the locked thread
+</span><span style="color:#75715e"></span>		DWORD tid <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		g_thrLock <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, ThreadLock, NULL, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span>tid);
+	}
+	<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>( fdwReason <span style="color:#f92672">==</span> DLL_PROCESS_DETACH )
+	{
+		<span style="color:#75715e">// waits for the thread for ever and ever
+</span><span style="color:#75715e"></span>		g_getOut <span style="color:#f92672">=</span> TRUE;
+		WaitForSingleObject(g_thrLock, INFINITE);
+		CloseHandle(g_thrLock), g_thrLock <span style="color:#f92672">=</span> NULL;
+	}
+} 
+
+</code></pre></div><p>Uma simples vítima disso pode ser um pobre executável usando uma pobremente escrita DLL, assim como no código abaixo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//
+</span><span style="color:#75715e">// Victim.exe
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	HMODULE lockDll <span style="color:#f92672">=</span> LoadLibrary(_T(<span style="color:#e6db74">&#34;LoaderLock.dll&#34;</span>));
+
+	<span style="color:#66d9ef">if</span>( lockDll )
+	{
+		Sleep(<span style="color:#ae81ff">5000</span>);
+		FreeLibrary(lockDll), lockDll  <span style="color:#f92672">=</span> NULL;
+	}
+} 
+
+</code></pre></div><p>Para ver o problema de <em>lock</em> em ação, baixe os fontes da <a href="/images/loaderlock.cpp">DLL</a> e do <a href="/images/loaderlock-exe.cpp">EXEcutável</a> e use os comandos abaixo para gerar os arquivos:</p>
+<pre><code>cl /c loaderlock.cpp loaderlock-exe.cpp
+link loaderlock-exe.obj
+link /dll loaderlock.obj
+</code></pre>
+<h4 id="e-a-solução-é">E a solução é...</h4>
+<p>É importante sempre lembrar que a Microsoft acha feio, muito feio você ficar dependendo do DllMain pra fazer alguma coisa, <strong>mas</strong> admite que em alguns casos o único lugar onde podemos rodar código é no DllMain. Nesses casos - e em alguns outros - <strong>utilize uma comunicação paralela com sua <em>thread</em> travadona</strong>, por meio de um evento ou algo do gênero, antes que ela realmente saia. Com isso a <em>thread</em> pode ainda não ter saído, mas pode avisar a <em>thread</em> principal que o que ela precisava fazer já foi feito.</p>
+<h4 id="mais-informações">Mais informações</h4>
 <ol>
-<li>NT Loader (MSJ Sep 99) - Matt Pietrek</li>
-<li>mgrier's WebLog - NT Loader team participant</li>
+<li>
+<p><a href="http://www.microsoft.com/msj/0999/hood/hood0999.aspx">NT Loader (MSJ Sep 99)</a> - Matt Pietrek</p>
+</li>
+<li>
+<p><a href="http://blogs.msdn.com/mgrier/default.aspx">mgrier's WebLog</a> - NT Loader team participant</p>
+</li>
 </ol>
 
             
@@ -123,7 +206,7 @@ Por que minha DLL travou?
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

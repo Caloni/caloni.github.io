@@ -107,26 +107,92 @@ Cuidado com variáveis temporárias
             
               <p>Um dos problemas que a linguagem C++ possui para seus iniciantes é o de não deixar muito explícito partes do seu comportamento, principalmente as partes que lidam com ponteiros/referências e o jogo da vida dos objetos. Às  vezes a coisa fica de tal como complexa que fica até difícil explicar o porquê das coisas.</p>
 <p>Por exemplo, vejamos o singelo caso de alguém que precisa formatar uma saída de erro e para isso escolheu um stringstream:</p>
-<p>Quando chamamos func, ele lança uma exceção que é capturada no main que, por sua vez, formata uma stream e obtém sua string (através do método str) e através dessa string obtém o ponteiro da string em C puro (através do método cstr). Porém, a mensagem resultante na saída-padrão de erro não era o esperado:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sstream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;exception&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LogError</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> msg)
+{
+    cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;** &#34;</span> <span style="color:#f92672">&lt;&lt;</span> msg <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>()
+{
+    <span style="color:#75715e">//doSomething();
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">throw</span> exception(<span style="color:#e6db74">&#34;sbrubles exception&#34;</span>);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">try</span>
+    {
+        func();
+    }
+    <span style="color:#66d9ef">catch</span>(exception<span style="color:#f92672">&amp;</span> e)
+    {
+        stringstream ss;
+        ss <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Error calling func: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> e.what() <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> errorMessage <span style="color:#f92672">=</span> ss.str().c_str();
+        LogError(errorMessage);
+    }
+}
+ 
+
+</code></pre></div><p>Quando chamamos func, ele lança uma exceção que é capturada no main que, por sua vez, formata uma stream e obtém sua string (através do método str) e através dessa string obtém o ponteiro da string em C puro (através do método c_str). Porém, a mensagem resultante na saída-padrão de erro não era o esperado:</p>
+<p><a href="/images/ExceptionSStreamConsoleOutput.png"><img src="http://i.imgur.com/Gs3Khz7.png" alt=""></a></p>
 <p>Depurando diretamente, vemos que a stream, de fato, contém o que esperávamos. O único elemento errante é justamente o ponteiro obtido através da chamada dupla de métodos.</p>
-<p>O porquê isso ocorre só fica óbvio quando vemos a ajuda (ou a assinatura) da função str da classe stringstream:</p>
-<p>Ora, a função str retorna uma cópia do objeto string usado internamento pelo buffer de nossa string stream. Duas coisas ocorrem em qualquer cópia de um objeto retornada por uma função:</p>
+<p><a href="/images/ExceptionSStreamDebugWatch.png"><img src="http://i.imgur.com/x3n9FXS.png" alt=""></a></p>
+<p>O porquê isso ocorre só fica óbvio quando vemos <a href="http://www.cplusplus.com/reference/iostream/stringstream/str/">a ajuda</a> (ou a assinatura) da função str da classe stringstream:</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<pre><code>&lt;strong&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;string str ( ) const;&lt;/span&gt;&lt;/strong&gt;
+&lt;strong&gt;void str ( const string &amp; s );&lt;/strong&gt;
+
+&lt;strong&gt;Get/set the associated string object&lt;/strong&gt;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>&lt;strong&gt;The first version &lt;span style=&quot;text-decoration: underline; color: #ff0000;&quot;&gt;returns a copy of the string object&lt;/span&gt; currently associated with the string stream buffer.&lt;/strong&gt;
+</code></pre>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>Ora, a função str retorna uma <strong>cópia</strong> do objeto string usado internamento pelo buffer de nossa string stream. Duas coisas ocorrem em qualquer cópia de um objeto retornada por uma função:</p>
 <ul>
 <li>
 <p>A cópia do objeto original e seu desacoplamento (óbvio).</p>
 </li>
 <li>
-<p>A construção de um objeto baseado no original e que, após o fim da expressão onde foi chamado o método, é destruído.</p>
+<p>A construção de um objeto baseado no original e que, após o fim da expressão onde foi chamado o método, <strong>é destruído</strong>.</p>
 </li>
 </ul>
 <p>Uma vez que a chamada a str termina, é entregue uma instância de uma string que contém a string original que está sendo usada pela string stream para a expressão da chamada, que geralmente vem seguida de uma cópia:</p>
+<pre><code>//
+// 1. str retorna uma cópia;
+// 2. atribuição copia retorno para buf.
+//
+string buf = ss.str();
+</code></pre>
 <p>A variável buf no exemplo acima será, portanto, a terceira string usada aqui até então. Ao final da expressão, a string intermediária retornada por str é automaticamente destruída, por se trata de uma cópia temporária para obedecer a sintaxe de retorno da função.</p>
-<p>Agora, o que acontece se, na cópia temporária, é feita uma operação para obter seu ponteiro interno usado para armazenar sua string estilo C?</p>
+<p>Agora, o que acontece se, <strong>na cópia temporária</strong>, é feita uma operação para obter seu ponteiro interno usado para armazenar sua string estilo C?</p>
 <p>Obviamente ele fica inválido após o fim da expressão!</p>
 <p>Vamos ver em câmera lenta:</p>
+<p><a href="/images/ExceptionSStreamDebugWatch2.png"><img src="http://i.imgur.com/vXQjDjK.png" alt=""></a></p>
 <p>Nada como assembly fresquinho para refrescar os conceitos de C++ por baixo dos panos.</p>
+<h3 id="update">Update</h3>
 <p>Após uma enxurrada de programadores gerenciáveis perguntarem qual seria, então, a solução ideal, segue o snipet mais explicitado:</p>
+<pre><code>// 1. Copie a string retornada para uma variável não-temporária
+string buf = message.str();
+
+// 2. Use essa string dentro de seu escopo válido (até o final do catch, no exemplo do artigo).
+const char* text = buf.c_str();
+</code></pre>
+<h3 id="update-2">Update 2</h3>
 <p>Outro leitor sugeriu fazer toda a chamada em uma única instrução, economizando em expressividade e ainda evitando a destruição da variável temporária criada ao chamar str.</p>
+<pre><code>// 1. Matar três coelhos com uma instrução só.
+LogError(ss.str().c_str());
+</code></pre>
 <p>Particularmente, gosto de instruções simples que me permitam ver claramente o que está acontecendo de forma simples pelo depurador (até porque sei que o compilador irá otimizar tudo no final em versão Release, ainda mais se estiver quebrado em instruções simples). Porém, toda solução que evita o uso da variável temporária após a execução do método str é válida.</p>
 
             
@@ -136,7 +202,7 @@ Cuidado com variáveis temporárias
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

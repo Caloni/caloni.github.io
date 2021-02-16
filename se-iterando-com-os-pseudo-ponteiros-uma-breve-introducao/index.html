@@ -105,8 +105,10 @@ Se iterando com os pseudo-ponteiros: uma breve introdução
           <div class="content">
 
             
-              <p>Como já vimos algumas vezes, a STL não prima por interfaces intuitivas, preferindo abstrações que criem um leque de ferramentas genéricas para tratamento uniformizado de coleções de dados através de algoritmos. O problema disso é que novos programadores da linguagem terão que aprender uma maneira nova de lidar com problemas baseada na percepção dos criadores do padrão na época em que foi lançado de como seria a evolução da ciência da computação nos próximos anos. Muitos dos conceitos ali abordados realmente se tornaram padrão de facto, mas na briga pela expansão da linguagem quem perdeu por muito tempo foi o próprio desenvolvedor, que teve que se contentar com uma lista de algoritmos genéricos parcialmente compilado.</p>
+              <p>Como <a href="http://www.caloni.com.br/remove_if-ate-remove-so-que-diferente">já vimos algumas vezes</a>, a STL não prima por interfaces intuitivas, preferindo abstrações que criem um leque de ferramentas genéricas para tratamento uniformizado de coleções de dados através de algoritmos. O problema disso é que novos programadores da linguagem terão que aprender uma maneira nova de lidar com problemas baseada na percepção dos criadores do padrão na época em que foi lançado de como seria a evolução da ciência da computação nos próximos anos. Muitos dos conceitos ali abordados realmente se tornaram padrão <em>de facto</em>, mas na briga pela expansão da linguagem quem perdeu por muito tempo foi o próprio desenvolvedor, que teve que se contentar com uma lista de algoritmos genéricos parcialmente compilado.</p>
 <p>Dito isto, a abstração dos iteradores é a coisa mais linda do mundo.</p>
+<p><a href="/images/14307157649_516dd123ba_z.jpg"><img src="http://i.imgur.com/0Kne7qd.jpg" alt="iteradores-como-ponteiros-a-imagem"></a></p>
+<h2 id="iteradeiros-ou-ponteradores">Iteradeiros ou Ponteradores?</h2>
 <p>Os dois únicos conceitos que é preciso se lembrar para sempre quando se trata de iteradores é que ele:</p>
 <ul>
 <li>
@@ -129,7 +131,40 @@ Se iterando com os pseudo-ponteiros: uma breve introdução
 <p>Dois ponteiros podem ser subtraídos para sabermos a distância entre dois elementos.</p>
 </li>
 </ul>
-<p>Da mesma forma, operações como cópia, movimentação, ordenação, caotização, pode ser feito usando dois ponteiros/iteradores de dois contêiners distintos, desde que algumas regras básicas sejam seguidas, como um iterador deve sempre apontar para algo válido (ou disponibilizar alguma abstração que insira novos elementos em um contêiner menor). Veremos essas regras em um próximo post sobre o tema. Apontarei para ele aqui.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+T VaiSomandoVaiSomando(T begin, T end)
+{
+    T current <span style="color:#f92672">=</span> begin;
+    T next <span style="color:#f92672">=</span> begin <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+
+    <span style="color:#66d9ef">while</span>( next <span style="color:#f92672">!=</span> end )
+    {
+        <span style="color:#f92672">*</span>next <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>current <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>next;
+        <span style="color:#f92672">++</span>current;
+        <span style="color:#f92672">++</span>next;
+    }
+
+    <span style="color:#66d9ef">return</span> current;
+}
+
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> aInts[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span> };
+
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> vInts;
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#f92672">++</span>i )
+        vInts.push_back(i);
+
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>VaiSomandoVaiSomando(<span style="color:#f92672">&amp;</span>aInts[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span>aInts[<span style="color:#ae81ff">10</span>]) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>VaiSomandoVaiSomando(vInts.begin(), vInts.end()) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+</code></pre></div><p><a href="/images/14492489942_716878c004_z.jpg"><img src="http://i.imgur.com/GmNutkz.jpg" alt="iteradores-como-ponteiros"></a></p>
+<p>Da mesma forma, operações como cópia, movimentação, ordenação, caotização, pode ser feito usando dois ponteiros/iteradores de dois contêiners distintos, desde que algumas regras básicas sejam seguidas, como <em>um iterador deve sempre apontar para algo válido</em> (ou disponibilizar alguma abstração que insira novos elementos em um contêiner menor). Veremos essas regras em um próximo post sobre o tema. Apontarei para ele <em>aqui</em>.</p>
 
             
 
@@ -138,7 +173,7 @@ Se iterando com os pseudo-ponteiros: uma breve introdução
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

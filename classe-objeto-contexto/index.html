@@ -107,11 +107,53 @@ Classe, objeto, contexto
             
               <p>Para entender conceitos simples em C++, como métodos de uma classe, ajuda muito seguir o raciocínio dos programadores C e como eles lidavam com o tipo de problema que C++ resolve elegantemente implementando um novo compilador com uma nova linguagem.
 Tomemos, por exemplo, métodos. Um método é uma função chamada dentro de um contexto. Qual o contexto? O objeto. Ou seja, uma instância específica de uma classe, que é um molde para se fazer alguma coisa.</p>
-<p>Para obter esse contexto, existe uma palavra-chave reservada dentro dos métodos que é o this, que está tão incrustado na linguagem que não precisa ser usado explicitamente: quando referenciamos alguma propriedade (ou um outro método) da classe, só pelo fato de estarmos dentro de um método o compilador já entende que se trata do mesmo objeto, ou mesmo contexto.</p>
-<p>E contexto nesse sentido nada mais é que um endereço na memória para alguma coisa que nos interessa. Tal qual uma função API do Windows -- tal qual FindFirstFile.aspx) -- que recebe ou retorna uma struct com o que precisamos, esse geralmente é o contexto procurado.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   MinhaClasse obj;
+   obj.MeuMetodo(); <span style="color:#75715e">// o contexto é obj, uma instância de MinhaClasse
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Para obter esse contexto, existe uma palavra-chave reservada dentro dos métodos que é o <strong>this</strong>, que está tão incrustado na linguagem que não precisa ser usado explicitamente: quando referenciamos alguma propriedade (ou um outro método) da classe, só pelo fato de estarmos dentro de um método o compilador já entende que se trata do mesmo objeto, ou mesmo contexto.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+   <span style="color:#66d9ef">void</span> MeuMetodo();
+   <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MeuOutroMetodo</span>();
+   <span style="color:#66d9ef">int</span> MinhaPropriedade;
+};
+
+<span style="color:#66d9ef">void</span> MinhaClasse<span style="color:#f92672">::</span>MeuMetodo()
+{
+   MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>; <span style="color:#75715e">// ou seja: this-&gt;MinhaPropriedade = 42;
+</span><span style="color:#75715e"></span>   MeuOutroMetodo(); <span style="color:#75715e">// ou seja: this-&gt;MeuOutroMetodo();
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>E contexto nesse sentido nada mais é que um endereço na memória para alguma coisa que nos interessa. Tal qual uma função API do Windows -- tal qual <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa364418(v=vs.85).aspx">FindFirstFile</a> -- que recebe ou retorna uma <strong>struct</strong> com o que precisamos, esse geralmente é o contexto procurado.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">WIN32_FIND_DATA findData;
+HANDLE findH <span style="color:#f92672">=</span> FindFirstFile(<span style="color:#e6db74">&#34;*.txt&#34;</span>, <span style="color:#f92672">&amp;</span>findData);
+
+<span style="color:#66d9ef">if</span>( findH <span style="color:#f92672">!=</span> INVALID_HANDLE_VALUE )
+{
+   <span style="color:#66d9ef">if</span>( findData.dwFileAttributes <span style="color:#f92672">&amp;</span> FILE_ATTRIBUTE_ENCRYPTED )
+   {
+<span style="color:#75715e">//...
+</span></code></pre></div><p><img src="http://i.imgur.com/l5RSlmW.context.gif" alt=""></p>
 <p>No caso de nós, que escrevemos uma &quot;classe&quot;, o contexto é recebido &quot;de fora&quot;:</p>
-<p>Tal como uma struct que definimos, ela vira o contexto. Da mesma forma, um objeto de uma classe em C++ é esse contexto. Podemos fazer a mesma coisa em C, com o trabalho adicional de especificar o &quot;this&quot; (isto é, o ponteiro para o contexto/struct):</p>
-<p>Em um próximo post vamos ver como fazer para chamar MeuOutroMetodo a partir de uma estrutura em C.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">HANDLE <span style="color:#a6e22e">MyFindFirstFile</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> pattern, LPWIN32_FIND_DATA findData)
+{
+   <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>   findData<span style="color:#f92672">-&gt;</span>dwFileAttributes <span style="color:#f92672">=</span> FILE_ATTRIBUTE_ENCRYPTED;
+   <span style="color:#75715e">//...
+</span></code></pre></div><p>Tal como uma <strong>struct</strong> que definimos, ela vira o contexto. Da mesma forma, um objeto de uma classe em C++ é esse contexto. Podemos fazer a mesma coisa em C, com o trabalho adicional de especificar o &quot;this&quot; (isto é, o ponteiro para o contexto/struct):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+    <span style="color:#66d9ef">int</span> MinhaPropriedade;
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+   pThis<span style="color:#f92672">-&gt;</span>MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+   <span style="color:#75715e">///@todo Chamar pThis-&gt;MeuOutroMetodo();
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Em um próximo post vamos ver como fazer para chamar MeuOutroMetodo a partir de uma estrutura em C.</p>
 
             
 
@@ -120,7 +162,7 @@ Tomemos, por exemplo, métodos. Um método é uma função chamada dentro de um 
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

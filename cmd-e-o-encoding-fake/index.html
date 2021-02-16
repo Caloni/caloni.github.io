@@ -106,20 +106,65 @@ Cmd e o encoding fake
 
             
               <p>Qualquer um que já tenha mexido no prompt de comandos do Windows sabe que ele permite você escolher qual code page utilizar para enviar e receber comandos. O Windows é todo em UTF-16, mas as saídas podem vir de qualquer programa com qualquer encoding. A missão do cmd.exe é usar o encoding escolhido pelo usuário para exibir os caracteres na tela. Vamos supor que nós criemos uma pasta com acentos no nome (pelo Explorer para não ter erro):</p>
+<p><img src="https://i.imgur.com/ZutWZiB.png" alt="QuemQuerPão"></p>
 <p>Agora através de um cmd.exe podemos observar como esse nome acentuado aparece:</p>
+<p><img src="https://i.imgur.com/cAJED7b.png" alt="QuemQuerPãoCmd"></p>
 <p>Note como o &quot;a&quot; acentuado com til aparece perfeitamente. Também note que o codepage utilizado é o 437.</p>
+<p><img src="https://i.imgur.com/3Llhikv.png" alt="QuemQuerPãoCmdDetails"></p>
 <p>Até aí tudo bem, certo?</p>
-<p>Não! Não! Não!</p>
-<p>O codepage 437 não possui ã. Nem õ.</p>
+<p><strong>Não! Não! Não!</strong></p>
+<p>O <a href="https://en.wikipedia.org/wiki/Code_page_437#Character_set">codepage 437</a> não possui ã. Nem õ.</p>
+<p><img src="https://i.imgur.com/lcVG0ak.png" alt="CodePage437"></p>
 <p>Isso, meus amigos, é chamado tecnicamente na área de &quot;muito louco&quot;.</p>
 <p>Curioso a respeito disso, resolvi observar a saída padrão do cmd.exe, para ver o que diabos vem como resultado. Para isso desenvolvi um simples output redirector tabajara:</p>
-<p>Simples, bonito e prático. Quando executamos Redirector.exe ele executa um cmd.exe, com a diferença que a saída dele vai parar no arquivo cmd.log, que podemos observar com um BareTail da vida.</p>
-<p>Opa, opa, opa!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[])
+{
+    DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
+    SECURITY_ATTRIBUTES sa <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span>, NULL, TRUE };
+    STARTUPINFOA si <span style="color:#f92672">=</span> { <span style="color:#66d9ef">sizeof</span>(si) };
+    PROCESS_INFORMATION pi;
+    CHAR cmd[<span style="color:#ae81ff">4096</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cmd.exe&#34;</span>;
+    SECURITY_ATTRIBUTES saAttr;
+ 
+    saAttr.nLength <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(SECURITY_ATTRIBUTES);
+    saAttr.bInheritHandle <span style="color:#f92672">=</span> TRUE;
+    saAttr.lpSecurityDescriptor <span style="color:#f92672">=</span> NULL;
+
+    si.dwFlags <span style="color:#f92672">=</span> STARTF_USESTDHANDLES;
+    si.hStdOutput <span style="color:#f92672">=</span> CreateFileA(<span style="color:#e6db74">&#34;cmd.log&#34;</span>, GENERIC_WRITE, FILE_SHARE_READ, <span style="color:#f92672">&amp;</span>sa, CREATE_ALWAYS, <span style="color:#ae81ff">0</span>, NULL);
+    si.hStdError <span style="color:#f92672">=</span> si.hStdOutput;
+
+    <span style="color:#66d9ef">if</span>( si.hStdOutput <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> si.hStdOutput <span style="color:#f92672">!=</span> INVALID_HANDLE_VALUE )
+    {
+        <span style="color:#66d9ef">if</span> (CreateProcessA(NULL, cmd, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, <span style="color:#f92672">&amp;</span>si, <span style="color:#f92672">&amp;</span>pi))
+        {
+            WaitForSingleObject(pi.hProcess, INFINITE);
+            CloseHandle(pi.hThread);
+            CloseHandle(pi.hProcess);
+        }
+
+        CloseHandle(si.hStdOutput);
+    }
+}
+</code></pre></div><p>Simples, bonito e prático. Quando executamos Redirector.exe ele executa um cmd.exe, com a diferença que a saída dele vai parar no arquivo cmd.log, que podemos observar com um <a href="https://www.baremetalsoft.com/baretail/">BareTail</a> da vida.</p>
+<p><img src="https://i.imgur.com/92WFz8J.gif" alt="Redirector"></p>
+<p><strong>Opa, opa, opa!</strong></p>
+<p><img src="https://i.imgur.com/RJ85xi9.png" alt="QuemQuerPaum"></p>
 <p>O til sumiu!</p>
-<p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao ã foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &quot;a&quot;, simplesmente, sem til.</p>
+<p>Se formos analisar os bytes que vieram de saída, vamos constatar que o byte referente ao <strong>ã</strong> foi enviado para a saída padrão como o byte 0x61, ou 97 em decimal. No codepage 437 (e em qualquer derivado da tabela ASCII, na verdade) o byte 97 é representado como &quot;a&quot;, simplesmente, sem til.</p>
+<p><img src="https://i.imgur.com/6P8n4Dg.png" alt="ASemTil"></p>
 <p>Isso quer dizer que ao receber um &quot;ã&quot; o cmd.exe o reinterpreta como &quot;a&quot;, mesmo estando sob o encoding 437. Esse é o resultado de um prompt user friendly que quer seu amigo.</p>
 <p>Se analisarmos a memória do cmd.exe veremos que ele armazena as coisas em UTF-16, como qualquer programa Windows nativo unicode.</p>
-<p>E com isso constatamos que não necessariamente no Windows, What You See Is What You Get. Ou, em termos mais filosóficos, What You See Is Not What I Get.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">@<span style="color:#66d9ef">echo</span> off
+:beg<span style="color:#75715e"></span>
+<span style="color:#66d9ef">dir</span> /b c:\temp\quemquer*
+<span style="color:#66d9ef">goto</span> beg<span style="color:#75715e"></span>
+</code></pre></div><p><img src="https://i.imgur.com/3bsyxNU.png" alt="QuemQuerPaoBatch"></p>
+<p><img src="https://i.imgur.com/4V81xIc.png" alt="QuemQuerPaoDump"></p>
+<p><img src="https://i.imgur.com/fM6Iovh.png" alt="QuemQuerPaoFind"></p>
+<p>E com isso constatamos que não necessariamente no Windows, What You See Is What You Get. Ou, em termos mais filosóficos, <a href="http://cinetenisverde.com.br/lucky/">What You See Is Not What I Get</a>.</p>
 
             
 
@@ -128,7 +173,7 @@ Cmd e o encoding fake
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

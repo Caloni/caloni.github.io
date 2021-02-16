@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Bom, depois de criar um script para basicamente apenas escrever o texto dos filmes que assisto e buscar uma imagem agradável para meu finado blogue de Cinema, o próximo passo foi portar esse mesmo..."/>
+        content="Bom, depois de criar um script para basicamente apenas escrever o texto dos filmes que assisto e buscar uma imagem agradável para meu blogue de Cinema, o próximo passo foi portar esse mesmo método..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,24 +105,50 @@ Testando sistema de postagem
           <div class="content">
 
             
-              <p>Bom, depois de criar um script para basicamente apenas escrever o texto dos filmes que assisto e buscar uma imagem agradável para meu finado blogue de Cinema, o próximo passo foi portar esse mesmo método para meus dois outros blogues: o da minha empresa, a BitForge e esse aqui. O processo envolve algo a mais: buscar as imagens usadas (que muitas vezes não é só uma). Porém, nada mais que isso.</p>
-<p>O problema mesmo é publicar nas redes sociais. Um detalhe típico do funcionamento dessas redes bem apontou o blogger veterano Hossein Derakhshan, que ficou preso por seis anos e descreveu a mudança que a web sofreu nesse pouquíssimo tempo para a história, mas muitíssimo para a internet. De acordo com ele, postar apenas links não farão muito efeito, mesmo que você seja um escritor conhecido (o caso dele). Para fazer efeito, você precisa de imagens. Pessoas gostam de imagens. De gatinhos, melhor ainda.</p>
+              <p>Bom, depois de criar um script para basicamente apenas escrever o texto dos filmes que assisto e buscar uma imagem agradável para meu <a href="http://www.cinetenisverde.com.br">blogue de Cinema</a>, o próximo passo foi portar esse mesmo método para meus dois outros blogues: o da minha empresa, a <a href="http://www.bitforge.com.br/blog-pt">BitForge</a> e esse aqui. O processo envolve algo a mais: buscar as imagens usadas (que muitas vezes não é só uma). Porém, nada mais que isso.</p>
+<p><strong>O problema mesmo é publicar nas redes sociais.</strong></p>
+<p>Um detalhe típico do funcionamento dessas redes bem apontou o blogger veterano <a href="http://www.theguardian.com/technology/2015/dec/29/irans-blogfather-facebook-instagram-and-twitter-are-killing-the-web">Hossein Derakhshan</a>, que ficou preso por seis anos e descreveu a mudança que a web sofreu nesse pouquíssimo tempo para a história, mas muitíssimo para a internet. De acordo com ele, postar apenas links não farão muito efeito, mesmo que você seja um escritor conhecido (o caso dele). Para fazer efeito, você precisa de imagens. Pessoas gostam de imagens. De gatinhos, melhor ainda.</p>
 <p>Porém, qual imagem que pode ser usada para um blogue técnico e que chame a atenção?</p>
 <p>No Cine Tênis Verde fica fácil achar uma imagem, pois filmes são formados por elas (cerca de 170 mil delas, se for um filme de duas horas). Aqui no Blogue do Caloni, tenho que me limitar a abstrações e metáforas.</p>
-<p>O que muitas vezes tem funcionado, como minha série Básico do Básico:</p>
+<p>O que muitas vezes tem funcionado, como minha série <a href="https://www.google.com.br/search?q=b%C3%A1sico+do+b%C3%A1sico+site%3Acaloni.com.br">Básico do Básico</a>:</p>
 <ul>
-<li>Binário</li>
-<li>Tipos</li>
-<li>Ponteiros</li>
-<li>Assembly</li>
-<li>Programação</li>
-<li>Depuração</li>
+<li><a href="http://caloni.com.br/basico-do-basico-binario">Binário</a></li>
+<li><a href="http://caloni.com.br/basico-do-basico-tipos">Tipos</a></li>
+<li><a href="http://caloni.com.br/basico-do-basico-ponteiros">Ponteiros</a></li>
+<li><a href="http://caloni.com.br/basico-do-basico-assembly">Assembly</a></li>
+<li><a href="http://caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint">Programação</a></li>
+<li><a href="http://caloni.com.br/guia-basico-para-programadores-de-primeiro-int-main">Depuração</a></li>
 </ul>
 <p>De qualquer forma, posso continuar utilizando o título do artigo como base para minha pesquisa.</p>
+<h3 id="postando-no-twitter">Postando no Twitter</h3>
 <p>Postar no Twitter é algo relativamente fácil. O script abaixo faz isso com dois pés no joelho:</p>
-<p>Já postar no Facebook é mais ou menos uma tortura. As chaves de acesso costumam expirar, e para conseguir uma que não expira este tutorial é femonenal, pois economiza muito, muito tempo de pesquisa.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">PublishToTwitter</span>(postInfo):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    https://pypi.python.org/pypi/twitter
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    t <span style="color:#f92672">=</span> twitter<span style="color:#f92672">.</span>Twitter(auth<span style="color:#f92672">=</span>twitter_credentials<span style="color:#f92672">.</span>auth)
+    
+    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">daytoday</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">caloni.github.io</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">images</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#34;permalink&#34;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.jpg&#34;</span>, <span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> imagefile:
+    	imagedata <span style="color:#f92672">=</span> imagefile<span style="color:#f92672">.</span>read()
+    t_up <span style="color:#f92672">=</span> twitter<span style="color:#f92672">.</span>Twitter(domain<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;upload.twitter.com&#39;</span>, auth<span style="color:#f92672">=</span>twitter_credentials<span style="color:#f92672">.</span>auth)
+    id_img1 <span style="color:#f92672">=</span> t_up<span style="color:#f92672">.</span>media<span style="color:#f92672">.</span>upload(media<span style="color:#f92672">=</span>imagedata)[<span style="color:#e6db74">&#34;media_id_string&#34;</span>]
+    st <span style="color:#f92672">=</span> postInfo[<span style="color:#e6db74">&#39;title&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;tagline&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;shortlink&#39;</span>]<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
+    <span style="color:#66d9ef">if</span> len(st) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">120</span>: <span style="color:#75715e"># giving space to image attachment</span>
+        st <span style="color:#f92672">=</span> stars <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;title&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;shortlink&#39;</span>]<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
+    t<span style="color:#f92672">.</span>statuses<span style="color:#f92672">.</span>update(status<span style="color:#f92672">=</span>st, media_ids<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">.</span>join([id_img1]))
+</code></pre></div><h3 id="postando-no-facebook">Postando no Facebook</h3>
+<p>Já postar no Facebook é mais ou menos uma tortura. As chaves de acesso costumam expirar, e para conseguir uma que não expira este <a href="http://nodotcom.org/python-facebook-tutorial.html">tutorial</a> é femonenal, pois economiza muito, muito tempo de pesquisa.</p>
 <p>Curiosamente, o código para postar é muito semelhante ao do Twitter, até mais simples, talvez:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">PublishToFacebook</span>(postInfo):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    http://nodotcom.org/python-facebook-tutorial.html
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">daytoday</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">caloni.github.io</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">images</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#34;permalink&#34;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.jpg&#34;</span>, <span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> imagefile:
+    	imagedata <span style="color:#f92672">=</span> imagefile<span style="color:#f92672">.</span>read()
 
+    st <span style="color:#f92672">=</span> postInfo[<span style="color:#e6db74">&#39;title&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;paragraph&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> baseUrl <span style="color:#f92672">+</span> postInfo[<span style="color:#e6db74">&#39;permalink&#39;</span>]
+    post <span style="color:#f92672">=</span> facebook_credentials<span style="color:#f92672">.</span>auth<span style="color:#f92672">.</span>put_photo(image<span style="color:#f92672">=</span>imagedata, message<span style="color:#f92672">=</span>st)
+</code></pre></div>
             
 
           </div>
@@ -130,7 +156,7 @@ Testando sistema de postagem
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

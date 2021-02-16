@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &quot;passou por aqui&quot; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas..."/>
+        content="
+Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &quot;passou por aqui&quot; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,18 +106,50 @@ Logs em serviços (e outras coisas)
           <div class="content">
 
             
-              <p>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &quot;passou por aqui&quot; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:</p>
-<p>Vou tentar defender meu ponto de vista.</p>
-<p>Esse artigo do Dr. Dobbs explica de uma maneira bem completa como fazer uma lib de log leve e configurável. O que eu peguei desse exemplo foi a forma mais C++ de formatar as linhas, deixando para trás o estilão printf que depois de variadic templates já está datado.</p>
-<p>Por que eu acho a minha versão mais legal (não valendo falar que foi porque eu fiz):</p>
+              <p><img src="http://i.imgur.com/p9kH1LW.jpg" alt=""></p>
+<p>Já uso logs há muito tempo. Me lembro muito bem que quando programava em BASIC o &quot;passou por aqui&quot; já era útil. Depois de fazer muitas bibliotecas super-flexíveis de escrita em saídas diferentes, níveis configuráveis e uso do mais complexo ao mais banal, cheguei à seguinte conclusão:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Log(<span style="color:#e6db74">&#34;Quero um log mais simples possível (de preferência &#34;</span>, <span style="color:#ae81ff">15</span>, <span style="color:#e6db74">&#34; vezes mais simples)&#34;</span>);
+</code></pre></div><p>Vou tentar defender meu ponto de vista.</p>
+<p>Esse <a href="http://www.drdobbs.com/cpp/a-lightweight-logger-for-c/240147505">artigo do Dr. Dobbs</a> explica de uma maneira bem completa como fazer uma lib de log leve e configurável. O que eu peguei desse exemplo foi a forma mais C++ de formatar as linhas, deixando para trás o estilão printf que depois de variadic templates já está datado.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sstream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Log</span>(std<span style="color:#f92672">::</span>ostringstream<span style="color:#f92672">&amp;</span> os)
+{
+	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> os.str() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> First, <span style="color:#66d9ef">typename</span>...Rest <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> Log(std<span style="color:#f92672">::</span>ostringstream<span style="color:#f92672">&amp;</span> os, First parm1, Rest...parm)
+{
+	os <span style="color:#f92672">&lt;&lt;</span> parm1;
+	Log(os, parm...);
+}
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>...Rest <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> Log(Rest...parm)
+{
+	std<span style="color:#f92672">::</span>ostringstream os;
+	LogHeader(os);
+	Log(os, parm...);
+}
+</code></pre></div><p>Por que eu acho a minha versão mais legal (não valendo falar que foi porque eu fiz):</p>
 <ul>
 <li>É mais simples ainda, tem poucas linhas e pode ser copiada sem peso na consciência. Pode até estar em um header que o overhead é mínimo.</li>
 <li>Não requer configuração de arquivo, debug output, named pipe, etc. Isso tem a ver com o uso de cada um. O próximo motivo explica melhor isso.</li>
 <li>Se for executado em um prompt já exibe as informações para serem filtradas; se for executado como um serviço encapsulo a saída.</li>
 </ul>
-<p>Encapsular a saída e o comportamento de um serviço hoje em dia é algo banal. Há diversos programas que fazem isso para você, sendo desnecessário programar toda aquela parte de comunicação com o Windows. O cara do DriverEntry (vulgo o kernel-mode programmer motta-focka Fernando) fez um aplicativo que faz isso, que é simples de usar e continua funcionando no Windows 8.1. Atualmente uso um outro encontrado pelo igualmente fodástico Rodrigo Strauss: o Non Sucking Service Manager (seu nome já explica por que defendo utilizar o mínimo possível das firulas da Microsoft).</p>
-<p>Além de ser extremamente flexível e não ter falhado nas vezes que o utilizei, o NSSM consegue redirecionar a saída do aplicativo que encapsula como um serviço para um arquivo e rotacionar o arquivo por tamanho ou data (ou reexecução do serviço). Abaixo uma receitinha básica para configurar seu aplicativo:</p>
-<p>(para quem está se perguntando, 10485760 bytes são 10 MB.)</p>
+<p>Encapsular a saída e o comportamento de um serviço hoje em dia é algo banal. Há diversos programas que fazem isso para você, sendo desnecessário programar toda aquela parte de comunicação com o Windows. O <a href="http://driverentry.com.br/blog/?p=461">cara do DriverEntry</a> (vulgo o kernel-mode programmer motta-focka Fernando) fez um aplicativo que faz isso, que é simples de usar e continua funcionando no Windows 8.1. Atualmente uso um outro encontrado pelo igualmente fodástico <a href="https://nssm.cc/">Rodrigo Strauss</a>: o Non Sucking Service Manager (seu nome já explica por que defendo utilizar o mínimo possível das firulas da Microsoft).</p>
+<p>Além de ser extremamente flexível e não ter falhado nas vezes que o utilizei, o NSSM consegue redirecionar a saída do aplicativo que encapsula como um serviço para um arquivo e rotacionar o arquivo por tamanho ou data (ou reexecução do serviço):</p>
+<p><img src="http://i.imgur.com/v12mGG3.png" alt=""></p>
+<p>Abaixo uma receitinha básica para configurar seu aplicativo:</p>
+<pre><code>nssm.exe install MyService C:\Path\MyService.exe &lt;args&gt;
+nssm set MyService AppStdout C:\Path\Logs\MyService.log
+nssm set MyService AppStderr C:\Path\Logs\MyService.log
+nssm set MyService AppRotateFiles 1
+nssm set MyService AppRotateOnline 1
+nssm set MyService AppRotateBytes 10485760
+</code></pre><p><em>(para quem está se perguntando, 10485760 bytes são 10 MB.)</em></p>
 <p>Com essa forma de fazer serviços, há uma dupla vantagem:</p>
 <ul>
 <li>Retirar todo o código para lidar com o Service Manager do Windows das suas mãos.</li>
@@ -126,8 +159,24 @@ Logs em serviços (e outras coisas)
 <ul>
 <li>Você pode executar programas-filho que o redirect para o log vai funcionar do mesmo jeito.</li>
 </ul>
+<h3 id="bônus-final">Bônus final</h3>
 <p>Acho que cada um deve escrever no seu header o que achar melhor para depurar seus programas. No entanto, acho válido compartilhar quais são as informações que tem sido úteis para mim:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LogHeader</span>(std<span style="color:#f92672">::</span>ostringstream<span style="color:#f92672">&amp;</span> os)
+{
+	SYSTEMTIME st;
+	<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">48</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
 
+	GetLocalTime(<span style="color:#f92672">&amp;</span>st);
+
+	sprintf_s(buffer, <span style="color:#e6db74">&#34;%04d-%02d-%02d %02d:%02d:%02d %04X.%04X %08X &#34;</span>,
+		st.wYear, st.wMonth, st.wDay,
+		st.wHour, st.wMinute, st.wSecond,
+		GetCurrentProcessId() <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFF</span>, GetCurrentThreadId() <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFF</span>,
+		GetLastError());
+
+	os <span style="color:#f92672">&lt;&lt;</span> buffer;
+}
+</code></pre></div>
             
 
           </div>
@@ -135,7 +184,7 @@ Logs em serviços (e outras coisas)
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -107,21 +107,48 @@ O Estranho Caso do PDB Mal-Aformado
             
               <p>Era uma vez, há 13 anos atrás, um tal de Visual Studio .NET, que iria trazer a felicidade para nós, meros mortais usuários de programinhas em C com ponteiro pra lá e ponteiro pra cá. Agora a Microsoft traria para o pessoal do &quot;baixo nível&quot; a mais nova novidade do verão: uma IDE lenta, bugada e... bonita?</p>
 <p>Bem, para os que estavam acostumados com o Visual C++ 6.0, nada foi mais incômodo do que esperar carregar o programa de manhã para conseguir finalmente compilar. Ajustadas as expectativas, os projetos foram aos poucos migrados para aquela nova forma de configurar EXEs, DLLs, LIBs e OCXs.</p>
-<p>E eis que alguém, muito provavelmente eu mesmo, naquele momento de inspiração, criei a seguinte configuração para a geração dos PDBs, os símbolos para depurar programas no Windows. C/C++, Output File, Program Database File Name = &quot;$(IntDir)/$(ProjectName).pdb&quot;.</p>
-<p>Faz sentido, não? Afinal de contas, o PDB costuma ter o nome do projeto, e ele já está setado até em outro lugar para gerar com o mesmo nome. Nada de novo no front. Em Linker, Debugging, Generate Program Database File vemos &quot;$(OutDir&quot;$(ProjectName).pdb&quot;.</p>
-<p>Até aí tudo bem. Aliás, tudo ficou muito bem por estranhos 13 anos. Até que alguém decidiu migrar para o já não tão novo Visual Studio 2013, onde tudo correu muito bem por algumas horas... talvez 13. Até que a depuração de repente parou de funcionar.</p>
+<p>E eis que alguém, muito provavelmente eu mesmo, naquele momento de inspiração, criei a seguinte configuração para a geração dos PDBs, os símbolos para depurar programas no Windows:</p>
+<p><img src="http://i.imgur.com/AmoYVLS.png" alt=""></p>
+<p>Faz sentido, não? Afinal de contas, o PDB costuma ter o nome do projeto, e ele já está setado até em outro lugar para gerar com o mesmo nome. Nada de novo no <em>front</em>.</p>
+<p><img src="http://i.imgur.com/SYoMbtq.png" alt=""></p>
+<p>Até aí tudo bem. Aliás, tudo ficou muito bem por estranhos 13 anos.</p>
+<p>Até que alguém decidiu migrar para o já não tão novo Visual Studio 2013!</p>
+<p><img src="http://i.imgur.com/YZ6v5eP.png" alt=""></p>
+<p>E tudo correu muito bem por algumas horas... talvez 13.</p>
+<p>Até que a depuração de repente parou de funcionar.</p>
+<p><img src="http://i.imgur.com/xbk6WsP.png" alt=""></p>
 <p>Será o benedito? Ou o co-piloto?</p>
+<p><img src="http://i.imgur.com/5ZSZu4g.png" alt=""></p>
 <p>Pesquisando nos fóruns da vida, antro dos desesperados, achei/lembrei de um comando muito útil no WinDbg que não apenas diz se os símbolos estão &quot;mismatch&quot;, ou seja, os símbolos ou o PDB não está combinando com o EXE, mas também por quê.</p>
 <p>Bom, para saber se está mismatch é aquela fórmula de bolo:</p>
-<p>Para saber o que está errado, o famigerado !IToldYouSo</p>
+<pre><code>ntdll!LdrpDoDebuggerBreak+0x2b:
+77e13bad cc              int     3
+0:000&gt; .symfix
+No downstream store given, using C:\Tools\DbgTools(x86)\sym
+0:000&gt; !sym noisy
+noisy mode - symbol prompts on
+0:000&gt; .reload /f Module.exe
+SYMSRV:  C:\Tools\DbgTools(x86)\sym\Module.pdb\7CD3DD6A80254CE29E8A2E8D7C26BF1B2\Module.pdb not found
+SYMSRV:  http://msdl.microsoft.com/download/symbols/Module.pdb/7CD3DD6A80254CE29E8A2E8D7C26BF1B2/Module.pdb not found
+DBGHELP: C:\Users\Caloni\Projects\Project\Source\_Output\bin\Debug\Module.pdb - mismatched pdb
+DBGHELP: Couldn't load mismatched pdb for C:\Users\Caloni\Projects\Project\Source\_Output\bin\Debug\Module.exe
+*** WARNING: Unable to verify checksum for Module.exe
+*** ERROR: Module load completed but symbols could not be loaded for Module.exe
+DBGHELP: Module - no symbols loaded
+</code></pre><p>Para saber o que está errado, o famigerado <strong>!IToldYouSo</strong></p>
+<p><img src="http://i.imgur.com/AxapyHQ.jpg" alt=""></p>
+<p><img src="http://i.imgur.com/di9JV7u.png" alt=""></p>
 <p>Mano, como assim?!?!? Eu acabei de compilar esse binário, eu já apaguei 15 vezes as pastas de Debug e Release, eu já rebootei mais do que o Windows me obriga a rebootar por causa das falhas de segurança.</p>
 <p>Pois, então, desesperançado, crio um projeto novo para comparar as configurações, e voltamos 13 anos atrás, naquele fatídico dia, e entendo por que o nome do PDB temporário não é igual. Bom, na verdade não entendo, mas intuo que tenha alguma relação:</p>
+<p><img src="http://i.imgur.com/x19BKm4.png" alt=""></p>
+<p><img src="http://i.imgur.com/P23UaPY.png" alt=""></p>
 <p>E, de fato. Solução? Copie as configurações usuais do &quot;novo&quot; Visual Studio comparando com o velho.</p>
 <p>Abaixo a chamada do suporte em inglês, se alguém achar o mesmo problema em algum fórum e quiser &quot;espalhar a palavra&quot;.</p>
-<blockquote>
-<p>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &quot;right&quot; value can't be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one's problem as well =)
-Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da Intelitrader, e mesmo tendo já atualizado meu perfil MVP há anos, continuo sendo funcionário da UOL Diveo/Broker =/</p>
-</blockquote>
+<pre><code>Just got stuck in the same problem, but in a C++ source that has 13 years, where its first solution was in VS 2003. Comparing the Project Properties in C/C++, Output Files, Program Database File Name, I found out that the project was pointing to the same file path that Linker, Debugging, Generate Program Database File, when the normal situation is to generate a vc120.pdb. Comparing with a new project, the &quot;right&quot; value can't be $(OutDir)$(TargetName).pdb (ou ProjectName), but $(IntDir)vc$(PlatformToolsetVersion).pdb. That solved the problem. I hope solve another one's problem as well =)
+
+[]s
+</code></pre><p><img src="http://i.imgur.com/uDmJxtB.png" alt=""></p>
+<p>Minha próxima tarefa, aparentemente, é ver como sendo sócio da <a href="www.bitforge.com.br">BitForge</a> e da <a href="www.intelitrader.com.br">Intelitrader</a>, e mesmo tendo já atualizado meu perfil MVP há anos, continuo sendo funcionário da UOL Diveo/Broker =/</p>
 
             
 
@@ -130,7 +157,7 @@ Minha próxima tarefa, aparentemente, é ver como sendo sócio da BitForge e da 
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

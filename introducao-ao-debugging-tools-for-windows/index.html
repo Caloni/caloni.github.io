@@ -105,40 +105,103 @@ Introdução ao Debugging Tools for Windows
           <div class="content">
 
             
-              <p>O WinDbg é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na Open: engenharia reversa de cavalos de tróia. Não tenho o código-fonte desses programas, não posso executá-los em minha própria máquina e não consigo fazer tudo que preciso usando apenas o depurador integrado do Visual Studio (como remontar o assembly do programa, por exemplo). Tudo isso faz do WinDbg a alternativa perfeita (senão uma das únicas). É um depurador que permite ser usado tanto através de janelas quanto através de comandos, o que permite um aprendizado em doses homeopáticas: comece com as janelas e aos poucos ganhe o controle total. Conseqüentemente cada dia aprendo um comando novo ou um novo uso para um comando que já conheço.</p>
+              <p>O <strong>WinDbg</strong> é uma ferramenta obrigatória em uma das minhas mais divertidas tarefas aqui na <a href="http://www.opencs.com.br">Open</a>: engenharia reversa de <a href="http://pt.wikipedia.org/wiki/Trojan">cavalos de tróia</a>. Não tenho o código-fonte desses programas, não posso executá-los em minha própria máquina e não consigo fazer tudo que preciso usando apenas o depurador integrado do Visual Studio (como remontar o _assembly _do programa, por exemplo). Tudo isso faz do WinDbg a alternativa perfeita (senão uma das únicas). É um depurador que permite ser usado tanto através de <strong>janelas <strong>quanto através de</strong> comandos</strong>, o que permite um aprendizado em doses homeopáticas: comece com as janelas e aos poucos ganhe o controle total. Conseqüentemente cada dia aprendo um comando novo ou um novo uso para um comando que já conheço.</p>
 <p>Abaixo um esboço de como o WinDbg se parece, com suas principais janelas. A de comandos é a da direita.</p>
-<p>Ele não está limitado apenas para engenharia reversa de código malévolo. Esse é o uso que eu faço dele. Meu amigo Thiago, por exemplo, resolve problemas em servidores que rodam código gerenciado com WinDbg. É a maneira ideal de depurar um problema em uma máquina onde o ambiente de desenvolvimento não está disponível nem pode ser instalado. Outro ponto relevante é que ele não depura apenas um programa em particular, mas pode ser usado para depurar um sistema inteiro. Chamado de kernel debugging, podemos usar esse modo de funcionamento para resolver os problemas que surgem logo depois de espetar algum periférico novo comprado na Santa Ifigênia.</p>
-<p>Mas esse artigo não é apenas sobre o WinDbg. Ele não vem sozinho. É uma interface amigável para alguns depuradores linha de comando e outras ferramentas disponíveis no Debugging Tools for Windows, pacote disponível gratuitamente no sítio da Microsoft e atualizado geralmente de seis em seis meses. Nele podemos encontrar:</p>
+<p><a href="/images/windbg.png"><img src="http://i.imgur.com/dbjYe1n.png" alt="WinDbg"></a></p>
+<p>Ele não está limitado apenas para engenharia reversa de código malévolo. Esse é o uso que <strong>eu</strong> faço dele. Meu amigo <a href="http://codebehind.wordpress.com/">Thiago</a>, por exemplo, resolve <strong>problemas em servidores</strong> que rodam <strong>código gerenciado</strong> com WinDbg. É a maneira ideal de depurar um problema em uma máquina onde o ambiente de desenvolvimento não está disponível nem pode ser instalado. Outro ponto relevante é que ele não depura apenas um programa em particular, mas pode ser usado para depurar <strong>um sistema inteiro</strong>. Chamado de <em>kernel debugging</em>, podemos usar esse modo de funcionamento para resolver os problemas que surgem logo depois de espetar algum periférico novo comprado na <a href="http://www.portaldasantaifigenia.com.br/">Santa Ifigênia</a>.</p>
+<p>Mas esse artigo não é apenas sobre o WinDbg. Ele não vem sozinho. É uma <strong>interface amigável</strong> para alguns depuradores linha de comando e outras ferramentas disponíveis no <a href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx">Debugging Tools for Windows</a>, pacote disponível gratuitamente no sítio da Microsoft e atualizado geralmente de seis em seis meses. Nele podemos encontrar:</p>
 <ul>
-<li>CDB: depurador que roda em <em>user mode</em> e é uma &quot;linha de comando agradável&quot; para um programador avançado.</li>
-<li>NTSD: depurador que roda em <em>user mode</em>, da mesma forma que o CDB, mas também pode ser usado como um redirecionador de comandos para o depurador de <em>kernel</em> (logo abaixo). Existem algumas diferenças sutis entre esses dois depuradores (como o fato do NTSD não criar janelas quando usado como redirecionador), mas são diferenças que se aprendem no dia-a-dia.</li>
-<li>KD: depurador que roda em <em>kernel mode</em>, pode analisar dados do sistema local ou depurar um sistema remoto conectado através de um cabo serial ou por meio de um <em>pipe</em> criado por uma máquina virtual. Existem outros métodos mais avançados ainda para conseguir depurar uma máquina tão tão distante, por exemplo.</li>
-<li>Logger: _tracer _de chamadas de funções da API. Pode ser usado para análise de performance ou para fazer o que eu faço com os <em>trojans</em>, que é dar uma olhada nas funções que eles chamam constantemente.</li>
-<li>Logviewer: visualiza resultados do Logger. É o que abriremos depois de capturar as APIs chamadas por um programa através do <em>logger</em>.</li>
+<li>
+<p><strong>CDB</strong>: depurador que roda em <em>user mode</em> e é uma &quot;linha de comando agradável&quot; para um programador avançado.</p>
+</li>
+<li>
+<p><strong>NTSD</strong>: depurador que roda em <em>user mode</em>, da mesma forma que o CDB, mas também pode ser usado como um <strong>redirecionador de comandos</strong> para o depurador de <em>kernel</em> (logo abaixo). Existem algumas diferenças sutis entre esses dois depuradores (como o fato do NTSD não criar janelas quando usado como redirecionador), mas são diferenças que se aprendem no dia-a-dia.</p>
+</li>
+<li>
+<p><strong>KD</strong>: depurador que roda em <em>kernel mode</em>, pode analisar dados do sistema local ou depurar um sistema remoto conectado através de um cabo serial ou por meio de um <em>pipe</em> criado por uma <strong>máquina virtual</strong>. Existem outros métodos mais avançados ainda para conseguir depurar uma máquina tão tão distante, por exemplo.</p>
+</li>
+<li>
+<p><strong>Logger</strong>: _tracer _de chamadas de funções da API. Pode ser usado para análise de performance ou para fazer o que eu faço com os <em>trojans</em>, que é dar uma olhada nas funções que eles chamam constantemente.</p>
+</li>
+<li>
+<p><strong>Logviewer</strong>: visualiza resultados do Logger. É o que abriremos depois de capturar as APIs chamadas por um programa através do <em>logger</em>.</p>
+</li>
 </ul>
-<p>Existem ainda outras ferramentas, mas estas são as principais que costumo utilizar. Para saber como usá-las de acordo com suas necessidades recomendo a leitura de um pequeno tutorial para o WinDbg que vem junto da instalação, o kerneldebuggingtutorial.doc. Ele é apenas a introdução dos principais comandos e técnicas. Depois de ter dominado o básico, pode partir para o arquivo de ajuda, que detalha de forma completa todos os comandos, técnicas e ferramentas de todo o pacote: o debugger.chm. A maioria dos comandos que precisava encontrei usando essa ajuda ou em alguns blogs muito bons. Acredite: no WinDbg, você quase sempre vai encontrar o comando que precisa.</p>
-<p>Já baixei e instalei. E agora, o que eu faço? Para exemplificar um uso prático dessas ferramentas vamos usar o Loggerpara descobrir quais funções API estão sendo chamadas constantemente por um cavalo de tróia, uma coisa um tanto comum em ataques a bancos. Para tornar as coisas mais reais ainda vamos utilizar o código-fonte de um suposto cavalo de tróia usado em minhas apresentações:</p>
-<p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do Visual Studio:</p>
+<p>Existem ainda outras ferramentas, mas estas são as principais que costumo utilizar. Para saber como usá-las de acordo com suas necessidades recomendo a leitura de um pequeno tutorial para o WinDbg que vem junto da instalação, o <strong>kernel_debugging_tutorial.doc</strong>. Ele é apenas a introdução dos principais comandos e técnicas. Depois de ter dominado o básico, pode partir para o <strong>arquivo de ajuda</strong>, que detalha de forma completa todos os comandos, técnicas e ferramentas de todo o pacote: o <strong>debugger.chm</strong>. A maioria dos comandos que precisava encontrei usando essa ajuda ou em <a href="http://www.dumpanalysis.org/blog/">alguns</a> <a href="http://blogs.msdn.com/debuggingtoolbox/default.aspx"><em>blogs</em></a> <a href="http://voneinem-windbg.blogspot.com/">muito bons</a>. Acredite: no WinDbg, você <strong>quase sempre vai encontrar o comando que precisa</strong>.</p>
+<p><strong>Já baixei e instalei. E agora, o que eu faço?</strong></p>
+<p>Para exemplificar um uso prático dessas ferramentas vamos usar o Loggerpara descobrir quais funções API estão sendo chamadas constantemente por um cavalo de tróia, uma coisa um tanto comum em ataques a bancos. Para tornar as coisas mais reais ainda vamos utilizar o código-fonte de um suposto cavalo de tróia usado em <a href="/images/freetrojan.cpp">minhas apresentações</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;shlwapi.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> WINAPI <span style="color:#a6e22e">WinMain</span>(HINSTANCE, HINSTANCE, PSTR, <span style="color:#66d9ef">int</span>)
+{
+	CHAR wndTxt[MAX_PATH];
+
+	<span style="color:#66d9ef">while</span>( true )
+	{
+		HWND fgWin <span style="color:#f92672">=</span> GetForegroundWindow();
+		wndTxt[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+		<span style="color:#66d9ef">if</span>( GetWindowText(fgWin, wndTxt, <span style="color:#66d9ef">sizeof</span>(wndTxt)) )
+		{
+			<span style="color:#66d9ef">if</span>( StrStrI(wndTxt, <span style="color:#e6db74">&#34;Fict Bank&#34;</span>) )
+			{
+				MessageBox(fgWin, <span style="color:#e6db74">&#34;Hello! Would you like to be under attack?&#34;</span>,
+					<span style="color:#e6db74">&#34;Free Trojan&#34;</span>, MB_OK <span style="color:#f92672">|</span> MB_ICONINFORMATION);
+				<span style="color:#66d9ef">break</span>;
+			}
+		}
+	}
+
+	ExitProcess(ERROR_SUCCESS);
+} 
+
+</code></pre></div><p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do <strong>Visual Studio</strong>:</p>
+<p><strong>cl /c freetrojan.cpp</strong>
+<strong>link freetrojan.obj user32.lib shlwapi.lib</strong></p>
 <p>O logger.exe possui uma extensão que pode ser usada pelo WinDbg para usar os mesmos comandos a partir do depurador. Mas para tornar as coisas mais fáceis nesse primeiro contato iremos iniciar o programa através do próprio executável:</p>
+<p><strong>logger freetrojan.exe</strong></p>
 <p>Irá aparecer uma janela onde selecionamos o conjunto de APIs que serão capturadas. Podemos manter todas as categorias selecionadas e mandar rodar usando o botão &quot;Go&quot;.</p>
+<p><a href="/images/logger.png"><img src="http://i.imgur.com/a45Muxa.png" alt="Logger Change Settings"></a></p>
 <p>Aguarde o programa executar por um tempo para termos um pouco de dados para analisar. Em minhas análises reais eu geralmente deixo ele atacar, seja no sítio real do banco ou em uma armadilha. Depois do ataque posso confirmar qual a API que ele utilizou. Se quiser fazer isso nesse teste basta criar uma janela que contenha o texto &quot;Fict Bank&quot; em seu título. Após isso, podemos finalizar o processo pelo Gerenciador de Tarefas:</p>
-<p>Mesmo após finalizá-lo ele continuará na lista de processos, como se tivesse travado. Na verdade, a parte injetada do Logger mantém o processo no ar, em um estado semi-morto (ou semi-vivo). Depois de finalizar o Logger fechando sua janela principal ambos os processos terminam e podemos ler o resultado da captura em uma pasta chamada LogExts criada por padrão no Desktop ouÁrea de Trabalho. Podemos dar uma olhada nos resultados através do visualizador de logs gerados, o Logviewer.</p>
+<p><a href="/images/end-process.png"><img src="http://i.imgur.com/BKRqLhB.png" alt="Finalizar processo"></a></p>
+<p>Mesmo após finalizá-lo ele continuará na lista de processos, como se tivesse travado. Na verdade, a parte <strong>injetada</strong> do Logger mantém o processo no ar, em um estado semi-morto (ou semi-vivo). Depois de finalizar o Logger fechando sua janela principal ambos os processos terminam e podemos ler o resultado da captura em uma pasta chamada <strong>LogExts</strong> criada por padrão no Desktop ouÁrea de Trabalho_. _Podemos dar uma olhada nos resultados através do visualizador de _logs_ gerados, o** Logviewer.**</p>
+<p><a href="/images/log-viewer.png"><img src="http://i.imgur.com/IFDBbao.png" alt="Logviewer"></a></p>
 <p>Algumas colunas do Logviewersão tão úteis que vale a pena mencioná-las:</p>
 <ul>
-<li>Module: determina quem chamou a API, o próprio executável ou alguma DLL.</li>
-<li>Call Duration: tempo em milissegundos que a chamada da função demorou.</li>
-<li>API Function: o nome da função API que foi chamada.</li>
-<li>Return Value: o retorno da chamada da função.</li>
+<li>
+<p><strong>Module</strong>: determina quem chamou a API, o próprio executável ou alguma DLL.</p>
+</li>
+<li>
+<p><strong>Call Duration</strong>: tempo em milissegundos que a chamada da função demorou.</p>
+</li>
+<li>
+<p><strong>API Function</strong>: o nome da função API que foi chamada.</p>
+</li>
+<li>
+<p><strong>Return Value</strong>: o retorno da chamada da função.</p>
+</li>
 </ul>
-<p>De quebra ele exibe todos os parâmetros das funções de acordo com o tipo, identificando inclusive quando se trata de uma enumeração ou define reservado. Essa &quot;mágica&quot; é feita interpretando os headers que ficam na pasta &quot;Debugging Tools for Windows\winext\manifest&quot;, tarefa executada pelo Logger no início.</p>
-<p>É só isso? O Debugging Tools é um pacote extremamente poderoso de ferramentas para programadores avançados. De maneira alguma conseguirei cobrir tudo que é possível fazer com essas ferramentas em apenas um blog. Porém, espero que essa pequena introdução seja o começo de uma série de artigos bem interessantes sobre debugging e uma série de testes realizados pelos meus leitores.</p>
-<p>Seguem alguns blogs dedicados inteiramente ao assunto WinDbg e debugging:</p>
+<p>De quebra ele exibe todos os parâmetros das funções de acordo com o tipo, identificando inclusive quando se trata de uma enumeração ou <em>define</em> reservado. Essa &quot;mágica&quot; é feita <strong>interpretando os <em>headers</em></strong> que ficam na pasta &quot;Debugging Tools for Windows\winext\manifest&quot;, tarefa executada pelo Logger no início.</p>
+<p><strong>É só isso?</strong></p>
+<p>O Debugging Tools é um pacote extremamente poderoso de ferramentas para programadores avançados. De maneira alguma conseguirei cobrir tudo que é possível fazer com essas ferramentas em apenas um <em>blog</em>. Porém, espero que essa pequena introdução seja o começo de uma série de artigos bem interessantes sobre <em>debugging <em>e uma série de testes realizados pelos meus leitores</em>.</em></p>
+<p>Seguem alguns <em>blogs</em> dedicados inteiramente ao assunto WinDbg e <em>debugging:</em></p>
 <ul>
-<li>Microsoft Advanced Windows Debugging and Troubleshooting - site mantido pelo time de resolução de problemas críticos da Microsoft.</li>
-<li>Debugging Toolbox - <em>blog</em> mantido pelo Roberto Farah, contém muitos <em>scripts</em> para ser utilizando no Windbg.</li>
-<li>Crash Dump Analysis - uma exploração profunda na análise de telas azuis e o motivo delas existirem.</li>
-<li>WinDbg by Volker von Einem - como o autor mesmo diz, &quot;uma coleção de utilidades para lidar com windbg&quot;.</li>
-<li>Nynaeve - além de falar sobre <em>debugging</em> no Windows contém análises de engenharia reversa.</li>
+<li>
+<p><a href="http://blogs.msdn.com/ntdebugging/default.aspx">Microsoft Advanced Windows Debugging and Troubleshooting</a> - site mantido pelo time de resolução de problemas críticos da Microsoft.</p>
+</li>
+<li>
+<p><a href="http://blogs.msdn.com/debuggingtoolbox/default.aspx">Debugging Toolbox</a> - <em>blog</em> mantido pelo Roberto Farah, contém muitos <em>scripts</em> para ser utilizando no Windbg.</p>
+</li>
+<li>
+<p><a href="http://www.dumpanalysis.org/blog/">Crash Dump Analysis</a> - uma exploração profunda na análise de telas azuis e o motivo delas existirem.</p>
+</li>
+<li>
+<p><a href="http://voneinem-windbg.blogspot.com/">WinDbg by Volker von Einem</a> - como o autor mesmo diz, &quot;uma coleção de utilidades para lidar com windbg&quot;.</p>
+</li>
+<li>
+<p><a href="http://www.nynaeve.net/">Nynaeve</a> - além de falar sobre <em>debugging</em> no Windows contém análises de engenharia reversa.</p>
+</li>
 </ul>
 
             
@@ -148,7 +211,7 @@ Introdução ao Debugging Tools for Windows
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

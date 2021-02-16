@@ -106,17 +106,77 @@ VTable
           <div class="content">
 
             
-              <p>Acho que na breve história desse blogue nunca contei a história do vtable. No máximo fizemos um hookzinho nos métodos de um componente COM. Mas só.</p>
+              <p>Acho que na breve história desse blogue nunca contei a história do vtable. No máximo fizemos um <a href="http://www.caloni.com.br/hook-de-com-no-windbg">hookzinho nos métodos de um componente COM</a>. Mas só.</p>
 <p>Não encontro uma analogia simples, assim, de cabeça. Então vou contar no cru, mesmo. Talvez seja até mais divertido.</p>
 <p>A vtable foi um mecanismo criado para implementar o polimorfismo em C++ quando falamos de ponteiros para classes base cujos métodos virtuais foram sobrescritos por uma classe derivada.</p>
 <p>A coisa fica mais simples quando explicamos que em C++ você só paga pelo que usa. Se você declarar uma classe que não tenha nenhum método virtual, os objetos dessa classe não precisarão de uma vtable. No entanto, você não conseguirá sobrescrever um método dessa classe através de uma derivada:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">void</span> method()
+	{
+		std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;C::method</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	}
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> C
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">void</span> method()
+	{
+		std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;D::method</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	}
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(C<span style="color:#f92672">*</span> c)
+{
+        c<span style="color:#f92672">-&gt;</span>method(); 
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        D d;
+        func(<span style="color:#f92672">&amp;</span>d); <span style="color:#75715e">// passa endereço de C &#34;dentro de D&#34;
+</span><span style="color:#75715e"></span>}
+
+ 
+
+</code></pre></div><pre><code>Saída
+=====
+
+
+C::method
+</code></pre>
 <p>No exemplo acima, a chamada feita em func irá chamar o método da classe C, mesmo que a classe D tenha sobrescrito esse método. O programador semi-experiente deve pensar &quot;lógico, ela não é virtual!&quot;, e está certo, assim como qualquer pessoa que decora essas formulazinhas de vestibular.</p>
 <p>Para criarmos polimorfismo de verdade, precisamos declarar o método em C como virtual:</p>
+<pre><code>class C
+{
+public:
+        virtual void method();
+};
+</code></pre>
 <p>Agora sim, a chamada em func irá ser para D::method.</p>
 <p>Pergunte para o programador semi-experiente em C++ por que as coisas são assim e provavelmente ele irá falar algo sobre vtable, mesmo que não saiba exatamente como ela funciona.</p>
 <p>A vtable é uma tabela que guarda o endereço dos métodos virtuais de uma classe. Se uma classe derivada sobrescrever um ou mais métodos de sua classe base, ela terá uma outra vtable com os endereços dos métodos &quot;corrigidos&quot;.</p>
+<p><a href="/images/vtable11.png"><img src="http://i.imgur.com/Ye5mA8L.png" alt=""></a></p>
 <p>Dessa forma, algo um pouco diferente ocorre na chamada c-&gt;method() quando estamos lidando com classes polimórficas: o início de um objeto dessa classe terá um ponteiro para a vtable de sua classe. Quando um método virtual é chamado, em vez do compilador gerar uma chamada estática para o endereço do método da classe cujo tipo estamos usando, ele irá redirecionar essa chamada para uma posição na vtable para onde esse objeto aponta. No caso de um objeto do tipo D, a entrada para method em sua vtable apontará não para C::method, mas para D::method, uma função com a mesma assinatura contida na classe base C e que, portanto, a sobrescreve.</p>
 <p>Façamos um pequeno teste para comprovar o que falamos. Vamos escancarar a chamada feita a partir de uma instância de D e a partir de uma instância de C. Nada que um WinDbg não resolva de braços cruzados:</p>
+<pre><code>int main()
+{
+        D d;
+        C c;
+
+        func(&amp;d);
+        func(&amp;c);
+}
+
+
+cl /Zi vtable3.cpp
+windbg vtable3.exe
+</code></pre>
+<p><a href="/images/vtable2.png"><img src="http://i.imgur.com/9408xv1.png" alt="vtable2.png"></a></p>
 
             
 
@@ -125,7 +185,7 @@ VTable
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -105,10 +105,101 @@ Classe, objeto, contexto, método, polimorfismo
           <div class="content">
 
             
-              <p>No post anterior implementamos &quot;métodos&quot; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito this, que sempre existe dentro de um método não-estático).</p>
-<p>Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém. No entanto, quando há pelo menos um método virtual, surge a necessidade de se criar a famigerada vtable, ou seja, justamente uma tabela de ponteiros de função, que dependem da classe instanciada (base ou algumas das derivadas). Se uma classe derivada sobrescreve um método de alguma classe base, é o endereço desse método que irá existir na vtable. Já vimos isso há muito tempo atrás escovando os bits da vtable direto no assembly e na pilha.</p>
-<p>Como você deve imaginar, é possível também fazer isso em C. Basta mudar os endereços das variáveis do tipo ponteiro de função que estão na struct usada como contexto. Para ficar o mais próximo possível do &quot;modo C++&quot; de fazer polimorfirmo, podemos escrever hardcoded a tal vtable para os diferentes tipos de &quot;classe&quot;:</p>
-<p>A versão C ainda tem a vantagem de não precisar de uma vtable const (embora seja adequado em situações normais de temperatura e pressão). Os &quot;métodos&quot; poderiam mudar caso algum estado mudasse, alguma exceção fosse disparada, mantendo o mesmo contexto, mas um comportamento (vtable) diferente. Quem utiliza muito essa estratégia é o kernel do Windows, que mexe com estruturas que contém não apenas listas ligadas genéricas, mas funções de callback que não apenas o código da Microsoft precisa chamar, mas os próprios drivers de terceiros que se preocupam com bom comportamento e guidelines que tornam o SO rodando perfeitamente.</p>
+              <p>No <a href="/classe-objeto-contexto-metodo">post anterior</a> implementamos &quot;métodos&quot; em C usando ponteiros de função dentro de structs que eram passadas como parâmetro. Tudo isso embutido por um compilador que gera o que chamamos de instância de uma classe, ou objeto, em C++. Isso é possível graças ao contexto que é passado para uma função (que no caso de C++ é o operador implícito <strong>this</strong>, que sempre existe dentro de um método não-estático).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ClasseCpp obj;
+obj.Metodo(); <span style="color:#75715e">// passando this implicitamente
+</span><span style="color:#75715e"></span>
+ClasseC obj;
+obj.Metodo <span style="color:#f92672">=</span> ClasseC_Metodo;
+obj.Metodo(<span style="color:#f92672">&amp;</span>obj); <span style="color:#75715e">// passando this explicitamente
+</span></code></pre></div><p>Para objetos não-polimórficos, o C++ não precisa mudar essa tabela de funções que os objetos de uma classe contém. No entanto, quando há pelo menos um método virtual, surge a necessidade de se criar a famigerada <strong>vtable</strong>, ou seja, justamente uma tabela de ponteiros de função, que dependem da classe instanciada (base ou algumas das derivadas). Se uma classe derivada sobrescreve um método de alguma classe base, é o endereço desse método que irá existir na <em>vtable</em>. Já vimos isso <a href="/vtable">há muito tempo atrás</a> escovando os bits da vtable direto no assembly e na pilha.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">void</span> MeuMetodo()
+        {
+            MeuOutroMetodo();
+        }
+        <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MeuOutroMetodo</span>()
+        {
+            MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+        }
+        <span style="color:#66d9ef">int</span> MinhaPropriedade;
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinhaClasseVersao75</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> MinhaClasse
+{
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> MeuOutroMetodo()
+        {
+            MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">75</span>;
+        }
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    MinhaClasse obj;
+    MinhaClasseVersao75 obj2;
+
+    obj.MeuMetodo();
+    obj2.MeuMetodo();
+
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;MinhaPropriedade (obj) = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> obj.MinhaPropriedade <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;MinhaPropriedade (obj2) = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> obj2.MinhaPropriedade <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+</code></pre></div><p><img src="http://i.imgur.com/Ye5mA8L.png" alt=""></p>
+<p>Como você deve imaginar, é possível também fazer isso em C. Basta mudar os endereços das variáveis do tipo ponteiro de função que estão na struct usada como contexto. Para ficar o mais próximo possível do &quot;modo C++&quot; de fazer polimorfirmo, podemos escrever <em>hardcoded</em> a tal <em>vtable</em> para os diferentes tipos de &quot;classe&quot;:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaVTable</span>;
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+	<span style="color:#66d9ef">const</span> MinhaVTable<span style="color:#f92672">*</span> VTable;
+	<span style="color:#66d9ef">int</span> MinhaPropriedade;
+};
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaVTable</span>
+{
+	<span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>MeuMetodo)(MinhaClasse<span style="color:#f92672">*</span>);
+	<span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>MeuOutroMetodo)(MinhaClasse<span style="color:#f92672">*</span>);
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+    pThis<span style="color:#f92672">-&gt;</span>VTable<span style="color:#f92672">-&gt;</span>MeuOutroMetodo(pThis);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuOutroMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+    pThis<span style="color:#f92672">-&gt;</span>MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuOutroMetodoVersao75</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+    pThis<span style="color:#f92672">-&gt;</span>MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">75</span>;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MinhaVTable g_minhaVTableOriginal <span style="color:#f92672">=</span> { MinhaClasse_MeuMetodo, MinhaClasse_MeuOutroMetodo };
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MinhaVTable g_minhaVTableVersao75 <span style="color:#f92672">=</span> { MinhaClasse_MeuMetodo, MinhaClasse_MeuOutroMetodoVersao75 };
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	MinhaClasse obj <span style="color:#f92672">=</span> { <span style="color:#f92672">&amp;</span>g_minhaVTableOriginal };
+	MinhaClasse obj2 <span style="color:#f92672">=</span> { <span style="color:#f92672">&amp;</span>g_minhaVTableVersao75 };
+
+	obj.VTable<span style="color:#f92672">-&gt;</span>MeuMetodo(<span style="color:#f92672">&amp;</span>obj);
+	obj2.VTable<span style="color:#f92672">-&gt;</span>MeuMetodo(<span style="color:#f92672">&amp;</span>obj2);
+
+	printf(<span style="color:#e6db74">&#34;MinhaPropriedade (obj) = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, obj.MinhaPropriedade);
+	printf(<span style="color:#e6db74">&#34;MinhaPropriedade (obj2) = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, obj2.MinhaPropriedade);
+}
+</code></pre></div><p><img src="http://i.imgur.com/tRAtU9d.png" alt=""></p>
+<p>A versão C ainda tem a vantagem de não precisar de uma vtable const (embora seja adequado em situações normais de temperatura e pressão). Os &quot;métodos&quot; poderiam mudar caso algum estado mudasse, alguma exceção fosse disparada, mantendo o mesmo contexto, mas um comportamento (vtable) diferente. Quem utiliza muito essa estratégia é o <em>kernel</em> do Windows, que mexe com estruturas que contém não apenas listas ligadas genéricas, mas funções de <em>callback</em> que não apenas o código da Microsoft precisa chamar, mas os próprios <em>drivers</em> de terceiros que se preocupam com bom comportamento e <em>guidelines</em> que tornam o SO rodando perfeitamente.</p>
+<p><img src="http://i.imgur.com/k20fqVJ.gif" alt=""></p>
 <p>O importante deste artigo é demonstrar como conceitos aparentemente complicados ou escondidos de uma linguagem como C++ podem ser compreendidos completamente utilizando apenas linguagem de alto nível no bom e velho C. Essa estratégia de descer camadas de abstração, como verá, funciona para linguagens de mais alto nível, como C# ou Java, pois ambas são implementadas em linguagens como C++. No fundo, engenharia de software é um universo multi-camadas transitando pela última camada que conhecemos -- a física. Pelo menos a última camada que ainda conhecemos.</p>
 
             
@@ -118,7 +209,7 @@ Classe, objeto, contexto, método, polimorfismo
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

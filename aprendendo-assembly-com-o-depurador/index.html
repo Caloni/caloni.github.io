@@ -105,54 +105,154 @@ Aprendendo assembly com o depurador
           <div class="content">
 
             
-              <p>Além de servir para corrigir alguns bugs escabrosos, o nosso bom e fiel amigo depurador também possui uma utilidade inusitada: ensinar assembly! A pessoa interessada em aprender alguns conceitos básicos da arquitetura do 8086 pode se exercitar na frente de um depurador 16 ou 32 bits sem ter medo de ser feliz.</p>
+              <p>Além de servir para corrigir alguns <a href="http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida">bugs escabrosos</a>, o nosso bom e fiel amigo depurador também possui uma utilidade inusitada: ensinar <em>assembly</em>! A pessoa interessada em aprender alguns conceitos básicos da arquitetura do 8086 pode se exercitar na frente de um depurador 16 ou 32 bits sem ter medo de ser feliz.</p>
 <p>Vamos ver alguns exemplos?</p>
-<p>Para quem está começando, recomendo usar um depurador simples, 16 bits e que existe em todo e qualquer Windows: o debug. Já usado para depurar a MBR no Caloni.com.br, poderá agora ser usado para ensinar alguns princípios da plataforma de uma maneira indolor. Basta iniciá-lo na linha de comando:</p>
-<p>Os comandos mais úteis são o r (ver ou alterar registradores), o t/p (executar passo-a-passo), o d (exibir memória), o u (desmontar assembly) e o a (montar assembly). Ah, não se esquecendo do, (ajuda).</p>
-<p>Outro ensinamento bem interessante diz respeito à pilha. Aprendemos sempre que a pilha cresce de cima pra baixo, ou seja, de endereços superiores para valores mais baixos. Também vimos que os registradores responsáveis por controlar a memória da pilha são o sp (stack pointer) e o ss (stack segment). Pois bem. Vamos fazer alguns testes para ver isso acontecer.</p>
-<p>Como vemos, ao empilhar coisas na pilha, o valor do registrador sp diminui. E ao fazermos um dump do valor de sp conseguimos ver os valores empilhados anteriormente. Isso é muito útil na hora de depurarmos chamadas de funções. Por exemplo, no velho teste do Windbg x Bloco de notas:</p>
+<h4 id="a-pilha-é-você-quem-manda">A pilha é você quem manda</h4>
+<p>Para quem está começando, recomendo usar um depurador simples, 16 bits e que existe em todo e qualquer Windows: o <strong>debug</strong>. Já usado para depurar a MBR no <a href="http://www.caloni.com.br/depuracao-da-mbr">Caloni.com.br</a>, poderá agora ser usado para ensinar alguns princípios da plataforma de uma maneira indolor. Basta iniciá-lo na linha de comando:</p>
+<pre><code>debug
+-
+</code></pre>
+<p>Os comandos mais úteis são o <em><strong>r</strong></em> (ver ou alterar registradores), o <em><strong>t</strong></em>/<em><strong>p</strong></em> (executar passo-a-passo), o <em><strong>d</strong></em> (exibir memória), o <em><strong>u</strong></em> (desmontar assembly) e o <em><strong>a</strong></em> (montar assembly). Ah, não se esquecendo do <em><strong>?</strong></em> (ajuda).</p>
+<p><img src="/images/debug-testpng.PNG" alt="Teste do debug 16 bits"></p>
+<p>Outro ensinamento bem interessante diz respeito à pilha. Aprendemos sempre que a pilha cresce de <strong>cima pra baixo</strong>, ou seja, de endereços superiores para valores mais baixos. Também vimos que os registradores responsáveis por controlar a memória da pilha são o <em><strong>sp</strong></em> (stack pointer) e o <em><strong>ss</strong></em> (stack segment). Pois bem. Vamos fazer alguns testes para ver isso acontecer.</p>
+<pre><code>-r
+AX=0000  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=0CF9  CS=0CF9  IP=0100   NV UP EI PL NZ NA PO NC
+0CF9:0100 69            DB      69
+-r ss
+SS &lt;font color=&quot;#000000&quot;&gt;0CF9&lt;/font&gt;
+:&lt;font color=&quot;#ff0000&quot;&gt;9000&lt;/font&gt;
+-r sp
+SP FFEE
+:&lt;font color=&quot;#ff0000&quot;&gt;ffff&lt;/font&gt;
+-r
+AX=0000  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#ff0000&quot;&gt;SP=FFFF&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  &lt;font color=&quot;#ff0000&quot;&gt;SS=9000&lt;/font&gt;  CS=0CF9  IP=0100   NV UP EI PL NZ NA PO NC
+0CF9:0100 69            DB      69
+-a
+0CF9:0100 mov ax, 1234
+0CF9:0103 &lt;font color=&quot;#ff0000&quot;&gt;push ax&lt;/font&gt;
+0CF9:0104 inc ax
+0CF9:0105 &lt;font color=&quot;#ff0000&quot;&gt;push ax&lt;/font&gt;
+0CF9:0106 inc ax
+0CF9:0107 &lt;font color=&quot;#ff0000&quot;&gt;push ax&lt;/font&gt;
+0CF9:0108
+-u
+0CF9:0100 B83412        MOV     AX,1234
+0CF9:0103 50            PUSH    AX
+0CF9:0104 40            INC     AX
+0CF9:0105 50            PUSH    AX
+0CF9:0106 40            INC     AX
+0CF9:0107 50            PUSH    AX
+0CF9:0108 6C            DB      6C
+...
+AX=1234  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#ff0000&quot;&gt;SP=FFFF&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0103   NV UP EI PL NZ NA PO NC
+0CF9:0103 50            PUSH    AX
+-t
+
+AX=1234  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#ff0000&quot;&gt;SP=FFFD&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0104   NV UP EI PL NZ NA PO NC
+0CF9:0104 40            INC     AX
+-t
+
+AX=1235  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#000000&quot;&gt;SP=FFFD&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0105   NV UP EI PL NZ NA PE NC
+0CF9:0105 50            PUSH    AX
+-t
+
+AX=1235  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#ff0000&quot;&gt;SP=FFFB&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0106   NV UP EI PL NZ NA PE NC
+0CF9:0106 40            INC     AX
+-t
+
+AX=1236  BX=0000  CX=0000  DX=0000  SP=FFFB  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0107   NV UP EI PL NZ NA PE NC
+0CF9:0107 50            PUSH    AX
+-t
+
+AX=1236  BX=0000  CX=0000  DX=0000  &lt;font color=&quot;#ff0000&quot;&gt;SP=FFF9&lt;/font&gt;  BP=0000  SI=0000  DI=0000
+DS=0CF9  ES=0CF9  SS=9000  CS=0CF9  IP=0108   NV UP EI PL NZ NA PE NC
+0CF9:0108 6C            DB      6C
+-d 9000:fff9
+9000:FFF0                             &lt;font color=&quot;#ff9900&quot;&gt;36 12&lt;/font&gt; &lt;font color=&quot;#339966&quot;&gt;35 12&lt;/font&gt; &lt;font color=&quot;#0000ff&quot;&gt;34 12&lt;/font&gt; 00            6.5.4..
+-
+</code></pre>
+<p>Como vemos, ao empilhar coisas na pilha, o valor do registrador sp diminui. E ao fazermos um <em>dump</em> do valor de sp conseguimos ver os valores empilhados anteriormente. Isso é muito útil na hora de depurarmos chamadas de funções. Por exemplo, no velho teste do Windbg x Bloco de notas:</p>
+<pre><code>windbg notepad
+
+
+0:000&gt; bp user32!&lt;font color=&quot;#ff0000&quot;&gt;MessageBoxW&lt;/font&gt;
+0:000&gt; g
+ModLoad: 5cfd0000 5cff6000   C:\WINDOWS\system32\ShimEng.dll
+ModLoad: 596f0000 598ba000   C:\WINDOWS\AppPatch\AcGenral.DLL
+ModLoad: 76b20000 76b4e000   C:\WINDOWS\system32\WINMM.dll
+ModLoad: 774c0000 775fd000   C:\WINDOWS\system32\ole32.dll
+...
+ModLoad: 10000000 10030000   C:\Arquivos de programas\Babylon\Babylon-Pro\CAPTLIB.DLL
+ModLoad: 74c40000 74c6c000   C:\WINDOWS\system32\OLEACC.dll
+ModLoad: 76050000 760b5000   C:\WINDOWS\system32\MSVCP60.dll
+Breakpoint 0 hit
+eax=00000001 ebx=00000000 ecx=000a7884 edx=00000000 esi=000b2850 edi=0000000a
+eip=7e3b630a esp=0007f6d8 ebp=0007f6f4 iopl=0         nv up ei pl nz na po nc
+cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
+USER32!&lt;font color=&quot;#ff0000&quot;&gt;MessageBoxW&lt;/font&gt;:
+7e3b630a 8bff            mov     edi,edi
+0:000&gt; dd esp L5
+0007f6d8  01001fc4 00010226 &lt;font color=&quot;#ff0000&quot;&gt;000b2850&lt;/font&gt; 000a7ac2 ; ret   handle &lt;font color=&quot;#ff0000&quot;&gt;message&lt;/font&gt; caption
+0007f6e8  00000033                            ; mb_ok
+0:000&gt; du &lt;font color=&quot;#ff0000&quot;&gt;000b2850&lt;/font&gt;
+000b2850  &quot;O texto do arquivo Sem título fo&quot;
+000b2890  &quot;i alterado...Deseja salvar as al&quot;
+000b28d0  &quot;terações?&quot;
+0:000&gt; ezu 000b2850 &quot;Tem certeza que deseja salvar esse artigo de merda?&quot;
+0:000&gt; g
+ModLoad: 75f50000 7604d000   C:\WINDOWS\system32\BROWSEUI.dll
+</code></pre>
+<p><a href="/images/windbgxnotepad.png"><img src="http://i.imgur.com/hyDEQtn.png" alt="WinDbg x Notepad"></a></p>
 <p>Aposto que você sabe em qual dos três botões eu cliquei =)</p>
+<h4 id="outros-linques-para-aprender-a-depurar-seus-programas-e-os-dos-outros">Outros linques para aprender a depurar seus programas (e os dos outros)</h4>
 <p>Depurar é um processo que exige dedicação (experiência) tanto ou mais do que o próprio desenvolvimento. Por isso, fazer um esforço para descobrir algum problema em algum software pode ser vantajoso no futuro, pois você terá mais capacidade de entender o que está acontecendo à sua volta.</p>
 <p>Básico a intermediário:</p>
 <ul>
 <li>
-<p>Guia básico para programadores de primeiro breakpoint</p>
+<p><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint">Guia básico para programadores de primeiro breakpoint</a></p>
 </li>
 <li>
-<p>Brincando com o WinDbg</p>
+<p><a href="http://www.caloni.com.br/brincando-com-o-windbg">Brincando com o WinDbg</a></p>
 </li>
 <li>
-<p>Encontrando as respostas do Flash Pops</p>
+<p><a href="http://www.caloni.com.br/encontrando-as-respostas-do-flash-pops">Encontrando as respostas do Flash Pops</a></p>
 </li>
 </ul>
 <p>Intermediário a avançado:</p>
 <ul>
 <li>
-<p>Hook de API no WinDbg</p>
+<p><a href="http://www.caloni.com.br/hook-de-api-no-windbg">Hook de API no WinDbg</a></p>
 </li>
 <li>
-<p>Hook de COM no WinDbg</p>
+<p><a href="http://www.caloni.com.br/hook-de-com-no-windbg">Hook de COM no WinDbg</a></p>
 </li>
 <li>
-<p>Detectando hooks globais no WinDbg</p>
+<p><a href="http://www.caloni.com.br/detectando-hooks-globais-no-windbg">Detectando hooks globais no WinDbg</a></p>
 </li>
 <li>
-<p>Analisando dumps com WinDbg e IDA</p>
+<p><a href="http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida">Analisando dumps com WinDbg e IDA</a></p>
 </li>
 </ul>
-<p>Blogues que eu acho superinteressantes sobre debugging (do mais essencial para o mais avançado):</p>
+<p>Blogues que eu acho superinteressantes sobre <em>debugging</em> (do mais essencial para o mais avançado):</p>
 <ul>
 <li>
-<p>Debugging Toolbox</p>
+<p><a href="http://blogs.msdn.com/debuggingtoolbox/default.aspx">Debugging Toolbox</a></p>
 </li>
 <li>
-<p>Mark's Blog</p>
+<p><a href="http://blogs.technet.com/markrussinovich/default.aspx">Mark's Blog</a></p>
 </li>
 <li>
-<p>Advanced Windows Debugging</p>
+<p><a href="http://blogs.msdn.com/ntdebugging">Advanced Windows Debugging</a></p>
 </li>
 <li>
-<p>Crash Dump Analysis</p>
+<p><a href="http://www.dumpanalysis.org/blog/">Crash Dump Analysis</a></p>
 </li>
 </ul>
 
@@ -163,7 +263,7 @@ Aprendendo assembly com o depurador
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -107,26 +107,138 @@ Windows Jobs com Completion Port
 
             
               <p>Ou &quot;Como esperar o término de todos os processos-filho criados a partir de um conjunto de processos&quot;.</p>
-<p>Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos um sistema de referências cruzadas eficiente. Outro dia demorei cerca de duas horas para conseguir criar um job.aspx), anexar o processo desejado e, a pior parte, esperar que todos os processos (o principal e seus filhos e netos) terminassem.</p>
-<p>Além da pouca documentação.aspx), parece que não são muitas as pessoas que fazem isso e publicam na web, ou eu não sei procurar direito.</p>
+<p>Dessa vez confesso que esperava um pouco mais de documentação do MSDN, ou pelo menos um sistema de referências cruzadas eficiente. Outro dia demorei cerca de duas horas para conseguir <a href="http://msdn.microsoft.com/en-us/library/ms682409(VS.85).aspx">criar um <em><strong>job</strong></em></a>, anexar o processo desejado e, a pior parte, esperar que todos os processos (o principal e seus filhos e netos) terminassem.</p>
+<p>Além da <a href="http://msdn.microsoft.com/en-us/library/ms684161(VS.85).aspx">pouca documentação</a>, parece que não são muitas as pessoas que fazem isso e publicam na web, ou eu <a href="http://www.google.com.br/search?q=wait+all+processes+inside+job+object">não sei procurar direito</a>.</p>
 <p>Mas, pra início de conversa, o que é um job mesmo?</p>
-<p>Um job é um objeto &quot;novo&quot; no kernel do Windows 2000 em diante, e se prontifica a suprir a carência que havia anteriormente de controle sobre o que os processos podem fazer e por quanto tempo.</p>
-<p>A abstração mais coerente que eu consigo tirar de um job é como um trabalho a ser executada por um ou mais processos. O objeto job controla a criação, o término e as exceções que ocorrem dentro dele mesmo.</p>
+<h4 id="leve-introdução-sobre-o-conceito-de-jobs">Leve introdução sobre o conceito de jobs</h4>
+<p>Um job é um objeto &quot;novo&quot; no kernel do Windows 2000 em diante, e se prontifica a suprir a carência que havia anteriormente de <strong>controle sobre o que os processos podem fazer e por quanto tempo</strong>.</p>
+<p>A abstração mais coerente que eu consigo tirar de um job é como <strong>um trabalho a ser executada por um ou mais processos</strong>. O objeto job controla a criação, o término e as exceções que ocorrem dentro dele mesmo.</p>
+<p><a href="/images/job.gif"><img src="http://i.imgur.com/JJM9DY8.gif" alt="job.gif"></a></p>
 <p>Entre as funções mais úteis de um job estão limitar o tempo de execução do conjunto de processos, o número de handles/arquivos/outros objetos abertos, limite de memória RAM ocupada e a possibilidade de terminar todos os processos de uma só vez.</p>
-<p>Para informações básicas de como criar um job e anexar processos recomendo o ótimo artigo de Jeffrey Richter.</p>
-<p>No final desse artigo ele chega a citar o controle mais refinado dos processos através de uma completion port.aspx), que permitirá receber eventos que ocorrem dentro de um job durante sua vida útil. Apesar de citar, não há código de exemplo que faça isso.</p>
+<p>Para informações básicas de como criar um job e anexar processos recomendo o ótimo artigo de <a href="http://www.microsoft.com/msj/0399/jobkernelobj/jobkernelobj.aspx">Jeffrey Richter</a>.</p>
+<p>No final desse artigo ele chega a citar o controle mais refinado dos processos através de uma <a href="http://msdn.microsoft.com/en-us/library/aa365198(VS.85).aspx"><strong>completion port</strong></a>, que permitirá receber eventos que ocorrem dentro de um job durante sua vida útil. Apesar de citar, não há código de exemplo que faça isso.</p>
 <p>Bom, agora há:</p>
-<p>O exemplo acima cria um processo baseado em uma linha de comando e espera pelo término do processo criado e de todos os subprocessos criados a partir do primeiro processo. Note que mesmo que o primeiro processo termine, a Completion Port só receberá o evento que todos os processos acabaram depois que o último subprocesso terminar.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define _WIN32_WINNT 0x0500 </span><span style="color:#75715e">// Jobs só existem do 2000 em diante
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/** @brief Função que cria um processo a partir de cmdLine
+</span><span style="color:#75715e"> * e coloca-o dentro de um job. A função aguarda o término
+</span><span style="color:#75715e"> * do processo e de qualquer subprocesso criado por este.
+</span><span style="color:#75715e"> */</span>
+DWORD <span style="color:#a6e22e">CreateJobAndWait</span>(LPSTR cmdLine)
+{
+   <span style="color:#75715e">// primeiro, criamos um job sem nome
+</span><span style="color:#75715e"></span>   HANDLE job <span style="color:#f92672">=</span> CreateJobObject(NULL, NULL);
+
+   <span style="color:#66d9ef">if</span>( job )
+   {
+      STARTUPINFO si <span style="color:#f92672">=</span> { <span style="color:#66d9ef">sizeof</span>(si) };
+      PROCESS_INFORMATION pi;
+
+      <span style="color:#75715e">// depois, criamos um processo suspenso (travado)
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span>( CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 
+         CREATE_SUSPENDED <span style="color:#f92672">|</span> CREATE_NEW_CONSOLE, NULL, NULL, <span style="color:#f92672">&amp;</span>si, <span style="color:#f92672">&amp;</span>pi) )
+      {
+         <span style="color:#75715e">// atribuímos esse processo ao nosso jobo
+</span><span style="color:#75715e"></span>         AssignProcessToJobObject(job, pi.hProcess);
+
+         <span style="color:#75715e">// rodamos o processo
+</span><span style="color:#75715e"></span>         ResumeThread(pi.hThread);
+
+         <span style="color:#75715e">// essa é uma completion i/o port genérica
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// (ou seja, não relacionada com nenhum arquivo
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// ou outra completion port)
+</span><span style="color:#75715e"></span>         HANDLE port <span style="color:#f92672">=</span> CreateIoCompletionPort(INVALID_HANDLE_VALUE, 
+                 NULL, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+
+         <span style="color:#66d9ef">if</span>( port )
+         {
+            JOBOBJECT_ASSOCIATE_COMPLETION_PORT jobPort;
+
+            jobPort.CompletionKey <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// ver variável key abaixo
+</span><span style="color:#75715e"></span>            jobPort.CompletionPort <span style="color:#f92672">=</span> port; <span style="color:#75715e">// nossa completion port vai aqui!
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">// definimos a c.p. em nosso job
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>( SetInformationJobObject(job, 
+                        JobObjectAssociateCompletionPortInformation, 
+                        <span style="color:#f92672">&amp;</span>jobPort, <span style="color:#66d9ef">sizeof</span>(jobPort)) )
+            {
+               ULONG_PTR key <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// ver membro CompletionKey acima
+</span><span style="color:#75715e"></span>               LPOVERLAPPED overlap <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+               DWORD tranferred <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+               <span style="color:#75715e">// nosso loop de mensagens com completion port
+</span><span style="color:#75715e"></span>               <span style="color:#66d9ef">while</span>( GetQueuedCompletionStatus(port, <span style="color:#f92672">&amp;</span>tranferred, 
+                  <span style="color:#f92672">&amp;</span>key, <span style="color:#f92672">&amp;</span>overlap, INFINITE) )
+               {
+                  <span style="color:#75715e">// transferred especifica a mensagem
+</span><span style="color:#75715e"></span>                  DWORD msg <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(LPDWORD) <span style="color:#f92672">&amp;</span>tranferred;
+
+                  <span style="color:#75715e">// significa que não existem mais processos rodando
+</span><span style="color:#75715e"></span>                  <span style="color:#66d9ef">if</span>( msg <span style="color:#f92672">==</span> JOB_OBJECT_MSG_ACTIVE_PROCESS_ZERO )
+                     <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// saímos fora
+</span><span style="color:#75715e"></span>               }
+            }
+
+            CloseHandle(port); <span style="color:#75715e">// fecha tudo
+</span><span style="color:#75715e"></span>         }
+
+         CloseHandle(pi.hThread); <span style="color:#75715e">// fecha tudo
+</span><span style="color:#75715e"></span>         CloseHandle(pi.hProcess); <span style="color:#75715e">// fecha tudo
+</span><span style="color:#75715e"></span>      }
+
+      CloseHandle(job); <span style="color:#75715e">// fecha tudo
+</span><span style="color:#75715e"></span>   }
+
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[])
+{
+   <span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> )
+      CreateJobAndWait(argv[<span style="color:#ae81ff">1</span>]);
+}
+
+ 
+
+</code></pre></div><p>O exemplo acima cria um processo baseado em uma linha de comando e espera pelo término do processo criado e de todos os subprocessos criados a partir do primeiro processo. Note que mesmo que o primeiro processo termine, a Completion Port só receberá o evento que todos os processos acabaram depois que o último subprocesso terminar.</p>
 <p>Dessa forma, ao compilarmos o código:</p>
+<pre><code>C:\Tests\CreateJob&gt;cl Createjob.cpp
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Createjob.cpp
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:Createjob.exe
+Createjob.obj
+</code></pre>
 <p>E rodarmos mais um prompt de comando através de nosso programa (o texto em azul significa nossa nova janela de prompt):</p>
+<pre><code>C:\Tests\CreateJob&gt;Createjob.exe cmd        (travado)
+</code></pre>
 <p>Microsoft Windows XP [versão 5.1.2600] (C) Copyright 1985-2001 Microsoft Corp. C:\Tests\CreateJob&gt;notepad C:\Tests\CreateJob&gt;exit</p>
+<pre><code>C:\Tests\CreateJob&gt;                         (continua travado)
+                                            (fechando notepad)
+
+
+C:\Tests\CreateJob&gt;                         (deve destravar)
+</code></pre>
 <p>Mesmo ao fecharmos o prompt criado, o programa só será finalizado ao fecharmos o Bloco de Notas iniciado pelo segundo prompt.</p>
 <p>Além desse evento, que era o que eu estava procurando, esse método permite obter outros eventos bem interessantes:</p>
 <ul>
-<li>JOB_OBJECT_MSG_NEW_PROCESS. Um novo processo foi criado dentro do job.</li>
-<li>JOB_OBJECT_MSG_EXIT_PROCESS. Um processo existente dentro do job foi terminado.</li>
-<li>JOB_OBJECT_MSG_PROCESS_MEMORY_LIMIT. O limite de memória de um processo já foi alcançado.</li>
-<li>JOB_OBJECT_MSG_END_OF_PROCESS_TIME. O limite de tempo de processamento de um processo já foi alcançado.</li>
+<li>
+<p><strong>JOB_OBJECT_MSG_NEW_PROCESS</strong>. Um novo processo foi criado dentro do job.</p>
+</li>
+<li>
+<p>** JOB_OBJECT_MSG_EXIT_PROCESS**. Um processo existente dentro do job foi terminado.</p>
+</li>
+<li>
+<p><strong>JOB_OBJECT_MSG_PROCESS_MEMORY_LIMIT</strong>. O limite de memória de um processo já foi alcançado.</p>
+</li>
+<li>
+<p><strong>JOB_OBJECT_MSG_END_OF_PROCESS_TIME</strong>. O limite de tempo de processamento de um processo já foi alcançado.</p>
+</li>
 </ul>
 <p>Enfim, jobs não terminam por aí. Dê mais uma olhada no MSDN e veja se encontra mais alguma utilidade interessante para o nosso amigo job. Eu encontrei e fiquei feliz.</p>
 
@@ -137,7 +249,7 @@ Windows Jobs com Completion Port
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

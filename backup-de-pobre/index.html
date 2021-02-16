@@ -106,8 +106,9 @@ Backup de pobre
           <div class="content">
 
             
-              <p>O backup - ato de fazer cópia(s) de segurança de dados considerados importantes -, como tudo na vida, para se tornar efetivo e transformador deve antes se tornar um hábito.</p>
-<p>Hábitos, por definição, ao serem realizados repetidamente muitas vezes, podem se tornar poderosos catalisadores de tarefas, sejam elas cozinhar um bolo, compilar um programa ou fazer backups. Por isso é muito importante que o backup, antes de ser 100% seguro, seja 100% previsível e habitual.</p>
+              <p>O <em>backup</em> - ato de fazer cópia(s) de segurança de dados considerados importantes -, como tudo na vida, para se tornar efetivo e transformador deve antes se tornar um hábito.</p>
+<p>Hábitos, por definição, ao serem realizados repetidamente muitas vezes, podem se tornar poderosos catalisadores de tarefas, sejam elas cozinhar um bolo, compilar um programa ou fazer <em>backups</em>. Por isso é muito importante que o <em>backup</em>, antes de ser 100% seguro, seja 100% previsível e habitual.</p>
+<h4 id="é-o-hábito-que-faz-o-_backup_">É o hábito que faz o <em>backup</em></h4>
 <p>Minhas restrições para que algo vire um hábito em minha vida, quando tarefas, são que a tarefa seja, antes de tudo,:</p>
 <ul>
 <li>
@@ -120,25 +121,46 @@ Backup de pobre
 <p>Fácil de lembrar. Se eu tenho que fazer um esforço mental diário tão grande para lembrar do que fazer então muito provavelmente será difícil transformá-lo em um hábito.</p>
 </li>
 </ul>
-<p>Passado por esse checklist, podemos montar um esquema tão simples que qualquer bobo que tem um blogue (por exemplo, eu) conseguirá executar diariamente, ou pelo menos quando tiver vontade. A freqüência dependerá se isso irá se transformar em um hábito ou não.</p>
-<p>Ele pode não parecer, mas é beeem mais antigo do que parece. Nós, veteranos, que possuímos mais anos de vida em frente ao monitor que gostaríamos de admitir (copyright  =&gt; DQ), usávamos o xcopy para copiar pastas e disquetes inteiros no MS-DOS, um sistema operacional predecessor do Windows Vista que vinha em preto e branco e sem User Account Control.</p>
-<p>No entanto, esse pequeno grande aplicativo sobreviveu todos esses anos, atingiu a maioridade, e hoje permite a nós, programadores de mouse, fazer nossos backups com um simples arquivo de batch e um pouco de imaginação.</p>
-<p>Aos mocinho e mocinhas presentes: os arquivos de batch, de extensão .bat ou .cmd, são, assim como o MS-DOS, coisas de veteranos do velho oeste.  São arquivos de script que contém um conjunto de comandos que pode-se digitar manualmente na tela preta. Seu objetivo principal é otimizar e facilitar a digitação de tarefas complexas e torná-las mais simples, fáceis de executar e de lembrar.</p>
+<p>Passado por esse <em>checklist</em>, podemos montar um esquema tão simples que qualquer bobo que tem um blogue (por exemplo, eu) conseguirá executar diariamente, ou pelo menos quando tiver vontade. A freqüência dependerá se isso irá se transformar em um hábito ou não.</p>
+<h4 id="o-mais-poderoso-copiador-do-mundo-xcopy">O mais poderoso copiador do mundo: xcopy</h4>
+<p>Ele pode não parecer, mas é beeem mais antigo do que parece. Nós, veteranos, que possuímos mais anos de vida em frente ao monitor que gostaríamos de admitir (<em>copyright</em>  =&gt; <a href="http://www.cbrasil.org/wiki/index.php?title=DQuadros">DQ</a>), usávamos o xcopy para copiar pastas e disquetes inteiros no MS-DOS, um sistema operacional predecessor do Windows Vista que vinha em preto e branco e sem <a href="http://technet2.microsoft.com/WindowsVista/en/library/0d75f774-8514-4c9e-ac08-4c21f5c6c2d91033.mspx">User Account Control</a>.</p>
+<p>No entanto, esse pequeno grande aplicativo sobreviveu todos esses anos, atingiu a maioridade, e hoje permite a nós, programadores de <em>mouse</em>, fazer nossos <em>backups</em> com um simples arquivo de <em>batch</em> e um pouco de imaginação.</p>
+<!-- raw HTML omitted -->
 <p>O uso do programa pode ser aprendido dando-se uma olhada em sua ajuda (xcopy /?)</p>
+<pre><code>xcopy origem [destino] [opções]
+</code></pre>
 <p>Algumas opções bem úteis para efetuar cópias de segurança de arquivos modificados:</p>
-<p>/M - copia somente arquivos com atributo de arquivamento; após a cópia, desmarca atributo. Ao escrever novamente em um arquivo copiado com esse método, o arquivo volta a ter o atributo de arquivamento, e irá ser copiado novamente se especificada essa opção. Se nunca mais for mexido, não será mais copiado.</p>
-<p>/D - copia arquivos mais novos na origem. Não costumo usar pelos problemas que podem ocorrer em sistemas com horas diferentes, mas, dependendo da ocasião, pode ser útil. Também é possível especificar uma data de início da comparação.</p>
-<p>/EXCLUDE - permite excluir arquivo(s) de uma cópia coletiva. Isso pode ser muito útil se você não deseja gastar tempo copiando arquivo que são inúteis dentro de pastas que contém arquivos importantes. É possível especificar um arquivo que irá conter uma lista de nomes-curinga, um por linha, que irá servir como filtro da cópia. Teremos um exemplo logo abaixo.</p>
-<p>/E - copia pastas e subpastas, mesmo que vazias. Essa opção é básica, e ao mesmo tempo essencial. Não se esqueça dela quando for criar seu script de backup!</p>
-<p>/C - continua copiando, mesmo com erros. Se é mais importante copiar o máximo que puder do que parar no primeiro errinho de acesso negado, essa opção deve ser usada. É possível redirecionar a saída para um arquivo de log, que poderá ser usado para procurar por erros que ocorreram durante a operação.</p>
-<p>/Q - não exibe nome de arquivos ao copiar. Às vezes imprimir o nome de cada arquivo na saída do prompt de comando acaba sendo mais custoso que copiar o próprio arquivo. Quando a cópia envolve muitos arquivos pequenos, é recomendável usar esta opção.</p>
-<p>/Y - suprime perguntas para o usuário. Muito útil em arquivos batch, já que o usuário geralmente não estará lá para apertar enter quando o programa pedir.</p>
-<p>/Z - copia arquivos da rede em modo reiniciável. Muito importante quando estiver fazendo backup pela rede. Às vezes ela pode falhar, e essa opção permite continuar após pequenas quedas de desempenho.</p>
-<p>Para a cópia do patrimônio mais valioso de um programador, os fontes, podemos usar um conjunto bem bolado das 0pções acima, além de generalizar um script para ser usado em outras situações. Inicialmente vamos definir que queremos um backup que altere o atributo de arquivamento, sobrescreva cópias antigas e que possa ser copiado pela rede sem maiores problemas. Além disso, não iremos copiar as pastas Debug e Release existentes geradas pela saída de algum compilador (ex: saída do Visual Studio), nem arquivos temporários muito grandes (ex: arquivos de navegação de símbolos).</p>
+<p><strong>/M - copia somente arquivos com atributo de arquivamento</strong>; após a cópia, desmarca atributo. Ao escrever novamente em um arquivo copiado com esse método, o arquivo volta a ter o atributo de arquivamento, e irá ser copiado novamente se especificada essa opção. Se nunca mais for mexido, não será mais copiado.</p>
+<p><strong>/D - copia arquivos mais novos na origem</strong>. Não costumo usar pelos problemas que podem ocorrer em sistemas com horas diferentes, mas, dependendo da ocasião, pode ser útil. Também é possível especificar uma data de início da comparação.</p>
+<p><strong>/EXCLUDE - permite excluir arquivo(s) de uma cópia coletiva</strong>. Isso pode ser muito útil se você não deseja gastar tempo copiando arquivo que são inúteis dentro de pastas que contém arquivos importantes. É possível especificar um arquivo que irá conter uma lista de nomes-curinga, um por linha, que irá servir como filtro da cópia. Teremos um exemplo logo abaixo.</p>
+<p><strong>/E - copia pastas e subpastas, mesmo que vazias</strong>. Essa opção é básica, e ao mesmo tempo essencial. Não se esqueça dela quando for criar seu <em>script</em> de <em>backup</em>!</p>
+<p><strong>/C - continua copiando, mesmo com erros</strong>. Se é mais importante copiar o máximo que puder do que parar no primeiro errinho de acesso negado, essa opção deve ser usada. É possível redirecionar a saída para um arquivo de _log, _que poderá ser usado para procurar por erros que ocorreram durante a operação.</p>
+<p><strong>/Q - não exibe nome de arquivos ao copiar</strong>. Às vezes imprimir o nome de cada arquivo na saída do prompt de comando acaba sendo mais custoso que copiar o próprio arquivo. Quando a cópia envolve muitos arquivos pequenos, é recomendável usar esta opção.</p>
+<p><strong>/Y - suprime perguntas para o usuário</strong>. Muito útil em arquivos _batch, _já que o usuário geralmente não estará lá para apertar <em>enter</em> quando o programa pedir.</p>
+<p><strong>/Z - copia arquivos da rede em modo reiniciável</strong>. Muito importante quando estiver fazendo _backup _pela rede. Às vezes ela pode falhar, e essa opção permite continuar após pequenas quedas de desempenho.</p>
+<h4 id="estudo-de-caso-código-fonte">Estudo de caso: código-fonte</h4>
+<p>Para a cópia do patrimônio mais valioso de um programador, os fontes, podemos usar um conjunto bem bolado das 0pções acima, além de generalizar um _script _para ser usado em outras situações. Inicialmente vamos definir que queremos um _backup _que altere o atributo de arquivamento, sobrescreva cópias antigas e que possa ser copiado pela rede sem maiores problemas. Além disso, não iremos copiar as pastas _Debug _e _Release _existentes geradas pela saída de algum compilador (ex: saída do Visual Studio), nem arquivos temporários muito grandes (ex: arquivos de navegação de símbolos).</p>
 <p>O resultado é o que vemos abaixo:</p>
-<p>O conteúdo de sources.flt (extensão escolhida arbitrariamente) pode ser o seguinte:</p>
-<p>Só isso já basta para um backup simples, pequeno e fácil de executar. Só precisamos copiar a chamada ao xcopy em um arquivo de extensão .bat ou .cmd e executarmos sempre que acharmos interessante termos um backup quentinho em folha. Por exemplo, podemos manter os fontes do projeto atual em um pen drive e, ao acessarmos uma máquina confiável, rodar um backup que copia os arquvos-fonte para um ambiente mais seguro e estável.</p>
-<p>Note que esse procedimento não anula a necessidade de termos um sistema de versionamento e controle de fontes. O backup é para aquelas projetos que demoram um tempinho para efetuar commit, projetos temporários ou então sistemas de controle de fonte distribuído, em que podemos ter inúmeras pastas com diversos branchs locais.</p>
+<pre><code>xcopy &lt;pasta-origem&gt; &lt;pasta-destino&gt; /M /E /C /Y /Z /EXCLUDE:sources.flt
+</code></pre>
+<p>O conteúdo de <strong>sources.flt</strong> (extensão escolhida arbitrariamente) pode ser o seguinte:</p>
+<pre><code>.obj
+.res
+.pch
+.pdb
+.tlb
+.idb
+.ilk
+.opt
+.ncb
+.sbr
+.sup
+.bsc
+\Debug\
+\Release\
+</code></pre>
+<p>Só isso já basta para um _backup _simples, pequeno e fácil de executar. Só precisamos copiar a chamada ao xcopy em um arquivo de extensão .bat ou .cmd e executarmos sempre que acharmos interessante termos um backup quentinho em folha. Por exemplo, podemos manter os fontes do projeto atual em um <em>pen drive</em> e, ao acessarmos uma máquina confiável, rodar um _backup _que copia os arquvos-fonte para um ambiente mais seguro e estável.</p>
+<p>Note que esse procedimento não anula a necessidade de termos um <a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-source-safe">sistema de versionamento e controle de fontes</a>. O _backup _é para aquelas projetos que demoram um tempinho para efetuar <em>commit</em>, projetos temporários ou então sistemas de controle de fonte distribuído, em que podemos ter inúmeras pastas com diversos _branchs _locais.</p>
 
             
 
@@ -147,7 +169,7 @@ Backup de pobre
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -118,10 +118,40 @@ Iteradores não são constantes
 </li>
 </ul>
 <p>Por exemplo, o tradicional código do exemplo abaixo contém o tradicional erro de iterador inválido:</p>
+<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); &lt;font color=&quot;#ff0000&quot;&gt;++it&lt;/font&gt; )
+{
+    if( it-&gt;member == 0 ) // condição para apagar elemento
+    {
+        obj.erase(&lt;font color=&quot;#ff0000&quot;&gt;it&lt;/font&gt;);  // a partir daqui it é inválido,
+                        // e não adianta incrementá-lo
+    }
+}
+</code></pre>
 <p>Para operações como essa, o retorno geralmente nos dá uma dica de para onde vamos na varredura do contêiner. No caso do método erase, o retorno é o próximo iterador válido, ou o final (retornado pelo método end). Um código mais esperto gera um erro mais sutil:</p>
+<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); &lt;font color=&quot;#ff0000&quot;&gt;++it&lt;/font&gt; )
+{
+    if( it-&gt;member == 0 ) // condição para apagar elemento
+    {
+        &lt;font color=&quot;#ff0000&quot;&gt;it&lt;/font&gt; = obj.erase(it); // ótimo, atualizou it. só
+                            // que se ele for o final,
+                            // será incrementado
+    }
+}
+</code></pre>
 <p>Algo de errado irá acontecer apenas se o elemento removido for o último localizado no contêiner.</p>
-<p>Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da reutilização de algoritmos. Se fosse usado este princípio, nada disso teria acontecido:</p>
-<p>Quando precisamos fazer algo nos elementos de um contêiner STL, é quase certo que existirá um algoritmo genérico para essa tarefa, seja no próprio contêiner ou na forma de função (header algorithm). Nunca se esqueça disso na hora de desenvolver seus próprios algoritmos e não precisará reinventar a roda todos os dias.</p>
+<h4 id="para-resolver-problemas-na-stl-nada-como-mais-stl">Para resolver problemas na STL, nada como mais STL</h4>
+<p>Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da <strong>reutilização de algoritmos</strong>. Se fosse usado este princípio, nada disso teria acontecido:</p>
+<pre><code>struct remove_if_zero
+{
+    bool operator() (ObjElement&amp; element)
+    {
+        return element-&gt;member == 0;
+    }
+};
+
+obj.remove_if( remove_if_zero() ); // pronto!
+</code></pre>
+<p>Quando precisamos fazer algo nos elementos de um contêiner STL, é quase certo que existirá um algoritmo genérico para essa tarefa, seja no próprio contêiner ou na forma de função (<!-- raw HTML omitted -->). Nunca se esqueça disso na hora de desenvolver seus próprios algoritmos e não precisará reinventar a roda todos os dias.</p>
 
             
 
@@ -130,7 +160,7 @@ Iteradores não são constantes
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

@@ -27,7 +27,8 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:
-Immediately the compiler would blame..."/>
+int soma(int x, int y);
+double soma..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,21 +108,101 @@ Static Polymorphism
 
             
               <p>To explain the polymorphism nothing is better than see how stuff used to be. If you were a twenty old C programmer in the past and created the following functions:</p>
-<p>Immediately the compiler would blame you about the following errors:</p>
-<p>This happens because in C the identifiers are unique into the scope. This is the reason why the following code is wrong also:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> zi <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+    <span style="color:#66d9ef">double</span> zd <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">3.4</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><p>Immediately the compiler would blame you about the following errors:</p>
+<pre><code>overload.c
+
+
+overload.c(2) : warning C4028: formal parameter 1 different from declaration
+overload.c(2) : warning C4028: formal parameter 2 different from declaration
+overload.c(2) : error C2371: 'sum' : redefinition; different basic types
+        overload.c(1) : see declaration of 'sum'
+</code></pre>
+<p>This happens because in C <strong>the identifiers are unique into the scope.</strong> This is the reason why the following code is wrong also:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><pre><code>overload.c
+overload.c(5) : error C2374: 'x' : redefinition; multiple initialization
+        overload.c(4) : see declaration of 'x'
+</code></pre>
 <p>Back to the 90's, this is also wrong in C++. Even for a logic issue: how the compiler can pick a variable if we're using the same name for both of them?</p>
 <p>Even though, there's a little trick to stop the ambiguity when we talk about functions: the parameters that they receives.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> zi <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// dois tipos int: chamar soma(int, int)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">double</span> zd <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">3.4</span>); <span style="color:#75715e">// dois tipos double: só pode ser soma(double, double)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><pre><code>C:Tests&gt;cl /c overload.cpp
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.6030 for 80x86
+Copyright (C) Microsoft Corporation 1984-2002. All rights reserved.
+
+overload.cpp
+
+C:Tests&gt;
+</code></pre>
 <p>This allowed in C++ the creation of static overload, that is exactly this: to call a function not just by its name, but also to match its signature, the number and the type of the received parameters. We call static because this is done just by the compiler, not creating any overhead during the execution.</p>
 <p>Among the most common uses some are as it follows:</p>
 <ul>
 <li>
 <p>Functions with the same name treating different parameters;</p>
+<ul>
+<li>
+<p>sum(int, int);</p>
+</li>
+<li>
+<p>sum(double, double);</p>
+</li>
+<li>
+<p>Obs.: This ignores, of course, the templates usefulness.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>New version of the same fuction with addictional parameters;</p>
+<ul>
+<li>
+<p>export_data(void* buffer, int size);</p>
+</li>
+<li>
+<p>export_data(void* buffer, int size, unsigned long options);</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Same method name to set and get the value of a class property;</p>
+<ul>
+<li>
+<p>Class::Property(int x); // setter</p>
+</li>
+<li>
+<p>int x Class::Property() const; // getter</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Well, whatever your imagination and needs demand =)</p>
@@ -135,7 +216,7 @@ Static Polymorphism
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

@@ -106,14 +106,89 @@ Templates em C no lugar de macros
 
             
               <p>A grande vantagem dos templates é manter o tipo de seus argumentos. Infelizmente, eles não existem na linguagem C, mas podem ser usados em construções C feitas com a linguagem C++, como ocorre com quem desenvolve device drivers para Windows.</p>
-<p>Imagine, por exemplo, a estrutura LISTENTRY.aspx), que é uma tentativa de generalizar não só o tipo de uma lista ligada, como seu posicionamento:</p>
-<p>A lógica por trás de LISTENTRY é que esse membro pode ser inserido em qualquer lugar da estrutura que representará um elemento. Ele pode estar realmente no meio do elemento, pois isso não importa, desde que você saiba voltar para o começo da estrutura. Isso é útil quando um elemento pode fazer parte de diferentes listas.</p>
-<p>OK, temos uma lista ligada cujo head está inicializado. Para inserir um novo item, podemos usar as rotinas InsertHeadList, AppendTailList, RemoveEntryList, PushEntryList, PopEntryList, etc. Enfim, uma infinidade de rotinas já cuidam disso para a gente.</p>
+<p>Imagine, por exemplo, a estrutura <a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff554296(v=vs.85).aspx">LIST_ENTRY</a>, que é uma tentativa de generalizar não só o tipo de uma lista ligada, como seu posicionamento:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span> {
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Flink;
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Blink;
+} LIST_ENTRY, <span style="color:#f92672">*</span>PLIST_ENTRY;
+</code></pre></div><p>A lógica por trás de LIST_ENTRY é que esse membro pode ser inserido em qualquer lugar da estrutura que representará um elemento:</p>
+<p><img src="http://i.imgur.com/865mgsu.jpg" alt=""></p>
+<p>Ele pode estar realmente no <strong>meio</strong> do elemento, pois isso não importa, desde que você saiba voltar para o começo da estrutura. Isso é útil quando um elemento pode fazer parte de diferentes listas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span> {
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Flink;
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Blink;
+} LIST_ENTRY, <span style="color:#f92672">*</span>PLIST_ENTRY;
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MeuElemento</span>
+{
+	<span style="color:#66d9ef">int</span> x;
+	<span style="color:#66d9ef">int</span> y;
+	LIST_ENTRY entry;
+	<span style="color:#66d9ef">double</span> d;
+	<span style="color:#66d9ef">float</span> f;
+};
+
+LIST_ENTRY g_head;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	InitializeListHead(<span style="color:#f92672">&amp;</span>g_head);
+}
+</code></pre></div><p>OK, temos uma lista ligada cujo head está inicializado. Para inserir um novo item, podemos usar as rotinas InsertHeadList, AppendTailList, RemoveEntryList, PushEntryList, PopEntryList, etc. Enfim, uma infinidade de rotinas já cuidam disso para a gente.</p>
 <p>O que não temos é como acessar o elemento. Para isso usamos um truque bem peculiar na linguagem C, já disponível também em kernel:</p>
-<p>Basicamente a macro obtém a partir do endereço zero o offset do membro que é a entrada da lista ligada e subtrai esse ofsset do endereço do próprio campo, ganhando de brinde o tipo de sua estrutura. Usando a macro com nossa estrutura:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define CONTAINING_RECORD(address, type, field) \
+</span><span style="color:#75715e"></span>    ((type <span style="color:#f92672">*</span>)( <span style="color:#960050;background-color:#1e0010">\</span>
+    (PCHAR)(address) <span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">\</span>
+    (ULONG_PTR)(<span style="color:#f92672">&amp;</span>((type <span style="color:#f92672">*</span>)<span style="color:#ae81ff">0</span>)<span style="color:#f92672">-&gt;</span>field)))
+</code></pre></div><p>Basicamente a macro obtém a partir do endereço zero o offset do membro que é a entrada da lista ligada e subtrai esse ofsset do endereço do próprio campo, ganhando de brinde o tipo de sua estrutura. Usando a macro com nossa estrutura:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DoSomething</span>(PLINK_LIST pEntry)
+{
+	MeuElemento<span style="color:#f92672">*</span> pElem <span style="color:#f92672">=</span> CONTAINING_RECORD(pEntry, MeuElemento, entry);
+}
+</code></pre></div><h4 id="usando-template">Usando template</h4>
 <p>Note que entry é o nome, literal, do membro na estrutura, e não há maneira possível com templates de obter isso. A solução? Usar um nome padronizado. O resultado final pode ser parecido com este:</p>
-<p>Em ação:</p>
-<p>&quot;Nossa, tudo isso para substituir uma macro já consagrada no WDK??&quot; Sim, nesse post o objetivo não ficou muito útil. É apenas uma ideia de substituição possível de ser feita em macros em geral. Pode ser bem documentada, usada há 30 anos, mas ainda é uma macro. Meu conselho: se funciona bem, use. Se vai fazer algo novo, tente sempre templates.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+T<span style="color:#f92672">*</span> ContainingRecord(PLIST_ENTRY pEntry)
+{
+    <span style="color:#66d9ef">return</span> ( <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;</span>( (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)(pEntry) <span style="color:#f92672">-</span> (size_t)(<span style="color:#f92672">&amp;</span>((T<span style="color:#f92672">*</span>)<span style="color:#ae81ff">0</span>)<span style="color:#f92672">-&gt;</span>entry)) );
+}
+</code></pre></div><p>Em ação:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span> {
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Flink;
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_LIST_ENTRY</span>  <span style="color:#f92672">*</span>Blink;
+} LIST_ENTRY, <span style="color:#f92672">*</span>PLIST_ENTRY;
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MeuElemento</span>
+{
+	<span style="color:#66d9ef">int</span> x;
+	<span style="color:#66d9ef">int</span> y;
+	LIST_ENTRY entry;
+	<span style="color:#66d9ef">double</span> d;
+	<span style="color:#66d9ef">float</span> f;
+};
+
+LIST_ENTRY g_head;
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+T<span style="color:#f92672">*</span> ContainingRecord(PLIST_ENTRY pEntry)
+{
+    <span style="color:#66d9ef">return</span> ( <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;</span>( (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)(pEntry) <span style="color:#f92672">-</span> (size_t)(<span style="color:#f92672">&amp;</span>((T<span style="color:#f92672">*</span>)<span style="color:#ae81ff">0</span>)<span style="color:#f92672">-&gt;</span>entry)) );
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">auto</span> newElem <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MeuElemento();
+    newElem<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+    g_head.Flink <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>newElem<span style="color:#f92672">-&gt;</span>entry; <span style="color:#75715e">// inserindo um elemento
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> elem <span style="color:#f92672">=</span> ContainingRecord<span style="color:#f92672">&lt;</span>MeuElemento<span style="color:#f92672">&gt;</span>(g_head.Flink);
+
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;X is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> elem<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div><p>&quot;Nossa, tudo isso para substituir uma macro já consagrada no WDK??&quot; Sim, nesse post o objetivo não ficou muito útil. É apenas uma ideia de substituição possível de ser feita em macros em geral. Pode ser bem documentada, usada há 30 anos, mas ainda é uma macro. Meu conselho: se funciona bem, use. Se vai fazer algo novo, tente sempre templates.</p>
 
             
 
@@ -122,7 +197,7 @@ Templates em C no lugar de macros
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

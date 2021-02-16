@@ -106,13 +106,77 @@ Visual Studio Unit Test (C&#43;&#43;)
 
             
               <p>Desde o Visual Studio 2015 há suporte a unit tests em C++ automatizado na IDE. Porém, a partir do VS 2017 15.5 o suporte aumentou drasticamente, vindo embutidos os suportes para as bibliotecas de teste Google Test, Boost.Test e CTest. Além, é claro, do Microsoft Unit Testing Framework for C++, o caseiro da M$.</p>
-<p>Além disso, é possível você mesmo integrar o Visual Studio com outra lib de testes. Mas para que gastar tempo? Várias integrações já estão disponíveis no Visual Studio Marketplace. Ligue já!</p>
+<p>Além disso, é possível você mesmo integrar o Visual Studio com outra lib de testes. Mas para que gastar tempo? Várias integrações já estão disponíveis no <a href="https://marketplace.visualstudio.com/">Visual Studio Marketplace</a>. Ligue já!</p>
 <p>OK, parei com o merchan. Até porque não ganho nada com isso. Vamos ao código.</p>
 <p>Pelo Wizard do VS podemos criar para um projeto C++ qualquer um projeto de teste. No momento estou vendo os tipos de projeto Native Unit Test e Google Test.</p>
+<p><img src="https://i.imgur.com/Gk5fDHB.png" alt=""></p>
 <p>Este é nosso projeto de exemplo:</p>
-<p>Para conseguir testar o projeto principal adicione-o como referência.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;CalculatorTabajara.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> y;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">subtrai</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">return</span> x <span style="color:#f92672">-</span> y;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">multiplica</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> y;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">divide</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">return</span> x <span style="color:#f92672">/</span> y;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+}
+</code></pre></div><p>Para conseguir testar o projeto principal adicione-o como referência.</p>
+<p><img src="https://i.imgur.com/TbFrxIr.png" alt=""></p>
 <p>Após isso basta incluir algum header que contenha os tipos, funções, classes e métodos que deseja testar e vá criando métodos de teste dentro da classe de exemplo:</p>
-<p>Agora abrindo o jogo para você, amigo programador C++ que gosta de saber tudo que ocorre debaixo dos panos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;pch.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;CppUnitTest.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;..\CalculatorTabajara.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> Microsoft<span style="color:#f92672">::</span>VisualStudio<span style="color:#f92672">::</span>CppUnitTestFramework;
+
+<span style="color:#66d9ef">namespace</span> UnitTest1
+{
+	TEST_CLASS(UnitTest1)
+	{
+	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+		
+		TEST_METHOD(TestaSoma)
+		{
+			<span style="color:#66d9ef">int</span> z <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>);
+			Assert<span style="color:#f92672">::</span>AreEqual(z, <span style="color:#ae81ff">5</span>);
+		}
+
+		TEST_METHOD(TestaSubtracao)
+		{
+			<span style="color:#66d9ef">int</span> z <span style="color:#f92672">=</span> subtrai(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>);
+			Assert<span style="color:#f92672">::</span>AreEqual(z, <span style="color:#ae81ff">1</span>);
+		}
+
+		TEST_METHOD(TestaMultiplicacao)
+		{
+			<span style="color:#66d9ef">int</span> z <span style="color:#f92672">=</span> multiplica(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>);
+			Assert<span style="color:#f92672">::</span>AreEqual(z, <span style="color:#ae81ff">6</span>);
+		}
+
+		TEST_METHOD(TestaDivisao)
+		{
+			<span style="color:#66d9ef">int</span> z <span style="color:#f92672">=</span> divide(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>);
+			Assert<span style="color:#f92672">::</span>AreEqual(z, <span style="color:#ae81ff">1</span>);
+		}
+	};
+}
+</code></pre></div><p>Agora abrindo o jogo para você, amigo programador C++ que gosta de saber tudo que ocorre debaixo dos panos:</p>
 <ul>
 <li>Um projeto Unit Test é apenas uma DLL com uns códigos de template.</li>
 <li>Esse código já adiciona a lib de unit test da Microsoft e cria uma classe com exemplo de uso.</li>
@@ -120,11 +184,40 @@ Visual Studio Unit Test (C&#43;&#43;)
 </ul>
 <p>Por isso eu tirei a tranqueira de precompiled header do projeto de unit test, retirei a referência (sugestão do tutorial da Microsoft) e apenas adicionei o mesmo cpp para ser compilado.</p>
 <p>Agora mais mágica: se você abrir a janela Test Explorer ele irá encontrar seus testes e enumerá-los!</p>
+<p><img src="https://i.imgur.com/1ZVjQ4D.png" alt=""></p>
 <p>Se você já programou um pouco em Windows com C++ já deve saber o truque: como o Unit Test é uma DLL ela simplesmente exporta os símbolos necessários para que o Visual Studio encontre o que precisa. O básico que um plugin dos velhos tempos faz: exportar interfaces com um pouco de reflection.</p>
+<p><img src="https://i.imgur.com/en6DWQp.png" alt=""></p>
 <p>Se você habilitar Undecorate C++ Functions no Dependency Walker verá que ele exporta justamente uma espécie de reflection, na forma de structs:</p>
+<p><img src="https://i.imgur.com/jiBQxZ4.png" alt=""></p>
 <p>E se você prestar atenção na ordem de exportação desse símbolos verá que o primeiro se chama GetTestClassInfo. Acabou a magia, não é mesmo?</p>
 <p>Os headers e fontes do CppUnitTest ficam em paths do Visual Studio como VC\Auxiliary\VS\UnitTest, nas pastas include e lib. Nele é possível dar uma olhada no significado das macros e das classes disponibilizadas. Logo abaixo das macros, no arquivo principal, é possível ver como funciona o reflection:</p>
-<p>É uma lib pequena e elegante que permite uma interação não apenas com a IDE, como poderia ser automatizada por um script, uma vez que sabe-se o funcionamento interno e algumas interfaces.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">namespace</span> Microsoft{ <span style="color:#66d9ef">namespace</span> VisualStudio {<span style="color:#66d9ef">namespace</span> CppUnitTestFramework
+{
+
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ClassMetadata</span>
+	{
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>tag;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>helpMethodName;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>helpMethodDecoratedName;
+	};
+
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MethodMetadata</span>
+	{
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>tag;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>methodName;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>helpMethodName;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>helpMethodDecoratedName;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>sourceFile;
+		<span style="color:#66d9ef">int</span> lineNo;
+	};
+
+	<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ModuleAttributeMetadata</span>
+	{
+		<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">AttributeType</span> { MODULE_ATTRIBUTE };
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>tag;
+		<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span> <span style="color:#f92672">*</span>attributeName;
+        <span style="color:#75715e">//...
+</span></code></pre></div><p>É uma lib pequena e elegante que permite uma interação não apenas com a IDE, como poderia ser automatizada por um script, uma vez que sabe-se o funcionamento interno e algumas interfaces.</p>
 
             
 
@@ -133,15 +226,15 @@ Visual Studio Unit Test (C&#43;&#43;)
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/gloria-cota-cosecha-tardia/">&#x25C1; Gloria Cota Cosecha Tardia 2014</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/os-27-beijos-perdidos/">&#x25B7; Os 27 Beijos Perdidos</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/a-espia-vermelha/">&#x25C1; A Espiã Vermelha</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/dias-vazios/">&#x25B7; Dias Vazios</a></span>
 
         </div>
 

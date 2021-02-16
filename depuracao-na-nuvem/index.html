@@ -95,7 +95,7 @@ Depuração na nuvem com o novo Visual Studio
   
     
   
-  2013-04-01<a href="https://github.com/Caloni/blog/blob/master/content/posts/depuracao-na-nuvem.md">.</a>
+  2013-04-02<a href="https://github.com/Caloni/blog/blob/master/content/posts/depuracao-na-nuvem.md">.</a>
 
 </p>
 
@@ -106,8 +106,20 @@ Depuração na nuvem com o novo Visual Studio
 
             
               <p>Uma das novidades do futuro Visual Studio pouco comentada ainda em fóruns por seu caráter sigiloso e ainda em testes (mas que pode facilmente ser observada pela engenharia reversa dos binários do Visual C++) é a possibilidade de depurar trechos de código &quot;na nuvem&quot;, ou seja, dentro dos gigantescos servidores de clusters de serviços de escalabilidade da Amazon, do Google e, claro, da Microsoft.</p>
+<p><a href="/images/new-mobile-project.png"><img src="http://i.imgur.com/Otu88WE.png" alt="new-mobile-project"></a></p>
 <p>Já é conhecido que será possível inserir comentários no código-fonte com o formato @nickname e incluir na listagem de bugs o estilo das #hashtags para que programadores vinculados à sua rede social possam enxergar referências a outros programadores e verificar o Developer TrendTopics, como um #blame-joel-on-software. Porém, o que poucos sabem, é que será também possível depurar as APIs de redes sociais em tempo real. Ou seja, caso seja usado o método Twitter::Tweet(), logo após o retorno da chamada será possível aguardar por uma resposta dos usuários envolvidos:</p>
-<p>Ou seja, logo será possível além de perder horas navegando em saites de rede social perder também horas depurando os comentários e respostas das pessoas nessas redes direto do Visual Studio. É a Microsoft pensando nos programadores que gostam de perder tempo se envolver com pessoas (ainda que virtuais) e discussões acaloradas sobre tópicos irrelevantes e absurdos (ainda que virtuais).</p>
+<pre><code>Twitter::Tweet
+push ebp
+mov ebp, esp
+000007f9`bd590000 call __internal_tweet
+000007f9`bd5900ac call _checkesp
+000007f9`bd5900af ...
+000007f9`bd5900ff ...
+000007f9`bd59015f &lt;span style=&quot;color: #ff0000;&quot;&gt;call __internal_wait_for_replies&lt;/span&gt;
+000007f9`bd59017f pop esp
+...
+</code></pre>
+<p>Ou seja, logo será possível além de perder horas navegando em saites de rede social perder também horas depurando os comentários e respostas das pessoas nessas redes direto do Visual Studio. É a Microsoft pensando nos programadores que gostam de <!-- raw HTML omitted -->perder tempo<!-- raw HTML omitted --> se envolver com pessoas (ainda que virtuais) e discussões acaloradas sobre tópicos irrelevantes e absurdos (ainda que virtuais).</p>
 
             
 
@@ -116,15 +128,15 @@ Depuração na nuvem com o novo Visual Studio
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/a-parte-dos-anjos/">&#x25C1; A Parte dos Anjos</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/up/">&#x25B7; Up: Altas Aventuras</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/the-walking-dead-s03/">&#x25C1; The Walking Dead - Terceira Temporada</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/a-parte-dos-anjos/">&#x25B7; A Parte dos Anjos</a></span>
 
         </div>
 

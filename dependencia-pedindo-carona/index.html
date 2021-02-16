@@ -108,16 +108,115 @@ Dependência pedindo carona
             
               <p>Mesmo as vezes que você não queira, algumas dependências pedem carona e o compilador deixa entrar. Daí mesmo que você não use uma função API, ela acaba te atazanando a vida.</p>
 <p>Foi o caso da ToolHelp32 no Windows NT 4.</p>
-<p>Quando compilamos, cada CPP vira uma coleção de funções que serão usadas, mais tarde, pelo linker, para juntar a bagunça. Para mais detalhes dessa fascinante história, recomendo o fantástico artigo sobre Os diferentes erros na linguagem C, seção Linkedição.</p>
+<h4 id="como-as-coisas-funcionam">Como as coisas funcionam</h4>
+<p>Quando compilamos, cada CPP vira uma coleção de funções que serão usadas, mais tarde, pelo linker, para juntar a bagunça. Para mais detalhes dessa fascinante história, recomendo o fantástico artigo sobre <a href="http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c">Os diferentes erros na linguagem C</a>, seção <strong>Linkedição</strong>.</p>
 <p>Para as dependências localizadas fora do executável final, por exemplo, as DLLs do sistema, o linker cria uma entrada no formato padrão de executável que adiciona essa dependência extra que será resolvida na hora do programa rodar, quando o loader do sistema operacional terá que fazer um linker on-the-fly, catando todas as DLLs e funções necessárias para colocar o bichinho no ar.</p>
 <p>Dessa forma, quando existirem unresolved externals fora do executável final, o responsável por dar o erro é o loader do sistema:</p>
+<p><a href="/images/winnt4-process32next-unresolved2.png"><img src="http://i.imgur.com/4TlS0cl.png" alt="winnt4-process32next-unresolved2.png"></a></p>
 <p>Isso significa que o seu processo não poderá ser executado, pois faltam funções no ambiente que ele depende.</p>
 <p>Um recurso muito útil para ver essas funções é o Dependency Walker, meu amigo de infância:</p>
-<p>&quot;Mas, Caloni, eu nem uso essa função! Como ela pode ser necessária?&quot;</p>
+<p><a href="/images/depends-process32-not-found2.png"><img src="http://i.imgur.com/rBZdxkh.png" alt="depends-process32-not-found2.png"></a></p>
+<!-- raw HTML omitted -->
 <p>Pois é. As coisas nem sempre acabam sendo como o esperado. Se você possuir uma LIB, por exemplo, e nela existirem duas funções, como abaixo, e você se limitar a usar em seu programa apenas a primeira, todas as dependências da segunda também irão parar no executável final.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;LibMod.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Tlhelp32.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Essa função é usada pelo nosso App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">UsingOldApis</span>()
+{
+	DWORD ver <span style="color:#f92672">=</span> GetVersion(); <span style="color:#75715e">// API paleozoica, OK.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">int</span>( (DWORD)(LOBYTE(LOWORD(ver))) );
+}
+
+<span style="color:#75715e">// Essa função NÃO é usada pelo nosso App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">UsingNewApis</span>()
+{
+	<span style="color:#75715e">// Opa: função moderninha!!
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>( HANDLE snapshot <span style="color:#f92672">=</span> CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL) )
+	{
+		PROCESSENTRY32 procEntry;
+
+		<span style="color:#75715e">// Tudo bem, nosso App não vai usar essa função.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>( Process32First(snapshot, <span style="color:#f92672">&amp;</span>procEntry) )
+		{
+			printf(<span style="color:#e6db74">&#34;Process list:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+			<span style="color:#66d9ef">do</span>
+			{
+				printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, procEntry.szExeFile);
+			}
+			<span style="color:#66d9ef">while</span>( Process32Next(snapshot, <span style="color:#f92672">&amp;</span>procEntry) );
+		}
+
+		CloseHandle(snapshot);
+	}
+}
+ 
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;LibMod.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#75715e">// Usando apenas funções paleozoicas, certo?
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;Our Major OS version is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, UsingOldApis() );
+	system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+}
+ 
+
+</code></pre></div><h4 id="por-que-isso-ocorre">Por que isso ocorre?</h4>
 <p>Acontece que o nosso amigo linker gera uma lista de dependências por módulo (CPP), e não por função. Dessa forma, tudo que vier é lucro.</p>
 <p>Só que às vezes é prejuízo, também. Quando usamos um SO da época do guaraná com rolha, como o Windows NT 4, por exemplo, não conseguimos usar um programa porque este possuía uma função moderninha nunca usada, mas que estava dentro de um CPP junto de uma função comportada, usando apenas APIs documentadas no primeiro papiro da Microsoft.</p>
+<h4 id="solução">Solução?</h4>
 <p>Sempre existe. Nesse caso, migrarmos as funções moderninhas para um segundo CPP, recompilarmos a LIB e a dependência milagrosamente desaparecerá!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;LibMod.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Tlhelp32.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Essa função é usada pelo nosso App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">UsingOldApis</span>()
+{
+	DWORD ver <span style="color:#f92672">=</span> GetVersion(); <span style="color:#75715e">// API paleozoica, OK.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">int</span>( (DWORD)(LOBYTE(LOWORD(ver))) );
+}
+
+ 
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;LibMod.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Tlhelp32.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Essa função NÃO é usada pelo nosso App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">UsingNewApis</span>()
+{
+	<span style="color:#75715e">// Opa: função moderninha!!
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>( HANDLE snapshot <span style="color:#f92672">=</span> CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL) )
+	{
+		PROCESSENTRY32 procEntry;
+
+		<span style="color:#75715e">// Tudo bem, nosso App não vai usar essa função.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>( Process32First(snapshot, <span style="color:#f92672">&amp;</span>procEntry) )
+		{
+			printf(<span style="color:#e6db74">&#34;Process list:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+			<span style="color:#66d9ef">do</span>
+			{
+				printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, procEntry.szExeFile);
+			}
+			<span style="color:#66d9ef">while</span>( Process32Next(snapshot, <span style="color:#f92672">&amp;</span>procEntry) );
+		}
+
+		CloseHandle(snapshot);
+	}
+}
+ 
+
+</code></pre></div><p><a href="/images/depends-process32-not-needed.png"><img src="http://i.imgur.com/2qcfbSt.png" alt="depends-process32-not-needed.png"></a></p>
 <p>Agora a aplicação poderá rodar em paz naquele que é, como diz meu amigo, um sistema operacional de ponta... da outra ponta!</p>
 
             
@@ -127,7 +226,7 @@ Dependência pedindo carona
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

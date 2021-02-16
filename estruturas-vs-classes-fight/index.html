@@ -26,7 +26,8 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C&#43;&#43; possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida..."/>
+        content="
+Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C&#43;&#43; possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,16 +106,93 @@ Estruturas VS Classes: fight!
           <div class="content">
 
             
-              <p>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como class e um objeto declarado como struct. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave class para &quot;ficar bonito&quot;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</p>
-<p>Ele compila e roda sem problemas:</p>
-<p>&quot;Estruturalmente&quot; falando, MinhaEstrutura e MinhaClasse são idênticas, pois são os detalhes de sintaxe que diferem, e diferem pouco. Abrindo o jogo, a única diferença que poderá ser sentida em usar um ou outro é que structs possuem seus membros públicos por padrão e classes possuem seus membros privados por padrão. Apenas isso. O resto, nada muda.</p>
+              <p><a href="/images/14250890913_37a06bf7a2_o.jpg"><img src="http://i.imgur.com/0uar0i8.jpg" alt="EpicRapBattleStructVcClass"></a></p>
+<p>Uma dúvida besta e importante ao mesmo tempo que muitos iniciantes em C++ possuem é saber qual a diferença entre um objeto declarado como <em>class</em> e um objeto declarado como <em>struct</em>. A causa dessa dúvida é uma linguagem que se derivou de outra (C) que não possuía classes, e portanto criou a palavra-chave <em>class</em> para &quot;ficar bonito&quot;, pois, na prática, não muda muita coisa. Tomemos como exemplo o código mais simples de todos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaEstrutura</span>
+{
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    MinhaEstrutura me;
+    MinhaClasse mc;
+}
+
+</code></pre></div><p>Ele compila e roda sem problemas:</p>
+<p><a href="/images/14230192924_fd9c2fb490_z.jpg"><img src="http://i.imgur.com/APlOm65.jpg" alt="StructVsClass"></a></p>
+<p>&quot;Estruturalmente&quot; falando, <strong>MinhaEstrutura</strong> e <strong>MinhaClasse</strong> são idênticas, pois são os detalhes de sintaxe que diferem, e diferem pouco. Abrindo o jogo, a única diferença que poderá ser sentida em usar um ou outro é que <strong>structs possuem seus membros públicos por padrão e classes possuem seus membros privados por padrão</strong>. Apenas isso. O resto, nada muda.</p>
 <p>Isso pode ser visto quando adicionamos um construtor para nossos tipos de teste:</p>
-<p>Antes não havia problemas para MinhaClasse porque o construtor padrão criado para ela é público por default. Porém, explicitando no código um construtor e deixando sua privacidade ligada por padrão temos esse erro que NÃO ocorre em MinhaEstrutura.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaEstrutura</span>
+{
+    MinhaEstrutura() {}
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+    MinhaClasse() {}
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    MinhaEstrutura me;
+    MinhaClasse mc;
+}
+
+</code></pre></div><p><a href="/images/14230273964_89e37e2487_z.jpg"><img src="http://i.imgur.com/vwpucpm.jpg" alt="StructVsClass-Construtor"></a></p>
+<p>Antes não havia problemas para <strong>MinhaClasse</strong> porque o construtor padrão criado para ela é público por default. Porém, explicitando no código um construtor e deixando sua privacidade ligada por padrão temos esse erro que NÃO ocorre em <strong>MinhaEstrutura</strong>.</p>
 <p>Mas, então, posso criar todas minhas classes usando a palavra-chave struct?</p>
-<p>Isso mesmo! Nada lhe obriga tecnicamente a usar class. Porém, assim como nada lhe obriga a usar uma linha para cada comando na linguagem ¿ afinal, todos poderiam estar na mesma linha separados por ponto-e-vírgula ¿ o uso da palavra struct para classes no sentido de &quot;objetos que possuem inteligência, métodos, herança, polimorfismo e outras firulas&quot; não se enquadra nas boas práticas dos programadores C++.</p>
-<p>Geralmente uma struct é uma forma de concatenar tipos primitivos e só. Algumas liberdades além disso geralmente são permitidas, mas desencorajadas, como um construtor que inicia os membros da struct com valores-default.</p>
-<p>E, por que não, uma sobrecarga do operador de stream para imprimirmos diretamente os valores de MinhaEstrutura para a saída com apenas um comando?</p>
-<p>Enfim, não há nenhum limite que se aplica à uma struct além do bom senso. A criação da palavra class não foi por falta do que fazer. Ela diz claramente que estamos definindo um objeto que contém usos mais adequados à orientação a objetos de C++ do que a programação estruturada de C, e vice-versa. É uma forma de tornar o código mais legível, mas nada do outro mundo. Sabemos, no final das contas, que o compilador trata as duas (quase) da mesma maneira.</p>
+<p>Isso mesmo! Nada lhe obriga tecnicamente a usar class. Porém, assim como nada lhe obriga a usar uma linha para cada comando na linguagem ¿ afinal, todos poderiam estar na mesma linha separados por ponto-e-vírgula ¿ o uso da palavra <em>struct</em> para classes no sentido de &quot;objetos que possuem inteligência, métodos, herança, polimorfismo e outras firulas&quot; não se enquadra nas boas práticas dos programadores C++.</p>
+<p>Geralmente uma <em>struct</em> é uma forma de concatenar tipos primitivos e só. Algumas liberdades além disso geralmente são permitidas, mas desencorajadas, como um construtor que inicia os membros da <em>struct</em> com valores-default.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaEstrutura</span>
+{
+    MinhaEstrutura()
+    {
+        x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>;
+    }
+
+    <span style="color:#66d9ef">int</span> x;
+    <span style="color:#66d9ef">int</span> y;
+    <span style="color:#66d9ef">char</span> c;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    MinhaEstrutura me;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;x: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, y: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, c: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.c <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+</code></pre></div><p><a href="/images/14207416246_60675f681a_z.jpg"><img src="http://i.imgur.com/rdpllNf.jpg" alt="StructVsClassStructConstructor"></a></p>
+<p>E, por que não, uma sobrecarga do operador de stream para imprimirmos diretamente os valores de <strong>MinhaEstrutura</strong> para a saída com apenas um comando?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaEstrutura</span>
+{
+    MinhaEstrutura() { x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>; }
+    <span style="color:#66d9ef">int</span> x; <span style="color:#66d9ef">int</span> y; <span style="color:#66d9ef">char</span> c;
+};
+
+std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;&lt;</span> (std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> MinhaEstrutura<span style="color:#f92672">&amp;</span> me)
+{
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;x: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, y: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, c: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> me.c;
+    <span style="color:#66d9ef">return</span> os;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    MinhaEstrutura me;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> me <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+
+</code></pre></div><p><a href="/images/14043966560_422ae353d9_z.jpg"><img src="http://i.imgur.com/np4trf9.jpg" alt="StructVsClassStreams"></a></p>
+<p>Enfim, não há nenhum limite que se aplica à uma <em>struct</em> além do bom senso. A criação da palavra <em>class</em> não foi por falta do que fazer. Ela diz claramente que estamos definindo um objeto que contém usos mais adequados à orientação a objetos de C++ do que a programação estruturada de C, e vice-versa. É uma forma de tornar o código mais legível, mas nada do outro mundo. Sabemos, no final das contas, que o compilador trata as duas (quase) da mesma maneira.</p>
 <p>Qual será a próxima batalha épica? Você escolhe!</p>
 <p><a href="https://www.youtube.com/watch?v=zn7-fVtT16k">https://www.youtube.com/watch?v=zn7-fVtT16k</a></p>
 
@@ -125,7 +203,7 @@ Estruturas VS Classes: fight!
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

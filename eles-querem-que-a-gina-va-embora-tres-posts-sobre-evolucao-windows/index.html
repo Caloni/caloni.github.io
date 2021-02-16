@@ -106,11 +106,54 @@ Eles querem que a GINA vá embora: três posts sobre evolução Windows
 
             
               <p>Fui convidado pela Fernanda Saraiva do programa de MVPs da Microsoft Brasil a falar sobre alguma história a respeito da evolução do Windows e como isso impactou minha experiência profissional. Pesquisando em meu próprio blogue fui capaz de lembrar não apenas de uma, mas de três mudanças técnicas que fizeram com que eu e minha &quot;equipe&quot; da época (geralmente mais alguém, no máximo) matássemos alguns neurônios tentando descobrir novas maneiras do sistema fazer o que já fazia no Windows XP. Irei compartilhar uma por vez no que tem sido o meu post semanal que eu apelidei carinhosamente de Post da Terça. Já faz mais de um mês que consigo publicar pelo menos na terça algo de novo, e espero manter esse ritmo.</p>
-<p>A primeira mudança técnica entre o Windows XP para o Windows Vista/7/8 que me lembro e que mais fez diferença para o sistema que mantínhamos com certeza foi a retirada da guerreira GINA, ou a Graphical Identification aNd Autentication, a gina.dll da Microsoft que implementava a mundialmente famosa tela de logon do Windows NT/2000/XP:</p>
+<p>A primeira mudança técnica entre o Windows XP para o Windows Vista/7/8 que me lembro e que mais fez diferença para o sistema que mantínhamos com certeza foi a retirada da guerreira GINA, ou a _G_raphical _I_dentification a_N_d _A_utentication, a gina.dll da Microsoft que implementava a mundialmente famosa tela de logon do Windows NT/2000/XP:</p>
+<p><a href="/images/14354351486_a296ee1352_z.jpg"><img src="http://i.imgur.com/CBLO6LF.jpg" alt="Windows XP dá as boas vindas"></a></p>
 <p>Seja no formato Home Computer (a telinha de boas vindas) ou no tradicional &quot;Pressione Ctrl+Alt+Del&quot; do Windows NT ¿ quando a máquina está no domínio ¿ quem gerencia essa tela é o processo de sistema iniciado a partir do WinLogon.exe. O WINLOGON carrega a nossa amiga gina.dll que é quem realiza a autenticação dos usuários.</p>
-<p>Se você, programador de médio nível, quisesse implementar sua própria autenticação de usuários ¿ como a Novell possuía, diga-se passagem ¿ era necessário editar um valor no registro entrando a sua GINA personalizada. Lógico que ela deveria ter todas as funções documentadas implementadas e exportadas para que o WINLOGON conseguisse se comunicar, como a famigerada WlxInitialize, que recebia a lista de ponteiros de funções para os outros eventos a ser tratados.</p>
-<p>Com a vinda do Windows Vista, o WINLOGON continuou gerenciando as sessões e autenticações dos usuários, mas para evitar que a GINA monopolizasse novamente os métodos de autenticação, e com a vinda de métodos concorrentes ¿ como retina e impressão digital ¿ a Microsoft desevolveu uma nova interface chamada de Credential Provider. A implementação dessa interface não sobrescreveria novamente a &quot;GINA&quot; da vez, mas daria apenas uma alternativa para o logon tradicional com login e senha.</p>
+<p>Se você, programador de médio nível, quisesse implementar sua própria autenticação de usuários ¿ como a Novell possuía, diga-se passagem ¿ era necessário editar um valor no registro entrando a sua GINA personalizada. Lógico que ela deveria ter todas as funções documentadas implementadas e exportadas para que o WINLOGON conseguisse se comunicar, como a famigerada <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa380567%28v=vs.85%29.aspx">WlxInitialize</a>, que recebia a lista de ponteiros de funções para os outros eventos a ser tratados.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Essa funcao sobrescreve a original do Windows no momento do logon.
+</span><span style="color:#75715e">// No codigo abaixo gravamos os dados de autenticacao do usuario.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span>
+WINAPI 
+<span style="color:#a6e22e">My_WlxLoggedOutSAS</span>
+(
+ PVOID pWlxContext,
+ DWORD dwSasType, 
+ PLUID pAuthenticationId, 
+ PSID pLogonSid, 
+ PDWORD pdwOptions, 
+ PHANDLE phToken, 
+ PWLX_MPR_NOTIFY_INFO pNprNotifyInfo, 
+ PVOID<span style="color:#f92672">*</span> pProfile
+ )
+{
+   FWlxLoggedOutSAS <span style="color:#f92672">*</span>WlxLoggedOutSAS <span style="color:#f92672">=</span> <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>FWlxLoggedOutSAS<span style="color:#f92672">*&gt;</span>(
+      GetProcAddress(g_msginaDll, <span style="color:#e6db74">&#34;WlxLoggedOutSAS&#34;</span>) );
+
+   <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> WlxLoggedOutSAS(pWlxContext, dwSasType, pAuthenticationId, 
+      pLogonSid, pdwOptions, phToken, pNprNotifyInfo, pProfile);
+
+   <span style="color:#66d9ef">if</span>( ret <span style="color:#f92672">==</span> WLX_SAS_ACTION_LOGON )
+   {
+      tstringstream userName;
+      tstringstream password;
+
+      <span style="color:#75715e">// Domain\User
+</span><span style="color:#75715e"></span>      userName <span style="color:#f92672">&lt;&lt;</span> pNprNotifyInfo<span style="color:#f92672">-&gt;</span>pszDomain <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\\&#39;</span> 
+         <span style="color:#f92672">&lt;&lt;</span> pNprNotifyInfo<span style="color:#f92672">-&gt;</span>pszUserName;
+
+      password <span style="color:#f92672">&lt;&lt;</span> pNprNotifyInfo<span style="color:#f92672">-&gt;</span>pszPassword;
+
+      <span style="color:#66d9ef">if</span>( SaveLogonInformation(userName.str(), password.str()) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> )
+         <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>IsNetworkAdmin(userName.str(), pNprNotifyInfo<span style="color:#f92672">-&gt;</span>pszDomain) )
+            ret <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+   }
+
+   <span style="color:#66d9ef">return</span> ret;
+}
+
+</code></pre></div><p>Com a vinda do Windows Vista, o WINLOGON continuou gerenciando as sessões e autenticações dos usuários, mas para evitar que a GINA monopolizasse novamente os métodos de autenticação, e com a vinda de métodos concorrentes ¿ como retina e impressão digital ¿ a Microsoft desevolveu uma nova interface chamada de <em>Credential Provider</em>. A implementação dessa interface não sobrescreveria novamente a &quot;GINA&quot; da vez, mas daria apenas uma alternativa para o logon tradicional com login e senha.</p>
 <p>O problema que nossa equipe enfrentou era que toda a autenticação do sistema dependia da manipulação dos eventos da GINA através da nossa GINA. Com ela colocada de escanteio, os logins parariam de funcionar.</p>
+<p><a href="/images/14377533845_095c2016ec_m.jpg"><img src="http://i.imgur.com/sF23ENL.jpg" alt="gina"></a></p>
 <p>Depois de uma análise rápida foi constatado que não seria mais possível bloquear o login completamente, uma vez que existiam pelo menos duas alternativas de login que vieram com a instalação do Vista, e o fato de instalar mais uma apenas faria com que essa terceira alternativa não funcionasse, mas o usuário não estaria mais obrigado a &quot;passar por nós&quot;.</p>
 <p>A solução foi capturar detalhes do login através das fases subsequentes do login, incluindo a subida do shell (UserInit). Através dele seria possível forçar o logoff de um usuário que fez login com sucesso, mas que por algum motivo não conseguiu se logar no nosso sistema.</p>
 <p>Nem sempre o que estava rodando já há anos é a solução mais bonita. Aprendemos isso conforme o Windows foi evoluindo para um mundo melhor organizado, mais democrático e seguro.</p>
@@ -122,7 +165,7 @@ Eles querem que a GINA vá embora: três posts sobre evolução Windows
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

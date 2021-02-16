@@ -107,12 +107,35 @@ DBAccess
 
             
               <p>Bancos de dados são uma dor de cabeça para o desenvolvedor acessar. Quase tão motivation killer que as configurações do .NET. Se for um programador em C++ para Windows, então, desista.</p>
-<p>O DBAccess é mais um dos códigos-fonte desenterrados dos meus backups. Esse eu usei já em vários projetos, porque é simples e rápido de usar.</p>
-<p>Sua função é abstrair a abertura de um banco de dados, sua execução e sua saída. Para isso ele cria uma interface simples que usa STL. Por debaixo dos panos, usa OLEDB, que abstrai qualquer coisa, só precisando de instalar o driver e aprender qual das 500 mil combinações é a string de conexão correta. Para não ter que usar outras funções para coisas simples como sqlite, foi incluído seu suporte (que é mais uma tradução entre interfaces), necessitando para seu uso daquele projeto do sqlite que contém um header e um .c (pelo jeito o pessoal desse projeto também gosta de simplificar as coisas).</p>
+<p>O <a href="https://github.com/Caloni/DBAccess">DBAccess</a> é mais um dos códigos-fonte desenterrados dos meus backups. Esse eu usei já em vários projetos, porque é simples e rápido de usar.</p>
+<pre><code>class DBAccess
+{
+public:
+	/// Factory para base de dados específica.
+	/// @param database Pode ser &quot;sqlite&quot; ou &quot;oledb&quot;.
+	static DBAccess* CreateDBAccess(const std::string&amp; database);
+
+	typedef std::string ColumnName;
+	typedef std::vector&lt;std::string&gt; Rows;
+	typedef std::map&lt;ColumnName, Rows&gt; RowSet;
+
+	virtual ~DBAccess() { }
+
+	virtual bool Connect(const std::string&amp; connectionString) = 0;
+	virtual bool Disconnect() = 0;
+
+	/// Executa uma instrução SQL e retorna opcionalmente os resultados (se for uma query).
+	virtual bool Execute(const std::string&amp; command, RowSet* response = 0) = 0;
+};
+</code></pre><p>Sua função é abstrair a abertura de um banco de dados, sua execução e sua saída. Para isso ele cria uma interface simples que usa STL. Por debaixo dos panos, usa OLEDB, que abstrai qualquer coisa, só precisando de instalar o driver e aprender qual <a href="https://www.connectionstrings.com/">das 500 mil combinações</a> é a string de conexão correta. Para não ter que usar outras funções para coisas simples como sqlite, foi incluído seu suporte (que é mais uma tradução entre interfaces), necessitando para seu uso daquele projeto do sqlite que contém um header e um .c (pelo jeito o pessoal desse projeto também gosta de simplificar as coisas).</p>
 <p>O código que trata o OLEDB é um pouco grande (umas 300 linhas) por conta da manipulação dos componentes COM. Porém, feito decentemente, faça uma vez e use um milhão (ainda falta fazer alguns unit tests, aliás).</p>
-<p>É um bom projeto para entender o uso da minha batidíssima biblioteca de parsear argumentos argv/argc (Args.cpp/h) e a mais batidíssima ainda biblioteca de Log, que utiliza variadic templates para se livrar da maldição dos crashs causados pela falta de tipagem do printf e derivados (em Log.cpp/h).</p>
+<pre><code>IDataInitialize* pIDataInitialize;
+IDBInitialize* pIDBInitialize;
+IDBCreateSession* pIDBCreateSession;
+IDBCreateCommand* pIDBCreateCommand;
+</code></pre><p>É um bom projeto para entender o uso da minha batidíssima biblioteca de parsear argumentos argv/argc (Args.cpp/h) e a mais batidíssima ainda <a href="http://caloni.com.br/logs-em-servicos-e-outras-coisas">biblioteca de Log</a>, que utiliza variadic templates para se livrar da maldição dos crashs causados pela falta de tipagem do printf e derivados (em Log.cpp/h).</p>
 <p>Além disso, observe como o uso de interface permite que os headers específicos do que tem que ser feito (e.g. oledb.h, atlbase.h, msdasc.h, sqlite.h e até windows.h) não precisa necessariamente estar presente no header da interface (oledb.h), e como o uso de um factory em um método estático da interface permite que a junção das tecnologias envolvidas fique apenas no oledb.cpp. Dessa forma, para retirar ou acrescentar novas formas de comunicação com um banco de dados é muito simples.</p>
-<p>PS: A publicação do DBAccess foi inspirada na thread iniciada por Spagiari no nosso grupo C/C++.</p>
+<p><em>PS: A publicação do <strong>DBAccess</strong> foi inspirada na thread iniciada por Spagiari no <a href="https://groups.google.com/forum/#!topic/ccppbrasil/3qtvxelVrdc">nosso grupo C/C++</a>.</em></p>
 
             
 
@@ -121,7 +144,7 @@ DBAccess
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

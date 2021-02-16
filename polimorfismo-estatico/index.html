@@ -27,7 +27,8 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Para explicar polimorfismo, nada como ver as coisas como elas eram. Se você fosse um programador C de vinte anos atrás e criasse as seguintes funções:
-Imediatamente o compilador iria acusar os..."/>
+int soma(int x, int y);
+double soma(double x,..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -107,21 +108,101 @@ Polimorfismo estático
 
             
               <p>Para explicar polimorfismo, nada como ver as coisas como elas eram. Se você fosse um programador C de vinte anos atrás e criasse as seguintes funções:</p>
-<p>Imediatamente o compilador iria acusar os seguintes erros:</p>
-<p>Isso acontece porque em C os identificadores são únicos por escopo. Esse é o motivo por que o seguinte código também está errado:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> zi <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+    <span style="color:#66d9ef">double</span> zd <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">3.4</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><p>Imediatamente o compilador iria acusar os seguintes erros:</p>
+<pre><code>overload.c
+
+
+overload.c(2) : warning C4028: formal parameter 1 different from declaration
+overload.c(2) : warning C4028: formal parameter 2 different from declaration
+overload.c(2) : error C2371: 'soma' : redefinition; different basic types
+        overload.c(1) : see declaration of 'soma'
+</code></pre>
+<p>Isso acontece porque em C <strong>os identificadores são únicos por escopo</strong>. Esse é o motivo por que o seguinte código também está errado:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><pre><code>overload.c
+overload.c(5) : error C2374: 'x' : redefinition; multiple initialization
+        overload.c(4) : see declaration of 'x'
+</code></pre>
 <p>De volta aos anos 90, isso também está errado em C++. Até por uma questão de lógica: como o compilador pode saber a qual variável estamos nos referindo se usarmos o mesmo nome para duas delas?</p>
 <p>Só que existe um truquezinho para impedir essa ambiguidade quando falamos de funções: os parâmetros que ela recebe.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">soma</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> zi <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// dois tipos int: chamar soma(int, int)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">double</span> zd <span style="color:#f92672">=</span> soma(<span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">3.4</span>); <span style="color:#75715e">// dois tipos double: só pode ser soma(double, double)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+ 
+
+</code></pre></div><pre><code>C:\Tests&gt;cl /c overload.cpp
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 13.10.6030 for 80x86
+Copyright (C) Microsoft Corporation 1984-2002. All rights reserved.
+
+overload.cpp
+
+C:\Tests&gt;
+</code></pre>
 <p>Isso permitiu que em C++ fosse criada a sobrecarga estática, que é exatamente isso: chamar a função não apenas de acordo com seu nome, mas também de acordo com sua assinatura, ou seja, o número e o tipo dos parâmetros recebidos. Chamamos de sobrecarga estática porque isso é feito apenas pelo compilador, não pesando em nada durante a execução do programa.</p>
 <p>Entre seus usos mais comuns estão os seguintes:</p>
 <ul>
 <li>
 <p>Ter funções com o mesmo nome mas que tratam de diferentes parâmetros;</p>
+<ul>
+<li>
+<p>soma(int, int);</p>
+</li>
+<li>
+<p>soma(double, double);</p>
+</li>
+<li>
+<p>Obs.: Isso ignora, é claro, as facilidades dos templates.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Versões novas da mesma função que recebem parâmetros adicionais;</p>
+<ul>
+<li>
+<p>export_data(void* buffer, int size);</p>
+</li>
+<li>
+<p>export_data(void* buffer, int size, unsigned long options);</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Mesmo nome de método para setar e obter o valor de uma propriedade;</p>
+<ul>
+<li>
+<p>Class::Property(int x); // setter</p>
+</li>
+<li>
+<p>int x Class::Property() const; // getter</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Bom, o que mais sua imaginação mandar =)</p>
@@ -135,7 +216,7 @@ Polimorfismo estático
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

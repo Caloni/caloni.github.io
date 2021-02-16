@@ -106,7 +106,9 @@ Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)
 
             
               <p>Esta palestra tem como objetivo ensinar o que são moedas digitais, como o bitcoin, e cada passo necessário o algoritmo e implementação para torná-la real. Será utilizado C++ como a linguagem-base e o foco está mais na implementação do que na matemática ou no algoritmo. Assim como foi criado o bitcoin, o importante a aprender é como unir diferentes tipos de conhecimento e tecnologia em torno de um objetivo único, simples e prático.</p>
+<p><img src="http://i.imgur.com/TAunJPB.png" alt=""></p>
 <p>A partir da criação da moeda surge a necessidade de facilitar o seu uso, um problema recorrente em todas as mais de 700 moedas digitais existentes no mercado e no laboratório, incluindo o bitcoin. Após a palestra teremos uma discussão de como levar a tecnologia ao usuário comum.</p>
+<h3 id="construindo-os-princípios-básicos">Construindo os princípios básicos</h3>
 <p>Para nossa moeda digital utilizaremos um sistema simples, rápido e prático para subir informações na memória de um nó (server) e repassar essas informações para outros nós, o tiodb. Este projeto mantém contêineres STL na memória da maneira mais enxuta possível e eles são acessíveis através do protocolo mais simples possível utilizando uma gama de linguagens (C, C++, Python, .NET).</p>
 <p>A primeira coisa é compilar o projeto tiodb, que irá disponibilizar alguns binários em sua saída:</p>
 <ul>
@@ -115,13 +117,104 @@ Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)
 <li><strong>tioclient.dll</strong> é a biblioteca dinâmica que pode ser usada por clientes para acessar o tio.</li>
 </ul>
 <p>Podemos rodar o tio deixando ele usar os parâmetros padrão ou alterar número da porta e outros detalhes. Vamos executar da maneira mais simples:</p>
-<p>OK, tio rodando e ativo. Podemos navegar já pelos seus contêineres usando o InteliHubExplorer:</p>
-<p>Por convenção os contêineres seguem um padrão de nomes que se assemelha a uma hierarquia de diretórios, e os nomes que começam com underline são internos/reservados. O contêiner meta/sessions, por exemplo, contém uma lista simples das conexões ativas deste nó.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">C:\Projects\tiocoin\tiodb\bin\x64\Debug<span style="color:#75715e">&gt;tio</span>
+Tio, The Information Overlord. Copyright Rodrigo Strauss (www.1bit.com.br)
+Starting infrastructure...
+Saving files to C:/Users/Caloni/AppData/Local/Temp
+Listening on port 2605
+Up and running!
+</code></pre></div><p>OK, tio rodando e ativo. Podemos navegar já pelos seus contêineres usando o InteliHubExplorer:</p>
+<p><img src="http://i.imgur.com/YJZ7wxC.png" alt=""></p>
+<p>Por convenção os contêineres seguem um padrão de nomes que se assemelha a uma hierarquia de diretórios, e os nomes que começam com underline são internos/reservados. O contêiner <strong>meta</strong>/sessions, por exemplo, contém uma lista simples das conexões ativas deste nó.</p>
 <p>A partir do servidor funcionando é possível criar novos contêineres e mantê-los, adicionando, atualizando e removendo itens. A partir dessas modificações outros clientes podem receber notícias dessas modificações e tomar suas próprias decisões.</p>
 <p>Vamos criar e popular um contêiner inicial de transações com  um GUID zerado, e a partir dele vamos adicionando novas &quot;transações&quot;. Também iremos permitir o monitoramento dessas transações.</p>
-<p>Após executar esse código passando o argumento &quot;--build&quot; e atualizarmos o IntelihubExplorer poderemos ver o novo contêiner e seu conteúdo. É possível ler o código rodando o mesmo programa sem passar o argumento &quot;--build&quot;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">try</span>
+{
+    tio<span style="color:#f92672">::</span>Connection conn;
+    conn.Connect(server, port);
+
+    <span style="color:#66d9ef">if</span> (args.find(<span style="color:#e6db74">&#34;--build&#34;</span>) <span style="color:#f92672">!=</span> args.end())
+    {
+        tio<span style="color:#f92672">::</span>containers<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> transactionsBuilder;
+        transactionsBuilder.create(<span style="color:#f92672">&amp;</span>conn, <span style="color:#e6db74">&#34;transactions&#34;</span>, <span style="color:#e6db74">&#34;volatile_list&#34;</span>);
+        transactionsBuilder.push_back(<span style="color:#e6db74">&#34;{00000000-0000-0000-0000-0000000000000&#34;</span>);
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (args.find(<span style="color:#e6db74">&#34;--add&#34;</span>) <span style="color:#f92672">!=</span> args.end())
+    {
+        tio<span style="color:#f92672">::</span>containers<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> transactionsAdd;
+        transactionsAdd.create(<span style="color:#f92672">&amp;</span>conn, <span style="color:#e6db74">&#34;transactions&#34;</span>, <span style="color:#e6db74">&#34;volatile_list&#34;</span>);
+        string newTransaction <span style="color:#f92672">=</span> NewGuid();
+        <span style="color:#66d9ef">if</span>( newTransaction.size())
+            transactionsAdd.push_back(newTransaction);
+        <span style="color:#66d9ef">else</span>
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Error creating transaction</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (args.find(<span style="color:#e6db74">&#34;--monitor&#34;</span>) <span style="color:#f92672">!=</span> args.end())
+    {
+        tio<span style="color:#f92672">::</span>containers<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> transactionsMonitor;
+        transactionsMonitor.open(<span style="color:#f92672">&amp;</span>conn, <span style="color:#e6db74">&#34;transactions&#34;</span>);
+        transactionsMonitor.subscribe([](<span style="color:#66d9ef">auto</span> container, <span style="color:#66d9ef">auto</span> containerEvt, <span style="color:#66d9ef">auto</span> key, <span style="color:#66d9ef">auto</span> value)
+                {
+                <span style="color:#66d9ef">int</span> eventCode <span style="color:#f92672">=</span> stoi(containerEvt);
+
+                <span style="color:#66d9ef">switch</span> (eventCode)
+                {
+                <span style="color:#66d9ef">case</span> TIO_COMMAND_PING:
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Ping!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+                <span style="color:#66d9ef">break</span>;
+
+                <span style="color:#66d9ef">case</span> TIO_EVENT_SNAPSHOT_END:
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Snapshot end</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+                <span style="color:#66d9ef">break</span>;
+
+                <span style="color:#66d9ef">case</span> TIO_COMMAND_PUSH_BACK:
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;New transaction &#34;</span> <span style="color:#f92672">&lt;&lt;</span> value <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; inserted</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+                <span style="color:#66d9ef">break</span>;
+
+                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Unknown event &#34;</span> <span style="color:#f92672">&lt;&lt;</span> hex <span style="color:#f92672">&lt;&lt;</span> eventCode <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; with key &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dec <span style="color:#f92672">&lt;&lt;</span> key <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; and with value &#34;</span> <span style="color:#f92672">&lt;&lt;</span> value;
+                <span style="color:#66d9ef">break</span>;
+                }
+                });
+        <span style="color:#66d9ef">while</span> (true)
+        {
+            conn.WaitForNextEventAndDispatch(<span style="color:#ae81ff">0</span>);
+            Sleep(<span style="color:#ae81ff">1000</span>);
+        }
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        tio<span style="color:#f92672">::</span>containers<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> transactionsReader;
+        transactionsReader.open(<span style="color:#f92672">&amp;</span>conn, <span style="color:#e6db74">&#34;transactions&#34;</span>);
+        <span style="color:#66d9ef">for</span>( size_t transactionIdx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; transactionIdx <span style="color:#f92672">&lt;</span> transactionsReader.size(); <span style="color:#f92672">++</span>transactionIdx )
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Transaction &#34;</span> <span style="color:#f92672">&lt;&lt;</span> transactionsReader.at(transactionIdx) <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+
+    <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// just testing and developing...
+</span><span style="color:#75715e"></span>}
+<span style="color:#66d9ef">catch</span> (tio<span style="color:#f92672">::</span>tio_exception<span style="color:#f92672">&amp;</span> e)
+{
+    Log(<span style="color:#e6db74">&#34;Connection error: %s&#34;</span>, e.what());
+    <span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>runtime_error<span style="color:#f92672">&amp;</span> e)
+{
+    Log(<span style="color:#e6db74">&#34;Runtime error: %s&#34;</span>, e.what());
+    <span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">catch</span> (...)
+{
+    Log(<span style="color:#e6db74">&#34;Catastrophic error&#34;</span>);
+    <span style="color:#66d9ef">break</span>;
+}
+</code></pre></div><p>Após executar esse código passando o argumento &quot;--build&quot; e atualizarmos o IntelihubExplorer poderemos ver o novo contêiner e seu conteúdo:</p>
+<p><img src="http://i.imgur.com/3Mhj2lE.png" alt=""></p>
+<p>É possível ler o código rodando o mesmo programa sem passar o argumento &quot;--build&quot;:</p>
+<p><img src="http://i.imgur.com/CxdmZhy.png" alt=""></p>
 <p>Agora imagine que exista um cliente da tiocoin que está monitorando as transações deste servidor para verificar a partir de qual momento uma transação foi aceita (supondo que este contêiner possui as transações aceitas):</p>
+<p><img src="http://i.imgur.com/kLrPawv.png" alt=""></p>
 <p>Voilà! Agora temos um sistema inicial com um contêiner que irá manter os IDs de supostas transações de nossa moeda digital. Está compilando e está rodando, e em cima disso poderemos ir adicionando as funcionalidades.</p>
+<p>Atenção: você poderá encontrar o repositório do tiocoin <a href="https://github.com/bitforgebr/tiocoin">aqui</a>.</p>
 
             
 
@@ -130,7 +223,7 @@ Palestra: como criar moedas digitais em casa com C&#43;&#43; (kick-off)
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

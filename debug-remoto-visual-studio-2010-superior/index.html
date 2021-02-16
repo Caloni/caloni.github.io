@@ -105,14 +105,27 @@ Debug Remoto no Visual Studio 2010 ou Superior
           <div class="content">
 
             
-              <p>Já escrevi sobre debug remoto no finado C++ Builder, sobre como usar o msvcmon.exe no VS 2003 e o msvsmon.exe no 2010+. Sobre como depurar um serviço quando a máquina está para desligar, e até sobre depurar através de um servidor de símbolos. Está na hora de tornar a depuração mais simples para programadores de serviços Win32.</p>
+              <p>Já escrevi sobre <a href="/debug-remoto-no-c-builder">debug remoto no finado C++ Builder</a>, sobre <a href="/debugger-remoto-do-visual-studio">como usar o msvcmon.exe no VS 2003 e o msvsmon.exe no 2010+</a>. Sobre <a href="/depurando-ate-o-ultimo-segundo">como depurar um serviço quando a máquina está para desligar</a>, e até sobre <a href="/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github">depurar através de um servidor de símbolos</a>. Está na hora de tornar a depuração mais simples para programadores de serviços Win32.</p>
 <p>Resumo dos comandos:</p>
-<p>Hoje em dia, às vésperas do Visual Studio 2019, espero que todo mundo use pelo menos o Visual Studio 2010 porque a partir dessa versão tornou-se muito fácil depurar remotamente, pois um pacote feito para isso já é instalado junto do Visual Studo. É uma pasta que basta copiar e colar na máquina-alvo. Para encontrá-la basta digitar &quot;Remote Debugger&quot; dentro do Program Files.</p>
+<pre><code>Busca do pacote de debug:
+c:\&gt;dir /s /b &quot;Remote Debugger&quot;
+Executável:
+C:\Tools\Remote Debugger\x64\msvsmon.exe
+Argumentos:
+/noauth /anyuser /timeout 99999999 /silent
+Serviço:
+C:\Tools\nssm.exe install Msvcmon
+</code></pre><p>Hoje em dia, às vésperas do Visual Studio 2019, espero que todo mundo use pelo menos o Visual Studio 2010 porque a partir dessa versão tornou-se muito fácil depurar remotamente, pois um pacote feito para isso já é instalado junto do Visual Studo. É uma pasta que basta copiar e colar na máquina-alvo. Para encontrá-la basta digitar &quot;Remote Debugger&quot; dentro do Program Files.</p>
+<p><img src="https://i.imgur.com/bE6YxtY.png" alt=""></p>
 <p>Copie essa pasta para a máquina onde estará os processos que deseja depurar e escolha sua arquitetura (x86, x64, i64), pois cada uma possui uma sub-pasta com os mesmos arquivos. Executa uma vez o msvsmon.exe dentro de uma delas e ele irá configurar para você o firewall do Windows. Feito isso e configurando através da janela que aparece o resto dos parâmetros basta atachar o processo ou iniciá-lo remotamente pela configuração do seu projeto no Visual Studio.</p>
-<p>Mas este artigo não é sobre isso, é um pouco mais fundo: depurar serviços. Eles rodam na conta de sistema e muitas vezes é preciso depurá-los antes ou depois do logon na máquina. Às vezes é um teste sob as condições de sistema, o que é igualmente importante. Seja como for a maneira de fazer isso com o msvsmon.exe é transformá-lo também em um serviço. Para isso usaremos o NSSM: o Non-Sucking Service Manager. Copie ele para a mesma máquina e o executa com o comando install nome-do-serviço. Os campos principais são os mais importantes.</p>
-<p>Mas este artigo não é sobre isso, é um pouco mais fundo: depurar serviços. Eles rodam na conta de sistema e muitas vezes é preciso depurá-los antes ou depois do logon na máquina. Às vezes é um teste sob as condições de sistema, o que é igualmente importante. Seja como for a maneira de fazer isso com o msvsmon.exe é transformá-lo também em um serviço. Para isso usaremos o NSSM: o Non-Sucking Service Manager. Copie ele para a mesma máquina e o executa com o comando install nome-do-serviço. Os campos principais são os mais importantes.</p>
-<p>Se você digitar msvsmon.exe /h ou algo do gênero irá encontrar os parâmetros que precisa.</p>
-<p>OBS: Eu costumo executar sem segurança alguma, pois minhas máquinas de teste são VMs locais e o perigo de vulnerabilidade não é menor do que minha própria máquina real.</p>
+<p><img src="https://i.imgur.com/hjjz55J.png" alt=""></p>
+<p><img src="https://i.imgur.com/bA4u3NZ.png" alt=""></p>
+<p>Mas este artigo não é sobre isso, é um pouco mais fundo: depurar serviços. Eles rodam na conta de sistema e muitas vezes é preciso depurá-los antes ou depois do logon na máquina. Às vezes é um teste sob as condições de sistema, o que é igualmente importante. Seja como for a maneira de fazer isso com o msvsmon.exe é transformá-lo também em um serviço. Para isso usaremos o <a href="https://nssm.cc/">NSSM</a>: o Non-Sucking Service Manager. Copie ele para a mesma máquina e o executa com o comando install &lt;nome-do-serviço&gt;. Os campos principais são os mais importantes.</p>
+<p><img src="https://i.imgur.com/bU6sq33.png" alt=""></p>
+<p>Se você digitar msvsmon.exe /h ou algo do gênero irá encontrar os parâmetros que precisa:</p>
+<p><img src="https://i.imgur.com/4uyf5t7.png" alt=""></p>
+<p><img src="https://i.imgur.com/yEpsIR5.png" alt=""></p>
+<p>Obs.: Eu costumo executar sem segurança alguma, pois minhas máquinas de teste são VMs locais e o perigo de vulnerabilidade não é menor do que minha própria máquina real.</p>
 
             
 
@@ -121,15 +134,15 @@ Debug Remoto no Visual Studio 2010 ou Superior
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/beetlejuice-os-fantasmas-se-divertem/">&#x25C1; Beetlejuice: Os Fantasmas Se Divertem</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/o-rei-leao-3-hakuna-matata/">&#x25B7; O Rei Leão 3 Hakuna Matata</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/free-pascal-e-vs-code/">&#x25C1; Free Pascal e VS Code</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/avatar/">&#x25B7; Avatar</a></span>
 
         </div>
 

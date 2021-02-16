@@ -27,7 +27,11 @@
         content="/img/author.jpg"/>
   <meta property="og:description"
         content="Once upon a time my old friend Kabloc wrote this little and &quot;harmless&quot; function in order to print the multiplication table:
-Despite the fact the result is a strong candidate to &quot;The..."/>
+#include &lt;stdio.h&gt;
+
+int main()
+{
+	int f1,f2,s=0;..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -106,19 +110,105 @@ Precedence difference
           <div class="content">
 
             
-              <p>Once upon a time my old friend Kabloc wrote this little and &quot;harmless&quot; function in order to print the multiplication table:</p>
-<p>Despite the fact the result is a strong candidate to &quot;The International Obfuscated C Code Contest&quot;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.</p>
-<p>Asked to solve the problem, given my congenital inclination to random subjects involving C++, I decided to fix the things up in my old-n-good Visual Studio 2003. Nonetheless, it compiles C source code as well. We just need to rename the file from .cpp to .c. It was doing this that I found the following compiler error:</p>
-<p>That happens in the line 6, the first for line. In other words, a C source that compiles as C++ but gives us a lack of l-value error since compiled as pure C.</p>
-<p>Thinking about the problem rather intuitively than rationally I imagined that could be some little difference in the precedence table. Keeping that in mind, wrested the standard papers for both languages and took a look at the precedence tables.</p>
-<p>Besides some now less important details, we can notice at the end of the table a inversion between the ternary operator and the attribution operator and, more importantly, the inversion of the evaluation order. In C, the ternary operator is evaluated from right to left, whilst in C++ from left to right, like the rest. This is going to shows us that, in line 6, the same expression has two different interpretations in each language.</p>
-<p>In order to understand bit by bit the problem, let's disassemble the second part of that for:</p>
-<p>We have two ternary operators nestled. In accordance with C++ standard, the ternary operators have less precedence than the attribution operators and are evaluated from left to right. In other words, in first place all the atributions inside the expression are made before any ternary operator. After that, the first ternary operator is executed, followed by the second:</p>
-<p>The parts in red are the first ones to run, followed by the green ones and, finally, by the blue ones. This color priority is completely arbitrary. Of course, the colors you see in your text editor doesn't have anything to do with this explanation.</p>
-<p>Now let't take a look in C. In this language, different from C++, the ternary operators have more precedence than the attribution operators, and are executed from right to left. That means the first and last ternary operators are executed, ignoring the right attribution, and after that the first ternary operator is executed. Only after these two events the right attribution is evaluated:</p>
-<p>All this make us to see the attribution to 12 will be done on the first ternary operator result, which possible values could be from the putchar return or f1. Remember about the comma operator purpose outside function calls: chain expressions, execute them and return the value from the rightmost expression:</p>
-<p>Well, the f1 variable is an integer. And putchar return as well. This is not going to break any type rule. However, breaks the attribution gold rule: &quot;put an lvalue in the right side of an attribution&quot;.</p>
-<p>This finishes the long explanation about why that little insignificant error at the beginning of this article happened only in the C language. This is a perfect example of the little differences between these two languages. Perhaps do you use parenthesis like a crazy, and are not going to find this kind of problems inside your source code. Perhaps not.</p>
+              <p>Once upon a time my old friend <a href="http://www.kabloc.com.br">Kabloc</a> wrote this little and &quot;harmless&quot; function in order to print the multiplication table:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> f1,f2,s<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+	   <span style="color:#66d9ef">for</span>(f1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;(f1<span style="color:#f92672">==</span><span style="color:#ae81ff">11</span><span style="color:#f92672">&amp;&amp;</span>s<span style="color:#f92672">!=</span><span style="color:#ae81ff">5</span>)<span style="color:#f92672">?</span>s<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,f1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,putchar(<span style="color:#ae81ff">10</span>)<span style="color:#f92672">:</span>(f1<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">10</span>)<span style="color:#f92672">?</span>f1<span style="color:#f92672">=</span>f1:f1<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>,f1<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">11</span>;f1<span style="color:#f92672">++</span>)
+			<span style="color:#66d9ef">for</span>(f2<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>s;f2<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span><span style="color:#f92672">+</span>s;f2<span style="color:#f92672">++</span>)printf(<span style="color:#e6db74">&#34;%dx%d=%d%c&#34;</span>,f2,f1,f1<span style="color:#f92672">*</span>f2,(f2<span style="color:#f92672">==</span><span style="color:#ae81ff">5</span><span style="color:#f92672">+</span>s)<span style="color:#f92672">?</span><span style="color:#ae81ff">10</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+} 
+
+</code></pre></div><p>Despite the fact the result is a strong candidate to &quot;<a href="http://www.ioccc.org">The International Obfuscated C Code Contest</a>&quot;, the linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.</p>
+<p>Asked to solve the problem, given my congenital inclination to <a href="http://www.caloni.com.br/disassembling-the-array-operator">random subjects involving C++</a>, I decided to fix the things up in my old-n-good <strong>Visual Studio 2003</strong>. Nonetheless, it compiles C source code as well. We just need to rename the file from <strong>.cpp</strong> to <strong>.c</strong>. It was doing this that I found the following compiler error:</p>
+<p><strong><em>error C2106: '=' : left operand must be l-value</em></strong></p>
+<p>That happens in the line 6, the first <strong>for</strong> line. In other words, a C source that compiles as C++ but gives us a lack of l-value error since compiled as pure C.</p>
+<p>Thinking about the problem rather intuitively than rationally I imagined that could be some little difference in the precedence table. Keeping that in mind, wrested the standard papers for both languages and took a look at the precedence tables:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><em>Note: Reduced C++ table; C ANSI standard from 1989.</em></p>
+<p>Besides some now less important details, we can notice at the end of the table a inversion between the ternary operator and the attribution operator and, more importantly, the inversion of the evaluation order. In C, the ternary operator is evaluated from right to left, whilst in C++ from left to right, like the rest. This is going to shows us that, in line 6, the same expression has two <strong>different interpretations</strong> in each language.</p>
+<p>In order to understand bit by bit the problem, let's disassemble the second part of that <strong>for</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    ( f1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">11</span> <span style="color:#f92672">&amp;&amp;</span> s <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> ) <span style="color:#f92672">?</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, putchar(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">:</span> ( f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span> ) <span style="color:#f92672">?</span> f1 <span style="color:#f92672">=</span> f1 : f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>, f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; 
+</code></pre></div><p>We have two ternary operators nestled. In accordance with C++ standard, the ternary operators have <strong>less precedence</strong> than the attribution operators and are evaluated <strong>from left to right</strong>. In other words, in first place all the atributions inside the expression are made <strong>before</strong> any ternary operator. After that, the first ternary operator is executed, followed by the second:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    ( ( f1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">11</span> <span style="color:#f92672">&amp;&amp;</span> s <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> ) <span style="color:#f92672">?</span> (s <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>), (f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>), putchar(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">:</span> ( f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span> ) ) <span style="color:#f92672">?</span> (f1 <span style="color:#f92672">=</span> f1) <span style="color:#f92672">:</span> (f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>), f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; 
+</code></pre></div><p>The parts in red are the first ones to run, followed by the green ones and, finally, by the blue ones. This color priority is completely arbitrary. Of course, the colors you see in your text editor doesn't have anything to do with this explanation.</p>
+<p>Now let't take a look in C. In this language, different from C++, the ternary operators have <strong>more precedence</strong> than the attribution operators, and are executed <strong>from right to left</strong>. That means the first and last ternary operators are executed, ignoring the right attribution, and after that the first ternary operator is executed. Only after these two events the right attribution is evaluated:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    ( ( f1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">11</span> <span style="color:#f92672">&amp;&amp;</span> s <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> ) <span style="color:#f92672">?</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, putchar(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">:</span> ( ( f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span> ) <span style="color:#f92672">?</span> f1 <span style="color:#f92672">=</span> f1 : f1 ) ) <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>, f1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>;
+</code></pre></div><p>All this make us to see the attribution to 12 will be done on the <strong>first ternary operator result</strong>, which possible values could be from the <strong>putchar return</strong> or <strong>f1</strong>. Remember about the <strong>comma operator</strong> purpose outside function calls: chain expressions, execute them and return the value from the <strong>rightmost</strong> expression:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    s <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, putchar(<span style="color:#ae81ff">10</span>) <span style="color:#75715e">// makes s equals 5, f1 equals 0 and returns the putchar call value.
+</span><span style="color:#75715e"></span>    f1 <span style="color:#f92672">=</span> f1 : f1 <span style="color:#75715e">// in both cases the returned value is the f1 variable
+</span></code></pre></div><p>Well, the f1 variable is an integer. And putchar return as well. This is not going to break any type rule. However, breaks the <strong>attribution gold rule</strong>: &quot;put an lvalue in the right side of an attribution&quot;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; <span style="color:#75715e">// right; nothing to say
+</span><span style="color:#75715e"></span>    putchar(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; <span style="color:#75715e">// woops! what&#39;s that? putchar doesn&#39;t return variable but a constant value
+</span></code></pre></div><p>This finishes the long explanation about why that little insignificant error at the beginning of this article happened only in the C language. This is a perfect example of the little differences between these two languages. Perhaps do you use parenthesis like a crazy, and are not going to find this kind of problems inside your source code. Perhaps not.</p>
 
             
 
@@ -127,7 +217,7 @@ Precedence difference
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 

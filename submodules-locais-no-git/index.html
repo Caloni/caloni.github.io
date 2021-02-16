@@ -105,10 +105,14 @@ Como acessar submódulos no git inacessíveis?
           <div class="content">
 
             
-              <p>Quando projetos remotos usam submodules é possível que algum deles seja acessível apenas através de chaves criptográficas. Isso exige que os sub-projetos necessários para fazer funcionar seu projeto podem estar fora do seu alcance e acesso, o que irá gerar durante seus comandos pull recursivos erros de ssh (publickey access).</p>
+              <p>Quando projetos remotos usam submodules é possível que algum deles seja acessível apenas através de chaves criptográficas. Isso exige que os sub-projetos necessários para fazer funcionar seu projeto podem estar fora do seu alcance e acesso, o que irá gerar durante seus comandos <strong>pull</strong> recursivos erros de ssh (publickey access).</p>
 <p>A solução é ler a documentação e descobrir que é possível editar o arquivo .git/config para mudar a url de um submódulo inacessível pela forma do .gitmodules. Eis um exemplo de arquivo config dentro do .git:</p>
-<p>Você pode localmente alterar o endereço ssh deste submodule para algo que todos têm acesso ou só você tem acesso, como uma pasta local ou o endereço https:</p>
-<p>Note que isso não irá interferir em nada no repositório localizado remotamente do projeto. Dessa forma diferentes membros da equipe podem usar diferentes formas de acessar um submódulo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">[submodule &#34;sbrubles&#34;]
+	url = git@github.com:user/project.git
+</code></pre></div><p>Você pode localmente alterar o endereço ssh deste submodule para algo que todos têm acesso ou só você tem acesso, como uma pasta local ou o endereço https:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">[submodule &#34;sbrubles&#34;]
+	url = https://github.com/user/project.git
+</code></pre></div><p>Note que isso não irá interferir em nada no repositório localizado remotamente do projeto. Dessa forma diferentes membros da equipe podem usar diferentes formas de acessar um submódulo.</p>
 
             
 
@@ -117,7 +121,7 @@ Como acessar submódulos no git inacessíveis?
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
     
 
 

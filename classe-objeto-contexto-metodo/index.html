@@ -105,13 +105,67 @@ Classe, objeto, contexto, método
           <div class="content">
 
             
-              <p>No post anterior falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &quot;objeto&quot;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito this). Trocamos uma propriedade desse &quot;objeto&quot; em C, mas ainda não chamamos um método.</p>
+              <p>No <a href="/classe-objeto-contexto">post anterior</a> falamos como a passagem de um endereço de uma struct consegue nos passar o contexto de um &quot;objeto&quot;, seja em C (manualmente) ou em C++ (automagicamente pelo operador implícito <strong>this</strong>). Trocamos uma propriedade desse &quot;objeto&quot; em C, mas ainda não chamamos um método.</p>
 <p>Hoje faremos isso.</p>
 <p>Isso é relativamente simples quando se conhece ponteiros de função, existentes tanto em C quanto em C++. Ponteiros de função são tipos que contém endereço de uma função com assinatura específica (tipo de retorno e de argumentos). Através de um ponteiro de função é possível chamar uma função e passar alguns argumentos. Como o contexto nada mais é que um argumento, será só passá-lo como parâmetro.</p>
-<p>No exemplo anterior não sabíamos como chamar um método de nosso &quot;objeto&quot; em C:</p>
-<p>Isso se torna fácil se tivermos uma nova &quot;propriedade&quot; na nossa struct que é um ponteiro para a função que queremos chamar.</p>
-<p>Parece muito trabalho para algo que é feito &quot;automagicamente&quot; em C++, certo? Certo. Porém, agora sabemos o que acontece por baixo dos panos em C++ e que pode ser feito em C (ainda que &quot;na mão&quot;). Você provavelmente nunca fará esse tipo de código em C para emular C++, mas o objetivo desse código é entender como funciona, por exemplo, a vtable do C++, que permite polimorfismo.</p>
-<p>Mas esse é assunto para outro post.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">MinhaFuncao</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+{
+	<span style="color:#66d9ef">return</span> x <span style="color:#f92672">==</span> y;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">bool</span> (<span style="color:#f92672">*</span>PMinhaFuncao)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>) <span style="color:#f92672">=</span> MinhaFuncao;
+	PMinhaFuncao(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+}
+</code></pre></div><p>No exemplo anterior não sabíamos como chamar um método de nosso &quot;objeto&quot; em C:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+    <span style="color:#66d9ef">int</span> MinhaPropriedade;
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+   pThis<span style="color:#f92672">-&gt;</span>MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+   <span style="color:#75715e">///@todo Chamar pThis-&gt;MeuOutroMetodo();
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Isso se torna fácil se tivermos uma nova &quot;propriedade&quot; na nossa struct que é um ponteiro para a função que queremos chamar.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MinhaClasse</span>
+{
+	<span style="color:#66d9ef">int</span> MinhaPropriedade;
+	<span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>MeuMetodo)(MinhaClasse<span style="color:#f92672">*</span>);
+	<span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>MeuOutroMetodo)(MinhaClasse<span style="color:#f92672">*</span>);
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+	pThis<span style="color:#f92672">-&gt;</span>MeuOutroMetodo(pThis);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MinhaClasse_MeuOutroMetodo</span>(MinhaClasse<span style="color:#f92672">*</span> pThis)
+{
+	pThis<span style="color:#f92672">-&gt;</span>MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	MinhaClasse obj;
+
+	obj.MinhaPropriedade <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+	<span style="color:#75715e">// precisamos iniciar os &#34;métodos&#34; em C; em C++ é automágico
+</span><span style="color:#75715e"></span>	obj.MeuMetodo <span style="color:#f92672">=</span> MinhaClasse_MeuMetodo; 
+	obj.MeuOutroMetodo <span style="color:#f92672">=</span> MinhaClasse_MeuOutroMetodo;
+
+	obj.MeuMetodo(<span style="color:#f92672">&amp;</span>obj);
+    printf(<span style="color:#e6db74">&#34;MinhaPropriedade = %d&#34;</span>, obj.MinhaPropriedade);
+}
+</code></pre></div><p><img src="http://i.imgur.com/uzfJuTC.png" alt=""></p>
+<p><img src="http://i.imgur.com/JLJaAsB.png" alt=""></p>
+<p>Parece muito trabalho para algo que é feito &quot;automagicamente&quot; em C++, certo? Certo. Porém, agora sabemos o que acontece por baixo dos panos em C++ e que pode ser feito em C (ainda que &quot;na mão&quot;). Você provavelmente nunca fará esse tipo de código em C para emular C++, mas o objetivo desse código é entender como funciona, por exemplo, a <em>vtable</em> do C++, que permite polimorfismo.</p>
+<p>Mas esse é assunto para outro <em>post</em>.</p>
 
             
 
@@ -120,7 +174,7 @@ Classe, objeto, contexto, método
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
     
 
 
