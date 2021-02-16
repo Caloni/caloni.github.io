@@ -127,27 +127,27 @@ Introdução ao Debugging Tools for Windows
 
 int WINAPI WinMain(...)
 {
-    CHAR wndTxt[MAX_PATH];
+  CHAR wndTxt[MAX_PATH];
 
-    while( true )
+  while( true )
+  {
+    HWND fgWin = GetForegroundWindow();
+    wndTxt[0] = 0;
+
+    if( GetWindowText(...) )
     {
-        HWND fgWin = GetForegroundWindow();
-        wndTxt[0] = 0;
-
-        if( GetWindowText(...) )
-        {
-            if( StrStrI(wndTxt, &quot;Fict Bank&quot;) )
-            {
-                MessageBox(fgWin, 
+      if( StrStrI(wndTxt, &quot;Fict Bank&quot;) )
+      {
+        MessageBox(fgWin, 
           &quot;Hi! Like to be under attack?&quot;,
-                    &quot;Free Trojan&quot;, 
+          &quot;Free Trojan&quot;, 
           MB_OK);
-                break;
-            }
-        }
+        break;
+      }
     }
+  }
 
-    ExitProcess(ERROR_SUCCESS);
+  ExitProcess(ERROR_SUCCESS);
 } 
 </code></pre>
 <p>Para compilar esse programa, você só precisa digitar os seguintes comandos em um console do Visual Studio:</p>
