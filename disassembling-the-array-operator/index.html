@@ -105,34 +105,51 @@ Disassembling the array operator
           <div class="content">
 
             
-              <p>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: <strong>pointers</strong>.</p>
-<p>When I was reading the <a href="http://www.amazon.com/C-Programming-Language-2nd/dp/0131103628">K&amp;R</a> book (again) I was enjoying the language specification details in the <strong>Appendix A</strong>. It was specially odd the description as an array must be accessed:</p>
-<!-- raw HTML omitted -->
-<p>Notice that the rules don't specify the order of expressions to access the array. In other words, it doesn't matter for the language if we use a <strong>pointer before the integer or an integer before the pointer</strong>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cassert&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-	<span style="color:#66d9ef">char</span> quote[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Show me your Code, and I&#39;ll tell you who you are.&#34;</span>;
-	<span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>;
-	
-	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;And the language is: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> quote [ index ] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
-	
-	assert( quote[index] <span style="color:#f92672">==</span> index[quote] );
-	assert( quote[<span style="color:#ae81ff">13</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">13</span>[quote] );
-	assert( <span style="color:#f92672">*</span>(quote <span style="color:#f92672">+</span> index) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;That&#39;s C!&#34;</span>[<span style="color:#ae81ff">7</span>] );
-	
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">13</span>[quote] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#34;CThings&#34;</span>[<span style="color:#ae81ff">0</span>];
-} 
+              <p>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: pointers.</p>
+<p>When I was reading the K&amp;R book (again) I was enjoying the language specification details in the Appendix A. It was specially odd the description as an array must be accessed:</p>
+<blockquote>
+<p>A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &quot;pointer to T&quot; and the other shall have enumeration or integral type. The result is an lvalue of type &quot;T&quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) + (E2) ).</p>
+</blockquote>
+<p>Notice that the rules don't specify the order of expressions to access the array. In other words, it doesn't matter for the language if we use a pointer before the integer or an integer before the pointer.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cassert&gt;
 
-</code></pre></div><p>The quote[index] bellow shows that we can use both orders and the code will compile successfully (<a href="/images/2007/06/disassembling-array.cpp">try it</a>!).</p>
-<p><em><strong>std::cout &lt;&lt; &quot;And the language is: &quot; &lt;&lt; index [ quote ] &lt;&lt; std::endl;</strong></em></p>
-<p>This code doesn't show how obscure we can be. If we use a <strong>constant integer</strong> replacing the index, by example, the code starts to be an <a href="http://www.ioccc.org/">IOCCC</a> participant:</p>
-<p><em><strong>std::cout &lt;&lt; &quot;And the language is: &quot; &lt;&lt; 13 [ quote ] &lt;&lt; std::endl;</strong></em></p>
-<p>Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &quot;universal match&quot; *<strong>( (E1) + (E2) )</strong>. Even bizarre things like this are easy to realize:</p>
-<p><em><strong>std::cout &lt;&lt; 8[&quot;Is this Code right?&quot;] &lt;&lt; std::endl;</strong></em></p>
-<p><em>Obs.: this kind of &quot;obscure rule&quot; hardly will pass in a code review since it is a <strong>useless feature</strong>. Be wise and <strong>don't use it in production code</strong>. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.</em></p>
+int main()
+{
+    char q[] = &quot;Show me your Code, &quot;
+    &quot;and I'll tell you who you are.&quot;;
+    int i = 13;
+	
+    std::cout 
+    &lt;&lt; &quot;And the language is: &quot; 
+    &lt;&lt; q [ i ] 
+    &lt;&lt; std::endl;
+	
+    assert( q[i] == i[q] );
+    assert( q[13] == 13[q] );
+    assert( *(q + i) == &quot;That's C!&quot;[7] );
+	
+    return 13[q] - &quot;CThings&quot;[0];
+} 
+</code></pre>
+<p>The q[i] bellow shows that we can use both orders and the code will compile successfully.</p>
+<pre><code>std::cout 
+  &lt;&lt; &quot;And the language is: &quot; 
+  &lt;&lt; i [ q ] 
+  &lt;&lt; std::endl;
+</code></pre>
+<p>This code doesn't show how obscure we can be. If we use a constant integer replacing the i, by example, the code starts to be an <a href="http://www.ioccc.org/">IOCCC</a> participant:</p>
+<pre><code>std::cout 
+  &lt;&lt; &quot;And the language is: &quot; 
+  &lt;&lt; 13 [ q ] 
+  &lt;&lt; std::endl;
+</code></pre>
+<p>Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &quot;universal match&quot; *( (E1) + (E2) ). Even bizarre things like this are easy to realize:</p>
+<pre><code>std::cout 
+  &lt;&lt; 8[&quot;Is this Code right?&quot;] 
+  &lt;&lt; std::endl;
+</code></pre>
+<p>Obs.: this kind of &quot;obscure rule&quot; hardly will pass in a code review since it is a useless feature. Be wise and don't use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.</p>
 
             
 
@@ -141,7 +158,7 @@ Disassembling the array operator
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/english">english</a> 
     
 
 

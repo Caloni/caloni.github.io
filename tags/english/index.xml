@@ -110,6 +110,24 @@ Update: MouseTool now has a home page and a Source Forge project! Its new name i
 </item>
 
      
+        <item>
+  <title>Disassembling the array operator</title>
+  <link>http://www.caloni.com.br/disassembling-the-array-operator/</link>
+  <pubDate>2007-06-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/disassembling-the-array-operator/</guid>
+  <description>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: pointers.
+When I was reading the K&amp;amp;R book (again) I was enjoying the language specification details in the Appendix A. It was specially odd the description as an array must be accessed:
+ A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &amp;quot;pointer to T&amp;quot; and the other shall have enumeration or integral type. The result is an lvalue of type &amp;quot;T&amp;quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) &#43; (E2) ).
+ Notice that the rules don&#39;t specify the order of expressions to access the array. In other words, it doesn&#39;t matter for the language if we use a pointer before the integer or an integer before the pointer.
+#include &amp;lt;iostream&amp;gt;#include &amp;lt;cassert&amp;gt;int main(){char q[] = &amp;quot;Show me your Code, &amp;quot;&amp;quot;and I&#39;ll tell you who you are.&amp;quot;;int i = 13;std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; q [ i ] &amp;lt;&amp;lt; std::endl;assert( q[i] == i[q] );assert( q[13] == 13[q] );assert( *(q &#43; i) == &amp;quot;That&#39;s C!&amp;quot;[7] );return 13[q] - &amp;quot;CThings&amp;quot;[0];}  The q[i] bellow shows that we can use both orders and the code will compile successfully.
+std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; i [ q ] &amp;lt;&amp;lt; std::endl; This code doesn&#39;t show how obscure we can be. If we use a constant integer replacing the i, by example, the code starts to be an IOCCC participant:
+std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; 13 [ q ] &amp;lt;&amp;lt; std::endl; Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &amp;quot;universal match&amp;quot; *( (E1) &#43; (E2) ). Even bizarre things like this are easy to realize:
+std::cout &amp;lt;&amp;lt; 8[&amp;quot;Is this Code right?&amp;quot;] &amp;lt;&amp;lt; std::endl; Obs.: this kind of &amp;quot;obscure rule&amp;quot; hardly will pass in a code review since it is a useless feature. Be wise and don&#39;t use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.
+</description>
+</item>
+
+     
     
   </channel>
 </rss>
