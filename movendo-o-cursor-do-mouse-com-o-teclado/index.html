@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Bom, vamos deixar de papo furado e &quot;codar&quot;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do _mouse _quando pressionada uma tecla de atalho e voltar à sua..."/>
+        content="Bom, vamos deixar de papo furado e &quot;codar&quot;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do mouse quando pressionada uma tecla de atalho e voltar à sua..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,140 +105,20 @@ Movendo o cursor do mouse com o teclado
           <div class="content">
 
             
-              <p>Bom, vamos deixar de papo furado e &quot;codar&quot;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do _mouse _quando pressionada uma tecla de atalho e voltar à sua posição original quando pressionada outra tecla.</p>
-<p><em>Nota de desculpas: eu sei que estou sendo rabugento demais com o mouse. Já é o segundo artigo que escrevo falando como evitar o mouse e isso deve realmente irritar os fãs desse ponteirinho irritante.</em></p>
-<p><strong>Utilidade do programa</strong></p>
-<p>Como eu já havia dito <a href="http://www.caloni.com.br/google-shortcuts">anteriormente</a>, uso o <em>mouse</em> quando necessário. Quando ele não é necessário ele fica clicando inconscientemente no Windows Explorer, já que utilizo a configuração de <a href="http://www.google.com.br/search?q=windows+explorer+folder+options+single-click">clique único</a>, onde as pastas e arquivos ficam selecionáveis apenas pousando o cursor sobre eles. Eu gosto dessa configuração, exceto pelo comportamento desagradável que ocorre quando mudo para a janela do Windows Explorer e meu <em>mouse</em> ganha vida própria, selecionando alguma pasta ou arquivo e mudando meu foco de seleção. Preparei um <a href="/images/hidemouse.htm">vídeo</a> especialmente para demonstrar essa situação.</p>
-<p>Portanto, o objetivo desse programa é simples e direto: mover o <em>mouse</em> para um canto enquanto eu uso meu teclado. Nada mais, nada menos. Para isso iremos registrar alguns atalhos globais no Windows. Para registrar atalhos globais no Windows utilizamos a função <a href="http://msdn2.microsoft.com/en-us/library/ms911003.aspx">RegisterHotKey</a>.</p>
-<p><em><strong>BOOL RegisterHotKey(HWND hWnd, int id, UINT fsModifiers, UINT vk);</strong></em></p>
-<p>O importante aqui é saber que iremos ser avisados do pressionamento das teclas que registrarmos por meio dessa função através do <em>loop</em> de mensagens da <em>thread</em> que chamar a função.</p>
-<p><strong><em>Loop</em> de mensagens?</strong></p>
-<p>Resumidamente, um <em>loop</em> de mensagens é a maneira definida pelo Windows para <strong>avisar as aplicações</strong> dos eventos que ocorrerem no sistema que são relevantes para as suas janelas. Teremos chance de observar isso mais vezes, mas por enquanto basta ter uma visão geral do fluxo de mensagens que ocorre quando digitarmos a nossa tecla de atalho:</p>
-<p><a href="/images/loop-de-mensagens.gif"><img src="http://i.imgur.com/tO2R0qY.gif" alt="loop-de-mensagens.gif"></a></p>
-<p><strong>O código</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @brief Puts the mouse cursor in a pre-defined place.
-</span><span style="color:#75715e">@author Wanderley Caloni (wanderley@caloni.com.br)
-</span><span style="color:#75715e">@date 07-2007
-</span><span style="color:#75715e">*/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// Useful stuff.
-</span><span style="color:#75715e">//
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define SIZEOF_ARRAY(a) ( sizeof(a) / sizeof(a[0]) )
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// Constant values.
-</span><span style="color:#75715e">//
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define HIDECURSOR_ENABLE 0x0000 </span><span style="color:#75715e">///&lt; Restore the cursor position.
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define HIDECURSOR_DISABLE 0x0001 </span><span style="color:#75715e">///&lt; &#39;Hide&#39; the cursor position.
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define HIDECURSOR_QUIT 0x0002 </span><span style="color:#75715e">///&lt; Quit the program.
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/** And Bill said: &#39;WinMain!&#39;
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">int</span> WINAPI <span style="color:#a6e22e">WinMain</span>(HINSTANCE, HINSTANCE, PSTR, <span style="color:#66d9ef">int</span>)
-{
-	DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
-
-	<span style="color:#75715e">// First we try to register all three hot keys.
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span>( RegisterHotKey(NULL, HIDECURSOR_DISABLE, MOD_WIN, VK_DELETE) )
-	{
-		<span style="color:#66d9ef">if</span>( RegisterHotKey(NULL, HIDECURSOR_ENABLE, MOD_WIN, VK_INSERT) )
-		{
-			<span style="color:#66d9ef">if</span>( RegisterHotKey(NULL, HIDECURSOR_QUIT, MOD_WIN, VK_END) )
-			{
-				<span style="color:#75715e">// Set the configuration path.
-</span><span style="color:#75715e"></span>				TCHAR configPath[MAX_PATH];
-
-				<span style="color:#66d9ef">if</span>( GetCurrentDirectory(SIZEOF_ARRAY(configPath), configPath) )
-					lstrcat(configPath, _T(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">HideCursor.ini&#34;</span>));
-				<span style="color:#66d9ef">else</span>
-					lstrcpy(configPath, _T(<span style="color:#e6db74">&#34;.</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">HideCursor.ini&#34;</span>));
-
-				
-				<span style="color:#75715e">// Position to move the cursor when pressed the disable hot key.
-</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">const</span> POINT disabledPos <span style="color:#f92672">=</span> 
-				{
-					GetPrivateProfileInt(_T(<span style="color:#e6db74">&#34;HideCursor&#34;</span>), _T(<span style="color:#e6db74">&#34;DisableX&#34;</span>), 
-						<span style="color:#ae81ff">300</span>, configPath),
-					GetPrivateProfileInt(_T(<span style="color:#e6db74">&#34;HideCursor&#34;</span>), _T(<span style="color:#e6db74">&#34;DisableY&#34;</span>), 
-						<span style="color:#ae81ff">0</span>, configPath)
-				};
-
-				
-				<span style="color:#75715e">// Where we move back the cursor when pressed the enable hot key.
-</span><span style="color:#75715e"></span>				POINT enabledPos <span style="color:#f92672">=</span> disabledPos;
-				GetCursorPos(<span style="color:#f92672">&amp;</span>enabledPos);
-
-				
-				<span style="color:#75715e">// While everything is allright, handle the hot keys.
-</span><span style="color:#75715e"></span>				MSG msg <span style="color:#f92672">=</span> { };
-				<span style="color:#66d9ef">bool</span> quit <span style="color:#f92672">=</span> false;
-				
-				<span style="color:#66d9ef">while</span>( <span style="color:#f92672">!</span> quit <span style="color:#f92672">&amp;&amp;</span> GetMessage(<span style="color:#f92672">&amp;</span>msg, NULL, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>) )
-				{
-					<span style="color:#75715e">// Hey, it&#39;s a hot key!
-</span><span style="color:#75715e"></span>					<span style="color:#66d9ef">if</span>( msg.message <span style="color:#f92672">==</span> WM_HOTKEY )
-					{
-						<span style="color:#66d9ef">switch</span>( msg.wParam )
-						{
-						<span style="color:#75715e">// Moves the cursor to the pre-defined place.
-</span><span style="color:#75715e"></span>						<span style="color:#66d9ef">case</span> HIDECURSOR_DISABLE:
-							{
-								POINT currPos <span style="color:#f92672">=</span> disabledPos;
-								GetCursorPos(<span style="color:#f92672">&amp;</span>currPos);
-
-								<span style="color:#75715e">// If the enabled and disabled positions are different
-</span><span style="color:#75715e"></span>								<span style="color:#75715e">// update the enable position and defines a new pos.
-</span><span style="color:#75715e"></span>								<span style="color:#66d9ef">if</span>( currPos.x <span style="color:#f92672">!=</span> disabledPos.x 
-									<span style="color:#f92672">||</span> currPos.y <span style="color:#f92672">!=</span> disabledPos.y )
-								{
-									enabledPos <span style="color:#f92672">=</span> currPos;
-									SetCursorPos(disabledPos.x, disabledPos.y);
-								}
-							}
-							<span style="color:#66d9ef">break</span>;
-
-						<span style="color:#75715e">// Restores the cursor to the last enabled place.
-</span><span style="color:#75715e"></span>						<span style="color:#66d9ef">case</span> HIDECURSOR_ENABLE:
-							SetCursorPos(enabledPos.x, enabledPos.y);
-							<span style="color:#66d9ef">break</span>;
-
-						<span style="color:#75715e">// Quits the program.
-</span><span style="color:#75715e"></span>						<span style="color:#66d9ef">case</span> HIDECURSOR_QUIT:
-							quit <span style="color:#f92672">=</span> true;
-							<span style="color:#66d9ef">break</span>;
-						}
-					}
-				}
-				
-				UnregisterHotKey(NULL, HIDECURSOR_QUIT);
-			}
-			<span style="color:#66d9ef">else</span> 
-				ret <span style="color:#f92672">=</span> GetLastError();
-
-			UnregisterHotKey(NULL, HIDECURSOR_ENABLE);
-		}
-		<span style="color:#66d9ef">else</span> 
-			ret <span style="color:#f92672">=</span> GetLastError();
-		
-		UnregisterHotKey(NULL, HIDECURSOR_DISABLE);
-	}
-	<span style="color:#66d9ef">else</span> 
-		ret <span style="color:#f92672">=</span> GetLastError();
-
-	<span style="color:#66d9ef">return</span> ExitProcess(ret), ret;
-} 
-
-</code></pre></div><p>É possível baixar o fonte junto de um projeto para Visual Studio 2005 <a href="/images/hidecursor.7z">aqui</a>.</p>
-<p><strong>Atualização</strong>. É possível compilar diretamente o exemplo mostrado acima simplesmente copiando e colando em um arquivo C(PP). Para fazer isso com o Visual Studio ou SDK, e considerando que o arquivo se chame nomouse.cpp, digite os seguintes comandos:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmd" data-lang="cmd">     cl /c nomouse.cpp
-     link nomouse.obj user32.lib
-</code></pre></div><p><strong>A explicação</strong></p>
-<p>Como você pode ver o código não tem muitos segredos. Para registrar os atalhos, usamos a função RegisterHotKey. Para manipular os eventos usamos o tal <em>loop</em> de mensagens e manipulamos a mensagem WM_HOTKEY de acordo com a tecla pressionada. Para mover o <em>mouse</em> usamos a função <a href="http://msdn2.microsoft.com/en-us/library/ms648394.aspx">SetCursorPos</a> (e para armazenar a posição atual <a href="http://msdn2.microsoft.com/en-us/library/ms648390.aspx">GetCursorPos</a>). Por fim, para ler configurações de um .ini usamos a função <a href="http://msdn2.microsoft.com/en-us/library/ms724345.aspx">GetPrivateProfileInt</a>. Abaixo um exemplo desse arquivo texto:</p>
-<p><em><strong>[HideCursor]
+              <p>Bom, vamos deixar de papo furado e &quot;codar&quot;. Para essa primeira tentativa iremos desenvolver um programa que move o cursor do mouse quando pressionada uma tecla de atalho e voltar à sua posição original quando pressionada outra tecla.</p>
+<blockquote>
+<p>Nota de desculpas: eu sei que estou sendo rabugento demais com o mouse. Já é o segundo artigo que escrevo falando como evitar o mouse e isso deve realmente irritar os fãs desse ponteirinho irritante.</p>
+</blockquote>
+<p>Como eu já havia dito anteriormente, uso o mouse quando necessário. Quando ele não é necessário ele fica clicando inconscientemente no Windows Explorer, já que utilizo a configuração de clique único, onde as pastas e arquivos ficam selecionáveis apenas pousando o cursor sobre eles. Eu gosto dessa configuração, exceto pelo comportamento desagradável que ocorre quando mudo para a janela do Windows Explorer e meu mouse ganha vida própria, selecionando alguma pasta ou arquivo e mudando meu foco de seleção.</p>
+<p>Portanto, o objetivo desse programa é simples e direto: mover o mouse para um canto enquanto eu uso meu teclado. Nada mais, nada menos. Para isso iremos registrar alguns atalhos globais no Windows. Para registrar atalhos globais no Windows utilizamos a função do Windows API RegisterHotKey e é o que estou usando no <a href="/code/registerhotkey.cpp">código</a>. O importante aqui é saber que iremos ser avisados do pressionamento das teclas que registrarmos por meio dessa função através do loop de mensagens da thread que chamar a função.</p>
+<p>Um loop de mensagens é a maneira definida pelo Windows para avisar as aplicações dos eventos que ocorrerem no sistema que são relevantes para as suas janelas. Teremos chance de observar isso mais vezes, mas por enquanto basta ter uma visão geral do fluxo de mensagens que ocorre quando digitarmos a nossa tecla de atalho.</p>
+<p><img src="/img/windows_loop_mensagens_input.gif" alt="Ilustração do loop de mensagens no Windows para input do usuário"></p>
+<p>Como você pode ver o <a href="/code/registerhotkey.cpp">código</a> não tem muitos segredos. Para registrar os atalhos, usamos a função RegisterHotKey. Para manipular os eventos usamos o tal loop de mensagens e manipulamos a mensagem WM_HOTKEY de acordo com a tecla pressionada. Para mover o mouse usamos a função SetCursorPos (e para armazenar a posição atual GetCursorPos). Por fim, para ler configurações de um .ini usamos a função GetPrivateProfileInt. Abaixo um exemplo desse arquivo texto:</p>
+<pre><code>[HideCursor]
 DisableX=600
-DisableY=0</strong></em></p>
-<p><em>Nota final: você acha que os atalhos &quot;WinKey + Del&quot;, &quot;WinKey + Insert&quot; e &quot;WinKey + End&quot; foram uma má escolha? Concordo. Fiz de propósito. Que tal customizar o programa para que as teclas sejam lidas do arquivo de configuração HideCursor.ini?</em></p>
+DisableY=0
+</code></pre>
+<p>Você acha que os atalhos &quot;WinKey + Del&quot;, &quot;WinKey + Insert&quot; e &quot;WinKey + End&quot; foram uma má escolha para essa função de esconder o mouse? Concordo. Fiz de propósito. Que tal customizar o programa para que as teclas sejam lidas do arquivo de configuração HideCursor.ini?</p>
 
             
 
@@ -247,7 +127,7 @@ DisableY=0</strong></em></p>
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     
 
 

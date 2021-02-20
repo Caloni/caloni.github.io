@@ -105,248 +105,77 @@ Antidebug: interpretação baseada em exceção (parte 1)
           <div class="content">
 
             
-              <p>Um depurador utiliza <em>breakpoints</em> para &quot;paralisar&quot; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como <strong>int 3</strong>. Essa instrução gera uma exceção - exceção de <em>breakpoint</em> - que é capturada pelo sistema operacional e repassada para o <strong>código de tratamento</strong> dessa exceção. Em programas sendo depurados esse código está localizado no depurador. Em programas &quot;livres&quot; esse código normalmente não existe e ao acontecer essa exceção o aplicativo simplesmente &quot;capota&quot;.</p>
-<p>A idéia principal na proteção baseada em exceção é tomarmos conta dessas exceções durante a execução do aplicativo. Fazendo isso podemos nos aproveitar desse fato e, no código responsável por tratar a exceção, <strong>executar o código protegido</strong>. A solução discutida aqui é parecido com um <strong>interpretador de scripts</strong>. Consiste basicamente de duas <em>threads</em>. A primeira thread <strong>lê uma seqüência de instruções</strong> e manda a segunda thread <strong>executá-las passo a passo</strong>. Para fazer isso a segunda thread usa um conjunto de <strong>pequenas funções</strong> com blocos de código bem definidos. Em pseudocódigo isso ficaria assim:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// the well-defined functions are functional blocks of code and have
-</span><span style="color:#75715e">// the same signature, allowing the creation of a pointer array to them
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">WellDefinedFunction1</span>( args );
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">WellDefinedFunction2</span>( args );
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">WellDefinedFunction3</span>( args );
-<span style="color:#75715e">//...
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">WellDefinedFunctionN</span>( args );
+              <p>Um depurador utiliza breakpoints para &quot;paralisar&quot; momentaneamente a execução do programa sendo depurado. Para isso ele se utiliza de uma bem conhecida instrução conhecida como int 3. Essa instrução gera uma exceção -- exceção de breakpoint -- que é capturada pelo sistema operacional e repassada para o código de tratamento dessa exceção. Em programas sendo depurados esse código está localizado no depurador. Em programas &quot;livres&quot; esse código normalmente não existe e ao acontecer essa exceção o aplicativo simplesmente &quot;capota&quot;.</p>
+<p>A idéia principal na proteção baseada em exceção é tomarmos conta dessas exceções durante a execução do aplicativo. Fazendo isso podemos nos aproveitar desse fato e, no código responsável por tratar a exceção, executar o código protegido. A solução discutida aqui é parecido com um interpretador de scripts. Consiste basicamente de duas threads. A primeira thread lê uma seqüência de instruções e manda a segunda thread executá-las passo a passo. Para fazer isso a segunda thread usa um conjunto de pequenas funções com blocos de código bem definidos. Em pseudocódigo isso ficaria assim:</p>
+<pre><code>void Function1();
+void Function2();
+void Function3();
+//...
+void FunctionN();
 
-<span style="color:#75715e">// this thread stays forever waiting execution commands from some
-</span><span style="color:#75715e">// well-defined function. the parameter that it receives is the function number
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ExecutionThread</span>()
+void ExecThread()
 {
-	<span style="color:#75715e">// 2. ad aeternum
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">while</span>( true )
-	{
-		<span style="color:#75715e">// 5. it runs some well-defined function by number
-</span><span style="color:#75715e"></span>		ExecuteWellDefinedFunction( functionNumber );
-	}
+    while( true )
+    {
+        ExecFunction(funcNumber);
+    }
 }
 
-<span style="color:#75715e">// the well-defined functions script is an integer array indicating 
-</span><span style="color:#75715e">// the number for the next function that is going to be called
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> FunctionsToBeCalled[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">982</span>, n };
+int Functions[] = { 
+  3, 4, 1, 2, 34, 66, 982
+};
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">Start</span>()
+int Start()
 {
-	<span style="color:#75715e">// 1. we create the thread that is going to run commands
-</span><span style="color:#75715e"></span>	CreateThread( ExecutionThread );
+    CreateThread(ExecThread);
 
-	<span style="color:#75715e">// 3. for each script item (each function number)
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">sizeof</span>(FunctionsToBeCalled); <span style="color:#f92672">++</span>i )
-	{
-		<span style="color:#75715e">// 4. tells the thread to run the function number N
-</span><span style="color:#75715e"></span>		TellExecutionThreadToExecuteWellDefinedFunction( FunctionToBeCalled[i] );
-	}
+    for( 0 to size(Functions) )
+    {
+        ExecThreadToExecFunc(Function[i]);
+    }
 
-	<span style="color:#75715e">// 6. end of execution.
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    return 0;
 } 
-
-</code></pre></div><p>A proteção ainda não está aí. Mas fará <strong>parte intrínseca</strong> da <em>thread</em> de execução. Tudo que precisamos fazer é adicionar um <strong>tratamento de exceções</strong> e fazer chover ints 3. As exceções disparadas pela int 3 são capturadas por uma segunda função que antes de retornar o controle executa a próxima instrução enfileirada:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// filter exceptions that were thrown by the thread below
-</span><span style="color:#75715e"></span>DWORD <span style="color:#a6e22e">ExceptionFilterButExecuteWellDefinedFunction</span>()
+</code></pre>
+<p>A proteção ainda não está aí. Mas fará parte intrínseca da thread de execução. Tudo que precisamos fazer é adicionar um tratamento de exceções e fazer chover ints 3. As exceções disparadas pela int 3 são capturadas por uma segunda função que antes de retornar o controle executa a próxima instrução enfileirada:</p>
+<pre><code>DWORD ExceptFilter()
 {
-	<span style="color:#75715e">// 5. run some well-defined function by number
-</span><span style="color:#75715e"></span>	ExecuteWellDefinedFunction( number );
+    ExecFunction(number);
+  // goes to except code
+    return EXCEPTION_EXECUTE_HANDLER;
+}
 
-	<span style="color:#66d9ef">return</span> EXCEPTION_EXECUTE_HANDLER; <span style="color:#75715e">// goes to except code
-</span><span style="color:#75715e"></span>}
-
-<span style="color:#75715e">// this thread stays forever waiting execution commands from a 
-</span><span style="color:#75715e">// well-defined function. its &#34;parameter&#34; is the function number
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ExecutionThread</span>()
+void ExecThread()
 {
-	<span style="color:#75715e">// 2. ad aeternum
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">while</span>( true )
-	{
-		<span style="color:#66d9ef">__try</span>
-		{
-			<span style="color:#66d9ef">__asm</span> <span style="color:#66d9ef">int</span> <span style="color:#ae81ff">3</span> <span style="color:#75715e">// breakpoint exception
-</span><span style="color:#75715e"></span>
-			<span style="color:#75715e">// it stops the debugger if we have an attached debugger in
-</span><span style="color:#75715e"></span>			<span style="color:#75715e">// the process, or throws an exception if there is no one
-</span><span style="color:#75715e"></span>		}
-		<span style="color:#66d9ef">__except</span>( ExceptionFilterButExecuteWellDefinedFunction() )
-		{
-			<span style="color:#75715e">// it does nothing. here is NOT where is the code (obvious, huh?)
-</span><span style="color:#75715e"></span>		}
+    while( true )
+    {
+        __try
+        {
+      // breakpoint exception
+            __asm int 3
 
-		Sleep( someTime ); <span style="color:#75715e">// give some time
-</span><span style="color:#75715e"></span>	}
+            // it stops the debugger 
+      // if we have an attached 
+      // debugger in the process
+      // or throws an exception 
+      // if there is no one
+        }
+        __except( ExceptFilter() )
+        {
+            // does nothing
+        }
+
+        Sleep(someTime);
+    }
 } 
-
-</code></pre></div><p>O algoritmo da <em>thread</em> de execução continua o mesmo. Só que o ponto onde cada instrução é executada depende do lançamento de uma exceção. Note que essa exceção <strong>tem que ocorrer</strong> para que a chamada da próxima instrução ocorra. Isso é <strong>fundamental</strong>, pois dessa forma ninguém pode simplesmente retirar o int 3 do código para evitar o lançamento da exceção. Se fizer isso, então mais nenhuma instrução será executada.</p>
-<p>Na prática, se alguém tentar depurar um programa desse tipo vai ter que enfrentar dezenas ou centenas de lançamento de exceções até descobrir o que está acontecendo. Claro que, como em toda a proteção de software, ela não é definitiva; tem por função <strong>dificultar o trabalho</strong> de quem tenta entender o software. Isso não vai parar aqueles que são <a href="http://www.codebreakers-journal.com/">realmente bons no que fazem</a>.</p>
-<p><strong>Nada é de graça</strong></p>
-<p>O preço pago por essa proteção fica na <strong>visibilidade e compreensão</strong> do código-fonte comprometidos pelo uso da técnica. A programação fica baseada em uma <strong>máquina de estados</strong> e as funções ficam limitadas a algum tipo de padronização no comportamento. Quando mais <strong>granular</strong> for o <em>pseudoscript</em>, ou seja, quanto menores forem os blocos de código contido nas minifunções, mais difícil de entender o código será.</p>
-<p>O exemplo abaixo recebe entrada por um prompt de comandos e <strong>mapeia a primeira palavra digitada</strong> para o índice de uma função que deve ser chamada. O resto da linha digitada é passado como parâmetro para essa função. A <em>thread</em> de interpretação lê a entrada do usuário e escreve em uma <strong>variável-<em>string</em> global</strong>, ao mesmo tempo que a <em>thread</em> de execução espera essa <em>string</em> ser preenchida para executar a ação. Foi usado o <em>pool</em> dessa variável para o código ficar mais simples, mas o ideal seria algum tipo de sincronismo, como <a href="http://msdn.microsoft.com/library/en-us/dllproc/base/createevent.asp">eventos</a>, por exemplo. Baixe o código-fonte <a href="/images/antidebug.cpp">aqui</a>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @brief Sample demonstrating how to implemente antidebug in a code exception based.
-</span><span style="color:#75715e">@date jul-2007
-</span><span style="color:#75715e">@author Wanderley Caloni
-</span><span style="color:#75715e">*/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sstream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-
-<span style="color:#75715e">// show available commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Help</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span>)
-{
-
-   cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;AntiDebug Test Program</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
-      <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; Echo string to be printed</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
-      <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; System command [params]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
-      <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; Quit</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>;
-   <span style="color:#66d9ef">return</span> true;
-}
-
-<span style="color:#75715e">// run system/shell command
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">System</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> cmd)
-{
-   system(cmd.c_str());
-   <span style="color:#66d9ef">return</span> true;
-}
-
-<span style="color:#75715e">// print string to output
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Echo</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> str)
-{
-   cout <span style="color:#f92672">&lt;&lt;</span> str <span style="color:#f92672">&lt;&lt;</span> endl;
-   <span style="color:#66d9ef">return</span> true;
-}
-
-<span style="color:#75715e">// quit program
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Quit</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span>)
-{
-   exit(<span style="color:#ae81ff">0</span>);
-   <span style="color:#66d9ef">return</span> false;
-}
-
-<span style="color:#75715e">// minifunctions array
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> (<span style="color:#f92672">*</span> (g_miniFuncs[]) )(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span>) <span style="color:#f92672">=</span> { Help, System, Echo, Quit };
-
-<span style="color:#75715e">// &#34;minifunction -&gt; index&#34; mapping
-</span><span style="color:#75715e"></span>map<span style="color:#f92672">&lt;</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g_miniFuncIdx;
-
-<span style="color:#75715e">// start minifunctions mapping
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitializeMiniFuncIdx</span>()
-{
-   g_miniFuncIdx[<span style="color:#e6db74">&#34;Help&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-   g_miniFuncIdx[<span style="color:#e6db74">&#34;System&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-   g_miniFuncIdx[<span style="color:#e6db74">&#34;Echo&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-   g_miniFuncIdx[<span style="color:#e6db74">&#34;Quit&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-}
-
-<span style="color:#75715e">// last line read from input
-</span><span style="color:#75715e"></span>string g_currentLine;
-
-<span style="color:#75715e">// how much time are we going to wait for the next line?
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> DWORD g_waitTime <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
-
-<span style="color:#75715e">// run minifunctions
-</span><span style="color:#75715e"></span>DWORD <span style="color:#a6e22e">FilterException</span>()
-{
-   DWORD ret <span style="color:#f92672">=</span> EXCEPTION_CONTINUE_EXECUTION;
-
-   <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span> g_currentLine.empty() )
-   {
-      istringstream line(g_currentLine);
-      g_currentLine.clear();
-
-      string function;
-      string params;
-
-      line <span style="color:#f92672">&gt;&gt;</span> function;
-
-      getline(line, params);
-
-      <span style="color:#75715e">// 5. run some well-defined function by number
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span> g_miniFuncs[g_miniFuncIdx[function] ](params) )
-         ret <span style="color:#f92672">=</span> EXCEPTION_CONTINUE_SEARCH;
-   }
-
-   <span style="color:#66d9ef">return</span> ret;
-}
-
-DWORD WINAPI <span style="color:#a6e22e">AntiDebugThread</span>(PVOID)
-{
-   InitializeMiniFuncIdx(); <span style="color:#75715e">// start minifunction mapping
-</span><span style="color:#75715e"></span>
-   <span style="color:#75715e">// 2. ad aeternum (or almost)
-</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">while</span>( true )
-
-   {
-      <span style="color:#75715e">//FilterException();
-</span><span style="color:#75715e"></span>
-      <span style="color:#66d9ef">__try</span> <span style="color:#75715e">// the extern try waits for an exit command
-</span><span style="color:#75715e"></span>      {
-         <span style="color:#66d9ef">__try</span> <span style="color:#75715e">// the intern try stays generating exceptions continuously
-</span><span style="color:#75715e"></span>         {
-            <span style="color:#66d9ef">__asm</span> <span style="color:#66d9ef">int</span> <span style="color:#ae81ff">3</span>
-         }
-         <span style="color:#75715e">// FilterException is the function who runs minifunctions
-</span><span style="color:#75715e"></span>         <span style="color:#66d9ef">__except</span>( FilterException() )
-         {
-				<span style="color:#75715e">// we can put some fake code here
-</span><span style="color:#75715e"></span>         }
-      }
-      <span style="color:#66d9ef">__except</span>( EXCEPTION_EXECUTE_HANDLER )
-      {
-         <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// get out from ad aeternum (to the limbo?)
-</span><span style="color:#75715e"></span>      }
-
-      Sleep(g_waitTime);
-   }
-
-   <span style="color:#66d9ef">return</span> ERROR_SUCCESS;
-}
-
-<span style="color:#75715e">/** and God said: &#39;int main!&#39;
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-
-   DWORD ret <span style="color:#f92672">=</span> ERROR_SUCCESS;
-   DWORD tid <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-   HANDLE antiDebugThr;
-
-   <span style="color:#75715e">// 1. we create the thread that is going to run the commands
-</span><span style="color:#75715e"></span>   antiDebugThr <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, AntiDebugThread, NULL, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span>tid);;
-
-   <span style="color:#66d9ef">if</span>( antiDebugThr )
-   {
-      <span style="color:#75715e">// 3. for each item in the script (function numbers)
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">while</span>( cin )
-      {
-         cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Type something</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-
-         <span style="color:#75715e">// 4. tells the thread to run the function number N
-</span><span style="color:#75715e"></span>         getline(cin, g_currentLine);
-
-         <span style="color:#66d9ef">if</span>( WaitForSingleObject(antiDebugThr, g_waitTime <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">!=</span> WAIT_TIMEOUT )
-            <span style="color:#66d9ef">break</span>;
-      }
-
-      GetExitCodeThread(antiDebugThr, <span style="color:#f92672">&amp;</span>ret);
-      CloseHandle(antiDebugThr), antiDebugThr <span style="color:#f92672">=</span> NULL;
-   }
-
-   <span style="color:#75715e">// 6. end of execution.
-</span><span style="color:#75715e"></span>   <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
-} 
-
-</code></pre></div><p>O <strong>ponto forte</strong> da proteção é que a pessoa precisa entender o que está acontecendo para tomar alguma atitude inteligente para solucionar o &quot;problema&quot;. O <strong>ponto fraco</strong> é que após entendido o problema a solução torna-se fácil de visualizar. Tão fácil que eu nem pretendo citar aqui.</p>
-<p>Futuramente veremos uma maneira de tornar as coisas mais legíveis e usáveis no dia-a-dia de um programador de <em>software</em> de segurança.</p>
+</code></pre>
+<p>O algoritmo da thread de execução continua o mesmo. Só que o ponto onde cada instrução é executada depende do lançamento de uma exceção. Note que essa exceção tem que ocorrer para que a chamada da próxima instrução ocorra. Isso é fundamental, pois dessa forma ninguém pode simplesmente retirar o int 3 do código para evitar o lançamento da exceção. Se fizer isso, então mais nenhuma instrução será executada.</p>
+<p>Na prática, se alguém tentar depurar um programa desse tipo vai ter que enfrentar dezenas ou centenas de lançamento de exceções até descobrir o que está acontecendo. Claro que, como em toda a proteção de software, ela não é definitiva; tem por função dificultar o trabalho de quem tenta entender o software. Isso não vai parar aqueles que são <a href="http://www.codebreakers-journal.com">realmente bons no que fazem</a>.</p>
+<p>O preço pago por essa proteção fica na visibilidade e compreensão do código-fonte comprometidos pelo uso da técnica. A programação fica baseada em uma máquina de estados e as funções ficam limitadas a algum tipo de padronização no comportamento. Quando mais granular for o pseudoscript, ou seja, quanto menores forem os blocos de código contido nas minifunções, mais difícil de entender o código será.</p>
+<p>Fiz um <a href="/code/antidebug-exception.cpp">código de exemplo</a> que recebe entrada por um prompt de comandos e mapeia a primeira palavra digitada para o índice de uma função que deve ser chamada. O resto da linha digitada é passado como parâmetro para essa função. A thread de interpretação lê a entrada do usuário e escreve em uma variável-string global, ao mesmo tempo que a thread de execução espera essa string ser preenchida para executar a ação.</p>
+<p>Foi usado o pool dessa variável para o código ficar mais simples, mas o ideal seria algum tipo de sincronismo, como eventos, por exemplo.</p>
+<p>O ponto forte da proteção é que a pessoa precisa entender o que está acontecendo para tomar alguma atitude inteligente para solucionar o &quot;problema&quot;. O ponto fraco é que após entendido o problema a solução torna-se fácil de visualizar. Tão fácil que eu nem pretendo citar aqui.</p>
+<p>Futuramente veremos uma maneira de tornar as coisas mais legíveis e usáveis no dia-a-dia de um programador de software de segurança.</p>
 
             
 
@@ -355,7 +184,7 @@ DWORD WINAPI <span style="color:#a6e22e">AntiDebugThread</span>(PVOID)
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     
 
 
