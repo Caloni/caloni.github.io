@@ -13,20 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - História da linguagem C - parte 2</title>
+  <title>Blogue do Caloni - História da Linguagem C: Parte 2</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="História da linguagem C - parte 2"/>
+  <meta property="og:title" content="História da Linguagem C: Parte 2"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/historia-da-linguagem-c-parte-2/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados Srs. dos..."/>
+        content="No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados senhores..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -83,7 +83,7 @@
       <div class="container">
         <p class="title">
 
-História da linguagem C - parte 2
+História da Linguagem C: Parte 2
 
 </p>
 
@@ -105,80 +105,74 @@ História da linguagem C - parte 2
           <div class="content">
 
             
-              <p>No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados Srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.</p>
-<p><img src="http://i.imgur.com/PMj2AF4.jpg" alt=""></p>
-<p><em>Ken Thompson (esquerda) e Dennis Ritchie (direita). Fonte: wikipedia.org.</em></p>
-<p>O bom de B era sua rica expressividade e sua simples gramática. Tão simples que o <a href="http://cm.bell-labs.com/cm/cs/who/dmr/kbman.html">manual da linguagem</a> consistia de apenas 30 páginas. Isso é menos do que as <a href="http://msdn.microsoft.com/library/en-us/vccelng/htm/eleme_5.asp">32 palavras reservadas de C</a>. As instruções eram definidas em termos de if's e goto's e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo - geralmente a <a href="http://en.wikipedia.org/wiki/Word_%28computer_science%29">word</a> da plataforma - que utilizada em expressões definiam seu tipo; esse padrão de bits era chamado rvalue. Imagine a linguagem C de hoje em dia com apenas um tipo: <strong>int</strong>.</p>
-<p>Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o <strong>char</strong> da época ocupava tanto quanto o <strong>int</strong>. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:</p>
+              <p>No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados senhores dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.</p>
+<p><img src="/img/kthompson_dritchie.jpg" alt="Ken Thompson (esquerda) e Dennis Ritchie (direita). Fonte: wikipedia.org"></p>
+<p>O bom de B era sua rica expressividade e sua simples gramática. Tão simples que o <a href="http://cm.bell-labs.co/who/dmr/kbman.html">manual da linguagem</a> consistia de apenas 30 páginas. Isso é menos do que as 32 palavras reservadas de C. As instruções eram definidas em termos de ifs e gotos e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo, geralmente a word, ou palavra, da plataforma, que utilizada em expressões definiam seu tipo. Esse padrão de bits era chamado rvalue. Imagine a linguagem C de hoje em dia com apenas um tipo: int.</p>
+<p>Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o char da época ocupava tanto quanto o int. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:</p>
 <pre><code>c = char(string, i); /* the i-th character of the string is returned */
-</code></pre><p>Sim! <strong>Char</strong> era uma função, um conversor de &quot;tipos&quot;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C e C++:</p>
+</code></pre>
+<p>Sim! Char era uma função, um conversor de &quot;tipos&quot;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C e C++:</p>
 <pre><code>int getchar( void ); // read a character from stdin
 int putchar( int c ); // writes a character to stdout
 void *memset( void *dest, int c, size_t count ); // sets buffers to a specified character
-</code></pre><p>Segue o exemplo de uma função na linguagem B, hoje muito famosa:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* The following function is a general formatting, printing, and
-</span><span style="color:#75715e">   conversion subroutine.  The first argument is a format string.
-</span><span style="color:#75715e">   Character sequences of the form `%x&#39; are interpreted and cause
-</span><span style="color:#75715e">   conversion of type &#39;x&#39; of the next argument, other character
-</span><span style="color:#75715e">   sequences are printed verbatim.   Thus
-</span><span style="color:#75715e">
-</span><span style="color:#75715e">	printf(&#34;delta is %d*n&#34;, delta);
-</span><span style="color:#75715e">
-</span><span style="color:#75715e">	will convert the variable delta to decimal (%d) and print the
-</span><span style="color:#75715e">	string with the converted form of delta in place of %d.   The
-</span><span style="color:#75715e">	conversions %d-decimal, %o-octal, *s-string and %c-character
-</span><span style="color:#75715e">	are allowed.
-</span><span style="color:#75715e">
-</span><span style="color:#75715e">	This program calls upon the function `printn&#39;. (see section
-</span><span style="color:#75715e">	9.1) */</span>
+</code></pre>
+<p>Segue o exemplo de uma função na linguagem B, hoje muito famosa:</p>
+<pre><code>/* The following function is a general formatting, printing, and
+   conversion subroutine.  The first argument is a format string.
+   Character sequences of the form `%x' are interpreted and cause
+   conversion of type 'x' of the next argument, other character
+   sequences are printed verbatim.   Thus
+
+    printf(&quot;delta is %d*n&quot;, delta);
+
+    will convert the variable delta to decimal (%d) and print the
+    string with the converted form of delta in place of %d.   The
+    conversions %d-decimal, %o-octal, *s-string and %c-character
+    are allowed.
+
+    This program calls upon the function `printn'. (see section
+    9.1) */
 
 printf(fmt, x1,x2,x3,x4,x5,x6,x7,x8,x9) {
-	extrn printn, <span style="color:#66d9ef">char</span>, putchar;
-	<span style="color:#66d9ef">auto</span> adx, x, c, i, j;
+    extrn printn, char, putchar;
+    auto adx, x, c, i, j;
 
-	i<span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;	<span style="color:#75715e">/* fmt index */</span>
-	adx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x1;	<span style="color:#75715e">/* argument pointer */</span>
+    i= 0;	/* fmt index */
+    adx = &amp;x1;	/* argument pointer */
 loop :
-	<span style="color:#66d9ef">while</span>((c<span style="color:#f92672">=</span><span style="color:#66d9ef">char</span>(fmt,i<span style="color:#f92672">++</span>) ) <span style="color:#f92672">!=</span> <span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">%</span><span style="color:#960050;background-color:#1e0010">&#39;</span>) {
-		<span style="color:#66d9ef">if</span>(c <span style="color:#f92672">==</span> <span style="color:#960050;background-color:#1e0010">`</span><span style="color:#f92672">*</span>e<span style="color:#960050;background-color:#1e0010">&#39;</span>)
-			<span style="color:#66d9ef">return</span>;
-		putchar(c);
-	}
-	x <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>adx<span style="color:#f92672">++</span>;
-	<span style="color:#66d9ef">switch</span> c <span style="color:#f92672">=</span> <span style="color:#66d9ef">char</span>(fmt,i<span style="color:#f92672">++</span>) {
+    while((c=char(fmt,i++) ) != `%') {
+        if(c == `*e')
+            return;
+        putchar(c);
+    }
+    x = *adx++;
+    switch c = char(fmt,i++) {
 
-	<span style="color:#66d9ef">case</span> <span style="color:#960050;background-color:#1e0010">`</span>d<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> <span style="color:#75715e">/* decimal */</span>
-	<span style="color:#66d9ef">case</span> <span style="color:#960050;background-color:#1e0010">`</span>o<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">:</span> <span style="color:#75715e">/* octal */</span>
-		<span style="color:#66d9ef">if</span>(x <span style="color:#f92672">&lt;</span> O) {
-			x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>x ;
-			putchar(<span style="color:#e6db74">&#39;-&#39;</span>);
-		}
-		printn(x, c<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;o&#39;</span><span style="color:#f92672">?</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>O);
-		<span style="color:#66d9ef">goto</span> loop;
+    case `d': /* decimal */
+    case `o': /* octal */
+        if(x &lt; O) {
+            x = -x ;
+            putchar('-');
+        }
+        printn(x, c=='o'?8:1O);
+        goto loop;
 
-	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;c&#39;</span> <span style="color:#f92672">:</span> <span style="color:#75715e">/* char */</span>
-		putchar(x);
-		<span style="color:#66d9ef">goto</span> loop;
+    case 'c' : /* char */
+        putchar(x);
+        goto loop;
 
-	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;s&#39;</span><span style="color:#f92672">:</span> <span style="color:#75715e">/* string */</span>
-		<span style="color:#66d9ef">while</span>(c<span style="color:#f92672">=</span><span style="color:#66d9ef">char</span>(x, j<span style="color:#f92672">++</span>)) <span style="color:#f92672">!=</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">*</span>e<span style="color:#960050;background-color:#1e0010">&#39;</span>)
-			putchar(c);
-		<span style="color:#66d9ef">goto</span> loop;
-	}
-	putchar(<span style="color:#e6db74">&#39;%&#39;</span>) ;
-	i<span style="color:#f92672">--</span>;
-	adx<span style="color:#f92672">--</span>;
-	<span style="color:#66d9ef">goto</span> loop;
+    case 's': /* string */
+        while(c=char(x, j++)) != '*e')
+            putchar(c);
+        goto loop;
+    }
+    putchar('%') ;
+    i--;
+    adx--;
+    goto loop;
 } 
-
-</code></pre></div><p>Como podemos ver, vários elementos (se não todos) da linguagem C já estão presentes na B.</p>
-<p><strong>Links interessantes para filólogos de plantão</strong></p>
-<ul>
-<li><a href="http://www.cs.bell-labs.com/who/dmr/">Dennis Ritchie Home Page</a></li>
-<li><a href="http://cm.bell-labs.com/cm/cs/who/dmr/kbman.html">Users' Reference to B</a>, by Ken Thompson</li>
-<li><a href="/historia-da-linguagem-c-parte-1">Parte 1</a></li>
-<li><a href="/a-linguagem-de-programacao-cpp-o-inicio">História do C++</a></li>
-</ul>
+</code></pre>
+<p>Como podemos ver, vários elementos (se não todos) da linguagem C já estão presentes na B.</p>
 
             
 
@@ -187,7 +181,7 @@ loop :
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
+      <a href="/tags/ccpp">ccpp</a>  <a href="/tags/code">code</a> 
     
 
 
