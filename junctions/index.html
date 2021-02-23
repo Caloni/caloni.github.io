@@ -106,24 +106,22 @@ Junctions
 
             
               <p>Semana passada baixei uma nova imagem para minha máquina de desenvolvimento. Esse esquema do pessoal da engenharia instalar as coisas para você facilita muito as coisas, mas existe o risco de algo ser instalado no lugar errado, que foram os casos do DDK e do SDK do Windows. Aqui no desenvolvimento, para efeito de padronização, utilizamos a seguinte estrutura de diretórios para esses dois aplicativos:</p>
-<p><a href="/images/library-directories.png"><img src="http://i.imgur.com/zGUkifG.png" alt="Diretórios de bibliotecas"></a></p>
-<p>Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o nosso padrão: o SDK é instalado em &quot;<strong>%programfiles%\Microsoft Platform SDK</strong>&quot; e o DDK em &quot;<strong>C:\WINDDK\3790.1830</strong>&quot;. Para corrigir este pequeno ato relapso eu até poderia reinstalar ambos os aplicativos no local correto, gastanto algumas horas do dia, mas existe uma outra solução mais rápida e simpática chamada de <em>junction</em>.</p>
-<p><strong>Atalhos simbólicos</strong></p>
-<p>Um <em>junction</em> é um <em>link</em> simbólico (<a href="http://msdn2.microsoft.com/en-us/library/aa365680.aspx"><em>symbolic link</em></a>) de diretório. É praticamente um atalho, com a diferença que ele se comporta exatamente como se fosse o próprio objeto para o qual aponta: qualquer arquivo criado ou apagado usando o <em>junction</em> cria ou apaga um arquivo real no diretório real para o qual ele aponta. Essa característica pode ser tão útil quanto perigosa, por isso devem-se utilizar <em>junctions</em> com cuidado.</p>
-<p>Para criar um <em>junction</em> pode-se usar uma ferramenta disponível no <a href="http://support.microsoft.com/?kbid=205524">Windows Resource Kit</a> chamada <strong>linkd.exe</strong>. Porém, para evitar de ter que baixar todo o pacote para usar um único arquivo, existe uma outra ferramenta desenvolvida à parte por Russinovich chamada <a href="http://www.microsoft.com/technet/sysinternals/FileAndDisk/Junction.mspx">junction.exe</a>. O comando para criar <em>junctions</em> é bem fácil e direto:</p>
-<p><strong>junction c:\library\mssdk &quot;c:\program files\microsoft platform sdk&quot;
-junction c:\library\ddk c:\winddk</strong></p>
-<p>E é isso aí. A partir de agora tanto as pastas originais quanto os <em>junctions</em> criados para elas respondem como se fossem a mesma coisa, porém com <em>paths</em> diferentes.</p>
+<pre><code>Library
+|- ddk
+|- legacy
+|- mssdk
+</code></pre>
+<p>Porém, por algum motivo desconhecido os instaladores da Microsoft não seguem o nosso padrão: o SDK é instalado em %programfiles%, Microsoft Platform SDK e o DDK em C:, WINDDK, 3790.1830. Para corrigir este pequeno ato relapso eu até poderia reinstalar ambos os aplicativos no local correto, gastanto algumas horas do dia, mas existe uma outra solução mais rápida e simpática chamada de junction.</p>
+<p>Um junction é um link simbólico (symbolic link) de diretório. É praticamente um atalho, com a diferença que ele se comporta exatamente como se fosse o próprio objeto para o qual aponta: qualquer arquivo criado ou apagado usando o junction cria ou apaga um arquivo real no diretório real para o qual ele aponta. Essa característica pode ser tão útil quanto perigosa, por isso devem-se utilizar junctions com cuidado.</p>
+<p>Para criar um junction pode-se usar uma ferramenta disponível no Windows Resource Kit chamada linkd.exe. Porém, para evitar de ter que baixar todo o pacote para usar um único arquivo, existe uma outra ferramenta desenvolvida à parte por Mark Russinovich chamada... junction. O comando para criar junctions é bem fácil e direto:</p>
+<pre><code>junction c:\library\mssdk &quot;path where is microsoft platform sdk&quot;
+junction c:\library\ddk &quot;path where is winddk&quot;
+</code></pre>
+<p>E é isso aí. A partir de agora tanto as pastas originais quanto os junctions criados para elas respondem como se fossem a mesma coisa, porém com paths diferentes.</p>
 <blockquote>
-<p><em>&quot;Neo, sooner or later, you're going to realize, just as I did, that there's a different between knowing the path... and walking the path...&quot;</em></p>
+<p>&quot;Neo, sooner or later, you're going to realize, just as I did, that there's a different between knowing the path... and walking the path...&quot;</p>
 </blockquote>
-<p><strong>_Junctions _no Windows Vista</strong></p>
-<p>No Vista os _junctions _também funcionam para arquivos e possuem seu próprio aplicativo nativo, o <strong>mklink.exe</strong>. Porém, ele chama os <em>links</em> para diretórios de <em>junctions</em> (em português, junções) e os <em>links</em> para arquivos de <em>links</em> mesmo. Você pode notar uma pequena gamb.. adaptação técnica ao mudarem o nome da pasta &quot;Documents and Settings&quot; para &quot;Users&quot; (ou &quot;Usuários&quot;, na versão em português).</p>
-<p><a href="/images/documents-and-settings-vista.png"><img src="http://i.imgur.com/vr7MHeY.png" alt="Junctions no Windows Vista"></a></p>
-<p>Esse <em>link</em> é extremamente necessário para a compatibilidade daqueles aplicativos feitos às pressas que não se importam em <a href="http://msdn2.microsoft.com/en-us/library/ms647814.aspx">perguntar para o sistema</a> onde está a pasta de documentos do usuário, fixando o <em>path</em> como se ele fosse estar sempre lá.</p>
-<ul>
-<li><a href="http://www.svrops.com/svrops/articles/jpoints.htm">Lista dos <em>junctions</em> do Vista e explicações mais detalhadas e técnicas</a>.</li>
-</ul>
+<p>No Windows Vista os junctions também funcionam para arquivos e possuem seu próprio aplicativo nativo, o mklink.exe. Porém, ele chama os links para diretórios de junctions (em português, junções) e os links para arquivos de links mesmo. Você pode notar uma pequena gamb.. adaptação técnica ao mudarem o nome da pasta &quot;Documents and Settings&quot; para &quot;Users&quot; (ou &quot;Usuários&quot;, na versão em português). Esse link é extremamente necessário para a compatibilidade daqueles aplicativos feitos às pressas que não se importam em perguntar para o sistema onde está a pasta de documentos do usuário, fixando o path como se ele fosse estar sempre lá.</p>
 
             
 
@@ -132,7 +130,7 @@ junction c:\library\ddk c:\winddk</strong></p>
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

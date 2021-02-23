@@ -105,20 +105,20 @@ Hook de API no WinDbg
           <div class="content">
 
             
-              <p><a href="/images/minibsod.png"><img src="http://i.imgur.com/NTPiyb4.png" alt="MiniBSOD - Pequena tela azul"></a>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &quot;<em>link</em> estático&quot;) ou ele chama a função <a href="http://msdn2.microsoft.com/en-us/library/ms683212.aspx">kernel32!GetProcAddress</a> explicitamente [1].</p>
-<p>Para conseguir saber as funções das quais um executável obtém o endereço através da primeira técnica podemos utilizar o mundialmente famoso <a href="http://www.dependencywalker.com/">Dependency Walker</a>. Ele nos mostrará quais DLLs ele utiliza e quais funções por DLL ele quer o endereço. Ele também nos avisa sobre as DLLs que estão utilizando <em>delay load</em>, uma técnica inventada no Visual Studio para que os executáveis não dependam estaticamente de APIs muito novas que podem não existir em versões do Windows mais antigas. Com o Depends também é possível fazer <em>hook</em> de chamadas de API utilizando a opção <em>profiling</em> (F7), mas não costuma funcionar muito bem com <em>trojans</em>, pois eles capotam antes que alguma coisa interessante ocorra.</p>
-<p>O importante do Dependency Walker para o WinDbg é que com um editor é possível copiar todas as funções exibidas em sua interface para um editor, usar um pouco de <em>regular expressions</em> e criar uma batelada de <em>breakpoints</em> no WinDbg:</p>
-<pre><code>&lt;strong&gt;...
+              <p>Basicamente existem duas maneiras de um executável obter o endereço de uma função API do Windows: ou ele usa uma lib de interface com a DLL (o chamado &quot;link estático&quot;) ou ele chama a função GetProcAddress explicitamente <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>Para conseguir saber as funções das quais um executável obtém o endereço através da primeira técnica podemos utilizar o mundialmente famoso Dependency Walker. Ele nos mostrará quais DLLs ele utiliza e quais funções por DLL ele quer o endereço. Ele também nos avisa sobre as DLLs que estão utilizando delay load, uma técnica inventada no Visual Studio para que os executáveis não dependam estaticamente de APIs muito novas que podem não existir em versões do Windows mais antigas. Com o (carinhosamente chamado) Depends também é possível fazer hook de chamadas de API utilizando a opção profiling (F7), mas não costuma funcionar muito bem com trojans, pois eles capotam antes que alguma coisa interessante ocorra.</p>
+<p>O importante do Dependency Walker para o WinDbg é que com um editor é possível copiar todas as funções exibidas em sua interface para um editor, usar um pouco de regular expressions e criar uma batelada de breakpoints:</p>
+<pre><code>...
 bp user32!GetDC &quot;.echo GetDC; g&quot;
 bp user32!GetDesktopWindow &quot;.echo GetDesktopWindow; g&quot;
 bp user32!GetDlgCtrlID &quot;.echo GetDlgCtrlID; g&quot;
 bp user32!GetDlgItem &quot;.echo GetDlgItem; g&quot;
 bp user32!GetDlgItemTextW &quot;.echo GetDlgItemTextW; g&quot;
 bp user32!GetFocus &quot;.echo GetFocus; g&quot;
-...&lt;/strong&gt;
+...
 </code></pre>
-<p>O comando &quot;bp&quot; cria um <em>breakpoint</em> no endereço requisitado. O que está entre aspas são os comandos que você deseja executar quando o <em>breakpoint</em> for disparado. No caso, para todas as funções será impresso o seu nome (comando &quot;.echo&quot;) e a execução irá continuar (comando &quot;g&quot;). Ao rodar o programa, as chamadas das funções são mostradas na saída do depurador:</p>
-<pre><code>&lt;strong&gt;..
+<p>O comando &quot;bp&quot; cria um breakpoint no endereço requisitado. O que está entre aspas são os comandos que você deseja executar quando o breakpoint for disparado. No caso, para todas as funções será impresso o seu nome (comando &quot;.echo&quot;) e a execução irá continuar (comando &quot;g&quot;). Ao rodar o programa, as chamadas das funções são mostradas na saída do depurador:</p>
+<pre><code>...
 GetDesktopWindow
 GetDC
 GetFocus
@@ -129,17 +129,17 @@ GetDC
 GetDlgItem
 GetDC
 GetDlgItemTextW
-...&lt;/strong&gt;
+...
 </code></pre>
 <p>Lindo, não? Porém ainda podem estar sendo chamadas as funções obtidas pela segunda técnica, a do GetProcAddress. Para esse caso devemos ir um pouquinho mais fundo e rodar o executável duas vezes. Na primeira, coletamos as funções que são obtidas por essa técnica através do seguinte comando:</p>
-<pre><code>&lt;strong&gt;bp kernel32!GetProcAddress &quot;da poi(esp + 8); g&quot;&lt;/strong&gt;
+<pre><code>bp kernel32!GetProcAddress &quot;da poi(esp + 8); g&quot;
 </code></pre>
-<p>O comando &quot;da&quot; exibe o conteúdo de uma <em>string</em> em C (caracteres ANSI e terminada em zero) na memória. A memória no caso é o &quot;apontado do valor contido no segundo parâmetro da pilha&quot;. Complicado? Nem tanto: lembre-se que o ESP aponta sempre pro endereço de retorno da função chamadora e os parâmetros são sempre empilhados na <strong>ordem inversa da declaração em C</strong>. Logo, se o protótipo de GetProcAddress é:</p>
-<pre><code>&lt;strong&gt;ARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName);&lt;/strong&gt;
+<p>O comando &quot;da&quot; exibe o conteúdo de uma string em C (caracteres ANSI e terminada em zero) na memória. A memória no caso é o &quot;apontado do valor contido no segundo parâmetro da pilha&quot;. Complicado? Nem tanto: lembre-se que o ESP aponta sempre pro endereço de retorno da função chamadora e os parâmetros são sempre empilhados na ordem inversa da declaração em C. Logo, se o protótipo de GetProcAddress é:</p>
+<pre><code>FARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 </code></pre>
 <p>O último parâmetro empilhado (ESP+4) é o hModule, e o penúltimo (ESP+8) é o lpProcName, que é o lugar onde é passado o nome da função.</p>
-<p>Devemos lembrar de colocar esse <em>breakpoint</em> bem no início da execução e rodar o executável uma vez. Com isso coletamos o conjunto de nomes de funções usadas para chamar GetProcAddress:</p>
-<pre><code>&lt;strong&gt;..
+<p>Devemos lembrar de colocar esse breakpoint bem no início da execução e rodar o executável uma vez. Com isso coletamos o conjunto de nomes de funções usadas para chamar GetProcAddress:</p>
+<pre><code>...
 746e29f8  &quot;ImmReleaseContext&quot;
 746e2a30  &quot;ImmNotifyIME&quot;
 746e2934  &quot;CtfImmEnterCoInitCountSkipMode&quot;
@@ -149,23 +149,21 @@ GetDlgItemTextW
 746e2aa0  &quot;ImmGetConversionStatus&quot;
 746e2adc  &quot;ImmGetProperty&quot;
 746e2b10  &quot;ImmGetOpenStatus&quot;
-...&lt;/strong&gt;
+...
 </code></pre>
-<p>Daí é só organizar a lista obtida em ordem alfabética, acabar com duplicidades e criar o mesmo tipo de <em>breakpoint</em> que foi usado para as funções estáticas (pode ser sem o nome da DLL porque, embora não recomendado, o WinDbg se vira para encontrar os símbolos). Depois de criados os comandos, rodamos novamente o executável e, logo no início, já colocamos todos os <em>breakpoints</em> das funções coletadas.</p>
-<p>Essa é uma maneira rústica, porém eficaz e rápida de obter a lista de execução da API utilizada por um programa [2].</p>
-<p>[1] Uma variação do método GetProcAddress é a técnica de <em>delay load</em> usado pelo Visual C++. Porém, como o Dependency Walker nos mostra também as DLLs que estão <em>linkadas</em> usando essa técnica se torna dispensável um tratamento <em>ad hoc</em>.</p>
-<p>[2] Essa técnica nem sempre funciona com todas as chamadas API, pois o aplicativo ainda pode utilizar outras maneiras de obter o endereço de uma função e chamá-la. A solução definitiva seria escrever diretamente um <em>assembly</em> esperto no começo da função, o que pode gerar mais problemas que soluções. Do jeito que está, conseguimos resolver 90% dos nossos problemas com análise de chamadas API. O resto nós podemos resolver em futuros artigos.</p>
-<h4 id="outras-ferramentas-úteis-para-análise-de-chamadas">Outras ferramentas úteis para análise de chamadas</h4>
-<ul>
-<li>
-<p><a href="http://www.kakeeware.com">http://www.kakeeware.com</a>: sítio com monitor de chamadas de API e outras ferramentas interessantes. Detalhe notável: o cara faz tudo usando apenas <em>assembly</em>, o que torna os programas realmente pequenos e rápidos.</p>
+<p>Daí é só organizar a lista obtida em ordem alfabética, acabar com duplicidades e criar o mesmo tipo de breakpoint que foi usado para as funções estáticas (pode ser sem o nome da DLL porque, embora não recomendado, o WinDbg se vira para encontrar os símbolos). Depois de criados os comandos, rodamos novamente o executável e, logo no início, já colocamos todos os breakpoints das funções coletadas.</p>
+<p>Essa é uma maneira rústica, porém eficaz e rápida de obter a lista de execução da API utilizada por um programa <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Uma variação do método GetProcAddress é a técnica de delay load usado pelo Visual C++. Porém, como o Dependency Walker nos mostra também as DLLs que estão linkadas usando essa técnica se torna dispensável um tratamento ad hoc. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
-<p><a href="http://www.blunck.se/comtrace/comtrace.html">ComTrace</a>: outro monitor de chamadas, mas de componentes COM. Intercepta todas as chamadas de métodos de um aplicativo.</p>
+<li id="fn:2" role="doc-endnote">
+<p>Essa técnica nem sempre funciona com todas as chamadas API, pois o aplicativo ainda pode utilizar outras maneiras de obter o endereço de uma função e chamá-la. A solução definitiva seria escrever diretamente um assembly esperto no começo da função, o que pode gerar mais problemas que soluções. Do jeito que está, conseguimos resolver 90% dos nossos problemas com análise de chamadas API. O resto nós podemos resolver em futuros artigos. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-</ul>
-<h4 id="exemplo-para-testar">Exemplo para testar</h4>
-<p>Desenvolvi um exemplo didático que procura por acessos a bancos nacionais conhecidos, exibindo seu endereço caso encontre. Você pode <a href="/images/trojan-bin.7z">baixar o executável</a> e fazer sua análise. Se conseguir descobrir o que o programa faz, não deixe de comentar neste artigo o método por você empregado, de preferência com o máximo de dados obtidos. Boa sorte =)</p>
+</ol>
+</section>
 
             
 
@@ -174,7 +172,7 @@ GetDlgItemTextW
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 
