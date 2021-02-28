@@ -107,115 +107,128 @@ Guia básico para programadores de primeiro int main
 
             
               <blockquote>
-<p><em>Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre <a href="http://dqsoft.blogspot.com/2007/10/desenvolvendo-softwares-agradveis-de.html">como fazer programas fáceis de manter</a> (merece ser lido!) e vou republicar um artigo do blogue antigo sobre o básico do básico para quem deseja entender como os programas funcionam. Não é nada sofisticado, apenas alguns conceitos comuns que, se você deseja ser programador, deveria procurar saber.</em></p>
+<p>Vou aproveitar que meu amigo DQ publicou um artigo muito bom sobre <a href="http://dqsoft.blogspot.com/2007/10/desenvolvendo-softwares-agradveis-de.html">como fazer programas fáceis de manter</a> (merece ser lido!) e vou republicar um artigo do blogue antigo sobre o básico do básico para quem deseja entender como os programas funcionam. Não é nada sofisticado, apenas alguns conceitos comuns que, se você deseja ser programador, deveria procurar saber.</p>
 </blockquote>
-<h4 id="código-dados-e-processador">Código, dados e processador</h4>
-<p>A primeira coisa a saber é o que é um programa. Podemos imaginá-lo como um arquivo que vai ser <strong>interpretado</strong> pelo computador. Essa interpretação chamamos de <strong>execução</strong>. Quando um programa está sendo executado também é comum dizermos que ele está <strong>rodando</strong>. Teoricamente ele pode rodar eternamente, mas o que acontece em casos normais é que ele tem um fim previsto, seja quando o usuário fechar a janela principal (evento externo) ou quando ele terminar o que tinha que fazer (lógica interna).</p>
-<p>E do que é feito um programa? Basicamente de duas coisas: <strong>dados de entrada e instruções</strong> (ou código). Os dados podem estar no próprio programa ou serem lidos de algum outro lugar (do teclado, de outro arquivo, da internet, etc). As instruções do seu programa é o que será interpretado pelo computador. E o que ele fará? Basicamente alterar os dados de entrada. O objetivo fundamental de um programa é gerar dados de saída. Esses dados são escritos/exibidos para algum outro lugar (para a tela, para um arquivo, para a internet, etc).</p>
+<h2 id="código-dados-e-processador">Código, dados e processador</h2>
+<p>A primeira coisa a saber é o que é um programa. Podemos imaginá-lo como um arquivo que vai ser interpretado pelo computador. Essa interpretação chamamos de execução. Quando um programa está sendo executado também é comum dizermos que ele está rodando. Teoricamente ele pode rodar eternamente, mas o que acontece em casos normais é que ele tem um fim previsto, seja quando o usuário fechar a janela principal (evento externo) ou quando ele terminar o que tinha que fazer (lógica interna).</p>
+<p>E do que é feito um programa? Basicamente de duas coisas: dados de entrada e instruções (ou código). Os dados podem estar no próprio programa ou serem lidos de algum outro lugar (do teclado, de outro arquivo, da internet, etc). As instruções do seu programa é o que será interpretado pelo computador. E o que ele fará? Basicamente alterar os dados de entrada. O objetivo fundamental de um programa é gerar dados de saída. Esses dados são escritos/exibidos para algum outro lugar (para a tela, para um arquivo, para a internet, etc).</p>
 <p>Vamos analisar essas abstrações em exemplos da vida real:</p>
-<pre><code>Exemplo         Dados de entrada            Processamento                 Dados de saída
-==============  ==========================  ============================  =================================
-Bloco de Notas  Digitação do usuário        Leitura do teclado            Texto exibido na tela
-MSN             Envio de mensagem           Conexão com a internet        Seu amigo recebe a mensagem
-PaintBrush      Movimento do mouse          Interpretação de movimento    Retângulo desenhado
-Firefox         Clique do mouse em uma URL  Conexão com o site            Exibição da nova página
-Counter Strike  Clique no botão de tiro     Cálculo do projétil           Inimigo acertado
-Compilador      Código do programador       Interpretação das instruções  Código de máquina (seu programa!)
-...             ...                         ...                           ...
-</code></pre>
-<p>Como podemos ver, podemos abstrair esse lance de &quot;dados de entrada + processamento = dados de saída&quot; com qualquer tipo de programa que usarmos. Basta relacionar o que fazemos (digitar algo, arrastar o <em>mouse</em>, apertar um botão, etc) para obtermos a saída desejada (texto/gráfico na tela, no arquivo, na impressora, etc). O programa é o elemento que fica no meio fazendo essa &quot;mágica&quot;.</p>
-<h4 id="dados-do-programa">Dados do programa</h4>
-<p>Existem informações intermediárias que precisamos guardar em um programa em execução para que no final consigamos apresentar a saída desejada ao usuário. Essas informações intermediárias também são dados, só que o usuário não os enxerga. A elas chamamos de <strong>variáveis</strong>. Entenda uma variável como &quot;um lugar na memória onde o programa armazena alguma informação durante o processamento&quot;.</p>
-<p>Toda variável é apenas memória interpretada de uma maneira peculiar. Essa maneira de interpretar a memória é chamada de <strong>tipo</strong>. Cada variável possui o tipo que lhe convém. Basicamente, existem dois tipos de variáveis: número (ou inteiro) e texto (ou string).</p>
-<h4 id="instruções-do-programa">Instruções do programa</h4>
-<p>Imagine um programa sendo executado do começo ao fim. A ordem em que um programa é executado é chamado de <strong>fluxo de execução</strong>. A tendência natural de um programa é ser executado pelo computador da sua primeira instrução até a última, sempre nessa ordem. Ou seja, linha 1, linha 2, linha 3, ...., linha n. Pronto. Acabou.</p>
+<table>
+<thead>
+<tr>
+<th>Exemplo</th>
+<th>Dados de entrada</th>
+<th>Processamento</th>
+<th>Dados de saída</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bloco de Notas</td>
+<td>Digitação do usuário</td>
+<td>Leitura do teclado</td>
+<td>Texto exibido na tela</td>
+</tr>
+<tr>
+<td>Chat Online</td>
+<td>Envio de mensagem</td>
+<td>Conexão com a internet</td>
+<td>Seu amigo recebe a mensagem</td>
+</tr>
+<tr>
+<td>Editor de imagem</td>
+<td>Movimento do mouse</td>
+<td>Interpretação de movimento</td>
+<td>Retângulo desenhado</td>
+</tr>
+<tr>
+<td>Browser</td>
+<td>Clique do mouse em uma URL</td>
+<td>Conexão com o site</td>
+<td>Exibição da nova página</td>
+</tr>
+<tr>
+<td>Jogo de Tiro</td>
+<td>Clique no botão de tiro</td>
+<td>Cálculo do projétil</td>
+<td>Inimigo acertado</td>
+</tr>
+<tr>
+<td>Compilador</td>
+<td>Código do programador</td>
+<td>Interpretação das instruções</td>
+<td>Código de máquina (seu programa!)</td>
+</tr>
+</tbody>
+</table>
+<p>Como podemos ver, podemos abstrair esse lance de &quot;dados de entrada + processamento = dados de saída&quot; com qualquer tipo de programa que usarmos. Basta relacionar o que fazemos (digitar algo, arrastar o mouse, apertar um botão, etc) para obtermos a saída desejada (texto/gráfico na tela, no arquivo, na impressora, etc). O programa é o elemento que fica no meio fazendo essa &quot;mágica&quot;.</p>
+<h2 id="dados-do-programa">Dados do programa</h2>
+<p>Existem informações intermediárias que precisamos guardar em um programa em execução para que no final consigamos apresentar a saída desejada ao usuário. Essas informações intermediárias também são dados, só que o usuário não os enxerga. A elas chamamos de variáveis. Entenda uma variável como &quot;um lugar na memória onde o programa armazena alguma informação durante o processamento&quot;.</p>
+<p>Toda variável é apenas memória interpretada de uma maneira peculiar. Essa maneira de interpretar a memória é chamada de tipo. Cada variável possui o tipo que lhe convém. Basicamente, existem dois tipos de variáveis: número (ou inteiro) e texto (ou string).</p>
+<h2 id="instruções-do-programa">Instruções do programa</h2>
+<p>Imagine um programa sendo executado do começo ao fim. A ordem em que um programa é executado é chamado de fluxo de execução. A tendência natural de um programa é ser executado pelo computador da sua primeira instrução até a última, sempre nessa ordem. Ou seja, linha 1, linha 2, linha 3, ...., linha n. Pronto. Acabou.</p>
 <p>Porém, se fosse sempre assim, isso quer dizer que o programa seria executado sempre do mesmo jeito, e os dados de saída seriam sempre os mesmos, independente dos dados de entrada. Mas isso não acontece, certo? Quer dizer, se você não mirar direito e apertar o botão certo, o inimigo não vai cair no chão. Isso faz um certo sentido, não?</p>
-<p>Seguindo esse raciocínio, podemos deduzir que um programa deve <strong>tomar decisões</strong> para saber o que fazer. E para tomar essas decisões ele usa o que recebeu como entrada, que são exatamente os dados de entrada. Nesse contexto, tomar decisão significa <strong>alterar o fluxo de execução</strong>. Ou seja, a ordem não necessariamente será sempre linha 1, linha 2, linha 3, etc, mas poderá ser, por exemplo, linha 1, linha 52, linha 237643, linha 52 de novo, linha 890, e assim por diante.</p>
-<pre><code>Linha 0001: inicia o programa
-Linha 0002: lê dados de entrada
-Linha 0003: devo atirar?
-Linha 0004: sim! vou para a linha 0514
-Linha 0005: não! vou para a linha 0002
-Linha 0006: ...
+<p>Seguindo esse raciocínio, podemos deduzir que um programa deve tomar decisões para saber o que fazer. E para tomar essas decisões ele usa o que recebeu como entrada, que são exatamente os dados de entrada. Nesse contexto, tomar decisão significa alterar o fluxo de execução. Ou seja, a ordem não necessariamente será sempre linha 1, linha 2, linha 3, etc, mas poderá ser, por exemplo, linha 1, linha 52, linha 237643, linha 52 de novo, linha 890, e assim por diante.</p>
+<pre><code>001: inicia
+002: lê entrada
+003: atirar?
+004: sim! ir para 514
+005: não! ir para 002
+006: ...
 ...
-Linha 0514: acertei o inimigo?
-Linha 0515: sim! vou para a linha 3489
-Linha 0516: não! vou para a linha 1234
-Linha 0517: ...
+514: acertei?
+515: sim! ir para 489
+516: não! ir para 234
+517: ...
 ...
-Linha 1234: fui acertado?
-Linha 1235: sim! vai para linha 8918
-Linha 1236: não! vai para a linha 0002
+234: fui acertado?
+235: sim! ir para 918
+236: não! ir para 002
 ...
-Linha 3489: aumenta pontos
-Linha 3490: vai para linha 0002
+489: aumenta pontos
+490: ir para 002
 ...
-Linha 8918: morri?
-Linha 8919: sim! vai para linha 9000
-Linha 8920: não! vai para a linha 0002
+918: diminui vida
+919: morri?
+920: sim! ir para 980
+921: não! ir para 002
 ...
-Linha 9000: game over!
-Linha 9001: sai do programa
+980: game over!
+981: sai do programa
 </code></pre>
 <p>Note que existem várias perguntas que o programa precisa responder para seguir em frente. Para respondê-las, o programa pede a ajuda do computador para fazer comparações entre variáveis. E aí está o uso desses dados internos.</p>
-<h4 id="mudando-o-fluxo">Mudando o fluxo</h4>
+<h2 id="mudando-o-fluxo">Mudando o fluxo</h2>
 <p>Bem, até aqui você já aprendeu um montão de coisas:</p>
 <ul>
-<li>
-<p>Programas podem ser armazenados em arquivos.</p>
-</li>
-<li>
-<p>Quando executados, o computador interpreta suas instruções.</p>
-</li>
-<li>
-<p>Um programa usa dados de entrada para gerar dados de saída.</p>
-</li>
-<li>
-<p>Para tomar decisões, ele utiliza variáveis internas.</p>
-</li>
-<li>
-<p>A ordem das instruções é chamado fluxo de execução.</p>
-</li>
-<li>
-<p>A tomada de decisões altera o fluxo de execução de um programa.</p>
-</li>
+<li>Programas podem ser armazenados em arquivos.</li>
+<li>Quando executados, o computador interpreta suas instruções.</li>
+<li>Um programa usa dados de entrada para gerar dados de saída.</li>
+<li>Para tomar decisões, ele utiliza variáveis internas.</li>
+<li>A ordem das instruções é chamado fluxo de execução.</li>
+<li>A tomada de decisões altera o fluxo de execução de um programa.</li>
 </ul>
 <p>Para concluir, vamos dar uma espiada nas estruturas de comparação de um programa em C e suas conseqüentes mudanças de fluxo. Note também que as comparações são feitas com variáveis internas.</p>
-<h4 id="_if_"><em>if</em></h4>
-<p><a href="/images/if.gif"><img src="http://i.imgur.com/DMvpmji.gif" alt="If"></a></p>
-<p><em>If</em> significa &quot;se&quot;, ou seja, faz uma <strong>comparação</strong>, e retorna se a comparação é verdadeira (sim!) ou não (não!). Porém, o <em>if</em> apenas faz alguma coisa se o resultado for sim.</p>
-<h4 id="_else_"><em>else</em></h4>
-<p><a href="/images/else.gif"><img src="http://i.imgur.com/DKv3Ed6.gif" alt="Else"></a></p>
-<p><em>Else</em> significa &quot;senão&quot;, ou seja, é o complemento do <em>if</em>. Lembra-se que o <em>if</em> só faz alguma coisa se o resultado da comparação for sim? Pois bem, o <em>else</em> permite fazer outra coisa se o resultado for não.</p>
-<h4 id="_while_"><em>while</em></h4>
-<p><a href="/images/while.gif"><img src="http://i.imgur.com/t3LSdex.gif" alt="While"></a></p>
-<p><em>While</em> significa &quot;enquanto&quot;, e é o nosso primeiro exemplo de laço, ou <em>loop</em>. Um <em>loop</em> faz constantemente a mesma coisa enquanto o resultado da comparação for sim. Uma vez que for não (pode ser a primeira, inclusive), ele não faz mais nada e o programa continua seu fluxo natural.</p>
-<h4 id="_for_"><em>for</em></h4>
-<p><a href="/images/for.gif"><img src="http://i.imgur.com/4Gi4Sb7.gif" alt="For"></a></p>
-<p><em>For</em> significa &quot;por&quot;, com o mesmo sentido que em &quot;ele me chutou por 5 vezes seguidas&quot;. Ele pode ter muitos usos, mas o tradicional é fazer n vezes alguma coisa, sabendo que n é um número de vezes já conhecido. Nesse caso, o <em>loop</em> serve apenas para repetir um determinado número de vezes uma ação, sem nunca variar esse número de vezes.</p>
-<h4 id="é-só-isso">É só isso??</h4>
+<p>If significa &quot;se&quot;, ou seja, faz uma comparação, e retorna se a comparação é verdadeira (sim!) ou não (não!). Porém, o if apenas faz alguma coisa se o resultado for sim.</p>
+<p><img src="/img/if.gif" alt="If"></p>
+<p>Else significa &quot;senão&quot;, ou seja, é o complemento do if. Lembra-se que o if só faz alguma coisa se o resultado da comparação for sim? Pois bem, o else permite fazer outra coisa se o resultado for não.</p>
+<p><img src="/img/else.gif" alt="Else"></p>
+<p>While significa &quot;enquanto&quot;, e é o nosso primeiro exemplo de laço, ou loop. Um loop faz constantemente a mesma coisa enquanto o resultado da comparação for sim. Uma vez que for não (pode ser a primeira, inclusive), ele não faz mais nada e o programa continua seu fluxo natural.</p>
+<p><img src="/img/while.gif" alt="While"></p>
+<p>For significa &quot;por&quot;, com o mesmo sentido que em &quot;ele me chutou por 5 vezes seguidas&quot;. Ele pode ter muitos usos, mas o tradicional é fazer n vezes alguma coisa, sabendo que n é um número de vezes já conhecido. Nesse caso, o loop serve apenas para repetir um determinado número de vezes uma ação, sem nunca variar esse número de vezes.</p>
+<p><img src="/img/for.gif" alt="For"></p>
+<h2 id="é-só-isso">É só isso?</h2>
 <p>Programar não tem segredo. É tudo uma questão de gostar, aprender, executar, aprender, gostar mais, aprender mais, executar mais, etc. Não exatamente nessa ordem. Tudo vai depender dos seus dados de entrada. Mas o fluxo já começou sua execução...</p>
-<h4 id="para-saber-mais">Para saber mais</h4>
+<h2 id="para-saber-mais">Para saber mais</h2>
 <ul>
-<li><a href="http://pt.wikipedia.org/wiki/Arquitetura_de_von_Neumann">Arquitetura de von Neumann</a> - Wikipédia[](<a href="http://pt.wikipedia.org/wiki/M%C3%A1quina_de_Turing">http://pt.wikipedia.org/wiki/M%C3%A1quina_de_Turing</a>)</li>
+<li><a href="http://pt.wikipedia.org/wiki/Arquitetura_de_von_Neumann">Arquitetura de von Neumann</a> - Wikipédia</li>
 <li><a href="http://pt.wikipedia.org/wiki/M%C3%A1quina_de_Turing">Máquina de Turing</a> - Wikipédia</li>
-<li><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1">A inteligência do if</a> - parte 1</li>
-<li><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-2">A inteligência do if</a> - parte 2</li>
+<li><a href="/a-inteligencia-do-if-parte-1">A inteligência do if</a> - parte 1</li>
+<li><a href="/a-inteligencia-do-if-parte-1">A inteligência do if</a> - parte 2</li>
 </ul>
-<h4 id="para-aprender-maishttpwwwsebolcombrdetalhesphpcodigo030872">Para aprender mais[](<a href="http://www.sebol.com.br/detalhes.php?codigo=030872">http://www.sebol.com.br/detalhes.php?codigo=030872</a>)</h4>
+<h2 id="se-ainda-está-difícil-compreender">Se ainda está difícil compreender</h2>
 <ul>
-<li>
-<p><a href="http://www.coquetel.com.br/">Problemas de lógica</a> - Revistas Coquetel</p>
-</li>
-<li>
-<p><a href="http://www.sebol.com.br/detalhes.php?codigo=030872">Introdução Ilustrada à Computação (Com Muito Humor)</a> - Larry Gonick (<a href="http://larrygonick.com/html/pub/books/sci1.html">original</a>)</p>
-</li>
-<li>
-<p><a href="http://www.ead.eee.ufmg.br/cursos/C/home.html">Curso de Linguagem C</a> - UFMG</p>
-</li>
-<li>
-<p><a href="http://compare.buscape.com.br/categoria?id=3482&amp;lkout=1&amp;kw=Code+Charles+Petzold&amp;site_origem=1293522">Code</a> - Chales Petzold</p>
-</li>
+<li>Resolva exercícios de lógica.</li>
+<li>Leia livros bem introdutórios (até para criança vale) como <a href="/introducao-a-introducao-a-computacao">Introdução Ilustrada à Computação</a>.</li>
 </ul>
 
             
@@ -225,7 +238,7 @@ Linha 9001: sai do programa
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 
@@ -233,7 +246,7 @@ Linha 9001: sai do programa
 
         <div class="navigation-bottom">
             <span class="next-in-section"><a href="http://www.caloni.com.br/por-que-minha-dll-travou/">&#x25C1; Por que minha DLL travou?</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/the-c-programming-language/">&#x25B7; A Linguagem de Programação C</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/the-c-programming-language/">&#x25B7; A Linguagem de Programação C: O Livro</a></span>
 
         </div>
 
