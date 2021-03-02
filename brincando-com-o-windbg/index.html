@@ -105,15 +105,9 @@ Brincando com o WinDbg
           <div class="content">
 
             
-              <p>No <a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows">primeiro artigo sobre o WinDbg</a> usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um aplicativo qualquer, com o detalhe que não teremos o código-fonte.</p>
-<p>Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá-lo pelo próprio WinDbg ou conectar o depurador (<em>attach</em>) em um programa já em execução. Podemos especificar o que faremos direto na linha de comando ou pela sua interface.</p>
-<p>Pela linha de comando:</p>
-<pre><code>windbg notepad.exe
-windbg -pn notepad.exe (ou -p &lt;pid&gt;)
-</code></pre>
-<p>Pela interface:</p>
-<p><a href="/images/windbg-debug.png"><img src="http://i.imgur.com/I1he0sD.png" alt="WinDbg Debug"></a></p>
-<p>Para variar, iremos depurar o Bloco de Notas, o maravilhoso editor de textos da Microsoft e plataforma de testes para serviços, GINAs e <em>drivers</em>. Para começar, poderemos usar quaisquer das opções anteriores, o que nos levará para uma saída parecida com a seguinte:</p>
+              <p>No <a href="/introducao-ao-debugging-tools-for-windows">primeiro artigo sobre o WinDbg</a> usamos o aplicativo Logger para verificar as funções APIs que são chamadas por um determinado programa. Agora iremos dar um passo adiante e depurar de fato um aplicativo qualquer, com o detalhe que não teremos o código-fonte.</p>
+<p>Existem duas maneiras de depurar um programa localmente usando o WinDbg: iniciá-lo pelo próprio WinDbg ou conectar o depurador (attach) em um programa já em execução. Podemos especificar o que faremos direto na linha de comando ou pela sua interface. Pela linha de comando podemos usar os comandos windbg notepad.exe, windbg -pn notepad.exe e windbg -p pid. Pela interface são os conhecidos itens do menu File: Open Executable e Attach to a Process.</p>
+<p>Para variar, iremos depurar o Bloco de Notas, o maravilhoso editor de textos da Microsoft e plataforma de testes para serviços, GINAs e drivers. Para começar, poderemos usar quaisquer das opções anteriores, o que nos levará para uma saída poluída como a seguinte:</p>
 <pre><code>Microsoft (R) Windows Debugger  Version 6.7.0005.1
 Copyright (c) Microsoft Corporation. All rights reserved.
 
@@ -140,139 +134,93 @@ cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
 ntdll!DbgBreakPoint:
 7c901230 cc              int     3
 </code></pre>
-<p>Não se preocupe, nada aconteceu de errado. Essa é apenas a maneira do WinDbg de dizer &quot;oi, estou aqui, positivo e operando&quot;.</p>
-<p>Vamos destrinchar as informações iniciais para evitar confusão:</p>
-<pre><code>Microsoft (R) Windows Debugger  &lt;font color=&quot;#ff0000&quot;&gt;Version 6.7.0005.1&lt;/font&gt; &lt;strong&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;- versão do WinDbg&lt;/font&gt;&lt;/strong&gt;
-Copyright (c) Microsoft Corporation. All rights reserved.
-
-CommandLine: &lt;font color=&quot;#ff0000&quot;&gt;notepad.exe&lt;/font&gt; &lt;strong&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;-- linha de comando usada&lt;/font&gt;&lt;/strong&gt;
-Symbol search path is: &lt;font color=&quot;#ff0000&quot;&gt;SRV*C:Symbols*http://msdl.microsoft.com/downloads/symbols&lt;/font&gt; &lt;strong&gt;&lt;-- onde estão os símbolos?&lt;/strong&gt;
-Executable search path is:
-&lt;font color=&quot;#ff0000&quot;&gt;ModLoad: 01000000 01014000   notepad.exe &lt;strong&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;-- informações sobre cada módulo carregado (ModLoad)&lt;/font&gt;&lt;/strong&gt;&lt;/font&gt;
-ModLoad: 7c900000 7c9b0000   ntdll.dll
-ModLoad: 7c800000 7c8f5000   C:WINDOWSsystem32kernel32.dll
-...
-&lt;font color=&quot;#ff0000&quot;&gt;(df8.e28): Break instruction exception - code 80000003 (first chance)&lt;/font&gt; &lt;strong&gt;&lt;-- exceção de breakpoint (início da depuração)&lt;/strong&gt;
-
-&lt;font color=&quot;#ff0000&quot;&gt;eax=001a1eb4 ebx=7ffd5000 ecx=00000000 edx=00000001 esi=001a1f48 edi=001a1eb4&lt;/font&gt; &lt;strong&gt;&lt;-- estado dos registradores&lt;/strong&gt;
-&lt;font color=&quot;#ff0000&quot;&gt;eip=7c901230 esp=0007fb20 ebp=0007fc94 iopl=0         nv up ei pl nz na po nc
-cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000202
-&lt;/font&gt;
-&lt;font color=&quot;#ff0000&quot;&gt;ntdll!DbgBreakPoint:&lt;/font&gt; &lt;strong&gt;&lt;-- paramos aqui&lt;/strong&gt;
-7c901230 cc              int     3
-</code></pre>
-<p>Muito bem. Agora vamos explicar resumidamente o que cada parte significa:</p>
+<p>Não se preocupe, nada aconteceu de errado. Essa é apenas a maneira do WinDbg de dizer &quot;oi, estou aqui, positivo e operando&quot;. Vamos destrinchar as informações iniciais para evitar confusão:</p>
 <ul>
-<li>
-<p>Version: versão que está sendo executada do WinDbg (duh).</p>
-</li>
-<li>
-<p>CommandLine: linha de comando que foi usada ao executar o depurador.</p>
-</li>
-<li>
-<p>ModLoad: sempre que um módulo é carregado no processo (DLLs ou o próprio executável) o WinDbg informa os endereços inicial e final de carregamente e o nome do módulo. Para rever a lista de módulos carregados usa-se o comando <strong>lm.</strong></p>
-</li>
-<li>
-<p><em>(<!-- raw HTML omitted -->.<!-- raw HTML omitted -->): Break instruction exception - code 8000003 (first chance)</em>. Qualquer informação específica de uma <em>thread</em> é informada dessa maneira no WinDbg. No caso, foi a exceção de <em>breakpoint</em> (parada na execução) acionada no começo da depuração (e é por isso que o notepad ainda não está aparecendo).</p>
-</li>
+<li>Version: versão que está sendo executada do WinDbg (duh).</li>
+<li>CommandLine: linha de comando que foi usada ao executar o depurador.</li>
+<li>ModLoad: sempre que um módulo é carregado no processo (DLLs ou o próprio executável) o WinDbg informa os endereços inicial e final de carregamente e o nome do módulo. Para rever a lista de módulos carregados usa-se o comando lm.</li>
+<li>(<!-- raw HTML omitted -->.<!-- raw HTML omitted -->): Break instruction exception - code 8000003 (first chance). Qualquer informação específica de uma thread é informada dessa maneira no WinDbg. No caso, foi a exceção de breakpoint (parada na execução) acionada no começo da depuração (e é por isso que o notepad ainda não está aparecendo).</li>
 </ul>
-<p>Explicado o começo, o resto é fácil. Para continuar a execução do bloco de notas basta usarmos o comando <strong>g</strong> (<em>Go</em>), ou pressionar F5, ou ir no menu &quot;Debug, Go&quot;, ou ainda apertar este botão:</p>
-<p><a href="/images/windbg-go-button.png"><img src="http://i.imgur.com/SXmOldC.png" alt="Windbg Go Button"></a></p>
-<p>Na maioria dos comandos mais comums você terá todas essas opções ao seu dispor. Na maioria dos comandos mais incomuns tudo o que você terá será o <em>prompt</em> de comando do WinDbg e a ajuda, acionada por F1 ou pelo comando <strong>.hh &lt;tópico&gt;</strong>. Geralmente os comandos do WinDbg possuem milhares de parâmetros, e é considerada atitude sábia olhar de vez em quando o que alguns desses parâmetros significam para que, aos poucos, aprenda-se alguns truques até a chegada da iluminação completa, onde seu espírito irá fluir livremente pela memória de todos os processos do sistema.</p>
-<p>Por enquanto, basta apertar <strong>g</strong> e <strong><!-- raw HTML omitted --></strong>.</p>
-<!-- raw HTML omitted -->
-<h4 id="modificando-o-messagebox">Modificando o MessageBox</h4>
+<p>Explicado o começo o resto é fácil. Para continuar a execução do bloco de notas basta usarmos o comando g (Go), ou pressionar F5, ou ir no menu &quot;Debug, Go&quot;, ou ainda apertar um dos botões de fluxo do depurador listado no seu toolbar:</p>
+<p><img src="/img/debug_windbg.png" alt="Windbg debug buttons"></p>
+<p>Nos depuradores mais comums você terá todas essas opções ao seu dispor e nos comandos mais incomuns tudo o que você terá será o prompt de comando do WinDbg e a ajuda, acionada por F1 ou pelo comando .hh &lt;tópico&gt;. Geralmente os comandos do WinDbg possuem milhares de parâmetros e é considerada atitude sábia olhar de vez em quando o que alguns desses parâmetros significam para que, aos poucos, aprenda-se alguns truques até a chegada da iluminação completa, onde seu espírito irá fluir livremente pela memória de todos os processos do sistema.</p>
+<p>Por enquanto, basta apertar g e <!-- raw HTML omitted -->.</p>
+<p>A tempo: após executar g e <!-- raw HTML omitted --> mais um monte daquelas mensagens cheias de caracteres irão aparecer. Não se preocupe. Elas realmente não são importantes no momento, mas é importante saber o básico, que é &quot;o WinDbg está avisando você de tudo o que ocorre&quot;. No momento certo saberemos usar as informações na tela quando houver necessidade.</p>
 <p>Vamos fazer algo não tão esperto para ver como o bloco de notas reage. Tente abrir um arquivo com um nome inexistente:</p>
-<p><a href="/images/notepad-file-not-found.png"><img src="http://i.imgur.com/TNg0kuU.png" alt="Notepad File Not Found"></a></p>
-<p>Como podemos ver, o Bloco de Notas exibe uma mensagem de erro indicando que o arquivo cujo nome você digitou não existe, pede para você verificar a &quot;<a href="http://support.microsoft.com/kb/331708/pt-br">orografia</a>&quot; e tudo o mais. O importante aqui não é que você não sabe digitar nomes de arquivos, mas sim que a função que o notepad usa para exibir sua mensagem de erro é a conhecida API <a href="msdn2.microsoft.com/en-us/library/ms645505.aspx">MessageBox</a>, cujo protótipo é o seguinte:</p>
+<p><img src="/img/notepad_file_not_found.png" alt="Notepad File Not Found"></p>
+<p>Como podemos ver o Bloco de Notas exibe uma mensagem de erro indicando que o arquivo cujo nome você digitou não existe, pede para você verificar a <a href="/img/orografia.jpg">orografia</a> e tudo o mais. O importante aqui não é que você não sabe digitar nomes de arquivos, mas sim que a função que o notepad usa para exibir sua mensagem de erro é a conhecida API MessageBox, cujo protótipo é o seguinte:</p>
 <pre><code>int WINAPI MessageBox(
-    HWND hWnd,            // handle para o propretário da janela
-    LPCTSTR lpText,       // ponteiro para string que contém o texto a ser exibido
-    LPCTSTR lpCaption,    // ponteiro para string que contém o título a ser exibido
-    UINT uType            // personaliza a janela com ícones, comportamento, etc
-    );
+  HWND handle,
+  LPCTSTR text,
+  LPCTSTR caption,
+  UINT flags);
 </code></pre>
 <p>Algumas coisas a serem notadas nessa API:</p>
 <ul>
-<li>
-<p>Como (quase) toda API no Windows, a convenção de chamada é WINAPI, o que significa que quem chama empilha todos os parâmetros na pilha. <strong>Eu estou falando apenas de Windows 32 bits.</strong></p>
-</li>
-<li>
-<p>A função recebe 4 parâmetros e, de acordo com a convenção de chamada, podemos supor que esses parâmetros são empilhados na seguinte ordem (invertida): uType, lpCaption, lpText, hWnd, &lt;endereço-de-retorno&gt;.</p>
-</li>
-<li>
-<p>As <em>strings</em> para as quais os dois parâmetros do meio apontam são do tipo LPCTSTR, o que significa que, além de constantes, podem ser ANSI ou UNICODE, dependendo da versão que estamos utilizando.</p>
-</li>
+<li>Como (quase) toda API no Windows, a convenção de chamada é WINAPI, o que significa que quem chama empilha todos os parâmetros na pilha. Eu estou falando apenas de Windows 32 bits.</li>
+<li>A função recebe 4 parâmetros e, de acordo com a convenção de chamada, podemos supor que esses parâmetros são empilhados na seguinte ordem (invertida): flags, caption, text, handle, &lt;endereço-de-retorno&gt;.</li>
+<li>As strings para as quais os dois parâmetros do meio apontam são do tipo LPCTSTR, o que significa que, além de constantes, podem ser ANSI ou UNICODE, dependendo da versão que estamos utilizando.</li>
 </ul>
-<!-- raw HTML omitted -->
-<blockquote>
-<h4 id="ansi-x-unicode">ANSI x UNICODE</h4>
-</blockquote>
-<p>_O sistema operacional utiliza internamente a codificação UNICODE. Contudo, para manter compatibilidade com versões anteriores de outros SOs, como Windows 95, 98 e ME, as APIs são desenvolvidas em duplas, com versões UNICODE (final W), que repassam a chamada diretamente para o sistema operacional, e ANSI (final A), que fazem a conversão de strings para daí (normalmente) chamar sua irmã em UNICODE. _<!-- raw HTML omitted --></p>
-<p>Sabendo que tudo converge para UNICODE, vamos colocar um singelo <em>breakpoint</em> nessa função API. Para parar a execução do notepad, podemos digitar &quot;Ctrl + Break&quot; ou ir no menu &quot;Debug, break&quot; ou ainda... bem, você pegou o espírito da coisa.</p>
+<p>O sistema operacional utiliza internamente a codificação UNICODE. Contudo, para manter compatibilidade com versões anteriores de outros SOs, como Windows 95, 98 e ME, as APIs são desenvolvidas em duplas, com versões UNICODE (final W), que repassam a chamada diretamente para o sistema operacional, e ANSI (final A), que fazem a conversão de strings para daí (normalmente) chamar sua irmã em UNICODE.</p>
+<p>Sabendo que tudo converge para UNICODE, vamos colocar um singelo breakpoint nessa função API. Para parar a execução do notepad, podemos digitar &quot;Ctrl + Break&quot; ou ir no menu &quot;Debug, break&quot; ou ainda... bem, você pegou o espírito da coisa.</p>
 <pre><code>bp user32!MessageBoxW
 g
 </code></pre>
-<!-- raw HTML omitted -->
-<blockquote>
-<h4 id="faça-do-modo-inteligente">Faça do modo inteligente</h4>
-</blockquote>
-<p>_Note que utilizei o prefixo <strong>user32!</strong> para especificar que a função está no módulo user32.dll, mas não seria necessário já que o WinDbg procura por qualquer função digitada na sua lista de funções exportadas e símbolos atuais. Contudo, fazer isso torna as coisas mais rápidas e evita perder tempo à toa._<!-- raw HTML omitted --></p>
+<p>Note que utilizei o prefixo user32! para especificar que a função está no módulo user32.dll, mas não seria necessário já que o WinDbg procura por qualquer função digitada na sua lista de funções exportadas e símbolos atuais. Contudo, fazer isso torna as coisas mais rápidas e evita perder tempo à toa.</p>
 <p>Agora podemos efetuar a mesma operação de abrir um arquivo inexistente no bloco de notas que a execução irá parar no início da função MessageBoxW da API:</p>
 <pre><code>Breakpoint 0 hit
 eax=0007cfb8 ebx=80004005 ecx=7e41ce0b edx=00000008 esi=00000208 edi=001b0296
 eip=7e46630a esp=0007cfa0 ebp=0007d9e4 iopl=0         nv up ei ng nz na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000286
-&lt;font color=&quot;#ff0000&quot;&gt;USER32!MessageBoxW:&lt;/font&gt;
+USER32!MessageBoxW:
 7e46630a 8bff            mov     edi,edi
 </code></pre>
-<p>Vamos exibir o estado da pilha atual (no registrador <strong>esp</strong>) no formato de <em>double words</em>, a palavra padrão em sistemas 32 bits:</p>
-<pre><code>0:000&gt; &lt;strong&gt;dd&lt;/strong&gt; esp ; &lt;strong&gt;D&lt;/strong&gt;ump de &lt;em&gt;&lt;strong&gt;D&lt;/strong&gt;ouble words&lt;/em&gt;
-0007cfa0  &lt;font color=&quot;#ff0000&quot;&gt;763db810 001b0296 0007cfb8 0007d5d0 &lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;-- parâmetros do MessageBox (em vermelho)&lt;/font&gt;
-0007cfb0  &lt;font color=&quot;#ff0000&quot;&gt;00000030 &lt;/font&gt;00000187 00720041 00750071 &lt;-- parâmetros do MessageBox (em vermelho)
+<p>Vamos exibir o estado da pilha atual (no registrador esp) no formato de double words, a palavra padrão em sistemas 32 bits:</p>
+<pre><code>0:000&gt; dd esp ; Dump de Double words
+0007cfa0  763db810 001b0296 0007cfb8 0007d5d0
+0007cfb0  00000030 00000187 00720041 00750071
 0007cfc0  00760069 0020006f 006e0069 00780065
 0007cfd0  00730069 00650074 0074006e 002e0065
 </code></pre>
-<p>A primeira coluna (cujo primeiro valor é 0007cfa0) exibe o endereço da pilha, sendo que o resto das colunas são os valores encontrados a partir do topo da pilha. Sabendo que a pilha cresce &quot;ao contrário&quot;, de valores maiores de endereço para menores, os parâmetros empilhados invertidos aparecem agora na ordem do protótipo da função. Complicado? Nem tanto. Os parâmetros são empilhados na ordem inversa do protótipo em C, como tínhamos observado: uType, lpCaption, lpText, hWnd e por fim &lt;endereço-de-retorno&gt;, que é empilhado ao ser executada a instrução <em>call</em>.</p>
-<pre><code>push uType               ; topo da pilha (esp) = 007cfb0, &lt;strong&gt;decrementado&lt;/strong&gt; em 4 bytes (&lt;em&gt;= double word&lt;/em&gt;)
+<p>A primeira coluna (cujo primeiro valor é 0007cfa0) exibe o endereço da pilha, sendo que o resto das colunas são os valores encontrados a partir do topo da pilha. Sabendo que a pilha cresce &quot;ao contrário&quot;, de valores maiores de endereço para menores, os parâmetros empilhados invertidos aparecem agora na ordem do protótipo da função. Complicado? Nem tanto. Os parâmetros são empilhados na ordem inversa do protótipo em C, como tínhamos observado: uType, lpCaption, lpText, hWnd e por fim &lt;endereço-de-retorno&gt;, que é empilhado ao ser executada a instrução call.</p>
+<pre><code>push uType               ; topo da pilha (esp) = 007cfb0, decrementado em 4 bytes (= double word)
 push lpCaption           ; esp = 007cfac (007cfb0 - 4), decrementado novamente...
 push lpText              ; esp = 007cfa8 (007cfac - 4)
 push hWnd                ; esp = 007cfa4 (007cfa8 - 4)
 call user32!MessageBoxW  ; push eip, esp = 007cfa4 - 4 = 007cfa0
 </code></pre>
 <p>Ao chegar em user32!MessageBoxW o estado da pilha reflete o protótipo, pois é o inverso do inverso (a pilha cresce &quot;para baixo&quot;, porém os parâmetros são empilhados do último para o primeiro).</p>
-<pre><code>0007cfa0  &lt;font color=&quot;#ff0000&quot;&gt;763db810 001b0296 0007cfb8 0007d5d0
-&lt;/font&gt;0007cfb0  &lt;font color=&quot;#ff0000&quot;&gt;00000030&lt;/font&gt; 
+<pre><code>0007cfa0  763db810 001b0296 0007cfb8 0007d5d0
+0007cfb0  00000030 
 
-0007cfa0  &lt;font color=&quot;#ff0000&quot;&gt; &lt;ret&gt;    &lt;hWnd&gt;  &lt;lpText&gt; &lt;lpCaption&gt;
-&lt;/font&gt;0007cfb0  &lt;font color=&quot;#ff0000&quot;&gt;&lt;uType&gt;&lt;/font&gt;
+0007cfa0  &lt;ret&gt;    &lt;hWnd&gt;  &lt;lpText&gt; &lt;lpCaption&gt;
+0007cfb0  &lt;uType&gt;
 </code></pre>
 <p>Para referenciarmos os parâmetros através do WinDbg, de forma genérica, tudo que precisamos é adicionar 4 bytes para pularmos de parâmetro em parâmetro:</p>
 <pre><code>esp = ret
 esp + 4 = hWnd
-&lt;font color=&quot;#339966&quot;&gt;esp + 8&lt;/font&gt; = &lt;font color=&quot;#339966&quot;&gt;lpText&lt;/font&gt;
-&lt;font color=&quot;#0000ff&quot;&gt;esp + c&lt;/font&gt; = &lt;font color=&quot;#0000ff&quot;&gt;lpCaption&lt;/font&gt;
+esp + 8 = lpText
+esp + c = lpCaption
 esp + 10 =  uType
 </code></pre>
-<p>Baseado nesse princípio básico, podemos agora exibir o conteúdo de cada parâmetro passado usando o comando <strong>d</strong> (<em>Dump</em>) do WinDbg, aliado ao comando <strong>poi</strong> (<em>pointer</em>), que deferencia um determinado endereço (&quot;o apontado de&quot;).</p>
-<pre><code>0:000&gt; &lt;strong&gt;du&lt;/strong&gt; poi(&lt;font color=&quot;#339966&quot;&gt;esp+8&lt;/font&gt;) &lt;-- &lt;strong&gt;D&lt;/strong&gt;ump de string &lt;strong&gt;U&lt;/strong&gt;nicode do apontado (poi) do valor em &lt;font color=&quot;#339966&quot;&gt;esp+8&lt;/font&gt; (&lt;font color=&quot;#339966&quot;&gt;lpText&lt;/font&gt;)
-0007cfb8  &lt;font color=&quot;#339966&quot;&gt;&quot;Arquivo inexistente.txt.File not&quot;&lt;/font&gt;
-0007cff8  &lt;font color=&quot;#339966&quot;&gt;&quot; found..Please verify the correc&quot;&lt;/font&gt;
-0007d038  &lt;font color=&quot;#339966&quot;&gt;&quot;t file name was given.&quot;&lt;/font&gt;
-0:000&gt; &lt;strong&gt;du&lt;/strong&gt; poi(&lt;font color=&quot;#0000ff&quot;&gt;esp+c&lt;/font&gt;) &lt;-- &lt;strong&gt;D&lt;/strong&gt;ump de string &lt;strong&gt;U&lt;/strong&gt;nicode do apontado (poi) do valor em &lt;font color=&quot;#0000ff&quot;&gt;esp+c&lt;/font&gt; (&lt;font color=&quot;#0000ff&quot;&gt;lpCaption&lt;/font&gt;)
-0007d5d0  &lt;font color=&quot;#0000ff&quot;&gt;&quot;Open&quot;&lt;/font&gt;
+<p>Baseado nesse princípio básico, podemos agora exibir o conteúdo de cada parâmetro passado usando o comando d (Dump) do WinDbg, aliado ao comando poi (pointer), que deferencia um determinado endereço (&quot;o apontado de&quot;).</p>
+<pre><code>0:000&gt; du poi(esp+8) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+8 (lpText)
+0007cfb8  &quot;Arquivo inexistente.txt.File not&quot;
+0007cff8  &quot; found..Please verify the correc&quot;
+0007d038  &quot;t file name was given.&quot;
+0:000&gt; du poi(esp+c) &lt;-- Dump de string Unicode do apontado (poi) do valor em esp+c (lpCaption)
+0007d5d0  &quot;Open&quot;
 </code></pre>
-<p>Note que se estivéssemos tentando exibir uma string <strong>A</strong>nsi iríamos usar o comando <strong>da</strong>. O WinDbg possui inúmeros comandos parecidos que começam com <strong>d</strong>, cuja lista pode ser consultada pelo comando <strong>.hh d</strong>.</p>
-<p>Como último passo em nosso passeio, vamos especificar alguns comandos para serem executados quando o <em>breakpoint</em> do MessageBox for acionado. O que iremos fazer aqui é trocar a mensagem de erro e seguir em frente (um <em>breakpoint</em> que não pára).</p>
-<p>Para trocar a mensagem de erro usamos o comando <strong>e</strong> (<em>Edit</em>), semelhante ao <strong>d</strong>.</p>
-<p>Para continuar a execução, como já vimos, usamos o comando <strong>g</strong> (<em>Go</em>), e é nessas horas que apenas o comando do _prompt _pode nos salvar:</p>
+<p>Note que se estivéssemos tentando exibir uma string Ansi iríamos usar o comando da. O WinDbg possui inúmeros comandos parecidos que começam com d, cuja lista pode ser consultada pelo comando .hh d.</p>
+<p>Como último passo em nosso passeio, vamos especificar alguns comandos para serem executados quando o breakpoint do MessageBox for acionado. O que iremos fazer aqui é trocar a mensagem de erro e seguir em frente (um breakpoint que não pára).</p>
+<p>Para trocar a mensagem de erro usamos o comando e (Edit), semelhante ao d.</p>
+<p>Para continuar a execução, como já vimos, usamos o comando g (Go), e é nessas horas que apenas o comando do prompt pode nos salvar:</p>
 <pre><code>0:004&gt; bp user32!MessageBoxW &quot;ezu poi(esp+8) \&quot;Obrigado por utilizar o maravilhoso Bloco de Notas!\&quot;; g&quot;
 breakpoint 0 redefined
 </code></pre>
-<p>O comando <strong>bp</strong> (<em><strong>B</strong>reak<strong>P</strong>oint</em>) permite que sejam especificados comandos para serem executados automaticamente sempre que o <em>breakpoint</em> for ativado. Por isso, ao passar em user32!MessageBoxW colocamos dois comandos (separados por ponto-e-vírgula): <strong>ezu</strong>, que <strong>E</strong>dita uma <em>string</em> <em><strong>U</strong>nicode</em> com outra _string _terminada em <strong>Z</strong>ero, e o comando <strong>g</strong>, que já estamos carecas de saber. O resultado é óbvio, mas divertido de ver:</p>
-<p><a href="/images/notepad-file-not-found-thanks.png"><img src="http://i.imgur.com/cFZ0bn3.png" alt="Notepad File Not Found Thaks"></a></p>
-<h4 id="coisas-a-notar--sobre-o-maravilhoso-bloco-de-notas">Coisas a notar  sobre o maravilhoso Bloco de Notas</h4>
-<p>Repare que colocamos esse <em>breakpoint</em> diretamente na função API, ou seja, qualquer outro ponto do notepad em que ele tiver vontade de chamar a mesma API irá ativar o mesmo <em>breakpoint</em> e exibir a mesma mensagem, o que pode ser um pouco importuno da parte dele. Um bom exercício pós-leitura seria tratar as condições em que a mensagem será trocada, talvez se baseando na mensagem recebida. Mas isso já é lição de casa, e paramos por aqui.</p>
+<p>O comando bp (BreakPoint) permite que sejam especificados comandos para serem executados automaticamente sempre que o breakpoint for ativado. Por isso, ao passar em user32!MessageBoxW colocamos dois comandos (separados por ponto-e-vírgula): ezu, que Edita uma string Unicode com outra string terminada em Zero, e o comando g, que já estamos carecas de saber. O resultado é óbvio, mas divertido de ver:</p>
+<p><img src="/img/notepad_wonderful_file.png" alt="Notepad File Not Found Thanks"></p>
+<p>Repare que colocamos esse breakpoint diretamente na função API, ou seja, qualquer outro ponto do notepad em que ele tiver vontade de chamar a mesma API irá ativar o mesmo breakpoint e exibir a mesma mensagem, o que pode ser um pouco importuno da parte dele. Um bom exercício pós-leitura seria tratar as condições em que a mensagem será trocada, talvez se baseando na mensagem recebida. Mas isso já é lição de casa, e paramos por aqui.</p>
 
             
 
@@ -281,7 +229,7 @@ breakpoint 0 redefined
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

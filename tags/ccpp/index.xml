@@ -214,6 +214,37 @@ struct CreateNewGUID{operator wstring (){wstring ret;// cria guidreturn re
 
      
         <item>
+  <title>Proteção dos membros protected</title>
+  <link>http://www.caloni.com.br/protecao-dos-membros-protected/</link>
+  <pubDate>2007-10-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/protecao-dos-membros-protected/</guid>
+  <description>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:
+#include &amp;lt;iostream&amp;gt;using namespace std;class Base{protected:int m_protected;};class Derived : public Base{public:int GetProtected();int GetAnotherProtected();};class AnotherDerived : public Base{};int Derived::GetProtected(){return m_protected;}int Derived::GetAnotherProtected(){AnotherDerived anotherDeriv;return anotherDeriv.m_protected;}int main(){Derived deriv;deriv.GetProtected();deriv.GetAnotherProtected();}&amp;gt;./programerror C2248: &#39;Base::m_protected&#39; : cannot access protected member declared in class &#39;Base&#39;see declaration of &#39;Base::m_protected&#39;see declaration of &#39;Base&#39; Esse é o motivo fundamental do porquê não podermos fazer isso:
+int Derived::GetAnotherProtected(){Base base;return base.m_protected;}  Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &amp;quot;.&amp;quot; ou &amp;quot;-&amp;gt;&amp;quot;. Afinal, o nível de proteção se baseia no escopo, e as classes são um escopo. É por isso que consigo acessar os membros protegidos de um outro objeto de minha classe, mesmo sendo outro objeto:
+int Derived::GetAnotherProtected(){Derived deriv; // typeid(deriv) == typeid(*this).return deriv.m_protected; // OK}  A definição do escopo é tudo o que o compilador dispõe para saber se acessa ou não acessa um membro. Podemos ter acesso a m_protected enquanto somos do tipo Derived, mas não quando o mesmo objeto é usado como Base:
+int Derived::GetAnotherProtected(){Base&amp;amp; base = *this; // typeid(deriv) != typeid(*this).return base.m_protected; // ERROR}  Essa proteção parece desnecessária e até mesmo incoerente quando lidamos com o mesmo objeto que acessa. Afinal, somos nós mesmos! Só que o compilador não sabe disso, e ele deve desconfiar de tudo e de todos para evitar esse tipo de &amp;quot;ataque&amp;quot;:
+int Derived::GetAnotherProtected(){AnotherDerived anotherDeriv;Base&amp;amp; base = anotherDeriv; // typeid(deriv) != typeid(*this)return base.m_protected; // ERROR}  Agora a proteção do compilador faz sentido. Parece um detalhe frívolo, mas depois que vi alguns programadores de respeito se debatendo pela &amp;quot;burrice&amp;quot; do compilador, imaginei que talvez houvesse mais pessoas com a mesma dúvida de se existe ou não um &amp;quot;bug na linguagem&amp;quot;.
+</description>
+</item>
+
+     
+        <item>
+  <title>Typeid e os perigos do não-polimorfismo</title>
+  <link>http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/</link>
+  <pubDate>2007-10-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/</guid>
+  <description>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n&#39;água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C&#43;&#43; pode proporcionar.
+Eis um exemplo singelo, sem dramatização (com dramatização == &amp;quot;500 linhas de código de produção além do código abaixo&amp;quot;).
+#include &amp;lt;iostream&amp;gt;#include &amp;lt;typeinfo&amp;gt;using namespace std;class Base{public:Base(){cout &amp;lt;&amp;lt; &amp;quot;Base()\n&amp;quot;;m_x = 0;}~Base(){cout &amp;lt;&amp;lt; &amp;quot;~Base()\n&amp;quot;;}int m_x;};class Deriv : public Base{public:Deriv(){cout &amp;lt;&amp;lt; &amp;quot;Deriv()\n&amp;quot;;m_x = 1;m_y = 0;}virtual ~Deriv(){cout &amp;lt;&amp;lt; &amp;quot;~Deriv()\n&amp;quot;;}int m_y;};void func(Base* b){cout &amp;lt;&amp;lt; typeid(*b).name() &amp;lt;&amp;lt; &#39;\n&#39;;}int main(){Base* b = new Deriv();func(b);}  O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &amp;quot;ponteiro para objeto de classe não-polimórfica&amp;quot;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C&#43;&#43; só é aplicado se houver razão para tal, pois na linguagem a regra é que &amp;quot;não existe sobrecarga de execução sem que o programador queira&amp;quot;:
+&amp;gt;./programBase()Deriv()class Base Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:
+virtual ~Base(){cout &amp;lt;&amp;lt; &amp;quot;~Base()\n&amp;quot;;}  Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).
+&amp;gt;./programBase()Deriv()class Deriv </description>
+</item>
+
+     
+        <item>
   <title>A Linguagem de Programação C: O Livro</title>
   <link>http://www.caloni.com.br/the-c-programming-language/</link>
   <pubDate>2007-10-12</pubDate>

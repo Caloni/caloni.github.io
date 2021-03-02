@@ -105,90 +105,81 @@ Proteção dos membros protected
           <div class="content">
 
             
-              <p>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção <em>protected</em>. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+              <p>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:</p>
+<pre><code>#include &lt;iostream&gt;
 
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span>
+using namespace std;
+
+class Base
 {
-<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
-	<span style="color:#66d9ef">int</span> m_protected;
+protected:
+  int m_protected;
 };
 
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base
+class Derived : public Base
 {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-	<span style="color:#66d9ef">int</span> GetProtected();
-	<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">GetAnotherProtected</span>();
+public:
+  int GetProtected();
+  int GetAnotherProtected();
 };
 
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnotherDerived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base
+class AnotherDerived : public Base
 {
 };
 
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetProtected()
+int Derived::GetProtected()
 {
-	<span style="color:#66d9ef">return</span> m_protected; <span style="color:#75715e">// tudo bem. sou um Derived; tenho meus direitos!
-</span><span style="color:#75715e"></span>}
+  return m_protected;
+}
 
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetAnotherProtected()
+int Derived::GetAnotherProtected()
 {
-	AnotherDerived anotherDeriv;
-	<span style="color:#66d9ef">return</span> anotherDeriv.m_protected; <span style="color:#75715e">// inacessível. não estamos em AnotherDerived!
-</span><span style="color:#75715e"></span>}
+  AnotherDerived anotherDeriv;
+  return anotherDeriv.m_protected;
+}
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+int main()
 {
-	Derived deriv;
+  Derived deriv;
+  deriv.GetProtected();
+  deriv.GetAnotherProtected();
+}
 
-	deriv.GetProtected();
-	deriv.GetAnotherProtected(); <span style="color:#75715e">// isso não vai dar certo...
-</span><span style="color:#75715e"></span>} 
-
-</code></pre></div><pre><code>Saída:
+&gt;./program
 error C2248: 'Base::m_protected' : cannot access protected member declared in class 'Base'
 see declaration of 'Base::m_protected'
 see declaration of 'Base'
 </code></pre>
 <p>Esse é o motivo fundamental do porquê não podermos fazer isso:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// another chance
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetAnotherProtected()
+<pre><code>int Derived::GetAnotherProtected()
 {
-	Base base; <span style="color:#75715e">// somos derivados dessa base, não somos?
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> base.m_protected; <span style="color:#75715e">// mas não é por isso que vamos acessar um membro protegido de boa.
-</span><span style="color:#75715e"></span>} 
-
-</code></pre></div><p>Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &quot;.&quot; ou &quot;-&gt;&quot;. Afinal, <strong>o nível de proteção se baseia no escopo</strong>, e as classes são um escopo. É por isso que consigo acessar os membros protegidos de um outro objeto de minha classe, mesmo sendo outro objeto:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// dentro da lei
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetAnotherProtected()
+  Base base;
+  return base.m_protected;
+} 
+</code></pre>
+<p>Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &quot;.&quot; ou &quot;-&gt;&quot;. Afinal, o nível de proteção se baseia no escopo, e as classes são um escopo. É por isso que consigo acessar os membros protegidos de um outro objeto de minha classe, mesmo sendo outro objeto:</p>
+<pre><code>int Derived::GetAnotherProtected()
 {
-	Derived deriv; <span style="color:#75715e">// meu irmão: typeid(deriv) == typeid(*this).
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> deriv.m_protected; <span style="color:#75715e">// mesmo tipo do escopo: meus direitos são preservados
-</span><span style="color:#75715e"></span>} 
-
-</code></pre></div><p>A definição do escopo é tudo o que o compilador dispõe para saber se acessa ou não acessa um membro. Podemos ter acesso a m_protected enquanto somos do tipo Derived, mas não quando o mesmo objeto é usado como Base:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// fora-da-lei
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetAnotherProtected()
+  Derived deriv; // typeid(deriv) == typeid(*this).
+  return deriv.m_protected; // OK
+} 
+</code></pre>
+<p>A definição do escopo é tudo o que o compilador dispõe para saber se acessa ou não acessa um membro. Podemos ter acesso a m_protected enquanto somos do tipo Derived, mas não quando o mesmo objeto é usado como Base:</p>
+<pre><code>int Derived::GetAnotherProtected()
 {
-	Base<span style="color:#f92672">&amp;</span> base <span style="color:#f92672">=</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>; <span style="color:#75715e">// os genes da minha mãe.
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> base.m_protected; <span style="color:#75715e">// eu não me acesso! tipo o subconsciente...
-</span><span style="color:#75715e"></span>} 
-
-</code></pre></div><p>Essa proteção parece desnecessária - e até mesmo incoerente - quando lidamos com o mesmo objeto que acessa. Afinal, somos nós mesmos! Só que o compilador não sabe disso, e ele deve desconfiar de tudo e de todos para evitar esse tipo de &quot;ataque&quot;:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// espertinho, hein?
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> Derived<span style="color:#f92672">::</span>GetAnotherProtected()
+  Base&amp; base = *this; // typeid(deriv) != typeid(*this).
+  return base.m_protected; // ERROR
+} 
+</code></pre>
+<p>Essa proteção parece desnecessária e até mesmo incoerente quando lidamos com o mesmo objeto que acessa. Afinal, somos nós mesmos! Só que o compilador não sabe disso, e ele deve desconfiar de tudo e de todos para evitar esse tipo de &quot;ataque&quot;:</p>
+<pre><code>int Derived::GetAnotherProtected()
 {
-	AnotherDerived anotherDeriv; <span style="color:#75715e">// não acesso os protegidos desse aqui...
-</span><span style="color:#75715e"></span>	Base<span style="color:#f92672">&amp;</span> base <span style="color:#f92672">=</span> anotherDeriv; <span style="color:#75715e">// mas quem sabe se eu acessar os genes da minha mãe?
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> base.m_protected; <span style="color:#75715e">// nada feito =(. Também, se nem eu mesmo consegui me acessar...
-</span><span style="color:#75715e"></span>} 
-
-</code></pre></div><p>Agora a proteção do compilador faz sentido. Parece um detalhe frívolo, mas depois que vi alguns programadores de respeito se debatendo pela &quot;burrice&quot; do compilador, imaginei que talvez houvesse mais pessoas com a mesma dúvida de se existe ou não um &quot;<em>bug</em> na linguagem&quot;.</p>
+  AnotherDerived anotherDeriv;
+  Base&amp; base = anotherDeriv; // typeid(deriv) != typeid(*this)
+  return base.m_protected; // ERROR
+} 
+</code></pre>
+<p>Agora a proteção do compilador faz sentido. Parece um detalhe frívolo, mas depois que vi alguns programadores de respeito se debatendo pela &quot;burrice&quot; do compilador, imaginei que talvez houvesse mais pessoas com a mesma dúvida de se existe ou não um &quot;bug na linguagem&quot;.</p>
 
             
 
@@ -197,7 +188,7 @@ see declaration of 'Base'
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a> 
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 
