@@ -105,71 +105,73 @@ Ponteiro de método: qual this é usado?
           <div class="content">
 
             
-              <p>Depois de publicado o artigo anterior sobre ponteiros de métodos surgiu uma dúvida muito pertinente do autor do blogue <a href="http://codebehind.wordpress.com/">CodeBehind</a>, um escovador de bits disfarçado de programador .NET: <strong>qual objeto que vale na hora de chamar um método pelo ponteiro?</strong></p>
+              <p>Depois de publicado o artigo anterior sobre ponteiros de métodos surgiu uma dúvida muito pertinente do autor do blogue <a href="http://codebehind.wordpress.com/">CodeBehind</a>, um escovador de bits disfarçado de programador .NET: qual objeto que vale na hora de chamar um método pelo ponteiro?</p>
 <p>Isso me estimulou a desdobrar um pouco mais os mistérios por trás dos ponteiro de métodos e de membros, e descobrir os detalhes mais ocultos desse lado esotérico da linguagem.</p>
-<p>Para entender por inteiro o que acontece quando uma chamada ou acesso utilizando ponteiros dependentes de escopo, algumas pequenas mudanças foram feitas no nosso pequeno FuzzyCall.</p>
-<h4 id="versão-3-de-fuzzycall-baixe-aquiimagesfuzzycall3cpp">Versão 3 de fuzzycall (<a href="/images/fuzzycall3.cpp">baixe aqui</a>)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<p>Para entender por inteiro o que acontece quando uma chamada ou acesso utilizando ponteiros dependentes de escopo, algumas pequenas mudanças foram feitas na nossa pequena classe Rand.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;time.h&gt;
 
-<span style="color:#75715e">// declaramos que existe uma classe com esse nome
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FuzzyCall</span>;
+class Rand;
+typedef void (Rand::*FP)();
+typedef int Rand::*MP;
 
-<span style="color:#75715e">// ponteiro para métodos da classe acima
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (FuzzyCall<span style="color:#f92672">::*</span>FP_Fuzzy)();
-
-<span style="color:#75715e">// ponteiro para inteiros da classe acima
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> FuzzyCall<span style="color:#f92672">::*</span>PI_Fuzzy;
-
-<span style="color:#75715e">/** Classe que faz chamada de um método aleatório. */</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FuzzyCall</span>
+class Rand
 {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-	FuzzyCall()
-	{
-		<span style="color:#66d9ef">int</span> bingoStone <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span>; <span style="color:#75715e">// tira uma pedra do saco
-</span><span style="color:#75715e"></span>		m_bingoStone <span style="color:#f92672">=</span> bingoStone; <span style="color:#75715e">// guarda a pedra que tiramos do saco
-</span><span style="color:#75715e"></span>	}
+public:
+  Rand()
+  {
+    m_num = rand() % 100;
+  }
 
-	<span style="color:#66d9ef">int</span> m_bingoStone; <span style="color:#75715e">// pedra que tiramos do saco de bingo
-</span><span style="color:#75715e"></span>
-	<span style="color:#75715e">// retorna a pedra que tiramos do saco de bingo
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">PrintStone</span>()
-	{
-		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> hex <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">this</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, member: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dec <span style="color:#f92672">&lt;&lt;</span> m_bingoStone <span style="color:#f92672">&lt;&lt;</span> endl;
-	}
+  int m_num;
+
+  void Print()
+  {
+    std::cout &lt;&lt; &quot;this: &quot; 
+      &lt;&lt; std::hex &lt;&lt; this 
+      &lt;&lt; &quot;, member: &quot; 
+      &lt;&lt; std::dec &lt;&lt; m_num
+      &lt;&lt; std::endl;
+  }
 };
 
-<span style="color:#75715e">/** No princípio Deus disse: &#39;int main!&#39;
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+/** No princípio Deus disse: 
+    'int main!'
+*/
+int main()
 {
-	srand(GetTickCount()); <span style="color:#75715e">// chacoalha o saco de bingo
-</span><span style="color:#75715e"></span>
-	FuzzyCall fuzzyObject1;
-	FuzzyCall fuzzyObject2;
-	FuzzyCall fuzzyObject3;
-	FP_Fuzzy pMethod <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>FuzzyCall<span style="color:#f92672">::</span>PrintStone;
-	PI_Fuzzy pMember <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>FuzzyCall<span style="color:#f92672">::</span>m_bingoStone;
+  srand(time(NULL));
 
-	<span style="color:#75715e">// podemos chamar o mesmo método para diversos objetos
-</span><span style="color:#75715e"></span>	(fuzzyObject1.<span style="color:#f92672">*</span>pMethod)();
-	(fuzzyObject2.<span style="color:#f92672">*</span>pMethod)();
-	(fuzzyObject3.<span style="color:#f92672">*</span>pMethod)();
+  Rand r1, r2, r3;
+  FP fp = &amp;Rand::Print;
+  MP mp = &amp;Rand::m_num;
 
-	<span style="color:#75715e">// separador
-</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	
-	<span style="color:#75715e">// podemos chamar o mesmo método para diversos objetos
-</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> hex <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>fuzzyObject1 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, member: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dec <span style="color:#f92672">&lt;&lt;</span> fuzzyObject1.<span style="color:#f92672">*</span>pMember <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> hex <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>fuzzyObject2 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, member: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dec <span style="color:#f92672">&lt;&lt;</span> fuzzyObject2.<span style="color:#f92672">*</span>pMember <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> hex <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>fuzzyObject3 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, member: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dec <span style="color:#f92672">&lt;&lt;</span> fuzzyObject3.<span style="color:#f92672">*</span>pMember <span style="color:#f92672">&lt;&lt;</span> endl;
+  (r1.*fp)();
+  (r2.*fp)();
+  (r3.*fp)();
+
+  std::cout &lt;&lt; std::endl;
+  
+  std::cout &lt;&lt; &quot;this: &quot; 
+    &lt;&lt; std::hex &lt;&lt; &amp;r1 
+    &lt;&lt; &quot;, member: &quot; 
+    &lt;&lt; std::dec &lt;&lt; r1.*mp 
+    &lt;&lt; std::endl;
+
+  std::cout &lt;&lt; &quot;this: &quot; 
+    &lt;&lt; std::hex &lt;&lt; &amp;r2 
+    &lt;&lt; &quot;, member: &quot; 
+    &lt;&lt; std::dec &lt;&lt; r2.*mp 
+    &lt;&lt; std::endl;
+
+  std::cout &lt;&lt; &quot;this: &quot; 
+    &lt;&lt; std::hex &lt;&lt; &amp;r3 
+    &lt;&lt; &quot;, member: &quot; 
+    &lt;&lt; std::dec &lt;&lt; r3.*mp 
+    &lt;&lt; std::endl;
 } 
-
-</code></pre></div><p>O novo código chama através do mesmo ponteiro o mesmo método (duh), mas através de três objetos diferentes. Se observarmos a saída veremos que cada instância da classe guardou uma pedra diferente do saco de bingo para si (até porque, no jogo do bingo, não é possível existir mais de uma pedra com o mesmo número):</p>
+</code></pre>
+<p>O novo código chama através do mesmo ponteiro o mesmo método (duh), mas através de três objetos diferentes. Se observarmos a saída veremos que cada instância da classe guardou um inteiro aleatório diferente para si:</p>
 <pre><code>this: 0012FF6C, member: 97
 this: 0012FF5C, member: 5
 this: 0012FF60, member: 44
@@ -178,90 +180,50 @@ this: 0012FF6C, member: 97
 this: 0012FF5C, member: 5
 this: 0012FF60, member: 44
 </code></pre>
-<h4 id="implementação-dos-ponteiros-de-métodos">Implementação dos ponteiros de métodos</h4>
-<p>Cada compilador e plataforma tem a liberdade de implementar o padrão C++ da maneira que quiser, mas o conceito no final acaba ficando quase a mesma coisa. No caso de ponteiros de métodos, o ponteiro guarda realmente o endereço da função que pertence à classe. Porém, como todo método não-estático em C++, para chamá-lo é necessário possuir um <strong><em>this</em></strong>, ou seja, o ponteiro para a instância:</p>
-<p><a href="/images/fuzzycall.gif"><img src="http://i.imgur.com/rdyYiGX.gif" alt="Fuzzy Call"></a></p>
-<p>Em <em>assembly</em> (comando &quot;<strong>cl /Fafuzzycall3.asm fuzzycall3.cpp</strong>&quot; para gerar a listagem), teremos algo assim:</p>
-<p>; Line 48</p>
-<pre><code>    lea    ecx, DWORD PTR
+<p>Cada compilador e plataforma tem a liberdade de implementar o padrão C++ da maneira que quiser, mas o conceito no final acaba ficando quase a mesma coisa. No caso de ponteiros de métodos, o ponteiro guarda realmente o endereço da função que pertence à classe. Porém, como todo método não-estático em C++, para chamá-lo é necessário possuir um this, ou seja, o ponteiro para a instância:</p>
+<p><img src="/img/fuzzycall.gif" alt="Ponteiros de método"></p>
+<p>Em assembly teremos algo assim:</p>
+<pre><code>; FP fp = &amp;Rand::Print;
+lea rax,[Rand::Print]  
+mov qword ptr [fp],rax
+
+; (r1.*fp)();
+lea rcx,[r1]  
+call qword ptr [fp]  
+
+; (r2.*fp)();
+lea rcx,[r2]  
+call qword ptr [fp]  
+
+; (r3.*fp)();
+lea rcx,[r3]  
+call qword ptr [fp]  
 </code></pre>
-<p>_fuzzyObject1$</p>
-<pre><code>[ebp]
-    call    DWORD PTR
+<p>Além do ponteiro de métodos, também é possível no C++ apontar para membros de um dado objeto como foi feito no exemplo acima. Para tanto, como vimos no código, basta declarar um tipo de ponteiro de membro de acordo com o tipo desejado com o escopo da classe: typedef int Rand::*MP. Nesse caso, a técnica de usar o próprio enderenço não funciona, já que cada objeto possui um membro próprio em um lugar de memória próprio. Porém, assim como os ponteiros de métodos, os ponteiros de membros exigem um objeto para serem acessados, o que já nos dá a dica de onde o objeto começa. Sabendo onde ele começa, fica fácil saber onde fica o membro através do seu offset, ou seja, a distância dele a partir do início da memória do objeto. O código abaixo simplifica a obtenção de um objeto dentro da classe usando ponteiro para membros:</p>
+<pre><code>MP mp = &amp;Rand::m_num;
+int i1 = r1.*mp;
+int i2 = r2.*mp;
+int i3 = r3.*mp;
 </code></pre>
-<p>_pMethod$</p>
-<pre><code>[ebp]
+<p>Note no assembly gerado que para isso funcionar o código precisa do offset armazenado em algum lugar. E, nada mais óbvio, o &quot;ponteiro&quot; de um membro de uma classe nada mais é que o offset deste membro dentro desta classe.</p>
+<pre><code>; MP mp = &amp;Rand::m_num;
+mov dword ptr [mp],0
+
+; int i1 = r1.*mp;
+movsxd rax,dword ptr [mp] 
+mov eax,dword ptr r1[rax] 
+mov dword ptr [i1],eax 
+
+; int i2 = r2.*mp;
+movsxd rax,dword ptr [mp] 
+mov eax,dword ptr r2[rax] 
+mov dword ptr [i2],eax 
+
+; int i3 = r3.*mp;
+movsxd rax,dword ptr [mp] 
+mov eax,dword ptr r3[rax] 
+mov dword ptr [i3],eax
 </code></pre>
-<p>; Line 49</p>
-<pre><code>    lea    ecx, DWORD PTR
-</code></pre>
-<p>_fuzzyObject2$</p>
-<pre><code>[ebp]
-    call    DWORD PTR
-</code></pre>
-<p>_pMethod$</p>
-<pre><code>[ebp]
-</code></pre>
-<p>; Line 50</p>
-<pre><code>    lea    ecx, DWORD PTR
-</code></pre>
-<p>_fuzzyObject3$</p>
-<pre><code>[ebp]
-    call    DWORD PTR
-</code></pre>
-<p>_pMethod$</p>
-<pre><code>[ebp]
-</code></pre>
-<h4 id="implementação-do-ponteiros-de-membros">Implementação do ponteiros de membros</h4>
-<p>Além do ponteiro de métodos, também é possível no C++ apontar para membros de um dado objeto. Para tanto, como vimos no código, basta declarar um tipo de ponteiro de membro de acordo com o tipo desejado:</p>
-<pre><code>// ponteiro para inteiros da classe acima
-typedef int FuzzyCall::*PI_Fuzzy;
-</code></pre>
-<p>Nesse caso, a técnica de usar o próprio enderenço não funciona, já que cada objeto possui um membro próprio em um lugar de memória próprio. Porém, assim como os ponteiros de métodos, os ponteiros de membros exigem um objeto para serem acessados, o que já nos dá a dica de onde o objeto começa. Sabendo onde ele começa, fica fácil saber onde fica o membro através do seu <em>offset</em>, ou seja, a distância dele a partir do início da memória do objeto. Só que para isso precisamos do <em>offset</em> armazenado em algum lugar. E adivinha onde que ele fica armazenado?</p>
-<pre><code>mov    eax, DWORD PTR
-</code></pre>
-<p>_pMember</p>
-<pre><code>$[ebp]
-mov ecx, DWORD PTR
-</code></pre>
-<p>_fuzzyObject1</p>
-<pre><code>$[ebp+eax]
-...
-mov eax, DWORD PTR
-</code></pre>
-<p>_pMember</p>
-<pre><code>$[ebp]
-mov ecx, DWORD PTR
-</code></pre>
-<p>_fuzzyObject2</p>
-<pre><code>$[ebp+eax]
-...
-mov eax, DWORD PTR
-</code></pre>
-<p>_pMember</p>
-<pre><code>$[ebp]
-mov ecx, DWORD PTR
-</code></pre>
-<p>_fuzzyObject3</p>
-<pre><code>$[ebp+eax]
-</code></pre>
-<p>Podemos acompanhar este código no WinDbg (ou alguma outra IDE mais pomposa, se preferir) e veremos que o conteúdo do eax irá refletir o <em>offset</em> do membro dentro da classe FuzzyCall.</p>
-<pre><code>bp fuzzycall3!main
-g
-fuzzycall3!main+0x61:
-00401731 8b45f8          mov     eax,dword ptr [ebp-8] ss:0023:0012ff68=00000000
-0:000&gt; reax
-eax=00000000
-</code></pre>
-<p>; zero é o <em>offset</em>, já que a classe possui apenas um membro: o próprio!</p>
-<pre><code>0:000&gt; p
-...
-fuzzycall3!main+0x64:
-00401734 8b4c05fc        mov     ecx,dword ptr [ebp+eax-4] ss:0023:0012ff6c=00000061
-0:000&gt; recx
-ecx=00000061
-</code></pre>
-<p>; 61 (97 em decimal) é o valor do membro para esse this ...</p>
 <p>Como podemos ver, não é nenhuma magia negra a responsável por fazer os ponteiros de métodos e de membros funcionarem em C++. Porém, eles não são ponteiros ordinário que costumamos misturar a torto e a direito. Essa distinção na linguagem é importante para manter o código &quot;minimamente sadio&quot;.</p>
 
             
@@ -271,14 +233,14 @@ ecx=00000061
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/">discuss</a>
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/detectando-hooks-globais-no-windbg/">&#x25C1; Detectando hooks globais no WinDbg</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/detectando-hooks-globais-no-windbg/">&#x25C1; Detectando hooks globais no WinDbg (SetWindowsHookEx)</a></span>
 <span class="prev-in-section"><a href="http://www.caloni.com.br/ponteiros-de-metodo-conceito-fundamental/">&#x25B7; Ponteiros de método: conceito fundamental</a></span>
 
         </div>

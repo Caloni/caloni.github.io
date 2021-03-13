@@ -13,20 +13,20 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Usando a LIBC nativa do Windows</title>
+  <title>Blogue do Caloni - Usando a libc nativa do Windows</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Usando a LIBC nativa do Windows"/>
+  <meta property="og:title" content="Usando a libc nativa do Windows"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/"/>
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Por padrão, todo projeto no Visual Studio depende da LIBC. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos..."/>
+        content="Por padrão, todo projeto no Visual Studio depende da libc. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -83,7 +83,7 @@
       <div class="container">
         <p class="title">
 
-Usando a LIBC nativa do Windows
+Usando a libc nativa do Windows
 
 </p>
 
@@ -105,121 +105,28 @@ Usando a LIBC nativa do Windows
           <div class="content">
 
             
-              <p>Por padrão, todo projeto no Visual Studio depende da LIBC. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos onde fazer um &quot;Hello World&quot; pode custar 56 KB em <em>Release</em> - Visual Studio 2005, configuração padrão sem &quot;<em>buffer security check</em>&quot; - vale a pena economizar alguns KBytes que não se vão usar. Principalmente se essa possibilidade existe desde o cavernoso Windows 95.</p>
-<h4 id="como-fazer-um-projeto-de-hello-world">Como fazer um projeto de Hello World</h4>
-<ol>
-<li>
-<p>Crie um novo projeto console Win32 vazio (<em>File, New, Project</em>, blá blá blá)</p>
-</li>
-<li>
-<p>Crie um arquivo CPP no projeto (Project, Add New Item, etc)</p>
-</li>
-<li>
-<p>Crie um código parecido com o código abaixo (parecido == usando apenas LIBC básica)</p>
-</li>
-<li>
-<p>Troque a configuração para <em>Release</em>, pois <em>Debug</em> não tem graça (Build, Configuration Manager, Release)</p>
-</li>
-<li>
-<p>Mude a runtime para estática (Project, Properties, C/C++, Code Generation, Multi-threaded)</p>
-</li>
-<li>
-<p>Compile e <em>link</em> (Build, Build Solution)</p>
-</li>
-</ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define _CRT_SECURE_NO_DEPRECATE
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-	printf(<span style="color:#e6db74">&#34;oi, mundo!&#34;</span>);
-} 
+              <p>Por padrão, todo projeto no Visual Studio depende da libc. Isso quer dizer que, mesmo que você não use nem um mísero printf em todos os projetos criados, está atrelado a essa dependência. Em tempos onde fazer um &quot;Hello World&quot; pode custar 56 KB em Release - Visual Studio 2005, configuração padrão sem &quot;buffer security check&quot; - vale a pena economizar alguns KBytes que não se vão usar. Principalmente se essa possibilidade existe desde o cavernoso Windows 95.</p>
+<p>Crie um novo projeto console Win32 vazio (File, New, Project, blá blá blá) e coloque um código de Hello, World nele. Configure para ele usar uma runtime estática e veja o tamanho do executável gerado.  Aqui após configurar um projeto ordinário que compila um executável console ordinário que não depende de runtimes novas (exceto a kernel32.dll) meu arquivo está com 96 KB.</p>
+<pre><code>#include &lt;stdio.h&gt;
 
-</code></pre></div><p>Pronto, após esses passos temos um projeto ordinário que compila um executável console ordinário que não depende de runtimes novas com exatos (pelo menos aqui) 57.344 bytes.</p>
-<p>Agora a parte divertida =).</p>
-<h4 id="como-gerar-um-lib-de-uma-dll-de-terceiros">Como gerar um .LIB de uma DLL de terceiros</h4>
-<p>Desde o Windows 95, existe uma DLL com a maioria das funções da LIBC disponíveis para link dinâmico. Só que, com o uso padrão do Visual C++, é usada sempre a biblioteca que vem junto com o ambiente, com suas trocentas funções (e conseqüentes <em>bytes</em> enche-lingüiça). Porém, é possível utilizar diretamente a <strong>msvcrt.dll</strong> distribuída no diretório do sistema se criarmos uma LIB de importação para ela.</p>
-<ol>
-<li>
-<p>Copie a msvcrt.dll diretamente de um Windows 95 (diretório System) para evitar funções que não existam desde a primeira distribuição</p>
-</li>
-<li>
-<p>Utilizando essa versão da DLL e o <em>prompt</em> de comando do Visual Studio, execute:</p>
-</li>
-</ol>
-<pre><code>REM
-REM Isso gera um arquivo def em estado bruto
-REM
-DUMPBIN /EXPORTS msvcrt.dll &gt; msvcrt.def
+int main()
+{
+  puts(&quot;oi, mundo!\n&quot;);
+} 
 </code></pre>
-<ol start="3">
-<li>
-<p>Utilizando o editor do seu coração, retire as linhas desnecessárias (aquelas do início do comando)</p>
-</li>
-<li>
-<p>Retire as colunas desnecessárias (todas menos a com o nome das funções)</p>
-</li>
-<li>
-<p>Retire os nomes bizarros que você não vai usar (todos os primeiros e que começam com '?')</p>
-</li>
-<li>
-<p>Ainda no ambiente console do VC execute o seguinte comando:</p>
-</li>
-</ol>
-<pre><code>REM
-REM Isso gera um arquivo .lib para importar as funções da DLL
-REM
-LIB /DEF:msvcrt.def
+<p>Desde o Windows 95, existe uma DLL na pasta de sistema chamada msvcrt.dll com a maioria das funções da libc disponíveis para link dinâmico. Só que, com o uso padrão do Visual C++, é usada sempre a biblioteca que vem junto com o ambiente, com suas trocentas funções (e consequentes bytes enche-linguiça). Porém, é possível utilizar diretamente a msvcrt.dll distribuída no diretório do sistema se criarmos uma LIB de importação para ela.</p>
+<p>Tudo que você precisa fazer é gerar um msvcrt.def com as funções exportadas por essa dll usando o comando dumpbin.exe /exports msvcrt.dll e gerar uma lib de importação com o comando lib.exe passando no parâmetro /DEF o arquivo gerado. Abaixo um exemplo de como deve estar esse arquivo antes do comando lib /def:msvcrt.def:</p>
+<pre><code>LIBRARY msvcrt
+EXPORTS
+_CrtCheckMemory
+_CrtDbgBreak
+...
+wprintf_s
+wscanf
+wscanf_s
 </code></pre>
-<h4 id="nada-nessa-mão-nem-nessa-mas-no-system32">Nada nessa mão, nem nessa. Mas no system32...</h4>
-<p>Ótimo. Geramos a LIB que precisávamos e agora só falta integrar com o projeto. Para isso, mais alguns passos:</p>
-<ol>
-<li>
-<p>Copie o <strong>msvcrt.lib</strong> para o diretório do projeto.</p>
-</li>
-<li>
-<p>No projeto, coloque o arquivo na lista de LIBs a serem incluídas (Properties, Linker, Input, Additional Dependencies).</p>
-</li>
-<li>
-<p>Ignore o resto das LIBs colocadas por padrão no projeto (Linker, Input, Ignore All Default Libraries).</p>
-</li>
-<li>
-<p>Ignore as firulas de checagem (C/C++, Code Generation, Buffer Security Check, e Basic Runtime Checks em Debug).</p>
-</li>
-<li>
-<p>Explicite o entry-point para a função main (Linker, Advanced, Entry Point).</p>
-</li>
-<li>
-<p>Compile e linke!</p>
-</li>
-</ol>
-<pre><code>------ Rebuild All started: Project: NativeC, Configuration: Release Win32 ------
-Deleting intermediate and output files for project 'NativeC', configuration 'Release|Win32'
-Compiling...
-NativeC.cpp
-Linking...
-Generating code
-Finished generating code
-Embedding manifest...
-Build Time 0:00
-Build log was saved at &quot;file://c:ProjectsTempNativeCReleaseBuildLog.htm&quot;
-NativeC - 0 error(s), 0 warning(s)
-========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
-Size: 2.944 bytes.
-</code></pre>
-<p>E agora o tamanho final de nosso executável passou para espantosos 2KB! Isso a princípio parece ótimo e dá vontade de usar em todos os projetos, mas existe um porém ainda não resolvido: as limitações da falta de um <em>runtime</em>. Para isso que existe a próxima seção.</p>
-<h4 id="_disclaimer_"><em>Disclaimer</em></h4>
-<!-- raw HTML omitted -->
-<h4 id="para-quem-é-viciado-por-economia-de-espaço">Para quem é viciado por economia de espaço</h4>
-<ul>
-<li>
-<p><a href="http://msdn.microsoft.com/msdnmag/issues/01/01/hood/">Reduce EXE and DLL Size with LIBCTINY.LIB</a> - Matt Pietrek</p>
-</li>
-<li>
-<p><a href="http://www.phreedom.org/solar/code/tinype/">Creating the smallest possible PE executable</a></p>
-</li>
-</ul>
+<p>Depois desse último passo geramos a LIB que precisávamos e agora só falta integrar com o projeto. Copie o msvcrt.lib para o diretório do projeto e configure no projeto esse arquivo na lista de LIBs a serem incluídas (Properties, Linker, Input, Additional Dependencies). Lembre-se de ignorar todas as LIBs padrão (Linker, Input, Ignore All Default Libraries). Para evitar unresolved external em frescuras de segurança ignore as firulas de checagem (C/C++, Code Generation, Buffer Security Check, e Basic Runtime Checks em Debug). Antes de mais nada deixe explícito o nome da função de entrada de seu programa para main, pois do contrário ele irá usar um bootstrap que inicia a libc (Linker, Advanced, Entry Point), compile e linke. E voilà!</p>
+<p>E agora o tamanho final de nosso executável passou para espantosos 3 KB! Isso a princípio parece ótimo e dá vontade de usar em todos os projetos, mas existe um porém ainda não resolvido: as limitações da falta de um runtime. Essa é uma solução bem bobinha que não tem nada a ver com uma solução profissional 100% garantida e com suporte técnico 24 horas. Algumas coisas não vão funcionar, como inicialização de variáveis estáticas, exceções, redirecionamento de entrada/saída, etc. Contudo, para projetos simples e pequenos, isso não deverá ser um problema. No entanto, eu não garanto qualquer coisa que advier de compilações inspiradas neste artigo.</p>
 
             
 
@@ -228,7 +135,7 @@ Size: 2.944 bytes.
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/usando-a-libc-nativa-do-windows/">discuss</a>
 
 
