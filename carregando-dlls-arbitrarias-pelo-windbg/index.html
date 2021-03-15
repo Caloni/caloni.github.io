@@ -107,65 +107,48 @@ Carregando DLLs arbitrárias pelo WinDbg
             
               <p>Durante meus testes para a correção de um bug me deparei com a necessidade de carregar uma DLL desenvolvida por mim no processo depurado. O detalhe é que o processo depurado é de terceiros e não possuo o fonte. Portanto, as opções para mim mais simples são:</p>
 <ul>
-<li>
-<p>Usar o projeto <a href="http://www.codeproject.com/threads/RmThread.asp">RmThread</a> para injetar a DLL (nesse caso iniciando o processo através dele).</p>
-</li>
-<li>
-<p>Fazer um módulo <em>wrapper</em> para uma DLL qualquer e ser carregado de brinde.</p>
-</li>
-<li>
-<p>Usar o WinDbg e brincar um pouco.</p>
-</li>
+<li>Usar o projeto <a href="http://www.codeproject.com/threads/RmThread.asp">RmThread</a> para injetar a DLL (nesse caso iniciando o processo através dele).</li>
+<li>Fazer um módulo wrapper para uma DLL qualquer e ser carregado de brinde.</li>
+<li>Usar o WinDbg e brincar um pouco.</li>
 </ul>
 <p>Por um motivo desconhecido a terceira opção me pareceu mais interessante =).</p>
-<p>A seqüência mais simples para carregar uma DLL através do WinDbg é chamar <strong>kernel32!LoadLibrary</strong> através de um código digitado na hora, o que podemos chamar de <em>live assembly</em> (algo como &quot;<em>assembly</em> ao vivo&quot;). Porém, essa simples seqüência contém um pouco mais que uma dúzia de passos.</p>
-<p>Primeiro devemos parar a execução, voltar para um ponto seguro do código e armazenar o local seguro em um registrador temporário (o WinDbg tem 20 deles, $t0 até $t19).</p>
-<pre><code>&lt;Ctrl + Break&gt; &lt;font color=&quot;#339966&quot;&gt;$$ pára a execução em um ponto qualquer&lt;/font&gt;
-gu &lt;font color=&quot;#339966&quot;&gt;$$ volta para função chamadora para evitar perda do estado dos registradores&lt;/font&gt;
-r$t0 = @$ip &lt;font color=&quot;#339966&quot;&gt;$$ armazena ponteiro de instrução em registrador temporário&lt;/font&gt;
+<p>A seqüência mais simples para carregar uma DLL através do WinDbg na época que escrevi este post era chamar kernel32!LoadLibrary através de um código digitado na hora, o que podemos chamar de live assembly (algo como &quot;assembly ao vivo&quot;). Porém, essa simples seqüência que contém um pouco mais que uma dúzia de passos hoje teria que ser feito em assembly 64 bits e é um pouco mais complicado. Para quem ainda quer se divertir dessa forma por esse caminho irei deixar as instruções para 32 bits.</p>
+<p>Devemos parar a execução, voltar para um ponto seguro do código com o comando gu (que volta para a função chamadora e evita perda de estado dos registradores) e armazenar o local seguro em um registrador temporário (o WinDbg tem 20 deles, $t0 até $t19).</p>
+<pre><code>gu
+r$t0 = @$ip
 </code></pre>
-<!-- raw HTML omitted -->
-<blockquote>
-<h4 id="diga-para-o-windbg-o-que-vem-por-aí">Diga para o WinDbg o que vem por aí</h4>
-</blockquote>
-<p>_Note que usamos dois pseudo-registradores (<strong>$t0</strong>, o primeiro registrador temporário do WinDbg, e <strong>$ip</strong>, o registrador que aponta para a próxima instrução que será executada), mas só um deles possue o prefixo '@'. Esse prefixo diz ao WinDbg que o que segue é um registrador. Como o comando <strong>r</strong> já é usado com registradores, é desnecessário usá-lo para <strong>$t0</strong>. Se usarmos sintaxe C++ esse prefixo é obrigatório, enquanto na sintaxe MASM não. Porém, se não usarmos esse prefixo em registradores não-comuns (como é o caso para <strong>$ip</strong>) o WinDbg primeiro tentará interpretar o texto como um número hexadecimal. Ao falhar, tentará interpretar como um símbolo. Ao falhar novamente, ele finalmente irá tratá-lo como um registrador. A diferença na velocidade faz valer a pena digitar um caractere a mais. Faça a prova!_<!-- raw HTML omitted --></p>
-<h4 id="_live-assembly_"><em>Live assembly</em></h4>
-<p>Parada a execução em um local seguro e armazenado o IP, em seguida podemos alocar memória para entrar o código em <em>assembly</em> da chamada, além do seu parâmetro, no caso o <em>path</em> da DLL a ser carregada.</p>
-<pre><code>.dvalloc 0x1000 &lt;font color=&quot;#339966&quot;&gt;$$ alocamos memória para entrar o assembly e o parâmetro da chamada&lt;/font&gt;
-Allocated 1000 bytes starting at 00280000
-eza 0x00280000 &lt;font color=&quot;#ff0000&quot;&gt;&quot;C:tempMinhaDllInvasora.dll&quot;&lt;/font&gt; &lt;font color=&quot;#339966&quot;&gt;$$ escreve no início da memória o path da DLL&lt;/font&gt;
-a 0x0280000+0x100 &lt;font color=&quot;#339966&quot;&gt;$$ agora vamos codificar em live-assembly&lt;/font&gt;
-00280100 push 0x00280000 &lt;font color=&quot;#339966&quot;&gt;$$ empilha o parâmetro (path da DLL)&lt;/font&gt;
-push 0x00280000
-00280105 call kernel32!LoadLibraryA &lt;font color=&quot;#339966&quot;&gt;$$ chama LoadLibraryA&lt;/font&gt;
-call kernel32!LoadLibraryA
-0028010a int 3 &lt;font color=&quot;#339966&quot;&gt;$$ um breakpoint para tornar as coisas mais fáceis&lt;/font&gt;
-int 3
-0028010b &lt;font color=&quot;#339966&quot;&gt;$$ um &lt;enter&gt; em uma linha vazia termina a edição do live-assembly&lt;/font&gt;
-0:000&gt; &lt;font color=&quot;#339966&quot;&gt;$$ estamos de volta no prompt do WinDbg&lt;/font&gt;
+<p>Note que usamos dois pseudo-registradores ($t0, o primeiro registrador temporário do WinDbg, e $ip, o registrador que aponta para a próxima instrução que será executada), mas só um deles possue o prefixo '@'. Esse prefixo diz ao WinDbg que o que segue é um registrador. Como o comando r já é usado com registradores, é desnecessário usá-lo para $t0. Se usarmos sintaxe C++ esse prefixo é obrigatório, enquanto na sintaxe MASM não. Porém, se não usarmos esse prefixo em registradores não-comuns (como é o caso para $ip) o WinDbg primeiro tentará interpretar o texto como um número hexadecimal. Ao falhar, tentará interpretar como um símbolo. Ao falhar novamente, ele finalmente irá tratá-lo como um registrador. A diferença na velocidade faz valer a pena digitar um caractere a mais. Faça a prova!</p>
+<p>Parada a execução em um local seguro e armazenado o IP, em seguida podemos alocar memória para entrar o código em assembly da chamada, além do seu parâmetro, no caso o path da DLL a ser carregada. Para a alocação usamos o comando .dvalloc, para a escrita de uma string o comando eza (ANSI) ou ezu (UNICODE). Em seguida usamos o comando a para escrever o código assembly da chamada à função kernel32!LoadLibrary e uma interrupção 3 (breakpoint) para termos uma maneira conveniente de parada.</p>
+<pre><code>.dvalloc 0x1000
+Allocated 1000 bytes starting at 000001d9`abd20000
+
+eza 000001d9`abd20000 &quot;c:\\tools\\tioclient.dll&quot;
+
+0:000&gt; a 000001d9`abd20000+0x100
+000001d9`abd20100 call KERNEL32!LoadLibraryA
+000001d9`abd20105 int 3
+000001d9`abd20106
 </code></pre>
-<p>Note que estamos usando a versão ANSI do LoadLibrary, aquela que termina com A. Sendo assim, escrevemos uma _string _ANSI como parâmetro usando o comando ez<strong>a</strong>.</p>
-<h4 id="chamando-o-código-quentinho">Chamando o código quentinho</h4>
-<p>O último passo é chamar a função previamente &quot;editada&quot;. Para isso basta mudarmos o endereço da próxima instrução para o começo de nosso código e mandar executar, pois ele irá parar automaticamente no <em>breakpoint</em> que definimos &quot;na mão&quot;, o <strong>int 3</strong> digitado. Após a execução devemos voltar o ponteiro usando nosso <em>backup</em> no registrador <strong>$t0</strong>.</p>
+<p>Note que estamos usando a versão ANSI do LoadLibrary, aquela que termina com A. Sendo assim, escrevemos uma string ANSI como parâmetro usando o comando eza.</p>
+<p>O último passo seria chamar a função previamente &quot;editada&quot;. Para isso basta mudarmos o endereço da próxima instrução para o começo de nosso código, definir os parâmetros nos registradores (no caso apenas um, a string em rcx) e mandar executar, pois ele irá parar automaticamente no breakpoint que definimos &quot;na mão&quot;, o int 3 digitado. Após a execução devemos voltar o ponteiro usando nosso backup no registrador $t0.</p>
 <pre><code>0:000&gt; r$ip = 0x00280000+0x100
 0:000&gt; g
-ModLoad: 10000000 10045000   &lt;font color=&quot;#ff0000&quot;&gt;C:tempMinhaDllInvasora.dll&lt;/font&gt;
-ModLoad: 76390000 763ad000   C:WINDOWSsystem32IMM32.DLL
+ModLoad: 10000000 10045000   c:\\tools\\tioclient.dll
 (398.d90): Break instruction exception - code 80000003 (first chance)
 eax=10000000 ebx=7ffdd000 ecx=7c801bf6 edx=000a0608 esi=001a1f48 edi=001a1eb4
 eip=0028010a esp=0007fb24 ebp=0007fc94 iopl=0         nv up ei pl zr na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
-0028010a cc              int     3 &lt;font color=&quot;#339966&quot;&gt;$$ esse é o breakpoint que digitamos no código&lt;/font&gt;
-0:000&gt; r$ip = $t0 &lt;font color=&quot;#339966&quot;&gt;$$ mudando o IP para o ponto original&lt;/font&gt;
+0028010a cc int     3
+0:000&gt; r$ip = $t0
 *** WARNING: Unable to verify checksum for C:tempMinhaDllInvasora.dll
 0:000&gt; g
-ModLoad: 5cb70000 5cb96000   C:WINDOWSsystem32ShimEng.dll
-ModLoad: 6f880000 6fa4a000   C:WINDOWSAppPatchAcGenral.DLL
-ModLoad: 76b40000 76b6d000   C:WINDOWSsystem32WINMM.dll
-ModLoad: 774e0000 7761d000   C:WINDOWSsystem32ole32.dll
+ModLoad: 5cb70000 5cb96000   C:\WINDOWS\system32\ShimEng.dll
+ModLoad: 6f880000 6fa4a000   C:WINDOWS\AppPatch\AcGenral.DLL
+ModLoad: 76b40000 76b6d000   C:WINDOWS\system32\WINMM.dll
+ModLoad: 774e0000 7761d000   C:WINDOWS\system32\ole32.dll
 ...
 </code></pre>
-<p>Como pudemos ver pela saída, a DLL foi carregada e agora temos a possibilidade de chamar qualquer código que lá esteja. Como fazer isso? Provavelmente usando o mesmo método aqui aplicado. <em>Live-assembly</em> é o que manda 8).</p>
+<p>Como pudemos ver pela saída, a DLL foi carregada e agora temos a possibilidade de chamar qualquer código que lá esteja. Como fazer isso? Provavelmente usando o mesmo método aqui aplicado. Live-assembly é o que manda 8).</p>
 
             
 
@@ -174,14 +157,14 @@ ModLoad: 774e0000 7761d000   C:WINDOWSsystem32ole32.dll
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg/">discuss</a>
 
 
         </div>
 
         <div class="navigation-bottom">
-            <span class="next-in-section"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">&#x25C1; Carregando DLLs arbitrárias pelo WinDbg - parte 2</a></span>
+            <span class="next-in-section"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">&#x25C1; Carregando DLLs arbitrárias pelo WinDbg ou como escrever script para WinDbg</a></span>
 <span class="prev-in-section"><a href="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/">&#x25B7; Usando a libc nativa do Windows</a></span>
 
         </div>

@@ -105,69 +105,67 @@ Desenhando em C&#43;&#43; Builder
           <div class="content">
 
             
-              <p>Uma das partes mais fáceis e divertidas de se mexer no C++ Builder é a que lida com gráficos. A abstração da VCL toma conta da alocação e liberação dos <a href="http://msdn.microsoft.com/library/en-us/sysinfo/base/gdi_objects.asp">objetos gráficos da GDI</a> e nos fornece uma interface para desenhar linhas e figuras geométricas, mexer com <em>bitmaps</em>, usar fontes etc. Concomitantemente, temos acesso ao <em>handles</em> &quot;crus&quot; da Win32 API para que possamos chamar alguma função esotérica necessária para o seu programa, o que nos garante flexibilidade suficiente.</p>
-<h4 id="um-_personal-paintbrush_-usando-canvas">Um &quot;<em>Personal PaintBrush</em>&quot; usando Canvas</h4>
-<p>Vamos fazer da área da janela principal uma tela onde possamos desenhar. Para isso, só precisamos fazer duas coisas em nosso programa: saber quando o <em>mouse</em> está com algum botão pressionado e desenhar quando ele estiver sendo &quot;arrastado&quot;.</p>
-<p>Saber o estado dos botões é trivial, podemos capturar isso nos eventos <strong>OnMouseDown</strong> e <strong>OnMouseUp</strong> e guardar em alguma variável.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//...
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
-	<span style="color:#66d9ef">bool</span> mouseDown; <span style="color:#75715e">// essa variável guarda o estado do mouse...
-</span><span style="color:#75715e">//...
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>TForm1(TComponent<span style="color:#f92672">*</span> Owner)
-	<span style="color:#f92672">:</span> TForm(Owner)
-{
-	mouseDown <span style="color:#f92672">=</span> false; <span style="color:#75715e">// ... e é importante iniciá-la
-</span><span style="color:#75715e"></span>}
+              <p>Uma das partes mais fáceis e divertidas de se mexer no C++ Builder é a que lida com gráficos. A abstração da VCL toma conta da alocação e liberação dos objetos gráficos da GDI e nos fornece uma interface para desenhar linhas e figuras geométricas, mexer com bitmaps, usar fontes etc. Concomitantemente, temos acesso ao handles &quot;crus&quot; da Win32 API para que possamos chamar alguma função esotérica necessária para o seu programa, o que nos garante flexibilidade suficiente.</p>
+<p>Vamos fazer da área da janela principal uma tela onde possamos desenhar. Para isso, só precisamos fazer duas coisas em nosso programa: saber quando o mouse está com algum botão pressionado e desenhar quando ele estiver sendo &quot;arrastado&quot;.</p>
+<p>Saber o estado dos botões é trivial, podemos capturar isso nos eventos OnMouseDown e OnMouseUp e guardar em alguma variável.</p>
+<pre><code>//...
+private:
+    bool mouseDown; // essa variável guarda o estado do mouse...
+//...
 
-<span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>FormMouseUp(TObject <span style="color:#f92672">*</span>Sender, TMouseButton Button,
-	TShiftState Shift, <span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y)
+__fastcall TForm1::TForm1(TComponent* Owner)
+    : TForm(Owner)
 {
-	mouseDown <span style="color:#f92672">=</span> false;
+    mouseDown = false; // ... e é importante iniciá-la
 }
 
-<span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>FormMouseDown(TObject <span style="color:#f92672">*</span>Sender, TMouseButton Button,
-	TShiftState Shift, <span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y)
+void __fastcall TForm1::FormMouseUp(TObject *Sender, TMouseButton Button,
+    TShiftState Shift, int X, int Y)
 {
-	Canvas<span style="color:#f92672">-&gt;</span>PenPos <span style="color:#f92672">=</span> TPoint(X, Y); <span style="color:#75715e">// mais tarde veremos o porquê disso
-</span><span style="color:#75715e"></span>	mouseDown <span style="color:#f92672">=</span> true;
-} 
+    mouseDown = false;
+}
 
-</code></pre></div><p>Saber quando o <em>mouse</em> está sendo arrastado também é um passo trivial, uma vez que temos esse evento (OnMove) para tratar no controle da janela.</p>
-<p><a href="/images/builder-onmousemove.png"><img src="http://i.imgur.com/biH37HA.png" alt="Builder OnMouseMove"></a></p>
-<p>Para desenhar, todo formulário e mais alguns controles gráficos possuem um objeto chamado <strong>Canvas</strong>, do tipo TCanvas (duh). Essa classe representa uma superfície de desenho que você pode acessar a partir de seus métodos. Isso é a abstração do conhecido <em><a href="http://www.google.com/search?q=device+context+site%3Amsdn.microsoft.com">device context</a></em> da GDI, tornando a programação mais fácil. O desenho de uma linha, por exemplo, é feito literalmente em uma linha de código.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>FormMouseMove(TObject <span style="color:#f92672">*</span>Sender, TShiftState Shift,
-	<span style="color:#66d9ef">int</span> X, <span style="color:#66d9ef">int</span> Y)
+void __fastcall TForm1::FormMouseDown(TObject *Sender, TMouseButton Button,
+    TShiftState Shift, int X, int Y)
 {
-	<span style="color:#66d9ef">if</span>( mouseDown )
-	{
-		Canvas<span style="color:#f92672">-&gt;</span>LineTo(X, Y);
-	}
+    Canvas-&gt;PenPos = TPoint(X, Y); // mais tarde veremos o porquê disso
+    mouseDown = true;
 } 
-
-</code></pre></div><p>O método <strong>LineTo()</strong> desenha uma linha do ponto onde está atualmente a caneta de desenho até a coordenada especificada. Esse é o motivo pelo qual no evento OnMouseDown alteramos a propriedade <strong>PenPos</strong> do Canvas para o ponto onde o usuário pressiona o botão do mouse.</p>
-<p><em>Voila</em>! Temos o nosso <em>Personal PaintBrush</em>, com toda a tosquisse que menos de 10 linhas de código podem fazer. OK, ele não é perfeito, admito, mas pode ser melhorado. Temos o código-fonte =).</p>
-<h4 id="o-windows-não-se-lembra-do-que-você-desenhou">O Windows não se lembra do que você desenhou</h4>
-<p>Um dos problemas nele reflete o comportamento de gráficos em janelas no Windows. Seja o que for que tenhamos desenhado sobre uma janela, seu conteúdo é perdido ao ser sobrescrito por outra janela. Isso porque a memória de vídeo da área de trabalho é compartilhada entre todas as janelas do sistema (isso muda com o advento do <a href="http://en.wikipedia.org/wiki/Windows_Presentation_Foundation">&quot;Avalon&quot;</a>). Precisamos, então, sempre repintar o que é feito durante a execução do programa.</p>
+</code></pre>
+<p>Saber quando o mouse está sendo arrastado também é um passo trivial, uma vez que temos esse evento (OnMove) para tratar no controle da janela.</p>
+<p><img src="/img/builder-onmousemove.png" alt="Builder OnMouseMove"></p>
+<p>Para desenhar, todo formulário e mais alguns controles gráficos possuem um objeto chamado Canvas, do tipo TCanvas (duh). Essa classe representa uma superfície de desenho que você pode acessar a partir de seus métodos. Isso é a abstração do conhecido device context da GDI, tornando a programação mais fácil. O desenho de uma linha, por exemplo, é feito literalmente em uma linha de código.</p>
+<pre><code>void __fastcall TForm1::FormMouseMove(TObject *Sender, TShiftState Shift,
+    int X, int Y)
+{
+    if( mouseDown )
+    {
+        Canvas-&gt;LineTo(X, Y);
+    }
+} 
+</code></pre>
+<p>O método LineTo() desenha uma linha do ponto onde está atualmente a caneta de desenho até a coordenada especificada. Esse é o motivo pelo qual no evento OnMouseDown alteramos a propriedade PenPos do Canvas para o ponto onde o usuário pressiona o botão do mouse.</p>
+<p>Voila! Temos o nosso Personal PaintBrush, com toda a tosquisse que menos de 10 linhas de código podem fazer. OK, ele não é perfeito, admito, mas pode ser melhorado. Temos o código-fonte =).</p>
+<p>Um dos problemas nele reflete o comportamento de gráficos em janelas no Windows. Seja o que for que tenhamos desenhado sobre uma janela, seu conteúdo é perdido ao ser sobrescrito por outra janela. Isso porque a memória de vídeo da área de trabalho é compartilhada entre todas as janelas do sistema (isso muda com o advento do &quot;Avalon&quot;). Precisamos, então, sempre repintar o que é feito durante a execução do programa.</p>
 <p>Se precisamos repintar, logo precisamos saber tudo o que o usuário fez até então. Uma das técnicas mais baratas no quesito memória para salvar o estado gráfico de uma janela é guardar um histórico das operações realizadas sobre sua superfície e executá-las novamente ao repintar a janela. A GDI é rápida o bastante para que o custo de processamento não seja sentido na maioria dos casos. Para o nosso <em>Paint</em>, apenas um array de coordenadas origem-destino já dá conta do recado:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//...
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
-	<span style="color:#66d9ef">bool</span> mouseDown; <span style="color:#75715e">// essa variavel guarda o estado do mouse
-</span><span style="color:#75715e"></span>	std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>TRect<span style="color:#f92672">&gt;</span> mouseHistory; <span style="color:#75715e">// um TRect guarda duas posicoes XY
-</span><span style="color:#75715e">//...
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>{
-	<span style="color:#66d9ef">if</span>( mouseDown )
-	{
-		<span style="color:#75715e">// guardando a pincelada para reproduzi-la depois
-</span><span style="color:#75715e"></span>		mouseHistory.push_back( TRect(Canvas<span style="color:#f92672">-&gt;</span>PenPos, TPoint(X, Y)) );
-		Canvas<span style="color:#f92672">-&gt;</span>LineTo(X, Y);
-	}
+<pre><code>//...
+private:
+    bool mouseDown; // essa variavel guarda o estado do mouse
+    std::vector&lt;TRect&gt; mouseHistory; // um TRect guarda duas posicoes XY
+//...
+
+// ...
+{
+    if( mouseDown )
+    {
+        // guardando a pincelada para reproduzi-la depois
+        mouseHistory.push_back( TRect(Canvas-&gt;PenPos, TPoint(X, Y)) );
+        Canvas-&gt;LineTo(X, Y);
+    }
 }
-<span style="color:#75715e">//... 
-</span><span style="color:#75715e"></span>
-</code></pre></div><p><a href="/images/amobuilder.gif"><img src="http://i.imgur.com/HGbLN0n.gif" alt="Amo o Builder"></a></p>
+//... 
+</code></pre>
+<p><img src="/img/amobuilder.gif" alt="Amo o Builder"></p>
 
             
 
@@ -176,7 +174,7 @@ Desenhando em C&#43;&#43; Builder
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/desenhando-em-c-builder/">discuss</a>
 
 
@@ -184,7 +182,7 @@ Desenhando em C&#43;&#43; Builder
 
         <div class="navigation-bottom">
             <span class="next-in-section"><a href="http://www.caloni.com.br/conceitos-basicos-na-programacao-com-c-builder/">&#x25C1; Conceitos básicos na programação com C&#43;&#43; Builder</a></span>
-<span class="prev-in-section"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">&#x25B7; Carregando DLLs arbitrárias pelo WinDbg - parte 2</a></span>
+<span class="prev-in-section"><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/">&#x25B7; Carregando DLLs arbitrárias pelo WinDbg ou como escrever script para WinDbg</a></span>
 
         </div>
 

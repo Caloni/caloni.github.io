@@ -29,7 +29,7 @@
         content="No projeto que é criado quando iniciamos a IDE três arquivos-fonte são gerados: Project1.cpp, Unit1.cpp e Unit1.h. Desses três, vamos analisar o primeiro:
 #include &lt;vcl.h&gt;
 
-WINAPI WinMain..."/>
+WINAPI..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -109,54 +109,52 @@ Conceitos básicos na programação com C&#43;&#43; Builder
 
             
               <p>No projeto que é criado quando iniciamos a IDE três arquivos-fonte são gerados: Project1.cpp, Unit1.cpp e Unit1.h. Desses três, vamos analisar o primeiro:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vcl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-WINAPI <span style="color:#a6e22e">WinMain</span>(HINSTANCE, HINSTANCE, LPSTR, <span style="color:#66d9ef">int</span>)
-{
-	<span style="color:#66d9ef">try</span>
-	{
-		Application<span style="color:#f92672">-&gt;</span>Initialize();
-		Application<span style="color:#f92672">-&gt;</span>CreateForm(__classid(TForm1), <span style="color:#f92672">&amp;</span>Form1);
-		Application<span style="color:#f92672">-&gt;</span>Run();
-	}
-	<span style="color:#75715e">//...
-</span><span style="color:#75715e"></span>
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-} 
+<pre><code>#include &lt;vcl.h&gt;
 
-</code></pre></div><p>Sim, existe um <strong>WinMain</strong> e ele não está escondido! Nele você pode fazer o que quiser. A IDE apenas auxilia você a gerenciar seus <em>forms</em>. Note que também existe a inclusão de um cabeçalho chamado vcl.h (obrigatório), o que nos leva diretamente para a base de toda a programação Delphi/Builder.</p>
-<h4 id="visual-components-library">Visual Components Library</h4>
-<p>A <strong>VCL</strong> é o <em>framework</em> usado tanto no Builder quanto no Delphi para a programação RAD nesses ambientes. Considere como a MFC geração C++ da Borland (antes era o OWL). Todos os controles que você vê na paleta da IDE - Button, Label, CheckBox, Timer - são criados e gerenciados através da VCL. Com os mesmos nomes acrescidos do prefixo <strong>T</strong> (TButton, TCheckBox...) você tem as classes que representam em código o que você vê no ambiente RAD. Através da VCL pode-se criar novos componentes extendidos dos originais, e eles serão gerenciados pela IDE, que aliás é feita usando VCL.</p>
-<p>Voltando ao código: o <strong>Application</strong> é um objeto visível em todo os módulos do processo e representa a aplicação em execução. Através dele você cria e destrói <em>forms</em> e inicia a execução da VCL. Ah, sim, é bom lembrar que todos os objetos VCL devem ser criados no <em>heap</em> (usando o operador <strong>new</strong> ou algum método de um objeto VCL já criado, como o <strong>CreateForm</strong> do Application). Essa e mais algumas restrições foram impostas na criação de classes VCL para que seu comportamento fosse similar/compatível com tecnologias como COM e CORBA (além das vantagens do polimorfismo e gerenciamento automático de objetos).</p>
-<p>Olhando para o outro fonte, Unit1.h, podemos ver a definição da classe que representa o <em>form</em> principal:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TForm1</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> TForm
+WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-__published: <span style="color:#75715e">// IDE-managed Components
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span> <span style="color:#75715e">// User declarations
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>  <span style="color:#75715e">// User declarations
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">__fastcall</span> TForm1(TComponent<span style="color:#f92672">*</span> Owner);
+    try
+    {
+        Application-&gt;Initialize();
+        Application-&gt;CreateForm(__classid(TForm1), &amp;Form1);
+        Application-&gt;Run();
+    }
+    //...
+
+    return 0;
+} 
+</code></pre>
+<p>Sim, existe um WinMain e ele não está escondido! Nele você pode fazer o que quiser. A IDE apenas auxilia você a gerenciar seus forms. Note que também existe a inclusão de um cabeçalho chamado vcl.h (obrigatório), o que nos leva diretamente para a base de toda a programação Delphi/Builder.</p>
+<p>A VCL é o framework usado tanto no Builder quanto no Delphi para a programação RAD nesses ambientes. Considere como a MFC geração C++ da Borland (antes era o OWL). Todos os controles que você vê na paleta da IDE - Button, Label, CheckBox, Timer - são criados e gerenciados através da VCL. Com os mesmos nomes acrescidos do prefixo T (TButton, TCheckBox...) você tem as classes que representam em código o que você vê no ambiente RAD. Através da VCL pode-se criar novos componentes estendidos dos originais, e eles serão gerenciados pela IDE, que aliás é feita usando VCL.</p>
+<p>Voltando ao código: o Application é um objeto visível em todo os módulos do processo e representa a aplicação em execução. Através dele você cria e destrói forms e inicia a execução da VCL. Ah, sim, é bom lembrar que todos os objetos VCL devem ser criados no heap (usando o operador new ou algum método de um objeto VCL já criado, como o CreateForm do Application). Essa e mais algumas restrições foram impostas na criação de classes VCL para que seu comportamento fosse similar/compatível com tecnologias como COM e CORBA (além das vantagens do polimorfismo e gerenciamento automático de objetos).</p>
+<p>Olhando para o outro fonte, Unit1.h, podemos ver a definição da classe que representa o form principal:</p>
+<pre><code>class TForm1 : public TForm
+{
+__published: // IDE-managed Components
+private: // User declarations
+public:  // User declarations
+    __fastcall TForm1(TComponent* Owner);
 };
 
-<span style="color:#66d9ef">extern</span> PACKAGE TForm1 <span style="color:#f92672">*</span>Form1; 
-
-</code></pre></div><p>A classe deriva de <strong>TForm</strong>, que é uma classe da VCL que representa uma janela padrão do Windows. Como se nota, um objeto da classe é criado automaticamente, exatamente o utilizado no WinMain para a criação da janela principal.</p>
-<p>Na classe existe um escopo extendido chamado <strong>__published</strong>. Nele são colocados os membros da classe que podem ser gerenciados pela IDE. Considere como um <strong>public</strong> dinâmico. Coloque um TButton no form e note que um novo membro é criado na classe, dentro do escopo gerenciado pela IDE:</p>
-<pre><code>__published: &lt;span class=&quot;comment&quot;&gt;// IDE-managed Components
-&lt;/span&gt;   TButton *Button1;
+extern PACKAGE TForm1 *Form1; 
 </code></pre>
-<p>Esses membros são iniciados automaticamente pela VCL. Contudo, você ainda pode criar objetos em tempo de execução e entregar o gerenciamento de seu tempo de vida para a VCL (o que significa chamar <strong>new</strong> e nunca um <strong>delete</strong>). Para essa proeza, todos os construtores de componentes devem receber um ponteiro para o seu <strong>Owner</strong>, que será o responsável por destruir o objeto. Veja como é ridículo criar um controle novo e definir algumas propriedades:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> TForm1<span style="color:#f92672">::</span>Button1Click(TObject <span style="color:#f92672">*</span>Sender)
+<p>A classe deriva de TForm, que é uma classe da VCL que representa uma janela padrão do Windows. Como se nota, um objeto da classe é criado automaticamente, exatamente o utilizado no WinMain para a criação da janela principal.</p>
+<p>Na classe existe um escopo estendido chamado published. Nele são colocados os membros da classe que podem ser gerenciados pela IDE. Considere como um public dinâmico. Coloque um TButton no form e note que um novo membro é criado na classe, dentro do escopo gerenciado pela IDE:</p>
+<pre><code>__published: // IDE-managed Components
+TButton *Button1;
+</code></pre>
+<p>Esses membros são iniciados automaticamente pela VCL. Contudo, você ainda pode criar objetos em tempo de execução e entregar o gerenciamento de seu tempo de vida para a VCL (o que significa chamar new e nunca um delete). Para essa proeza, todos os construtores de componentes devem receber um ponteiro para o seu Owner, que será o responsável por destruir o objeto. Veja como é ridículo criar um controle novo e definir algumas propriedades:</p>
+<pre><code>void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-	TButton<span style="color:#f92672">*</span> btn2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TButton(<span style="color:#66d9ef">this</span>); <span style="color:#75715e">// this é o meu form
-</span><span style="color:#75715e"></span>
-	btn2<span style="color:#f92672">-&gt;</span>Parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>; <span style="color:#75715e">// será o owner e o parent do novo botão
-</span><span style="color:#75715e"></span>	btn2<span style="color:#f92672">-&gt;</span>SetBounds(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">25</span>); <span style="color:#75715e">// definindo as fronteiras dentro do form
-</span><span style="color:#75715e"></span>	btn2<span style="color:#f92672">-&gt;</span>Caption <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Prazer! Sou dinâmico!&#34;</span>;
-	btn2<span style="color:#f92672">-&gt;</span>Visible <span style="color:#f92672">=</span> true;
-} 
+    TButton* btn2 = new TButton(this); // this é o meu form
 
-</code></pre></div><p>O <strong>Parent</strong> é o component que abriga a representação visual do objeto dentro de si. Parent e Owner são dois conceitos distintos. Pra frente veremos como as janelas são gerenciadas pela VCL e pela IDE.</p>
-<h4 id="atualização-turbo-c">Atualização: Turbo C++</h4>
+    btn2-&gt;Parent = this; // será o owner e o parent do novo botão
+    btn2-&gt;SetBounds(10, 10, 150, 25); // definindo as fronteiras dentro do form
+    btn2-&gt;Caption = &quot;Prazer! Sou dinâmico!&quot;;
+    btn2-&gt;Visible = true;
+} 
+</code></pre>
+<p>O Parent é o component que abriga a representação visual do objeto dentro de si. Parent e Owner são dois conceitos distintos. Pra frente veremos como as janelas são gerenciadas pela VCL e pela IDE.</p>
 <p>É claro! O Borlando C++ Builder é coisa do passado, assim como Delphi e VB como os conhecemos. A versão nova do C++ Buider chama-se Turbo C++ (até semana passada, pelo menos). Nele as coisas são iguais mas diferentes. Ou seja, os conceitos aqui apresentados ainda valem. Só estão com uma cara diferente.</p>
 
             
@@ -166,7 +164,7 @@ __published: <span style="color:#75715e">// IDE-managed Components
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/conceitos-basicos-na-programacao-com-c-builder/">discuss</a>
 
 
