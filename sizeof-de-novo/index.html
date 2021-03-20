@@ -105,50 +105,43 @@ Sizeof (de novo)
           <div class="content">
 
             
-              <p>Algumas coisas em C parecem tão simples na programação do dia-a-dia que em alguns momentos podem existir situações confusas e misteriosas. O uso obscuro do operador <strong>sizeof</strong>, por exemplo, pode dar margens a interpretações erradas a respeito do que está acontecendo por baixo dos panos. Apesar do padrão ter sido elaborado para tentar tornar a linguagem uma coisa intuitiva e de fácil dedução, isso não acontece todas as vezes.</p>
+              <p>Algumas coisas em C parecem tão simples na programação do dia-a-dia que em alguns momentos podem existir situações confusas e misteriosas. O uso obscuro do operador sizeof, por exemplo, pode dar margem a interpretações erradas a respeito do que está acontecendo por debaixo dos panos. Apesar do padrão ter sido elaborado para tentar tornar a linguagem uma coisa intuitiva e de fácil dedução, isso não acontece todas as vezes.</p>
 <p>Vamos tomar, por exemplo, o seguinte minicódigo:</p>
 <pre><code>size_t len = sizeof(&quot;A simple string&quot;);
 memcpy(buf, &quot;A simple string&quot;, len);
 </code></pre>
-<p>A pergunta ingênua: <strong>quantos <em>bytes</em> são copiados para buf?</strong></p>
-<p>A resposta ingênua: <strong>er... o tamanho de &quot;A simple string&quot;?</strong></p>
-<p>Agora vamos supor que você é um pouco mais esperto e começa a pensar: &quot;mas, peraí, estou passando na realidade um ponteiro para sizeof, o que quer dizer que, se meus cálculos estiverem corretos, e estivermos em uma plataforma de 32 bits, sizeof deve retornar 4, o que quer dizer que acabei de achar um <em>bug</em> escabroso, uhuu!&quot;.</p>
+<p>A pergunta ingênua: quantos bytes são copiados para buf?</p>
+<p>A resposta ingênua: er... o tamanho de &quot;A simple string&quot;?</p>
+<p>Agora vamos supor que você é um pouco mais esperto e começa a pensar: &quot;mas, peraí, estou passando na realidade um ponteiro para sizeof, o que quer dizer que, se meus cálculos estiverem corretos, e estivermos em uma plataforma de 32 bits, sizeof deve retornar 4, o que quer dizer que acabei de achar um bug escabroso, uhuu!&quot;.</p>
 <p>Muito bem, o raciocínio é perfeito. Afinal de contas, &quot;A simple string&quot; é um ponteiro para um array de caracteres terminados em zero, certo?</p>
-<p>Estou quase certo disso. Porém, isso quer dizer que já deixei vários <em>bugs</em> escabrosos há uns 4 anos atrás em trechos de código parecidos com esse. Será que eu estava errado e não me dei conta, ou sabia de algo que esqueci faz muito tempo?</p>
-<h4 id="em-caso-de-dúvida-olhe-o-padrão">Em caso de dúvida, olhe o padrão!</h4>
-<p>Eu e meu amigo demos uma olhada no padrão da linguagem C de 89 (revisão de 90), que diz duas coisas muito importantes nesse momento: o que é um sizeof e o que é uma <em>string</em> constante (chamada no padrão de <em>string</em> literal):</p>
-<!-- raw HTML omitted -->
+<p>Estou quase certo disso. Porém, isso quer dizer que já deixei vários bugs escabrosos há uns 4 anos atrás em trechos de código parecidos com esse. Será que eu estava errado e não me dei conta, ou sabia de algo que esqueci faz muito tempo?</p>
+<p>Eu e meu amigo demos uma olhada no padrão da linguagem C de 89 (revisão de 90), que diz duas coisas muito importantes nesse momento: o que é um sizeof e o que é uma string constante (chamada no padrão de string literal):</p>
 <blockquote>
 <h4 id="sizeof-6334">Sizeof (6.3.3.4)</h4>
-</blockquote>
-<p><em>The sizeof operator yields the size (in bytes) of its operand, which may be an expression or the parenthesized name of a type. The size is determined from <strong>the type of the operand</strong>, which is not itself evaluated. The result is an integer constant.</em></p>
-<blockquote>
+<p>The sizeof operator yields the size (in bytes) of its operand, which may be an expression or the parenthesized name of a type. The size is determined from the type of the operand, which is not itself evaluated. The result is an integer constant.</p>
 <h4 id="string-literal-614">String literal (6.1.4)</h4>
+<p>A character string literal is a sequence of zero or more multibyte characters enclosed in double-quotes, as in &quot;xyz&quot;. A wide string literal is the same, except prefixed by the letter L. (...) The multibyte character sequence is then used to initialize an array of static storage duration and lenght just sufficient to contain the sequence.</p>
 </blockquote>
-<p>_A character string literal is a sequence of zero or more multibyte characters enclosed in double-quotes, as in &quot;xyz&quot;. A wide string literal is the same, except prefixed by the letter L. (...) The multibyte character sequence is then used to initialize an <strong>array of static storage</strong> duration and <strong>lenght just sufficient to contain the sequence</strong>._<!-- raw HTML omitted --></p>
 <p>Em C++ (padrão ISO de 98) o texto é muito parecido, apenas abragendo também o conceito de type-id (desnecessário explicar para o contexto deste artigo):</p>
-<!-- raw HTML omitted -->
 <blockquote>
 <h4 id="sizeof-533">Sizeof (5.3.3)</h4>
-</blockquote>
-<p><em>The sizeof operator yields the number of bytes in the object representation of its operand. The operand is either an expression, which is not evaluated, or a parenthesized <strong>type-id</strong>.</em></p>
-<blockquote>
+<p>The sizeof operator yields the number of bytes in the object representation of its operand. The operand is either an expression, which is not evaluated, or a parenthesized type-id.</p>
 <h4 id="string-literal-2134">String literal (2.13.4)</h4>
+<p>A string literal is a sequence of characters (as defined in 2.13.2) surrounded by double quotes, optionally beginning with the letter L, as in &quot;...&quot; or L&quot;...&quot;. (...) An ordinary string literal has type &quot;array of n const char&quot; and static storage duration (...).</p>
 </blockquote>
-<p>_A string literal is a sequence of characters (as defined in 2.13.2) surrounded by double quotes, optionally beginning with the letter L, as in &quot;...&quot; or L&quot;...&quot;. (...) An ordinary string literal has type &quot;<strong>array of n const char</strong>&quot; and static storage duration (...)._<!-- raw HTML omitted --></p>
-<p>Os grifos são meus, para demonstrar que o operador sizeof irá retornar o número de <em>bytes</em> baseado no tipo do operando, e que o tipo de uma <em>string</em> literal é de array de caracteres com o tamanho justo para caber a <em>string</em>.</p>
+<p>Esses textos do padrão demonstram que o operador sizeof irá retornar o número de bytes baseado no tipo do operando, e que o tipo de uma string literal é de array de caracteres com o tamanho justo para caber a string.</p>
 <p>Bem, todos sabemos o resultado das linhas abaixo:</p>
 <pre><code>char charArray[100];
 size_t len = sizeof(charArray);
 </code></pre>
-<p>Nesse caso é simples de observar que o operador sizeof irá retornar 100, que é o número em <em>bytes</em> para abrigar o tipo do operando, que é de &quot;array de 100 caracteres&quot;. Podemos, então, imaginar que a nossa idiomática expressão do início é no fundo um resumo das linhas que se seguem.</p>
+<p>Nesse caso é simples de observar que o operador sizeof irá retornar 100, que é o número em bytes para abrigar o tipo do operando, que é de &quot;array de 100 caracteres&quot;. Podemos, então, imaginar que a nossa idiomática expressão do início é no fundo um resumo das linhas que se seguem.</p>
 <pre><code>...
 static char aSimpleString[] = &quot;A simple string&quot;;
 ...
 size_t len = sizeof(aSimpleString);
-memcpy(buf, aSimpleString, len); // obs: dependente da implementação
+memcpy(buf, aSimpleString, len);
 </code></pre>
-<p>Ou seja, o tipo de nossa <em>string</em> é na verdade de array estático de caracteres, como se uma variável tivesse sido definida anteriormente com o conteúdo da string, que deve estar em algum lugar da memória do programa. Visto dessa forma fica bem mais simples de entender o que acontece na versão resumida.</p>
+<p>Ou seja, o tipo de nossa string é na verdade de array estático de caracteres, como se uma variável tivesse sido definida anteriormente com o conteúdo da string, que deve estar em algum lugar da memória do programa. Visto dessa forma fica bem mais simples de entender o que acontece na versão resumida.</p>
 <p>O mais encorajador desse problema do sizeof é que a resposta ingênua estava certa, ou seja, pelo menos dessa vez, o padrão conseguiu através de suas regras seguir a intuição do programador.</p>
 
             
@@ -158,7 +151,7 @@ memcpy(buf, aSimpleString, len); // obs: dependente da implementação
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/sizeof-de-novo/">discuss</a>
 
 

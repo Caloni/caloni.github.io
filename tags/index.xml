@@ -5,9 +5,29 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 14 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Mar 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>draft</title>
+  <link>http://www.caloni.com.br/tags/draft/</link>
+  <pubDate>2021-03-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/draft/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>recipes</title>
+  <link>http://www.caloni.com.br/tags/recipes/</link>
+  <pubDate>2021-03-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/recipes/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>coffee</title>
@@ -20,31 +40,11 @@
 
      
         <item>
-  <title>draft</title>
-  <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2021-03-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/draft/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>movies</title>
   <link>http://www.caloni.com.br/tags/movies/</link>
   <pubDate>2021-03-14</pubDate>
   
   <guid>http://www.caloni.com.br/tags/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>recipes</title>
-  <link>http://www.caloni.com.br/tags/recipes/</link>
-  <pubDate>2021-03-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/recipes/</guid>
   <description></description>
 </item>
 

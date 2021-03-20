@@ -107,36 +107,16 @@ Debug remoto no C&#43;&#43; Builder
             
               <p>Esse é um detalhe que pode passar despercebido da maioria da população Borland, mas o Builder, assim como o Visual Studio, possui sua suíte para depuração remota. E tudo o que você precisa fazer é instalar um pacote no cliente.</p>
 <ol>
-<li>
-<p>No CD de instalação, existe uma pasta chamada RDEBUG.</p>
-</li>
-<li>
-<p>Na máquina cliente, execute o arquivo setup.exe contido nesta pasta. De preferência, não instale como um serviço (a menos que tenha um motivo).</p>
-</li>
-<li>
-<p>Crie uma aplicação tosca de teste (ou use uma aplicação tosca existente).</p>
-</li>
-<li>
-<p>Lembre-se que as DLLs do Builder não estarão disponíveis na máquina remota. Para não depender delas, utilize as opções &quot;Use dynamic RTL&quot; (aba Link) e &quot;Build with runtime packages&quot; (aba Packages) do seu projeto.</p>
-</li>
-<li>
-<p>Copie a aplicação para a máquina remota ou torne-a acessível através de mapeamento.</p>
-</li>
-<li>
-<p>Em Run, Parameters, habilite na aba Remote a opção &quot;Debug project on remote machine&quot;</p>
-</li>
-<li>
-<p>Em Remote Path especifique o path de sua aplicação visto da máquina remota.</p>
-</li>
-<li>
-<p>Em Remote Host especifique o nome ou o IP da máquina remota.</p>
-</li>
-<li>
-<p>Execute o aplicativo através do Builder (certifique-se que o cliente do Builder está rodando na máquina remota).</p>
-</li>
-<li>
-<p>Bom proveito!</p>
-</li>
+<li>No CD de instalação, existe uma pasta chamada RDEBUG.</li>
+<li>Na máquina cliente, execute o arquivo setup.exe contido nesta pasta. De preferência, não instale como um serviço (a menos que tenha um motivo).</li>
+<li>Crie uma aplicação tosca de teste (ou use uma aplicação tosca existente).</li>
+<li>Lembre-se que as DLLs do Builder não estarão disponíveis na máquina remota. Para não depender delas desabilite as opções &quot;Use dynamic RTL&quot; (aba Link) e &quot;Build with runtime packages&quot; (aba Packages) do seu projeto.</li>
+<li>Copie a aplicação para a máquina remota ou torne-a acessível através de mapeamento.</li>
+<li>Em Run, Parameters, habilite na aba Remote a opção &quot;Debug project on remote machine&quot;</li>
+<li>Em Remote Path especifique o path de sua aplicação visto da máquina remota.</li>
+<li>Em Remote Host especifique o nome ou o IP da máquina remota.</li>
+<li>Execute o aplicativo através do Builder (certifique-se que o cliente do Builder está rodando na máquina remota).</li>
+<li>Bom proveito!</li>
 </ol>
 <p>Infelizmente essa opção não está disponível nas versões Standard do produto, assim como não está o debugging remoto no Visual Studio Express. Porém, a nova versão do Builder, renomeada para Borland Turbo C++, é gratuita a possui essa feature embutida. O único porém é que a instalação não é automatizada, e os arquivos devem ser copiados &quot;na mão&quot;, seguindo um dos tópicos da ajuda. Melhor que nada.</p>
 <p>Para os que utilizam o Visual Studio Express, realmente ainda não achei solução a não ser usar o bom, velho e fiel companheiro WinDbg. Não saia de casa sem ele.</p>
@@ -148,7 +128,7 @@ Debug remoto no C&#43;&#43; Builder
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/draft">draft</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/debug-remoto-no-c-builder/">discuss</a>
 
 
