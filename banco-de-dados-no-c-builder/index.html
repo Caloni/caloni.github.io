@@ -116,9 +116,9 @@ Banco de dados no C&#43;&#43; Builder
 <p>Para a conversão, nada mais que algumas <a href="http://guia-er.sourceforge.net/">expressões regulares</a> e <a href="http://notepad-plus.sourceforge.net/uk/site.htm">macros de edição</a> não resolvam em 5 minutos, sem contar a opção de importação do próprio Access. Para evitar perder estes 5 minutos deixei disponível o banco de dados gerado no <a href="https://github.com/Caloni/MegaSena">repositório do projeto</a> junto com o projeto que criaremos para demonstrar a visualização.</p>
 <p>Neste tutorial vamos usar aquilo que é o configurador oficial de banco de dados no C++ Builder: o BDE. Se você ainda não observou, após a instalação do C++ Builder um novo item surgiu no Painel de Controle, o BDE Administrator. Vamos usá-lo para configurar uma base de dados baseada no nosso arquivo MDB recém-gerado.</p>
 <p>Criado o MDB, podemos clicar no BDE Administrator do Painel de Controle. A única coisa que precisamos fazer é criar uma nova base de dados, e especificar seus poucos parâmetros, como o tipo de base (MSACCESS) e o path de onde está o arquivo MDB.</p>
-<p><a href="/images/bde-config.png"><img src="http://i.imgur.com/CGK70TT.png" alt="BDE Config"></a></p>
+<p><img src="/img/bde-config.png" alt="BDE Config"></p>
 <p>Ah, sim, claro, também é importante colocar um nome apropriado para a base de dados: MegaSena.</p>
-<p>A partir daí, clicando no botão Apply <img src="http://i.imgur.com/V7nz629.png" alt="BDE Apply">, tudo deve fluir. Como em informática tudo quer dizer nada, eu deixo por conta do leitor a resolução de quaisquer problemas que acontecerem durante a configuração.</p>
+<p>A partir daí clicando no botão Apply tudo deve fluir. Como em informática tudo quer dizer nada, eu deixo por conta do leitor a resolução de quaisquer problemas que acontecerem durante a configuração.</p>
 <p>Criado o banco e testado (experimente conectar pelo próprio BDE) podemos agora criar um novo projeto VCL e colocar alguns componentes interessantes feitos especialmente para banco de dados. São eles:</p>
 <ul>
 <li>TDatabase: representa a própria base da dados, onde especificamos o nome da base de dados que vamos utilizar.</li>
@@ -147,8 +147,11 @@ end
 end
 </code></pre>
 <p>Com isso, nossa janela já exibe o conteúdo da tabela em tempo de design:</p>
-<p><a href="/images/cppb-dbgrid.png"><img src="http://i.imgur.com/gQZWVxo.png" alt="DB Grid"></a></p>
+<p><img src="/img/cppb-dbgrid.png" alt="DB Grid"></p>
 <p>E é isso! Se chegamos até aqui, já sabemos o arroz com feijão de usar banco de dados com o C++ Builder. Mais para a frente podemos nos aventurar em tópicos um pouco mais avançados, como fazer buscas, navegar item a item e essas coisas que as pessoas costumam fazer com um MDB.</p>
+<ul>
+<li>2021-03-27. Durante a revisão deste post eu tentei rodar a aplicação sem sucesso. Existem erros na abertura e configuração do arquivo mdb que não perdi mais tempo tentando resolver.</li>
+</ul>
 
             
 
@@ -157,7 +160,7 @@ end
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/banco-de-dados-no-c-builder/">discuss</a>
 
 
