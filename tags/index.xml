@@ -30,31 +30,21 @@
 
      
         <item>
+  <title>food</title>
+  <link>http://www.caloni.com.br/tags/food/</link>
+  <pubDate>2021-03-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/food/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>movies</title>
   <link>http://www.caloni.com.br/tags/movies/</link>
   <pubDate>2021-03-27</pubDate>
   
   <guid>http://www.caloni.com.br/tags/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>recipes</title>
-  <link>http://www.caloni.com.br/tags/recipes/</link>
-  <pubDate>2021-03-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/recipes/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>coffee</title>
-  <link>http://www.caloni.com.br/tags/coffee/</link>
-  <pubDate>2021-03-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/coffee/</guid>
   <description></description>
 </item>
 
@@ -75,16 +65,6 @@
   <pubDate>2021-02-19</pubDate>
   
   <guid>http://www.caloni.com.br/tags/series/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>wines</title>
-  <link>http://www.caloni.com.br/tags/wines/</link>
-  <pubDate>2021-02-16</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/wines/</guid>
   <description></description>
 </item>
 
