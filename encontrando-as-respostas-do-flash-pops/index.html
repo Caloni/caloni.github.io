@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Existe uma série de jogos no sítio da UOL onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da década de 40 até a atualidade. É divertido e viciante fazer pesquisa..."/>
+        content="Existia uma série de jogos no sítio da UOL chamado Flash Pops onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da década de 40 até a atualidade. É divertido e..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -105,17 +105,16 @@ Encontrando as respostas do Flash Pops
           <div class="content">
 
             
-              <p><a href="/images/flash-pops.png"><img src="http://i.imgur.com/nwYAF4Q.png" alt="Flash Pops"></a>Existe uma <a href="http://www2.uol.com.br/flashpops/jogos/">série de jogos</a> no sítio da UOL onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da <a href="http://www.imdb.com/title/tt0034583/">década de 40</a> até a <a href="http://www.imdb.com/title/tt0109830/">atualidade</a>. É divertido e viciante fazer pesquisa na internet para encontrar os resultados, ainda mais quando já se é viciado em cinema. Ficamos jogando, eu e minha namorada, por semanas a fio. Quase chegamos a preencher tudo, e por um bom tempo ficamos travados para terminar. Então começamos a apelar para o <a href="http://www.google.com">Google</a> e o <a href="http://www.imdb.com">IMDB</a> até os limites do razoável. Nesse fim de semana, por exemplo, chegamos a assistir um filme de madrugada onde tocou rapidamente um trecho de uma das músicas que faltava no jogo sobre televisão. No dia seguinte procuramos a <a href="http://www.imdb.com/title/tt0140688/soundtrack">trilha sonora do filme</a>, ouvimos <a href="http://www.amazon.com/exec/obidos/ASIN/B000007T6B/internetmoviedat/">faixa a faixa</a> e procuramos <a href="http://www.google.com/search?q=">o nome da música</a> no Google, para finalmente encontrar <a href="http://www.imdb.com/title/tt0088559/">o resultado</a>.</p>
+              <p>Existia uma série de jogos no sítio da UOL chamado Flash Pops onde você deve acertar o nome de filmes, programas de televisão, entre outros, que vão da década de 40 até a atualidade. É divertido e viciante fazer pesquisa na internet para encontrar os resultados, ainda mais quando já se é viciado em cinema. Ficamos jogando, eu e minha namorada, por semanas a fio. Quase chegamos a preencher tudo, e por um bom tempo ficamos travados para terminar. Então começamos a apelar para o Google e o IMDB até os limites do razoável. Nesse fim de semana, por exemplo, chegamos a assistir um filme de madrugada onde tocou rapidamente um trecho de uma das músicas que faltava no jogo sobre televisão. No dia seguinte procuramos a trilha sonora do filme, ouvimos faixa a faixa e procuramos o nome da música no Google, para finalmente encontrar o resultado.</p>
 <p>Essa foi a última resposta &quot;honesta&quot;. Depois resolvi apelar para o WinDbg =)</p>
-<h4 id="procurando-na-memória">Procurando na memória</h4>
 <p>A primeira coisa que pensei a respeito desse jogo foi que ele não seria tão ingênuo a ponto de colocar as respostas em texto aberto, do contrário, qual seria a graça, certo? Errado! Bom, no final das contas, um passo-a-passo bem simples me levou a encontrar a lista de respostas.</p>
 <p>A primeira coisa a fazer é carregar o jogo na memória do navegador. Em seguida, seguindo meu raciocínio inicial, digitei a primeira resposta do jogo.</p>
-<p><a href="/images/flash-pops-jogo.png"><img src="http://i.imgur.com/uuBC9fi.png" alt="Flash Pops (Filmes 1)"></a></p>
+<p><img src="/img/flash-pops-jogo.png" alt="Flash Pops (Filmes 1)"></p>
 <p>A partir daí, podemos &quot;atachar&quot; o WinDbg no processo do navegador e rastrear a memória do processo.</p>
 <pre><code>windbg -pn firefox.exe
 </code></pre>
-<p><a href="/images/gpfnow.gif"><img src="http://i.imgur.com/57ydjgF.gif" alt="GPF Now!"></a></p>
-<p>[](/images/win-pan.mp3)Então, como eu dizia, não faça isso em casa enquanto estiver digitando um artigo de seu blogue dentro do navegador. Ele vai travar!</p>
+<p><img src="/img/gpfnow.gif" alt="GPF Now!"></p>
+<p>Então, como eu dizia, não faça isso em casa enquanto estiver digitando um artigo de seu blogue dentro do navegador. Ele vai travar!</p>
 <pre><code>windbg %programfiles%\Mozilla Firefox\firefox.exe
 </code></pre>
 <p>OK. A primeira coisa é procurar pela string digitada, na esperança de achar a estrutura que escreve as respostas de acordo com a digitação. Isso pode ser feito facilmente graças ao WinDbg e ao <a href="http://voneinem-windbg.blogspot.com/2007/06/scan-full-process-memory-for-pattern.html">artigo de Volker von Einem</a> que ensina como procurar strings por toda a memória de um processo (mais tarde iremos também usar o comando-bônus do comentário de Roberto Farah).</p>
@@ -157,53 +156,43 @@ ntdll!DbgBreakPoint:
 0575f458  63 61 63 61 20 66 61 6e-74 61 73 6d 61 73 00 63  caca fantasmas.c
 </code></pre>
 <p>De fato, a lista de respostas é tudo que encontramos.</p>
-<h4 id="usando-o-foreach-e-uma-nova-busca">Usando o .foreach (e uma nova busca)</h4>
-<p>Assim como no <a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2">artigo sobre carregamento de DLLs arbitrárias</a>,  vamos usar o muito útil comando <strong>.foreach</strong>, que caminha em uma lista de resultados de um comando para executar uma lista secundária de comandos. Apenas para relembrar, a sintaxe do foreach é a seguinte:</p>
-<pre><code>.foreach [Options] ( &lt;font color=&quot;#ff0000&quot;&gt;Variable&lt;/font&gt;  { &lt;font color=&quot;#0000ff&quot;&gt;InCommands&lt;/font&gt; } ) { &lt;font color=&quot;#008000&quot;&gt;OutCommands&lt;/font&gt; }
+<p>Assim como no <a href="/carregando-dlls-arbitrarias-pelo-windbg-parte-2">artigo sobre carregamento de DLLs arbitrárias</a>,  vamos usar o muito útil comando .foreach, que caminha em uma lista de resultados de um comando para executar uma lista secundária de comandos. Apenas para relembrar, a sintaxe do foreach é a seguinte:</p>
+<pre><code>.foreach [Options] ( Variable  { InCommands } ) { OutCommands }
 </code></pre>
 <ul>
-<li>
-<p>Variable. Um nome que usamos no OutCommands. Representa cada <em>token</em> do resultado de InCommands.</p>
-</li>
-<li>
-<p>InCommands. Um ou mais comandos que executamos para gerar uma saída na tela. Essa saída será usada em OutCommands, onde Variable é substituído por cada <em>token</em> da saída.</p>
-</li>
-<li>
-<p>OutCommands. Um ou mais comandos executados usando a saída na tela de InCommands.</p>
-</li>
+<li>Variable. Um nome que usamos no OutCommands. Representa cada token do resultado de InCommands.</li>
+<li>InCommands. Um ou mais comandos que executamos para gerar uma saída na tela. Essa saída será usada em OutCommands, onde Variable é substituído por cada token da saída.</li>
+<li>OutCommands. Um ou mais comandos executados usando a saída na tela de InCommands.</li>
 </ul>
-<h4 id="o-que-é-um-_token_">O que é um <em>token</em>?</h4>
-<p>Para o .foreach, um <em>token</em> é uma string separada por espaço(s). A saída dos comandos do WinDbg nem sempre vai gerar algo que podemos usar diretamente, como no caso da busca que fizemos inicialmente. Apenas para demonstração, vamos imprimir todos os <em>tokens</em> da saída de nosso comando.</p>
+<p>Para o .foreach, um token é uma string separada por espaço(s). A saída dos comandos do WinDbg nem sempre vai gerar algo que podemos usar diretamente, como no caso da busca que fizemos inicialmente. Apenas para demonstração, vamos imprimir todos os tokens da saída de nosso comando.</p>
 <pre><code>.foreach ( answerList { s -a 0 0fffffff &quot;caca fantasmas&quot; } ) { .echo answerList }
 
-
-&lt;font color=&quot;#ff6600&quot;&gt;0575f458&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;63&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;61&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;63&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;61&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;20&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;66&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;61&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;6e-74&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;61&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;73&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;6d&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;61&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;73&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;00&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;63&lt;/font&gt;
-&lt;font color=&quot;#ff6600&quot;&gt;caca&lt;/font&gt;
-&lt;font color=&quot;#808000&quot;&gt;fantasmas.c&lt;/font&gt;
+0575f458
+63
+61
+63
+61
+20
+66
+61
+6e-74
+61
+73
+6d
+61
+73
+00
+63
+caca
+fantasmas.c
 </code></pre>
 <p>Isso acontece porque ele utilizada cada palavra separada por espaços da saída da busca.</p>
-<pre><code>&lt;font color=&quot;#ff6600&quot;&gt;0575f458 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;63 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;61 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;63 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;61 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;20 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;66 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;61 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;6e-74 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;61 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;73 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;6d &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;61 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;73 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;00 &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;63 &lt;/font&gt;&lt;font color=&quot;#ff6600&quot;&gt;caca &lt;/font&gt;&lt;font color=&quot;#808000&quot;&gt;fantasmas.c&lt;/font&gt;
+<pre><code>0575f458 63 61 63 61 20 66 61 6e-74 61 73 6d 61 73 00 63 caca fantasmas.c
 </code></pre>
-<p>Por isso usamos a flag <strong>[1]</strong>, que faz com que o comando imprima <strong>apenas o endereço</strong> onde ele encontrou a string.</p>
+<p>Por isso usamos a flag <code>-[1]</code>, que faz com que o comando imprima apenas o endereço onde ele encontrou a string.</p>
 <pre><code>0:017&gt; s -[1]a 0 0fffffff &quot;caca fantasmas&quot;
 0x0575f458
 </code></pre>
-<h4 id="imprimindo-a-tabela-de-respostas">Imprimindo a tabela de respostas</h4>
 <p>Enfim, vamos ao que interessa. Para imprimir todas as strings que representam as respostas, podemos simplesmente, no OutCommands, fazer uma nova busca por string, só que dessa vez genérica, dentro de uma faixa razoável (digamos, 4KB).</p>
 <pre><code>0:006&gt; .foreach ( answerList { s -[1]a 0 0fffffff &quot;caca fantasmas&quot; } ) { s -sa answerList L1000 }
 059ff458  &quot;caca fantasmas&quot;
@@ -231,11 +220,10 @@ ntdll!DbgBreakPoint:
 059ff54b  &quot;chariots of fire&quot;
 ...
 </code></pre>
-<p>Bom, vou parar o <em>dump</em> por aqui, já que, entre os leitores, pode haver quem queria se divertir primeiro do jeito certo =)</p>
-<h4 id="a-solução">A solução</h4>
-<p>Vimos que o jogo é facilmente quebrável porque armazena as respostas em texto claro. Uma solução alternativa seria utilizar um <strong><em>hash</em> com colisão próxima de zero</strong>. Com isso bastaria trocar as respostas possíveis por <em>hashs</em> possíveis e armazená-los no lugar. Quando o usuário digitasse, tudo que o programa precisaria mudar era gerar um <em>hash</em> a partir da resposta do usuário e comparar com o <em>hashs</em> das respostas válidas.</p>
-<p><a href="/images/flash-pops.gif"><img src="http://i.imgur.com/yovlNra.gif" alt="Flash Pops Seguro"></a></p>
-<p>Por uma incrível coincidência, esse truquezinho eu aprendi com meu amigo <a href="http://codebehind.wordpress.com/">Thiago</a> há poucos dias, que está lendo <a href="http://compare.buscape.com.br/categoria?id=3482&amp;lkout=1&amp;kw=Reversing+Secrets+of+Reverse+Engineering&amp;site_origem=1293522">Reversing</a>. Simples, porém funcional.</p>
+<p>Bom, vou parar o dump por aqui, já que, entre os leitores, pode haver quem queria se divertir primeiro do jeito certo =)</p>
+<p>Vimos que o jogo é facilmente quebrável porque armazena as respostas em texto claro. Uma solução alternativa seria utilizar um hash com colisão próxima de zero. Com isso bastaria trocar as respostas possíveis por hashs possíveis e armazená-los no lugar. Quando o usuário digitasse, tudo que o programa precisaria mudar era gerar um hash a partir da resposta do usuário e comparar com o hashs das respostas válidas.</p>
+<p><img src="/img/flash-pops.gif" alt="Flash Pops Seguro"></p>
+<p>Por uma incrível coincidência, esse truquezinho eu aprendi com meu amigo <a href="http://codebehind.wordpress.com/">Thiago</a> há poucos dias, que está lendo o livro Reversing. Simples, porém funcional.</p>
 
             
 
@@ -244,7 +232,7 @@ ntdll!DbgBreakPoint:
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/encontrando-as-respostas-do-flash-pops/">discuss</a>
 
 
@@ -260,7 +248,7 @@ ntdll!DbgBreakPoint:
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.17</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.18</a> </i></span>
   </div>
 </footer>
 

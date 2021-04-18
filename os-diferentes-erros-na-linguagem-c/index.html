@@ -108,24 +108,17 @@ Os diferentes erros na linguagem C
               <p>Uma coisa que me espanta de vez em quando é o total desconhecimento por programadores mais ou menos experientes dos níveis de erros que podem ocorrer em um fonte escrito em C ou C++. Desconheço o motivo, mas desconfio que o fato de outras linguagens não terem essa divisão de processos pode causar alguma nivelação entre as linguagens e fazer pensar que o processo de compilação em C é como em qualquer outra linguagem.</p>
 <p>Porém, para começar, só de falarmos em compilação já estamos pegando apenas um pedaço do todo, que é a geração de um programa executável em C. Tradicionalmente, dividimos esse processo em três passos:</p>
 <ol>
-<li>
-<p>Preprocessamento</p>
-</li>
-<li>
-<p>Compilação</p>
-</li>
-<li>
-<p>Linkedição</p>
-</li>
+<li>Preprocessamento</li>
+<li>Compilação</li>
+<li>Linkedição</li>
 </ol>
 <p>Vamos dar uma olhada mais de perto em cada um deles e descobrir erros típicos de cada processo.</p>
-<h4 id="preprocessamento">Preprocessamento</h4>
 <p>O preprocessamento é especificado pelos padrões C e C++, mas, tecnicamente, não faz parte da linguagem. Ou seja, antes que qualquer regra de sintaxe seja verificada no código-fonte, o preprocessamento já terá terminado.</p>
-<p>Essa parte do processo lida com substituição de texto e diretivas baseadas em <strong>arquivos e símbolos</strong>. Por exemplo, a diretiva de preprocessamento mais conhecida</p>
+<p>Essa parte do processo lida com substituição de texto e diretivas baseadas em arquivos e símbolos. Por exemplo, a diretiva de preprocessamento mais conhecida</p>
 <pre><code>#include &lt;stdio.h&gt;
 </code></pre>
-<p>faz com que todo o conteúdo do arquivo especificado seja incluído exatamente no ponto onde for colocada essa diretiva. Isso quer dizer que, antes sequer do código-fonte ser compilado, todo o conteúdo desse <em>header</em> padrão estará no corpo do arquivo C.</p>
-<p>Para evitar que o mesmo <em>header</em> seja incluído inúmeras vezes dentro da mesma unidade em C, causando assim erros de redefinição, existe outra diretiva muito usada para cercar esses arquivos públicos:</p>
+<p>faz com que todo o conteúdo do arquivo especificado seja incluído exatamente no ponto onde for colocada essa diretiva. Isso quer dizer que, antes sequer do código-fonte ser compilado, todo o conteúdo desse header padrão estará no corpo do arquivo C.</p>
+<p>Para evitar que o mesmo header seja incluído inúmeras vezes dentro da mesma unidade em C, causando assim erros de redefinição, existe outra diretiva muito usada para cercar esses arquivos públicos:</p>
 <pre><code>#ifndef __MEUHEADER__ // se já estiver definido, caio fora até endif
 #define __MEUHEADER__
 
@@ -147,7 +140,7 @@ int func()
 #define __HEADERDOMAL__
 
  // tirei header da jogada, huahuahua (risos maléficos)
-&lt;font color=&quot;#ff0000&quot;&gt;#define __MEUHEADER__&lt;/font&gt;
+#define __MEUHEADER__
 
 #endif // __HEADERDOMAL__
 </code></pre>
@@ -163,12 +156,11 @@ int meuheaderFunc(); // talvez alguém precise disso
 <pre><code>error C3861: 'meuheaderFunc': identifier not found
 </code></pre>
 <p>Isso em fontes pequenos é facilmente identificável. Em fontes maiores, é preciso ter um pouco mais de cuidado.</p>
-<p>Após o processo de preprocessamento, de todos os arquivos indicados terem sido incluídos, de todas as macros terem sido substituídas, todas as constantes colocadas literalmente no código-fonte, temos  o que é chamado <strong>unidade de compilação</strong>, que será entregue ao compilador, que, por sua vez, irá começar a análise sintática de fato, descobrindo novos erros que podem ou não (como vimos) ter a ver com a fase anterior. A figura abaixo ilustra esse processo, com algumas trocas conhecidas:</p>
-<p><a href="/images/preprocessor.gif"><img src="http://i.imgur.com/dLZA8Xh.gif" alt="Preprocessor"></a></p>
+<p>Após o processo de preprocessamento, de todos os arquivos indicados terem sido incluídos, de todas as macros terem sido substituídas, todas as constantes colocadas literalmente no código-fonte, temos  o que é chamado unidade de compilação, que será entregue ao compilador, que, por sua vez, irá começar a análise sintática de fato, descobrindo novos erros que podem ou não (como vimos) ter a ver com a fase anterior. A figura abaixo ilustra esse processo, com algumas trocas conhecidas:</p>
+<p><img src="/img/preprocessor.gif" alt="Preprocessor"></p>
 <!-- raw HTML omitted -->
-<h4 id="compilação">Compilação</h4>
 <p>Se você conseguir passar ileso para a fase de compilação, pode se considerar um mestre do preprocessamento.  Por experiência própria, posso afirmar que a maior parte do tempo gasto corrigindo erros de compilação, por ironia do destino, não terá origem na compilação em si, mas no preprocessamento e linkedição. Isso porque o preprocessamento confunde muito o que vimos no nosso editor preferido, e a linkedição ocorre em uma fase onde não importa mais o que está dentro das funções, mas sim o escopo de nomes, um assunto um pouco mais vago do que a linguagem C.</p>
-<p>Aqui você irá encontrar geralmente erros bem comportados, como conversão entre tipos, else sem if e esquecimento de pontuação ou parênteses.</p>
+<p>Na compilação você irá encontrar geralmente erros bem comportados, como conversão entre tipos, else sem if e esquecimento de pontuação ou parênteses.</p>
 <pre><code>int cannotConvertError(const char* message)
 {
     int ret = message[0];
@@ -179,57 +171,44 @@ int ret = cannotConvertError(3);
 
 error C2664: 'cannotConvertError' : cannot convert parameter 1 from 'int' to 'const char *'
 
-
 if( test() )
     something;
     something-else;
 else
     else-something;
 
-
 error C2181: illegal else without matching if
-
 
 while( (x &lt; z) &amp;&amp; func(x, func2(y) != 2 )
 {
     something;
 }
 
-
 error C2143: syntax error : missing ')' before '{'
 </code></pre>
 <p>Claro, não estamos falando de erros relacionados a templates, que são um pesadelo à parte.</p>
 <!-- raw HTML omitted -->
-<h4 id="linkedição">Linkedição</h4>
-<p>Chegando aqui, onde a esperança reside, tudo pode vir por água abaixo. Isso porque você já espera confiante que tudo dê certo, quando, na verdade, um erro bem colocado pode fazer você desistir pra sempre desse negócio de programar em C.</p>
+<p>Chegando na linkedição, onde a esperança reside, tudo pode vir por água abaixo. Isso porque você já espera confiante que tudo dê certo, quando, na verdade, um erro bem colocado pode fazer você desistir pra sempre desse negócio de programar em C.</p>
 <p>As características mais desejadas para corrigir erros nessa fase são:</p>
 <ol>
-<li>
-<p>Total conhecimento da fase do preprocessamento</p>
-</li>
-<li>
-<p>Total conhecimento da fase da compilação</p>
-</li>
-<li>
-<p>Total conhecimento de <strong>níveis de escopo e assinatura de funções</strong></p>
-</li>
+<li>Total conhecimento da fase do preprocessamento</li>
+<li>Total conhecimento da fase da compilação</li>
+<li>Total conhecimento de níveis de escopo e assinatura de funções</li>
 </ol>
-<p>Os dois primeiros itens são uma maldição previsível que deve-se carregar para todo o sempre. Se você não consegue entender o que aconteceu nas duas primeiras fases, dificilmente irá conseguir seguir adiante com essa empreitada. O terceiro item significa que deve-se levar em conta as bibliotecas que estamos usando, <em>headers</em> externos (com dependências externas), conflitos entre nomes, etc.</p>
-<p>Alguns erros mais encontrados aqui são as funções não encontradas por falta da LIB certa ou por LIBs desatualizadas que não se encaixam mais com o projeto, fruto de muitas dores de cabeça de manutenção de código. Essa é a parte em que mais vale a pena saber organizar e definir uma <strong>interface clara entre os componentes de um projeto</strong>.</p>
-<p>Do ponto de vista técnico, é a fase onde o <em>linker</em> junta todos os arquivos-objeto especificados, encontra as funções, métodos e classes necessárias e monta uma <strong>unidade executável</strong>, como ilustrado pela figura abaixo.</p>
-<p><a href="/images/linker.gif"><img src="http://i.imgur.com/RJtiCkA.gif" alt="Linker"></a></p>
+<p>Os dois primeiros itens são uma maldição previsível que deve-se carregar para todo o sempre. Se você não consegue entender o que aconteceu nas duas primeiras fases, dificilmente irá conseguir seguir adiante com essa empreitada. O terceiro item significa que deve-se levar em conta as bibliotecas que estamos usando, headers externos (com dependências externas), conflitos entre nomes, etc.</p>
+<p>Alguns erros mais encontrados aqui são as funções não encontradas por falta da LIB certa ou por LIBs desatualizadas que não se encaixam mais com o projeto, fruto de muitas dores de cabeça de manutenção de código. Essa é a parte em que mais vale a pena saber organizar e definir uma interface clara entre os componentes de um projeto.</p>
+<p>Do ponto de vista técnico, é a fase onde o linker junta todos os arquivos-objeto especificados, encontra as funções, métodos e classes necessárias e monta uma unidade executável, como ilustrado pela figura abaixo.</p>
+<p><img src="/img/linker.gif" alt="Linker"></p>
 <!-- raw HTML omitted -->
-<h4 id="erros-além-da-imaginação">Erros além da imaginação</h4>
 <p>É óbvio que, por ter passado pelas três fases de transformação de um código-fonte em um programa executável, não quer dizer que este programa está livre de erros. Os famigerados erros de lógica podem se disfarçar até o último momento da compilação e só se mostrarem quando o código estiver rodando (de preferência, no cliente).</p>
 <p>Entre esses erros, os mais comuns costumam se aproveitar de macros, como max, que usa mais de uma vez o parâmetro, que pode ser uma chamada com uma função. A função será chamada duas vezes, mesmo que aparentemente no código a chamada seja feita uma única vez:</p>
 <pre><code>#define max(a, b) ( a &gt; b ? a : b )
 
 int z = max( func(10), 30 );
 </code></pre>
-<p>Um outro erro que já encontrei algumas vezes é quando a definição de uma classe tem um sizeof diferente do compilado em sua LIB, pela exclusão ou adição de novos membros. Isso pode (vai) fazer com que, durante a execução, a pilha seja corrompida, membros diferentes sejam acessados, entre outras traquinagens. Esses erros costumam acusar a falta de sincronismo entre os _header_s usados e suas reais implementações.</p>
-<p>Enfim, na vida real, é impossível catalogar todos os erros que podem ocorrer em um fonte em C. Se isso fosse possível, ou não existiriam bugs, ou pelo menos existiria uma <a href="http://en.wikipedia.org/wiki/Lint_programming_tool">ferramenta</a> para automaticamente procurar por esses erros e corrigi-los.</p>
-<h4 id="um-projeto-cheio-de-erros">Um projeto cheio de erros</h4>
-<p>Criei uma <a href="/images/cpperrors.7z">solução</a> no Visual Studio com alguns erros básicos, alguns demonstrados aqui, outros não, mas enfim, completamente configuráveis e divididos nessas três fases. É possível habilitar e desabilitar erros através do _header _cpperrors.h. Espero que gostem.</p>
+<p>Um outro erro que já encontrei algumas vezes é quando a definição de uma classe tem um sizeof diferente do compilado em sua LIB, pela exclusão ou adição de novos membros. Isso pode (vai) fazer com que, durante a execução, a pilha seja corrompida, membros diferentes sejam acessados, entre outras traquinagens. Esses erros costumam acusar a falta de sincronismo entre os headers usados e suas reais implementações.</p>
+<p>Enfim, na vida real, é impossível catalogar todos os erros que podem ocorrer em um fonte em C. Se isso fosse possível, ou não existiriam bugs, ou pelo menos existiria uma ferramenta para automaticamente procurar por esses erros e corrigi-los. Bom, existe o Lint.</p>
+<p>Criei um <a href="https://github.com/Caloni/cpperrors">projeto</a> com alguns erros básicos, alguns demonstrados aqui, outros não, mas enfim, completamente configuráveis e divididos nessas três fases. É possível habilitar e desabilitar erros através do header cpperrors.h. Espero que gostem.</p>
 
             
 
@@ -238,7 +217,7 @@ int z = max( func(10), 30 );
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/">discuss</a>
 
 
@@ -254,7 +233,7 @@ int z = max( func(10), 30 );
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.17</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.18</a> </i></span>
   </div>
 </footer>
 

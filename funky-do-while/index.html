@@ -107,142 +107,142 @@ Funky do-while
             
               <p>It's a known habit to use do-while constructions when there's a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.</p>
 <p>Let's imagine a trace macro that's enabled in debug mode, whilst kept in silence in release builds:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifdef NDEBUG
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message ) </span><span style="color:#75715e">/* nothing */</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#else
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message )        \
-</span><span style="color:#75715e"></span>	{                              <span style="color:#960050;background-color:#1e0010">\</span>
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];           <span style="color:#960050;background-color:#1e0010">\</span>
-		sprintf(buffer,             <span style="color:#960050;background-color:#1e0010">\</span>
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,  <span style="color:#960050;background-color:#1e0010">\</span>
-			__FILE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			__LINE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			message);                <span style="color:#960050;background-color:#1e0010">\</span>
-		OutputDebugString(buffer);  <span style="color:#960050;background-color:#1e0010">\</span>
-	}
+<pre><code>#ifdef NDEBUG
 
-<span style="color:#75715e">#endif </span><span style="color:#75715e">/* NDEBUG */</span><span style="color:#75715e"> 
-</span><span style="color:#75715e"></span>
-</code></pre></div><p>Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn't work.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	MYTRACE(<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-<span style="color:#66d9ef">else</span>
-	<span style="color:#a6e22e">MYTRACE</span>(<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>); 
+#define MYTRACE( message ) /* nothing */
 
-</code></pre></div><pre><code>error C2181: illegal else without matching if
+#else
+
+#define MYTRACE( message )   \
+{                            \
+  char buffer[500];          \
+  sprintf(buffer,            \
+    &quot;MYTRACE: %s(%d) %s\n&quot;,  \
+    __FILE__,                \
+    __LINE__,                \
+    message);                \
+  OutputDebugString(buffer); \
+}
+
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn't work.</p>
+<pre><code>if( exploded() )
+  MYTRACE(&quot;Oh, my God&quot;);
+else
+  MYTRACE(&quot;That's right&quot;); 
+
+error C2181: illegal else without matching if
 </code></pre>
 <p>Why's that? In order to answer this question, we need to look closer into the result code from the preprocessor, just replacing the macro for its piece of code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-		OutputDebugString(buffer);
-	};
-<span style="color:#66d9ef">else</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>);
-		OutputDebugString(buffer);
-	};
- 
-
-</code></pre></div><p>So, that's why. When we call a macro, generally we use the funcion-call syntax, putting a semicolon in the end. This is the right way to call a function, but in the macro case, it's a disaster, because it creates two commands instead of one (an empty semicolon, despite doing nothing, it's a valid command). So that's what the compiler does:</p>
+<pre><code>if( exploded() )
+{
+  char buffer[500];
+  sprintf(buffer,
+    &quot;MYTRACE: %s(%d) %s\n&quot;,
+    __FILE__,
+    __LINE__,
+    &quot;Oh, my God&quot;);
+  OutputDebugString(buffer);
+};
+else
+{
+  char buffer[500];
+  sprintf(buffer,
+    &quot;MYTRACE: %s(%d) %s\n&quot;,
+    __FILE__,
+    __LINE__,
+    &quot;That's right&quot;);
+  OutputDebugString(buffer);
+};
+</code></pre>
+<p>So, that's why. When we call a macro, generally we use the funcion-call syntax, putting a semicolon in the end. This is the right way to call a function, but in the macro case, it's a disaster, because it creates two commands instead of one (an empty semicolon, despite doing nothing, it's a valid command). So that's what the compiler does:</p>
 <pre><code>if( instruction )
 {
-    /* a lot of comands */
+  /* a lot of comands */
 
 } /* here I would expect an else or new instruction */
-</code></pre>
-<p>; /* a new command! okay, no else this time */</p>
-<pre><code>else /* wait! what this else is doing here without an if?!?! */
+
+; /* a new command! okay, no else this time */
+
+else /* wait! what this else is doing here without an if?!?! */
 {
-    /* more commands */
+  /* more commands */
 }
 </code></pre>
 <p>Think about the empty command as if it was a real command, what is the easier way to realize the compiler error:</p>
 <pre><code>if( error() )
 {
-    printf(&quot;error&quot;);
+  printf(&quot;error&quot;);
 }
-</code></pre>
-<p>printf(&quot;here we go&quot;);</p>
-<pre><code>else /* llegal else without matching if! */
+
+printf(&quot;here we go&quot;);
+
+else /* llegal else without matching if! */
 {
-    printf(&quot;okay&quot;);
+  printf(&quot;okay&quot;);
 }
 </code></pre>
 <p>For this reason, the tradicional way to skip this common error is to use a valid construction who asks for a semicolon in the end. Fortunately, language C has such construction, and it is... right, the <strong>do-while</strong>!</p>
 <pre><code>do
 {
-    /* multiple commands here */
+  /* multiple commands here */
 }
 while( expression )
-</code></pre>
-<p>;</p>
-<pre><code> /* I expect a semicolon here, in order
-                         to end the do-while instruction */
+
+;
+/* I expect a semicolon here, in order
+   to end the do-while instruction */
 </code></pre>
 <p>So we can rewrite our trace macro the right way, even being a funcky one:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#ifdef NDEBUG
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message ) </span><span style="color:#75715e">/* nothing */</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#else
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message )        \
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">do</span>                             <span style="color:#960050;background-color:#1e0010">\</span>
-	{                              <span style="color:#960050;background-color:#1e0010">\</span>
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];           <span style="color:#960050;background-color:#1e0010">\</span>
-		sprintf(buffer,             <span style="color:#960050;background-color:#1e0010">\</span>
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,  <span style="color:#960050;background-color:#1e0010">\</span>
-			__FILE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			__LINE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			message);                <span style="color:#960050;background-color:#1e0010">\</span>
-		printf(buffer);             <span style="color:#960050;background-color:#1e0010">\</span>
-	}                              <span style="color:#960050;background-color:#1e0010">\</span>
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> )
+<pre><code>#ifdef NDEBUG
 
-<span style="color:#75715e">#endif </span><span style="color:#75715e">/* NDEBUG */</span><span style="color:#75715e"> 
-</span><span style="color:#75715e"></span>
-</code></pre></div><p>Using a do-while (with a false expression inside the test to execute the block just once) the if-else construction is allowed and working properly:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	<span style="color:#66d9ef">do</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-		OutputDebugString(buffer);
-	}
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> );
-<span style="color:#66d9ef">else</span>
-	<span style="color:#66d9ef">do</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>);
-		OutputDebugString(buffer);
-	}
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> );
- 
+#define MYTRACE( message ) /* nothing */
 
-</code></pre></div>
+#else
+
+#define MYTRACE( message )   \
+do                           \
+{                            \
+  char buffer[500];          \
+  sprintf(buffer,            \
+    &quot;MYTRACE: %s(%d) %s\n&quot;,  \
+    __FILE__,                \
+    __LINE__,                \
+    message);                \
+  printf(buffer);            \
+}                            \
+while( 0 )
+
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Using a do-while (with a false expression inside the test to execute the block just once) the if-else construction is allowed and working properly:</p>
+<pre><code>if( exploded() )
+do
+{
+  char buffer[500];
+  sprintf(buffer,
+    &quot;MYTRACE: %s(%d) %s\n&quot;,
+    __FILE__,
+    __LINE__,
+    &quot;Oh, my God&quot;);
+  OutputDebugString(buffer);
+}
+while( 0 );
+else
+do
+{
+  char buffer[500];
+  sprintf(buffer,
+    &quot;MYTRACE: %s(%d) %s\n&quot;,
+    __FILE__,
+    __LINE__,
+    &quot;That's right&quot;);
+  OutputDebugString(buffer);
+}
+while( 0 );
+</code></pre>
+
             
 
           </div>
@@ -250,7 +250,7 @@ while( expression )
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/english">english</a>  <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/funky-do-while/">discuss</a>
 
 
@@ -266,7 +266,7 @@ while( expression )
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.17</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.18</a> </i></span>
   </div>
 </footer>
 

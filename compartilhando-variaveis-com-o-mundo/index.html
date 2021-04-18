@@ -105,189 +105,167 @@ Compartilhando variáveis com o mundo
           <div class="content">
 
             
-              <p>Desde que comecei a programar, para compartilhar variáveis entre processo é meio que consenso usar-se a milenar técnica do <strong>crie uma seção compartilhada no seu executável/DLL</strong>. Isso funciona desde a época em que o Windows era <a href="http://dqsoft.blogspot.com/2006/10/gerenciamento-de-memria-windows-16-bits.html">em preto e branco</a>. Mas, como tudo em programação, existem mil maneiras de assar o pato. Esse artigo explica uma delas, a não-tão-milenar técnica do <strong>use memória mapeada nomeada misturada com templates.</strong></p>
-<h4 id="antigamente">Antigamente...</h4>
+              <p>Desde que comecei a programar, para compartilhar variáveis entre processo é meio que consenso usar-se a milenar técnica do crie uma seção compartilhada no seu executável/DLL. Isso funciona desde a época em que <a href="http://dqsoft.blogspot.com/2006/10/gerenciamento-de-memria-windows-16-bits.html">o Windows era em preto e branco</a>. Mas, como tudo em programação, existem mil maneiras de assar o pato. Esse artigo explica uma delas, a não-tão-milenar técnica do use memória mapeada nomeada misturada com templates.</p>
 <p>Era comum (talvez ainda seja) fazer um código assim:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// aqui definimos uma nova seção (note o &#39;shared&#39; usado como atributo)
-</span><span style="color:#75715e"></span><span style="color:#75715e">#pragma section(&#34;shared&#34;, read, write, shared)
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// um conjunto de variáveis agrupadas para facilitar o compartilhamento
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">EstruturaDoCoracao</span>
+<pre><code>// aqui definimos uma nova seção (note o 'shared' usado como atributo)
+#pragma section(&quot;shared&quot;, read, write, shared)
+
+// um conjunto de variáveis agrupadas para facilitar o compartilhamento
+struct EstruturaDoCoracao
 {
-	<span style="color:#66d9ef">int</span> meuIntPreferido;
-	<span style="color:#66d9ef">char</span> meuCharAmigo;
-	<span style="color:#66d9ef">double</span> meuNumeroDePontoFlutuanteCamarada;
+  int meuIntPreferido;
+  char meuCharAmigo;
+  double meuNumeroDePontoFlutuanteCamarada;
 };
 
-<span style="color:#75715e">// uma instância da struct acima para podermos usar nos processo amigos
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">__declspec</span>(allocate(<span style="color:#e6db74">&#34;shared&#34;</span>)) EstruturaDoCoracao g_coracao;
+// uma instância da struct acima para podermos usar nos processo amigos
+__declspec(allocate(&quot;shared&quot;)) EstruturaDoCoracao g_coracao;
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+int main()
 {
-	g_coracao.meuCharAmigo <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>;
-	g_coracao.meuIntPreferido <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
-	g_coracao.meuNumeroDePontoFlutuanteCamarada <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14159265358979323846264338</span>;
+  g_coracao.meuCharAmigo = 'C';
+  g_coracao.meuIntPreferido = 42;
+  g_coracao.meuNumeroDePontoFlutuanteCamarada = 3.14159265358979323846264338;
 } 
-
-</code></pre></div><p>Aquele pragma do começo garante que qualquer instância do mesmo executável, mas processos distintos, irão compartilhar qualquer variável definida dentro da seção &quot;shared&quot;. O nome na verdade não importa muito - é apenas usado para clareza - , mas o <strong>atributo do final</strong>, sim.</p>
+</code></pre>
+<p>Aquele pragma do começo garante que qualquer instância do mesmo executável, mas processos distintos, irão compartilhar qualquer variável definida dentro da seção &quot;shared&quot;. O nome na verdade não importa muito - é apenas usado para clareza - , mas o atributo do final, sim.</p>
 <p>Algumas desvantagens dessa técnica são:</p>
 <ul>
-<li>
-<p>Não permite compartilhamento entre executáveis diferentes, salvo se tratar-se de uma DLL carregada por ambos.</p>
-</li>
-<li>
-<p>É um compartilhamento estático, que permanece do início do primeiro processo ao fim do último.</p>
-</li>
-<li>
-<p>Não possui proteção, ou seja, se for uma DLL, qualquer executável que a carregar tem acesso à área de memória.</p>
-</li>
+<li>Não permite compartilhamento entre executáveis diferentes, salvo se tratar-se de uma DLL carregada por ambos.</li>
+<li>É um compartilhamento estático, que permanece do início do primeiro processo ao fim do último.</li>
+<li>Não possui proteção, ou seja, se for uma DLL, qualquer executável que a carregar tem acesso à área de memória.</li>
 </ul>
-<p>Muitas vezes essa abordagem é suficiente, como em <a href="http://msdn.microsoft.com/library/en-us/winui/winui/windowsuserinterface/windowing/hooks/hookreference/hookfunctions/setwindowshookex.asp">_hooks _globais</a>, que precisam apenas de uma ou duas variáveis compartilhadas. Também pode ser útil como contador de instâncias, do mesmo jeito que usamos as <strong>variáveis estáticas de uma classe em C++</strong> (vide <a href="http://www.boost.org/libs/smart_ptr/shared_ptr.htm">shared_ptr</a> do boost, ou a CString do ATL, que usa o mesmo princípio).</p>
-<h4 id="memória-mapeada-compartilhada-nomeada">Memória mapeADA compartilhADA nomeADA</h4>
-<p>Houve uma vez em que tive que fazer <em>hooks</em> direcionados a threads específicas no sistema, onde eu não sabia nem qual o processo <em>host</em> nem quantos _hooks _seriam feitos. Essa é uma situação onde fica <strong>muito difícil</strong> usar a técnica milenar.</p>
+<p>Muitas vezes essa abordagem é suficiente, como em hooks globais, que precisam apenas de uma ou duas variáveis compartilhadas. Também pode ser útil como contador de instâncias, do mesmo jeito que usamos as variáveis estáticas de uma classe em C++ (vide shared_ptr do boost, ou a CString do ATL, que usa o mesmo princípio).</p>
+<p>Houve uma vez em que tive que fazer hooks direcionados a threads específicas no sistema, onde eu não sabia nem qual o processo host nem quantos hooks seriam feitos. Essa é uma situação onde fica muito difícil usar a técnica milenar.</p>
 <p>Foi daí que eu fiz um conjunto de funções alfa-beta de compartilhamento de variáveis baseado em template e memória mapeada:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/** Aloca uma variável em memória mapeada, permitindo a qualquer processo
-</span><span style="color:#75715e">com direitos enxergá-la e alterá-la.
-</span><span style="color:#75715e">*/</span>
+<pre><code>#pragma once
+#include &lt;windows.h&gt;
+#include &lt;tchar.h&gt;
 
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-HANDLE AllocSharedVariable(T<span style="color:#f92672">**</span> pVar, PCTSTR varName)
+/** Aloca uma variável em memória mapeada, permitindo a qualquer processo
+com direitos enxergá-la e alterá-la.
+*/
+
+template&lt;typename T&gt;
+HANDLE AllocSharedVariable(T** pVar, PCTSTR varName)
 {
-	DWORD varSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(T);
-	HANDLE ret <span style="color:#f92672">=</span> CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
-		<span style="color:#ae81ff">0</span>, varSize, varName);
+  DWORD varSize = sizeof(T);
+  HANDLE ret = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
+    0, varSize, varName);
 
-	<span style="color:#66d9ef">if</span>( ret )
-	{
-		<span style="color:#f92672">*</span>pVar <span style="color:#f92672">=</span> (T<span style="color:#f92672">*</span>) MapViewOfFile(ret, FILE_MAP_ALL_ACCESS, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+  if( ret )
+  {
+    *pVar = (T*) MapViewOfFile(ret, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 
-		<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span> <span style="color:#f92672">*</span>pVar )
-		{
-			DWORD err <span style="color:#f92672">=</span> GetLastError();
-			CloseHandle(ret);
-			SetLastError(err);
-		}
-	}
-	<span style="color:#66d9ef">else</span>
-		<span style="color:#f92672">*</span>pVar <span style="color:#f92672">=</span> NULL;
+    if( ! *pVar )
+    {
+      DWORD err = GetLastError();
+      CloseHandle(ret);
+      SetLastError(err);
+    }
+  }
+  else
+    *pVar = NULL;
 
-	<span style="color:#66d9ef">return</span> ret;
+  return ret;
 }
 
-<span style="color:#75715e">/** Abre uma variável que foi criada em memória mapeada, permitindo ao
-</span><span style="color:#75715e">processo atual enxergar e alterar uma variável criada por outro processo.
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-HANDLE OpenSharedVariable(T<span style="color:#f92672">**</span> pVar, PCTSTR varName)
+/** Abre uma variável que foi criada em memória mapeada, permitindo ao
+processo atual enxergar e alterar uma variável criada por outro processo.
+*/
+template&lt;typename T&gt;
+HANDLE OpenSharedVariable(T** pVar, PCTSTR varName)
 {
-	DWORD varSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(T);
-	HANDLE ret <span style="color:#f92672">=</span> OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, varName);
+  DWORD varSize = sizeof(T);
+  HANDLE ret = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, varName);
 
-	<span style="color:#66d9ef">if</span>( ret )
-	{
-		<span style="color:#f92672">*</span>pVar <span style="color:#f92672">=</span> (T<span style="color:#f92672">*</span>) MapViewOfFile(ret, FILE_MAP_READ <span style="color:#f92672">|</span> FILE_MAP_WRITE, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, varSize);
+  if( ret )
+  {
+    *pVar = (T*) MapViewOfFile(ret, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, varSize);
 
-		<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span> <span style="color:#f92672">*</span>pVar )
-		{
-		DWORD err <span style="color:#f92672">=</span> GetLastError();
-		CloseHandle(ret);
-		ret <span style="color:#f92672">=</span> NULL;
-		SetLastError(err);
-		}
-	}
-	<span style="color:#66d9ef">else</span>
-		<span style="color:#f92672">*</span>pVar <span style="color:#f92672">=</span> NULL;
+    if( ! *pVar )
+    {
+    DWORD err = GetLastError();
+    CloseHandle(ret);
+    ret = NULL;
+    SetLastError(err);
+    }
+  }
+  else
+    *pVar = NULL;
 
-	<span style="color:#66d9ef">return</span> ret;
+  return ret;
 }
 
-<span style="color:#75715e">/** Libera visualização de uma variável em memória mapeada. Quando o último processo
-</span><span style="color:#75715e">liberar a última visualização, a variável é eliminada da memória.
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-VOID FreeSharedVariable(HANDLE varH, T<span style="color:#f92672">*</span> pVar)
+/** Libera visualização de uma variável em memória mapeada. Quando o último processo
+liberar a última visualização, a variável é eliminada da memória.
+*/
+template&lt;typename T&gt;
+VOID FreeSharedVariable(HANDLE varH, T* pVar)
 {
-	<span style="color:#66d9ef">if</span>( pVar )
-		UnmapViewOfFile(pVar);
-	<span style="color:#66d9ef">if</span>( varH )
-		CloseHandle(varH);
+  if( pVar )
+    UnmapViewOfFile(pVar);
+  if( varH )
+    CloseHandle(varH);
 } 
-
-</code></pre></div><p>Como pode-se ver, o seu funcionamento é muito simples: uma função-template que recebe uma referência para um ponteiro de ponteiro do tipo da variável desejada, o seu nome global e retorna uma <strong>variável alocada na memória de cachê do sistema</strong>. Como contraparte existe uma função que abre essa memória baseada em seu nome e faz o <em>cast</em> (coversão de tipo) necessário. Ambas as chamadas devem chamar uma terceira função para liberar o recurso.</p>
-<p>O segredo para entender mais detalhes dessa técnica é <strong>pesquisar as funções envolvidas</strong>: CreateFileMapping, OpenFileMapping, MapViewOfFile e UnmapViewOfFile. Bem, o CloseHandle também ;)</p>
-<h4 id="que-tal-um-exemplo">Que tal um exemplo?</h4>
+</code></pre>
+<p>Como pode-se ver, o seu funcionamento é muito simples: uma função-template que recebe uma referência para um ponteiro de ponteiro do tipo da variável desejada, o seu nome global e retorna uma variável alocada na memória de cachê do sistema. Como contraparte existe uma função que abre essa memória baseada em seu nome e faz o cast (coversão de tipo) necessário. Ambas as chamadas devem chamar uma terceira função para liberar o recurso.</p>
+<p>O segredo para entender mais detalhes dessa técnica é pesquisar as funções envolvidas: CreateFileMapping, OpenFileMapping, MapViewOfFile e UnmapViewOfFile. Bem, o CloseHandle também ;)</p>
 <p>Ah, é mesmo! Fiz especialmente para o artigo:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define _CRT_SECURE_NO_DEPRECATE
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;ShareVar.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tchar.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define SHARED_VAR &#34;FraseSecreta&#34;
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/** Exemplo de como usar as funções de alocação de memória compartilhada
-</span><span style="color:#75715e">AllocSharedVariable, OpenSharedVariable e FreeSharedVariable.
-</span><span style="color:#75715e">*/</span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_tmain</span>(<span style="color:#66d9ef">int</span> argc, PTSTR argv[])
+<pre><code>#define _CRT_SECURE_NO_DEPRECATE
+#include &quot;ShareVar.h&quot;
+#include &lt;windows.h&gt;
+#include &lt;tchar.h&gt;
+
+#include &lt;stdio.h&gt;
+
+#define SHARED_VAR &quot;FraseSecreta&quot;
+
+/** Exemplo de como usar as funções de alocação de memória compartilhada
+AllocSharedVariable, OpenSharedVariable e FreeSharedVariable.
+*/
+int _tmain(int argc, PTSTR argv[])
 {
-	<span style="color:#75715e">// passou algum parâmetro: lê a variável compartilhada e exibe
-</span><span style="color:#75715e"></span>
-	<span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> )
-	{
-		system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+  // passou algum parâmetro: lê a variável compartilhada e exibe
 
-		TCHAR (<span style="color:#f92672">*</span>sharedVar)[<span style="color:#ae81ff">100</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// ponteiro para array de 100 TCHARs
-</span><span style="color:#75715e"></span>		HANDLE varH <span style="color:#f92672">=</span> AllocSharedVariable(<span style="color:#f92672">&amp;</span>sharedVar, _T(SHARED_VAR));
+  if( argc &gt; 1 )
+  {
+    system(&quot;pause&quot;);
 
-		<span style="color:#66d9ef">if</span>( varH <span style="color:#f92672">&amp;&amp;</span> sharedVar )
-		{
-			_tprintf(_T(<span style="color:#e6db74">&#34;Frase secreta: &#39;%s&#39;n&#34;</span>), <span style="color:#f92672">*</span>sharedVar);
-			_tprintf(_T(<span style="color:#e6db74">&#34;Pressione &lt;enter&gt; para retornar...&#34;</span>));
-			getchar();
-		}
-	}
-	<span style="color:#66d9ef">else</span> <span style="color:#75715e">// não passou parâmetro: escreve na variável 
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// compartilhada e chama nova instância
-</span><span style="color:#75715e"></span>	{
-		TCHAR (<span style="color:#f92672">*</span>sharedVar)[<span style="color:#ae81ff">100</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// ponteiro para array de 100 TCHARs
-</span><span style="color:#75715e"></span>		HANDLE varH <span style="color:#f92672">=</span> AllocSharedVariable(<span style="color:#f92672">&amp;</span>sharedVar, _T(SHARED_VAR));
+    TCHAR (*sharedVar)[100] = 0; // ponteiro para array de 100 TCHARs
+    HANDLE varH = AllocSharedVariable(&amp;sharedVar, _T(SHARED_VAR));
 
-		<span style="color:#66d9ef">if</span>( varH <span style="color:#f92672">&amp;&amp;</span> sharedVar )
-		{
-			PTSTR cmd <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TCHAR[ _tcslen(argv[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span> ];
-			_tcscpy(cmd, _T(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>));
-			_tcscat(cmd, argv[<span style="color:#ae81ff">0</span>]);
-			_tcscat(cmd, _T(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> 2&#34;</span>));
+    if( varH &amp;&amp; sharedVar )
+    {
+      _tprintf(_T(&quot;Frase secreta: '%s'n&quot;), *sharedVar);
+      _tprintf(_T(&quot;Pressione &lt;enter&gt; para retornar...&quot;));
+      getchar();
+    }
+  }
+  else // não passou parâmetro: escreve na variável 
+  // compartilhada e chama nova instância
+  {
+    TCHAR (*sharedVar)[100] = 0; // ponteiro para array de 100 TCHARs
+    HANDLE varH = AllocSharedVariable(&amp;sharedVar, _T(SHARED_VAR));
 
-			_tcscpy(<span style="color:#f92672">*</span>sharedVar, _T(<span style="color:#e6db74">&#34;Tuintuintuclaim&#34;</span>));
-			_tsystem(cmd);
+    if( varH &amp;&amp; sharedVar )
+    {
+      PTSTR cmd = new TCHAR[ _tcslen(argv[0]) + 10 ];
+      _tcscpy(cmd, _T(&quot;\&quot;&quot;));
+      _tcscat(cmd, argv[0]);
+      _tcscat(cmd, _T(&quot;\&quot; 2&quot;));
 
-			<span style="color:#66d9ef">delete</span> [] cmd;
-		}
-	}
+      _tcscpy(*sharedVar, _T(&quot;Tuintuintuclaim&quot;));
+      _tsystem(cmd);
 
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+      delete [] cmd;
+    }
+  }
+
+  return 0;
 } 
-
-</code></pre></div><h4 id="_disclaimer_-ou-não-tenho-nada-a-ver-com-isso"><em>Disclaimer</em> (ou &quot;não-tenho-nada-a-ver-com-isso&quot;)</h4>
-<p>Preciso lembrar que essa é uma versão inicial ainda, mas que pode muito bem ser melhorada. Duas idéias interessantes são: parametrizar a proteção da variável (através do <strong>SECURITY_ATTRIBUTES</strong>) e transformá-la em classe. Uma classe parece ser uma idéia bem popular. Afinal, tem tanta gente que só se consegue programar se o código estiver dentro de uma.</p>
-<h4 id="para-saber-mais">Para saber mais</h4>
-<ul>
-<li>
-<p><a href="http://msdn.microsoft.com/">MSDN Library</a> - by Microsoft</p>
-</li>
-<li>
-<p><a href="http://www.codeproject.com/">Code Project</a> - by Developers</p>
-</li>
-<li>
-<p><a href="http://www.google.com/">Google</a> - by Google</p>
-</li>
-</ul>
+</code></pre>
+<p>Preciso lembrar que essa é uma versão inicial ainda, mas que pode muito bem ser melhorada. Duas idéias interessantes são: parametrizar a proteção da variável (através do SECURITY_ATTRIBUTES) e transformá-la em classe. Uma classe parece ser uma idéia bem popular. Afinal, tem tanta gente que só se consegue programar se o código estiver dentro de uma.</p>
 
             
 
@@ -296,7 +274,7 @@ VOID FreeSharedVariable(HANDLE varH, T<span style="color:#f92672">*</span> pVar)
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo/">discuss</a>
 
 
@@ -312,7 +290,7 @@ VOID FreeSharedVariable(HANDLE varH, T<span style="color:#f92672">*</span> pVar)
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.17</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.18</a> </i></span>
   </div>
 </footer>
 

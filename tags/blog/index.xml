@@ -2799,39 +2799,32 @@ Exatamente por não ser obrigado o registro de uma obra para tornar válido o se
 
      
         <item>
-  <title>Silly regex trick: finding the project who failed inside a big VS solution</title>
-  <link>http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/</link>
-  <pubDate>2008-02-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/</guid>
-  <description>I know what you going to think about this one: &amp;quot;silly trick&amp;quot;. That&#39;s why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who cares about productivity.
-Let&#39;s say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?
-
-Note that you need to enable &amp;quot;Regular Expressions&amp;quot; option in the Find Dialog (not shown here).
-What I&#39;m saying inside this regex is &amp;quot;find the first number different from zero followed by a space and the letters err&amp;quot;. This lead us to the first project who has at least one error:
------- Build started: Project: FailedProj, Configuration: Release Win32 ------Compiling...stdafx.cppCompiling...FailedProj.cpp.FailedProj.cpp(2477) : error C2039: &#39;Blablabla&#39; : is not a member of &#39;IBlabla&#39;Build log was saved at &amp;quot;file://c:Projects...ReleaseBuildLog.htm&amp;quot;FailedProj - 2 err
-or(s), 0 warning(s) If you think &amp;quot;what about when a project generates more than 9 errors? the regex wouldn&#39;t be able to catch this case&amp;quot;, well, you&#39;re right. Anyway, that&#39;s the quicker form to search for the unsuccessful project inside a big solution. A more complex yet complete regex would be:
-[1-9][0-9]* err For me, the first version is enough. It is faster to type, simpler to catch and solves my problem. I hope it can solve yours =)
-</description>
-</item>
-
-     
-        <item>
   <title>Temas no WinDbg</title>
   <link>http://www.caloni.com.br/temas-no-windbg/</link>
   <pubDate>2008-01-14</pubDate>
   
   <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
   <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
-Primeira coisa: limpe todos seus dados O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
-reg delete HKCU\Software\Microsoft\WinDbg Segunda coisa: execute o tema que mais gostar Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.
-Configurando o que importa Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:
-  Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath&#43;.
-  Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor.
-  Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.
-  Ajuste fino Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.
- Configure corretamente onde seu código-fonte vai abrir  _Para que os arquivos fonte caiam no lugar que você escolheu, durante a configuração, abra um código-fonte e coloque no lugar que gostaria de ver todos os fontes listados, junto com um placeholder (um arquivo C usado como localizador, existem 5 dentro da pasta themes). Após isso, feche o código-fonte, mas mantenha o placeholder. Depois é só fechar o WinDbg salvando as configurações. Tudo deve funcionar como previsto (ou você esqueceu alguma coisa)._Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).
-reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg Para um guia completo Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)
+O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
+reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.
+Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:
+ Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath&#43;. Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor. Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.  Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.
+Para que os arquivos fonte caiam no lugar que você escolheu, durante a configuração, abra um código-fonte e coloque no lugar que gostaria de ver todos os fontes listados, junto com um placeholder (um arquivo C usado como localizador, existem 5 dentro da pasta themes). Após isso, feche o código-fonte, mas mantenha o placeholder. Depois é só fechar o WinDbg salvando as configurações. Tudo deve funcionar como previsto (ou você esqueceu alguma coisa).
+Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).
+reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)
+</description>
+</item>
+
+     
+        <item>
+  <title>Como ter um melhor blogue em 2008</title>
+  <link>http://www.caloni.com.br/como-ter-um-melhor-blogue-em-2008/</link>
+  <pubDate>2008-01-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/como-ter-um-melhor-blogue-em-2008/</guid>
+  <description>Não é exatamente uma receita de bolo, tampouco uma lista de regras imutáveis. Na verdade, apenas algumas dicas que o criador do termo (we)blog deu sobre como ele imagina que os blogueiros deveriam se comportar em relação aos seus blogues. Entre os toques, ele inicialmente comenta que o princípio de um weblog é ser um histórico dos sítios que navegamos, e que eventualmente podemos publicar conteúdo original. Bem, esse humilde blogue faz exatamente o oposto, acreditando que o conteúdo publicado aqui em português dificilmente será encontrado na web, além de que me sinto um inútil se não colaborar com o mundo usando o conhecimento que aprendi e aprendo no dia-a-dia.
+Por isso mesmo, aqui vão as dicas traduzidas, que encontrei no blogue de Lino Resende, verbatim (com meus comentários ao final de cada item):
+ Um blog verdadeiro é um log de todos os sítios que você gostaria de salvar ou dividir.   Então, hoje, o del.icio.us é melhor para os bloggers do que o próprio Blogger. Isso seria como se os blogues fossem sítios de pesquisadores do google, o que não deixa de ser meia-verdade.  Você pode, é claro, colocar links sobre você fora do seu blog, mas se o blog tem mais posts originais do que links, recomendo aprender um pouco de humildade.   É um golpe bem dado ao Caloni.com.br. Bom, espero ser mais humilde em 2008 =).  Se fizer uma pequena procura antes de postar, vai descobrir que alguém já falou do seu assunto e melhor do que você.   Isso eu faço, mas, como já disse, conteúdo em português é mais escasso, o que compensa a publicação de artigos sobre assuntos já tratados em outras línguas.  Seja você mesmo, sem suprimir links que não o tratem favoravelmente. Seus leitores querem saber quem efetivamente você é.   Essa dica é particularmente difícil para blogues técnicos, como o meu e de muita gente. No entanto, nós tentamos não parecer bots, acredite!  Você pode melhorar o título das páginas que sugere quando as descrever e dar o link. Assegure-se de sua descrição fará os leitores se lembrarem dela, reconhecendo páginas que já visitaram ou quando a visitarem novamente.   Essa é mais fácil de fazer.  Use sempre algum adjetivo para descrever sua própria reação à página que recomenda (ótima, imaginativa, clara, útil).   Essa dica foi clara e útil. Além de imaginativa e ótima, claro.  Dê os créditos à fonte que você usou. Assim, seus leitores podem conferi-la e &amp;quot;moverem-se para cima&amp;quot;.   Essencial, especialmente, mais uma vez, se tratando de blogues técnicos.  Cuidado com os problemas de formatação estranha, múltiplas páginas com histórias, textos muito longos, etc. Não esconda o link principal entre outros auxiliares, mal identificados ou pobres.   Essa dica é mais para weblogs de fato. Eu passo.  Escolha alguns autores favoritos ou celebridades e crie um feed no Google News, acompanhando novas menções a eles. Assim, outros fãs podem segui-los através do seu blog.   Você pode seguir os que sigo através da minha Home Page (update 2021-04-18: hoje em dia não sigo mais nada, mas links específicos existem nos posts; quem diria, acabei ficando mais blogger com o passar do tempo). Eventualmente compartilho posts através do Google Reader. Update 2021-04-18: não mais =(  Reindique seus links favoritos de tempos em tempos para quem os perdeu, esquece ou o está lendo pela primeira vez.   Essa é uma coisa que está faltando aqui no Caloni.com.br, que é a manutenção dos artigos antigos. Prometo me esforçar mais em 2008. Promessa de ano-novo =).  É isso. Concorda, discorda, sem corda? Imagino que a dica que mais me afetou foi aquela sobre humildade, lá no começo. Digo isso porque ainda está martelando na minha cabeça, pronta para transformar este blogue em algo mais democrático e transparente.
 </description>
 </item>
 

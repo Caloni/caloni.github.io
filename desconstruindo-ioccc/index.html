@@ -107,26 +107,25 @@ Desconstruindo IOCCC
             
               <p>Como alguns devem saber, e outros não (ou não deveriam), existe uma competição internacional para escolher quem escreve o código em C mais ofuscado. Isso mesmo. O evento se chama <a href="http://www.ioccc.org">The International Obfuscated C Code Contest</a> (IOCCC resumidamente) e costuma premiar anualmente os melhores &quot;do ramo&quot; com a chamada &quot;menção desonrosa&quot;.</p>
 <p>Acredito que a real valia de um campeonato desse porte é fazer as pessoas pensarem mais a fundo sobre as regras da linguagem. Isso faz com que erros mais obscuros que encontramos no dia-a-dia se tornem mais fáceis. Claro que ninguém deveria programar como os caras desse torneio, mas a título de aprendizagem, é uma grande aula sobre C.</p>
-<p>Publico aqui a interpretação do primeiro programa a ganhar a tal <a href="http://www0.us.ioccc.org/1984/anonymous.hint">menção desonrosa</a>, em 1984. Se trata do batidíssimo &quot;Hello World&quot;, só que um pouco compactado e confuso. Vejamos o <a href="http://www0.us.ioccc.org/1984/anonymous.c">fonte original</a>:</p>
+<p>Publico aqui a interpretação do primeiro programa a ganhar a tal <a href="http://www.ioccc.org/1984/anonymous/anonymous.c">menção desonrosa</a>, em 1984. Se trata do batidíssimo &quot;Hello World&quot;, só que um pouco compactado e confuso. Vejamos o fonte original:</p>
 <pre><code>int i;main(){for(;i[&quot;]&lt;i;++i){--i;}&quot;];read('-'-'-',i+++&quot;hell\
 o, world!\n&quot;,'/'/'/'));}read(j,i,p){write(j/p+p,i---j,i/i);}
 </code></pre>
 <p>Aparentemente o fonte é bem confuso, apesar de podermos já ver a famosa string escondida no meio do código. Depois de aplicar uma formatação mais adequada para nossa tarefa de desfazer o feito, o resultado é bem mais legível:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> i;
+<pre><code>int i;
 
 main()
 {
-	<span style="color:#66d9ef">for</span>( ; i[<span style="color:#e6db74">&#34;] &lt; i; ++i ){--i;}&#34;</span>]; read(<span style="color:#e6db74">&#39;-&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;-&#39;</span>, i<span style="color:#f92672">++</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;hello, world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#39;/&#39;</span> <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;/&#39;</span>) )
-		;
+  for( ; i[&quot;] &lt; i; ++i ){--i;}&quot;]; read('-' - '-', i++ + &quot;hello, world!\n&quot;, '/' / '/') )
+    ;
 }
 
 read(j, i, p)
 {
-	write(j <span style="color:#f92672">/</span> p <span style="color:#f92672">+</span> p, i<span style="color:#f92672">--</span> <span style="color:#f92672">-</span> j, i <span style="color:#f92672">/</span> i);
+  write(j / p + p, i-- - j, i / i);
 }
- 
-
-</code></pre></div><p>Algumas construções são óbvias. Vamos então partir para as não-tão-óbvias.</p>
+</code></pre>
+<p>Algumas construções são óbvias. Vamos então partir para as não-tão-óbvias.</p>
 <pre><code>int i;
 </code></pre>
 <p>Como toda variável global inteira, é inicializada com zero. Logo, a linha acima é equivalente a &quot;int i =0&quot;.</p>
@@ -137,13 +136,13 @@ read() { }
 <pre><code>for( ; &lt;censurado&gt;; &lt;censurado&gt; )
     ;
 </code></pre>
-<p>Outra coisa óbvia, mas não tanto, é um <strong>laço for sem corpo</strong>. Ele possui apenas um ponto-e-vírgula, que identifica uma instrução nula. Não faz nada no corpo, mas pode fazer coisas interessantes no cabeçalho, ou seja, na <strong>inicialização</strong>, no <strong>teste</strong> e no <strong>incremento</strong>. Como podemos ver, a inicialização também está vazia, contendo esse laço apenas o teste e o incremento. No teste temos a seguinte comparação:</p>
+<p>Outra coisa óbvia, mas não tanto, é um laço for sem corpo. Ele possui apenas um ponto-e-vírgula, que identifica uma instrução nula. Não faz nada no corpo, mas pode fazer coisas interessantes no cabeçalho, ou seja, na inicialização, no teste e no incremento. Como podemos ver, a inicialização também está vazia, contendo esse laço apenas o teste e o incremento. No teste temos a seguinte comparação:</p>
 <pre><code>i[&quot;] &lt; i; ++i ){--i;}&quot;]
 </code></pre>
 <p>Ora, sabendo que a variável &quot;i&quot; inicialmente tem o valor zero, o que estamos vendo aqui é a mesma coisa que</p>
 <pre><code>0[&quot;] &lt; i; ++i ){--i;}&quot;]
 </code></pre>
-<p>E uma vez que aprendemos algumas <a href="http://www.caloni.com.br/curiosidades-inuteis-o-operador-de-subscrito-em-c">peculiaridades sobre o operador de subscrito</a> em C, sabemos que a linha acima é equivalente a essa linha abaixo:</p>
+<p>E uma vez que aprendemos algumas <a href="/curiosidades-inuteis-o-operador-de-subscrito-em-c">peculiaridades sobre o operador de subscrito</a> em C, sabemos que a linha acima é equivalente a essa linha abaixo:</p>
 <pre><code>&quot;] &lt; i; ++i ){--i;}&quot;[0]
 </code></pre>
 <p>Agora ficou mais fácil de entender. Se trocarmos a nossa string literal por uma variável (forma mais usual), temos um acesso típico a um dos caracteres de uma string:</p>
@@ -169,7 +168,7 @@ str[i];
 <pre><code>i++ + &quot;hello, world!\n&quot; /* ou */
 i+ ++&quot;hello, world&quot;\n&quot;  /* ?? */
 </code></pre>
-<p>A primeira forma é a resposta correta devido à regra de precedência (deferida pela gramática). <strong>Antes os operadores unários, depois os binários</strong>. Dessa forma, um &quot;i+&quot; não quer dizer nada, mas &quot;i++&quot; é um operando com um operador unário.</p>
+<p>A primeira forma é a resposta correta devido à regra de precedência (deferida pela gramática). Antes os operadores unários, depois os binários. Dessa forma, um &quot;i+&quot; não quer dizer nada, mas &quot;i++&quot; é um operando com um operador unário.</p>
 <p>Voltando à expressão, imagino que a essa altura você já deva ter decifrado que i++ + &quot;hello, world!\n&quot; é o mesmo que:</p>
 <pre><code>char* str = &quot;hello, world&quot;\n&quot;;
 &amp;str[i++];
@@ -177,24 +176,25 @@ i+ ++&quot;hello, world&quot;\n&quot;  /* ?? */
 <p>Ou seja, obtemos o endereço do primeiro caractere da string e incrementamos nossa variável &quot;i&quot; que, como sabemos, é usada no teste do laço for. Na primeira vez, testamos se o primeiro caractere de &quot;] &lt; i; ++i ){--i;}&quot; é diferente de zero. Na segunda iteração, portanto, iremos testar se o segundo caractere será zero. Sabendo disso, podemos deduzir que o laço irá correr por todos os caracteres da string de teste, até encontrar o zero finalizador de string. Ao mesmo tempo, iremos enviar para a função read sempre o endereço do i'ésimo caractere da string &quot;hello, world!\n&quot;, pois essa string também é indexada pela variável &quot;i&quot;.</p>
 <p>Isso quer dizer que nosso laço irá terminar exatamente no final de ambas as strings! (Note, que para comparar as strings, usamos as strings originais do programa, sem melhorar a formatação).</p>
 <pre><code>&quot;] &lt; i ; + + i ) { - - i ; }&quot;
- | | | | | | | | | | | | | |
+ 1 2 3 4 5 6 7 8 9 0 1 2 3 4
 &quot;h e l l o ,   w o r l d ! \n&quot;
 </code></pre>
 <p>Também devemos lembrar que o caractere de controle '\n' é representado apenas por um byte, apesar de no fonte parecer dois.</p>
-<h4 id="funções-read-e-write">Funções read e write</h4>
-<p>Em um passado bem longínquo, o padrão ANSI C não existia, e outras funções dominavam o ambiente UNIX. Muitas dessas funções foram adaptadas, e outras completamente copiadas para a formação do padrão. No entanto, ainda que o padrão não tenha colocado algumas funções clássicas, elas continuaram sendo usadas e suportadas. Um bom exemplo disso são as funções read e write, que, apesar de não estarem no padrão, estão no <a href="http://www.caloni.com.br/the-c-programming-language">livro de K&amp;R</a>, no capítulo sobre fluxos (<em>streams</em>) em UNIX, provando que são bem populares.</p>
+<p>Em um passado bem longínquo, o padrão ANSI C não existia, e outras funções dominavam o ambiente UNIX. Muitas dessas funções foram adaptadas, e outras completamente copiadas para a formação do padrão. No entanto, ainda que o padrão não tenha colocado algumas funções clássicas, elas continuaram sendo usadas e suportadas. Um bom exemplo disso são as funções read e write, que, apesar de não estarem no padrão, estão no <a href="/the-c-programming-language">livro de K&amp;R</a>, no capítulo sobre fluxos (streams) em UNIX, provando que são bem populares.</p>
 <p>Dentro desse mundo paralelo, existem identificadores de fluxos padrões para a entrada e a saída padrão. Melhor ainda, esses identificadores são inteiros que estão especificados da seguinte maneira (tirado da <a href="http://www.gnu.org/software/libc/manual/html_node/Descriptors-and-Streams.html#index-STDIN_005fFILENO-1235">referência GNU</a> da linguagem C, meu grifo):</p>
-<!-- raw HTML omitted -->
-<p>_STDIN_FILENO
-This macro has value 0, which is the file descriptor for standard input.
-** STDOUT_FILENO
-This macro has value 1, which is the file descriptor for standard output.**
-STDERR_FILENO
-This macro has value 2, which is the file descriptor for standard error output.&quot;_<!-- raw HTML omitted --></p>
-<p>Agora podemos voltar ao fonte. Vejamos como é implementada a função read, chamada dentro do laço for. Como todos sabem, se uma função já é definida em sua própria unidade, <strong>não haverá uma busca por referências externas</strong>, o que quer dizer que a implementação padrão de read não atrapalha a implementação local.</p>
+<blockquote>
+<p>There are also symbolic constants defined in unistd.h for the file descriptors belonging to the standard streams stdin, stdout, and stderr; see Standard Streams.</p>
+<p>STDIN_FILENO
+This macro has value 0, which is the file descriptor for standard input.</p>
+<p>STDOUT_FILENO
+This macro has value 1, which is the file descriptor for standard output.</p>
+<p>STDERR_FILENO
+This macro has value 2, which is the file descriptor for standard error output.</p>
+</blockquote>
+<p>Agora podemos voltar ao fonte. Vejamos como é implementada a função read, chamada dentro do laço for. Como todos sabem, se uma função já é definida em sua própria unidade, não haverá uma busca por referências externas, o que quer dizer que a implementação padrão de read não atrapalha a implementação local.</p>
 <pre><code>read(j, i, p)
 {
-    write(j / p + p, i-- - j, i / i);
+  write(j / p + p, i-- - j, i / i);
 }
 </code></pre>
 <p>Ótimo. A função read chama a função (essa sim, padrão) write. Sabemos que tanto o primeiro quanto o último parâmetro da função será sempre constante no laço for:</p>
@@ -219,24 +219,23 @@ j / p + p == 1;
 </code></pre>
 <p>E voilà =)</p>
 <p>Abaixo um código-fonte equivalente, devidamente desencriptado:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<pre><code>int i = 0;
 
 main()
 {
-	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> indexString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;]&lt;i;++i){--i;}&#34;</span>;
-	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> outputString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello, world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+  char* indexString = &quot;]&lt;i;++i){--i;}&quot;;
+  char* outputString = &quot;hello, world!\n&quot;;
 
-	<span style="color:#66d9ef">for</span>( ; indexString[i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>; read(<span style="color:#f92672">&amp;</span>outputString[i<span style="color:#f92672">++</span>]) )
-		;
+  for( ; indexString[i] != 0; read(&amp;outputString[i++]) )
+    ;
 }
 
 read(outStr)
 {
-	write(<span style="color:#ae81ff">1</span>, outStr, <span style="color:#ae81ff">1</span>);
+  write(1, outStr, 1);
 }
- 
+</code></pre>
 
-</code></pre></div>
             
 
           </div>
@@ -244,7 +243,7 @@ read(outStr)
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/desconstruindo-ioccc/">discuss</a>
 
 
@@ -260,7 +259,7 @@ read(outStr)
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.17</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.18</a> </i></span>
   </div>
 </footer>
 
