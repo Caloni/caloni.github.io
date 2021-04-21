@@ -105,27 +105,27 @@ O mistério das pilhas diferentes
           <div class="content">
 
             
-              <p>Mal comecei a leitura do meu mais novo <a href="http://advancedwindowsdebugging.com/">&quot;mother-fucker&quot; livro</a> e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: <strong>configure seus símbolos corretamente</strong>.</p>
-<p>Esse é o primeiro ponto abordado pelo autor, por se tratar de algo que, caso não seja bem feito, pode dar dores de cabeça piores do que o próprio problema que originou a sessão de <em>debugging</em>. Por isso eu repito:</p>
-<p><strong>Configure Seus Símbolos Corretamente</strong></p>
+              <p>Mal comecei a leitura do meu mais novo <a href="http://advancedwindowsdebugging.com/">&quot;mother-fucker&quot; livro</a> e já encontrei a solução para nunca mais viver o terror que vivi quando tive que testar minha engenharia reversa do artigo sobre o Houaiss. Se trata de uma simples questão que não sei por que não sigo todas as vezes religiosamente: configure seus símbolos corretamente.</p>
+<p>Esse é o primeiro ponto abordado pelo autor, por se tratar de algo que, caso não seja bem feito, pode dar dores de cabeça piores do que o próprio problema que originou a sessão de debugging. Por isso eu repito:</p>
+<blockquote>
+<p>Configure Seus Símbolos Corretamente</p>
+</blockquote>
 <p>Vamos acompanhar alguns momentos de tortura alheia?</p>
-<h4 id="era-uma-vez">Era uma vez</h4>
-<p>Tudo aconteceu quando inesperadamente perdi metade do <a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-1">artigo que estava escrevendo</a> para explicar o processo de engenharia reversa no dicionário Houaiss. Tive que refazer todos os meus testes que havia feito no <em>laptop</em>. Como a preguiça é a mãe de todas as descobertas, não estava com ele ligado no momento do &quot;reteste&quot; e por isso acabei usando a máquina <em>desktop</em>, mesmo.</p>
-<p>A análise inicial consistia simplesmente em verificar as entradas e saídas da função <strong>ReadFile</strong>, na esperança de entender a formatação interna do dicionário. Repetindo a seqüência:</p>
+<p>Tudo aconteceu quando inesperadamente perdi metade do <a href="/conversor-de-houaiss-para-babylon-parte-1">artigo</a> que estava escrevendo para explicar o processo de engenharia reversa no dicionário Houaiss. Tive que refazer todos os meus testes que havia feito no laptop. Como a preguiça é a mãe de todas as descobertas, não estava com ele ligado no momento do &quot;reteste&quot; e por isso acabei usando a máquina desktop, mesmo.</p>
+<p>A análise inicial consistia simplesmente em verificar as entradas e saídas da função ReadFile, na esperança de entender a formatação interna do dicionário. Repetindo a seqüência:</p>
 <pre><code>windbg -pn houaiss2.exe
 0:001&gt; bp kernel32!ReadFile &quot;dd @$csp L6&quot; $$ Dando uma olhada nos parâmetros
 g
 
-
-0012fa70  0040a7a9 00000200 &lt;font color=&quot;#ff0000&quot;&gt;08bbf1d0 00000200&lt;/font&gt;
+0012fa70  0040a7a9 00000200 08bbf1d0 00000200
 0012fa80  0012fa88 00000000
 eax=0012fa88 ebx=00000200 ecx=00000200 edx=08bbf1d0 esi=08bbf1d0 edi=00000200
 eip=7c80180e esp=0012fa70 ebp=0012facc iopl=0         nv up ei pl zr na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
 kernel32!ReadFile:
 7c80180e 6a20            push    20h
-$$ O buffer de saída é &lt;font color=&quot;#ff0000&quot;&gt;08bbf1d0 &lt;/font&gt;
-$$ O número de bytes lidos é &lt;font color=&quot;#ff0000&quot;&gt;200&lt;/font&gt;
+$$ O buffer de saída é 08bbf1d0 
+$$ O número de bytes lidos é 200
 0:000&gt; db 08bbf1d0 L80
 08bbf1d0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
 08bbf1e0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
@@ -137,42 +137,40 @@ $$ O número de bytes lidos é &lt;font color=&quot;#ff0000&quot;&gt;200&lt;/fon
 08bbf240  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00  ................
 0:000&gt; bp /1 @$ra &quot;db 08bbf1d0 L80&quot;
 0:000&gt; g
-08bbf1d0  2a 70 72 6f 67 72 61 6d-61 2d 66 6f 6e 74 65 0d  &lt;font color=&quot;#ff0000&quot;&gt;*programa-fonte.&lt;/font&gt;
-08bbf1e0  0a 43 73 2e 6d 2e 0d 0a-64 7b 5c 69 20 73 58 58  &lt;font color=&quot;#ff0000&quot;&gt;.Cs.m...d{\i sXX&lt;/font&gt;
-08bbf1f0  7d 0d 0a 54 69 6e 66 0d-0a 3a 70 72 6f 67 72 61  &lt;font color=&quot;#ff0000&quot;&gt;}..Tinf..:progra&lt;/font&gt;
-08bbf200  6d 61 20 64 65 20 63 6f-6d 70 75 74 61 64 6f 72  &lt;font color=&quot;#ff0000&quot;&gt;ma de computador&lt;/font&gt;
-08bbf210  20 65 6d 20 73 75 61 20-66 6f 72 6d 61 20 6f 72  &lt;font color=&quot;#ff0000&quot;&gt; em sua forma or&lt;/font&gt;
-08bbf220  69 67 69 6e 61 6c 2c 20-61 6e 6f 74 61 64 6f 20  &lt;font color=&quot;#ff0000&quot;&gt;iginal, anotado&lt;/font&gt;
-08bbf230  70 65 6c 6f 20 70 72 6f-67 72 61 6d 61 64 6f 72  &lt;font color=&quot;#ff0000&quot;&gt;pelo programador&lt;/font&gt;
-08bbf240  20 65 6d 20 75 6d 61 20-6c 69 6e 67 75 61 67 65  &lt;font color=&quot;#ff0000&quot;&gt; em uma linguage&lt;/font&gt;
+08bbf1d0  2a 70 72 6f 67 72 61 6d-61 2d 66 6f 6e 74 65 0d  *programa-fonte.
+08bbf1e0  0a 43 73 2e 6d 2e 0d 0a-64 7b 5c 69 20 73 58 58  .Cs.m...d{\i sXX
+08bbf1f0  7d 0d 0a 54 69 6e 66 0d-0a 3a 70 72 6f 67 72 61  }..Tinf..:progra
+08bbf200  6d 61 20 64 65 20 63 6f-6d 70 75 74 61 64 6f 72  ma de computador
+08bbf210  20 65 6d 20 73 75 61 20-66 6f 72 6d 61 20 6f 72   em sua forma or
+08bbf220  69 67 69 6e 61 6c 2c 20-61 6e 6f 74 61 64 6f 20  iginal, anotado
+08bbf230  70 65 6c 6f 20 70 72 6f-67 72 61 6d 61 64 6f 72  pelo programador
+08bbf240  20 65 6d 20 75 6d 61 20-6c 69 6e 67 75 61 67 65   em uma linguage
 0:000&gt; $$
 0:000&gt; $$ Tudo legível? Mas já? Ai, meu Deus, alguém chama uma benzedeira!
 0:000&gt; $$
 </code></pre>
-<p>Se notarmos no artigo anterior, veremos que o conteúdo do arquivo lido <strong>não é em texto claro</strong>, sendo necessário passar por mais algumas instruções <em>assembly</em> para descobrir a função responsável por embaralhar o conteúdo na memória. Contudo, ao rodar esses comandos novamente, eis que a saída do ReadFile já vem toda legível, como se o dicionário não estivesse mais encriptado.</p>
+<p>Se notarmos no artigo anterior, veremos que o conteúdo do arquivo lido não é em texto claro, sendo necessário passar por mais algumas instruções assembly para descobrir a função responsável por embaralhar o conteúdo na memória. Contudo, ao rodar esses comandos novamente, eis que a saída do ReadFile já vem toda legível, como se o dicionário não estivesse mais encriptado.</p>
 <p>A leitura foi feita e o texto direto do arquivo veio em claro? O que está acontecendo? Quando abro pelo comando type ele aparece todo obscuro...</p>
-<p><a href="/images/cmd.gif"><img src="http://i.imgur.com/u3IQ3aD.gif" alt="Saída dos arquivos do dicionário"></a></p>
-<p>Sim, alguma coisa não-trivial acaba de acontecer. Testei esse procedimento no <em>laptop</em> e no <em>desktop</em>, sendo que esse problema aconteceu apenas no <em>desktop</em>. Dessa vez a curiosidade falou mais alto que a preguiça, e tive que abrir as duas máquinas e comparar os resultados.</p>
-<h4 id="rastreando-o-problema-do-endereço-de-retorno-diferente">Rastreando o problema do endereço de retorno diferente</h4>
-<p>Depois de um pouco de cabeçadas rastreando o <em>assembly</em> executado, descobri que o ponto onde o <em>breakpoint</em> havia parado não era o retorno da chamada a ReadFile. Isso eu não vou demonstrar aqui pois se trata de raciocínio de passo-a-passo no <em>assembly</em> até descobrir a diferença. É enfadonho e sujeito a erros. Sugiro que tente um dia desses. Para mim, o resultado lógico de tudo isso é a saída que segue:</p>
-<pre><code>0012fa70  0040a7a9 00000200 &lt;font color=&quot;#ff0000&quot;&gt;08bbf1d0 00000200&lt;/font&gt;
+<p><img src="/img/cmd.gif" alt="Saída dos arquivos do dicionário"></p>
+<p>Sim, alguma coisa não-trivial acaba de acontecer. Testei esse procedimento no laptop e no desktop, sendo que esse problema aconteceu apenas no desktop. Dessa vez a curiosidade falou mais alto que a preguiça, e tive que abrir as duas máquinas e comparar os resultados.</p>
+<p>Depois de um pouco de cabeçadas rastreando o assembly executado, descobri que o ponto onde o breakpoint havia parado não era o retorno da chamada a ReadFile. Isso eu não vou demonstrar aqui pois se trata de raciocínio de passo-a-passo no assembly até descobrir a diferença. É enfadonho e sujeito a erros. Sugiro que tente um dia desses. Para mim, o resultado lógico de tudo isso é a saída que segue:</p>
+<pre><code>0012fa70  0040a7a9 00000200 08bbf1d0 00000200
 0012fa80  0012fa88 00000000
 eax=0012fa88 ebx=00000200 ecx=00000200 edx=08bbf1d0 esi=08bbf1d0 edi=00000200
 eip=7c80180e esp=0012fa70 ebp=0012facc iopl=0         nv up ei pl zr na pe nc
 cs=001b  ss=0023  ds=0023  es=0023  fs=003b  gs=0000             efl=00000246
 kernel32!ReadFile:
 7c80180e 6a20            push    20h
-0:000&gt; ? &lt;font color=&quot;#ff0000&quot;&gt;poi(esp)&lt;/font&gt;
-Evaluate expression: 4237225 = &lt;font color=&quot;#ff0000&quot;&gt;0040a7a9&lt;/font&gt;
-0:000&gt; ? &lt;font color=&quot;#ff6600&quot;&gt;@$ra&lt;/font&gt;
-Evaluate expression: 4959640 = &lt;font color=&quot;#ff6600&quot;&gt;004bad98&lt;/font&gt;
-0:000&gt; ? &lt;font color=&quot;#ff0000&quot;&gt;poi(@$csp)&lt;/font&gt;
-Evaluate expression: 4237225 = &lt;font color=&quot;#ff0000&quot;&gt;0040a7a9 &lt;/font&gt;
+0:000&gt; ? poi(esp)
+Evaluate expression: 4237225 = 0040a7a9
+0:000&gt; ? @$ra
+Evaluate expression: 4959640 = 004bad98
+0:000&gt; ? poi(@$csp)
+Evaluate expression: 4237225 = 0040a7a9 
 </code></pre>
 <p>Como podemos ver pelos comandos acima, o pseudo-registrador $ra não está mostrando o valor corretamente!</p>
-<h4 id="primeiro-passo-lógico-o-seu-é-o-mesmo-que-o-meu">Primeiro passo lógico: o seu é o mesmo que o meu?</h4>
-<p>A primeira coisa que se faz numa hora dessas é comparar as versões dos componentes do depurador de ambos os ambientes. Para isso usamos o comando <strong>version</strong>.</p>
-<pre><code>0:000&gt; version &lt;font color=&quot;#ff6600&quot;&gt;$$ desktop&lt;/font&gt;
+<p>A primeira coisa que se faz numa hora dessas é comparar as versões dos componentes do depurador de ambos os ambientes. Para isso usamos o comando version.</p>
+<pre><code>0:000&gt; version $$ desktop
 Windows XP Version 2600 (Service Pack 2) UP Free x86 compatible
 Product: WinNt, suite: SingleUserTS
 kernel32.dll version:
@@ -183,9 +181,9 @@ Process Uptime: 0 days 0:31:52.840
   User time: 0 days 0:00:02.723
 Live user mode: &lt;Local&gt;
 command line: '&quot;C:\Tools\DbgTools\windbg.exe&quot; -pn houaiss2.exe'  Debugger Process 0xEC4
-dbgeng:  image &lt;font color=&quot;#ff6600&quot;&gt;6.6.0007.5&lt;/font&gt;, built Sat Jul 08 17:12:40 2006
+dbgeng:  image 6.6.0007.5, built Sat Jul 08 17:12:40 2006
         [path: C:\Tools\DbgTools\dbgeng.dll]
-dbghelp: image &lt;font color=&quot;#ff6600&quot;&gt;6.6.0007.5&lt;/font&gt;, built Sat Jul 08 17:11:32 2006
+dbghelp: image 6.6.0007.5, built Sat Jul 08 17:11:32 2006
         [path: C:\Tools\DbgTools\dbghelp.dll]
         DIA version: 60516
 Extension DLL search Path:
@@ -202,8 +200,7 @@ Extension DLL chain:
     ntsdexts: image 6.0.5457.0, API 1.0.0, built Sat Jul 08 17:29:38 2006
         [path: C:\Tools\DbgTools\WINXP\ntsdexts.dll]
 
-
-0:000&gt; version &lt;font color=&quot;#ff6600&quot;&gt;$$ laptop&lt;/font&gt;
+0:000&gt; version $$ laptop
 Windows XP Version 2600 (Service Pack 2) UP Free x86 compatible
 Product: WinNt, suite: SingleUserTS Personal
 kernel32.dll version:
@@ -214,9 +211,9 @@ Process Uptime: 0 days 0:00:56.359
   User time: 0 days 0:00:01.078
 Live user mode: &lt;Local&gt;
 command line: '&quot;C:\Tools\DbgTools\windbg.exe&quot; -pn houaiss2.exe'  Debugger Process 0x864
-dbgeng:  image &lt;font color=&quot;#ff6600&quot;&gt;6.8.0004.0&lt;/font&gt;, built Thu Sep 27 18:28:09 2007
+dbgeng:  image 6.8.0004.0, built Thu Sep 27 18:28:09 2007
         [path: C:\Tools\DbgTools\dbgeng.dll]
-dbghelp: image &lt;font color=&quot;#ff6600&quot;&gt;6.8.0004.0&lt;/font&gt;, built Thu Sep 27 18:27:05 2007
+dbghelp: image 6.8.0004.0, built Thu Sep 27 18:27:05 2007
         [path: C:\Tools\DbgTools\dbghelp.dll]
         DIA version: 20119
 Extension DLL search Path:
@@ -233,25 +230,21 @@ Extension DLL chain:
     ntsdexts: image 7.0.6440.1, API 1.0.0, built Thu Sep 27 18:45:23 2007
         [path: C:\Tools\DbgTools\WINXP\ntsdexts.dll]
 </code></pre>
-<p>OK. A versão instalada no <em>desktop</em> é bem antiga. Pode ser um indício. Fiz então a atualização e comparei novamente a saída de version.</p>
-<p>Tudo igual.</p>
-<h4 id="segundo-passo-lógico-prove-ou-refute-seu-raciocínio">Segundo passo lógico: prove ou refute seu raciocínio</h4>
-<p>Decidi então usar aquela lógica cética que é desenvolvida por quem costuma depurar coisas sinistras e esotéricas por anos e anos e não duvida de mais nada, mas também acredita piamente que <strong>tudo tem um motivo</strong>. Se não está aparente, basta descobri-lo. E foi o que eu fiz. Gerei dois _dumps _distintos, um no <em>laptop</em> e outro no <em>desktop</em>. Ambos estavam com os ponteiros de instrução apontados exatamente para a entrada da função ReadFile, início de todo esse problema. Copiei o <em>dump</em> do <em>desktop</em> para o <em>laptop</em> e vice-versa.</p>
-<p><a href="/images/windbg-nerd.gif"><img src="http://i.imgur.com/qPcDz79.gif" alt="WinDbg Nerd"></a></p>
-<p>Abri o <em>dump</em> do <em>desktop</em> no <em>laptop</em>: tudo funcionando. Abri o <em>dump</em> do _laptop _no <em>desktop</em>: mesmo erro.</p>
-<p>Conclusão óbvia: é algo relacionado com o WinDbg no <em>desktop</em>, uma vez que o estado da pilha que era mostrado corretamente no _laptop _em ambos os <em>dumps</em> falhava duplamente na máquina <em>desktop.</em></p>
-<h4 id="próxima-tentativa-intuitiva-verificar-o-_path-_dos-símbolos">Próxima tentativa intuitiva: verificar o _path _dos símbolos:</h4>
+<p>OK. A versão instalada no desktop é bem antiga. Pode ser um indício. Fiz então a atualização e comparei novamente a saída de version. Tudo igual. Decidi então usar aquela lógica cética que é desenvolvida por quem costuma depurar coisas sinistras e esotéricas por anos e anos e não duvida de mais nada, mas também acredita piamente que tudo tem um motivo. Se não está aparente, basta descobri-lo. E foi o que eu fiz. Gerei dois dumps distintos, um no laptop e outro no desktop. Ambos estavam com os ponteiros de instrução apontados exatamente para a entrada da função ReadFile, início de todo esse problema. Copiei o dump do desktop para o laptop e vice-versa.</p>
+<p><img src="/img/windbg-nerd.gif" alt="WinDbg Nerd"></p>
+<p>Abri o dump do desktop no laptop: tudo funcionando. Abri o dump do laptop no desktop: mesmo erro. Conclusão óbvia: é algo relacionado com o WinDbg no desktop, uma vez que o estado da pilha que era mostrado corretamente no laptop em ambos os dumps falhava duplamente na máquina desktop.</p>
 <pre><code>.sympath
 Symbol search path is: &lt;empty&gt;
 </code></pre>
-<p>Isso com certeza não cheira bem. Ainda mais porque do outro lado do hemisfério, meu <em>laptop</em> estava configurado com toda a rigidez que um <em>laptop</em> de WinDbgeiro deve ter:</p>
+<p>Isso com certeza não cheira bem. Ainda mais porque do outro lado do hemisfério, meu laptop estava configurado com toda a rigidez que um laptop de WinDbgeiro deve ter:</p>
 <pre><code>0:000&gt; .sympath
 Symbol search path is: SRV*C:\Symbols*http://msdl.microsoft.com/download/symbols
 </code></pre>
 <p>E aí estava uma diferença plausível. Consertados os diretórios de símbolos, tudo voltou ao normal.</p>
-<h4 id="moral-da-história">Moral da história</h4>
 <p>Procure primeiro verificar as coisas mais simples. Depois você tenta consertar o universo. Mas, primeiro, antes de tudo, veja se o cabo de rede está conectado. Ou no nosso cado de debugueiro:</p>
-<p><strong>Configure Seus Símbolos Corretamente</strong></p>
+<blockquote>
+<p>Configure Seus Símbolos Corretamente</p>
+</blockquote>
 
             
 
@@ -260,7 +253,7 @@ Symbol search path is: SRV*C:\Symbols*http://msdl.microsoft.com/download/symbols
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/o-misterio-das-pilhas-diferentes/">discuss</a>
 
 
@@ -276,7 +269,7 @@ Symbol search path is: SRV*C:\Symbols*http://msdl.microsoft.com/download/symbols
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.20</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.21</a> </i></span>
   </div>
 </footer>
 

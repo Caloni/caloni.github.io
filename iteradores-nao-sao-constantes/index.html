@@ -107,46 +107,39 @@ Iteradores não são constantes
             
               <p>Um bug que já encontrei uma dúzia de vezes entre os novatos da STL é a utilização de iteradores como se eles não fossem mudar nunca. Porém, a verdade é bem diferente: iteradores se tornam inválidos sim, e com muito mais freqüência do que normalmente se imagina. Entre as situações em que iteradores podem mudar estão as seguintes:</p>
 <ul>
-<li>
-<p>Inserção de novo elemento no contêiner</p>
-</li>
-<li>
-<p>Remoção de novo elemento no contêiner</p>
-</li>
-<li>
-<p>Redimensionamento no tamanho do contêiner</p>
-</li>
+<li>Inserção de novo elemento no contêiner</li>
+<li>Remoção de novo elemento no contêiner</li>
+<li>Redimensionamento no tamanho do contêiner</li>
 </ul>
 <p>Por exemplo, o tradicional código do exemplo abaixo contém o tradicional erro de iterador inválido:</p>
-<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); &lt;font color=&quot;#ff0000&quot;&gt;++it&lt;/font&gt; )
+<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); ++it )
 {
-    if( it-&gt;member == 0 ) // condição para apagar elemento
-    {
-        obj.erase(&lt;font color=&quot;#ff0000&quot;&gt;it&lt;/font&gt;);  // a partir daqui it é inválido,
-                        // e não adianta incrementá-lo
-    }
+  if( it-&gt;member == 0 ) // condição para apagar elemento
+  {
+    obj.erase(it);  // a partir daqui it é inválido,
+                    // e não adianta incrementá-lo
+  }
 }
 </code></pre>
 <p>Para operações como essa, o retorno geralmente nos dá uma dica de para onde vamos na varredura do contêiner. No caso do método erase, o retorno é o próximo iterador válido, ou o final (retornado pelo método end). Um código mais esperto gera um erro mais sutil:</p>
-<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); &lt;font color=&quot;#ff0000&quot;&gt;++it&lt;/font&gt; )
+<pre><code>for( container::iterator it = obj.begin(); it != obj.end(); ++it )
 {
-    if( it-&gt;member == 0 ) // condição para apagar elemento
-    {
-        &lt;font color=&quot;#ff0000&quot;&gt;it&lt;/font&gt; = obj.erase(it); // ótimo, atualizou it. só
-                            // que se ele for o final,
-                            // será incrementado
-    }
+  if( it-&gt;member == 0 ) // condição para apagar elemento
+  {
+    it = obj.erase(it); // ótimo, atualizou it. só
+                        // que se ele for o final,
+                        // será incrementado
+  }
 }
 </code></pre>
 <p>Algo de errado irá acontecer apenas se o elemento removido for o último localizado no contêiner.</p>
-<h4 id="para-resolver-problemas-na-stl-nada-como-mais-stl">Para resolver problemas na STL, nada como mais STL</h4>
-<p>Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da <strong>reutilização de algoritmos</strong>. Se fosse usado este princípio, nada disso teria acontecido:</p>
+<p>Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da reutilização de algoritmos. Se fosse usado este princípio, nada disso teria acontecido:</p>
 <pre><code>struct remove_if_zero
 {
-    bool operator() (ObjElement&amp; element)
-    {
-        return element-&gt;member == 0;
-    }
+  bool operator() (ObjElement&amp; element)
+  {
+    return element-&gt;member == 0;
+  }
 };
 
 obj.remove_if( remove_if_zero() ); // pronto!
@@ -160,7 +153,7 @@ obj.remove_if( remove_if_zero() ); // pronto!
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/iteradores-nao-sao-constantes/">discuss</a>
 
 
@@ -176,7 +169,7 @@ obj.remove_if( remove_if_zero() ); // pronto!
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.20</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.21</a> </i></span>
   </div>
 </footer>
 

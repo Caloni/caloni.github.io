@@ -2187,82 +2187,6 @@ Uma organização mais esperta dos ambientes de teste e desenvolvimento tomaria 
 
      
         <item>
-  <title>Como rodar qualquer coisa como serviço</title>
-  <link>http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/</link>
-  <pubDate>2008-03-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/</guid>
-  <description>A maior vantagem de se rodar um aplicativo como serviço, interativo ou não, é permitir que ele seja iniciado antes que seja feito um logon na máquina. Um exemplo que acontece comigo é a necessidade de depurar a GINA. Para isso, preciso que o depurador remoto do Visual Studio seja iniciado antes do logon. A solução mais fácil e rápida é rodar o Msvcmon, a parte servidora da depuração, como um serviço.
-Hoje eu descobri um atalho bem interessante para isso.
-Service Controller (ou SC) Um artigo do Alex Ionescu falava sobre esse aplicativo linha de comando usado para criar, iniciar e apagar serviços. Mesmo não sendo o foco do artigo, achei muito útil a informação, pois não conhecia esse utilitário. Logo começaram a borbulhar idéias na minha mente:
-Bem, o Bloco de Notas é a vítima padrão de testes. Logo, a linha a seguir provaria que é possível rodá-lo na conta de sistema:
-sc create Notepad binpath= &amp;quot;%systemroot%\NOTEPAD.EXE&amp;quot; type= interact type= own Porém, como todo serviço, é esperado que ele se comunique com o Gerenciador de Serviços do Windows. Como o Bloco de Notas mal imagina que agora ele é um motta-fucka service, expira o timeout de inicialização e o SCM mata o processo.
-&amp;gt;net start notepadThe service is not responding to the control function.More help is available by typing NET HELPMSG 2186. Como diria meu amigo Thiago, &amp;quot;não bom&amp;quot;.
-Porém porém, o SCM não mata os processos filhos do processo-serviço. Bug? Feature? Gambi? Seja o que for, pode ser usado para iniciar o nosso querido msvcmon:
-set binpath=%systemroot%\system32\cmd.exe /c c:\Tools\msvcmon.exe -tcpip -anyuser -timeout -1sc create Msvcmon binpath= &amp;quot;%binpath%&amp;quot; type= interact type= own Agora, quando iniciarmos o serviço Msvcmon, o processo cmd.exe será criado, que por sua vez irá rodar o msvcmon.exe que queríamos, e ficará esperando inocentemente pela sua &amp;quot;funesta morte&amp;quot; pelo SCM.
-
-</description>
-</item>
-
-     
-        <item>
-  <title>Influence Board</title>
-  <link>http://www.caloni.com.br/influence-board/</link>
-  <pubDate>2008-03-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/influence-board/</guid>
-  <description>Há muito tempo sou enxadrista não-praticante. Acho que os anos de programação me deixaram mais viciado em codar do que pensar no xeque-mate. No entanto, sempre que posso, dou uma escapulida do Visual Studio e jogo uma partida ou duas na rede, quase sempre, é claro, tomando um piau psicológico.
-A falta de prática e estudos pesa muito para um enxadrista amador, já que facilmente esquecemos das combinações mortíferas que podemos aplicar e levar. É muito difícil ter em mente aquelas três dúzias de aberturas que já são batidas (e suas variantes), ou então as regrinhas de praxe de como detonar nas finais com um cavalo e um bispo.
-Por isso mesmo aprendi em um livro uma técnica universal e independente de decoreba que levei pra vida toda, e tem me trazido algumas partidas no mínimo interessantes. Se trata de analisar o esquema de influências em cima do tabuleiro. Influências, nesse caso, se refere ao poder de fogo das peças amigas e inimigas. O interessante é que deixa-se de lado a análise das próprias peças! Se estuda tão somente o tabuleiro, e apesar de parecer um método difícil, ele melhora sua percepção gradativamente, e é responsável por muitas das partidas simultâneas jogadas às cegas por alguns ilustres GMIs.
-Exemplo simples Vamos supor que a posição no tabuleiro em um dado momento seja a seguinte:
-[](http://i.imgur.com/6IfiNAY.png)
-
-Ora, é um mate inevitável, não é? Agora imagine por um momento que você não tenha percebido isso, e precise de uma ajudinha para saber onde cada peça pode ir ou atacar no próximo lance.
-[](http://i.imgur.com/GByvceA.png)
-
-Agora ficou muito mais fácil de perceber que a única saída do rei não possui nenhuma proteção, já que tanto o peão quanto o próprio rei não podem fazer muita coisa se a dama atacar a diagonal vulnerável. E ela pode fazer isso.
-[](http://i.imgur.com/0Nsxat3.png)
-
-Influence Board Essa maneira de mostrar as influências em um tabuleiro de xadrez eu apelidei de Influence Board, e criei um projeto em linha de comando para fazer as devidas considerações a respeito de uma posição determinada. Mas como ninguém hoje em dia gosta de usar o WinDbg pra jogar xadrez, transformei meu projeto em pseudo-plugin para o WinBoard, um famoso frontend de xadrez que costumo usar em minhas esporádicas partidas.
-Como usar Basicamente a única coisa que o futuro usuário das influências deve fazer é baixar o projeto WinBoard, a versão disponível aqui (obs.: já contém o WinBoard completo) e compilar. Caso queira uma versão nova do programa terá que fazer o merge entre as duas versões, e por isso deixei disponívei também um patch que instala o &amp;quot;plugin&amp;quot; (obs.: a versão usada foi a 2.4.7).
-C:\Projects\xboard infboard\winboard&amp;gt;nmake msvc.makMicrosoft (R) Program Maintenance Utility Version 8.00.50727.42Copyright (C) Microsoft Corporation. All rights reserved.link /DEBUG /DEBUGTYPE:cv /INCREMENTAL:NO /NOLOGO -subsystem:windows,5.0 WIN2000_DEBUG\winboard.obj WIN2000_DEBUG\backend.obj WIN2000_DEBUG\parser.obj WIN2000_DEBUG\moves.obj WIN2000_DEBUG\lists.obj WIN2000_DEBUG\gamelist.obj WIN2000_DEBUG\pgntags.obj WIN2000_DEBUG\wedittags.obj WIN2000_DEBUG\wgamelist.obj WIN2000_DEBUG\zippy.obj WIN2000_DEBUG\wsockerr.obj WIN2000_DEBUG\wclipbrd.obj WIN2000_DEBUG\woptions.obj WIN2000_DEBUG\infboard.obj wsock32.lib comctl32.lib winmm.lib oldnames.libkernel32.lib advapi32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib ws2_32.lib WIN2000_DEBUG\winboard.rbj -out:WIN2000_DEBUG\winboard.exe Após compilado, basta copiar na pasta de instalação do programa, rodá-lo e habilitar a opção &amp;quot;Show Influence&amp;quot; do menu General. Voilà! É possível até jogar às cegas com esse brinquedinho (opção Blindfold).
-
-[](http://i.imgur.com/R5SjM7r.png)
-
-Bom divertimento!
-</description>
-</item>
-
-     
-        <item>
-  <title>Sed, Grep e afins</title>
-  <link>http://www.caloni.com.br/sed-grep-e-afins/</link>
-  <pubDate>2008-03-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/sed-grep-e-afins/</guid>
-  <description>Esse artigo é resultado de eu ter me matado para conseguir encontrar a forma correta de usar o aplicativo sed para fazer uma filtragem simples nos resultados de uma listagem de arquivos.
-Primeiramente, eu gostaria de expressar minha total surpresa ao não conseguir encontrar um guia simples e confiável de uso dessas ferramentas na web. Existem três teorias: ou eu não sei usar as palavras mágicas certas no Google, ou a indexação das páginas realmente importantes sobre o assunto não funcionam com o Google, ou de fato não existe documentação fácil sobre o tema.
-Como esta é uma exceção em anos de &amp;quot;googadas&amp;quot;, eu fico com a terceira opção.
-Algumas explicações que merecem ser explicadas Existem algumas ferramentas que já salvaram minha vida uma dúzia de vezes e devo admitir que são tão poderosas e flexíveis quanto difíceis de usar:
-  Grep. Use esta se quiser fazer uma busca, qualquer busca, em um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.
-  Sed. Use esta se quiser processar a entrada de um arquivo, um conjunto de arquivos ou uma enxurrada de caracteres do prompt de comando.
-  Sort. Use esta se quiser ordenar qualquer coisa da entrada padrão (inclusive arquivos, conjunto de arquivos...).
-  O que eu queria era processar a saída de um programa de forma que eu tivesse a lista de todas as extensões dos arquivos. Por exemplo, para a seguinte entrada:
-c:\path\arquivo1.cppc:\path\arquivo2.hc:\arquivo3.hppc:\path\path2\arquivo4.cpp Eu gostaria de uma saída no seguinte formato:
-.cpp.h.hpp Basicamente é isso.
-Sabendo que processamento de entrada estaria envolvido, logo pensei em utilizar o sed para a tarefa. Justiça seja feita, depois de eu perder uma hora e meia em pesquisa eu encontrei um tutorial muito bom para quem está começando a entender melhor o funcionamento do sed, e é nele que me baseei para resolver meu problema e escrever este artigo.
-Para filtrar o _path _do arquivo, e ao mesmo tempo retirar seu nome, podemos usar o seguinte comando (fora outras trilhões de variantes):
-programa | sed -e &amp;quot;s/^.*\\//&amp;quot; -e &amp;quot;s/.*\.\(.*\)/\1/&amp;quot; Após esse processamento, a saída é um monte de extensões vindas de um monte de arquivos:
-cpphcpphchcpphmakvcprojhcpphcpphcpphcpphchtxtccpphmakvcprojcpph... Como podemos ver e é óbvio de imaginar, muitas extensões irão se repetir. Para eliminar as repetições e ordenar a saída da saída corretamente, usamos o comando sort:
-programa | sed -e &amp;quot;s/^.*\\//&amp;quot; -e &amp;quot;s/.*\.\(.*\)/\1/&amp;quot; | sort -u Algumas coisas que eu (re)aprendi hoje   Os caracteres .*[]^$\ dão problemas se usados sem escape no sed, pois fazem parte dos comandos para procurar expressões regulares. Use-os com o caractere de escape .
-  Para concatenar comandos no sed, use sempre -e &amp;quot;comando&amp;quot;. A ordem de execução dos comandos é a ordem em que eles são inseridos na linha de comando, ou seja, podemos confiar que no segundo comando o primeiro já terá sido executado e assim por diante.
-  Para fazer o escape das barras do caminho de um arquivo temos que usar o conjunto / (obs.: caminhos em formato Unix). Para evitar esse uso enfadonho podemos substituir o caractere de divisão do comando s colocando-o na frente:
- s/path/muito/muito/muito/longo.cpp/outropath/muito/muito/longo.cpp/ s#/path/muito/muito/muito/longo.cpp#/outropath/muito/muito/longo.cpp#    Para agrupar expressõe, use sempre &amp;quot;(&amp;quot; e &amp;quot;)&amp;quot;. É o contrário do uso dos caracteres especiais. Coisas de Unix.
-  </description>
-</item>
-
-     
-        <item>
   <title>Estranho</title>
   <link>http://www.caloni.com.br/estranho/</link>
   <pubDate>2008-03-06</pubDate>
@@ -2277,25 +2201,6 @@ Criamos um ambiente livre de estranhos. E criamos um trauma em nossas cabeças. 
 E assim fomos indo, meses a fio, sem falar essa palavra na presença dos fiscais do um real, que éramos todos nós. A proibição foi linear e englobou todas as situações de vida social em que poderíamos nos expressar: no trabalho, no almoço, por mensagem instantânea, por e-mail, pelo celular, fora do trabalho, nos artigos do blogue...
 Pois é, caro leitor, nos artigos do blogue. Se você procurar nestes últimos três anos qualquer menção à palavra &amp;quot;estranho&amp;quot; por aqui com certeza não irá encontrar.
 Até agora, quando finalmente foi quebrado o encanto. Quer dizer, oficialmente a cobrança está extinta, mas nossas mentes sempre irão conter esse sino acusador tocando no ônibus, nas ruas, no cinema, no shopping, em casa. Enfim, nos códigos estranhos de nossa vida.
-</description>
-</item>
-
-     
-        <item>
-  <title>Iteradores não são constantes</title>
-  <link>http://www.caloni.com.br/iteradores-nao-sao-constantes/</link>
-  <pubDate>2008-03-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/iteradores-nao-sao-constantes/</guid>
-  <description>Um bug que já encontrei uma dúzia de vezes entre os novatos da STL é a utilização de iteradores como se eles não fossem mudar nunca. Porém, a verdade é bem diferente: iteradores se tornam inválidos sim, e com muito mais freqüência do que normalmente se imagina. Entre as situações em que iteradores podem mudar estão as seguintes:
-  Inserção de novo elemento no contêiner
-  Remoção de novo elemento no contêiner
-  Redimensionamento no tamanho do contêiner
-  Por exemplo, o tradicional código do exemplo abaixo contém o tradicional erro de iterador inválido:
-for( container::iterator it = obj.begin(); it != obj.end(); &amp;lt;font color=&amp;quot;#ff0000&amp;quot;&amp;gt;&#43;&#43;it&amp;lt;/font&amp;gt; ){if( it-&amp;gt;member == 0 ) // condição para apagar elemento{obj.erase(&amp;lt;font color=&amp;quot;#ff0000&amp;quot;&amp;gt;it&amp;lt;/font&amp;gt;); // a partir daqui it é inválido,// e não adianta incrementá-lo}} Para operações como essa, o retorno geralmente nos dá uma dica de para onde vamos na varredura do contêiner. No caso do método erase, o retorno é o próximo iterador válido, ou o final (retornado pelo método end). Um código mais esperto gera um erro mais sutil:
-for( container::iterator it = obj.begin(); it != obj.end(); &amp;lt;font color=&amp;quot;#ff0000&amp;quot;&amp;gt;&#43;&#43;it&amp;lt;/font&amp;gt; ){if( it-&amp;gt;member == 0 ) // condição para apagar elemento{&amp;lt;font color=&amp;quot;#ff0000&amp;quot;&amp;gt;it&amp;lt;/font&amp;gt; = obj.erase(it); // ótimo, atualizou it. só// que se ele for o final,// será incrementado}} Algo de errado irá acontecer apenas se o elemento removido for o último localizado no contêiner.
-Para resolver problemas na STL, nada como mais STL Esse é um erro comum para os acostumados com outros tipos de iteração (ex: ponteiros) e que não estudaram os princípios básicos da STL, entre eles o da reutilização de algoritmos. Se fosse usado este princípio, nada disso teria acontecido:
-struct remove_if_zero{bool operator() (ObjElement&amp;amp; element){return element-&amp;gt;member == 0;}};obj.remove_if( remove_if_zero() ); // pronto! Quando precisamos fazer algo nos elementos de um contêiner STL, é quase certo que existirá um algoritmo genérico para essa tarefa, seja no próprio contêiner ou na forma de função (). Nunca se esqueça disso na hora de desenvolver seus próprios algoritmos e não precisará reinventar a roda todos os dias.
 </description>
 </item>
 

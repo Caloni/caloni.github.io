@@ -158,7 +158,7 @@ int meuheaderFunc(); // talvez alguém precise disso
 <p>Isso em fontes pequenos é facilmente identificável. Em fontes maiores, é preciso ter um pouco mais de cuidado.</p>
 <p>Após o processo de preprocessamento, de todos os arquivos indicados terem sido incluídos, de todas as macros terem sido substituídas, todas as constantes colocadas literalmente no código-fonte, temos  o que é chamado unidade de compilação, que será entregue ao compilador, que, por sua vez, irá começar a análise sintática de fato, descobrindo novos erros que podem ou não (como vimos) ter a ver com a fase anterior. A figura abaixo ilustra esse processo, com algumas trocas conhecidas:</p>
 <p><img src="/img/preprocessor.gif" alt="Preprocessor"></p>
-<!-- raw HTML omitted -->
+<p>Dica: quando o bicho estiver pegando, e tudo o que você sabe sobre linguagem C não estiver te ajudando a resolver um problema, tente gerar uma unidade de compilação em C e analisar sua saída. Às vezes o que é claro no código pode se tornar obscuro após o preprocessamento. Para fazer isso no VC++ em linha de comando, use o parâmetro /E.</p>
 <p>Se você conseguir passar ileso para a fase de compilação, pode se considerar um mestre do preprocessamento.  Por experiência própria, posso afirmar que a maior parte do tempo gasto corrigindo erros de compilação, por ironia do destino, não terá origem na compilação em si, mas no preprocessamento e linkedição. Isso porque o preprocessamento confunde muito o que vimos no nosso editor preferido, e a linkedição ocorre em uma fase onde não importa mais o que está dentro das funções, mas sim o escopo de nomes, um assunto um pouco mais vago do que a linguagem C.</p>
 <p>Na compilação você irá encontrar geralmente erros bem comportados, como conversão entre tipos, else sem if e esquecimento de pontuação ou parênteses.</p>
 <pre><code>int cannotConvertError(const char* message)
@@ -187,7 +187,7 @@ while( (x &lt; z) &amp;&amp; func(x, func2(y) != 2 )
 error C2143: syntax error : missing ')' before '{'
 </code></pre>
 <p>Claro, não estamos falando de erros relacionados a templates, que são um pesadelo à parte.</p>
-<!-- raw HTML omitted -->
+<p>Dica: nunca subestime o poder de informação do compilador e da sua documentação. Se o erro tem um código (geralmente tem), procure a documentação sobre o código de erro específico, para ter uma idéia de por que esse erro costuma ocorrer, exemplos de código com esse erro e possíveis soluções. Ficar batendo a cabeça não vai ajudar em nada, e com o tempo, você irá ficar sabendo rapidamente o que aconteceu.</p>
 <p>Chegando na linkedição, onde a esperança reside, tudo pode vir por água abaixo. Isso porque você já espera confiante que tudo dê certo, quando, na verdade, um erro bem colocado pode fazer você desistir pra sempre desse negócio de programar em C.</p>
 <p>As características mais desejadas para corrigir erros nessa fase são:</p>
 <ol>
@@ -199,7 +199,7 @@ error C2143: syntax error : missing ')' before '{'
 <p>Alguns erros mais encontrados aqui são as funções não encontradas por falta da LIB certa ou por LIBs desatualizadas que não se encaixam mais com o projeto, fruto de muitas dores de cabeça de manutenção de código. Essa é a parte em que mais vale a pena saber organizar e definir uma interface clara entre os componentes de um projeto.</p>
 <p>Do ponto de vista técnico, é a fase onde o linker junta todos os arquivos-objeto especificados, encontra as funções, métodos e classes necessárias e monta uma unidade executável, como ilustrado pela figura abaixo.</p>
 <p><img src="/img/linker.gif" alt="Linker"></p>
-<!-- raw HTML omitted -->
+<p>Dica: uma LIB, ou biblioteca, nada mais é que uma coleção de arquivos-objeto que já foram compilados, ou seja, já passaram pelas duas primeiras fases, mas ainda não foram linkeditados. Muitas vezes é importante manter compatibilidade entre LIBs e os projetos que as usam, de forma que o processo de linkedição ocorra da maneira menos dolorosa possível.</p>
 <p>É óbvio que, por ter passado pelas três fases de transformação de um código-fonte em um programa executável, não quer dizer que este programa está livre de erros. Os famigerados erros de lógica podem se disfarçar até o último momento da compilação e só se mostrarem quando o código estiver rodando (de preferência, no cliente).</p>
 <p>Entre esses erros, os mais comuns costumam se aproveitar de macros, como max, que usa mais de uma vez o parâmetro, que pode ser uma chamada com uma função. A função será chamada duas vezes, mesmo que aparentemente no código a chamada seja feita uma única vez:</p>
 <pre><code>#define max(a, b) ( a &gt; b ? a : b )
@@ -217,7 +217,7 @@ int z = max( func(10), 30 );
         <div class="taglist">
             
     
-      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a> 
+      <a href="/tags/code">code</a>  <a href="/tags/ccpp">ccpp</a>  <a href="/tags/home">home</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/">discuss</a>
 
 
@@ -233,7 +233,7 @@ int z = max( func(10), 30 );
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.20</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.21</a> </i></span>
   </div>
 </footer>
 
