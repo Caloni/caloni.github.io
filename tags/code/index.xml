@@ -36,6 +36,114 @@ DeckShuffle();printf(&amp;quot;(for you) your cards, player#%d: %d %d\n&amp;quo
 
      
         <item>
+  <title>GetArgs v. Array</title>
+  <link>http://www.caloni.com.br/getargs-array/</link>
+  <pubDate>2020-08-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/getargs-array/</guid>
+  <description>Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.
+/** Interpreta argumentos da linha de comando com suporte a arrays.@author Caloni@date 2020-08*/#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h&amp;gt;const char** GetArgArray(char* argv[], const char* arg){char** ret = NULL;size_t cur_off = 0;while (*&#43;&#43;argv){if (strcmp(*argv, arg) == 0){if (*(argv &#43; 1)){char* new_arg = *(argv &#43; 1);ret = (char**)realloc(ret, (cur_off &#43; 2) * sizeof(char*));ret[cur_off&#43;&#43;] = new_arg;ret[cur_off] = NULL;}}}return (const char**)ret;} Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento. Um array de argumentos é o mesmo argumento repetido n vezes se transformando em um array para ser consumido como tal. Para essa versão será necessário uma segunda função, especializada, que faça o serviço.
+Alterei meu código mágico, simples e rápido para parsear linha de comando em C para suportar arrays. Na correria do projeto foi algo igualmente simples e rápido, embora com alguns truques interessantes de se aprender sobre libc. Basicamente o que ele faz é varrer o array argv construindo seu próprio filtrado apenas com os argumentos que interessam. Ele aloca e realoca a memória para esse array de ponteiros para char usando a função padrão realloc, que consegue fazer a alocação inicial e realocações mantendo o conteúdo da memória original.
+Durante o laço é mantido um offset que é incrementado a cada novo argumento. Caso não exista nenhum argumento o retorno será NULL. O aprendizado de libc aqui fica por conta do uso do realloc para simplificar realocação, algo que C&#43;&#43; não possui até hoje (se você quiser fazer as coisas apenas no modo C&#43;&#43; com new e delete) e que depende de abstrações da STL como containers para fazê-lo.
+</description>
+</item>
+
+     
+        <item>
+  <title>Pacotes Nuget Again</title>
+  <link>http://www.caloni.com.br/pacotes-nuget-again/</link>
+  <pubDate>2020-08-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/pacotes-nuget-again/</guid>
+  <description>Agora que mexo com .net no trabalho surgem problemas de &amp;quot;marinheiro de primeira viagem&amp;quot; (na verdade já mexi com o framework, mas há muitos anos). O que me fez gastar mais horas à toa sem dúvida é o versionamento dos pacotes nuget que viram dependências simples de colocar e difíceis de mexer.
+Nesse problema em específico de tratava da lib Castle.Core na versão 4.4.0. Durante a compilação tudo estava lindo e maravilhoso. Porém, na hora de rodar, a exceção de I/O dizendo que não conseguiu carregar o assembly na versão certa pula na minha frente.
+Pesquisa de lá, pesquisa de cá, fuça de cá, fuça de lá, encontrei acho que pela segunda vez a solução. Se trata mesmo da versão errada sendo utilizada, mas não na compilação, mas na execução. É preciso definir a versão correta no arquivo de configuração.
+Feito isso todo o mundo maravilhoso de .nerd volta a fazer sentido.
+</description>
+</item>
+
+     
+        <item>
+  <title>Close Remote Socket</title>
+  <link>http://www.caloni.com.br/close-remote-socket/</link>
+  <pubDate>2020-07-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/close-remote-socket/</guid>
+  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
+You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger. You done. How simple is that, right?
+</description>
+</item>
+
+     
+        <item>
+  <title>Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</title>
+  <link>http://www.caloni.com.br/find-path/</link>
+  <pubDate>2020-07-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/find-path/</guid>
+  <description>Algumas bibliotecas portadas para o vcpkg, gerenciador de pacotes direto do fonte da Microsoft, não vêm exatamente como esperamos que elas venham em ambientes mais estáveis como UNIX-like. A GLib, por exemplo, uma biblioteca fenomenal se você deseja trabalhar com um framework puramente em C, está disponível pelo vcpkg através do pacote glib, mas vem encapsulado no namespace unofficial::glib::glib. Isso ocorre porque este não é um port oficial.
+Se você estivesse em um ambiente UNIX precisaria fazer malabarismos com o PkgConfig, o gerenciador de pacotes do GTK (onde a GLib pertence). No entanto, depois de configurado, tudo o que precisaria fazer é incluir uma macro para os diretórios de include e outra macro para os diretórios de libraries e o programa compilaria. No caso do Windows essa macros não existem.
+Lendo a documentação de como instalar o SQLite na documentação do vcpkg me deparei com uma informação até então oculta para mim: &amp;quot;Unlike other platforms, we do not automatically add the include directory to your compilation line by default. If you&#39;re using a library that does not provide CMake integration, you will need to explicitly search for the files and add them yourself using find_path and find_library.&amp;quot;
+Então tá. Feito isso, e rodando o cmake com o -DCMAKE_TOOLCHAIN_FILE passando o diretório de instalação do vcpkg, tudo se resolve. O solution do Visual Studio finalmente consegue encontrar os includes e libraries da glib. Ou qualquer outra biblioteca portada que você queira usar.
+</description>
+</item>
+
+     
+        <item>
+  <title>Pgn2art</title>
+  <link>http://www.caloni.com.br/pgn2art/</link>
+  <pubDate>2020-06-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/pgn2art/</guid>
+  <description>Meu sonho de consumo para acompanhar partidas de xadrez é às cegas, apenas lendo ou ouvindo o próximo lance e imaginando em minha cabeça o tabuleiro. Porém, enquanto não tenho essa habilidade, um meio-termo aceitável é ver um tabuleiro em ascii art se modificando a cada lance. É possível acompanhar uma partida dessa forma como se estivesse lendo um livro, e por isso esse formato é prático, também, pois posso jogar esse ascii art no meu Kindle.
+Usando a biblioteca python-chess fiz um pequeno script que recebe o endereço de PGNs (o formato com que se grava partidas de xadrez) por URL ou path local e cospe esses tabuleiros em ascii art. Com isso pode redirecionar para um arquivo texto e enviar para o Kindle ou ler de qualquer lugar, em formato estático, a tradução da partida.
+O próximo passo, antes de ler às cegas, é transformar a leitura do tabuleiro bidimensional para a leitura do formato FEN, que é o formato usado para gravar posições de um tabuleiro.
+</description>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43; Co Routines</title>
+  <link>http://www.caloni.com.br/cpp-co-routines/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
+  <description>Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C&#43;&#43;.
+No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C&#43;&#43; tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.
+A primeira ressalva diz respeito à alocação dinâmica. Ao usar esse modelo de rotinas cooperativas o programador é obrigado a alocar espaço para o estado dinamicamente, o que fere duas premissas da linguagem: o controle absoluto do modelo de execução para o programador e a certeza que ele irá apenas pagar em performance o que ele usar. Se os fãs da linguagem fossem religiosos, eles diriam agora que esta não foi uma decisão muito cristã do comitê.
+Eu continuo defendendo que a linguagem C seja usada caso surjam contra-indicações na prática da STL.
+</description>
+</item>
+
+     
+        <item>
+  <title>Printf</title>
+  <link>http://www.caloni.com.br/printf/</link>
+  <pubDate>2020-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/printf/</guid>
+  <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda. Mas o que é direita e esquerda se o tamanho usado pela impressão vai ser exatamente o tamanho da string? Aí é que entra o especificador de tamanho, logo após o opcional sinal de menos e antes do s que determina o tipo string. Dessa forma a string de formatação final para uma string variável alinhada à esquerda em uma coluna de trinta caracteres de tamanho seria &amp;quot;%-30s&amp;quot;.
+Porém, existe um problema com essa abordagem: a string variável pode ter mais de trinta caracteres. Nesse caso existe mais uma opção &amp;quot;escondida&amp;quot; do printf, que é especificar esse trinta em um argumento passado junto dos valores. Para isso basta trocar o número por asterisco e passar o tamanho como se passa qualquer outro valor à função, seguindo a ordem de recebimento. Por exemplo, um printf(&amp;quot;%-30s&amp;quot;, &amp;quot;minha_string&amp;quot;) poderia virar printf(&amp;quot;%-*s&amp;quot;, 30, &amp;quot;minha_string&amp;quot;). Note que agora o tamanho trinta não está mais fixo no código e pode ser uma variável inteira.
+Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um controle de fonte e imprime as duas no final, alinhando o nome das branches à esquerda e o número de commits de cada uma à direita, incluindo um header. É assim que o printf resolve esse tipo de problema de saída formatada: de maneira simples e elegante, sem inventar moda nem querer &amp;quot;revolucionar&amp;quot; a computação.
+</description>
+</item>
+
+     
+        <item>
+  <title>Historical Price</title>
+  <link>http://www.caloni.com.br/historical-price/</link>
+  <pubDate>2020-06-13</pubDate>
+  
+  <guid>http://www.caloni.com.br/historical-price/</guid>
+  <description>Havia um job esta semana de um assunto que me encanta desde a época de investidor: base histórica de cotações. Estamos falando de ações da Bovespa. Na época que era investidor frequente mantinha uma base que era atualizada por um programinha em Java (esqueci o nome), mas nunca tive certeza se os ajustes feitos pelo programa eram os corretos. Surgiu agora a possibilidade de eu realizar código que converte uma base histórica recebida com um minuto por linha em campos divididos por ponto-e-vírgula (o CSV do Windows) para candles de várias periodicidades. E isso justo agora que ando estudando awk. Então não deu outra: usei esta linguagem clássica como ferramenta para esta conversão.
+O código ficou, em minha humilde opinião, elegante e pequeno, pois se aproveita da composição das periodicidades. Ou seja, o período de cinco minutos é a consolidação de cinco linhas de um minuto, mas a de quinze minutos não são quinze linhas de um minuto, mas três de cinco minutos, que já estão sendo calculados a cada cinco linha. E assim por diante. Usando os arrays associativos do awk é possível manter o estado de cada candle até o momento de gerar a saída desejada, que no exemplo que codifiquei ficou como um comando SQL de insert em um banco fictício que grava cada tipo de candle em uma tabela.
+O uso de um array por candle simplificou o código, pois ao criar uma função que manipula o candle que está finalizando e o próximo eu posso simplesmente passá-los como argumentos. Dessa forma eu só preciso compor os filtros de linhas de acordo com o resto da divisão do seu número. No exemplo inicial, o candle de cinco minutos está finalizando quando RN é igual a cinco ou múltiplos de cinco, enquanto um novo candle se inicia em múltiplos de seis.
+</description>
+</item>
+
+     
+        <item>
   <title>Awk</title>
   <link>http://www.caloni.com.br/awk/</link>
   <pubDate>2020-06-07</pubDate>
@@ -50,6 +158,183 @@ DeckShuffle();printf(&amp;quot;(for you) your cards, player#%d: %d %d\n&amp;quo
 
      
         <item>
+  <title>Leak de Memória</title>
+  <link>http://www.caloni.com.br/leak-de-memoria/</link>
+  <pubDate>2020-06-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/leak-de-memoria/</guid>
+  <description>Esse fim de semana vi um programa, sem leak de memória, que só de ficar alocando e desalocando apresentava um consumo crescente no Process Explorer. Imaginando que poderia ser alguma lib externa, como o redis, fui eliminando uma por uma as variáveis do sistema, até chegar em um loop em que a única coisa feita no corpo do código era alocar e desalocar memória. E ela apenas subia.
+Essa memória é alocada para um objeto acessível por uma interface. Abaixo dessa abstração reside uma mensagem do protocol buffers, ainda na versão 2. Isso quer dizer que cada new e delete construía uma nova mensagem protobuf, além da vtable da interface, e destruía em seguida. Apenas um campo int era preenchido como teste. Para monitorar melhor a memória usei um segundo campo string, pois daí posso alocar quantos bytes quiser para ele e o gráfico do Process Explorer fica dando um berro que não dá para ignorar.
+Então me veio o pensamento sobre a versão debug, que não é confiável. Uma versão debug de uma lib pode decidir que é importante manter coisas na memória que o programa não pediu, mas que é importante para diagnóstico. Então compilei a versão release. O padrão de consumo se repetiu, embora em um ritmo menor porque versão release é mais performática. O consumo crescente ainda estava aí.
+O jeito foi ir destroçando o código, classe por classe, até fazer o padrão de consumo crescente estabilizar. Este projeto tem uma arquitetura complexa, cheia de interfaces e classes que manipulam dados internos através delas. É complicado destrinchar e me custou o domingo inteiro. E quando finalmente encontrei o problema, não tinha nada a ver com o que eu imaginava. Se tratava da fila de linhas de log que não eram apagadas porque o servidor de log não havia sido configurado no componente, e como ele nunca conectava, a lib de log decidia manter as linhas em memória até conseguir. Pode ser um erro de arquitetura ou uma decisão de segurança. De qualquer forma, não há leak. Apenas um sintoma.
+Essa sessão de debugging me deu alguns insights, entre eles um que é sempre mais frequente: nunca supor nada antes de analisar um problema. Minha estratégia de dividir para conquistar sempre foi a única que gerou resultados rápidos, ainda que às custas de não confiar em minha intuição. A longo prazo essa estratégia é vencedora, pois a intuição não utilizada sem critérios fica mais afiada conforme você acumula conhecimento. É como o cara dos Axiomas de Zurique (o livro) dizia, intuição é um quase-conhecimento. Saber cada vez mais irá fazer com que você consiga caminhar mais rapidamente por onde quer chegar.
+</description>
+</item>
+
+     
+        <item>
+  <title>Azure Missing Lines: Submodules no Git (SSH Version)</title>
+  <link>http://www.caloni.com.br/azure-missing-lines/</link>
+  <pubDate>2020-06-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/azure-missing-lines/</guid>
+  <description>É curioso como os problemas mais triviais não são resolvidos em ferramentas feitas para resolver esses problemas. No Azure Pipelines existe um fluxo padrão para configurar um build em que você primeiro cria uma tarefa para obter o código de um repositório git remoto e em seguida configura, compila e empacota através de uma máquina chamada de agente. O problema surge logo nesses primeiros passos, para desespero do iniciante.
+Para se autenticar no repositório remoto é claro que a ferramenta irá se integrar por algum endpoint com o serviço, seja BitBucket, GitHub ou outros. Uma conta desse serviço é usada e o acesso está liberado. Porém, se o repositório possui submodules, e estes foram configurados como acessos via ssh, a automação do Azure já para de funcionar neste momento.
+A causa desse bug é simples: não existe ambiente para as chaves SSH estarem configuradas antes de existir um agente (uma máquina) onde o build irá acontecer. A correção, felizmente, também é simples, apesar de inapropriada: primeiro deve-se baixar o repo sem submodules, instalar a chave SSH, e apenas agora iniciar e atualizar os submodules.
+</description>
+</item>
+
+     
+        <item>
+  <title>Transmission</title>
+  <link>http://www.caloni.com.br/transmission/</link>
+  <pubDate>2020-06-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/transmission/</guid>
+  <description>Dia de fazer funcionar o download automágico de legendas depois que o Transmission baixou meu Netflix caseiro. O download funcionou, mas não foi dos melhores, pois o sincronismo e o encoding veio errado, e o rename de _pb para o nome do arquivo não está acontecendo rodando pelo transmission-daemon. Fora isso tá com tudo em cima.
+No final do dia a correção era mais simples que imaginava: eu só precisava desabilitar duas flags: o uso de sufixo no nome do arquivo salvo e a flag que força todo arquivo a ser salvo como utf8 (os arquivos em português do Brasil são salvos no encoding do Windows, o ISO-8859-1 ou Windows 1252 para os mais íntimos).
+No final do dia todos os bugs conterão uma correção trivial escondida do outro lado do muro chinês.
+</description>
+</item>
+
+     
+        <item>
+  <title>Bug no Calonibot Rodando Como Serviço</title>
+  <link>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</link>
+  <pubDate>2020-05-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/</guid>
+  <description>Esse não é o primeiro bug, nem será o último, mas serve de lição. Se quiser rodar um daemon no seu raspberrypi que atualize seu repo git de tempos em tempos ele poderá falhar, já que que roda em conta de root e essa conta não possui suas credenciais. Nem deveria, para ser sincero...
+Uma maneira de tornar a leitura de seu repo relativamente segura é entregar credenciais de somente leitura para seu serviço. Foi o que eu fiz no caso do calonibot, que atualiza seu próprio repositório de tempos em tempos porque nele está contido o index.xml principal do site para ele realizar uma busca mais completa quando você pedir a ele (que é atualizado sempre que publico um novo artigo).
+Para que isso funcione para repositórios configurados com chave ssh você terá que copiar essa chave para o diretório /root/.ssh, como se fosse a home do seu usuário. Depois de feito isso reinicie o serviço e ele deverá funcionar como novo.
+</description>
+</item>
+
+     
+        <item>
+  <title>O Bug Mais Bizarro que já Resolvi</title>
+  <link>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</link>
+  <pubDate>2020-05-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/</guid>
+  <description>Máquina IBM velha e empoeirada. Criptografia blowfish. Assembly 16 bits. Programa residente. E nenhum depurador funcionando. Tudo o que eu tinha se resumia em dois itens de inventário: o conhecimento, adquirido aos poucos do sistema, e minha imaginação. Era uma amena semana de abril em 2008 isolado em uma sala. Tudo que havia em volta eram papéis com anotações feitas. Observava uma nova pista todo dia, embora sem ter muita certeza. Àquela altura qualquer coisa serviria.
+Do outro lado da sala, uma estagiária recém-chegada na empresa observava de longe, talvez com uma certa curiosidade, ou medo, daquele rapaz ligar e desligar um desktop empoeirado enquanto a cada aperto do botão de ligar ele olhava fixamente para a tela por uma ou às vezes duas horas seguidas. Ficava a manhã inteira observando um único boot em câmera lenta. A câmera mais lenta possível, dessas que capturam o bater de asas de um beija-flor. Cada movimentação de um registrador demorava vários minutos de reflexão.
+Toda essa odisseia começou com o cara do suporte, um sujeito bonachão que atraía os bugs mais bizarros para nossos sistemas só de olhar para eles. Não eram os piores bugs, mas com certeza os mais bizarros. E quando digo bizarro estou falando de bugs que não dá para imaginar acontecendo na vida real. Quando esse sujeito aparecia junto surgiam bugs na própria Matrix; um gato preto passa duas vezes seguidas pela porta, mas não caminhando: flutuando próximo do teto.
+O sujeito chegou na sala de desenvolvimento falando dessa máquina que tinha acabado de chegar do cliente. Haviam instalado a criptografia de disco. Os dados não estavam perdidos, pois o Windows ainda mostrava o seu logo esvoaçante segundos depois de ligarmos o velho desktop de guerra, que já havia vivido pelo menos duas décadas a vida de escritório e não seria agora que deixaria seus dados sumirem sem mais nem menos. Nada disso. O problema era que se você desligasse e ligasse de novo, nada mais aparecia. Tela preta. Sem logo esvoaçante ou cursor piscando. O disco rígido não se mexia. Era um mistério completo.
+Mas o bizarro mesmo não era isso, mas o que vinha depois. Você desligava a pobre máquina, novamente. Apertava o botão de ligar. E como uma mulher nos seus trinta ainda não vividos, ela subia com tudo no lugar: logo do Windows, barulhinho irritante da sua tela de boas vindas e as agulhas do disco magnético piscando freneticamente. Tudo certo mais uma vez na terra do Tio Bill. Era possível logar na máquina e usá-la o resto do dia com todos os dados criptografados íntegros.
+Agora, sim, o bug está completamente descrito: nos boots ímpares a máquina não bootava. Nos boots pares não havia nada de errado (ou vice-versa). Antes que você comece a confabular o que poderia ser, um cacoete que todos nós, programadores, costumamos ter, já aviso que nesse bug não há relação com energia ou memória RAM. Você podia desligar a máquina e tirar da tomada. Ir tomar um café. Uma hora depois coloca a tomada de novo e a liga. A bendita não funciona. Tire a tomada novamente. Mais um café. Desenergizada novamente, botão de ligar. E tudo estava certinho.
+A criptografia desse sistema operava em dois níveis, necessários naquela época. O PC é uma monstruosidade construída em camadas legadas, uma em cima da outra. Abaixo de tudo existe a BIOS que controla todo mundo. Até um certo ponto, pelo menos. O que importa é que nesse primeiro momento do boot não existe sistema operacional. Não existe a querida proteção de memória que os SOs implementam (com a ajuda da arquitetura) para isolar os programas, onde qualquer violação de memória é tratada graciosamente com uma mensagem de erro. Não, mano. Aqui é o modo real. Fica esperto, que se um ponteiro ficar doido você vai levar tiro pra tudo quanto é lado. Ou como diria Morpheus: &amp;quot;Welcome... to the desert... of the real.&amp;quot;
+Nesse ambiente pesadão e promíscuo, onde as memórias se encostam e trocam de valores sem qualquer pudor, programas residentes se mantém em memória através do famigerado hook de interrupções. Interrupções é como chamamos as funções originais escritas e armazenadas na BIOS. Ponteiros de funções com código carregado da sua memória. Fazer um hook de uma interrupção é se colocar na frente de uma função dessas, trocando o ponteiro de função pelo endereço de sua função na memória. Então, por exemplo, se um programa roda e consegue sobrescrever o endereço da interrupção responsável por escrever na tela, esse programa pode ligar e desligar pixels que o programa original nem imagina. E em vez do logo esvoaçante e inofensivo do Windows, você poderia escrever o que seria o antepassado do gemidão do zap, versão ASCII Art.
+No caso de um programa de criptografia de disco a interrupção mais importantes é... acertou: a de disco. Uma interrupção de disco é responsável por ler e escrever dados de e para o disco. No primeiro momento do boot é vital para o sistema operacional que ele consiga ler setores do disco onde ele próprio está armazenado. Ele deve conseguir ler seus dados do disco, mesmo criptografados, e esses dados precisam ser descriptografados antes que exista um driver de criptografia instalado no Sistema Operacional no ar. É o dilema do ovo e da galinha. É aí que entra o que chamamos de programa residente, o que contém a função de criptografia e cujo endereço é colocado no lugar da interrupção da BIOS para comandos de disco.
+É claro que contando isso para vocês a posteriori parece mais fácil, mas meu primeiro instinto foi espetar o WinDbg, o depurador de sistema do Windows, nessa máquina. Porém, rapidamente descobri que não existia sistema operacional para ser depurado. O Windows nem conseguiu subir ainda, quanto mais deixar as pessoas depurarem ele. Então a solução foi apelar para o SoftIce 16 bits, um depurador em modo real, que funciona até que bem sozinho. Porém, o próprio depurador já é um programa residente, e não funciona tão bem quando existem outros programas residentes querendo espaço no disco. Como o programa de criptografia instalava um hook na int13 (essa é a interrupção de disco), as sessões de depuração nessa fase ficavam estranhas rapidamente. O depurador de modo real travava nas primeiras passadas de código. Não havia memória o suficiente ou as chamadas das ints entravam em conflito. De qualquer forma, quando memória entra em conflito no modo real, o barato fica loko, e o jeito é começar tudo de novo em um novo boot (par ou ímpar, mas sempre o segundo).
+Então o jeito foi usar o debug.com. Este era um programa que vinha no pacote MS-DOS e em alguns Windows mais velhos que consistia em um depurador de modo real. Era possível carregar um segmento de um arquivo ou da memória real para este depurador e ele seguia passo a passo para você a execução do programa. Em assembly de modo real, claro. Esse foi o jeito que eu consegui ir entendendo o fluxo de execução, pois eram muitos valores e variáveis. Eventualmente até o debug.com também travava, mas isso não importava tanto, pois era possível ir mapeando seu funcionamento aos poucos, anotando as descoberta uma a uma em um pedaço de papel. Uma técnica que pode ser interessante se você se encontrar em tal situação é escrever as ints 3 (interrupção de breakpoint) diretamente na memória do programa e deixar ela ser ativada para depois que capotar sobrescrever com o código antigo. Eventualmente isso também travava. Daí nesse momento o jeito era fingir que estava tudo bem e continuar a execução de um outro ponto, anotando em um pedaço de papel o estado dos registradores e da memória até o momento, para depois ir ligando os pontos.
+Depois de alguns dias nesse modus operandi o mundo externo importava cada vez menos. Eu só enxergava registradores sendo movidos, valores sendo empilhados e desempilhados. Na hora do café, esse era o meu tema favorito, para desespero dos meus colegas. Comecei a vislumbrar a possibilidade de existir um bug no código do algoritmo de criptografia. O algoritmo usado se chama Blowfish, um cifrador simétrico em bloco. Seu funcionamento é basicamente pegar um bloco de dados a serem criptografados, aplicar uma chave, e cuspir o mesmo tamanho do bloco de volta. Ele se chama simétrico porque aplicando a mesma chave a um bloco criptografado obtém-se o bloco original.
+Não lembro como tive esse insight, mas essa alternância típica dos algoritmos simétricos fazia tocar alguns sinos na minha cabeça de que o bug bizarro dos boots ímpares e pares poderia estar relacionado de alguma forma. Só não sabia ainda como.
+Pois bem: bora aprender como funciona esse algoritmo, passo a passo, pois o código usado no sistema estava obviamente escrito em assembly. Não é um código difícil em C, mas um tanto extenso em Assembly. De qualquer forma, tudo é possível se você está trancado em uma sala sem ninguém para importunar. Tudo que você precisa é de tempo e paciência. E café. Não se esqueça do café.
+A semana passou rápido. Tudo que me lembro é que de fato foi uma semana de 40 ou mais horas, embora para mim o tempo tivesse parado. A mágica de estar compenetrado em um problema e fazer parte do problema, e eventualmente da solução, me fez descobrir a origem do bug. E a semana inteira se condensou em alguns poucos momentos de prazer em ter capturado esse desgraçado. Irei descrevê-lo agora.
+Tudo começa com o IV: o Initialization Vector. Ele é um array de bytes usado em algoritmos criptográficos para diminuir a previsibilidade da série de bytes resultantes do algoritmo. Sem o IV pode-se usar força bruta com várias chaves até encontrar a certa. Com o IV, que é alterado de maneira previsível, mas difícil de rastrear, a mesma chave gera séries de bytes completamente diferentes, impedindo esse tipo de ataque.
+O que estava acontecendo nesse caso para o boot estar intermitente era que, como comentado no commit que gloriosamente assinei, as escritas em disco durante o boot gravavam a série de bytes com um IV invertido. Portanto, na hora de ler bytes do disco ele entregaria os dados errados, obviamente, e a máquina não bootaria. Porém, como o algoritmo blowfish é simétrico, e pelo boot conter sempre os mesmos dados no disco, uma segunda escrita feita em um segundo boot inverteria o IV já invertido, gravando os dados originalmente invertidos da maneira correta, e a vida nessa versão de boot seguia feliz e contente, com logo esvoaçante até a música de boas vindas do Windows. Bootando pela terceira vez era repetido o problema do boot pela primeira vez, e assim por diante. Essa era a mágica do boot bizarro desta máquina, a única máquina que descobrimos que escrevia nos setores do disco durante o boot. A maioria apenas lia setores onde estava o sistema operacional para carregá-lo.
+Descrevendo a descoberta desse bug hoje, doze anos após o ocorrido, ainda não entendo como consegui descobri-lo. Porém, ele exigiu tanta concentração que me lembro com um prazer indescritível de ter sido capaz de fazê-lo. Todo o tempo despendido se tornou uma marca de felicidade em minha memória, gravada em meu HD temporário desta vida. Lembrarei desses momentos com carinho, e como ela está criptografada também, entenderei que em alguns momentos ela irá soar amarga, mas em vários outros irei ter certeza de ter sido um feito e tanto para um ser humano entender uma máquina em seus detalhes mais obscuros. Esta é a verdadeira felicidade da profissão.
+</description>
+</item>
+
+     
+        <item>
+  <title>Cast Operator</title>
+  <link>http://www.caloni.com.br/cast-operator/</link>
+  <pubDate>2020-04-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/cast-operator/</guid>
+  <description>O código abaixo não é C&#43;&#43; moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.
+struct T{explicitoperator int(){return 10;}};int main(){T t;// error: term does not// evaluate to a function// taking 0 argumentst();int i = (int) t;} O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.
+int i = t; Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer sobrecarga de função pelo retorno. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.
+Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C&#43;&#43; moderno:
+// cast-operatoroperator int();// function-operatorint operator(); </description>
+</item>
+
+     
+        <item>
+  <title>Minha Palestra Sobre Windbg</title>
+  <link>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</link>
+  <pubDate>2020-04-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/</guid>
+  <description>A MBConf@Home2020 foi um sucesso. Parabéns aos organizadores, palestrantes e apoiadores. Eu nunca fui em um evento de tecnologia em que tudo funcionou do começo ao fim. Simplesmente fantástico o nível de qualidade da organização. Fora que trezentas pessoas ficaram em casa e participaram conosco dessa troca de conhecimento =).
+Minha palestra foi a seguinte: dei uma pincelada no que é o WinDbg para os que ainda não conhecem e realizei algumas manobras pouco usuais de depuração, tentando fugir um pouco da rotina do programador e me enfiando no que seriam minhas sessões antigas de hacking ou cracking da época que analisava trojans ou depurava serviços que saíam depois que meu depurador remoto já tinha ido embora. Segue mais ou menos o roteiro e os pontos levantados.
+Hoje em dia o caminho mais fácil é pelo Visual Studio Community, que instala por padrão um Windows SDK. Nessa instalação é possível modificar os itens checando o &amp;quot;Debugging Tools for Windows&amp;quot;, que é o pacote que contém o ecossistema do WinDbg.
+Pulei essa parte. Tempo curto e me enrolei um pouco. E não era o caso de ficar focado na rotina de programador.
+Não fui eu que escrevi o MessageBox... juro. E nesse caso não ter o código-fonte é a rotina do crackudo, que vai ter que explorar no assembly o funcionamento de um programa. Depuramos um que chama MessageBox alterando a mensagem exibida (em 32 bits). Foi legal essa diferença entre Ansi e Unicode que me perdi no começo, pois serviu para exemplificar questões de API que precisam ser conhecidas.
+void chama_eu(){MessageBox(NULL,&amp;quot;Welcome to &amp;quot;&amp;quot;MBConf@Home2020&amp;quot;,&amp;quot;MBConf2020&amp;quot;, 0);} Abordamos o boot do Windows com NT, o uso do kd.exe por baixo dos panos do WinDbg (o DarkMode) e configuramos o cabo. Cabo? Cabo virtual, sargento. Usamos a VMWare, pré-configurada após alguns pesadelos de impressora se metendo no meio do caminho. Configuramos a porta serial, que é a melhor ever. E apontamos como named pipe para o WinDbg &amp;quot;de fora&amp;quot; conectar. Ou o kd.exe. As linhas abaixo são equivalentes.
+windbg.exe -b -k com:pipe,port=\\.\pipe\com_1,resets=0kd.exe -b -k com:pipe,port=\\.\pipe\com_1,resets=0 Para exemplificar a depuração de um serviço bem no início (ou fim) ou o load de processos antes dele existir checamos uma flag na gflags.exe da máquina depurada para que quando o notepad.exe subisse o ntsd fosse depurá-lo e passasse o controle para o debug do sistema. E com isso fechamos o círculo sagrado da depuração holística.
+Não. Para depurar a BIOS local há o caminho do debug.com (um depurador bem simples da época do Windows 95) ou o Softice DOS, embora eu me lembre que tive umas dores de cabeça com ele por causa dos conflitos entre interrupções e programas residentes. A depuração estática acaba ganhando nesse quesito, que é basicamente abrir o assembly, papel e caneta. E imaginação.
+Já para debug de BIOS em rede. Bem... esse é um nível hackudo. Sei que a Intel tem desenvolvido chips para diagnóstico e obtenção de dados de hardware pela rede antes mesmo do SO estar ligado, mas não cheguei a pesquisar a fundo.
+Sim. Como o Mercês me ajudou a lembrar, existe um rundll32.exe, um executável que já vem no Windows e que pode carregar a DLL para você. Daí tudo que você precisa fazer é colocar o breakpoint das funções exportadas que deseja chamar. Dá para especificar essas funções pelo rundll32.exe também: rundll32.exe project.dll,chama_eu
+Recomendo sempre o WinDbg.info como cheat sheet e docs.microsoft.com em seus artigos &amp;quot;Getting Started with WinDbg (User-Mode)&amp;quot; e &amp;quot;Getting Started with WinDbg (Kernel-Mode)&amp;quot; (sorry, m$, vcs mudam os links demais para eu colocar aqui).
+</description>
+</item>
+
+     
+        <item>
+  <title>Winmock</title>
+  <link>http://www.caloni.com.br/winsock-mock/</link>
+  <pubDate>2020-04-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/winsock-mock/</guid>
+  <description>Testar sistemas com rede simulada pode ser muito complexo ou muito simples. Se for feito em C ou se os endpoints forem em C é muito simples: basta trocar as funções originais pelas suas. Como tudo em C são funções com nome bem definido e assinatura flexível você não precisa declarar a assinatura da função, ou pode mudar no meio do caminho.
+Existe um recurso interessante da winsock, um define chamado INCLWINSOCKAPIPROTOTYPES, que pode desabilitar a publicação das assinaturas das funções de socket do header winsock2.h. E por que isso é importante? Porque essas assinaturas já possuem a informação que essas funções deverão ser importadas de uma DLL (no caso a Ws232.dll). Isso muda o nome da função C. Além disso, a convenção de chamada da API do Windows é baseada em Pascal, e não cdecl, sendo a desvantagem não existir número de argumentos variáveis na pilha.
+As funções C do winsock/socket, connect, send, recv, select, etc, são apenas funções C cujos nomes são conhecidíssimos. Elas são linkadas com programas que usam alguma biblioteca de socket. Nada impede que nós mesmos sobrescrevamos essas funções para implementá-las em nosso programa. É isso o que o uso do define acima possibilita: ele evita a importação direto da DLL da Microsoft e com isso você pode usar uma implementação de terceiros ou a sua própria, que não precisa se comunicar com a rede.
+</description>
+</item>
+
+     
+        <item>
+  <title>Callback Hell</title>
+  <link>http://www.caloni.com.br/callback-hell/</link>
+  <pubDate>2020-04-09</pubDate>
+  
+  <guid>http://www.caloni.com.br/callback-hell/</guid>
+  <description>Foi aprendendo sobre kernel do Windows que eu descobri que a linguagem C suporta todas as abstrações que um homem crescido precisa para desenvolver sistemas. Também aprendi que você precisa ser um homem crescido para saber usar direito.
+A linguagem C possui 32 palavras-chave e nenhuma parafusadeira elétrica. Existe um motivo para isso: fazer tudo na mão desenvolve o caráter. Se não desenvolve, pelo menos escancara a má pessoa que você é.
+Olhe para o sistema de callbacks, por exemplo. É uma ferramenta poderosa. Com ponteiros de função e endereços de estrutura você pode chamar quem você quiser a hora que quiser. Há tantas possibilidades que é muito fácil errar.
+Aí que surge o famigerado Callback Hell.
+Esse termo se popularizou através da linguagem Javascript por causa que em Javascript é muito fácil deixar a coisas pra depois. Você deixa seu callback pra ser chamado uma outra hora e esquece dele. E ele faz o mesmo. E mais uma vez. E de novo. Você entendeu a ideia.
+No final das contas, depurar código Javascript escrito por outra pessoa seria uma sala no inferno reservada para aqueles programadores que acharam durante a vida que resolveriam todos os problemas do mundo até às 18:00. Tudo que eles precisavam fazer era criar mais um pequeno callback no finalzinho daquela função. Como se diz em Go Horse Power, &amp;quot;commit e era isso&amp;quot;.
+A linguagem C permite você fazer a mesma coisa. Basta que o endereço da estrutura que você passou como contexto do seu callback tenha um ponteiro de função que vai ser chamado passando mais um membro dessa estrutura como contexto, que irá conter outro ponteiro de função que... você entendeu a ideia.
+No final das contas, depurar um código em C escrito por uma pessoa que evita resolver problemas de arquitetura criando mais um callback deve demonstrar como existem pessoas sem caráter que sabem declarar um ponteiro de função. Cuidado com essas pessoas. Elas podem te levar até uma salinha reservada no inferno.
+</description>
+</item>
+
+     
+        <item>
+  <title>Meu Try Lock de Pelúcia</title>
+  <link>http://www.caloni.com.br/try-lock-de-pelucia/</link>
+  <pubDate>2020-04-07</pubDate>
+  
+  <guid>http://www.caloni.com.br/try-lock-de-pelucia/</guid>
+  <description>Alguns implementam o famigerado &amp;quot;mutex pero no mucho&amp;quot;, que é aquele mutex que não faz nada porque ele sabe que só tem uma thread rodando no processo. É uma solução elegante para abstrair o uso de lock em um processo que pode ou não rodar multithread.
+Mas isso é uma coisa. Outra coisa é o try lock de pelúcia de um driver de uma empresa que trabalhei certa vez. Como havia situações onde o lock não era nunca liberado, e a thread estava rodando em um nível de interrupção que não poderia mais voltar, ou ela agendava uma execução menos prioritária ou obtia o lock. Mas baixar a prioridade não era uma opção para o programador MacGyver. Então o código acabou pegando o lock na marra.
+if( ! try_aquire_mutex() )// dá um tempo...if( ! try_aquire_mutex() )// dá um tempo...// ...// ah, dane-se,// eu vou pegar esse mutex!aquire_mutex(); </description>
+</item>
+
+     
+        <item>
+  <title>Code Jam 2020</title>
+  <link>http://www.caloni.com.br/code-jam-2020/</link>
+  <pubDate>2020-04-05</pubDate>
+  
+  <guid>http://www.caloni.com.br/code-jam-2020/</guid>
+  <description>O Code Jam esse ano terminou rápido para mim. Estou enferrujado? Nem tanto. Apenas dei menos atenção ao evento no seu início, mas apesar de me concentrar nas últimas 11 horas não tive um resultado satisfatório, obtendo 24 pontos ao total, o que não me dá direito para o torneio, que exige pelo menos 30.
+Minha abordagem no primeiro problema foi o feijão com arroz de ir lendo os valores e verificando para cada novo elemento da linha se havia repetição nos valores já lidos da mesma linha. Eu me compliquei na hora de fazer a mesma coisa para as colunas, pois inseri essa checagem dentro do loop da linha, evitando, assim, sempre a última coluna. Foi a parte que mais perdi tempo útil de todo o torneio (não li todos os exercícios antes).
+O segundo problema foi o mais simples de todos para mim. Entendendo o enunciado, em que o título dá uma dica valiosa sobre o comportamento do algoritmo (aninhado), foi só usar a mesma lógica que nós programadores usamos na hora de aninhar parênteses.
+O terceiro exercício me parecia fácil no começo. Desenhei na minha janela um esboço da ideia inicial, que era manter um registro de todos os minutos de um dia e a cada nova tarefa popular cada minuto. Meu erro principal foi não considerar que todos os minutos de uma tarefa devem estar sob a responsabilidade de apenas uma pessoa. Corrigido isso, meu código passou nos poucos testes disponíveis no problema, mas não passou na hora de submeter. Estou sem saber até agora o que fiz de errado.
+E, por fim, o último foi o mais divertido porque envolveu mexer em ambiente. O script iterativo do Google não funcionou direito no Windows, mas depois de uns testes no WSL percebi que o erro mesmo é não dar flush nos printf do meu lado. Sempre haverá problemas de buffer em stdin/stdout.
+De qualquer forma, não consegui resolver mais do que 10 bits. Já estava ficando tarde e eu me perdi em digressões de como tornar o código maleável para adivinhar mais que duas viradas quânticas. Deixei esse código experimental de lado e fui ler o próximo.
+Apenas li o enunciado. Ele falava sobre o quadrado latino, assim como o problema original. E como tive dores de cabeça por causa desse primeiro exercício, e faltava apenas uma hora e meia para terminar a prova, dei por satisfeito mais um ano brincando de programar.
+</description>
+</item>
+
+     
+        <item>
   <title>Golang e C</title>
   <link>http://www.caloni.com.br/golang-e-c/</link>
   <pubDate>2020-04-05</pubDate>
@@ -59,6 +344,47 @@ DeckShuffle();printf(&amp;quot;(for you) your cards, player#%d: %d %d\n&amp;quo
 A linguagem Go na versão mais nova precisa que seja definida através da cgo, o backend C do ambiente de build da linguagem, uma função trampolim, que é uma função escrita em C que irá chamar uma função escrita em Go. Essa função pode ser passada como parâmetro de callback para uma biblioteca C que quando a biblioteca C chamar esse ponteiro de função ele irá atingir a função trampolim, que por sua vez, chama a função Go, que é onde queremos chegar depois de todo esse malabarismo.
 main|C.set_callback|C.call_callback|g_callback*|GoCallback_cgo|GoCallback Em resumo: o main em Go chama C.set_callback (função C exportada) passando o endereço do seu callback (em cgo) e em uma segunda chamada ou nessa mesma pede para chamar esse callback. O módulo em C pode ou não chamar essa função nessa thread ou mais tarde, através do ponteiro de função que estocou (g_callback). Ao chamá-la, ativará a função GoCallback_cgo, que por sua vez chamará GoCallback, essa sim, já no módulo Go (embora ambas estejam no mesmo executável, já que C e Go podem ser linkados juntos de maneira transparente.
 Criei um repositório com os fontes deste artigo. Bom proveito =)
+</description>
+</item>
+
+     
+        <item>
+  <title>Git Subtree</title>
+  <link>http://www.caloni.com.br/git-subtree/</link>
+  <pubDate>2020-03-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/git-subtree/</guid>
+  <description>É a segunda vez que uso subtrees no Git. Não é algo que me acostumei usar por rotina, mas é uma técnica que eu recomendo que todo programador conheça para unir repositórios que não dependa dos pesadelos de configurar submodules.
+Há vários tutoriais na internet sobre seu uso (como o da Atlasian), além do próprio manual do Git e sua ajuda. Só quero enfatizar neste post que ele existe, é fácil de usar, e pode resolver alguns problemas de gerenciamento de projeto:
+ Unir repositórios que foram separados em algum momento ou que nasceram separados. Unir dependências que não estão online, mas que precisam estar caminhando em paralelo. Compor árvores de histórico distintas e não se preocupar muito de onde elas vieram (exceto quando for necessário juntar de novo, e nesse caso o commit que as une possui algumas informações).  </description>
+</item>
+
+     
+        <item>
+  <title>Projeto Hu Cpp: Not Fast Enough</title>
+  <link>http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/</link>
+  <pubDate>2020-03-17</pubDate>
+  
+  <guid>http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/</guid>
+  <description>Continuando minhas aventuras em tentar ser mais rápido que o Hugo, fiz uma versão que gera um html porco com os parágrafos obtidos no parser porco de markdown, rodando em cima dos meus 2740 posts. Este é o resultado.
+Hugo: 16.527 msHu-Cpp: 89.573 s Noventa segundos para 2700 posts! É uma vergonha! Programadores C&#43;&#43;/Boost/Asio, vamos nos matar.
+</description>
+</item>
+
+     
+        <item>
+  <title>Projeto Hu Cpp</title>
+  <link>http://www.caloni.com.br/projeto-hu-cpp/</link>
+  <pubDate>2020-03-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/projeto-hu-cpp/</guid>
+  <description>Utilizo o Hugo como renderizador do meu saite já faz um tempo. Depois que juntei os posts do finado Cine Tênis Verde e do meu blogue técnico a soma dos textos ultrapassou a marca dos dois mil. Atualmente levo cerca de quinze segundos para renderizar todo o saite antes de publicá-lo.
+Não é uma marca ruim, considerando que estamos com quase três mil textos, e embora o leiaute do saite seja muito simples, é justamente o que eu desejo para rápido carregamento e busca. Não tenho do que reclamar.
+Porém, um programador C nunca fica satisfeito com uma solução Golang.
+Sabe esses pensamentos que não saem da cabeça? Estava devaneando há uns dias sobre se não seria interessante renderizar meu saite usando uma solução em C ou C&#43;&#43; e ver qual seria o resultado. Claro que seria uma solução in house, cheia de bugs e completamente limitado. Mas quem liga? Meu único objetivo é a diversão, e não pretendo criar um produto genérico. Hugo já satisfaz até o mais exigente dos programadores (exceto o Elias), pois resolve vários problemas do interminável conflito entre conteúdo e design.
+Por falar no dito cujo, me lembrei da nossa disputa no saite Os Programadores. Era uma resolução de exercício envolvendo leitura e parseamento de um arquivo json. Tive o insight de usar algo parecido com o que desenvolvi naquela vez.
+O código que bolei lê um arquivo markdown e divide o header nos campos que eu utilizo e o texto em parágrafos. Esse é o começo mínimo para começar a converter os arquivos em html. Ele usa o mapeamento de arquivo em memória como no desafio do saite. Não precisaria, mas já que a diversão é fazer mais rápido que o Hugo, por que não?
+Meu próximo passo é pegar esse parser e converter todos os arquivos para html, da maneira mais porca possível. Quer dizer, quase da maneira mais porca. Não estou usando Pascal.
 </description>
 </item>
 
@@ -127,6 +453,19 @@ Depois de muito analisar o protocolo desenhando cada pacote na janela do escrit�
 O passo seguinte foi entender o código e as diferenças com os samples que havia tentado fazer funcionar da única maneira que penso ser possível: depurando. Sem conseguir navegar em todos os detalhes do fonte do OpenSSL recompilei o projeto com full debug alterando as flags de compilação no Makefile gerado para Windows (/Od e /Zi ajudam) e iniciei os dois modos acima depurando em duas instâncias do Visual Studio. Encontrei uma ou outra chamada à biblioteca OpenSSL que não havia notado ainda, mas nada que parece fazer a diferença.
 Mas nenhuma dessas mudanças fez efeito no projeto de teste. O próximo passo seria copiar cada chamada feita à lib OpenSSL pelo openssl.exe e colar no projeto de teste para descobrir onde está o pulo do gato que nenhum dos samples na internet parece ter encontrado (ao menos para Windows), mas há uma solução preguiçosa que é muito mais efetiva e testada: usar os fontes da própria pasta apps do projeto OpenSSL.
 O próximo e último passo é customizar o código-fonte base no qual a OpenSSL valida o protocolo DTLS para o uso que pretendo fazer para ele: um executador de processos remoto.
+</description>
+</item>
+
+     
+        <item>
+  <title>Vcpkg: openssl.cnf</title>
+  <link>http://www.caloni.com.br/vcpkg-openssl-cnf/</link>
+  <pubDate>2019-09-17</pubDate>
+  
+  <guid>http://www.caloni.com.br/vcpkg-openssl-cnf/</guid>
+  <description>Mais uma aventura em vcpkg. Dessa vez o projeto openssl, a biblioteca de SSL open-source multiplataforma. O vcpkg divide esse port por SO, sendo o openssl-windows o port que alterei. A alteração foi enviada como PR para a Microsoft, mas no momento está apenas no repo da BitForge.
+O que acontece é que alguns comandos executados no openssl.exe compilado e instalado do vcpkg precisam conter o arquivo de configuração disponível, como o genrsa. A compilação do openssl-windows pelo vcpkg gera o arquivo, mas o apaga após o build. Há uma checagem pós-build no vcpkg.exe que verifica se há arquivos sobrando na estrutura de diretórios que será copiada para a pasta installed/triplet após a conclusão da instalação no módulo postbuildlint. A função checknofilesindir verifica se há arquivos sobrando nos diretórios onde eles não deveriam estar e cancela a instalação. Por isso que originalmente o openssl-windows/portfile.cmake apaga o openssl.cnf gerado na pasta raiz e na subpasta debug do build.
+Minha mudança foi apenas não apagar o arquivo openssl.cnf release e movê-lo para a pasta onde está localizado o openssl.exe. Dessa forma fica simples de detectá-lo, mas ainda assim é necessário apontar para a ferramenta onde ele está, definindo a variável de ambiente OPENSSLCONF ou passando como parâmetro.
 </description>
 </item>
 
@@ -376,6 +715,23 @@ Update (2019-01-07): Na verdade a flag de não-herança do socket só passou a e
 Solução #4: Boost.Asio Essas correções dizem respeito ao sample de uso do winsock como modelo server/client da própria Microsoft. Ele foi modificado em um repositório que criei para meus testes e poderá ser usado como correção de todos que tiverem o mesmo problema utilizando a API do Windows diretamente.
 Já para o Boost.Asio será necessário um estudo de impacto e o envio de uma proposta de correção (ou uso de um patch em que a criação do socket cliente deve ser feita sem herança). Isso pode potencialmente quebrar o funcionamento de outros tipos de programas que dependem direta ou indiretamente da herança de todos os sockets, ou talvez o Boost.Asio tenha uma maneira educada de entregar o controle da criação de sockets dependente de implementação. Eu não sei. Este é um próximo passo da pesquisa.
 Update (2019-01-07): Embora use a função WSASocketW o Boost.Asio não suporta a parametrização das flags, e sua implementação não é sobrecarregável, fazendo parte do namespace socket_opt. Foi criado um issue no GitHub do projeto Boost.Asio para ver os comentários e colocações da equipe. No aguardo.
+</description>
+</item>
+
+     
+        <item>
+  <title>A Maneira Errada de Começar um Projeto é com Visual Studio</title>
+  <link>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</link>
+  <pubDate>2018-12-11</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/</guid>
+  <description>Estava eu trabalhando com um sample e resolvi colocar controle de fonte para analisar as mudanças. E a mudança mais inesperada que eu vi quando digitei git diff foi que ele achou que meus arquivos de código-fonte estivessem em binário.
+&amp;gt;git diff&amp;gt;Binary files differ&amp;gt;xxd -l 10 -g 1 -c 4 -u source.cpp00000000: FF FE 23 00 ÿ##.00000004: 69 00 6E 00 i.n.00000008: 63 00 6C 00 c.l. Essa lambança ocorreu com uma versão atual do Visual Studio 2017 após eu resolver ser preguiçoso e deixar o template dele criar o projeto para mim.
+Particularmente não sou fã de deixar as IDEs criarem arquivos, porque geralmente elas estão cheias de más intenções disfarçadas de boas envolvendo alguma tecnologia proprietária. No caso da Microsoft há os precompiled headers, que sujam o projeto antes mesmo do tempo de compilação ser um problema. E agora descobri que os arquivos estão sendo gerados em UNICODE Windows.
+Se você tiver o mesmo problema e quiser corrigir segue o passo-a-passo: salve os arquivos com um encoding de gente grande como utf8. Fim do passo-a-passo.
+Isso pode ser obtido na janela de &amp;quot;Save As&amp;quot; do Visual Studio. Há uma flecha para baixo do lado do botão Save onde você pode abrir a opção &amp;quot;Save with Encoding&amp;quot;.
+Na prática, troque possivelmente de &amp;quot;Unicode - Codepage 1200&amp;quot; para &amp;quot;Unicode (UTF-8 without signature) - Codepage 65001&amp;quot;. A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.
+A partir do segundo commit o git começará a entender que você atingiu a maioridade e vai comparar os arquivos como gente grande para você.
 </description>
 </item>
 
@@ -823,6 +1179,21 @@ Este é um guia bem básico, mas atende os requisitos de quem quer começar a me
 
      
         <item>
+  <title>A Linguagem de Programação C&#43;&#43;: O Início</title>
+  <link>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</link>
+  <pubDate>2016-11-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</guid>
+  <description>O livro-base sobre a linguagem C&#43;&#43; e como programar nela tem o nome pouco criativo &amp;quot;The C&#43;&#43; Programming Language&amp;quot;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhá-la em 1979, quando ainda a chamava de &amp;quot;C com Classes&amp;quot;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula, como o novo conceito de Orientação a Objetos, que carecia do mais importante na época: velocidade (só na época?). Já linguagens mais antigas como BCPL eram bem rápidas, mas eram tão simples que pareciam mais um Assembly glorificado. Havia, portanto, a necessidade de preencher a área de computação com alguma coisa bem no meio.
+Stroustrup não fez tudo do zero, nem fez tudo de uma vez. A primeira necessidade era apenas criar uma abstração já existente na linguagem C, mas que ainda não havia sido integrada à sintaxe: o contexto de uma estrutura, que se assemelha a uma proto-classe, ou para alguns já é até uma classe, pois possui membros e métodos:
+class Cpp{int x;int GetX();};int Cpp::GetX(){return x;}void Func(Cpp cpp){int y = 33 &#43; cpp.GetX();}int main(){Cpp cpp;cpp.x = 42;Func(cpp);} A grande sacada é que no meio de toda essa sintaxe de chamada de método havia a passagem de um parâmetro escondido, o this, que se referia a uma instância específica da classe: um objeto.
+int Cpp::GetX(){return this-&amp;gt;x;} Isso equivaleria a uma struct em C com funções que recebessem um this adaptado:
+struct C{int x;};int C_GetX(C* pThis){return pThis-&amp;gt;x;}void Func(C c){int y = 33 &#43; C_GetX(&amp;amp;c);}int main(){struct C c;c.x = 42;Func(c);} Esse tipo de abstração nem é tão complicada assim. O ojetivo eram vários: conseguir proteger os membros de acesso indevido, abstrair o comportamento de um objeto. Com o tempo Stroustrup foi realmente criando algo de novo e muito mais difícil de se manter em C. Algo para um próximo post =)
+</description>
+</item>
+
+     
+        <item>
   <title>Vídeo: Resolvendo problemas em projetos desleixados</title>
   <link>http://www.caloni.com.br/video-resolvendo-problemas-em-projetos-desleixados/</link>
   <pubDate>2016-09-01</pubDate>
@@ -1206,6 +1577,20 @@ Por fim, outra possibilidade para o navegador é também usá-lo a partir do dri
 
      
         <item>
+  <title>Origem do Tipo char</title>
+  <link>http://www.caloni.com.br/origem-do-tipo-char/</link>
+  <pubDate>2015-01-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/origem-do-tipo-char/</guid>
+  <description>Programadores C e C&#43;&#43;, preparem-se para explodir as cabeças! No princípio... não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
+O bom de B estava em sua rica expressividade. Sua gramática extremamente simples. Teoricamente a evolução da linguagem BCPL criada por Martin Richards, ela era tão simples que o manual da linguagem B consistia de apenas 30 páginas. Isso é menos do que as 32 palavras reservadas de C. As instruções eram definidas em termos de if&#39;s e goto&#39;s e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo, geralmente a palavra da plataforma, que utilizada em expressões definiam seu tipo; esse padrão de bits era chamado rvalue.
+Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o char da época ocupava o mesmo tamanho que um int. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:
+// the i-th character // of the string is returnedc = char( string, i ); Sim! Char era uma função, um conversor de &amp;quot;tipos&amp;quot;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C:
+// read a character // from stdinint getchar( void );// writes a character // to stdoutint putchar( int c );// sets buffers to a // specified charactervoid *memset( void *dest, int c, size_t count ); </description>
+</item>
+
+     
+        <item>
   <title>Por que o Visual Studio gera executáveis mutantes</title>
   <link>http://www.caloni.com.br/por-que-o-visual-studio-gera-executaveis-mutantes/</link>
   <pubDate>2015-01-11</pubDate>
@@ -1448,6 +1833,26 @@ Esses compiladores estão ficando cada vez mais espertos.
 
      
         <item>
+  <title>A moda agora é levar lambda na função</title>
+  <link>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</link>
+  <pubDate>2014-03-28</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</guid>
+  <description>A nova moda de programar C&#43;&#43; nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
+O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.
+Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;quot;pain in the ass&amp;quot;.
+Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:
+void NewYearMail(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.
+Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):
+int main(){struct NewYearMail{void operator()(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}};vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Apesar disso gerar &amp;quot;internal compiler error&amp;quot; em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar, um resquício de inveja de Pascal permitir função dentro de função e C não.
+Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo:
+int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(), people.end(), [&amp;amp;](Person&amp;amp; p){p.age &#43;= 1;SendMail(p);});} &amp;quot;Caraca, mas o que é esse código alienígena?&amp;quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C&#43;&#43; e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.
+int main(){int numbers[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };for_each(&amp;amp;numbers[0],&amp;amp;numbers[10],[&amp;amp;] // capture scope(int n) // arguments{cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &#39; &#39;;});} E não é só isso. Tem muito mais esquisitices de onde veio essa.
+</description>
+</item>
+
+     
+        <item>
   <title>Real Programmers Don&#39;t Use Java</title>
   <link>http://www.caloni.com.br/real-programmers-dont-use-java/</link>
   <pubDate>2014-02-20</pubDate>
@@ -1579,6 +1984,18 @@ Este texto foi copiado daqui e daqui. Não existem donos conhecidos do XGH (já 
   <description>Duas semanas atrás rolou a trilha C&#43;&#43; do TDC 2012, que contou com além da minha presença com a dos já conhecidos Fernando Roberto (DriverEntry), Rodrigo Strauss (1Bit), etc. Uma novidade: meu colega e programador .nerd Gabriel Guilherme também participou em uma palestra sobre um assunto que acredito que deveria ser mais promovido: interop. Afinal de contas, o poder de C&#43;&#43; não seria nada se não houvesse motivos práticos para usá-lo. Entre esses motivos, construir soluções com linguagens mais acessíveis é um deles.
 Na minha palestra foquei no conteúdo dos meus dois artigos sobre um fictício Patch de Emergência (parte 1 e parte 2 from Wanderley Caloni
 </description>
+</item>
+
+     
+        <item>
+  <title>Novos Atalhos Aprendidos no Vim</title>
+  <link>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</link>
+  <pubDate>2012-06-09</pubDate>
+  
+  <guid>http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/</guid>
+  <description>Sempre é bom reler as referências e tentar melhorar o que já está bom. No momento minha inspiração é o excelente Vim: From Essentials to Mastery, uma coleção de slides bem-humorada que a cada releitura fornece dicas importantes para aprimorar o dia-a-dia com um dos editores mais poderosos do planeta.
+A lista abaixo é pessoal e, como disse Bram Moolenar, &amp;quot;You should not try to learn every command an editor offers. That would be a complete waste of time. Most people only need to learn 10 to 20 percent of the commands for their work. But it&#39;s a different set of commands for everybody&amp;quot; (grifo meu).
+ &amp;lt;C-W&amp;gt;&amp;lt;C-W&amp;gt; Alterna entre janelas. &amp;lt;C-W&amp;gt;-c Fecha a janela atual. &amp;lt;C-W&amp;gt;-o Fecha todas as janelas menos a atual. :ball Abre todos os buffers em janelas distintas. g &amp;lt;C-G&amp;gt; Conta linhas, palavras, etc, no texto todo ou na seleção atual.  </description>
 </item>
 
      
@@ -3133,6 +3550,25 @@ C:\Tests&amp;gt;net use \\10.2.0.40\ipc$ /user:adminA senha ou o nome de usuár
 
      
         <item>
+  <title>A Alça Dentro do Fio Gerou um Bloqueio da Morte</title>
+  <link>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</link>
+  <pubDate>2008-10-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/</guid>
+  <description>Estava folheando um livro fenomenal que meu amigo havia pedido emprestado para ler quando me deparei com algumas traduções no mínimo curiosas. O exemplar em questão era o primeiro Windows Internals, publicado após o lançamento da primeira versão do Windows NT, uma plataforma escrita (quase) inteiramente do zero para suplantar as versões 9x (Windows 95 e 98), que herdaram do DOS algumas partes indesejáveis em sistemas operacionais modernos.
+Sabe-se lá por que essa edição foi traduzida. É interessante notar que naquela época foi dado um tratamento especial a alguns termos e conceitos já comuns no dia-a-dia do programador americano, apesar de quase nenhum desses termos ter se mantido em sua versão original. Os exemplos mais gritantes são as threads (fios ou linhas), os dead locks (bloqueios da morte) e os handles (alças). Apesar de não ter nada contra traduzir termos do inglês para português (e vice-versa) algumas coisas incomodam em tradução de livros técnicos.
+Um bom exemplo são ponteiros. Ler em um dado capítulo &amp;quot;(...) é muito importante inicializar seus ponteiros antes de usá-los&amp;quot; para, depois de nos acostumarmos com o termo, ler em outro capítulo &amp;quot;(...) sabe-se que a pior desgraça para um programador C são os famigerados apontadores selvagens&amp;quot;. Você resolveria esse tipo de problema definindo um vocabulário em comum com todo o livro (importantíssimo se ele está sendo traduziro por mais de uma pessoa) e ainda informaria o leitor qual o termo original, caso ele precise pesquisar sobre ele fora do livro. Com essa informação, que pode ser usada apenas nos primeiros usos da palavra ou em um glossário à parte, agradaria gregos e troianos: &amp;quot;os ponteiros em C (pointers) são um recurso rico e necessário para a escrita de programas de baixo/médio nível&amp;quot;.
+Um exemplo notável é o famoso livro de algoritmos em C da O&#39;Reilly, que mesmo na nova edição com uma errata de 49 itens foi possível detectar mais erros. Um exemplo que me lembro era de uma função do algoritmo bitree. Nele havia uma variável com o nome orig que três linhas abaixo estava &amp;quot;traduzida&amp;quot; para original. É importante aqui diferenciar que no original não consta esse erro da troca do nome da variável.
+Isso acaba sendo pior do que não colocar a versão em inglês, pois dá a impressão que não existe significado a ser explicado. Por exemplo, ver antes do capítulo sobre threads a passagem &amp;quot;... quando um fio espera o outro e vice-versa, acontece o terrível bug da trava da morte&amp;quot;. Para quem não descobriu o que foi escrito no original, se trata de duas threads (fios) causando um deadlock (trava da morte), cujo termo inclusive é usado no seu original na Wikipédia em português.
+Esses exemplos, salvo o exemplo do livro de algoritmos, foram criados para ilustrar os tipos de erros mais comuns em traduções de livros técnicos, e não estão relacionados com qualquer livro em específico. Então o que era inicialmente para ajudar as pessoas que estão iniciando alguns conceitos acaba por prejudicar ainda mais o aprendizado, gerando aquele tipo de confusão que só com ajuda extra (internet, professor, colega) pode ser resolvida.
+Assim como no vocabulário comum corrente, em que existem palavras dificilmente adaptáveis ou traduzíveis em um termo comum, como shopping e show, no meio técnico brotam as mais variadas expressões &amp;quot;estrangeirísticas&amp;quot;. Algumas são muito difíceis de encontrar seu primo lusófono, como link e login. Outros, no entanto, exageram um pouco as coisas, a ponto de conjugarmos um verbo em inglês usando nosso sistema gramatical: se você &amp;quot;stopar&amp;quot; o &amp;quot;debugador&amp;quot; vai &amp;quot;crashear&amp;quot; todo o sistema, porque esse software tá &amp;quot;bugado&amp;quot;! 1
+O fato é que não há escapatória para quem trabalha nessa área, e no fundo isso é uma coisa boa, pois é da leitura técnica em inglês que podemos estender o nosso conhecimento além das barreiras do ponto com ponto br e encontrar conteúdo extremamente interessante (e inédito em nossa língua) para aprender. Se não estivéssemos abarrotados de estrangeirismos talvez fosse um pouco mais difícil fazer o switch entre essas duas linguagens.
+  Ironicamente 12 anos depois deste artigo ser escrito o verbo bugar virou uma gíria corrente entre jovens. &amp;#x21a9;&amp;#xfe0e;
+   </description>
+</item>
+
+     
+        <item>
   <title>Windows Jobs com Completion Port</title>
   <link>http://www.caloni.com.br/windows-jobs-com-completion-port/</link>
   <pubDate>2008-09-23</pubDate>
@@ -3973,16 +4409,15 @@ Atualização Em código. Isso pode:
 
      
         <item>
-  <title>Configurando seus projetos no Visual Studio</title>
+  <title>Configurando seus projetos no Visual Studio (Multi-threaded Debug DLL /MT, /MD)</title>
   <link>http://www.caloni.com.br/configurando-seus-projetos-no-visual-studio/</link>
   <pubDate>2008-02-21</pubDate>
   
   <guid>http://www.caloni.com.br/configurando-seus-projetos-no-visual-studio/</guid>
-  <description>Ao iniciar na arte da programação em C no Visual Studio, eventualmente o programador irá querer testar seus programas rodando em outra máquina que não seja a de desenvolvimento, mandar uma versão beta para amigos, pra namorada e pro seu cachorro. Geralmente, por padrão, existem algumas dependências do programa compilado com uma DLL de runtime da versão do ambiente em que foi compilado o dito cujo, dificultando um pouco a distribuição do seu motherfucker-program.
+  <description>Ao iniciar na arte da programação em C no Visual Studio eventualmente o programador irá querer testar seus programas rodando em outra máquina que não seja a de desenvolvimento, mandar uma versão beta para amigos, pra namorada e pro seu cachorro. Geralmente, por padrão, existem algumas dependências do programa compilado com uma DLL de runtime da versão do ambiente em que foi compilado o dito cujo, dificultando um pouco a distribuição do seu motherfucker-program.
 Porém, seus &amp;quot;poroberemas se acabaram-se&amp;quot;. Com o inovador configurador de projetos do Visual Studio, tudo o que você queria é possível, e ainda mais!
 Nota do autor: isso não foi uma propaganda gratuita, apenas uma piada. Se fosse um verdadeiro anúncio das maravilhas do Visual Studio, eu agora estaria falando daquele tal código gerenciado e o tal do C&#43;&#43; CLI.
-Inicialmente, se compilarmos um programa em Debug no Visual Studio 2005 teremos as seguintes dependências:
-A DLL kernel32 é nativa e sempre estará presente no Windows. Porém, a msvcr80d não. Ela veio junto com o pacote do Visual Studio, e se não for distribuída em outras máquinas, você não conseguirá rodar seu programa, pois isso gerará o seguinte erro:
+Inicialmente, se compilarmos um programa em Debug no Visual Studio 2005 teremos as seguintes dependências. kernel32 e msvcrx.dll (onde x é a versão do Visual Studio). A DLL kernel32 é nativa e sempre estará presente no Windows. Porém, a msvcr não. Ela veio junto com o pacote do Visual Studio, e se não for distribuída em outras máquinas, você não conseguirá rodar seu programa, pois isso gerará o erro de DLL não encontrada.
 Bem, para resolver isso, a partir da IDE, temos que ir em Project, Properties, Configuration Properties, C/C&#43;&#43;, Code Generation, Runtime Library.
 Existem atualmente quatro tipos de runtime que você pode escolher:
  Multi-threaded (/MT). Versão Release que não depende de DLL. Multi-threaded Debug (/MTd). Versão Debug que não depende de DLL. Multi-threaded DLL (/MD). Versão Release que depende de DLL. Multi-threaded Debug DLL (/MDd). Versão Debug que depende de DLL.  Essas runtimes são chamada de multi-threaded porque antigamente existiam versões single-threaded dessas mesmas runtimes. Contudo, versões mais novas do Visual Studio só vêm com esse sabor mesmo.
@@ -3990,7 +4425,7 @@ Note que, por padrão, existem dois tipos de configuração em seu projeto: Debu
 Pois bem. Para tirar a dependência da maldita DLL, tudo que temos que fazer é alterar a configuração, nesse caso Debug, de /MDd para /MTd. E recompilar.
 E testar.
 Além da dependência de DLLs, alguns casos especiais vão chiar por causa dos dados do manifesto embutidos no programa compilado. Por algum motivo que eu desconheço, o programa necessita que as DLLs estejam instaladas mesmo que no Dependency Walker não mostre nada. Nesses casos, uma arrancada do manifesto na versão Debug não fará mal algum.
-Acho que esses são os únicos empecilhos iniciais para testar seu programa em outras máquinas. Sempre que ver o erro exibido no começo desse artigo, desconfie de alguma dependência que não está presente na máquina. Nessas horas, ter um Dependency Walker na mão vale ouro.
+Acho que esses são os únicos empecilhos iniciais para testar seu programa em outras máquinas. Sempre que ver o erro exibido no começo desse artigo, desconfie de alguma dependência que não está presente na máquina. Nessas horas, ter um Dependency Walker ou Dumpbin na mão vale ouro.
 </description>
 </item>
 
@@ -4268,6 +4703,24 @@ Assim como no artigo sobre carregamento de DLLs arbitrárias, vamos usar o muito
 0:006&amp;gt; .foreach ( answerList { s -[1]a 0 0fffffff &amp;quot;caca fantasmas&amp;quot; } ) { s -sa answerList L1000 }059ff458 &amp;quot;caca fantasmas&amp;quot;059ff467 &amp;quot;caca-fantasmas&amp;quot;059ff47a &amp;quot;a fantasmas&amp;quot;059ff48a &amp;quot;a-fantasmas&amp;quot;059ff496 &amp;quot;ghostbusters&amp;quot;059ff4a3 &amp;quot;Array&amp;quot;059ff4a9 &amp;quot;mus1&amp;quot;059ff4ae &amp;quot;james bond&amp;quot;059ff4b9 &amp;quot;007&amp;quot;059ff4bd &amp;quot;mus2&amp;quot;059ff4c2 &amp;quot;mission impossible&amp;quot;059ff4d5 &amp;quot;missao impossivel&amp;quot;059ff4e7 &amp;quot;miss&amp;quot;059ff4ed &amp;quot;o impossivel&amp;quot;059ff4fa &amp;quot;missao imposs&amp;quot;059ff509 &amp;quot;vel&amp;quot;059ff50d &amp;quot;miss&amp;quot;059ff513 &amp;quot;o imposs&amp;quot;059ff51d &amp;quot;vel&amp;quot;059ff521 &amp;quot;mus3&amp;quot;059ff526 &amp;quot;carruagens de fogo&amp;quot;059ff539 &amp;quot;charriots of fire&amp;quot;059ff54b &amp;quot;chariots of fire&amp;quot;... Bom, vou parar o dump por aqui, já que, entre os leitores, pode haver quem queria se divertir primeiro do jeito certo =)
 Vimos que o jogo é facilmente quebrável porque armazena as respostas em texto claro. Uma solução alternativa seria utilizar um hash com colisão próxima de zero. Com isso bastaria trocar as respostas possíveis por hashs possíveis e armazená-los no lugar. Quando o usuário digitasse, tudo que o programa precisaria mudar era gerar um hash a partir da resposta do usuário e comparar com o hashs das respostas válidas.
 Por uma incrível coincidência, esse truquezinho eu aprendi com meu amigo Thiago há poucos dias, que está lendo o livro Reversing. Simples, porém funcional.
+</description>
+</item>
+
+     
+        <item>
+  <title>Temas no WinDbg</title>
+  <link>http://www.caloni.com.br/temas-no-windbg/</link>
+  <pubDate>2008-01-14</pubDate>
+  
+  <guid>http://www.caloni.com.br/temas-no-windbg/</guid>
+  <description>Desde a versão 6.4.7.2 que o WinDbg fornece uma subpasta chamada Themes, onde lá estão diversos workspaces configurados. Existe até um passo-a-passo de como organizar esses temas e escolher o seu favorito. Segue algumas dicas de como transformar corretamente sua área de trabalho para depuração (e mantê-la).
+O WinDbg salva suas configurações no registro. Para apagar os valores previamente gravados, rode o seguinte comando:
+reg delete HKCU\Software\Microsoft\WinDbg Você pode gravar um tema, rodar o WinDbg (sem parâmetros), ver se gosta do que viu, e tentar novamente. Quando estiver satisfeito com a aparência, fique com ela e comece o próximo passo.
+Nas depurações do dia-a-dia algumas configurações devem estar sempre muito bem configuradas, para que torne seus momentos de desespero porque nada está funcionando mais agradáveis. Por isso, assim que escolher seu tema preferido trate de configurar os seguintes itens:
+ Diretórios de símbolos. Você pode começar com .symfix, que vai montar uma string padrão, e adicionar mais diretórios com .sympath&#43;. Diretórios de código-fonte. Coloque a raiz dos seus projetos principais. Com o tempo, se você mexe muito nos seus diretórios, é necessário fazer uma manutenção desse valor. Diretórios de executáveis. Basicamente é o mesmo do diretório de símbolos.  Depois de configurar tudo isso, ajuste as janelas na melhor maneira e proporção que achar mais agradável. Esse será o último passo, pois depois você irá fechar o WinDbg e salvar o workspace, que a partir daí será o padrão sempre que abrir o depurador.
+Para que os arquivos fonte caiam no lugar que você escolheu, durante a configuração, abra um código-fonte e coloque no lugar que gostaria de ver todos os fontes listados, junto com um placeholder (um arquivo C usado como localizador, existem 5 dentro da pasta themes). Após isso, feche o código-fonte, mas mantenha o placeholder. Depois é só fechar o WinDbg salvando as configurações. Tudo deve funcionar como previsto (ou você esqueceu alguma coisa).
+Como esses passos deram algum trabalho, trate de salvar as configurações, caso tenha que usá-las em outras máquinas ou restaurá-las caso algo de ruim aconteça com seu SO (como quando você depura seus drivers na mesma máquina em que desenvolve, por exemplo).
+reg save HKCU\Software\Microsoft\WinDbg c:\Tools\DbgTools\Themes\MyTheme.reg Leia a documentação do WinDbg sobre temas (dentro de Themes, Themes.doc). Foi de lá que eu fiz a tradução e adaptação dos passos mais importantes. E esqueça do Visual Studio =)
 </description>
 </item>
 
@@ -4619,6 +5072,24 @@ Essa organização foi adotada principalmente pela sua grande vantagem de minimi
 
      
         <item>
+  <title>SDelete</title>
+  <link>http://www.caloni.com.br/sdelete/</link>
+  <pubDate>2007-11-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/sdelete/</guid>
+  <description>Minha vida tem que ser portátil. Existem pelo menos três lugares diferentes onde costumo ficar com um computador (não o mesmo). Por causa disso, os dados mais relevantes e que precisam fazer parte do meu sistema biológico eu carrego comigo pra cima e pra baixo em meu PenDrive e MP3Player.
+Até aí tudo bem. Quer dizer, mais ou menos. Dados relevantes costumam ser sensíveis, e busco sempre manter todos os arquivos sensíveis encriptados ou com uma senha específica do programa que o abre. O grande problema mesmo é que eu sei que operações no sistema de arquivos costumam deixar lastros do que já foi escrito um dia, e que é possível reaver esses dados com um pouco de persistência e sorte. É nessa hora que entra a praticidade do SDelete, uma ferramenta da SysInternals.
+Desde a versão NT o Windows segue as diretivas de segurança do C2, o que entre outras coisas quer dizer que o a reutilização de um objeto no sistema operacional será protegida. Um objeto aqui está para representar recursos da máquina em geral, como páginas de memória e setores do disco. Quando um programa pede um setor de disco livre (ou uma página de memória) para uso próprio, o Windows apaga qualquer conteúdo remanescente naquele espaço de memória, evitando assim que exista uma maneira do atacante obter dados de terceiros (e.g. arquivos protegidos ou memória do sistema) sem autorização.
+Ou seja, desde que o Windows esteja no comando, os dados escritos por um programa não estarão disponíveis ao usuário por meio do reaproveitamento dos setores. Ficou claro?
+Se ficou claro, deve ter notado o &amp;quot;desde que o Windows esteja no comando&amp;quot;. Essa é uma condição sine qua non, mas que nem sempre é verdadeira. Um atacante que tenha acesso físico ao dispositivo de armazenamento (e.g. meu PenDrive) pode certamente usar outro sistema operacional (ou até mesmo o Windows em condições especiais) e vasculhar os dados que eu já apaguei, pois estes, como mostra a figura, não são apagados de fato até que um programa peça o espaço ocupado por eles.
+Para esse tipo de problema eu costumo usar um programinha esperto chamado SDelete (de Secure Delete). O que ele faz é zerar os setores não usados, da mesma forma com que o Windows faz quando um programa pede um setor não usado. Para isso, basta especificar um ou mais arquivos: sdelete .
+Uma outra coisa que ele faz, muito útil quando comecei a usá-lo, é apagar todos os setores não usados que existem no disco inteiro (ou uma pasta inteira). Com isso podemos começar uma vida nova. Apenas tome muito cuidado nessa hora para especificar o comando, pois um errinho no comando pode realmente fazer você começar uma vida nova: sdelete -c -s p.
+O SDelete segue o padrão DOD 5220.22-M, o que quer dizer que ele está dentro das especificações da indústria que garantem a confidencialidade dos dados apagados. Além do mais, você pode especificar quantas &amp;quot;passadas&amp;quot; nos setores você deseja, para evitar aqueles ataques mais rebuscados em que é analisada a impedância das trilhas físicas de um disco magnético para obter os dados que uma vez estavam lá. É claro que isso não deve valer muito a pena se você está usando um PenDrive com memória flash =).
+</description>
+</item>
+
+     
+        <item>
   <title>Detectando hooks globais no WinDbg (SetWindowsHookEx)</title>
   <link>http://www.caloni.com.br/detectando-hooks-globais-no-windbg/</link>
   <pubDate>2007-11-09</pubDate>
@@ -4800,6 +5271,19 @@ Para saber mais  Arquitetura de von Neumann - Wikipédia Máquina de Turing - Wi
 
      
         <item>
+  <title>Engenharia reversa para principiantes</title>
+  <link>http://www.caloni.com.br/engenharia-reversa-para-principiantes/</link>
+  <pubDate>2007-10-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/engenharia-reversa-para-principiantes/</guid>
+  <description>Dei uma reformada em minha última palestra sobre engenharia reversa. O tema escolhido foi tentar abranger os níveis de conhecimento que uma pessoa disposta a se dedicar à engenharia reversa de programas deveria ter, desde programação, passando pelo sistema operacional e terminando no uso de ferramentas. Achei interessante abordar esse tipo de conteúdo pelo fato de existirem pessoas que gostariam de começar ou já começaram e não sabem para onde ir.
+Outra coisa que fiquei receoso de colocar (mas coloquei) foi a lista de tarefas para usar o conhecimento aprendido. Pode ser frustrante tentar procurar emprego nessa área aqui no Brasil e não adianta nada aprender e não usar. A engenharia reversa, assim como a área de segurança da informação, para ser efetiva, deve levar em conta como as coisas são feitas, o que quer dizer que fazer vírus e quebrar proteção de software faz parte do aprendizado.
+Se houverem interessados o suficiente poderei ministrar uma palestra online, para ilustrar os slides e tirar dúvidas. Lembrando que isso não inclui as perguntas &amp;quot;como eu quebro o programa X&amp;quot; ou &amp;quot;faz um vírus pra mim&amp;quot;.
+</description>
+</item>
+
+     
+        <item>
   <title>História do Windows - parte 5.0</title>
   <link>http://www.caloni.com.br/historia-do-windows-parte-50/</link>
   <pubDate>2007-10-08</pubDate>
@@ -4885,6 +5369,24 @@ A simple victim of all this can be an executable using a poorly written DLL, jus
 int main(){printf(&amp;quot;load dll&amp;quot;);HMODULE lockDll = LoadLibrary(_T(&amp;quot;dll_lock.dll&amp;quot;));if( lockDll ){Sleep(2000);printf(&amp;quot;free dll&amp;quot;);FreeLibrary(lockDll), lockDll = NULL;printf(&amp;quot;done&amp;quot;);}} It is important to remember that a DllMain dependant code is a very, very bad thing. Nevertheless, there are some particular cases the only place to run our code is inside DllMain. In these cases, when detected, try to run a side by side communication with your locked thread using an event object (or equivalent) before it really returns. Using this craft the thread can warn the waiting thread that the important thing to be done is done, and the waiting thread can go to sleep and stop waiting forever locked threads.
 Among the classic Matt Pietrek posts in Microsoft Journal there is in the [1999 september edition] a short one about DLL initialization. That is the more sucint, didatic and simple text about this question.
 [[1999 september edition]]: http://bytepointer.com/resources/pietrek_debug_init_routines.htm
+</description>
+</item>
+
+     
+        <item>
+  <title>A mobilidade das variáveis no printf</title>
+  <link>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</link>
+  <pubDate>2007-09-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
+  <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
+O erro mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
+void f(wchar_t* arg){printf(&amp;quot;%s&amp;quot;, arg);return 0;} Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir). Imagine um printf em que a string de formatação é algo como &amp;quot;%s%d%s%f%s%d%f%d%s%f%s%d&amp;quot;. Agora imagine os parâmetros passados e a necessidade dos tipos baterem um a um. É, você entendeu o drama.
+O segundo erro que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:
+char ch = getc();printf(&amp;quot;%d&amp;quot;, ch); É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm. É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?
+Funções com quantidade variável de argumentos como o printf devem interpretar os argumentos que ele sabe que são passados para entender quais os outros argumentos que estão na pilha. Ele interpreta a string de formatação e vai &amp;quot;comendo&amp;quot; os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente.
+Dica: se você encontrar problemas de crash ou corrompimento de pilha e houver um printf ou derivados, como funções de logs que confiam no printf, experimente desabilitar a chamada dessas funções e ver se o problema permanece. Isso pode ser feito pelo preprocessador:
+#define printf#define sprintf#define LOG Ao definir os nomes das funções usadas para nada não haverá a chamada da função, apesar do código compilar exatamente igual, exceto a chamada. Ou seja, se houver problemas em algum printf ele sumirá. A partir daí é só ir comentando e descomentando as partes do código até encontrar.
 </description>
 </item>
 
@@ -5261,6 +5763,25 @@ Portanto, o objetivo desse programa é simples e direto: mover o mouse para um c
 Um loop de mensagens é a maneira definida pelo Windows para avisar as aplicações dos eventos que ocorrerem no sistema que são relevantes para as suas janelas. Teremos chance de observar isso mais vezes, mas por enquanto basta ter uma visão geral do fluxo de mensagens que ocorre quando digitarmos a nossa tecla de atalho.
 Como você pode ver o código não tem muitos segredos. Para registrar os atalhos, usamos a função RegisterHotKey. Para manipular os eventos usamos o tal loop de mensagens e manipulamos a mensagem WM_HOTKEY de acordo com a tecla pressionada. Para mover o mouse usamos a função SetCursorPos (e para armazenar a posição atual GetCursorPos). Por fim, para ler configurações de um .ini usamos a função GetPrivateProfileInt. Abaixo um exemplo desse arquivo texto:
 [HideCursor]DisableX=600DisableY=0 Você acha que os atalhos &amp;quot;WinKey &#43; Del&amp;quot;, &amp;quot;WinKey &#43; Insert&amp;quot; e &amp;quot;WinKey &#43; End&amp;quot; foram uma má escolha para essa função de esconder o mouse? Concordo. Fiz de propósito. Que tal customizar o programa para que as teclas sejam lidas do arquivo de configuração HideCursor.ini?
+</description>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43;0x parcial no novo GCC 4.3</title>
+  <link>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</link>
+  <pubDate>2007-07-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
+  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C&#43;&#43;, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C&#43;&#43; já há algum tempo.
+Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para emplates Para eles deverá ser definida a nova palavra-chave static_assert, que irá ser composta de dois parâmetros:
+static_assert( expressão-constante, literal-em-cadeia ); Podemos usá-la tanto no lugar da função assert quanto da diretiva #error. Mas seu uso mais interessante é como limite para a instanciação de emplates
+template&amp;lt;typename T&amp;gt;static_assert( sizeof(T) &amp;gt;= sizeof(int), &amp;quot;T is not big enough&amp;quot; ) Existem outros lugares onde esse novo comando pode ser usado. Para saber quando usá-lo, lembre-se que a verificação é feita durante a compilação, diferente do assert tradicional, que é chamada em tempo de execução.
+Depois de todos esse anos o pré-processador sofrerá um upgrade. O objetivo é ser compatível com o novo padrão da linguagem C, o C99. A maior novidade fica por conta do número variável de parâmetros para macros. A linha abaixo resume tudo:
+#define TRACE(format, ...) printf(format, __VA_ARGS__) Ou seja, não será mais necessário usar o truque dos &amp;quot;parênteses duplos&amp;quot; em macros de log que formatam parâmetros.
+Considero a mudança dos templates com parâmetros variáveis a mais interessante. Com ela será possível usar um número variável de parâmetros em templates. Basicamente isso permite que um dado template aceite um número variável de parâmetros e esses parâmetros sejam &amp;quot;expandidos&amp;quot; em inúmeras construções dentro do escopo desse template. Nada melhor para explicar que um exemplo, como o caso da herança múltipla. Imagine um template que precisa herdar de seus parâmetros, mas não quer especificar a quantidade:
+template&amp;lt;typename... Bases&amp;gt; // quantidade definida pelo usuárioclass MyTemplate : public Bases...{ Outras pequenas correções também serão feitas para tornar a linguagem mais robusta:
+ Referências para lvalue. Parâmetros default em funções-template. Problema do fecha-templates duplo (&amp;gt;&amp;gt;).  Podemos esperar por outras grandes mudanças que irão ocorrer nesse novo padrão? Não exatamente. As principais estarão na biblioteca C&#43;&#43;, com a inclusão de diversas classes e funções do projeto Boost. O resto são pequenas correções e melhorias de uma linguagem que, cá entre nós, já está bem poderosa e complexa.
 </description>
 </item>
 
