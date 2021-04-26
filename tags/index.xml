@@ -5,14 +5,24 @@
     <description>Recent content in Tags on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 17 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/" rel="self" type="application/rss+xml" />
     
      
         <item>
+  <title>animes</title>
+  <link>http://www.caloni.com.br/tags/animes/</link>
+  <pubDate>2021-04-25</pubDate>
+  
+  <guid>http://www.caloni.com.br/tags/animes/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
   <title>draft</title>
   <link>http://www.caloni.com.br/tags/draft/</link>
-  <pubDate>2021-04-17</pubDate>
+  <pubDate>2021-04-25</pubDate>
   
   <guid>http://www.caloni.com.br/tags/draft/</guid>
   <description></description>
@@ -45,16 +55,6 @@
   <pubDate>2021-04-12</pubDate>
   
   <guid>http://www.caloni.com.br/tags/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>animes</title>
-  <link>http://www.caloni.com.br/tags/animes/</link>
-  <pubDate>2021-04-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/tags/animes/</guid>
   <description></description>
 </item>
 
