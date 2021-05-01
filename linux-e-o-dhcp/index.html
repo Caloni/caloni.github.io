@@ -106,30 +106,28 @@ Linux e o DHCP
           <div class="content">
 
             
-              <p>Quando procuramos no google por &quot;linux dhcp&quot;, o que vem <a href="http://www.google.com/search?q=linux%20dhcp">em resposta</a> são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um <strong>servidor</strong> Linux.</p>
+              <p>Quando procuramos no google por &quot;linux dhcp&quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.</p>
 <p>Muito bem. E a outra ponta da história?</p>
-<p>[Testes feitos em um <strong>Fedora 8</strong>, não me pergunte mais detalhes]</p>
-<p>O primeiro linque útil encontrado foi a <a href="http://www.redhat.com/docs/manuals/linux/RHL-8.0-Manual/custom-guide/s1-dhcp-configuring-client.html">documentação da Red Hat</a>. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network. Nele devemos, em uma configuração simplista, colocar uma única linha:</p>
+<p>Estes testes foram feitos em um Fedora 8, não me pergunte mais detalhes.</p>
+<p>O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network. Nele devemos, em uma configuração simplista, colocar uma única linha:</p>
 <pre><code>NETWORKING=yes
 </code></pre>
-<p>Tive alguns problemas com a entrada NETWORKING_IPV6, ou algo do gênero. A comunicação com o servidor DHCP da rede simplesmente não funcionava com essa linha, deixando o computador sem IP durante o <em>boot</em>. Má configuração do servidor? Pode até ser. Porém, não quis entrar nesses meandros.</p>
+<p>Tive alguns problemas com a entrada NETWORKING_IPV6, ou algo do gênero. A comunicação com o servidor DHCP da rede simplesmente não funcionava com essa linha, deixando o computador sem IP durante o boot. Má configuração do servidor? Pode até ser. Porém, não quis entrar nesses meandros.</p>
 <p>Por isso, se houver a linha sobre IPV6 e você tiver problemas, comente-a temporariamente.</p>
 <p>O passo seguinte é configurar a interface de rede, que é no fim das contas a representação da sua placa. Para isso temos alguns arquivos em /etc/sysconfig/network-scripts no formato ifcfg-nome-da-interface. Se você digitar ifconfig na linha de comando terá os nomes de interface disponíveis. No meu caso, eth0.</p>
 <pre><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0
-
 
 DEVICE=eth0
 BOOTPROTO=dhcp
 ONBOOT=yes
 
-
 :wq
 </code></pre>
-<p>Note que o valor BOOTPROTO é realmente BOOTPROT<strong>O</strong>, com um O no final. Tive alguns problemas de soletrar também nesse caso, o que me gerou mais alguns <em>reboots</em> mal-sucedidos.</p>
+<p>Note que o valor BOOTPROTO é realmente BOOTPROTO, com um O no final. Tive alguns problemas de soletrar também nesse caso, o que me gerou mais alguns reboots mal-sucedidos.</p>
 <p>Bem, o que isso faz? Basicamente, manda o Linux utilizar o protocolo DHCP, procurando na rede algum servidor que lhe dê algum IP válido. Só isso. O resto ele faz dinamicamente.</p>
 <p>Inclusive alterar automaticamente o arquivo /etc/resolv.conf. Nele estão definidas algumas coisas como o domínio de nomes que estamos e os IPs de onde buscar a resolução de nomes.</p>
-<p>Feito isso, como se costuma dizer, <em>voilà</em>! Temos um cliente DHCP funcionando contente e feliz. Eu reiniciei a máquina para tudo dar certo, mas provavelmente devem existir maneiras mais saudáveis de reiniciar a rede (talvez um ifdown seguido de ifup resolvesse).  E agora eu posso finalmente ter acesso aos pacotes de instalação que precisava.</p>
-<p>Notas de um Linux <em>padawan</em> =)</p>
+<p>Feito isso, como se costuma dizer, voilà! Temos um cliente DHCP funcionando contente e feliz. Eu reiniciei a máquina para tudo dar certo, mas provavelmente devem existir maneiras mais saudáveis de reiniciar a rede (talvez um ifdown seguido de ifup resolvesse).  E agora eu posso finalmente ter acesso aos pacotes de instalação que precisava.</p>
+<p>Notas de um Linux padawan =)</p>
 
             
 
@@ -138,7 +136,7 @@ ONBOOT=yes
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/blog">blog</a> 
+      <a href="/tags/code">code</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/linux-e-o-dhcp/">discuss</a>
 
 
@@ -154,7 +152,7 @@ ONBOOT=yes
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.26</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.30</a> </i></span>
   </div>
 </footer>
 

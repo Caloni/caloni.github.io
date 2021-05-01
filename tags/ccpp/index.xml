@@ -214,6 +214,42 @@ struct CreateNewGUID{operator wstring (){wstring ret;// cria guidreturn re
 
      
         <item>
+  <title>Ode ao C&#43;&#43;</title>
+  <link>http://www.caloni.com.br/ode-ao-c/</link>
+  <pubDate>2008-04-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
+  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C&#43;&#43;?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.
+Cristiano -- Olá! Sou programador em basic (Vbasic/Qbasic), fico indignado, com pessoas que sabem enteder a linguagem C&#43;&#43;, assembler... Como podem? Eu acho isto coisa de outro mundo! Será que eu tenho chances de aprender a linguagem?
+Strauss -- A resposta é simples: estudando. Eu tb comecei com QBasic e VB. Arrume um livro de C&#43;&#43; e estude. Treine bastante. E hoje em dia é mais fácil do que quando eu comecei, pq eu não tinha acesso à Internet. É simples assim... :-)
+Caloni -- Você pode ir tão longe quanto queira, mas pra isso a primeira coisa que vc tem que fazer é querer =).
+Strauss -- Acho que vou fazer um post sobre isso. &amp;quot;Por que C&#43;&#43;&amp;quot; :-) Vc podia me ajudar...
+Caloni -- Escrevi um textículo sobre o assunto da escolha, mas não visando o mercado:
+/*** @title Por que C&#43;&#43;* @author Wanderley Caloni Jr* @date 31.01.2005*/É natural que um programador tenha preferência por uma linguagem.Geralmente por motivos pessoais que se refletem nas características dalinguagem. Eu, por exemplo, tenho vários motivos para amar essalinguagem:Linguagem C. Todas as vantagens da linguagem C estão embutidas em C&#43;&#43;.E sem aquele papo erudito que deve-se programar em OO para ser C&#43;&#43;.Por ser multiparadigma, a linguagem também suporta o melhor daprogramação procedural e estruturada.Popularidade. C&#43;&#43; é o que há. Linguagem unânime e reconhecida no mundotodo como de uso geral. Dificilmente você vai encontrar um algoritmoque não tenha representação em C&#43;&#43;.Economia e Expressividade. Pode parecer bobagem, mas coisas comooperador de incremento e valor em todas expressões permite que se façamuita coisa com poucas linhas. Isso a torna muito expressiva. Isso, emoutras palavras, quer dizer que você pode juntar várias expressõesnuma só, e esse conjunto será também uma expressão.Liberdade. Em C&#43;&#43; você é o culpado de virtualmente qualquer coisa debom e ruim que aconteça no seu programa, pois você tem que seguirpoucas regras e tem que ser responsável no que faz. C&#43;&#43; não te ajuda aseguir um bom modelo de programação com restrições embutidas. Isso atorna difícil para iniciantes, mas conforme aumenta a experiência,maior o prazer em programar.Portabilidade. A possibilidade de compilar e rodar o seu código emvários ambientes - de compilação e execução - é uma característicaútil e agradável. No meu caso é só agradável, pois dificilmente façocódigo portável, apesar das boas noções que tenho sobre o assunto. Esão essas boas noções que me permitem afirmar que C&#43;&#43; suporta muitobem essa possibilidade.Rapidez. Pode não ser importante em muitos casos, mas já é do instintodo programador o desejo de eficiência no código. E nada como programarnuma linguagem extremamente eficiente em tempo de execução para sesentir feliz de ver o código rodando.FIM[]s Strauss -- Legal. Vou colocar minha água mercadológica no feijão e colocar no site.
+Não quis alterar o texto original, mas colocaria, além de rapidez, o título economia de recursos. É incrível o quanto progredimos no quesito hardware todos esses anos, e mesmo assim, existem linguagens e ambientes que parecem ter fome suficiente para consumir tudo e deixar um computador de última geração parecer um micro &amp;quot;meio lerdinho&amp;quot;. Felizmente não preciso dar nome aos bois, pois todos sabem ou conhecem pelo menos uma linguagem com essa característica.
+Também não quis generalizar. C e C&#43;&#43; não são as duas únicas opções quando se fala em bom desempenho. Existe também assembly e linguagens de script, que chegam inclusive a ser mais flexíveis e rápidas (além de mais produtivas).
+Ainda acredito em tudo isso que C&#43;&#43; proporciona e irá continuar proporcionando por muto tempo. Muitos programas escritos em C/C&#43;&#43; são conhecidíssimos e usados nos quatro cantos do mundo, muitas vezes em mais de um sistema operacional. C&#43;&#43; está morto? Longe disso... talvez pareça assim em território nacional, mas esse é o motivo de meus votos de sucesso no início de nosso grupo C&#43;&#43;.
+</description>
+</item>
+
+     
+        <item>
+  <title>Try-catch flutuante</title>
+  <link>http://www.caloni.com.br/try-catch-flutuante/</link>
+  <pubDate>2008-04-03</pubDate>
+  
+  <guid>http://www.caloni.com.br/try-catch-flutuante/</guid>
+  <description>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue e tive o prazer de conhecer no 4o. EPA-CCPP.
+É possível, apesar de bizarro, colocar um bloco try-catch em torno da lista de inicialização de variáveis de um construtor. Essa característica da linguagem permite que possamos capturar alguma exceção lançada por algum construtor de algum membro da classe. A construção em código ficaria no estilo abaixo:
+Class::Class() try : initialization-list{// Class constructor body}catch(...) // note: this IS right!{// do something about// just like &amp;quot;throw&amp;quot; over here} Apesar dessa capacidade, não conseguimos parar o lançamento da exceção. Após seu lançamento, caímos no bloco catch abaixo do corpo do construtor e a exceção é lançada novamente, como se houvesse uma intrução throw no final do catch.
+O exemplo abaixo demonstra um código de uma classe que captura a exceção durante a inicialização dos membros. Na seguida o catch da função main é executada, provando que a exceção de fato não é &amp;quot;salva&amp;quot; no primeiro bloco.
+#include &amp;lt;iostream&amp;gt;/* This class explodes */class Explode{public:Explode(int x) {m_x = x;throw x;}void print(){std::cout &amp;lt;&amp;lt; &amp;quot;The number: &amp;quot; &amp;lt;&amp;lt; m_x &amp;lt;&amp;lt; std::endl;}private:int m_x;};/* This class is going to be exploded */class Victim{public:Victim() try : m_explode(5){std::cout &amp;lt;&amp;lt; &amp;quot;You&#39;re supposed to NOT seeing this...\n&amp;quot;;}catch(...) { std::cerr &amp;lt;&amp;lt; &amp;quot;Something BAD hapenned\n&amp;quot;;std::cerr &amp;lt;&amp;lt; &amp;quot;We&#39;re going to blow up\n&amp;quot;;// just like &#39;throw&#39; over here}void print(){m_explode.print();}private:Explode m_explode;};int main(){try{Victim vic;}catch(...){std::cerr &amp;lt;&amp;lt; &amp;quot;Something BAD BAD happenned...\n&amp;quot;;}} Testei esse código nos seguintes compiladores:
+ Visual Studio 6. Falhou, demonstrando desconhecer a sintaxe. Borland C&#43;&#43; Builder 5. Falhou, demonstrando desconhecer a sintaxe. Borland Developer Studio 4. Falhou, com o mesmo erro. Visual Studio 2003. Comportamento esperado. Visual Studio 2005. Comportamento esperado. Visual Studio 2008. Comportamento esperado. G&#43;&#43; (no Cygwin). Comportamento esperado.  A saída esperada é a seguinte:
+Something BAD hapennedWe&#39;re going to blow upSomething BAD BAD happenned... </description>
+</item>
+
+     
+        <item>
   <title>Os diferentes erros na linguagem C</title>
   <link>http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/</link>
   <pubDate>2008-02-15</pubDate>

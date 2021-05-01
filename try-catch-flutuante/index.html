@@ -106,7 +106,7 @@ Try-catch flutuante
           <div class="content">
 
             
-              <p>Esse detalhe da linguagem quem me fez descobrir foi o <strong>Yorick</strong>, que <a href="http://www.caloni.com.br/quando-o-ponteiro-nulo-nao-e-invalido#comment-345">costuma comentar</a> no blogue e tive o prazer de conhecer no <a href="http://www.caloni.com.br/blog/epa-ccpp-4-nossa-comunidade-ganhando-forma">4o. EPA-CCPP</a>.</p>
+              <p>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue e tive o prazer de conhecer no <a href="/epa-ccpp-4-nossa-comunidade-ganhando-forma">4o. EPA-CCPP</a>.</p>
 <p>É possível, apesar de bizarro, colocar um bloco try-catch em torno da lista de inicialização de variáveis de um construtor. Essa característica da linguagem permite que possamos capturar alguma exceção lançada por algum construtor de algum membro da classe. A construção em código ficaria no estilo abaixo:</p>
 <pre><code>Class::Class() try : initialization-list
 {
@@ -120,88 +120,72 @@ catch(...) // note: this IS right!
 </code></pre>
 <p>Apesar dessa capacidade, não conseguimos parar o lançamento da exceção. Após seu lançamento, caímos no bloco catch abaixo do corpo do construtor e a exceção é lançada novamente, como se houvesse uma intrução throw no final do catch.</p>
 <p>O exemplo abaixo demonstra um código de uma classe que captura a exceção durante a inicialização dos membros. Na seguida o catch da função main é executada, provando que a exceção de fato não é &quot;salva&quot; no primeiro bloco.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/* This class explodes */</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Explode</span>
+<pre><code>#include &lt;iostream&gt;
+
+/* This class explodes */
+class Explode
 {
-	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-		Explode(<span style="color:#66d9ef">int</span> x) 
-		{
-			m_x <span style="color:#f92672">=</span> x;
-			<span style="color:#66d9ef">throw</span> x;
-		}
+    public:
+        Explode(int x) 
+        {
+            m_x = x;
+            throw x;
+        }
 
-		<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>()
-		{
-			std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The number: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> m_x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
-		}
+        void print()
+        {
+            std::cout &lt;&lt; &quot;The number: &quot; &lt;&lt; m_x &lt;&lt; std::endl;
+        }
 
-	<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">int</span> m_x;
+    private:
+        int m_x;
 };
 
-<span style="color:#75715e">/* This class is going to be exploded */</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Victim</span>
+/* This class is going to be exploded */
+class Victim
 {
-	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-		Victim() <span style="color:#66d9ef">try</span> <span style="color:#f92672">:</span> m_explode(<span style="color:#ae81ff">5</span>)
-		{
-			std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;You&#39;re supposed to NOT seeing this...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-		}
-		<span style="color:#66d9ef">catch</span>(...) 
-		{ 
-			std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Something BAD hapenned</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-			std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;We&#39;re going to blow up</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-			<span style="color:#75715e">// just like &#39;throw&#39; over here
-</span><span style="color:#75715e"></span>		}
+    public:
+        Victim() try : m_explode(5)
+        {
+            std::cout &lt;&lt; &quot;You're supposed to NOT seeing this...\n&quot;;
+        }
+        catch(...) 
+        { 
+            std::cerr &lt;&lt; &quot;Something BAD hapenned\n&quot;;
+            std::cerr &lt;&lt; &quot;We're going to blow up\n&quot;;
+            // just like 'throw' over here
+        }
 
-		<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>()
-		{
-			m_explode.print();
-		}
+        void print()
+        {
+            m_explode.print();
+        }
 
-	<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
-		Explode m_explode;
+    private:
+        Explode m_explode;
 };
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+int main()
 {
-	<span style="color:#66d9ef">try</span>
-	{
-		Victim vic;
-	}
-	<span style="color:#66d9ef">catch</span>(...)
-	{
-		std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Something BAD BAD happenned...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-	}
+    try
+    {
+        Victim vic;
+    }
+    catch(...)
+    {
+        std::cerr &lt;&lt; &quot;Something BAD BAD happenned...\n&quot;;
+    }
 }
-
- 
-
-</code></pre></div><p>Testei esse código nos seguintes compiladores:</p>
+</code></pre>
+<p>Testei esse código nos seguintes compiladores:</p>
 <ul>
-<li>
-<p>Visual Studio 6. Falhou, demonstrando desconhecer a sintaxe.</p>
-</li>
-<li>
-<p>Borland C++ Builder 5. Falhou, demonstrando desconhecer a sintaxe.</p>
-</li>
-<li>
-<p>Borland Developer Studio 4. Falhou, com o mesmo erro.</p>
-</li>
-<li>
-<p>Visual Studio 2003. Comportamento esperado.</p>
-</li>
-<li>
-<p>Visual Studio 2005. Comportamento esperado.</p>
-</li>
-<li>
-<p>Visual Studio 2008. Comportamento esperado.</p>
-</li>
-<li>
-<p>G++ (no Cygwin). Comportamento esperado.</p>
-</li>
+<li>Visual Studio 6. Falhou, demonstrando desconhecer a sintaxe.</li>
+<li>Borland C++ Builder 5. Falhou, demonstrando desconhecer a sintaxe.</li>
+<li>Borland Developer Studio 4. Falhou, com o mesmo erro.</li>
+<li>Visual Studio 2003. Comportamento esperado.</li>
+<li>Visual Studio 2005. Comportamento esperado.</li>
+<li>Visual Studio 2008. Comportamento esperado.</li>
+<li>G++ (no Cygwin). Comportamento esperado.</li>
 </ul>
 <p>A saída esperada é a seguinte:</p>
 <pre><code>Something BAD hapenned
@@ -216,7 +200,7 @@ Something BAD BAD happenned...
         <div class="taglist">
             
     
-      <a href="/tags/draft">draft</a>  <a href="/tags/code">code</a> 
+      <a href="/tags/ccpp">ccpp</a> 
     <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/try-catch-flutuante/">discuss</a>
 
 
@@ -232,7 +216,7 @@ Something BAD BAD happenned...
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.26</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.04.30</a> </i></span>
   </div>
 </footer>
 

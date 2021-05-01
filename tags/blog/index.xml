@@ -2074,120 +2074,6 @@ Uia! E não é que é mais simples, mesmo?
 
      
         <item>
-  <title>Ode ao C&#43;&#43;</title>
-  <link>http://www.caloni.com.br/ode-ao-c/</link>
-  <pubDate>2008-04-21</pubDate>
-  
-  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
-  <description>(direto do &amp;quot;Contato do Site&amp;quot;)
-Cristiano -- Olá! Sou programador em basic (Vbasic/Qbasic), fico indignado, com pessoas que sabem enteder a linguagem C&#43;&#43;, assembler... Como podem? Eu acho isto coisa de outro mundo! Será que eu tenho chances de aprender a linguagem?
-**Strauss **-- A resposta é simples: estudando. Eu tb comecei com QBasic e VB. Arrume um livro de C&#43;&#43; e estude. Treine bastante. E hoje em dia é mais fácil do que quando eu comecei, pq eu não tinha acesso à Internet. É simples assim... :-)
-**Caloni **-- Você pode ir tão longe quanto queira, mas pra isso a primeira coisa que vc tem que fazer é querer =).
-**Strauss **-- Acho que vou fazer um post sobre isso. &amp;quot;Por que C&#43;&#43;&amp;quot; :-) Vc podia me ajudar...
-**Caloni **-- Escrevi um textículo sobre o assunto da escolha, mas não visando o mercado:
-/**
-  @title Por que C&#43;&#43;
-  @author Wanderley Caloni Jr
-  @date 31.01.2005
-  */
-É natural que um programador tenha preferência por uma linguagem. Geralmente por motivos pessoais que se refletem nas características da linguagem. Eu, por exemplo, tenho vários motivos para amar essa linguagem:
-Linguagem C. Todas as vantagens da linguagem C estão embutidas em C&#43;&#43;. E sem aquele papo erudito que deve-se programar em OO para ser C&#43;&#43;. Por ser multiparadigma, a linguagem também suporta o melhor da programação procedural e estruturada.
-**Popularidade. **C&#43;&#43; é o que há. Linguagem unânime e reconhecida no mundo todo como de uso geral. Dificilmente você vai encontrar um algoritmo que não tenha representação em C&#43;&#43;.
-**Economia e Expressividade. **Pode parecer bobagem, mas coisas como operador de incremento e valor em todas expressões permite que se faça muita coisa com poucas linhas. Isso a torna muito expressiva. Isso, em outras palavras, quer dizer que você pode juntar várias expressões numa só, e esse conjunto será também uma expressão.
-**Liberdade. **Em C&#43;&#43; você é o culpado de virtualmente qualquer coisa de bom e ruim que aconteça no seu programa, pois você tem que seguir poucas regras e tem que ser responsável no que faz. C&#43;&#43; não te ajuda a seguir um bom modelo de programação com restrições embutidas. Isso a torna difícil para iniciantes, mas conforme aumenta a experiência, maior o prazer em programar.
-**Portabilidade. **A possibilidade de compilar e rodar o seu código em vários ambientes - de compilação e execução - é uma característica útil e agradável. No meu caso é só agradável, pois dificilmente faço código portável, apesar das boas noções que tenho sobre o assunto. E são essas boas noções que me permitem afirmar que C&#43;&#43; suporta muito bem essa possibilidade.
-**Rapidez. **Pode não ser importante em muitos casos, mas já é do instinto do programador o desejo de eficiência no código. E nada como programar numa linguagem extremamente eficiente em tempo de execução para se sentir feliz de ver o código rodando.
-FIM
-[]s
-**Strauss **-- Legal. Vou colocar minha água mercadológica no feijão e colocar no site.
-Nos dias de hoje... Não quis alterar o texto original, mas colocaria, além de rapidez, o título economia de recursos. É incrível o quanto progredimos no quesito hardware todos esses anos, e mesmo assim, existem linguagens e ambientes que parecem ter fome suficiente para consumir tudo e deixar um computador de última geração parecer um micro &amp;quot;meio lerdinho&amp;quot;. Felizmente não preciso dar nome aos bois, pois todos sabem ou conhecem pelo menos uma linguagem com essa característica.
-Ainda acredito em tudo isso que C&#43;&#43; proporciona e irá continuar proporcionando por muto tempo. Para os que não seguiram o linque do artigo do Strauss, existe uma modesta lista de programas escritos nessa linguagem ao redor do planeta. Muitos são conhecidíssimos e usados nos quatro cantos do mundo, muitas vezes em mais de um sistema operacional. C&#43;&#43; está morto? Longe disso... talvez pareça assim em território nacional, mas esse é o motivo de meus votos de sucesso no início de nosso grupo C&#43;&#43;.
-</description>
-</item>
-
-     
-        <item>
-  <title>Linux e o DHCP</title>
-  <link>http://www.caloni.com.br/linux-e-o-dhcp/</link>
-  <pubDate>2008-04-09</pubDate>
-  
-  <guid>http://www.caloni.com.br/linux-e-o-dhcp/</guid>
-  <description>Quando procuramos no google por &amp;quot;linux dhcp&amp;quot;, o que vem em resposta são diversas dicas, tutoriais, documentos oficiais e palpites sobre como configurar um servidor Linux.
-Muito bem. E a outra ponta da história?
-[Testes feitos em um Fedora 8, não me pergunte mais detalhes]
-O primeiro linque útil encontrado foi a documentação da Red Hat. Além disso seguem alguns macetes que eu descobri no decorrer do percurso. A primeira coisa a ser configurada é o arquivo /etc/sysconfig/network. Nele devemos, em uma configuração simplista, colocar uma única linha:
-NETWORKING=yes Tive alguns problemas com a entrada NETWORKING_IPV6, ou algo do gênero. A comunicação com o servidor DHCP da rede simplesmente não funcionava com essa linha, deixando o computador sem IP durante o boot. Má configuração do servidor? Pode até ser. Porém, não quis entrar nesses meandros.
-Por isso, se houver a linha sobre IPV6 e você tiver problemas, comente-a temporariamente.
-O passo seguinte é configurar a interface de rede, que é no fim das contas a representação da sua placa. Para isso temos alguns arquivos em /etc/sysconfig/network-scripts no formato ifcfg-nome-da-interface. Se você digitar ifconfig na linha de comando terá os nomes de interface disponíveis. No meu caso, eth0.
-vi /etc/sysconfig/network-scripts/ifcfg-eth0DEVICE=eth0BOOTPROTO=dhcpONBOOT=yes:wq Note que o valor BOOTPROTO é realmente BOOTPROTO, com um O no final. Tive alguns problemas de soletrar também nesse caso, o que me gerou mais alguns reboots mal-sucedidos.
-Bem, o que isso faz? Basicamente, manda o Linux utilizar o protocolo DHCP, procurando na rede algum servidor que lhe dê algum IP válido. Só isso. O resto ele faz dinamicamente.
-Inclusive alterar automaticamente o arquivo /etc/resolv.conf. Nele estão definidas algumas coisas como o domínio de nomes que estamos e os IPs de onde buscar a resolução de nomes.
-Feito isso, como se costuma dizer, voilà! Temos um cliente DHCP funcionando contente e feliz. Eu reiniciei a máquina para tudo dar certo, mas provavelmente devem existir maneiras mais saudáveis de reiniciar a rede (talvez um ifdown seguido de ifup resolvesse). E agora eu posso finalmente ter acesso aos pacotes de instalação que precisava.
-Notas de um Linux padawan =)
-</description>
-</item>
-
-     
-        <item>
-  <title>Backup de pobre</title>
-  <link>http://www.caloni.com.br/backup-de-pobre/</link>
-  <pubDate>2008-03-28</pubDate>
-  
-  <guid>http://www.caloni.com.br/backup-de-pobre/</guid>
-  <description>O backup - ato de fazer cópia(s) de segurança de dados considerados importantes -, como tudo na vida, para se tornar efetivo e transformador deve antes se tornar um hábito.
-Hábitos, por definição, ao serem realizados repetidamente muitas vezes, podem se tornar poderosos catalisadores de tarefas, sejam elas cozinhar um bolo, compilar um programa ou fazer backups. Por isso é muito importante que o backup, antes de ser 100% seguro, seja 100% previsível e habitual.
-É o hábito que faz o backup Minhas restrições para que algo vire um hábito em minha vida, quando tarefas, são que a tarefa seja, antes de tudo,:
-  Simples de fazer. Quero conseguir efetuar a tafefa sem ter que toda vez preparar um ritual em noite de lua cheia, sacrificar uma virgem para os deuses pagãos e lembrar de todas as palavras proparoxítonas que terminam com x e rimam com fênix.
-  Fácil de executar. É um complemento do primeiro item. Com isso eu quero dizer que, além de simples, eu não precise despender grande força e energia diariamente para efetuar a tarefa. Limpar uma pasta de arquivos temporários pode ser simples; mas é fácil?
-  Fácil de lembrar. Se eu tenho que fazer um esforço mental diário tão grande para lembrar do que fazer então muito provavelmente será difícil transformá-lo em um hábito.
-  Passado por esse checklist, podemos montar um esquema tão simples que qualquer bobo que tem um blogue (por exemplo, eu) conseguirá executar diariamente, ou pelo menos quando tiver vontade. A freqüência dependerá se isso irá se transformar em um hábito ou não.
-O mais poderoso copiador do mundo: xcopy Ele pode não parecer, mas é beeem mais antigo do que parece. Nós, veteranos, que possuímos mais anos de vida em frente ao monitor que gostaríamos de admitir (copyright =&amp;gt; DQ), usávamos o xcopy para copiar pastas e disquetes inteiros no MS-DOS, um sistema operacional predecessor do Windows Vista que vinha em preto e branco e sem User Account Control.
-No entanto, esse pequeno grande aplicativo sobreviveu todos esses anos, atingiu a maioridade, e hoje permite a nós, programadores de mouse, fazer nossos backups com um simples arquivo de batch e um pouco de imaginação.
-O uso do programa pode ser aprendido dando-se uma olhada em sua ajuda (xcopy /?)
-xcopy origem [destino] [opções] Algumas opções bem úteis para efetuar cópias de segurança de arquivos modificados:
-/M - copia somente arquivos com atributo de arquivamento; após a cópia, desmarca atributo. Ao escrever novamente em um arquivo copiado com esse método, o arquivo volta a ter o atributo de arquivamento, e irá ser copiado novamente se especificada essa opção. Se nunca mais for mexido, não será mais copiado.
-/D - copia arquivos mais novos na origem. Não costumo usar pelos problemas que podem ocorrer em sistemas com horas diferentes, mas, dependendo da ocasião, pode ser útil. Também é possível especificar uma data de início da comparação.
-/EXCLUDE - permite excluir arquivo(s) de uma cópia coletiva. Isso pode ser muito útil se você não deseja gastar tempo copiando arquivo que são inúteis dentro de pastas que contém arquivos importantes. É possível especificar um arquivo que irá conter uma lista de nomes-curinga, um por linha, que irá servir como filtro da cópia. Teremos um exemplo logo abaixo.
-/E - copia pastas e subpastas, mesmo que vazias. Essa opção é básica, e ao mesmo tempo essencial. Não se esqueça dela quando for criar seu script de backup!
-/C - continua copiando, mesmo com erros. Se é mais importante copiar o máximo que puder do que parar no primeiro errinho de acesso negado, essa opção deve ser usada. É possível redirecionar a saída para um arquivo de _log, _que poderá ser usado para procurar por erros que ocorreram durante a operação.
-/Q - não exibe nome de arquivos ao copiar. Às vezes imprimir o nome de cada arquivo na saída do prompt de comando acaba sendo mais custoso que copiar o próprio arquivo. Quando a cópia envolve muitos arquivos pequenos, é recomendável usar esta opção.
-/Y - suprime perguntas para o usuário. Muito útil em arquivos _batch, _já que o usuário geralmente não estará lá para apertar enter quando o programa pedir.
-/Z - copia arquivos da rede em modo reiniciável. Muito importante quando estiver fazendo _backup _pela rede. Às vezes ela pode falhar, e essa opção permite continuar após pequenas quedas de desempenho.
-Estudo de caso: código-fonte Para a cópia do patrimônio mais valioso de um programador, os fontes, podemos usar um conjunto bem bolado das 0pções acima, além de generalizar um _script _para ser usado em outras situações. Inicialmente vamos definir que queremos um _backup _que altere o atributo de arquivamento, sobrescreva cópias antigas e que possa ser copiado pela rede sem maiores problemas. Além disso, não iremos copiar as pastas _Debug _e _Release _existentes geradas pela saída de algum compilador (ex: saída do Visual Studio), nem arquivos temporários muito grandes (ex: arquivos de navegação de símbolos).
-O resultado é o que vemos abaixo:
-xcopy &amp;lt;pasta-origem&amp;gt; &amp;lt;pasta-destino&amp;gt; /M /E /C /Y /Z /EXCLUDE:sources.flt O conteúdo de sources.flt (extensão escolhida arbitrariamente) pode ser o seguinte:
-.obj.res.pch.pdb.tlb.idb.ilk.opt.ncb.sbr.sup.bsc\Debug\\Release\ Só isso já basta para um _backup _simples, pequeno e fácil de executar. Só precisamos copiar a chamada ao xcopy em um arquivo de extensão .bat ou .cmd e executarmos sempre que acharmos interessante termos um backup quentinho em folha. Por exemplo, podemos manter os fontes do projeto atual em um pen drive e, ao acessarmos uma máquina confiável, rodar um _backup _que copia os arquvos-fonte para um ambiente mais seguro e estável.
-Note que esse procedimento não anula a necessidade de termos um sistema de versionamento e controle de fontes. O _backup _é para aquelas projetos que demoram um tempinho para efetuar commit, projetos temporários ou então sistemas de controle de fonte distribuído, em que podemos ter inúmeras pastas com diversos _branchs _locais.
-</description>
-</item>
-
-     
-        <item>
-  <title>WinDbg a distância</title>
-  <link>http://www.caloni.com.br/windbg-a-distancia/</link>
-  <pubDate>2008-03-26</pubDate>
-  
-  <guid>http://www.caloni.com.br/windbg-a-distancia/</guid>
-  <description>Acho que o que mais me impressionou até hoje a respeito do WinDbg é a sua capacidade de depuração remota. Não há nada como depurar problemas sentado confortavelmente na sua cadeira de programador em frente à sua mesa de programador.
-Já é fato consumado que os maiores problemas da humanidade ocorrem sempre no cliente, com uma relação de dificuldade diretamente proporcional ao cargo ocupado pelo usuário da máquina que está dando problemas. Se esse cliente por acaso mora em um lugar tão tão distante, nada mais justo do que conhecermos algumas técnicas de depuração remota para continuar a mantê-lo tão tão distante.
-Testes de corredor: corre que o bicho tá pegando! O ambiente de desenvolvimento (em teoria) não se deve confundir com o ambiente de testes, um lugar onde o desenvolvedor deveria colocar o pé somente quando fosse chamado e quando existisse um problema na versão Release. Por isso e portanto, a única coisa permitida em um ambiente de testes é (deveria ser) um servidor de depuração.
-O servidor de depuração nada mais é do que um processo que deixa alguma porta aberta na máquina de testes para que o desenvolvedor consiga facilmente depurar problemas que ocorreram durantes os testes de produção. Ele pode ser facilmente configurado através da instalação do pacote Debugging Tools for Windows.
-Existem alguns cenários muito comuns de depuração remota que serão abordados aqui. O resto dos cenários se baseia nos exemplos abaixo, e pode ser montado com uma simples releitura dos tópicos de ajuda do WinDbg sobre o assunto (procure por dbgsrv.exe).
-1. Depuração de teste (VM ou máquina de teste do lado do desenvolvedor) Nesse caso podemos supor que a máquina tem total acesso e controle do desenvolvedor. Tudo o que temos que fazer é iniciar um WinDbg na máquina-vítima e outro WinDbg na máquina-programador. O WinDbg da máquina-vítima deve ser iniciado no modo-servidor, enquanto o da máquina-programador no modo-cliente.
-windbg -&amp;lt;strong&amp;gt;server&amp;lt;/strong&amp;gt; tcp:port=6666windbg -&amp;lt;strong&amp;gt;remote &amp;lt;/strong&amp;gt;tcp:server=&amp;lt;strong&amp;gt;maquina-vitima&amp;lt;/strong&amp;gt;,port=6666 A vantagem dessa técnica é que tanto o WinDbg da máquina-vítima quanto o da máquina-programador podem emitir comandos, e todos vêem os resultados. Uma possível desvantagem é que os símbolos devem estar disponíveis a partir da máquina-vítima.
-Se for necessário, é possível convidar mais gente pra festa, pois o WinDbg permite se transformar em uma instância servidora pelo comando .server, que possui a mesma sintaxe da linha de comando. Para a comunicação entre todos esses depuradores ambulantes um comando muito útil é o .echo.
-windbg -server tcp:port=6667 -remote tcp:server=maquina-vitima,port=6666windbg -remote tcp:server=maquina-vitima,port=6666.server tcp:port=6667MAQUINA-PROGRAMADOR66\caloni (tcp 222.234.235.236:1974) connected at Mon Mar 24 11:47:55 2008.echo E ae, galera? Como que a gente vai consertar essa &amp;amp;%$*&amp;amp;?.echo Putz, sei lá. Acho que vou tomar mais café... 2. Depuração em cliente Nesse ambiente muito mais hostil, é salutar e recomendável utilizar um servidor genérico que não imprima coisa alguma na tela &amp;quot;do outro lado&amp;quot;. Após iniciar o depurador na máquina que está dando o problema, o programador tem virtualmente uma série de comandos úteis que podem ser executados remotamente, como iniciar novos processos, se anexar a processos já existentes, copiar novas versões de executáveis, etc.
-O nome do processo do lado servidor para modo usuário é dbgsrv.exe. Para o modo kernel é kdsrv.exe. Os parâmetros de execução, felizmente, são os mesmos que os do WinDbg (e CDB, NTSD e KD), o que evita ter que decorar uma nova série de comandos.
- Lembre-se: kernel é kernel, user é user  Pode parecer besteira falar isso aqui, mas ao depurar um sistema em modo kernel é necessário, é claro, é óbvio, é lógico, ter uma segunda máquina do lado servidor conectada por cabo serial ou firewire ou USB-Debug na máquina-vítima. Ainda que o Debugging Tools permita uma série de flexibilidades, o depurador em modo kernel vai rodar direto do kernel (duh), ou seja, está limitado pela implementação do sistema operacional. Além de que, para travar o processo do kernel, você tem que parar todo o sistema, e nesse caso não existe pilha TCP/IP.Para iniciar o servidor de depuração e deixar as portas abertas para o depurador temos apenas que iniciar o processo dbgsrv.exe:
-dbgsrv -t tcp:port=6666 Para iniciar o processo depurador, a sintaxe é quase a mesma, só que no lugar de remote especificamos premote:
-windbg -premote tcp:server=maquina-vitima,port=6666 Caso não se saiba a porta usada para iniciar o servidor, ou queira-se listar todos os servidores disponíveis em uma determinada máquina, usa-se o comando -QR.
-cdb -QR \\maquina-vitima  Não se prenda ao TCP-IP  O exemplo acima utilizou uma conexão TCP para montar o ambiente de depuração remota, o que possibilita inclusive correção de problemas via internet. No entanto, nem sempre podemos nos dar ao luxo de abrir portas não-autorizadas, requisito mínimo para estabelecer a conexão com o depurador. Nesse caso, podemos configurar conexões pela porta serial, por pipes nomeados, por SSL. Se for realmente necessário usar a pilha TCP, mas o lado servidor possui um firewall, ainda assim é possível configurar este tipo de conexão com a opção clicon. Dessa forma, quem estabelece a conexão é o servidor, evitando que o cliente fique bloqueado de acessar o ambiente de depuração.Notas finais É importante notar que o dbgsrv.exe não é um depurador esperto, no sentido que ele não vai carregar os símbolos para você. Isso é importante na hora de definir qual estratégia utilizar, pois nem sempre os símbolos estarão disponíveis na máquina com problemas, e nem sempre estarão com o desenvolvedor.
-Uma organização mais esperta dos ambientes de teste e desenvolvimento tomaria conta de outros problemas como símbolos e fontes com o uso de outras features poderosas do Debugging Tools como servidor de símbolos e servidor de fontes. Porém, a complicação envolvida na configuração desses dois me leva a crer que eles merecem um outro artigo. E é por isso que paramos por aqui.
-</description>
-</item>
-
-     
-        <item>
   <title>Estranho</title>
   <link>http://www.caloni.com.br/estranho/</link>
   <pubDate>2008-03-06</pubDate>
