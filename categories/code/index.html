@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - code</title>
+  <meta name="author" content="" />
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta property="og:title" content="code"/>
+  <meta property="og:type"
+        content="website"/>
+  <meta property="og:url" content="http://www.caloni.com.br/categories/code/"/>
+  <meta property="og:image"
+        content="/img/author.jpg"/>
+  <meta property="og:description"
+        content=""/>
+
+  
+  <link href="/categories/code/index.xml" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/img/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+
+  <div class="container">
+
+    <div class="navbar-brand">
+        <img alt="Brand" src="/img/brand.svg">
+        &nbsp;
+        <a class="navbar-item" title="Go to Home" href="/">
+            <div class="is-6">caloni::code</div>
+        </a>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <div class="container">
+<div class="column">
+<div style="min-height:56vh">
+
+    
+  <div style="padding-bottom: 1em;"></div>
+  <input type="text" name="filter" value="" id="filter" placeholder="enter to select" style="width: 100%; font-size: 1.5rem; margin-top: 1em; margin-bottom: 0.5em;" title=""/></br>
+  <button id="filterbutton" style="font-size: 1rem;" onclick="ApplyFilter($('#filter').val());">select</button>
+  <button id="removebutton" style="font-size: 1rem;" onclick="ApplyNotFilter($('#filter').val());">remove</button>
+  <button id="randombutton" style="font-size: 1rem;" onclick="window.location = randomPost;">random</button>
+
+
+    <div><big><b><span style="visibility: hidden; padding: 5px;" name="results" id="results">...</span></b></big></div>
+<table class="sortable" style="width: 100%;">
+
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-configurar-debug-de-kernel-pela-rede/" title="">Como Configurar Debug de Kernel Pela Rede (Hyper-V Edition)</a></b><small><i> 
+        2021-05-01  [draft code]   [debug] </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/lessons-from-online-poker-exploit/" title="">Lessons From Online Poker Exploit</a></b><small><i> 
+        2021-02-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/getargs-array/" title="">GetArgs v. Array</a></b><small><i> 
+        2020-08-04  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/pacotes-nuget-again/" title="">Pacotes Nuget Again</a></b><small><i> 
+        2020-08-04  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/close-remote-socket/" title="">Close Remote Socket</a></b><small><i> 
+        2020-07-05  [code english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/find-path/" title="">Find Path ou Por Que O Vcpkg Não Colocou o Path da Minha Biblioteca?</a></b><small><i> 
+        2020-07-01  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/pgn2art/" title="">Pgn2art</a></b><small><i> 
+        2020-06-27  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/cpp-co-routines/" title="">C&#43;&#43; Co Routines</a></b><small><i> 
+        2020-06-21  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/printf/" title="">Printf</a></b><small><i> 
+        2020-06-18  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historical-price/" title="">Historical Price</a></b><small><i> 
+        2020-06-13  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/awk/" title="">Awk</a></b><small><i> 
+        2020-06-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/leak-de-memoria/" title="">Leak de Memória</a></b><small><i> 
+        2020-06-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/azure-missing-lines/" title="">Azure Missing Lines: Submodules no Git (SSH Version)</a></b><small><i> 
+        2020-06-04  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/transmission/" title="">Transmission</a></b><small><i> 
+        2020-06-01  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/bug-no-calonibot-rodando-como-servico/" title="">Bug no Calonibot Rodando Como Serviço</a></b><small><i> 
+        2020-05-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-bug-mais-bizarro-que-ja-resolvi/" title="">O Bug Mais Bizarro que já Resolvi</a></b><small><i> 
+        2020-05-10  [code home]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/cast-operator/" title="">Cast Operator</a></b><small><i> 
+        2020-04-22  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/mbconf-at-home-2020-palestra-windbg/" title="">Minha Palestra Sobre Windbg</a></b><small><i> 
+        2020-04-18  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/winsock-mock/" title="">Winmock</a></b><small><i> 
+        2020-04-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/callback-hell/" title="">Callback Hell</a></b><small><i> 
+        2020-04-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/try-lock-de-pelucia/" title="">Meu Try Lock de Pelúcia</a></b><small><i> 
+        2020-04-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/code-jam-2020/" title="">Code Jam 2020</a></b><small><i> 
+        2020-04-05  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/golang-e-c/" title="">Golang e C</a></b><small><i> 
+        2020-04-05  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/git-subtree/" title="">Git Subtree</a></b><small><i> 
+        2020-03-22  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/projeto-hu-cpp-not-fast-enough/" title="">Projeto Hu Cpp: Not Fast Enough</a></b><small><i> 
+        2020-03-17  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/projeto-hu-cpp/" title="">Projeto Hu Cpp</a></b><small><i> 
+        2020-03-15  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-funciona-o-mptunnel/" title="">Como Funciona o MPTunnel</a></b><small><i> 
+        2019-12-11  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg-bootstrap/" title="">Vcpkg: Bootstrap</a></b><small><i> 
+        2019-11-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/dtls-simples/" title="">DTLS Simples... simples?</a></b><small><i> 
+        2019-11-13  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg-openssl-cnf/" title="">Vcpkg: openssl.cnf</a></b><small><i> 
+        2019-09-17  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg-boost-windows-xp/" title="">Vcpkg: Boost para Windows XP</a></b><small><i> 
+        2019-09-16  [draft code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg-atualizando-lib-asio/" title="">Vcpkg: Atualizando Lib Asio</a></b><small><i> 
+        2019-09-07  [draft code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/do-bit-para-o-codigo/" title="">Do Bit para o Código</a></b><small><i> 
+        2019-09-03  [draft code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/hacker-rank/" title="">Some things I learned in a Hacker Rank exercise</a></b><small><i> 
+        2019-08-08  [draft code draft ccpp english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sqllocaldb/" title="">SLQLocalDB</a></b><small><i> 
+        2019-07-21  [draft code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/goto/" title="">C Resolve Tudo: goto</a></b><small><i> 
+        2019-05-28  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/c-resolve-tudo-clos/" title="">C Resolve Tudo Clos</a></b><small><i> 
+        2019-05-17  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/c-resolve-tudo/" title="">C Resolve Tudo: Orientação a Objetos (com Polimorfismo)</a></b><small><i> 
+        2019-05-17  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/const-int-pointer-var/" title="">Const Int Pointer Var</a></b><small><i> 
+        2019-04-29  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/free-pascal-e-vs-code/" title="">Free Pascal e VS Code</a></b><small><i> 
+        2019-03-09  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/debug-remoto-visual-studio-2010-superior/" title="">Debug Remoto no Visual Studio 2010 ou Superior</a></b><small><i> 
+        2019-03-06  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/bug-boost-asio-acceptex-winsock/" title="">Bug no Boost Asio usando função AcceptEx do Winsock</a></b><small><i> 
+        2019-01-06  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-maneira-errada-de-comecar-um-projeto-e-com-visual-studio/" title="">A Maneira Errada de Começar um Projeto é com Visual Studio</a></b><small><i> 
+        2018-12-11  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/coroutine-internals/" title="">Coroutine Internals</a></b><small><i> 
+        2018-09-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg-internals/" title="">Vcpkg Internals: como o gerenciador de pacotes da M$ funciona por dentro (e como fazer seu próprio pacote!)</a></b><small><i> 
+        2018-09-12  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/getarg/" title="">GetArg: the ultimate badass argv/argc parser</a></b><small><i> 
+        2018-08-30  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/" title="">Meu Novo Parseador de Argc Argv</a></b><small><i> 
+        2018-08-21  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/video-depuracao-visualstudio-101-comentado/" title="">Vídeo: Visual Studio e seu depurador (comentado)</a></b><small><i> 
+        2018-07-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/video-depuracao-visualstudio-101/" title="">Vídeo: Depuração Visual Studio 101</a></b><small><i> 
+        2018-07-24  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vcpkg/" title="">Vcpkg: gerenciador de libs c&#43;&#43; para Linux, Mac OS... e Windows!</a></b><small><i> 
+        2018-07-14  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/manipulando-mouse-e-teclado-no-windows/" title="">Manipulando Mouse e Teclado no Windows</a></b><small><i> 
+        2018-07-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/lista-ligada/" title="">Lista Ligada; tá Ligado?</a></b><small><i> 
+        2018-04-24  [code lists]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/projetoaluno/" title="">Projeto Aluno</a></b><small><i> 
+        2018-03-21  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/contra-o-array-de-100-bytes-eh-suficiente/" title="">Contra o &#39;Array de 100 bytes é suficiente&#39;</a></b><small><i> 
+        2018-03-11  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/variaveis-static-local-nunca-sao-inicializadas-se-voce-nao-chama-sua-funcao/" title="">Variáveis static local Nunca São Inicializadas Se Você Não Chama Sua Função</a></b><small><i> 
+        2018-02-20  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-parsear-argc-argv-para-um-map-stl/" title="">Como Parsear Argc Argv para um map STL</a></b><small><i> 
+        2018-01-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-achar-erros-no-printf-via-dump/" title="">Como Achar Erros no Printf via Dump</a></b><small><i> 
+        2018-01-25  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/forma-mais-simples-de-depurar-processos-antes-do-logon/" title="">Forma Mais Simples De Depurar Processos Antes Do Logon</a></b><small><i> 
+        2017-07-27  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/debugger-remoto-do-visual-studio/" title="">Debugger remoto do Visual Studio</a></b><small><i> 
+        2017-06-13  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/qt5-natvis/" title="">qt5.natvis</a></b><small><i> 
+        2017-03-15  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/atalhos-no-terminal-do-linux-unix-cygwin/" title="">Atalhos no terminal do Linux/Unix</a></b><small><i> 
+        2017-02-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/convertendo-windows-de-uefi-para-mbr/" title="">Convertendo Windows de UEFI para MBR</a></b><small><i> 
+        2017-02-13  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/uefi-de-adeus-a-mbr/" title="">UEFI: dê adeus à MBR</a></b><small><i> 
+        2017-02-09  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/android-protobuf-mock-configuravel/" title="">Android Protobuf, Mock Configurável</a></b><small><i> 
+        2017-02-06  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/readfile-assincrono-pode-ser-sincrono-quando-voce-menos-espera/" title="">ReadFile assíncrono pode ser síncrono quando você menos espera</a></b><small><i> 
+        2017-01-16  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/video-usando-clang-no-visual-studio/" title="">Vídeo: Usando clang no Visual Studio</a></b><small><i> 
+        2016-12-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/" title="">A Linguagem de Programação C&#43;&#43;: O Início</a></b><small><i> 
+        2016-11-29  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/video-resolvendo-problemas-em-projetos-desleixados/" title="">Vídeo: Resolvendo problemas em projetos desleixados</a></b><small><i> 
+        2016-09-01  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/dbaccess/" title="">DBAccess</a></b><small><i> 
+        2016-08-16  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depurando-codigo-c-no-visual-studio/" title="">Vídeo: Depurando código C&#43;&#43; no Visual Studio</a></b><small><i> 
+        2016-08-12  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/video-criando-projeto-c-console-no-visual-studio-2015/" title="">Vídeo: Criando Projeto C&#43;&#43; Console no Visual Studio 2015</a></b><small><i> 
+        2016-08-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/palestra-stack-overflow/" title="">Palestra: Stack Overflow</a></b><small><i> 
+        2016-06-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/crash-no-windows-explorer/" title="">Crash no Windows Explorer</a></b><small><i> 
+        2016-03-01  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/templates-em-c-no-lugar-de-macros/" title="">Templates em C no lugar de macros</a></b><small><i> 
+        2016-01-14  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/gabaritos/" title="">Gabaritos</a></b><small><i> 
+        2016-01-13  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo-polimorfismo/" title="">Classe, objeto, contexto, método, polimorfismo</a></b><small><i> 
+        2016-01-12  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/classe-objeto-contexto-metodo/" title="">Classe, objeto, contexto, método</a></b><small><i> 
+        2016-01-11  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/classe-objeto-contexto/" title="">Classe, objeto, contexto</a></b><small><i> 
+        2016-01-10  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-ser-um-hacker/" title="">Como ser um hacker</a></b><small><i> 
+        2015-11-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/e-o-fonte-idiota/" title="">É o fonte, idiota!</a></b><small><i> 
+        2015-09-12  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-estranho-caso-do-pdb-mal-formado/" title="">O Estranho Caso do PDB Mal-Aformado</a></b><small><i> 
+        2015-08-19  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/logs-em-servicos-e-outras-coisas/" title="">Logs em serviços (e outras coisas)</a></b><small><i> 
+        2015-06-05  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depurando-ate-o-fim-do-mundo-e-de-volta-de-novo-source-server-com-github/" title="">Depurando até o fim do mundo e de volta de novo: source server com GitHub</a></b><small><i> 
+        2015-05-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/analisando-erros-pelo-filtro-do-file-mon/" title="">Analisando Erros Pelo Filtro do File Monitor</a></b><small><i> 
+        2015-05-06  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/convencao-de-chamada/" title="">Convenção de Chamada</a></b><small><i> 
+        2015-04-20  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-alocacao-nos-clientes/" title="">Guia de alocação (nos clientes)</a></b><small><i> 
+        2015-03-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/origem-do-tipo-char/" title="">Origem do Tipo char</a></b><small><i> 
+        2015-01-26  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/por-que-o-visual-studio-gera-executaveis-mutantes/" title="">Por que o Visual Studio gera executáveis mutantes</a></b><small><i> 
+        2015-01-11  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/entendendo-a-compilacao/" title="">Entendendo a Compilação</a></b><small><i> 
+        2015-01-04  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaiss-para/" title="">Houaiss Para *</a></b><small><i> 
+        2014-10-25  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/shareando-ponteiros/" title="">Shareando Ponteiros</a></b><small><i> 
+        2014-09-03  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/se-iterando-com-os-pseudo-ponteiros-uma-breve-introducao/" title="">Se iterando com os pseudo-ponteiros: uma breve introdução</a></b><small><i> 
+        2014-06-24  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/dando-cabo-do-windbg/" title="">Dando cabo do WinDbg</a></b><small><i> 
+        2014-06-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/eles-querem-que-a-gina-va-embora-tres-posts-sobre-evolucao-windows/" title="">Eles querem que a GINA vá embora: três posts sobre evolução Windows</a></b><small><i> 
+        2014-06-11  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/ss/" title="">SS</a></b><small><i> 
+        2014-06-03  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/desmontando-o-aulete-digital/" title="">Desmontando o Aulete Digital</a></b><small><i> 
+        2014-05-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/estruturas-vs-classes-fight/" title="">Estruturas VS Classes: fight!</a></b><small><i> 
+        2014-05-20  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/50-anos-de-basic/" title="">50 Anos de BASIC</a></b><small><i> 
+        2014-05-13  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/2048-motivos-para-nao-programar/" title="">2048 motivos para não programar</a></b><small><i> 
+        2014-04-24  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/lambda-o-retorno/" title="">Lambda: o Retorno!</a></b><small><i> 
+        2014-04-08  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/" title="">A moda agora é levar lambda na função</a></b><small><i> 
+        2014-03-28  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/real-programmers-dont-use-java/" title="">Real Programmers Don&#39;t Use Java</a></b><small><i> 
+        2014-02-20  [code draft english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/uma-nova-linguagem/" title="">Uma nova linguagem</a></b><small><i> 
+        2013-12-04  [code draft ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/ponto-flutuante-afundando/" title="">Ponto Flutuante Afundando</a></b><small><i> 
+        2013-11-07  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/extreme-go-horse/" title="">eXtreme Go Horse</a></b><small><i> 
+        2012-09-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/minha-palestra-do-tdc-2012/" title="">Minha palestra do TDC 2012</a></b><small><i> 
+        2012-07-21  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/novos-atalhos-aprendidos-no-vim/" title="">Novos Atalhos Aprendidos no Vim</a></b><small><i> 
+        2012-06-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/meus-repositorios-no-github/" title="">Meus repositórios no GitHub</a></b><small><i> 
+        2012-06-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/" title="">Sobrecarga de função às avessas</a></b><small><i> 
+        2012-05-20  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/consumo-abusivo-de-memoria/" title="">Consumo abusivo de memória</a></b><small><i> 
+        2012-05-19  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/coletando-dumps-automaticamente/" title="">Coletando dumps automaticamente</a></b><small><i> 
+        2012-05-17  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/header-inutil/" title="">Header Inútil</a></b><small><i> 
+        2012-03-27  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/rvalue-e-o-novo-lvalue/" title="">RValue é o novo LValue</a></b><small><i> 
+        2012-01-11  [code draft ccppbr]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depuracao-de-emergencia-receita-de-bolo/" title="">Depuração de emergência: receita de bolo</a></b><small><i> 
+        2011-10-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/coders-at-work/" title="">Coders at Work: Reflections on the Craft of Programming</a></b><small><i> 
+        2011-10-14  [code draft books]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/cuidado-com-variaveis-temporarias/" title="">Cuidado com variáveis temporárias</a></b><small><i> 
+        2011-07-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depuracao-de-emergencia/" title="">Depuração de emergência</a></b><small><i> 
+        2011-07-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/comparando-strings-no-windbg/" title="">Comparando strings no WinDbg</a></b><small><i> 
+        2011-05-22  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sem-reflection/" title="">Sem reflection</a></b><small><i> 
+        2011-05-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaiss-1-3/" title="">Houaiss 1.3</a></b><small><i> 
+        2011-04-28  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaiss-no-kindle/" title="">Houaiss no Kindle</a></b><small><i> 
+        2011-03-22  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/loucuras-multithreading/" title="">Loucuras multithreading</a></b><small><i> 
+        2011-03-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/base64/" title="">Base64</a></b><small><i> 
+        2011-03-09  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/projeto-daytoday/" title="">Projeto DayToDay</a></b><small><i> 
+        2011-03-03  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/vtable/" title="">VTable</a></b><small><i> 
+        2011-03-01  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/esse-ponteiro-vai-ate-onde/" title="">Esse ponteiro vai até onde?</a></b><small><i> 
+        2011-01-17  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/dependencia-pedindo-carona/" title="">Dependência pedindo carona</a></b><small><i> 
+        2011-01-04  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/patch-de-emergencia-2/" title="">Patch de emergência 2</a></b><small><i> 
+        2010-11-09  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/patch-de-emergencia/" title="">Patch de emergência</a></b><small><i> 
+        2010-11-08  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/formatmessage-para-dumies/" title="">FormatMessage para... dumies?</a></b><small><i> 
+        2010-10-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/atualizando-houaissparababylon-no-saite/" title="">Atualizando HouaissParaBabylon no saite</a></b><small><i> 
+        2010-10-22  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-ofuscar-strings/" title="">Como ofuscar strings</a></b><small><i> 
+        2010-08-30  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/foto-dos-melhores-momentos/" title="">Foto dos melhores momentos</a></b><small><i> 
+        2010-08-12  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/nao-e-minha-culpa/" title="">Não é minha culpa</a></b><small><i> 
+        2010-08-08  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/novas-diferencas-no-bazaar/" title="">Novas diferenças no Bazaar</a></b><small><i> 
+        2010-08-04  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-achar-o-codigo-fonte-sem-simbolos/" title="">Como achar o código-fonte sem símbolos</a></b><small><i> 
+        2010-08-03  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/const-e-volatile/" title="">Const e Volatile</a></b><small><i> 
+        2010-06-04  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/enum/" title="">Enum</a></b><small><i> 
+        2010-05-31  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/modificadores-e-qualificadores-de-tipo/" title="">Modificadores e qualificadores de tipo</a></b><small><i> 
+        2010-05-28  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/analogicamente-perfeito/" title="">Analogicamente perfeito</a></b><small><i> 
+        2010-05-19  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/por-que-long-pointer/" title="">Por que Long Pointer</a></b><small><i> 
+        2010-04-21  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/typedef-arcaico/" title="">Typedef arcaico</a></b><small><i> 
+        2010-04-20  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/using-todolist-and-microsoft-project-together/" title="">Using TodoList and Microsoft Project together</a></b><small><i> 
+        2010-04-10  [code draft english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaiss-para-babylon-12/" title="">Houaiss Para Babylon!</a></b><small><i> 
+        2010-04-08  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/convivendo-entre-todolist-e-microsoft-project/" title="">Convivendo entre TodoList e Microsoft Project</a></b><small><i> 
+        2010-03-15  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/correcao-de-bugs-instantanea/" title="">Correção de bugs instantânea</a></b><small><i> 
+        2010-02-01  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/passagem-por-valor-e-emails-com-anexo/" title="">Passagem por valor e emails com anexo</a></b><small><i> 
+        2010-01-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/importando-tipos-de-outros-projetos/" title="">Importando tipos de outros projetos</a></b><small><i> 
+        2010-01-11  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-boot-no-windows-kernel/" title="">O boot no Windows: Kernel</a></b><small><i> 
+        2009-12-04  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-boot-no-windows-ntldr/" title="">O boot no Windows: NTLDR</a></b><small><i> 
+        2009-11-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-boot-no-windows-pre-ntldr/" title="">O boot no Windows: pré-NTLDR</a></b><small><i> 
+        2009-09-09  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-boot-no-windows-sem-windows/" title="">O boot no Windows: sem Windows</a></b><small><i> 
+        2009-08-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/what-ive-been-doing-in-the-last-10-years/" title="">What I&#39;ve been doing in the last 10 years</a></b><small><i> 
+        2009-08-17  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/adplus-no-cliente-nao-voce/" title="">AdPlus no cliente, não você!</a></b><small><i> 
+        2009-08-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/cuidado-com-a-copia-de-arquivos-na-vmware/" title="">Cuidado com a cópia de arquivos na VMWare</a></b><small><i> 
+        2009-07-27  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/name-mangling/" title="">Name mangling</a></b><small><i> 
+        2009-07-13  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/polimorfismo-estatico/" title="">Polimorfismo estático</a></b><small><i> 
+        2009-07-10  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/static-polymorphism/" title="">Static Polymorphism</a></b><small><i> 
+        2009-07-10  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/strings/" title="">Strings</a></b><small><i> 
+        2009-07-07  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/bugs-dificeis-de-achar/" title="">Bugs Difíceis de Achar</a></b><small><i> 
+        2009-06-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/programadores-de-verdade-nao-usam-java/" title="">Programadores de verdade não usam Java</a></b><small><i> 
+        2009-06-18  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-sala-da-fila-das-threads/" title="">A sala da fila das threads</a></b><small><i> 
+        2009-04-17  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-fila-das-threads/" title="">A fila das threads</a></b><small><i> 
+        2009-04-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depurando-ate-o-ultimo-segundo/" title="">Depurando até o último segundo</a></b><small><i> 
+        2009-03-31  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/os-problemas-mais-cabeludos/" title="">Os problemas mais cabeludos</a></b><small><i> 
+        2009-03-05  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/windbginfo/" title="">WinDbg.info</a></b><small><i> 
+        2009-02-10  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/as-funcoes-polegar/" title="">As funções-polegar</a></b><small><i> 
+        2009-01-30  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/basico-do-basico-assembly/" title="">Básico do básico: assembly</a></b><small><i> 
+        2009-01-26  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaissparababylon-versao-11/" title="">HouaissParaBabylon versão 1.1</a></b><small><i> 
+        2008-12-30  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/basico-do-basico-binario/" title="">Básico do básico: binário</a></b><small><i> 
+        2008-12-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/basico-do-basico-tipos/" title="">Básico do básico: tipos</a></b><small><i> 
+        2008-12-12  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/basico-do-basico-ponteiros/" title="">Básico do básico: ponteiros</a></b><small><i> 
+        2008-12-06  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/houaissparababylon-versao-beta/" title="">HouaissParaBabylon versão beta</a></b><small><i> 
+        2008-11-15  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-funciona-o-psexec/" title="">Como funciona o PsExec</a></b><small><i> 
+        2008-10-29  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-alca-dentro-do-fio-gerou-um-bloqueio-da-morte/" title="">A Alça Dentro do Fio Gerou um Bloqueio da Morte</a></b><small><i> 
+        2008-10-21  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/windows-jobs-com-completion-port/" title="">Windows Jobs com Completion Port</a></b><small><i> 
+        2008-09-23  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/os-processos-fantasma/" title="">Os processos-fantasma</a></b><small><i> 
+        2008-08-20  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-para-iniciantes-no-driverentry/" title="">Guia para iniciantes no DriverEntry</a></b><small><i> 
+        2008-08-11  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebugging-during-the-process-attach/" title="">Antidebugging during the process attach</a></b><small><i> 
+        2008-08-05  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebugging-using-the-debugport/" title="">Antidebugging using the DebugPort</a></b><small><i> 
+        2008-08-01  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-two/" title="">Antidebugging using exceptions (part two)</a></b><small><i> 
+        2008-07-30  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebugging-using-exceptions-part-one/" title="">Antidebugging using exceptions (part one)</a></b><small><i> 
+        2008-07-28  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-conhecido-unresolved-external/" title="">O conhecido unresolved external</a></b><small><i> 
+        2008-07-18  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-caso-da-funcao-de-delay-load-desaparecida/" title="">O caso da função de Delay Load desaparecida</a></b><small><i> 
+        2008-07-16  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/primeiros-passos-no-vmware-workstation/" title="">Primeiros passos no VMware Workstation</a></b><small><i> 
+        2008-07-10  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/pesquisas-sobre-a-gina/" title="">Pesquisas sobre a GINA</a></b><small><i> 
+        2008-07-02  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/reflexao-em-c/" title="">Reflexão em C&#43;&#43;</a></b><small><i> 
+        2008-06-30  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/e-possivel-carregar-duas-dlls-gemeas-no-mesmo-processo/" title="">É possível carregar duas DLLs gêmeas no mesmo processo?</a></b><small><i> 
+        2008-06-21  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/alinhamento-de-memoria-portavel/" title="">Alinhamento de Memória Portável</a></b><small><i> 
+        2008-06-18  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-basico-de-repositorios-no-bazaar/" title="">Guia básico de repositórios no Bazaar</a></b><small><i> 
+        2008-06-10  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/declaracao-x-definicao/" title="">Declaração x definição</a></b><small><i> 
+        2008-06-06  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-criar-uma-lib-no-visual-studio/" title="">Como criar uma LIB no Visual Studio</a></b><small><i> 
+        2008-05-29  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/aprendendo-rapidamente-conceitos-essenciais-do-windbg/" title="">Aprendendo rapidamente conceitos essenciais do WinDbg</a></b><small><i> 
+        2008-05-23  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/mousetool-clique-automatico-do-seu-rato/" title="">MouseTool: clique automático do seu rato</a></b><small><i> 
+        2008-05-21  [code draft]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/aquele-do-while-engracado/" title="">Aquele do-while engraçado</a></b><small><i> 
+        2008-05-15  [draft code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/kernel-mode-user-mode/" title="">Kernel Mode &gt;&gt; User Mode, ou Como Fazer Debug de User Mode pelo Kernel Mode usando WinDbg</a></b><small><i> 
+        2008-05-13  [code]   [windbg] </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-tratar-um-merge-no-bazaar/" title="">Como tratar um merge no Bazaar</a></b><small><i> 
+        2008-05-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/acessando-memoria-fisica-no-windbg/" title="">Acessando memória física no WinDbg</a></b><small><i> 
+        2008-05-01  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/" title="">Bazaar e Fedora 8: a saga</a></b><small><i> 
+        2008-04-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/ode-ao-c/" title="">Ode ao C&#43;&#43;</a></b><small><i> 
+        2008-04-21  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/crash-dump-analysis-o-livro/" title="">Crash Dump Analysis: o livro</a></b><small><i> 
+        2008-04-17  [reading code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-mercurial/" title="">Guia básico de controle de código (Mercurial)</a></b><small><i> 
+        2008-04-15  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/aprendendo-assembly-com-o-depurador/" title="">Aprendendo assembly com o depurador</a></b><small><i> 
+        2008-04-11  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/linux-e-o-dhcp/" title="">Linux e o DHCP</a></b><small><i> 
+        2008-04-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-2/" title="">Conversor de Houaiss para Babylon - parte 2</a></b><small><i> 
+        2008-04-08  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/backup-de-pobre/" title="">Backup de pobre</a></b><small><i> 
+        2008-03-28  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/windbg-a-distancia/" title="">WinDbg a distância</a></b><small><i> 
+        2008-03-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/depuracao-da-mbr/" title="">Depuração da MBR</a></b><small><i> 
+        2008-03-24  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/como-rodar-qualquer-coisa-como-servico/" title="">Como rodar qualquer coisa como serviço</a></b><small><i> 
+        2008-03-20  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/influence-board/" title="">Influence Board</a></b><small><i> 
+        2008-03-14  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-misterio-das-pilhas-diferentes/" title="">O mistério das pilhas diferentes</a></b><small><i> 
+        2008-03-12  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sed-grep-e-afins/" title="">Sed, Grep e afins</a></b><small><i> 
+        2008-03-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/iteradores-nao-sao-constantes/" title="">Iteradores não são constantes</a></b><small><i> 
+        2008-03-04  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/quando-o-ponteiro-nulo-nao-e-invalido/" title="">Quando o ponteiro nulo não é inválido</a></b><small><i> 
+        2008-02-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/conversor-de-houaiss-para-babylon-parte-1/" title="">Conversor de Houaiss para Babylon - parte 1</a></b><small><i> 
+        2008-02-27  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/codigos-de-entrevista-o-ponteiro-nulo/" title="">Códigos de entrevista - o ponteiro nulo</a></b><small><i> 
+        2008-02-25  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/configurando-seus-projetos-no-visual-studio/" title="">Configurando seus projetos no Visual Studio (Multi-threaded Debug DLL /MT, /MD)</a></b><small><i> 
+        2008-02-21  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/" title="">Os diferentes erros na linguagem C</a></b><small><i> 
+        2008-02-15  [code ccpp home]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/funky-do-while/" title="">Funky do-while</a></b><small><i> 
+        2008-02-13  [english code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/desconstruindo-ioccc/" title="">Desconstruindo IOCCC</a></b><small><i> 
+        2008-02-11  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/" title="">Silly regex trick: finding the project who failed inside a big VS solution</a></b><small><i> 
+        2008-02-07  [english code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/process-monitor-e-o-monopolio-malcriado/" title="">Process Monitor e o monopólio malcriado</a></b><small><i> 
+        2008-02-05  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo-v2/" title="">Compartilhando variáveis com o mundo v2</a></b><small><i> 
+        2008-02-01  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/compartilhando-variaveis-com-o-mundo/" title="">Compartilhando variáveis com o mundo</a></b><small><i> 
+        2008-01-30  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/rmthread-rode-codigo-em-processo-vizinho/" title="">RmThread: rode código em processo vizinho</a></b><small><i> 
+        2008-01-28  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/keychanger-de-crianca/" title="">Keychanger de criança</a></b><small><i> 
+        2008-01-24  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/otimizacao-em-funcoes-recursivas/" title="">Otimização em funções recursivas</a></b><small><i> 
+        2008-01-18  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/encontrando-as-respostas-do-flash-pops/" title="">Encontrando as respostas do Flash Pops</a></b><small><i> 
+        2008-01-16  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/temas-no-windbg/" title="">Temas no WinDbg</a></b><small><i> 
+        2008-01-14  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/analisando-dumps-com-windbg-e-ida/" title="">Analisando Dumps com WinDbg e IDA</a></b><small><i> 
+        2008-01-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/gambi-do-dia-swap-com-apenas-duas-variaveis/" title="">Gambi do dia: swap com apenas duas variáveis</a></b><small><i> 
+        2007-12-31  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/curiosidades-inuteis-o-operador-de-subscrito-em-c/" title="">Curiosidades inúteis: o operador de subscrito em C&#43;&#43;</a></b><small><i> 
+        2007-12-27  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/o-que-acontece-quando-o-contador-estoura/" title="">O que acontece quando o contador estoura</a></b><small><i> 
+        2007-12-25  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/banco-de-dados-no-c-builder/" title="">Banco de dados no C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-21  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/drag-and-drop-no-c-builder/" title="">Drag and drop no C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-19  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sizeof-de-novo/" title="">Sizeof (de novo)</a></b><small><i> 
+        2007-12-17  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/debug-remoto-no-c-builder/" title="">Debug remoto no C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-13  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/gerenciamento-de-janelas-em-c-builder/" title="">Gerenciamento de janelas em C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-11  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/interacao-entre-controles-no-c-builder/" title="">Interação entre controles no C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-05  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/conceitos-basicos-na-programacao-com-c-builder/" title="">Conceitos básicos na programação com C&#43;&#43; Builder</a></b><small><i> 
+        2007-12-03  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/desenhando-em-c-builder/" title="">Desenhando em C&#43;&#43; Builder</a></b><small><i> 
+        2007-11-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg-parte-2/" title="">Carregando DLLs arbitrárias pelo WinDbg ou como escrever script para WinDbg</a></b><small><i> 
+        2007-11-27  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/carregando-dlls-arbitrarias-pelo-windbg/" title="">Carregando DLLs arbitrárias pelo WinDbg</a></b><small><i> 
+        2007-11-23  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/usando-a-libc-nativa-do-windows/" title="">Usando a libc nativa do Windows</a></b><small><i> 
+        2007-11-21  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-51/" title="">História do Windows - parte 5.1</a></b><small><i> 
+        2007-11-19  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/sdelete/" title="">SDelete</a></b><small><i> 
+        2007-11-15  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/detectando-hooks-globais-no-windbg/" title="">Detectando hooks globais no WinDbg (SetWindowsHookEx)</a></b><small><i> 
+        2007-11-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/ponteiro-de-metodo-qual-this-e-usado/" title="">Ponteiro de método: qual this é usado?</a></b><small><i> 
+        2007-11-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/ponteiros-de-metodo-conceito-fundamental/" title="">Ponteiros de método: conceito fundamental</a></b><small><i> 
+        2007-11-05  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/brincando-com-o-windbg/" title="">Brincando com o WinDbg (alterando mensagem de erro no Bloco de Notas / Notepad)</a></b><small><i> 
+        2007-10-30  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/protecao-dos-membros-protected/" title="">Proteção dos membros protected</a></b><small><i> 
+        2007-10-26  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/" title="">Typeid e os perigos do não-polimorfismo</a></b><small><i> 
+        2007-10-24  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-breakpoint/" title="">Guia básico para programadores de primeiro breakpoint</a></b><small><i> 
+        2007-10-22  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/por-que-minha-dll-travou/" title="">Por que minha DLL travou?</a></b><small><i> 
+        2007-10-18  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-basico-para-programadores-de-primeiro-int-main/" title="">Guia básico para programadores de primeiro int main</a></b><small><i> 
+        2007-10-16  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/engenharia-reversa-para-principiantes/" title="">Engenharia reversa para principiantes</a></b><small><i> 
+        2007-10-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-50/" title="">História do Windows - parte 5.0</a></b><small><i> 
+        2007-10-08  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/debug-da-bios-com-o-softice-16-bits/" title="">Debug da BIOS com o SoftIce 16 bits</a></b><small><i> 
+        2007-10-02  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/introducao-ao-c-builderturbo-c/" title="">Introdução ao C&#43;&#43; Builder...Turbo C&#43;&#43;</a></b><small><i> 
+        2007-09-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/why-is-my-dll-locked/" title="">Why is my DLL locked?</a></b><small><i> 
+        2007-09-24  [code english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/" title="">A mobilidade das variáveis no printf</a></b><small><i> 
+        2007-09-20  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/hook-de-com-no-windbg/" title="">Hook de COM no WinDbg</a></b><small><i> 
+        2007-09-18  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/aquisicao-de-recurso-e-inicializacao/" title="">Aquisição de recurso é inicialização</a></b><small><i> 
+        2007-09-14  [ccpp code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/guia-basico-de-controle-de-codigo-source-safe/" title="">Guia básico de controle de código (Source Safe)</a></b><small><i> 
+        2007-09-12  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebug-detectando-attach/" title="">Antidebug: Detectando Attach</a></b><small><i> 
+        2007-09-10  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-40/" title="">História do Windows - parte 4.0</a></b><small><i> 
+        2007-09-04  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/hook-de-api-no-windbg/" title="">Hook de API no WinDbg</a></b><small><i> 
+        2007-08-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebug-ocupando-a-debugport/" title="">Antidebug: ocupando a DebugPort</a></b><small><i> 
+        2007-08-23  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/erro-de-compilacao-funcoes-muito-novas-na-win32-api/" title="">Erro de compilação: funções muito novas na Win32 API</a></b><small><i> 
+        2007-08-21  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/junctions/" title="">Junctions</a></b><small><i> 
+        2007-08-17  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-da-linguagem-c-parte-2/" title="">História da Linguagem C: Parte 2</a></b><small><i> 
+        2007-08-15  [ccpp code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/gina-x-credential-provider/" title="">GINA x Credential Provider</a></b><small><i> 
+        2007-08-13  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-2/" title="">Antidebug: interpretação baseada em exceção (parte 2)</a></b><small><i> 
+        2007-08-09  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-351/" title="">História do Windows - parte 3.51</a></b><small><i> 
+        2007-08-07  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-30/" title="">História do Windows - parte 3.0</a></b><small><i> 
+        2007-08-03  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-da-linguagem-c-parte-1/" title="">História da Linguagem C: Parte 1</a></b><small><i> 
+        2007-08-01  [ccpp code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/c-and-c-operators-precedence-table/" title="">C and C&#43;&#43; Operators Precedence Table</a></b><small><i> 
+        2007-07-30  [ccpp code english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/movendo-o-cursor-do-mouse-com-o-teclado/" title="">Movendo o cursor do mouse com o teclado</a></b><small><i> 
+        2007-07-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/" title="">C&#43;&#43;0x parcial no novo GCC 4.3</a></b><small><i> 
+        2007-07-24  [code ccpp]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/antidebug-interpretacao-baseada-em-excecao-parte-1/" title="">Antidebug: interpretação baseada em exceção (parte 1)</a></b><small><i> 
+        2007-07-20  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/" title="">What happens inside the sizeof operator</a></b><small><i> 
+        2007-07-16  [ccpp code english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/precedence-difference/" title="">Precedence difference</a></b><small><i> 
+        2007-07-10  [ccpp code english]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-20/" title="">História do Windows - parte 2.0</a></b><small><i> 
+        2007-07-04  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/introducao-ao-softice/" title="">Introdução ao SoftICE</a></b><small><i> 
+        2007-07-02  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-2/" title="">A Inteligência do if: Parte 2</a></b><small><i> 
+        2007-06-29  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/historia-do-windows-parte-10/" title="">História do Windows - parte 1.0</a></b><small><i> 
+        2007-06-26  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/disassembling-the-array-operator/" title="">Disassembling the array operator</a></b><small><i> 
+        2007-06-22  [code english ccpp home]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/introducao-ao-debugging-tools-for-windows/" title="">Introdução ao Debugging Tools for Windows (usando o Logger para monitorar APIs)</a></b><small><i> 
+        2007-06-20  [code]  </small></i>
+        </td></tr>
+    
+        <tr><td><b><a href="http://www.caloni.com.br/a-inteligencia-do-if-parte-1/" title="">A Inteligência do if: Parte 1</a></b><small><i> 
+        2007-06-18  [code]  </small></i>
+        </td></tr>
+    
+    </table>
+
+    </div>
+</div>
+</section>
+
+    <footer class="footer">
+  <div class="container">
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.05.02</a> </i></span>
+  </div>
+</footer>
+
+  </body>
+
+</html>

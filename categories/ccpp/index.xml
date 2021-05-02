@@ -1,0 +1,541 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ccpp on Blogue do Caloni</title>
+    <link>http://www.caloni.com.br/categories/ccpp/</link>
+    <description>Recent content in ccpp on Blogue do Caloni</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Tue, 04 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://www.caloni.com.br/categories/ccpp/" rel="self" type="application/rss+xml" />
+    
+     
+        <item>
+  <title>GetArgs v. Array</title>
+  <link>http://www.caloni.com.br/getargs-array/</link>
+  <pubDate>2020-08-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/getargs-array/</guid>
+  <description>Algumas pessoas ficam chateadas quando não se programa usando Boost para tudo. E por isso eu continuo escrevendo código simples e funcional para meu blogue. Esse código vai continuar funcionando por mais cem anos e o código da Boost vai explodir antes que seus filhos nasçam.
+/** Interpreta argumentos da linha de comando com suporte a arrays.@author Caloni@date 2020-08*/#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;string.h&amp;gt;const char** GetArgArray(char* argv[], const char* arg){char** ret = NULL;size_t cur_off = 0;while (*&#43;&#43;argv){if (strcmp(*argv, arg) == 0){if (*(argv &#43; 1)){char* new_arg = *(argv &#43; 1);ret = (char**)realloc(ret, (cur_off &#43; 2) * sizeof(char*));ret[cur_off&#43;&#43;] = new_arg;ret[cur_off] = NULL;}}}return (const char**)ret;} Esta versão do meu famigerado parser de argumentos vindos do argc e argv atende uma necessidade que tive recentemente em um projeto de teste: obter um array de argumento. Um array de argumentos é o mesmo argumento repetido n vezes se transformando em um array para ser consumido como tal. Para essa versão será necessário uma segunda função, especializada, que faça o serviço.
+Alterei meu código mágico, simples e rápido para parsear linha de comando em C para suportar arrays. Na correria do projeto foi algo igualmente simples e rápido, embora com alguns truques interessantes de se aprender sobre libc. Basicamente o que ele faz é varrer o array argv construindo seu próprio filtrado apenas com os argumentos que interessam. Ele aloca e realoca a memória para esse array de ponteiros para char usando a função padrão realloc, que consegue fazer a alocação inicial e realocações mantendo o conteúdo da memória original.
+Durante o laço é mantido um offset que é incrementado a cada novo argumento. Caso não exista nenhum argumento o retorno será NULL. O aprendizado de libc aqui fica por conta do uso do realloc para simplificar realocação, algo que C&#43;&#43; não possui até hoje (se você quiser fazer as coisas apenas no modo C&#43;&#43; com new e delete) e que depende de abstrações da STL como containers para fazê-lo.
+</description>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43; Co Routines</title>
+  <link>http://www.caloni.com.br/cpp-co-routines/</link>
+  <pubDate>2020-06-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/cpp-co-routines/</guid>
+  <description>Entre os gêneros mais famosos do cinema e da programação está o terror, esse estado mental que se caracteriza pelo medo ou pela aversão a uma situação que envolve a perda de controle. Nesse quesito se encaixam as novas corrotinas que serão adotadas pelo padrão C&#43;&#43;.
+No último Caloni Bode Cast Live Privado, aqueles que não estão publicados no YouTube, conversei com um amigo por mais uma vez (já perdi a conta quantas foram) sobre a famigerada implementação, mas acho que dessa vez detectei melhor o que torna essa nova biblioteca de C&#43;&#43; tão repugnante para os amantes de boas soluções de engenharia e do padrão da linguagem.
+A primeira ressalva diz respeito à alocação dinâmica. Ao usar esse modelo de rotinas cooperativas o programador é obrigado a alocar espaço para o estado dinamicamente, o que fere duas premissas da linguagem: o controle absoluto do modelo de execução para o programador e a certeza que ele irá apenas pagar em performance o que ele usar. Se os fãs da linguagem fossem religiosos, eles diriam agora que esta não foi uma decisão muito cristã do comitê.
+Eu continuo defendendo que a linguagem C seja usada caso surjam contra-indicações na prática da STL.
+</description>
+</item>
+
+     
+        <item>
+  <title>Printf</title>
+  <link>http://www.caloni.com.br/printf/</link>
+  <pubDate>2020-06-18</pubDate>
+  
+  <guid>http://www.caloni.com.br/printf/</guid>
+  <description>Entre os segredos escondidos das funções básicas da lib padrão da linguagem C o printf e o scanf lideram o ranking. O printf possui a capacidade de alinhamento de colunas das string impressas com tamanho variável. Sabia disso? Pois é, isso não se ensina nas escolas.
+A impressão básica de uma string passada como argumento com printf deve ser feita usando na string de formatação os caracteres &amp;quot;%s&amp;quot;. Agora, se você colocar um sinal de menos entre esses dois caracteres essa string será alinhada à esquerda. Mas o que é direita e esquerda se o tamanho usado pela impressão vai ser exatamente o tamanho da string? Aí é que entra o especificador de tamanho, logo após o opcional sinal de menos e antes do s que determina o tipo string. Dessa forma a string de formatação final para uma string variável alinhada à esquerda em uma coluna de trinta caracteres de tamanho seria &amp;quot;%-30s&amp;quot;.
+Porém, existe um problema com essa abordagem: a string variável pode ter mais de trinta caracteres. Nesse caso existe mais uma opção &amp;quot;escondida&amp;quot; do printf, que é especificar esse trinta em um argumento passado junto dos valores. Para isso basta trocar o número por asterisco e passar o tamanho como se passa qualquer outro valor à função, seguindo a ordem de recebimento. Por exemplo, um printf(&amp;quot;%-30s&amp;quot;, &amp;quot;minha_string&amp;quot;) poderia virar printf(&amp;quot;%-*s&amp;quot;, 30, &amp;quot;minha_string&amp;quot;). Note que agora o tamanho trinta não está mais fixo no código e pode ser uma variável inteira.
+Fiz um exemplo bem sucinto, que pede o nome das branches master e slave de um controle de fonte e imprime as duas no final, alinhando o nome das branches à esquerda e o número de commits de cada uma à direita, incluindo um header. É assim que o printf resolve esse tipo de problema de saída formatada: de maneira simples e elegante, sem inventar moda nem querer &amp;quot;revolucionar&amp;quot; a computação.
+</description>
+</item>
+
+     
+        <item>
+  <title>Cast Operator</title>
+  <link>http://www.caloni.com.br/cast-operator/</link>
+  <pubDate>2020-04-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/cast-operator/</guid>
+  <description>O código abaixo não é C&#43;&#43; moderno. É 98. Porém, ele já demonstra alguns problemas na linguagem que foram aumentados desde então. Não se sabe exatamente qual a tradução semântica de construções tão parecidas quanto o operador-função e o operador-cast. Enquanto o primeiro serve para transformar objetos em funções chamáveis o segundo serve para extrair tipos de maneira educada.
+struct T{explicitoperator int(){return 10;}};int main(){T t;// error: term does not// evaluate to a function// taking 0 argumentst();int i = (int) t;} O operador de cast só funciona se um cast estiver envolvido. Caso ele seja um método com explicit o cast precisa ser explícito como no exemplo. Se ele não fosse bastaria uma atribuição normal.
+int i = t; Ele não pode simplesmente ser chamado como um operador-função. Até porque podem haver vários deles. Enquanto o operador de função trabalha com overload nos parâmetros o operador de cast trabalha com o retorno. Uma vez eu fiz uma brincadeira que meu amigo Fernando tinha me pedido: como fazer sobrecarga de função pelo retorno. Acredito que o exemplo desse post antigo possa exemplificar melhor o que quero dizer.
+Já a diferença sintática e semântica dos operadores de função e cast é sutil, quase inexistente. Como muitas coisas em C&#43;&#43; moderno:
+// cast-operatoroperator int();// function-operatorint operator(); </description>
+</item>
+
+     
+        <item>
+  <title>Some things I learned in a Hacker Rank exercise</title>
+  <link>http://www.caloni.com.br/hacker-rank/</link>
+  <pubDate>2019-08-08</pubDate>
+  
+  <guid>http://www.caloni.com.br/hacker-rank/</guid>
+  <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
+Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.
+My first attempt was naive, but worked for test cases where there were no duplicated numbers, a detail I overlooked in the description and happenned the very first test (lucky me it is possible to download the test cases, input and output, giving in return some of the points accumulated solving other problems).
+/** Complete the runningMedian function below.*/vector&amp;lt;double&amp;gt; runningMedian(ofstream&amp;amp; fout, vector&amp;lt;int&amp;gt; a) {vector&amp;lt;double&amp;gt; ret;set&amp;lt;int&amp;gt; oa;for( int n: a ) {oa.insert(n);auto oaMidIt = oa.size() == 1 ? oa.begin(): next(oa.begin(), oa.size() / 2 - (oa.size() % 2 == 0 ? 1 : 0) );auto oaMidIt2 = next(oaMidIt);double median;if( oa.size() % 2 == 1 ) {median = *oaMidIt;}else {median = ( *oaMidIt &#43; *oaMidIt2 ) / 2.0;}fout &amp;lt;&amp;lt; median &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;ret.push_back(median);}return ret;} So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.
+BEGIN --&amp;gt; 12, 4, 5, 3, 8, 7 &amp;lt;-- END^ ^| |-- SORTED_ENDMEDIAN ^|-- NEWBOOL ODD = TRUE;{DOUBLE MEDIAN = ODD ? MEDIAN : (MEDIAN &#43; MEDIAN&#43;1) / 2NEW = SORTED_ENDRECURSIVE/ITERATIVE_INSERT(BEGIN, SORTED_END, MEDIAN, NEW)ODD = ! ODDSORTED_END&#43;&#43;} WHILE( SORTED_END != END )INSERT(BEG, END, NEW, MED, ODD) {MED = SZ/2 - (SZ_ODD ? 0 : 1)1, 2, 3, 5, 6 (4)-&amp;lt; ?RIGHT OR LEFT/*my playgroundvector&amp;lt;int&amp;gt; test = { 12, 4, 5, 3, 8, 7, 5, 5 };for (size_t new_element = 1; new_element &amp;lt; test.size(); &#43;&#43;new_element)insert_new_element(test, new_element);return 0;*/ I still wasn&#39;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.
+I was still trying in the window, thought, until in one of these iteractions with the compiler/debugger I achieved a simples, clearer solution, using only offsets from the vector instead of iterators.
+void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){size_t begin = 0;size_t end = new_element;size_t sz = end - begin;size_t median= begin &#43; sz / 2 - (sz % 2 ? 0 : 1);while( sz &amp;gt; 1 ) {if( a[new_element] &amp;lt; a[median] ) end = median;elsebegin = median &#43; 1;sz = end - begin;median = median == begin? begin : begin &#43; sz / 2 - (sz % 2 ? 0 : 1);}size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];a.erase(a.begin() &#43; new_element);a.insert(a.begin() &#43; insert_offset, element);} This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C&#43;&#43; solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.
+void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){//...size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];//a.erase(a.begin() &#43; new_element);//a.insert(a.begin() &#43; insert_offset, element);memmove(&amp;amp;a[insert_offset &#43; 1], &amp;amp;a[insert_offset], (new_element - insert_offset) * sizeof(int));a[insert_offset] = element;} And it worked. Now what I learned looking the other solutions.
+There are incredible tools in C&#43;&#43;, even since 98 or 11, that are frequently overlooked, but it is important to notice that the language has a framework for processing: containers, algorithms and so on. By example, looking for other solutions I learned about the characteristics of multiset and priorityqueue (spoiler: both have a ordering predicate and are logarithmic). There are smart functions in algorithm, too, as lowerbound.
+A lot of solutions simply ignored the skeleton provided by the site and began its own code from scratch, eliminating the &amp;quot;request&amp;quot; that the numbers must be stored first in a vector. Sometimes, when there as skeleton in our life, we use them as guidelines, forgetting that &amp;quot;there is no spoon&amp;quot;.
+I hope you learned something, too. You can see my Hacker Rank attempts in the site (nickname caloni) or my GitHub repository.
+</description>
+</item>
+
+     
+        <item>
+  <title>Meu Novo Parseador de Argc Argv</title>
+  <link>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</link>
+  <pubDate>2018-08-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/meu-novo-parseador-de-argc-argv/</guid>
+  <description>Eis que me deparo com um projeto onde não posso usar STL. Ou seja, nada de map nem string. Isso quer dizer que minha função bonita e completa de parseamento de argumentos argc/argv não pode ser usado. Essa é uma má notícia. A boa notícia é que achei uma forma muito mais simples e à prova de falhas de fazer isso. Ele basicamente percorre o array argv em busca do nome do parâmetro enviado para a função. Uma vez que ele encontre ele retorna o próximo elemento. Na falta de próximo elemento ele simplesmente retorna uma string vazia que não é nulo, mas já indica que há o parâmetro na lista de argumento.
+Essa função é tão simples, e tem tão poucas dependências (strcmp) que você pode usá-la em praticamente qualquer programa que use argc/argv e que use os parâmetros dos mais complexos. Ao chamar essa função se passa o argc e o argv recebido no main e o terceiro argumento é apenas o nome de um argumento válido que pode ser recebido via linha de comando. O resultado é um ponteiro (obtido no próprio argv) da próxima string ou uma string C vazia constante (não precisa de alocação) se for o último argv. E caso ele não ache o retorno é NULL. Seu uso comum é uma linha apenas, ou uma linha para cada argumento buscado. Sua complexidade é linear, mas, ei, quem está querendo performance no início do programa?
+Uma última observação: dependendo do uso você pode ou não usar o retorno, e ele possui semântica booleana, pois caso o argumento não exista o retorno é NULL e por isso não cai dentro do if (pois NULL traduzido em booleano é false). Eis uma função para copiar e colar abusivamente.
+</description>
+</item>
+
+     
+        <item>
+  <title>A Linguagem de Programação C&#43;&#43;: O Início</title>
+  <link>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</link>
+  <pubDate>2016-11-29</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-linguagem-de-programacao-cpp-o-inicio/</guid>
+  <description>O livro-base sobre a linguagem C&#43;&#43; e como programar nela tem o nome pouco criativo &amp;quot;The C&#43;&#43; Programming Language&amp;quot;, e é de Bjarne Stroustrup, o criador da linguagem. Ele começou a desenhá-la em 1979, quando ainda a chamava de &amp;quot;C com Classes&amp;quot;. Havia um problema a ser resolvido na época em que Stroustrup estava fazendo sua tese de doutorado. Havia linguagens muito boas em abstração como Simula, como o novo conceito de Orientação a Objetos, que carecia do mais importante na época: velocidade (só na época?). Já linguagens mais antigas como BCPL eram bem rápidas, mas eram tão simples que pareciam mais um Assembly glorificado. Havia, portanto, a necessidade de preencher a área de computação com alguma coisa bem no meio.
+Stroustrup não fez tudo do zero, nem fez tudo de uma vez. A primeira necessidade era apenas criar uma abstração já existente na linguagem C, mas que ainda não havia sido integrada à sintaxe: o contexto de uma estrutura, que se assemelha a uma proto-classe, ou para alguns já é até uma classe, pois possui membros e métodos:
+class Cpp{int x;int GetX();};int Cpp::GetX(){return x;}void Func(Cpp cpp){int y = 33 &#43; cpp.GetX();}int main(){Cpp cpp;cpp.x = 42;Func(cpp);} A grande sacada é que no meio de toda essa sintaxe de chamada de método havia a passagem de um parâmetro escondido, o this, que se referia a uma instância específica da classe: um objeto.
+int Cpp::GetX(){return this-&amp;gt;x;} Isso equivaleria a uma struct em C com funções que recebessem um this adaptado:
+struct C{int x;};int C_GetX(C* pThis){return pThis-&amp;gt;x;}void Func(C c){int y = 33 &#43; C_GetX(&amp;amp;c);}int main(){struct C c;c.x = 42;Func(c);} Esse tipo de abstração nem é tão complicada assim. O ojetivo eram vários: conseguir proteger os membros de acesso indevido, abstrair o comportamento de um objeto. Com o tempo Stroustrup foi realmente criando algo de novo e muito mais difícil de se manter em C. Algo para um próximo post =)
+</description>
+</item>
+
+     
+        <item>
+  <title>C, C&#43;&#43;, Engenharia Reversa e Todo o Resto</title>
+  <link>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</link>
+  <pubDate>2015-04-27</pubDate>
+  
+  <guid>http://www.caloni.com.br/c-cpp-engenharia-reversa-e-todo-o-resto/</guid>
+  <description>&amp;quot;C&#43;&#43; é divertido, mas não paga minhas contas&amp;quot;. Por diversas coincidências da natureza, e um bocado de empenho deste que vos fala, essa frase não precisa ser dita por mim. Tendo programado em casa por 2 ou 3 anos e lido The C Programming Language um bocado de vezes antes de me aventurar no mercado de trabalho, tive a oportunidade de começar na área já programando em C, C&#43;&#43;, e com uma equipe peso-pesado. Programávamos para Windows, onde as coisas não são tão fáceis quanto no Linux (que é um SO de e para programadores), e onde precisa-se comer muita farinha com sintaxe para construir coisas decentes. Portabilidade às vezes é um objetivo, às vezes é deixado de lado. A API Win32 já é bruta demais, e o cliente sempre tem um prazo apertado demais.
+Hoje, uns 15 anos depois, minha carreira foi 95% asfaltada com C e C&#43;&#43;, com pitadas de Assembly e recentemente Python. De vez em quanto, .NET, Java e até VB, porque a gente merece um descanso de vez em quando. Essa semana um leitor me perguntou como começar a trilhar esse caminho tão divertido do médio-nível. Não só isso: com pitadas de engenharia reversa. Como eu não sou um professor, infelizmente não vou conseguir dar uma resposta à altura, mas posso compartilhar um pouco meus pensamentos sobre meu passado.
+Na engenharia reversa, por exemplo, segui um caminho parecido com C: brincava de crackear os programas em casa. &amp;quot;Como destavar o WinRar?&amp;quot;, &amp;quot;Como não deixar expirar aquele programinha que veio no CD?&amp;quot;. Respostas à essas perguntas geralmente demoravam dias, semanas ou até meses. Mas não importava. Desde que fosse divertido -- e era, muito! -- sempre haveria vontade de caminhar cada vez mais para encontrar a resposta. Esse &amp;quot;caminho&amp;quot; que eu uso como metáfora geralmente não é muito bem pavimentado, não tem atalhos, mas tem diversas vielas que irão dar em paisagens fantásticas que irão te fazer perder um tempo imenso, mas deliciosamente divertido. Me lembro até hoje que minha maior diversão quando conheci os computadores foi tentar chegar o máximo possível do hardware para entender como diabos um impulso elétrico consegue fazer tanta coisa diferente. Não preciso dizer que isso deve ter me custado um ano e vários livros, cada um em uma camada mais embaixo de abstração.
+A questão sobre o aprendizado é: para aprender como um autodidata nada mais fácil do que tentar responder perguntas cuja resposta você esteja morrendo de curiosidade para saber. Só assim para esbarrar, por exemplo, no Assembly, e dedicar alguns meses lendo uns livros sobre o assunto, fazendo testes, abrindo um depurador que nunca viu na vida e aprendendo cometendo mais erros que acertos. Só com uma curiosidade infinita para ir além sem precisar de incentivos, sem temer a tão temida hoje em dia procrastinação. O Facebook/Twiter nunca serão tão divertidos quanto o poder de criação de um programador em suas mãos, ou o poder de desmontar um software engenhoso. Não se você já gostar dessa área. E se você gosta, provavelmente já sabe disso. Ou quer saber.
+Durante minha estadia na Open fiz uma pequena palestra explicando as coisas que eu precisava conhecer a fundo, mas que podem ser facilmente apreendidas por iniciantes (como eu fui), passo-a-passo, na análise de trojans de Windows. Acho que o conteúdo se aplica para quem quer começar a fuçar e não sabe por onde começar. No fundo o conteúdo era mais ou menos o que eu gostaria que me fosse ensinado antes que eu tivesse que gastar mais alguns meses com livros inteiros. Mas não me arrependo desses livros inteiros. Muitos foram úteis, outros inúteis, mas são as cicatrizes que tornam o aprendizado mais forte. Cicatrizes? Os erros de percurso!
+Se me perguntassem a respeito da facilidade de aprender essa ou aquela linguagem, aprender essa ou aquela técnica, qual o melhor para começar eu diria que depende. E muito. Cada profissional tem o seu histórico de vida e de trabalho. E cada um tem o seu ritmo. Eu sou uma pessoa devagar. Eu preciso repetir as mesmas coisas várias vezes para conseguir fixar um novo aprendizado. Porém, quando fixo, dificilmente esqueço. Foi assim com a linguagem C, cujo padrão fiquei quase decorando (um dos anexos do livro que citei no início tem a gramática completa, é uma linguagem simples). No entanto, demorei tempo demais para partir para o C&#43;&#43;. Porém, quando comecei a ler The C&#43;&#43; Programming Language já tinha um background do que era C&#43;&#43;, como ele nasceu e como ele evoluiu para um padrão internacional. Já existia internet, e tudo ficou mais fácil com internet (especialmente para autodidatas). Hoje em dia apenas os analfabetos e os preguiçosos não conseguem aprender alguma coisa se tiverem internet. E olhe que quem está escrevendo isso é um preguiçoso nato. Tem semanas que sou um procrastinador profissional. Porém, quando algo aguça minha curiosidade, eu viro um computador processando um programa que só irá terminar depois de uma resposta satisfatória.
+Foi assim com C&#43;&#43;, talvez uma camada de abstração acima de C, mas igualmente divertido, pois trazia o poder de processamento e acesso a hardware já presente em C. Os novos paradigmas que a STL apresentava pareciam alienígenas, e acho que não me habituaria hoje em dia com contêineres se não tivesse lido com muita atenção o livro-mestre de Bjarne Stroustrup. Nem templates. Templates são um quebra-cabeças para quem está pensando em tipos, pois eles não são tipos. É o mesmo quebra-cabeças que algumas novidades como namespaces fazem com a nossa cabeça. Estava acostumado a tipos, comandos e expressões. Essas novidades do C&#43;&#43; foram um passo além, e que valeu a pena.
+Uma possível evolução disso seriam as linguagens funcionais. Dizem que é o futuro. Por enquanto, não paga a conta de muita gente. Assim como as famigeradas C e C&#43;&#43;. No entanto, se isso for sempre o seu balizador de conhecimento, estará sempre à mercê do mercado, que não sabe de nada sobre os seus gostos, seus interesses, suas ambições. Conhecimento é uma ambição muito &amp;quot;mais infinita&amp;quot; e muito mais recompensadora que dinheiro. O conhecimento tem o poder de fazer mais dinheiro, e não o contrário. Portanto, tenha a curiosidade, e atenda aos seus chamados. O resto o destino se vira.
+</description>
+</item>
+
+     
+        <item>
+  <title>Origem do Tipo char</title>
+  <link>http://www.caloni.com.br/origem-do-tipo-char/</link>
+  <pubDate>2015-01-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/origem-do-tipo-char/</guid>
+  <description>Programadores C e C&#43;&#43;, preparem-se para explodir as cabeças! No princípio... não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados srs. dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
+O bom de B estava em sua rica expressividade. Sua gramática extremamente simples. Teoricamente a evolução da linguagem BCPL criada por Martin Richards, ela era tão simples que o manual da linguagem B consistia de apenas 30 páginas. Isso é menos do que as 32 palavras reservadas de C. As instruções eram definidas em termos de if&#39;s e goto&#39;s e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo, geralmente a palavra da plataforma, que utilizada em expressões definiam seu tipo; esse padrão de bits era chamado rvalue.
+Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o char da época ocupava o mesmo tamanho que um int. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:
+// the i-th character // of the string is returnedc = char( string, i ); Sim! Char era uma função, um conversor de &amp;quot;tipos&amp;quot;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C:
+// read a character // from stdinint getchar( void );// writes a character // to stdoutint putchar( int c );// sets buffers to a // specified charactervoid *memset( void *dest, int c, size_t count ); </description>
+</item>
+
+     
+        <item>
+  <title>Entendendo a Compilação</title>
+  <link>http://www.caloni.com.br/entendendo-a-compilacao/</link>
+  <pubDate>2015-01-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/entendendo-a-compilacao/</guid>
+  <description>Fiz alguns slides a pedido dos organizadores do TDC 2014, já que a palestra que ministrei com esse tema foi para ajudar meu amigo-sócio Rodrigo Strauss que não havia preparado nenhum slide a respeito.Felizmente eu já havia explicado alguns conceitos-chave para quem programa em C/C&#43;&#43; e precisa -- eu disse: PRECISA -- conhecer todo o passo-a-passo que leva o seu código-fonte a gerar um executável com código de máquina pronto para rodar.
+Como havia explicado anteriormente, existem três processos principais e clássicos (pode haver mais, dependendo do compilador, ambiente, etc) na formação de um código de máquina a partir de arquivos-fontes escritos em C ou C&#43;&#43; (ou ambos, são intercambiáveis). São eles: preprocessamento, compilação e linkedição.
+O preprocessamento é um trocador de textos. No máximo há macros, em que é possível passar argumentos (no formato texto). Exemplos são include, ifdef e define.
+A compilação é o núcleo da linguagem. Regras de sintaxe e gramática são validadas aqui pelo compilador. Cada compilação bem-sucedida recebe uma unidade de tradução e cospe um arquivo-objeto, que ainda não é executável, mas que já passou pela validação da linguagem.
+Por fim, a linkedição junta todos os arquivos-objeto, procurando ligar os nomes das funções e variáveis referenciadas um pelo outro. Os nomes externos são importantes neste passo para que o linker encontre as lacunas que precisa para consertar os saltos e assim gerar o executável final, que pode ser um programa com uma função main ou uma biblioteca dinâmica carregada por outro programa compilado seguindo esses três passos.
+</description>
+</item>
+
+     
+        <item>
+  <title>A moda agora é levar lambda na função</title>
+  <link>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</link>
+  <pubDate>2014-03-28</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-moda-agora-e-levar-lambda-na-funcao/</guid>
+  <description>A nova moda de programar C&#43;&#43; nos últimos anos com certeza é usar lambda. Mas, afinal, o que é lambda? Bom, pra começar, é um nome muito feio.
+O que esse nome quer dizer basicamente é que agora é possível criar função dentro de função. Não só isso, mas passar funções inteiras, com protótipo, corpo e retorno, como parâmetro de função.
+Isso significa que finalmente os algoritmo da STL vão ser úteis e não um &amp;quot;pain in the ass&amp;quot;.
+Por exemplo, antes, tínhamos que fazer o seguinte malabarismo para mexer com arrays/vetores/listas:
+void NewYearMail(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Imagine que para cada interação devíamos criar uma função que manipulasse os elementos do vetor.
+Uma alternativa que costumava utilizar era a de roubar na brincadeira e criar um tipo dentro da função (permitido) e dentro desse tipo criar uma função (permitido):
+int main(){struct NewYearMail{void operator()(Person&amp;amp; p){p.age &#43;= 1;SendMail(p);}};vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(),people.end(),NewYearMail);} Apesar disso gerar &amp;quot;internal compiler error&amp;quot; em muitos builds com o Visual Studio 2003 (e o rápido, mas anos noventa, Visual Studio 6) na maioria das vezes o código compilava e rodava sem problemas. No entanto, deixava um rastro sutil de gambi no ar, um resquício de inveja de Pascal permitir função dentro de função e C não.
+Agora isso não é mais necessário. Desde o Visual Studio 2010 (que eu uso) a Microsoft tem trabalhado essas novidades do padrão no compilador, e aos poucos podemos nos sentir mais confortáveis em usar essas modernices sem medo:
+int main(){vector&amp;lt;Person&amp;gt; people;GetAnniversaries(people);for_each(people.begin(), people.end(), [&amp;amp;](Person&amp;amp; p){p.age &#43;= 1;SendMail(p);});} &amp;quot;Caraca, mas o que é esse código alienígena?&amp;quot;, diria alguém como eu alguns anos atrás (talvez até meses). Bom, nada vem de graça em C&#43;&#43; e dessa vez houve algumas mudanças meio drásticas na sintaxe para acomodar o uso dessa lambida inline.
+int main(){int numbers[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };for_each(&amp;amp;numbers[0],&amp;amp;numbers[10],[&amp;amp;] // capture scope(int n) // arguments{cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &#39; &#39;;});} E não é só isso. Tem muito mais esquisitices de onde veio essa.
+</description>
+</item>
+
+     
+        <item>
+  <title>Uma nova linguagem</title>
+  <link>http://www.caloni.com.br/uma-nova-linguagem/</link>
+  <pubDate>2013-12-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/uma-nova-linguagem/</guid>
+  <description>Tenho que me atualizar. Faz um tempo (anos) em que deixei de lado esse mundo &amp;quot;frescurento&amp;quot; de C&#43;&#43;2030 e me foquei única e exclusivamente em resolver problemas da melhor forma possível com o que a linguagem já tinha a oferecer em uma implementação estável de compilador e bibliotecas.
+Agora o mundo está mudando. Para quem é do Universo Windows/Microsoft, a empresa do Uncle Bill vem liberando algumas versões interessantes do seu compilador (VS2012, 2013 e agora o CTP), cada vez mais próxima de um C&#43;&#43;11/14 100% compliance. Não acredito que cheguem lá, mas o fato de estarem empenhados indica para a indústria e seus clientes que há uma demanda sendo atendida. Não é mais frescurite de acadêmicos. Algumas features ultra-novas começam a ser usadas e permitidas em projetos.
+Estamos falando de uma nova linguagem que se forma com um novo ritmo. O padrão C&#43;&#43;11 demorou &amp;quot;apenas&amp;quot; 2 anos para cair em nossas linhas de comando, há um patch já confirmado para o ano que vem e já existem menções para um novo release em 2017. Para o programador C&#43;&#43; que se acostumou a contar as evoluções em décadas, um novo ritmo se impõe. Não há tempo para cristalização de conceitos. O boost já nos forneceu isso por todos esses anos e hoje ele é reconhecidamente a versão alpha que precisávamos.
+Veremos o que o futuro cada vez mais presente nos reserva.
+</description>
+</item>
+
+     
+        <item>
+  <title>Sobrecarga de função às avessas</title>
+  <link>http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/</link>
+  <pubDate>2012-05-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/sobrecarga-de-funcao-as-avessas/</guid>
+  <description> Nota do autor: navegando pelo Archive.org, que possibilita viajar no tempo e encontrar coisas enterradas que seria melhor deixar por lá, consegui encontrar um post que se perdeu na dobra espaço-temporal entre o old-fashioned Caloni.com.br (com direito à velha joaninha psicodélica, desenho do meu amigo que uso até hoje no blogue) e um finado outro domínio meu, o CThings. No final, consegui matar a marmota, chegar a 80 milhas por hora e voltar para o presente. Enjoy!
+ Alguém já se perguntou se é possível usar sobrecarga de função quando a diferença não está nos parâmetros recebidos, mas no tipo de retorno? Melhor dizendo, imagine que eu tenha o seguinte código:
+void CreateNewGUID(wstring&amp;amp;);void CreateNewGUID(GUID&amp;amp;);GUID guid;wstring guidS;CreateNewGUID(guidS);CreateNewGUID(guid); É um uso sensato de sobrecarga. Mas vamos supor que eu queira uma sintaxe mais intuitiva, com o retorno sendo atribuído à variável:
+wstring CreateNewGUID();GUID CreateNewGUID();GUID guid;wstring guidS;guid = CreateNewGUID();guidS = CreateNewGUID(); Voltando às teorias de C&#43;&#43; veremos que o código acima NÃO funciona. Ou, pelo menos, não deveria. Só pelo fato das duas funções serem definidas o compilador já reclama com um &amp;quot;error C2556: &#39;GUID CreateNewGUID(void)&#39;: overloaded function differs only by return type from &#39;std::wstring CreateNewGUID(void)&#39;&amp;quot;. E obviamente ele está correto. O tipo de retorno não é uma propriedade da função que exclua a ambiguidade em sua chamada. Apenas a assinatura pode fazer isso (que são os tipos dos parâmetros recebidos pela função).
+Como não podemos utilizar funções ordinárias o jeito é criar nosso próprio tipo de função que dê conta do recado usando a sobrecarga do operador de conversão de tipos. O operador de conversão suporta sobrecarga porque é na conversão que o compilador decide qual função chamar.
+struct CreateNewGUID{operator wstring ();operator GUID ();}; guid = CreateNewGUID();guidS = CreateNewGUID(); Agora com o novo tipo CreateNewGUID é possível chamá-lo como uma função, o que na prática cria uma nova instância da struct. Ao atribuir o retorno dessa instância a uma variável do tipo wstring ou GUID os operadores de conversão serão requisitados, cada um dependendo do tipo da variável a qual será atribuído o retorno.
+Uma vez que criamos um novo tipo, e considerando que este tipo é, portanto, diferente dos tipos wstring e GUID já existentes, devemos simplesmente converter nosso novo tipo para cada um dos tipos de retorno desejados:
+struct CreateNewGUID{operator wstring (){wstring ret;// cria guidreturn ret;}operator GUID (){GUID ret;// cria guidreturn ret;}}; E isso conclui a solução meio esquizofrênica de nossa sobrecarga às avessas. E voltando à pergunta original, penso que, com criatividade e C&#43;&#43;, nada é impossível. =)
+</description>
+</item>
+
+     
+        <item>
+  <title>Ode ao C&#43;&#43;</title>
+  <link>http://www.caloni.com.br/ode-ao-c/</link>
+  <pubDate>2008-04-21</pubDate>
+  
+  <guid>http://www.caloni.com.br/ode-ao-c/</guid>
+  <description>Strauss: lembra quando nós conversávamos sobre o assunto &amp;quot;Por que C&#43;&#43;?&amp;quot;, há muitas décadas atrás, e seu blogue era um dos primeiros no Brasil que não ficava relatando o que o autor comia no café da manhã, além de falar sobre programação? Pois é, eu estava reorganizando meus g-mails e reencontrei nossa conversa e, pior, seu artigo &amp;quot;derivado&amp;quot; dela, que irei republicar aqui pois, assim como antes, acredito em tudo que escrevi naquela época.
+Cristiano -- Olá! Sou programador em basic (Vbasic/Qbasic), fico indignado, com pessoas que sabem enteder a linguagem C&#43;&#43;, assembler... Como podem? Eu acho isto coisa de outro mundo! Será que eu tenho chances de aprender a linguagem?
+Strauss -- A resposta é simples: estudando. Eu tb comecei com QBasic e VB. Arrume um livro de C&#43;&#43; e estude. Treine bastante. E hoje em dia é mais fácil do que quando eu comecei, pq eu não tinha acesso à Internet. É simples assim... :-)
+Caloni -- Você pode ir tão longe quanto queira, mas pra isso a primeira coisa que vc tem que fazer é querer =).
+Strauss -- Acho que vou fazer um post sobre isso. &amp;quot;Por que C&#43;&#43;&amp;quot; :-) Vc podia me ajudar...
+Caloni -- Escrevi um textículo sobre o assunto da escolha, mas não visando o mercado:
+/*** @title Por que C&#43;&#43;* @author Wanderley Caloni Jr* @date 31.01.2005*/É natural que um programador tenha preferência por uma linguagem.Geralmente por motivos pessoais que se refletem nas características dalinguagem. Eu, por exemplo, tenho vários motivos para amar essalinguagem:Linguagem C. Todas as vantagens da linguagem C estão embutidas em C&#43;&#43;.E sem aquele papo erudito que deve-se programar em OO para ser C&#43;&#43;.Por ser multiparadigma, a linguagem também suporta o melhor daprogramação procedural e estruturada.Popularidade. C&#43;&#43; é o que há. Linguagem unânime e reconhecida no mundotodo como de uso geral. Dificilmente você vai encontrar um algoritmoque não tenha representação em C&#43;&#43;.Economia e Expressividade. Pode parecer bobagem, mas coisas comooperador de incremento e valor em todas expressões permite que se façamuita coisa com poucas linhas. Isso a torna muito expressiva. Isso, emoutras palavras, quer dizer que você pode juntar várias expressõesnuma só, e esse conjunto será também uma expressão.Liberdade. Em C&#43;&#43; você é o culpado de virtualmente qualquer coisa debom e ruim que aconteça no seu programa, pois você tem que seguirpoucas regras e tem que ser responsável no que faz. C&#43;&#43; não te ajuda aseguir um bom modelo de programação com restrições embutidas. Isso atorna difícil para iniciantes, mas conforme aumenta a experiência,maior o prazer em programar.Portabilidade. A possibilidade de compilar e rodar o seu código emvários ambientes - de compilação e execução - é uma característicaútil e agradável. No meu caso é só agradável, pois dificilmente façocódigo portável, apesar das boas noções que tenho sobre o assunto. Esão essas boas noções que me permitem afirmar que C&#43;&#43; suporta muitobem essa possibilidade.Rapidez. Pode não ser importante em muitos casos, mas já é do instintodo programador o desejo de eficiência no código. E nada como programarnuma linguagem extremamente eficiente em tempo de execução para sesentir feliz de ver o código rodando.FIM[]s Strauss -- Legal. Vou colocar minha água mercadológica no feijão e colocar no site.
+Não quis alterar o texto original, mas colocaria, além de rapidez, o título economia de recursos. É incrível o quanto progredimos no quesito hardware todos esses anos, e mesmo assim, existem linguagens e ambientes que parecem ter fome suficiente para consumir tudo e deixar um computador de última geração parecer um micro &amp;quot;meio lerdinho&amp;quot;. Felizmente não preciso dar nome aos bois, pois todos sabem ou conhecem pelo menos uma linguagem com essa característica.
+Também não quis generalizar. C e C&#43;&#43; não são as duas únicas opções quando se fala em bom desempenho. Existe também assembly e linguagens de script, que chegam inclusive a ser mais flexíveis e rápidas (além de mais produtivas).
+Ainda acredito em tudo isso que C&#43;&#43; proporciona e irá continuar proporcionando por muto tempo. Muitos programas escritos em C/C&#43;&#43; são conhecidíssimos e usados nos quatro cantos do mundo, muitas vezes em mais de um sistema operacional. C&#43;&#43; está morto? Longe disso... talvez pareça assim em território nacional, mas esse é o motivo de meus votos de sucesso no início de nosso grupo C&#43;&#43;.
+</description>
+</item>
+
+     
+        <item>
+  <title>Try-catch flutuante</title>
+  <link>http://www.caloni.com.br/try-catch-flutuante/</link>
+  <pubDate>2008-04-03</pubDate>
+  
+  <guid>http://www.caloni.com.br/try-catch-flutuante/</guid>
+  <description>Esse detalhe da linguagem quem me fez descobrir foi o Yorick, que costuma comentar no blogue e tive o prazer de conhecer no 4o. EPA-CCPP.
+É possível, apesar de bizarro, colocar um bloco try-catch em torno da lista de inicialização de variáveis de um construtor. Essa característica da linguagem permite que possamos capturar alguma exceção lançada por algum construtor de algum membro da classe. A construção em código ficaria no estilo abaixo:
+Class::Class() try : initialization-list{// Class constructor body}catch(...) // note: this IS right!{// do something about// just like &amp;quot;throw&amp;quot; over here} Apesar dessa capacidade, não conseguimos parar o lançamento da exceção. Após seu lançamento, caímos no bloco catch abaixo do corpo do construtor e a exceção é lançada novamente, como se houvesse uma intrução throw no final do catch.
+O exemplo abaixo demonstra um código de uma classe que captura a exceção durante a inicialização dos membros. Na seguida o catch da função main é executada, provando que a exceção de fato não é &amp;quot;salva&amp;quot; no primeiro bloco.
+#include &amp;lt;iostream&amp;gt;/* This class explodes */class Explode{public:Explode(int x) {m_x = x;throw x;}void print(){std::cout &amp;lt;&amp;lt; &amp;quot;The number: &amp;quot; &amp;lt;&amp;lt; m_x &amp;lt;&amp;lt; std::endl;}private:int m_x;};/* This class is going to be exploded */class Victim{public:Victim() try : m_explode(5){std::cout &amp;lt;&amp;lt; &amp;quot;You&#39;re supposed to NOT seeing this...\n&amp;quot;;}catch(...) { std::cerr &amp;lt;&amp;lt; &amp;quot;Something BAD hapenned\n&amp;quot;;std::cerr &amp;lt;&amp;lt; &amp;quot;We&#39;re going to blow up\n&amp;quot;;// just like &#39;throw&#39; over here}void print(){m_explode.print();}private:Explode m_explode;};int main(){try{Victim vic;}catch(...){std::cerr &amp;lt;&amp;lt; &amp;quot;Something BAD BAD happenned...\n&amp;quot;;}} Testei esse código nos seguintes compiladores:
+ Visual Studio 6. Falhou, demonstrando desconhecer a sintaxe. Borland C&#43;&#43; Builder 5. Falhou, demonstrando desconhecer a sintaxe. Borland Developer Studio 4. Falhou, com o mesmo erro. Visual Studio 2003. Comportamento esperado. Visual Studio 2005. Comportamento esperado. Visual Studio 2008. Comportamento esperado. G&#43;&#43; (no Cygwin). Comportamento esperado.  A saída esperada é a seguinte:
+Something BAD hapennedWe&#39;re going to blow upSomething BAD BAD happenned... </description>
+</item>
+
+     
+        <item>
+  <title>Os diferentes erros na linguagem C</title>
+  <link>http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/</link>
+  <pubDate>2008-02-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/os-diferentes-erros-na-linguagem-c/</guid>
+  <description>Uma coisa que me espanta de vez em quando é o total desconhecimento por programadores mais ou menos experientes dos níveis de erros que podem ocorrer em um fonte escrito em C ou C&#43;&#43;. Desconheço o motivo, mas desconfio que o fato de outras linguagens não terem essa divisão de processos pode causar alguma nivelação entre as linguagens e fazer pensar que o processo de compilação em C é como em qualquer outra linguagem.
+Porém, para começar, só de falarmos em compilação já estamos pegando apenas um pedaço do todo, que é a geração de um programa executável em C. Tradicionalmente, dividimos esse processo em três passos:
+ Preprocessamento Compilação Linkedição  Vamos dar uma olhada mais de perto em cada um deles e descobrir erros típicos de cada processo.
+O preprocessamento é especificado pelos padrões C e C&#43;&#43;, mas, tecnicamente, não faz parte da linguagem. Ou seja, antes que qualquer regra de sintaxe seja verificada no código-fonte, o preprocessamento já terá terminado.
+Essa parte do processo lida com substituição de texto e diretivas baseadas em arquivos e símbolos. Por exemplo, a diretiva de preprocessamento mais conhecida
+#include &amp;lt;stdio.h&amp;gt; faz com que todo o conteúdo do arquivo especificado seja incluído exatamente no ponto onde for colocada essa diretiva. Isso quer dizer que, antes sequer do código-fonte ser compilado, todo o conteúdo desse header padrão estará no corpo do arquivo C.
+Para evitar que o mesmo header seja incluído inúmeras vezes dentro da mesma unidade em C, causando assim erros de redefinição, existe outra diretiva muito usada para cercar esses arquivos públicos:
+#ifndef __MEUHEADER__ // se já estiver definido, caio fora até endif#define __MEUHEADER__// conteúdo do header#endif // __MEUHEADER__ Esse conjunto de duas diretivas, por si só, é capaz de gerar os mais criativos e bizarros erros de compilação em C. E estamos falando de erros que ocorrem antes que sequer seja iniciado o processo de compilação propriamente dito. Obviamente que os erros serão capturados durante a compilação, mas o motivo deles terem ocorrido foi um erro decorrente do processo de preprocessamento. Por exemplo, vamos supor que um determinado fonte necessita de uma declaração de função contida em meuheader.h:
+#include &amp;quot;header-do-mal.h&amp;quot;#include &amp;quot;meuheader.h&amp;quot;int func(){meuheaderFunc();} Porém, num daqueles acasos da natureza, o header-do-mal.h define justamente o que não poderia definir jamais (obs.: e isso pode muito bem acontecer na vida real, se usamos definições muito comuns):
+#ifndef __HEADERDOMAL__#define __HEADERDOMAL__// tirei header da jogada, huahuahua (risos maléficos)#define __MEUHEADER__#endif // __HEADERDOMAL__ Na hora do preprocessamento, o preprocessador não irá mais incluir o conteúdo dentro de header.h:
+#ifndef __MEUHEADER__ // se já estiver definido, caio fora até endif#define __MEUHEADER__int meuheaderFunc(); // talvez alguém precise disso#endif // __MEUHEADER__ Conseqüentemente, durante a compilação do código-fonte já preprocessado, sem a declaração da função meuheaderFunc, irá ocorrer o seguinte erro:
+error C3861: &#39;meuheaderFunc&#39;: identifier not found Isso em fontes pequenos é facilmente identificável. Em fontes maiores, é preciso ter um pouco mais de cuidado.
+Após o processo de preprocessamento, de todos os arquivos indicados terem sido incluídos, de todas as macros terem sido substituídas, todas as constantes colocadas literalmente no código-fonte, temos o que é chamado unidade de compilação, que será entregue ao compilador, que, por sua vez, irá começar a análise sintática de fato, descobrindo novos erros que podem ou não (como vimos) ter a ver com a fase anterior. A figura abaixo ilustra esse processo, com algumas trocas conhecidas:
+Dica: quando o bicho estiver pegando, e tudo o que você sabe sobre linguagem C não estiver te ajudando a resolver um problema, tente gerar uma unidade de compilação em C e analisar sua saída. Às vezes o que é claro no código pode se tornar obscuro após o preprocessamento. Para fazer isso no VC&#43;&#43; em linha de comando, use o parâmetro /E.
+Se você conseguir passar ileso para a fase de compilação, pode se considerar um mestre do preprocessamento. Por experiência própria, posso afirmar que a maior parte do tempo gasto corrigindo erros de compilação, por ironia do destino, não terá origem na compilação em si, mas no preprocessamento e linkedição. Isso porque o preprocessamento confunde muito o que vimos no nosso editor preferido, e a linkedição ocorre em uma fase onde não importa mais o que está dentro das funções, mas sim o escopo de nomes, um assunto um pouco mais vago do que a linguagem C.
+Na compilação você irá encontrar geralmente erros bem comportados, como conversão entre tipos, else sem if e esquecimento de pontuação ou parênteses.
+int cannotConvertError(const char* message){int ret = message[0];return ret;}int ret = cannotConvertError(3);error C2664: &#39;cannotConvertError&#39; : cannot convert parameter 1 from &#39;int&#39; to &#39;const char *&#39;if( test() )something;something-else;elseelse-something;error C2181: illegal else without matching ifwhile( (x &amp;lt; z) &amp;amp;&amp;amp; func(x, func2(y) != 2 ){something;}error C2143: syntax error : missing &#39;)&#39; before &#39;{&#39; Claro, não estamos falando de erros relacionados a templates, que são um pesadelo à parte.
+Dica: nunca subestime o poder de informação do compilador e da sua documentação. Se o erro tem um código (geralmente tem), procure a documentação sobre o código de erro específico, para ter uma idéia de por que esse erro costuma ocorrer, exemplos de código com esse erro e possíveis soluções. Ficar batendo a cabeça não vai ajudar em nada, e com o tempo, você irá ficar sabendo rapidamente o que aconteceu.
+Chegando na linkedição, onde a esperança reside, tudo pode vir por água abaixo. Isso porque você já espera confiante que tudo dê certo, quando, na verdade, um erro bem colocado pode fazer você desistir pra sempre desse negócio de programar em C.
+As características mais desejadas para corrigir erros nessa fase são:
+ Total conhecimento da fase do preprocessamento Total conhecimento da fase da compilação Total conhecimento de níveis de escopo e assinatura de funções  Os dois primeiros itens são uma maldição previsível que deve-se carregar para todo o sempre. Se você não consegue entender o que aconteceu nas duas primeiras fases, dificilmente irá conseguir seguir adiante com essa empreitada. O terceiro item significa que deve-se levar em conta as bibliotecas que estamos usando, headers externos (com dependências externas), conflitos entre nomes, etc.
+Alguns erros mais encontrados aqui são as funções não encontradas por falta da LIB certa ou por LIBs desatualizadas que não se encaixam mais com o projeto, fruto de muitas dores de cabeça de manutenção de código. Essa é a parte em que mais vale a pena saber organizar e definir uma interface clara entre os componentes de um projeto.
+Do ponto de vista técnico, é a fase onde o linker junta todos os arquivos-objeto especificados, encontra as funções, métodos e classes necessárias e monta uma unidade executável, como ilustrado pela figura abaixo.
+Dica: uma LIB, ou biblioteca, nada mais é que uma coleção de arquivos-objeto que já foram compilados, ou seja, já passaram pelas duas primeiras fases, mas ainda não foram linkeditados. Muitas vezes é importante manter compatibilidade entre LIBs e os projetos que as usam, de forma que o processo de linkedição ocorra da maneira menos dolorosa possível.
+É óbvio que, por ter passado pelas três fases de transformação de um código-fonte em um programa executável, não quer dizer que este programa está livre de erros. Os famigerados erros de lógica podem se disfarçar até o último momento da compilação e só se mostrarem quando o código estiver rodando (de preferência, no cliente).
+Entre esses erros, os mais comuns costumam se aproveitar de macros, como max, que usa mais de uma vez o parâmetro, que pode ser uma chamada com uma função. A função será chamada duas vezes, mesmo que aparentemente no código a chamada seja feita uma única vez:
+#define max(a, b) ( a &amp;gt; b ? a : b )int z = max( func(10), 30 ); Um outro erro que já encontrei algumas vezes é quando a definição de uma classe tem um sizeof diferente do compilado em sua LIB, pela exclusão ou adição de novos membros. Isso pode (vai) fazer com que, durante a execução, a pilha seja corrompida, membros diferentes sejam acessados, entre outras traquinagens. Esses erros costumam acusar a falta de sincronismo entre os headers usados e suas reais implementações.
+Enfim, na vida real, é impossível catalogar todos os erros que podem ocorrer em um fonte em C. Se isso fosse possível, ou não existiriam bugs, ou pelo menos existiria uma ferramenta para automaticamente procurar por esses erros e corrigi-los. Bom, existe o Lint.
+Criei um projeto com alguns erros básicos, alguns demonstrados aqui, outros não, mas enfim, completamente configuráveis e divididos nessas três fases. É possível habilitar e desabilitar erros através do header cpperrors.h. Espero que gostem.
+</description>
+</item>
+
+     
+        <item>
+  <title>Proteção dos membros protected</title>
+  <link>http://www.caloni.com.br/protecao-dos-membros-protected/</link>
+  <pubDate>2007-10-26</pubDate>
+  
+  <guid>http://www.caloni.com.br/protecao-dos-membros-protected/</guid>
+  <description>Quando queremos que um membro de nossa classe seja visível apenas dentro dos métodos da classe e dentro dos métodos das classes derivadas dessa classe usamos o nível de proteção protected. Isso, é claro, não quer dizer que uma classe derivada vá ter acesso aos membros protegidos de outra:
+#include &amp;lt;iostream&amp;gt;using namespace std;class Base{protected:int m_protected;};class Derived : public Base{public:int GetProtected();int GetAnotherProtected();};class AnotherDerived : public Base{};int Derived::GetProtected(){return m_protected;}int Derived::GetAnotherProtected(){AnotherDerived anotherDeriv;return anotherDeriv.m_protected;}int main(){Derived deriv;deriv.GetProtected();deriv.GetAnotherProtected();}&amp;gt;./programerror C2248: &#39;Base::m_protected&#39; : cannot access protected member declared in class &#39;Base&#39;see declaration of &#39;Base::m_protected&#39;see declaration of &#39;Base&#39; Esse é o motivo fundamental do porquê não podermos fazer isso:
+int Derived::GetAnotherProtected(){Base base;return base.m_protected;}  Ao acessar membros protegidos é importante o tipo da expressão que está do lado esquerdo do &amp;quot;.&amp;quot; ou &amp;quot;-&amp;gt;&amp;quot;. Afinal, o nível de proteção se baseia no escopo, e as classes são um escopo. É por isso que consigo acessar os membros protegidos de um outro objeto de minha classe, mesmo sendo outro objeto:
+int Derived::GetAnotherProtected(){Derived deriv; // typeid(deriv) == typeid(*this).return deriv.m_protected; // OK}  A definição do escopo é tudo o que o compilador dispõe para saber se acessa ou não acessa um membro. Podemos ter acesso a m_protected enquanto somos do tipo Derived, mas não quando o mesmo objeto é usado como Base:
+int Derived::GetAnotherProtected(){Base&amp;amp; base = *this; // typeid(deriv) != typeid(*this).return base.m_protected; // ERROR}  Essa proteção parece desnecessária e até mesmo incoerente quando lidamos com o mesmo objeto que acessa. Afinal, somos nós mesmos! Só que o compilador não sabe disso, e ele deve desconfiar de tudo e de todos para evitar esse tipo de &amp;quot;ataque&amp;quot;:
+int Derived::GetAnotherProtected(){AnotherDerived anotherDeriv;Base&amp;amp; base = anotherDeriv; // typeid(deriv) != typeid(*this)return base.m_protected; // ERROR}  Agora a proteção do compilador faz sentido. Parece um detalhe frívolo, mas depois que vi alguns programadores de respeito se debatendo pela &amp;quot;burrice&amp;quot; do compilador, imaginei que talvez houvesse mais pessoas com a mesma dúvida de se existe ou não um &amp;quot;bug na linguagem&amp;quot;.
+</description>
+</item>
+
+     
+        <item>
+  <title>Typeid e os perigos do não-polimorfismo</title>
+  <link>http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/</link>
+  <pubDate>2007-10-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo/</guid>
+  <description>Quando usamos o operador typeid geralmente desejamos conhecer informações sobre o tipo exato do objeto que temos em mãos, independente da hierarquia de herança a qual seu tipo pertença. Só que por ignorar, assim como o sizeof, que esse operador possui duas caras, às vezes damos com os burros n&#39;água e compramos gato por lebre. Não é pra menos. Uma sutil diferença entre classes polimórficas e estáticas pode dar aquele susto que só C&#43;&#43; pode proporcionar.
+Eis um exemplo singelo, sem dramatização (com dramatização == &amp;quot;500 linhas de código de produção além do código abaixo&amp;quot;).
+#include &amp;lt;iostream&amp;gt;#include &amp;lt;typeinfo&amp;gt;using namespace std;class Base{public:Base(){cout &amp;lt;&amp;lt; &amp;quot;Base()\n&amp;quot;;m_x = 0;}~Base(){cout &amp;lt;&amp;lt; &amp;quot;~Base()\n&amp;quot;;}int m_x;};class Deriv : public Base{public:Deriv(){cout &amp;lt;&amp;lt; &amp;quot;Deriv()\n&amp;quot;;m_x = 1;m_y = 0;}virtual ~Deriv(){cout &amp;lt;&amp;lt; &amp;quot;~Deriv()\n&amp;quot;;}int m_y;};void func(Base* b){cout &amp;lt;&amp;lt; typeid(*b).name() &amp;lt;&amp;lt; &#39;\n&#39;;}int main(){Base* b = new Deriv();func(b);}  O typeid usado nesse exemplo será o estático, no estilo typeid(type), porque o tipo do objeto para a função é de &amp;quot;ponteiro para objeto de classe não-polimórfica&amp;quot;, ou seja, sem nenhuma função virtual. É importante lembrar que o polimorfismo em C&#43;&#43; só é aplicado se houver razão para tal, pois na linguagem a regra é que &amp;quot;não existe sobrecarga de execução sem que o programador queira&amp;quot;:
+&amp;gt;./programBase()Deriv()class Base Se o esperado pelo programador fosse um class Deriv na última linha da saída, ou seja, que o typeid utilizado fosse a versão dinâmica, então a nossa classe Base tem que ser polimórfica:
+virtual ~Base(){cout &amp;lt;&amp;lt; &amp;quot;~Base()\n&amp;quot;;}  Esse é um erro equivalente ao chamar o operador delete usando o ponteiro recebido em func. Se isso fosse feito, seria chamado apenas o destrutor da classe Base. Por falar nisso, temos nesse exemplo um leak de memória (percebeu pela saída que os destrutores não são chamados?). Mas esse é um erro bem menos sutil que o visto pelo nosso amigo typeid amigo-da-onça ;).
+&amp;gt;./programBase()Deriv()class Deriv </description>
+</item>
+
+     
+        <item>
+  <title>A Linguagem de Programação C: O Livro</title>
+  <link>http://www.caloni.com.br/the-c-programming-language/</link>
+  <pubDate>2007-10-12</pubDate>
+  
+  <guid>http://www.caloni.com.br/the-c-programming-language/</guid>
+  <description>O clássico de Ritchie e Kernighan, criadores da linguagem C, não foi meu primeiro livro de programação. E nem deveria ser. Não o recomendo para iniciantes, pois é necessário possuir algum conhecimento e prática para realmente aproveitar os conceitos desse livro.
+Então, o que ler antes disso? Existem tantos livros bons para iniciantes (e tantos livros péssimos). Eu comecei com C Completo e Total, de Herbert Schildt. Não me arrependi. O autor vai descrevendo C para quem já tentou fazer algumas coisas, já programou outras e está afim de tirar as principais dúvidas sobre essa linguagem que tantos abominam por ser difícil, e tantos idolatram por ser poderosa. As práticas do livro já são um bom início para quem quer pensar, entender e programar.
+Depois de Schildt passei a ler os livros da Viviane, os famosíssimos módulos do Treinamento em Linguagem C. São ótimos para a prática e para reafirmar os conceitos lidos no primeiro livro. Para uma linguagem tão importante uma segunda opinião é sempre bem-vinda.
+Então chegou a hora. Passei algumas das minhas melhores horas na biblioteca lendo como os próprios criadores da linguagem a ensinam, e como o padrão ANSI é definido (em termos bem simplificados, condição perfeita para entender a lógica do compilador). Com o livro é possível perceber claramente que a linguagem é tão simples quanto poderosa, lembrando (quem diria!) o mais abominado ainda assembly. Vamos aos capítulos.
+Chapter 1: A Tutorial Introduction O começo é quase sempre o mesmo. Os autores explicam um programa simples na linguagem, fazem alguns testes e explicam linha a linha o que cada coisa significa. O importante aqui é esquecer que existe um sistema operacional rodando por baixo de nosso programa e entender que a linguagem foi desenhada para independer disso. É tão genérica a ponto de independer dela mesma. Explico: enquanto a maioria das linguagens considera sua biblioteca parte integrante da mesma, a linguagem C faz questão de separar as coisas, reafirmando sempre que uma coisa é o preprocessamento, outra é a compilação, outra é a linkedição e nenhuma delas precisa de uma biblioteca, apesar de uma ter sido definida no padrão (baseada no uso comum da linguagem em diversos ambientes).
+Se você nunca teve contato com C ou deseja ter uma aproximação mais simplificada e quer entender como as coisas mais simples funcionam na linguagem, este capítulo é imperdível.
+Chapter 2: Types, Operators and Expressions Essa é a hora ideal para separar dois conceitos que muitas vezes ficam grudados na mente dos precoces programadores para o resto de suas vidas: uma coisa é um tipo e outra coisa é uma expressão. Uma expressão possui um tipo, que define seu comportamento de acordo com o operador usado. Tudo é explicado muito bem com exemplos bem escritos e que são realmente úteis, como strlen, atoi, strcat (presentes na biblioteca padrão) e até um contador de bits.
+Se quiser entender o que cada fragmento de lógica na linguagem significa por completo (e não apenas uma expressão jogada na correria da programação do dia-a-dia) esse capítulo irá explicar. Depois de entendê-lo, nunca mais vai achar bizarro aqueles problemas de precedência que permeiam código pouco sensato.
+Chapter 3: Control Flow Apenas após ter explicado os conceitos que regem qualquer linha de código operacional em C os autores se dedicam a explanar as diversas formas de controlar o fluxo do seu programa. Nessa hora a linguagem se desdobra, se torna mágica, simples, flexível e poderosa.
+Não basta apenas possuir lógica de programação. Para escrever bons programas é necessário saber como construir os blocos funcionais que irão traduzir seus comandos para o computador. É nesse ponto que é fundamental o domínio de qualquer construção em C, seja um simples if ou uma combinação maluca de switches, whiles e breaks.
+Chapter 4: Functions and Program Structure Entendidos os princípios básicos de criação e execução de qualquer programa em C, chegou a hora de explicar como a linguagem suporta a organização de seu código através de funções, módulos e diretivas de preprocessamento. Note que os autores partem do princípio minimalista da linguagem e imagina o que acontece conforme seus programas vão se tornando cada vez maiores. Para isso explicam o mesmo princípio que foi utilizado ao desenhar a linguagem, que até hoje é usada para escrever dezenas de milhares de código em um único projeto, ou até milhões (como em sistemas operacionais).
+No desenvolvimento de software a organização é um dos pilares que irá transformar o programador em um mestre da arquitetura de seu próprio código. Não negligencie a lógica das partes maiores do seu código, só se importando com os pequenos pedaços de blocos dentro de uma função. Antes de ser cientista, seja um desenvolvedor nato.
+Chapter 5: Pointers and Arrays A dificuldade com que muitos programadores C têm com essas duas características da linguagem fizeram com que fosse dedicado um capítulo inteiro para explicar e reexplicar como os arrays (vetores) e ponteiros funcionam e qual a relação intrínseca entre eles. É também explicada a relação strings x arrays, já que em C uma string é uma cadeia de caracteres.
+Se você programa em C e até hoje tem dificuldades para entender completamente esse assunto, sugiro que largue o que você está fazendo agora e leia esse capítulo até o final. Será bem mais proveitoso que ficar zanzando no meio de um monte de blogues (como este aqui).
+Chapter 6: Structures A estrutura é uma composição complexa em C, mas permite um organização melhor dos dados, da mesma maneira com que as funções organizam melhor o código.
+Aparentemente o tema estrutura é mais simples que ponteiros, e deveria ser tratado antes. Porém, fazer isso impediria abordar o tema de listas ligadas e outras estruturas que dependem do uso de ponteiros para que estruturas referenciem elas mesmas, algo extremamente recorrente no mundo da programação.
+É sempre bom lembrar que o uso de estruturas foi o nascimento do C&#43;&#43;, que prima pela elegância na organização e harmonia entre seu código e dados. A linguagem C também não fica para trás, mas é importante saber usar.
+Chapters 7 and 8: Input and Output / The UNIX System Interface Para finalizar é abordado o tema da interface com o mundo exterior da linguagem. Desde sempre suportando a maneira mais básica, genérica e portátil de qualquer sistema operacional, o console, talvez hoje essa característica seja um tanto menosprezada pelos usuários de ambientes gráficos. Contudo, não deixa de ter seu valor ainda hoje, nem que seja para escrever programas de teste.
+Apêndices Os adendos são incrivelmente úteis e os utilizo ainda hoje como referência. Cá entre nós, o padrão formal da linguagem é algo chato de se ler, e muitos detalhes são perfeitamente ignoráveis para quem não está desenvolvendo um compilador. Contudo, acredito que a maioria dos bons programadores deveria se preocupar em entender como os compiladores entendem seu código, pois muitos dos erros podem ser facilmente resolvidos através do desenvolvimento de uma certa empatia com a linguagem. É por isso que considero o Apêndice A o mais útil de todos.
+Por outro lado, sempre fui contra a reinvenção da roda. O que quer dizer que sempre fui a favor do pleno conhecimento da biblioteca padrão, pois ela fornece funções das mais usadas no dia-a-dia, e algumas outras que poderão ter sua serventia um dia desses. Mas para isso elas devem ser conhecidas. Isso quer dizer que uma passada de olhos no Apêndice B não faz mal a ninguém.
+O Apêndice C hoje é um pequeno guia dos curiosos para as mudanças que foram infligidas na linguagem quando esta foi padronizada. Como fã incondicional de C, não pude deixar de ler e reler essa parte, já que me dedico também a conhecer os primórdios dessa linguagem. Contudo, é parte opcional para as pessoas práticas (a não ser que você esteja com problemas com código legado do século passado).
+Conclusão Livros vêm, livros vão, mas apenas os clássicos permanecerão. A Linguagem de Programação C é um clássico, sem sombra de dúvida, e nunca irá perder seu valor para a linguagem. A maioria dos livros usa-o como referência, assim como os livros tão amados da comunidade C&#43;&#43; sempre usam Stroustrup como referência. Portanto, se puder, reserve um tempo para o passado.
+</description>
+</item>
+
+     
+        <item>
+  <title>A mobilidade das variáveis no printf</title>
+  <link>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</link>
+  <pubDate>2007-09-20</pubDate>
+  
+  <guid>http://www.caloni.com.br/a-mobilidade-das-variaveis-no-printf/</guid>
+  <description>O printf (e derivados) tem sérios problemas por conta de sua falta de tipagem. Não vou aqui dizer que cout é a alternativa óbvia e melhorada porque não é. Mas isso é uma discussão que eu não deveria começar aqui. E não começarei. Portanto, ignorem essa linha =).
+O erro mais comum de todos é a passagem de tipo na string de formatação diferente da variável passada:
+void f(wchar_t* arg){printf(&amp;quot;%s&amp;quot;, arg);return 0;} Isso costuma ser mais comum quando existem centenas de milhares de parâmetros na chamada, o que confunde o programador (e o leitor de certos blogues especializados em confundir). Imagine um printf em que a string de formatação é algo como &amp;quot;%s%d%s%f%s%d%f%d%s%f%s%d&amp;quot;. Agora imagine os parâmetros passados e a necessidade dos tipos baterem um a um. É, você entendeu o drama.
+O segundo erro que me lembro que costuma dar muitos problemas é a passagem de tipo inteiro de tamanho diferente:
+char ch = getc();printf(&amp;quot;%d&amp;quot;, ch); É mais sutil, também costuma confundir no meio de vários parâmetros, e pode ser detectado utilizando a técnica de transformar tudo em assembly, pois com isso temos dica de tipagem ao empilhar os argumentos na saída do arquivo asm. É claro que hoje em dia existem compiladores muito espertos, que detectam na hora o que você está digitando e a cagada que isso vai dar depois de compilado. Mas, assumindo que você não tem toda essa tecnologia ao seu dispor, ou está mesmo interessado em entender como as coisas funcionam, e não apenas seguir o manual do seu ambiente de desenvolvimento preferido, essa é uma maneira interessante de analisar o que ocorre com o seu código. Agora, a pergunta que não quer calar: por que isso acontece?
+Funções com quantidade variável de argumentos como o printf devem interpretar os argumentos que ele sabe que são passados para entender quais os outros argumentos que estão na pilha. Ele interpreta a string de formatação e vai &amp;quot;comendo&amp;quot; os argumentos passados na pilha. Se a string informa que existe um int de 32 bits, mas na verdade existe um de 64, ele vai comer apenas 32 bits da pilha, deixando os próximos 32 para o desastre iminente.
+Dica: se você encontrar problemas de crash ou corrompimento de pilha e houver um printf ou derivados, como funções de logs que confiam no printf, experimente desabilitar a chamada dessas funções e ver se o problema permanece. Isso pode ser feito pelo preprocessador:
+#define printf#define sprintf#define LOG Ao definir os nomes das funções usadas para nada não haverá a chamada da função, apesar do código compilar exatamente igual, exceto a chamada. Ou seja, se houver problemas em algum printf ele sumirá. A partir daí é só ir comentando e descomentando as partes do código até encontrar.
+</description>
+</item>
+
+     
+        <item>
+  <title>Aquisição de recurso é inicialização</title>
+  <link>http://www.caloni.com.br/aquisicao-de-recurso-e-inicializacao/</link>
+  <pubDate>2007-09-14</pubDate>
+  
+  <guid>http://www.caloni.com.br/aquisicao-de-recurso-e-inicializacao/</guid>
+  <description>O título desse artigo é uma técnica presente no paradigma da programação em C&#43;&#43;, razão pela qual não temos o operador finally. A idéia por trás dessa técnica é conseguirmos usar recursos representados por objetos locais de maneira que ao final da função esses objetos sejam destruídos e, junto com eles, os recursos que foram alocados. Podemos chamar de recursos aquele arquivo que necessita ser aberto para escrita, o bitmap que é exibido na tela, o ponteiro de uma interface COM, etc. O nosso exemplo é sobre arquivos:
+#include &amp;lt;stdio.h&amp;gt;class File{public:File(char* name){m_file = fopen(name, &amp;quot;r&amp;quot;);}~File(){fclose(m_file);}FILE* m_file;};int UseFile(){File config(&amp;quot;config.txt&amp;quot;);// using config.txtreturn 0; // config.m_file released}  Ignorei tratamento de erros e a dor de cabeça que é a discussão sobre inicializações dentro do construtor, matéria para um outro artigo. Fora os detalhes, o que temos é (1) uma classe que se preocupa em alocar os recursos que necessita e no seu fim desalocá-los, (2) uma função que usa um objeto dessa classe, alegremente apenas preocupada em usar e abusar do objeto. A demonstração da técnica reside no fato que a função não se preocupa em desalocar os recursos alocados pelo objeto config. Algo óbvio, desejável e esperado.
+Para vislumbrarmos melhor a utilidade dessa técnica convém lidarmos com as famigeradas exceções. A possibilidade de nossa função ou alguma função chamada por essa lançar uma exceção enquanto nosso objeto está ainda construído -- e com o recurso alocado -- faz com que seja vital a classe do objeto ter sido bem construída a ponto de prever essa situação e liberar os recursos no destrutor. Daí o uso da técnica se torna necessário.
+Por outro lado, ao usarmos objetos, devemos ter plena confiança nas suas capacidades de gerenciar os recursos que foram por eles alocados. Só assim se tem liberdade o suficiente para nos concentrarmos no código da função e solenemente ignorarmos a implementação da classe que estamos utilizando. Afinal, temos que considerar que muitas vezes o código-fonte não está disponível. Veja a mesma função com uma chance de desvio incondicional (o lançamento de uma exceção):
+void BlowUpFunction(){// things aren&#39;t that good, so...throw Scatadush();}int UseFileEx(){File config(&amp;quot;config.txt&amp;quot;);BlowUpFunction(); // exception thrown:// config.m_file is // automagically releasedreturn 0;} Nesse exemplo tudo funciona, certo? Até se a exceção for lançada, o recurso será desalocado, pois o objeto é destruído. Isso ilustra como várias técnicas de C&#43;&#43; podem conviver harmoniosamente. Mais que isso, se ajudam mutuamente. O que seria das exceções se não existissem os construtores e destrutores? Da mesma forma, os recursos são alocados e desalocados baseado na premissa de construção e destruição de objetos. Por sua vez, essa premissa vale em qualquer situação, existindo ou não exceções.
+Agora, e se a exceção de BlowUpFunction é lançada e a classe File não está preparada para fechar o arquivo no destrutor? Esse é o caso da versão 2 de nossa classe File, logo abaixo. Apesar de ser a segunda versão ela foi piorada (acontece nas melhores famílias e classes):
+class File2{public:void Open(char* name){m_file = fopen(name, &amp;quot;r&amp;quot;);}void Close(){fclose(m_file);}FILE* m_file;};int UseFile2(){File2 config;config.Open(&amp;quot;config.txt&amp;quot;);BlowUpFunction(); // exception thrown:// the resource was // NOT releasedconfig.Close(); // resource releasedreturn 0;}  Nesse caso o código de UseFile2 acaba deixando um recurso alocado por conta de uma exceção que ocorreu em uma função secundária chamada lá pelas tantas em um momento delicado demais para ocorrerem exceções. Note que o destrutor de File2 é chamado assim como o de File, só que este não libera os recursos do objeto. Ele não usa a técnica RAII (Resource Acquisition Is Initialization, ou o título do artigo em inglês).
+Nesse tipo de classe o convívio com exceções gera um dilema: onde está o erro? Como consertá-lo? Se o problema é encontrado numa hora apertada e temos cinco minutos para revolver isso, capturar a exceção causada por BlowUpFunction é uma boa idéia. Só que nem sempre as soluções de cinco minutos são as mais maduras. Podemos não saber muito bem o que fazer com esse tipo de exceção, por exemplo. Isso geraria um tratamento de erro ou redundante se tratarmos ali mesmo o Scatadush, já tratado em um escopo mais externo, ou fragmentado se apenas desalocarmos o recurso de File2 e relançarmos a exceção. Eu nem diria fragmentado, pois estamos tratando um erro inventado, se considerarmos que é função dos objetos desalocarem os recursos que foram por eles mesmos alocados.
+A opção que dura mais de cinco minutos pode evitar futuras dores de cabeça: arregaçar as mangas e refazer a classe File2 observando o princípio de RAII. Possivelmente algo na interface deverá ser alterado, o que causará a alteração de mais códigos-fonte que utilizam essa classe. Alterar mais códigos-fonte significa testar novamente mais partes do software, algumas nem de perto relacionadas com o problema em si. Ou seja, não é cômodo, mas é íntegro. Sabendo que futuras funções que usarem essa classe já estarão corretas, mesmo que uma exceção seja lançada e não seja capturada, é um dado significativo: representa produtividade futura.
+A decisão sobre qual solução é a melhor está muito além do escopo desse artigo, pois obviamente cada caso é um caso. Mas não custa nada pensar um pouco sobre C&#43;&#43; quando se estiver programando. E &amp;quot;aquisição de recurso é inicialização&amp;quot; faz parte do modo de pensar dessa linguagem.
+</description>
+</item>
+
+     
+        <item>
+  <title>História da Linguagem C: Parte 2</title>
+  <link>http://www.caloni.com.br/historia-da-linguagem-c-parte-2/</link>
+  <pubDate>2007-08-15</pubDate>
+  
+  <guid>http://www.caloni.com.br/historia-da-linguagem-c-parte-2/</guid>
+  <description>No princípio... não, não, não. Antes do princípio, quando C era considerada a terceira letra do alfabeto e o que tínhamos eram linguagens experimentais para todos os lados, dois famigerados senhores dos Laboratórios Bell, K. Thompson e D. Ritchie, criaram uma linguagem chamada B. E B era bom.
+O bom de B era sua rica expressividade e sua simples gramática. Tão simples que o manual da linguagem consistia de apenas 30 páginas. Isso é menos do que as 32 palavras reservadas de C. As instruções eram definidas em termos de ifs e gotos e as variáveis eram definidas em termos de um padrão de bits de tamanho fixo, geralmente a word, ou palavra, da plataforma, que utilizada em expressões definiam seu tipo. Esse padrão de bits era chamado rvalue. Imagine a linguagem C de hoje em dia com apenas um tipo: int.
+Como esse padrão de bits nunca muda de tamanho, todas as rotinas da biblioteca recebiam e retornavam sempre valores do mesmo tamanho na memória. Isso na linguagem C quer dizer que o char da época ocupava tanto quanto o int. Existia inclusive uma função que retornava o caractere de uma string na posição especificada:
+c = char(string, i); /* the i-th character of the string is returned */ Sim! Char era uma função, um conversor de &amp;quot;tipos&amp;quot;. No entanto a própria variável que armazenava um char tinha o tamanho de qualquer objeto da linguagem. Esse é o motivo pelo qual, tradicionalmente, as seguintes funções recebem e retornam ints em C e C&#43;&#43;:
+int getchar( void ); // read a character from stdinint putchar( int c ); // writes a character to stdoutvoid *memset( void *dest, int c, size_t count ); // sets buffers to a specified character Segue o exemplo de uma função na linguagem B, hoje muito famosa:
+/* The following function is a general formatting, printing, andconversion subroutine. The first argument is a format string.Character sequences of the form `%x&#39; are interpreted and causeconversion of type &#39;x&#39; of the next argument, other charactersequences are printed verbatim. Thusprintf(&amp;quot;delta is %d*n&amp;quot;, delta);will convert the variable delta to decimal (%d) and print thestring with the converted form of delta in place of %d. Theconversions %d-decimal, %o-octal, *s-string and %c-characterare allowed.This program calls upon the function `printn&#39;. (see section9.1) */printf(fmt, x1,x2,x3,x4,x5,x6,x7,x8,x9) {extrn printn, char, putchar;auto adx, x, c, i, j;i= 0;	/* fmt index */adx = &amp;amp;x1;	/* argument pointer */loop :while((c=char(fmt,i&#43;&#43;) ) != `%&#39;) {if(c == `*e&#39;)return;putchar(c);}x = *adx&#43;&#43;;switch c = char(fmt,i&#43;&#43;) {case `d&#39;: /* decimal */case `o&#39;: /* octal */if(x &amp;lt; O) {x = -x ;putchar(&#39;-&#39;);}printn(x, c==&#39;o&#39;?8:1O);goto loop;case &#39;c&#39; : /* char */putchar(x);goto loop;case &#39;s&#39;: /* string */while(c=char(x, j&#43;&#43;)) != &#39;*e&#39;)putchar(c);goto loop;}putchar(&#39;%&#39;) ;i--;adx--;goto loop;}  Como podemos ver, vários elementos (se não todos) da linguagem C já estão presentes na B.
+</description>
+</item>
+
+     
+        <item>
+  <title>História da Linguagem C: Parte 1</title>
+  <link>http://www.caloni.com.br/historia-da-linguagem-c-parte-1/</link>
+  <pubDate>2007-08-01</pubDate>
+  
+  <guid>http://www.caloni.com.br/historia-da-linguagem-c-parte-1/</guid>
+  <description>Confesso que adoro estudar sobre a história da linguagem C. Essa verdadeira adoração pela linguagem me fez estudar suas precursoras, como as linguagens BCPL e B. Posso dizer que todo esse conhecimento, no final das contas, valeu a pena. Hoje entendo muito melhor as decisões tomadas na criação da linguagem e, principalmente, a origem de algumas idiossincrasias e boas idéias que permaneceram até hoje.
+Em 21 de julho de 1967 Martin Richards libera o manual da sua recém-criada linguagem BCLP. Na verdade, ela havia sido criada em 66 e implementada na primavera do ano seguinte no Instituto de Tecnologia de Massachusetts (vulgo MIT). Seus objetivos eram claros, como para todo criador de uma nova linguagem: melhorar uma linguagem anterior. Nesse caso, foi uma melhoria da Combined Programming Language (CPL), retirando, de acordo com Martin, &amp;quot;todas aquelas características da linguagem completa que tornavam a compilação difícil&amp;quot;.
+E BCPL era de fato bem simples. Não tinha tipos, era limpa e poderosa. Porém, mais importante que tudo isso, ela era portável. E essa portabilidade, aliada ao fato que escrever compiladores para ela era bem mais simples (alguns compiladores rodavam com apenas 16 KB), a tornaram especialmente popular na época.
+Essa portabilidade era obtida com o uso de um artifício mais ou menos conhecido da comunidade C/C&#43;&#43; hoje em dia: a divisão entre código objeto e código final. O compilador era dividido em duas partes: a primeira parte era responsável por criar um código em estado intermediário feito para rodar em uma máquina virtual. Esse código era chamado de O-code (O de object). A segunda parte do compilador era responsável por traduzir esse O-code no código da máquina-alvo (onde iria ser rodado o programa). Essa sacada genial de 40 anos atrás permitiu que fosse mais simples fazer um compilador para uma nova plataforma e portar todo o código que já tinha sido escrito para uma plataforma anterior, driblando o grande problema daquela época: a incompatibilidade entre plataformas.
+Perceba que é possível fazer toda a parte do compilador detrás do código-objeto uma única vez e, conforme a necessidade, criar novos interpretadores BCPL para máquinas diferentes.
+O código intermediário é gerado para uma máquina virtual. O interpretador, cerca de um quinto do compilador, tem a função de traduzir o código gerado para a máquina-alvo. Qualquer semelhança com Java ou .NET não é mera coincidência. Pois é. As boas idéias têm mais idade que seus criadores.
+É inevitável também não fazer a associação entre essa forma de funcionamento do compilador BCPL e a divisão feita em C/C&#43;&#43; entre o pré-processador, o compilador e o ligador (linker, em inglês).
+O uso do pré-processador na linguagem C facilitou a portabilidade por um bom tempo, quando não existiam typedefs. Diferente do BCPL, C já tinha tipagem, o que quer dizer que era necessário escolher o espaço de armazenamento que seria utilizado para as variáveis. Com o pré-processamento, essa escolha pode ser feita de maneira seletiva, documentada e generalizada.
+#ifdef SBRUBLE_PLATFORM#define UINT unsigned char /* space limitation */#else#define UINT unsigned int#endif Como é natural, o código-fonte de uma aplicação tende a crescer em muitas linhas durante sua evolução, especialmente se estamos falando de sistemas operacionais. A compilação desse código vai tomar cada vez mais tempo no processo de desenvolvimento. Por isso, manter esse código-fonte em um mesmo arquivo eventualmente torna-se inviável, tornando a compilação de módulos separados uma solução pra lá de elegante. Compila-se apenas o módulo que foi modificado e liga-se esse módulo com módulos pré-compilados.
+Para continuar lendo sobre a história da linguagem existe uma segunda parte.
+</description>
+</item>
+
+     
+        <item>
+  <title>C and C&#43;&#43; Operators Precedence Table</title>
+  <link>http://www.caloni.com.br/c-and-c-operators-precedence-table/</link>
+  <pubDate>2007-07-30</pubDate>
+  
+  <guid>http://www.caloni.com.br/c-and-c-operators-precedence-table/</guid>
+  <description> Wanderley, your explanation about why a program compiles in C&#43;&#43; and not in C seems to me logic and correct, but gave me some doubts, because I always learned that the C and C&#43;&#43; operator precedence are the same thing. I checked out the Appendix A in the &amp;quot;C &#43;&#43; - How To Program&amp;quot; (sixth edition) and the book table is equal to the C operators precedence table and it is different from the C&#43;&#43; precedence table presented by you in the article. I went to the internet and found out in two websites the table and both are equal to the book table:
+ Wikipedia CppPreference  From where did you get the presented C&#43;&#43; table?
+[]s,
+Márcio Andrey Oliveira
+ Dear Márcio,
+You have been my most productive reader ever. Besides having found the portability fail using static variables inside ifs, now you put in check the precedence table comparison between these two languages. In fact, some things were not so clear in that post. Let&#39;s clarify everything now (or at least try) using trustworthy sources, including the Wikipedia link sent to me.
+The first doubt it&#39;s about the most basic principle: what is a precedence table? Well, it is what defines, amount a set of concurrent operations in a language, which will be the evaluation order. In other words, what cames first, what cames next, etc. Through this table is possible to know all the language facts, as the fact that the multiplication operators are evaluated before the addition operators.
+This way, the table can resolve 99% of the evaluation order issues in a language, but it is not perfect.
+Let&#39;s see, by example, the conditional operator, most of the times known by ternary operator. Given its peculiar format, even having the precedence lower than the comma operator, the language doesn&#39;t allow a misinterpretation. If so,
+a ? b , c : d will be interpreted as
+a ? ( b , c ) : d and not as
+( a ? b ) , ( c : d ) that would be the logic result if we followed the precedence table, since the comma operator has lower precedence than the ternary operator. But that doesn&#39;t make any sense in the language, and that&#39;s why the first form is understood by the compiler, even contradicting the precedence table. This is corroborated by the following quote from Wikipedia in the page you shared:
+ A precedence table, while mostly adequate, cannot resolve a few details. In particular, note that the ternary operator allows any arbitrary expression as its middle operand, despite being listed as having higher precedence than the assignment and comma operators.
+ That is one of the reasons why the precedence table is just a way to express the grammar rules of a language in a simple and resumed manner. It is not the grammar neither ought to be. Let&#39;s see one more quotation, this time from the Stroustrup himself, just after presented the C&#43;&#43; precedence table (by the way, that was the source used by me to get the table for my post):
+ A few grammar rules cannot be expressed in terms of precedence (also known as binding strength) and associativity.
+ We can see from my example, the Wikipedia example and the Stroustrup example that the ternary operator is the main victim. Not for less. Talking about the grammar, the C ternary operator definition is different from the C&#43;&#43; ternary operator definition. While in C this operator is defined like this:
+conditional-expression:logical-OR-expressionlogical-OR-expression ? expression : conditional-expression In C&#43;&#43; language it is defined like this:
+conditional-expression:logical-OR-expressionlogical-OR-expression ? expression : assignment-expression This little difference can give us some (rare) situations where we can get a syntax error in C. As in a Wikipedia example, the following expression:
+e = a ? b : c = d It is interpreted by the C language as:
+e = ( ( a ? b : c ) = d ) In the C&#43;&#43; language is interpreted as:
+e = ( a ? b : ( c = d ) )  In the C language case, we have a compilation error because the code is trying to assign a value to a lvalue (remember that lvalues can&#39;t be assigned to anything).
+( a ? b : c ) = d  But in C&#43;&#43; there&#39;s no invalid assignment, what makes a no error compilation performed.
+Now, one last question, that seems to be the most relevant in this precedence issue: why is the Stroustrup book precedence table different from the C precedence table?
+Well, I believe that, after all our analysis, the answer must be somewhat obvious: knowing that, in the ternary operator, the third operand is an assignment-expression, it is most likely the table is agree with the grammar if we put a extra weight for the assignment operators before the ternary operator. This way, if the third operand is an assignment operation (as the case above), the imaginary parentesis will be put first in the assignment operation, making the grammar definition valid:
+( a ? b : ( c ) = d ) I hope this second post about the precedence table have cleared a bit more about the subject. It is not easy to understand the C language, but once you start to try, one magic door opens. Some things to remember from this experience:
+ The precedence table is not in the Standard; it is deduced from the grammar rules. There are rare expressions where we can&#39;t use the precedence table (e.g. ternary operator). Nobody knows so well a language to the point to understand 100% from it; after all, nobody (and nothing) is perfect.  </description>
+</item>
+
+     
+        <item>
+  <title>C&#43;&#43;0x parcial no novo GCC 4.3</title>
+  <link>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</link>
+  <pubDate>2007-07-24</pubDate>
+  
+  <guid>http://www.caloni.com.br/c0x-parcial-no-novo-gcc-43/</guid>
+  <description>A nova versão do GCC implementa em caráter de teste algumas novas características da nova versão da linguagem C&#43;&#43;, que será lançada ainda nesta década (provavelmente em 2009). As novas funcionalidades são empolgantes e já fazem parte do imaginário dos programadores C&#43;&#43; já há algum tempo.
+Atualmente temos duas maneiras de fazer asserções: usando a função assert (assert.h) ou utilizando a diretiva do pré-processador #error. Nenhum desses dois serve para emplates Para eles deverá ser definida a nova palavra-chave static_assert, que irá ser composta de dois parâmetros:
+static_assert( expressão-constante, literal-em-cadeia ); Podemos usá-la tanto no lugar da função assert quanto da diretiva #error. Mas seu uso mais interessante é como limite para a instanciação de emplates
+template&amp;lt;typename T&amp;gt;static_assert( sizeof(T) &amp;gt;= sizeof(int), &amp;quot;T is not big enough&amp;quot; ) Existem outros lugares onde esse novo comando pode ser usado. Para saber quando usá-lo, lembre-se que a verificação é feita durante a compilação, diferente do assert tradicional, que é chamada em tempo de execução.
+Depois de todos esse anos o pré-processador sofrerá um upgrade. O objetivo é ser compatível com o novo padrão da linguagem C, o C99. A maior novidade fica por conta do número variável de parâmetros para macros. A linha abaixo resume tudo:
+#define TRACE(format, ...) printf(format, __VA_ARGS__) Ou seja, não será mais necessário usar o truque dos &amp;quot;parênteses duplos&amp;quot; em macros de log que formatam parâmetros.
+Considero a mudança dos templates com parâmetros variáveis a mais interessante. Com ela será possível usar um número variável de parâmetros em templates. Basicamente isso permite que um dado template aceite um número variável de parâmetros e esses parâmetros sejam &amp;quot;expandidos&amp;quot; em inúmeras construções dentro do escopo desse template. Nada melhor para explicar que um exemplo, como o caso da herança múltipla. Imagine um template que precisa herdar de seus parâmetros, mas não quer especificar a quantidade:
+template&amp;lt;typename... Bases&amp;gt; // quantidade definida pelo usuárioclass MyTemplate : public Bases...{ Outras pequenas correções também serão feitas para tornar a linguagem mais robusta:
+ Referências para lvalue. Parâmetros default em funções-template. Problema do fecha-templates duplo (&amp;gt;&amp;gt;).  Podemos esperar por outras grandes mudanças que irão ocorrer nesse novo padrão? Não exatamente. As principais estarão na biblioteca C&#43;&#43;, com a inclusão de diversas classes e funções do projeto Boost. O resto são pequenas correções e melhorias de uma linguagem que, cá entre nós, já está bem poderosa e complexa.
+</description>
+</item>
+
+     
+        <item>
+  <title>What happens inside the sizeof operator</title>
+  <link>http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/</link>
+  <pubDate>2007-07-16</pubDate>
+  
+  <guid>http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/</guid>
+  <description>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
+static const size_t FIELD_SIZE_MSGID = 15;struct FEEDER_RECORD_HEADER{char MessageID[FIELD_SIZE_MSGID];char MessageIndex[10];};// error C2143: syntax error : missing &#39;)&#39; before &#39;.&#39;char MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER.MessageIndex) &#43; 1];// error C2070: &#39;&#39;: illegal sizeof operandchar MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER::MessageIndex) &#43; 1];  In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work. The compiler error is not even clear. The member access operator (the point sign) needs to have as its left some variable or constant of the same type of the struct. Since the operand is the type itself, there is no deal.
+The second test is more feasible. Even the compiler can alert us. We have accessed the right member in the right struct but in the wrong way. As we&#39;re not using a static member or, in other words, a class variable, we can&#39;t access the member by scope. We need an object. But in order to have an object we are supposed to have to create one, and this is exactly what is not allowed in our solution.
+This kind of problem reminds me about a curious feature inside the sizeof operator: it doesn&#39;t evaluate the expressions used as operands. How&#39;s that? Well, as the sizeof main purpose is to provide us the memory size filled by the expression, it simply doesn&#39;t make sense to execute the expression. We just need to note that the language we&#39;re talking about defends eficiency and clarity as main principles. If you want to execute the expression, we do it without using sizeof operator.
+So, now we know that everything put inside a sizeof is not going to be executed in fact. It works somewhat like the c&#43;&#43; &amp;quot;dead zone&amp;quot;: is the place where - talking about executable code - nothing runs. That means we can build a object inside sizeof that nothing is going to happen, except for the expression size. Let&#39;s look the resulting assembly:
+sz = sizeof( (new FEEDER_RECORD_HEADER)-&amp;gt;MessageID ); // this...mov dword ptr [sz], 0Fh ; ... is translated into this Another way to do the same thing (for those who can&#39;t bear the use of operator new delete, seeing the code as a memory leak):
+sz = sizeof( ((FEEDER_RECORD_HEADER*)0)-&amp;gt;MessageID ); // this...mov dword ptr [sz], 0Fh ; ... is translated into this Conclusion: the operator new is called and nothing happens. We got what we wanted. That shows us one more time that the little details built inside a language layout are only very important in the exact time we need them.
+</description>
+</item>
+
+     
+        <item>
+  <title>Precedence difference</title>
+  <link>http://www.caloni.com.br/precedence-difference/</link>
+  <pubDate>2007-07-10</pubDate>
+  
+  <guid>http://www.caloni.com.br/precedence-difference/</guid>
+  <description>Once upon a time my old friend Kabloc wrote this little and &amp;quot;harmless&amp;quot; function in order to print the multiplication table:
+#include &amp;lt;stdio.h&amp;gt;int main(){int f1,f2,s=0;for(f1=1;(f1==11&amp;amp;&amp;amp;s!=5)?s=5,f1=0,putchar(10):(f1&amp;lt;=10)?f1=f1:f1=12,f1&amp;lt;=11;f1&#43;&#43;)for(f2=1&#43;s;f2&amp;lt;=5&#43;s;f2&#43;&#43;)printf(&amp;quot;%dx%d=%d%c&amp;quot;,f2,f1,f1*f2,(f2==5&#43;s)?10:9);return 0;}  Despite the fact the result is a strong candidate to The International Obfuscated C Code Contest the Linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.
+Asked to solve the problem, given my congenital inclination to random subjects involving C&#43;&#43;, I decided to fix the things up in my old-n-good Visual Studio 2003. Nonetheless, it compiles C source code as well. We just need to rename the file from .cpp to .c. It was doing this that I found the following compiler error:
+error C2106: &#39;=&#39; : left operand must be l-value That happens in the line 6, the first for line. In other words, a C source that compiles as C&#43;&#43; but gives us a lack of l-value error since compiled as pure C.
+Thinking about the problem rather intuitively than rationally I imagined that could be some little difference in the precedence table. Keeping that in mind, wrested the standard papers for both languages and took a look at this reduced C&#43;&#43; table and C ANSI standard from 1989:
+   C C&#43;&#43;     [L2R] () [] -&amp;gt; . () [] -&amp;gt; . [L2R]   [R2L] ! ~ &#43;&#43; -- ! ~ &#43;&#43; -- [R2L]   [L2R] * / % * / % [L2R]   [L2R] &#43; - &#43; - [L2R]   [L2R] &amp;lt;&amp;lt; &amp;gt;&amp;gt; &amp;lt;&amp;lt; &amp;gt;&amp;gt; [L2R]   [L2R] &amp;lt; &amp;lt;= &amp;gt; &amp;gt;= &amp;lt; &amp;lt;= &amp;gt; &amp;gt;= [L2R]   [L2R] == != == != [L2R]   [L2R] &amp;amp; &amp;amp; [L2R]   [L2R] ^ ^ [L2R]   [L2R] | | [L2R]   [L2R] &amp;amp;&amp;amp; &amp;amp;&amp;amp; [L2R]   [L2R] || || [L2R]   [R2L] ?: = &#43;= -= *= /= %= [R2L]   [R2L] = &#43;= -= *= /= %= ?: [L2R]   [L2R] , , [L2R]    Besides some now less important details we can notice in the end of the table a inversion between the ternary operator and the attribution operator and, more importantly, the inversion of the evaluation order. In C, the ternary operator is evaluated from right to left (R2L), whilst in C&#43;&#43; from left to right (L2R), like the rest. This is going to shows us that, in line 6, the same expression has two different interpretations in each language.
+In order to understand bit by bit the problem, let&#39;s disassemble the second part of that for:
+( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? s = 5, f1 = 0, putchar(10) : ( f1 &amp;lt;= 10 ) ? f1 = f1 : f1 = 12, f1 &amp;lt;= 11;  We have two ternary operators nestled. In accordance with C&#43;&#43; standard, the ternary operators have less precedence than the attribution operators and are evaluated from left to right. In other words, in first place all the atributions inside the expression are made before any ternary operator. After that, the first ternary operator is executed, followed by the second:
+( ( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? (s = 5), (f1 = 0), putchar(10) : ( f1 &amp;lt;= 10 ) ) ? (f1 = f1) : (f1 = 12), f1 &amp;lt;= 11;  Now let&#39;t take a look in C. In this language, different from C&#43;&#43;, the ternary operators have more precedence than the attribution operators, and are executed from right to left. That means the first and last ternary operators are executed, ignoring the right attribution, and after that the first ternary operator is executed. Only after these two events the right attribution is evaluated:
+( ( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? s = 5, f1 = 0, putchar(10) : ( ( f1 &amp;lt;= 10 ) ? f1 = f1 : f1 ) ) = 12, f1 &amp;lt;= 11; All this make us to see the attribution to 12 will be done on the first ternary operator result, which possible values could be from the putchar return or f1. Remember that the comma operator purpose outside function calls is to chain expressions, execute them and return the value from the rightmost expression:
+s = 5, f1 = 0, putchar(10) // makes s equals 5, f1 equals 0 and returns the putchar call value.f1 = f1 : f1 // in both cases the returned value is the f1 variable Well, the f1 variable is an integer. And putchar return as well. This is not going to break any type rule. However, breaks the attribution gold rule: &amp;quot;put an lvalue in the right side of an attribution&amp;quot;.
+f1 = 12; // right; nothing to sayputchar(10) = 12; // woops! what&#39;s that? putchar doesn&#39;t return variable but a constant value This finishes the long explanation about why that little insignificant error at the beginning of this article happened only in the C language. This is a perfect example of the little differences between these two languages. Perhaps do you use parenthesis like a crazy, and are not going to find this kind of problems inside your source code. Perhaps not.
+</description>
+</item>
+
+     
+        <item>
+  <title>Disassembling the array operator</title>
+  <link>http://www.caloni.com.br/disassembling-the-array-operator/</link>
+  <pubDate>2007-06-22</pubDate>
+  
+  <guid>http://www.caloni.com.br/disassembling-the-array-operator/</guid>
+  <description>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: pointers.
+When I was reading the K&amp;amp;R book (again) I was enjoying the language specification details in the Appendix A. It was specially odd the description as an array must be accessed:
+ A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &amp;quot;pointer to T&amp;quot; and the other shall have enumeration or integral type. The result is an lvalue of type &amp;quot;T&amp;quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) &#43; (E2) ).
+ Notice that the rules don&#39;t specify the order of expressions to access the array. In other words, it doesn&#39;t matter for the language if we use a pointer before the integer or an integer before the pointer.
+#include &amp;lt;iostream&amp;gt;#include &amp;lt;cassert&amp;gt;int main(){char q[] = &amp;quot;Show me your Code, &amp;quot;&amp;quot;and I&#39;ll tell you who you are.&amp;quot;;int i = 13;std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; q [ i ] &amp;lt;&amp;lt; std::endl;assert( q[i] == i[q] );assert( q[13] == 13[q] );assert( *(q &#43; i) == &amp;quot;That&#39;s C!&amp;quot;[7] );return 13[q] - &amp;quot;CThings&amp;quot;[0];}  The q[i] bellow shows that we can use both orders and the code will compile successfully.
+std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; i [ q ] &amp;lt;&amp;lt; std::endl; This code doesn&#39;t show how obscure we can be. If we use a constant integer replacing the i, by example, the code starts to be an IOCCC participant:
+std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; 13 [ q ] &amp;lt;&amp;lt; std::endl; Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &amp;quot;universal match&amp;quot; *( (E1) &#43; (E2) ). Even bizarre things like this are easy to realize:
+std::cout &amp;lt;&amp;lt; 8[&amp;quot;Is this Code right?&amp;quot;] &amp;lt;&amp;lt; std::endl; Obs.: this kind of &amp;quot;obscure rule&amp;quot; hardly will pass in a code review since it is a useless feature. Be wise and don&#39;t use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.
+</description>
+</item>
+
+     
+    
+  </channel>
+</rss>
