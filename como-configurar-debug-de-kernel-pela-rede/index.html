@@ -13,13 +13,13 @@
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blogue do Caloni - Como Configurar Debug De Kernel Pela Rede (Hyper-V Edition)</title>
+  <title>Blogue do Caloni - Como Configurar Debug de Kernel Pela Rede (Hyper-V Edition)</title>
   <meta name="author" content="" />
 
   <meta name="generator" content="Hugo 0.67.1" />
 
   
-  <meta property="og:title" content="Como Configurar Debug De Kernel Pela Rede (Hyper-V Edition)"/>
+  <meta property="og:title" content="Como Configurar Debug de Kernel Pela Rede (Hyper-V Edition)"/>
   <meta property="og:type"
         content="article"/>
   <meta property="og:url" content="http://www.caloni.com.br/como-configurar-debug-de-kernel-pela-rede/"/>
@@ -82,8 +82,8 @@
       
       <div class="container">
         <p class="title">
- <a class="external" href="https://medium.com/@ophirharpaz/kdnet-tutorial-for-noobs-68669778bbd4">
-Como Configurar Debug De Kernel Pela Rede (Hyper-V Edition)
+ <a class="external" href="https://youtu.be/PU0O_HYMoCw">
+Como Configurar Debug de Kernel Pela Rede (Hyper-V Edition)
 </a>
 </p>
 
@@ -108,7 +108,7 @@ Como Configurar Debug De Kernel Pela Rede (Hyper-V Edition)
               <p>Estava pensando em transformar alguns posts antigos que estou revisando em vídeos no YouTube. Acho que o esforço para fazer isso é relativamente baixo se for sem áudio, sem edição e apenas com o que eu naturalmente faria para validar as partes técnicas, e muita gente poderia aprender algumas coisas, como, por exemplo, configurar o debug de kernel.</p>
 <p>Foi nessas que eu comecei a gravar um vídeo para <a href="/kernel-mode-user-mode">o post</a> onde eu ensino a depurar um processo em user mode através do debug de kernel mode usando o WinDbg. Esse post é de mais de dez anos e na época usei VMWare e emulação de cabo serial. Hoje estou usando Hyper-V e vejo que a maneira mais fácil de configurar o debug de kernel é pelo driver de rede, usando uma ferramenta do Debugging Tools chamado kdnet.</p>
 <p>No vídeo original comecei na inocência seguindo o tutorial da Microsoft para configurar o kdnet, mas acabei gastando quase uma hora nesse esforço, e foi em vão. Eu não consegui usar os passos descritos no tutorial para fazer o boot finalmente conectar no kd.exe.</p>
-<p>Pesquisando sobre pessoas que tiveram o mesmo problema encontro um post da Ophir Harpaz no Medium dizendo que irá ensinar o porquê de cada comando na configuração desse tipo de debug. O título do post é apenas um chamariz, pois também é um passo-a-passo sem explicação nenhuma dos motivos por trás de cada comando. Porém, os passos são diferentes do da Microsoft, e esses funcionaram. Então vou gravar o vídeo, e de brinde segue o passo-a-passo:</p>
+<p>Pesquisando sobre pessoas que tiveram o mesmo problema encontro um <a href="https://medium.com/@ophirharpaz/kdnet-tutorial-for-noobs-68669778bbd4">post da Ophir Harpaz</a> no Medium dizendo que irá ensinar o porquê de cada comando na configuração desse tipo de debug. O título do post é apenas um chamariz, pois também é um passo-a-passo sem explicação nenhuma dos motivos por trás de cada comando. Porém, os passos são diferentes do da Microsoft, e esses funcionaram. Então vou gravar o vídeo, e de brinde segue o passo-a-passo:</p>
 <p>Com uma VM de Windows 10 criada no Hyper-V, desabilite o Secure Boot pelas configurações da VM:</p>
 <p><img src="/img/hyper-v-disable-secure-boot.png" alt=""></p>
 <p>Desligue a VM. Pelo meno do Hyper-V crie um novo adaptador pelo Virtual Switch Manager; esse deve apontar para um adaptador de sua máquina real, para host e target conseguirem se comunicar. Atribua esse novo adaptador à sua VM desligada e volte a ligá-la.</p>
@@ -168,7 +168,7 @@ Waiting to reconnect...
 
     <footer class="footer">
   <div class="container">
-    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.05.01</a> </i></span>
+    <span style="float: right;"><i style="font-size: small;">Blogue do Caloni <a href="https://github.com/Caloni/blog">2021.05.02</a> </i></span>
   </div>
 </footer>
 
