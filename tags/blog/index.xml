@@ -2029,46 +2029,57 @@ O arquivo do complemento tem o nome google.xml e você pode editá-lo usando o B
 
      
         <item>
-  <title>Kernel Mode &gt;&gt; User Mode</title>
-  <link>http://www.caloni.com.br/kernel-mode-user-mode/</link>
-  <pubDate>2008-05-13</pubDate>
+  <title>Read The Functional Manual</title>
+  <link>http://www.caloni.com.br/read-the-functional-manual/</link>
+  <pubDate>2008-05-07</pubDate>
   
-  <guid>http://www.caloni.com.br/kernel-mode-user-mode/</guid>
-  <description>Existem algumas situações onde um depurador WYSIWYG é artigo de luxo.
-Imagine o seguinte: temos um serviço que inicia automagicamente antes do _login _do Windows, e possivelmente antes mesmo do ambiente gráfico. Esse serviço tem algum problema que impede que ele funcione sob as circunstâncias de inicialização do sistema. O que fazer? Atachar o WinDbg no processo?
-Mas que mané WinDbg? Que mané atachar? Nessa hora nós temos bem menos do que nossos sentidos são capazes de enxergar.
-Nessas horas o único que pode nos ajudar é o kernel debugger.
-Conversinha entre depuradores Os depuradores do pacote Debugging Tools (especialmente o ntsd e o cdb) suportam o funcionamento em modo _proxy, _ou seja, eles apenas redirecionam a saída e os comandos entre as duas pontas da depuração (o depurador e o depurado). Isso é comumente usado em depuração remota e depuração de kernel, quando o sistema inteiro está congelado. O objetivo aqui é conseguir os dois: depurar remotamente um processo em um sistema que está travado.
-Para isso podemos nos utilizar do parâmetro -d, que manda o depurador redirecionar toda saída e controle para o depurador de kernel. Para que isso funcione o depurador já deve estar atachado no sistema-alvo. A coisa funciona mais ou menos assim:
-Com essa configuração temos a vantagem de ter o sistema congelado só pra nós, ao mesmo tempo que conseguimos depurar nosso processo fujão, passo-a-passo.
-A única desvantagem é não ter uma GUI tão poderosa quando o &amp;quot;WinDbg fonte colorido, tooltips, etc&amp;quot;. Pra quem não liga pra essas frescuras, é possível depurar processos de maneira produtiva utilizando esse cenário.
-Para ativar qualquer programa que irá rodar nesse modo, basta usar o aplicativo gflags:
-gflags /p /enable servico.exe /debug &amp;quot;c:\path\ntsd.exe -d&amp;quot; Fluxo de navegação pelo mundo kernel-user misturados É preciso dar uma lida bem profunda na ajuda do Debugging Tools para entender como as coisas estão funcionando nessa configuração milagrosa que estamos usando. Procure por &amp;quot;Controlling the User-Mode Debugger from the Kernel Debugger&amp;quot;. Também é possível ouvir falar parcamente sobre isso no livro Advanced Windows Debugging na parte &amp;quot;Redirecting a User Mode Debugger Through a Kernel&amp;quot;. A vantagem é que vem de brinde uma bela figura para pendurar em um quadro no escritório (embora eu possa jurar que já vi essa figura na ajuda do WinDbg):
-
-Como podemos notar, o controlador de tudo é o _kernel debugger. _Assim que o depurador de processo entra em ação, ele se comunica com o depurador de _kernel _que entra no modo _user mode prompt, _pedindo entrada para ser redirecionada ao depurador de processo. Existem alguns caminhos para sair de um estado e entrar em outro, como o comando .breakin e o .sleep.
-É necessário recomentar: estamos nos comunicando com um depurador e o seu processo depurado em um sistema totalmente travado. Isso quer dizer que o acesso a coisas como código-fonte e símbolos é extremamente limitado, porém não impossível. Apenas mantenha-os localmente na máquina-vítima, pois uma comunicação pela rede não irá funcionar.
-A depuração com a linha atual no código-fonte demarcando onde estamos também não é possível, uma vez que o WinDbg da ponta de cá apenas faz o papel de garoto de recados para o &amp;quot;depurador de verdade&amp;quot; do outro lado (no nosso exemplo, o ntsd). Isso quer dizer que a forma mais &amp;quot;fácil&amp;quot; de ir passo-a-passo é usar o comando p (step) ou t (trace), além de habilitar o uso de fonte em 100%.
-input&amp;gt; .srcpath c:\maquina-vitima\srcinput&amp;gt; l&#43;* $$ habilita uso de código-fonte no ntsd...0:000&amp;gt; p&amp;gt; 15: int main() $$ número da linha seguido do fonte&amp;gt; 16: {0:000&amp;gt; bp myFunction0:000&amp;gt; g0:000&amp;gt; Um tipo de problema que só pode ser depurado dessa maneira enfatiza a importância do uso de unit tests, além de um controle de qualidade mais aguçado antes de liberar uma versão para o cliente.
+  <guid>http://www.caloni.com.br/read-the-functional-manual/</guid>
+  <description>Percebi essa semana que talvez boa parte da população informática que não progride em suas habilidades, mas gostaria muito, pode ser impedida pela falta de hábito em ler a ajuda do programa | da linguagem | do sistema com calma para encontrar o que procura. Independente do que você é, e para onde quer chegar, saiba que nem tudo na vida pode ser perguntado ao seu colega de baia. Senão você não evolui!
+Se você quer dominar um assunto, ou aprender sobre ele, saiba que existem estágio nesse processo. O primeiro estágio é formado principalmente por livros. Se você quer aprender algo, e tem livros sobre o assunto, você é um cara sortudo e feliz.
+Eu concordo com o cara do 1bit quando ele diz que livros são MUITO importantes. Provavelmente eu não seria metade do programador que me considero hoje se só tivesse a experiência, mas não a base fundamental necessária para realmente progredir no que se gosta.
+Para algumas coisas pode não existir um livro bem estruturado e organizado nos moldes de &amp;quot;pra iniciante&amp;quot;. Nesse caso, na maioria das vezes existe pelo menos o chamado tutorial, ou guia do usuário, que dá o pontapé inicial na cabeça do cara que quer começar a mexer com algum negócio novo.
+Outra coisa que acredito que seja fundamental, o segundo nível depois que você começou a ler um bom livro, é saber usar o que você precisa. E para saber usar nada melhor do que ler o manual. Óbvio, não? Pois é, eu também achava... até quando vi um amigo meu tentando descobrir por que as coisas não estavam funcionando, baseado na boa e velha tentativa e erro. É um outro caminho válido, concordo. Mas, se você ainda não deu uma olhada na parte da documentação que fala sobre o problema que você está tendo, então está andando em círculos. E vai aprender bem menos do que poderia.
+Outra coisa que ouço com bastante freqüência é a pessoa desanimar por ter muita coisa pra estudar. Bem, se não houvesse tanta coisa assim para estudar não valeria a pena. E nem existiria documentação a respeito. Pra quê, se dá pra decorar tudo de uma vez?
+O fato é que os sistemas tendem a ficar cada vez mais complexos e volumosos. Quem duvida, veja o monstro que essas linguagens de alto nível estão se tornando, com mil e uma possibilidades de fazer a mesma coisa.
+E como sobreviveríamos nós, meros programadores de fundo de quintal, se não fosse a bênção de uma documentação completa e bem estruturada? Difícil dizer... eu praticamente não vivo sem ler a ajuda de qualquer coisa que eu precise fazer funcionar. Mesmo sendo um programa qualquer que abre um arquivo, coisa que já fiz três milhões de vezes e meia, continuo olhando na ajuda do CreateFile.aspx). E não sou um chimpanzé autista. Eu simplesmente prefiro guardar coisas mais importantes na cabeça do que quantos parâmetros eu preciso passar em uma determinada função. (no caso do CreateFile, são sete!)
+Porém, existem aqueles problemas que realmente desafiam o bom senso, a ponto de nem livros, nem tutoriais e muito menos a documentação ter alguma coisa a respeito. O que fazer numa hora dessas? Se você já é um programador tarimbado já sabe do que eu vou falar antes de terminar a primeira linha desse parágrafo: google!
+Atualmente existem diversas formas do google te ajudar a encontrar o que você precisa: blogues que falam a respeito (pessoas ajudando pessoas indiretamente), fóruns de discussão sobre o assunto (mais uma vez), páginas do &amp;quot;fabricante&amp;quot; que explicam em melhores detalhes algum problema que está se tornando comum, etc.
+É assim que você irá começar a pedir ajuda das pessoas: indiretamente. Não se pergunta nada que já tenha sido respondido. Porque é uma perda de tempo dos dois lados. Do lado que pergunta porque sua resposta já pode estar prontinha em algum canto da web. Do lado que responde porque a pessoa terá que achar o lugar onde respondeu a mesma pergunta, copiar e colar (ou simplesmente ignorar, o que te fará perder mais tempo).
+Você já devia saber disso. Faz parte da netiqueta, o guia mundial de bom uso da internet. O quê? Você nunca leu a netiqueta? Se nunca, então comece por lá. Depois venha fazer perguntas interessantes.
+Tudo bem, você não conseguiu achar nenhum livro a respeito, não existe tutorial no mundo que resolva o seu problema, e todas as pessoas que possuem a resposta falam e escrevem em mandarim, ou algum outro idioma baseado em pegadas de passarinhos (o google ainda não traduz isso ainda muito bem). Nesse último caso, você ainda tem duas escolhas, sendo a mais fácil delas perguntar para quem entende.
+Eu já fiz isso muitas vezes, antes de aprender a me virar (quase) sozinho. Todas que fiz foi por um de dois motivos: intercomunicação ou desespero.
+Intercomunicação é quando você fica empolgado com o assunto, conversa com todo mundo que usa o treco que você está aprendendo e anseia por aprender cada vez mais todo dia. Nesse caso a conversa pode ser muito frutífera e animar mais ainda o aprendizado. Porém, é necessário tomar algumas precauções para se certificar que você não está afogando as pessoas de perguntas.
+Desespero é quando tudo que você tentou não funciona e você sabe que para adquirir o conhecimento que precisa irá levar muito mais tempo do que fazer a pergunta certa para a pessoa certa. Nesse caso, estou falando realmente de MUITO tempo, coisa de meses a anos.
+Também existe um outro caso de desespero, que é quando você sabe que vai perder o emprego se não resolver o problema.
+Eu disse que existem duas escolhas nesse estágio. A primeira é perguntar para quem entende do assunto. Porém, o que acontece se você é uma das pessoas que mais entende do assunto que você conhece?
+Aí o jeito é resolver sozinho. E, se possível, publicar em algum lugar a solução. A rede agradece.
 </description>
 </item>
 
      
         <item>
-  <title>Bazaar e Fedora 8: a saga</title>
-  <link>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</link>
-  <pubDate>2008-04-29</pubDate>
+  <title>CSI: Crashed Server Investigation?</title>
+  <link>http://www.caloni.com.br/csi-crashed-server-investigation/</link>
+  <pubDate>2008-04-23</pubDate>
   
-  <guid>http://www.caloni.com.br/bazaar-e-fedora-8-a-saga/</guid>
-  <description>Seria bom se as coisas simples da vida fossem simples, não é mesmo?
-Ontem, sexta passada e quinta passada, no meio de outras tarefas &amp;quot;urgentes&amp;quot;, tentava desesperadamente conseguir instalar o Bazaar na minha VM de desenvolvimento, um Fedora 8 todinho configurado.
-Para azar da minha pessoa, o guia simples e rápido de instalação do Bazaar não funcionava para minha distribuição Linux. Na verdade, funciona. Porém, é instalada uma versão tão antiga (0.91!) que o formato do banco de dados já se tornou incompatível.
-#yum info bzr...Available PackagesName : bzrArch : i386Version : &amp;lt;font color=&amp;quot;#ff0000&amp;quot;&amp;gt;0.91&amp;lt;/font&amp;gt;... O pior, no entanto, foi tentar encontrar uma solução para o problema. Fiz mil e uma pesquisas com palavras-chave que nem imaginava que seria capaz de formular. E nada. A princípio minha idéia era apenas atualizar a lista de pacotes do repositório gerenciado pelo yum, o gerenciador de pacotes oficial do Fedora. Entre minhas buscas, encontrei os seguintes itens:
-  Um FAQ do Fedora (que não conseguiu responder à minha pergunta)
-  O sítio do projeto do yum, gerenciador de pacotes (cujo FAQ não conseguiu responder o mínimo)
-  Uma lista enorme de sítios explicando como criar seu próprio repositório (sem comentários)
-  Enfim, a coisa não estava saindo do lugar. E o cronograma apertando até o dia final. Até que decidi usar o caminho mais rápido e pentelho: perguntar para quem entende do assunto. A resposta foi simples e direta:
-Uia! E não é que é mais simples, mesmo?
-#wget https://launchpad.net/bzr/1.3/1.3.1/&#43;download/bzr-1.3.1.tar.gz#tar -zxvf bzr-1.3.1.tar.gz /* ele teve que me explicar esse comando singelo */#cd bzr-1.3.1#cat INSTALLInstallation------------When upgrading using setup.py, it is recommended that you first delete thebzrlib directory from the install target.To install bzr as a user, runpython setup.py install --home ~To install system-wide, run (as root)python setup.py install#python setup.py install E foi isso! É a segunda vez que tento fazer algo simples no Linux e me dou mal. Com certeza os dias futuros serão melhores. Mas me bate aquela sensação que as coisas poderiam já estar em um nível mais fácil de se mexer. Opinião pessoal.
+  <guid>http://www.caloni.com.br/csi-crashed-server-investigation/</guid>
+  <description>O artigo de Jeff Dailey, The Digital DNA of Bugs Dump Analysis as Forensic Science, em que ele compara a nossa atividade de &amp;quot;cientistas do debugging&amp;quot; com a atividade dos profissionais da análise forense, é exatamente o que eu penso sobre nossa profissão. Freqüentemente assisto à série CSI: Las Vegas e mais freqüentemente ainda uso os métodos científicos empregados pela equipe de Gil Grissom para resolver os problemas mais escabrosos que podem ocorrer em um sistema.
+Jeff fez uma divertida comparação entre todas as etapas de uma análise forense com todas as etapas de nossa análise do bug. Aqui vai a tradução livre dessas etapas (em linguagem cinematográfica):
+ São duas horas da manhã. A câmera focaliza um pager explodindo sobre um criado-mudo... só pode querer dizer uma coisa: algo de ruim aconteceu e pessoas estão à procura de ajuda. O detetive acorda e diz para sua mulher: &amp;quot;Desculpe, eles precisam de mim... Eu tenho que ir&amp;quot;.
+ Engraçado, eu fiz a mesma coisa, só porque alguém encontrou um servidor morto.
+ O detetive aparece na cena do crime. Todos os policiais estão confusos, então eles apenas mantém a área isolada até que os experts cheguem. Seus anos de experiência e iluminação única irão permiti-lo ver coisas que os outros não vêem.
+ Umm... Isso só me parece apenas familiar. Eu tipicamente uso Live Meeting ou Easy Assist...
+ Usando uma combinação de ferramentas especializadas e métodos aprendidos tanto na escola quanto os aprendidos com o tempo, a evidência é coletada na cena para que seja feita uma pesquisa adicional no escritório. Testemunhas são questionadas: &amp;quot;Por volta de que horas isso ocorreu?&amp;quot;, &amp;quot;Você ouviu algum barulho estranho&amp;quot;, e &amp;quot;você viu alguém ou alguma coisa não usual&amp;quot;. Fotos são tiradas, objetos são arquivados, fibras e amostras de DNA são coletadas.
+ Ok, então o escopo do problema está determinado e todas as informações disponíveis foram obtidas. Ummm... eu faço isso todo dia.
+ O prefeito chama o oficial para que diga ao chefe dos detetives que nós devemos resolver este caso. Isso não pode acontecer de novo. Nós devemos capturar o vilão!
+ Sinta-se livre para substituir &amp;quot;prefeito&amp;quot; com qualquer figura de alto nível gerencial. Uau, isso ou é um cara mau e asqueiroso ou o driver de alguém está causando pool corruption causando um servidor crítico falhar!
+ Nós agora cortamos onde o detetive está no laboratório, usando luminárias, procurando por evidências de DNA, refletindo sobre os fatos principais do caso, pesquisando crimes passados.
+ Eu não sei sobre você, mas eu simplesmente me refiro a isso como o processo de depuração.
+ Finalmente um progresso: o DNA coletado na cena do crime identifica um suspeito que não deveria estar lá. Ao fazer uma pesquisa adicional, o suspeito tem um histórico desse tipo de atividade. O cara mau é capturado, os custos são arquivados e o caso está resolvido!
+ Isso deve ser o mesmo que encontrar a causa principal, preencher um bug, e lançar uma correção.
+Para finalizar, uma frase do artigo original que resume tudo:
+ &amp;quot;Ultimately that&#39;s what we do. We are all detectives looking for the digital DNA of bugs in the wild affecting our customers. We hunt them down using tools, expertise, and experience.&amp;quot;
+ Dmitry Vostokov imaginou siglas mais imaginativas e fiéis a todos os que depuram problemas em software, independente deste rodar em servidores ou máquinas de café. Além, é claro, de uma ótima dica de livro sobre análise forense. O significado da sigla neste post foi uma de suas sugestões. Thanks, Dmitry!
 </description>
 </item>
 
