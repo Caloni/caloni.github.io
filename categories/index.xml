@@ -5,9 +5,39 @@
     <description>Recent content in Categories on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 02 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>animes</title>
+  <link>http://www.caloni.com.br/categories/animes/</link>
+  <pubDate>2021-05-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/animes/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>blog</title>
+  <link>http://www.caloni.com.br/categories/blog/</link>
+  <pubDate>2021-05-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/blog/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/categories/movies/</link>
+  <pubDate>2021-05-04</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/movies/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>lists</title>
@@ -30,16 +60,6 @@
 
      
         <item>
-  <title>animes</title>
-  <link>http://www.caloni.com.br/categories/animes/</link>
-  <pubDate>2021-04-25</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/animes/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>food</title>
   <link>http://www.caloni.com.br/categories/food/</link>
   <pubDate>2021-04-17</pubDate>
@@ -50,31 +70,11 @@
 
      
         <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/categories/movies/</link>
-  <pubDate>2021-04-12</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>series</title>
   <link>http://www.caloni.com.br/categories/series/</link>
   <pubDate>2021-02-19</pubDate>
   
   <guid>http://www.caloni.com.br/categories/series/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>blog</title>
-  <link>http://www.caloni.com.br/categories/blog/</link>
-  <pubDate>2021-01-02</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/blog/</guid>
   <description></description>
 </item>
 
