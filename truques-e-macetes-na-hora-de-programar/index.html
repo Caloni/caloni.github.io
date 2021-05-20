@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  
+  
+      
+  
+      
+  
+
+  <head>
+  <meta charset="utf-8" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blogue do Caloni - Truques e Macetes na Hora de Programar</title>
+  <meta name="author" content="" />
+
+  <meta name="generator" content="Hugo 0.67.1" />
+
+  
+  <meta property="og:title" content="Truques e Macetes na Hora de Programar"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://www.caloni.com.br/truques-e-macetes-na-hora-de-programar/"/>
+  <meta property="og:image"
+        content="/img/author.jpg"/>
+  <meta property="og:description"
+        content="Este artigo é para organizar meu raciocínio e pesquisa para uma passagem de conhecimento na empresa. Foi sugerido ensinar um pouco do que é possível fazer para acelerar um pouco o desenvolvimento de..."/>
+
+  
+  <link href="" rel="feed" type="application/rss+xml"
+        title="Blogue do Caloni"/>
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
+  
+  <script>
+  
+    
+      <!-- Google Analytics -->
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50557403-2', 'auto');
+      ga('send', 'pageview');
+    
+  
+  </script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/list.js"></script>
+
+  
+  <link rel="icon" href="/img/favicon.ico"/>
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+
+  <div class="container">
+
+    <div class="navbar-brand">
+        <img alt="Brand" src="/img/brand.svg">
+        &nbsp;
+        <a class="navbar-item" title="Go to Home" href="/">
+            <div class="is-6">Blogue do Caloni</div>
+        </a>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+      
+      <div class="container">
+        <p class="title">
+
+Truques e Macetes na Hora de Programar
+
+</p>
+
+        
+<aside class="menu">
+  <div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#como-buscar-por-melhores-resultados-nas-pesquisas">Como buscar por melhores resultados nas pesquisas</a></li>
+    <li><a href="#como-otimizar-o-tempo-programando">Como otimizar o tempo programando</a></li>
+    <li><a href="#atalhos-nos-terminais-linux-e-windows-e-como-encontrar-atalhos">Atalhos nos terminais (Linux e Windows) e como encontrar atalhos</a></li>
+    <li><a href="#ferramentas-úteis-para-análise">Ferramentas úteis para análise</a>
+      <ul>
+        <li><a href="#process-explorer-e-como-encontrar-quem-travou-seu-arquivo">Process Explorer e como encontrar quem travou seu arquivo</a></li>
+        <li><a href="#process-monitor-e-como-ver-quem-escreveu-no-arquivo">Process Monitor e como ver quem escreveu no arquivo</a></li>
+        <li><a href="#tcp-view-winmerge-baretail-windirstat">TCP View, WinMerge, BareTail, WinDirStat</a></li>
+        <li><a href="#ferramentas-unix-desde-1970-por-aí">Ferramentas UNIX (desde 1970 por aí)</a></li>
+      </ul>
+    </li>
+    <li><a href="#ferramentas-do-dia-a-dia">Ferramentas do dia-a-dia</a>
+      <ul>
+        <li><a href="#git-mais-uma-vez-e-como-usar-de-verdade-comandos-esotéricos-como-cherry-pick">Git mais uma vez, e como usar de verdade (comandos esotéricos como cherry-pick)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</aside>
+<br>
+
+        
+          <div class="content">
+
+            
+              <p>Este artigo é para organizar meu raciocínio e pesquisa para uma passagem de conhecimento na empresa. Foi sugerido ensinar um pouco do que é possível fazer para acelerar um pouco o desenvolvimento de um programador no dia-a-dia, não só para codificar, mas para todo o resto que consome bem mais tempo.</p>
+<h2 id="como-buscar-por-melhores-resultados-nas-pesquisas">Como buscar por melhores resultados nas pesquisas</h2>
+<ul>
+<li>
+<p>Não use o Google como Banco de Dados. O seu Cérebro é o Banco de Dados. Use o Google como um índice remissivo do seu cérebro. Use livros e artigos densos para alimentar seu Banco de Dados.</p>
+</li>
+<li>
+<p>Nunca use a primeira resposta do Stack Overflow. Por quê? Porque ela é a mais popular.</p>
+</li>
+<li>
+<p>Stack Overflow para pedaço de código; artigos para entender o código; livros para estender o código.</p>
+</li>
+</ul>
+<h2 id="como-otimizar-o-tempo-programando">Como otimizar o tempo programando</h2>
+<p>Como diria Caloni:</p>
+<ul>
+<li>Para quê você vai querer fazer isso, se o tempo mais prazeroso do trabalho se passa programando?</li>
+</ul>
+<p>Como diria <a href="/the-best-of-edw519">edw519</a>, um dos membros mais populares do Hacker News:</p>
+<ul>
+<li>
+<p>Alguns caminhos são melhores que outros, mas qualquer caminho é melhor que nenhum.</p>
+</li>
+<li>
+<p>Comece com a resposta, então trabalhe ao contrário.</p>
+</li>
+<li>
+<p>É muito mais fácil julgar algo que já existe que definir algo que não existe.</p>
+</li>
+<li>
+<p>Esteja preparado para cavar quantos níveis de detalhe precisar para entender.</p>
+</li>
+<li>
+<p>Não ligue o computador a menos que você tenha uma tarefa específica.</p>
+</li>
+<li>
+<p>Beleza é importante, mas entrega é mais importante.</p>
+</li>
+<li>
+<p>Mantenha extremamente simples no começo. Complique conforme avança.</p>
+</li>
+<li>
+<p>Codifique todos os dias.</p>
+</li>
+</ul>
+<p>Como diria René Descartes, um cara não muito popular nas rodinhas da Idade Média:</p>
+<ul>
+<li>Cada problema que eu resolvo se torna uma regra que serve mais tarde para resolver outros problemas.</li>
+</ul>
+<p>Para além disso, ou problemas modernos de déficit de atenção, leia livros:</p>
+<ul>
+<li>
+<p><a href="/the-one-thing">The ONE Thing</a>, de Gary Keller (&quot;There will always be just a few things that matter more than the rest, and out of those, one will matter most&quot;).</p>
+</li>
+<li>
+<p><a href="/deep-work">Deep Work</a>: Rules for Focused Success in a Distracted World, de Cal Newport (&quot;Professional activities performed in a state of distraction-free concentration that push your cognitive capabilities to their limit&quot;).</p>
+</li>
+<li>
+<p><a href="/flow">Flow</a>, The Psychology of Optimal Experience, de Mihaly Csikszentmihalyi (&quot;engagement in an activity that is both challenging and attainable&quot;).</p>
+</li>
+</ul>
+<h2 id="atalhos-nos-terminais-linux-e-windows-e-como-encontrar-atalhos">Atalhos nos terminais (Linux e Windows) e como encontrar atalhos</h2>
+<ul>
+<li>
+<p>Em ambos, para navegar entre diretórios mantendo o histórico: pushd, popd.</p>
+</li>
+<li>
+<p>Para buscar por arquivos no Windows dir; para buscar por arquivos no Linux find; use the manual.</p>
+</li>
+<li>
+<p>Como encontrar mais atalhos: Google? (Falar sobre como atalhos no Vim são customizados por cérebro.)</p>
+</li>
+<li>
+<p>Caso de uso: como eu encontrava atalhos e janelas escondidas no Visual Studio.</p>
+</li>
+<li>
+<p>Caso de uso 2: como eu decorava atalhos no Vim.</p>
+</li>
+</ul>
+<h2 id="ferramentas-úteis-para-análise">Ferramentas úteis para análise</h2>
+<p>Como diria, edw519, um dos membros mais populares do Hacker News:</p>
+<ul>
+<li>
+<p>Use a ferramenta certa para o trabalho certo.</p>
+</li>
+<li>
+<p>Quase qualquer ferramenta pode fazer o trabalho. Algumas são melhores que outras.</p>
+</li>
+<li>
+<p>Lembre-se dos padrões que você usou antes. Você irá usá-los novamente.</p>
+</li>
+</ul>
+<h3 id="process-explorer-e-como-encontrar-quem-travou-seu-arquivo">Process Explorer e como encontrar quem travou seu arquivo</h3>
+<ul>
+<li>
+<p>Find, Find Handle or DLL...</p>
+</li>
+<li>
+<p>Como saber onde está o executável de um processo.</p>
+</li>
+<li>
+<p>Como saber a linha de comando do processo.</p>
+</li>
+<li>
+<p>Como saber as portas de rede abertas.</p>
+</li>
+<li>
+<p>Como saber as variáveis de ambiente do processo.</p>
+</li>
+<li>
+<p>Como saber as strings em memória do processo.</p>
+</li>
+<li>
+<p>Como saber as threads e stack de cada thread de um processo (com nomes de funções usando símbolos).</p>
+</li>
+<li>
+<p>Como... bom, vocês pegaram a ideia.</p>
+</li>
+</ul>
+<h3 id="process-monitor-e-como-ver-quem-escreveu-no-arquivo">Process Monitor e como ver quem escreveu no arquivo</h3>
+<ul>
+<li>
+<p>Filter, Filter...</p>
+</li>
+<li>
+<p>Como saber a linha de comando do processo que escreveu no arquivo.</p>
+</li>
+<li>
+<p>Como saber como foi aberto o arquivo pelo processo.</p>
+</li>
+<li>
+<p>Como saber a duração dessa chamada de escrita em arquivo.</p>
+</li>
+<li>
+<p>Como saber quando foi que o processo foi iniciado.</p>
+</li>
+<li>
+<p>Como saber a pilha de chamadas da thread que escreveu no arquivos... bom, vocês pegaram a ideia.</p>
+</li>
+</ul>
+<h3 id="tcp-view-winmerge-baretail-windirstat">TCP View, WinMerge, BareTail, WinDirStat</h3>
+<ul>
+<li>
+<p>Portas abertas na máquina.</p>
+</li>
+<li>
+<p>Comparar versões diferentes de arquivos e pastas.</p>
+</li>
+<li>
+<p>Ter um tail portátil e para múltiplos arquivos e filtro.</p>
+</li>
+<li>
+<p>Saber quem está ocupando espaço na máquina que o cliente pediu para limpar.</p>
+</li>
+</ul>
+<h3 id="ferramentas-unix-desde-1970-por-aí">Ferramentas UNIX (desde 1970 por aí)</h3>
+<ul>
+<li>
+<p>Grep: buscar coisas dentros dos arquivos.</p>
+</li>
+<li>
+<p>Sed: modificar coisas dentros dos arquivos.</p>
+</li>
+<li>
+<p>Tail e head: ver o início e o final de um arquivo; seguir o final do arquivo conforme for sendo escrito.</p>
+</li>
+<li>
+<p>Sort e uniq: sortear e uniqar coisas; ou ambos (sort -u).</p>
+</li>
+<li>
+<p>Pipe: poder dos programadores de Roma; nunca subestime juntar ferramentas UNIX.</p>
+</li>
+<li>
+<p>Regex: poder dos programadores do Olimpo; use o guia do Aurelio Jargas se nunca ouviu falar.</p>
+</li>
+<li>
+<p>Awk: poder dos programadores de Asgard; use o guia GNU.</p>
+</li>
+</ul>
+<h4 id="git-para-ter-grep-sed-tail-e-awk-no-seu-windows">Git para ter grep, sed, tail e awk no seu Windows</h4>
+<ul>
+<li>Path do usuário e do sistema; tome o poder para você; sussurro: \Program Files\Git\usr\bin.</li>
+</ul>
+<h2 id="ferramentas-do-dia-a-dia">Ferramentas do dia-a-dia</h2>
+<blockquote>
+<p>A lenda conta que em uma competição para ver quem cortava a árvore mais rápido, o lenhador mais velho passou a maior parte do tempo amolando o machado, enquanto o competidor mais jovem dedicou-se em golpear a árvore com toda a sua força. Quando o jovem estava no meio do tronco o competidor mais experiente começou a cortar sua árvore.</p>
+</blockquote>
+<h3 id="git-mais-uma-vez-e-como-usar-de-verdade-comandos-esotéricos-como-cherry-pick">Git mais uma vez, e como usar de verdade (comandos esotéricos como cherry-pick)</h3>
+<ul>
+<li>
+<p>Leia <a href="https://git-scm.com/book/en/v2">o livro</a> pelamordedeus.</p>
+</li>
+<li>
+<p>Encanamento: Git é um map de chave/valor em arquivo.</p>
+</li>
+<li>
+<p>Porcelana: Git é uma lista encadeada de arquivos patch.</p>
+</li>
+</ul>
+
+            
+
+          </div>
+
+        <div class="taglist">
+            <p class="author">
+
+  Wanderley Caloni,
+  
+    
+  
+    
+  
+  <a href="https://github.com/Caloni/blog/blob/master/content/posts/truques-e-macetes-na-hora-de-programar.md">2021-05-20</a>
+
+</p>
+
+            
+      <a href="/categories/blog">blog</a> 
+      <a href="/tags/draft">draft</a> 
+    <a class="externalgray" href="https://telegram.me/share/url?url=http://www.caloni.com.br/truques-e-macetes-na-hora-de-programar/">discuss</a>
+
+
+        </div>
+
+      </div>
+
+  </body>
+
+</html>
