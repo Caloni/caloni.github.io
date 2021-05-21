@@ -101,11 +101,8 @@ Truques e Macetes na Hora de Programar
         <li><a href="#process-monitor-e-como-ver-quem-escreveu-no-arquivo">Process Monitor e como ver quem escreveu no arquivo</a></li>
         <li><a href="#tcp-view-winmerge-baretail-windirstat">TCP View, WinMerge, BareTail, WinDirStat</a></li>
         <li><a href="#ferramentas-unix-desde-1970-por-aí">Ferramentas UNIX (desde 1970 por aí)</a></li>
-      </ul>
-    </li>
-    <li><a href="#ferramentas-do-dia-a-dia">Ferramentas do dia-a-dia</a>
-      <ul>
-        <li><a href="#git-mais-uma-vez-e-como-usar-de-verdade-comandos-esotéricos-como-cherry-pick">Git mais uma vez, e como usar de verdade (comandos esotéricos como cherry-pick)</a></li>
+        <li><a href="#git">Git</a></li>
+        <li><a href="#perguntas">Perguntas?</a></li>
       </ul>
     </li>
   </ul>
@@ -119,6 +116,7 @@ Truques e Macetes na Hora de Programar
 
             
               <p>Este artigo é para organizar meu raciocínio e pesquisa para uma passagem de conhecimento na empresa. Foi sugerido ensinar um pouco do que é possível fazer para acelerar um pouco o desenvolvimento de um programador no dia-a-dia, não só para codificar, mas para todo o resto que consome bem mais tempo.</p>
+<p>Lembrando que as sugestões foram bem vagas e gerais, então essa é só uma pincelada pessoal sobre os assuntos; nada muito objetivo. As perguntas podem vir depois.</p>
 <h2 id="como-buscar-por-melhores-resultados-nas-pesquisas">Como buscar por melhores resultados nas pesquisas</h2>
 <ul>
 <li>
@@ -139,35 +137,35 @@ Truques e Macetes na Hora de Programar
 <p>Como diria <a href="/the-best-of-edw519">edw519</a>, um dos membros mais populares do Hacker News:</p>
 <ul>
 <li>
-<p>Alguns caminhos são melhores que outros, mas qualquer caminho é melhor que nenhum.</p>
+<p>Alguns caminhos são melhores que outros, mas qualquer caminho é melhor que nenhum. Ex: fazer API HTTP com tudo GET.</p>
 </li>
 <li>
-<p>Comece com a resposta, então trabalhe ao contrário.</p>
+<p>Comece com a resposta, então trabalhe ao contrário. Ex: quero uma API HTTP, então começo chamando.</p>
 </li>
 <li>
-<p>É muito mais fácil julgar algo que já existe que definir algo que não existe.</p>
+<p>É muito mais fácil julgar algo que já existe que definir algo que não existe. Ex: uma API HTTP com tudo GET é feio, mas dá pra melhorar (porque já existe).</p>
 </li>
 <li>
-<p>Esteja preparado para cavar quantos níveis de detalhe precisar para entender.</p>
+<p>Esteja preparado para cavar quantos níveis de detalhe precisar para entender (&quot;um hacker é uma pessoa que sabe exatamente o que acontece quando se pressiona um botão do teclado&quot;).</p>
 </li>
 <li>
-<p>Não ligue o computador a menos que você tenha uma tarefa específica.</p>
+<p>Não ligue o computador a menos que você tenha uma tarefa específica (para pessoas que trabalham em lugares que você não ganha pelo tempo sentado).</p>
 </li>
 <li>
-<p>Beleza é importante, mas entrega é mais importante.</p>
+<p>Beleza é importante, mas entrega é mais importante. Ex: a API HTTP GET tá pronta e pro usuário funcional; próxima versão a gente melhora.</p>
 </li>
 <li>
-<p>Mantenha extremamente simples no começo. Complique conforme avança.</p>
+<p>Mantenha extremamente simples no começo. Complique conforme avança. Ex: para mexer na API HTTP GET tem um ponto de entrada cheio de ifs; agora comece a criar funções e outros pontos de entrada.</p>
 </li>
 <li>
-<p>Codifique todos os dias.</p>
+<p>Codifique todos os dias (memória muscular).</p>
 </li>
 </ul>
 <p>Como diria René Descartes, um cara não muito popular nas rodinhas da Idade Média:</p>
 <ul>
-<li>Cada problema que eu resolvo se torna uma regra que serve mais tarde para resolver outros problemas.</li>
+<li>Cada problema que eu resolvo se torna uma regra que serve mais tarde para resolver outros problemas. Ex: se o problema é perder tempo com uma tarefa repetitiva ache uma maneira mais automática de fazer a mesma tarefa.</li>
 </ul>
-<p>Para além disso, ou problemas modernos de déficit de atenção, leia livros:</p>
+<p>Para além disso, ou problemas modernos de déficit de atenção enquanto compila (galerinha do C++ e do Rust), leia livros:</p>
 <ul>
 <li>
 <p><a href="/the-one-thing">The ONE Thing</a>, de Gary Keller (&quot;There will always be just a few things that matter more than the rest, and out of those, one will matter most&quot;).</p>
@@ -182,32 +180,38 @@ Truques e Macetes na Hora de Programar
 <h2 id="atalhos-nos-terminais-linux-e-windows-e-como-encontrar-atalhos">Atalhos nos terminais (Linux e Windows) e como encontrar atalhos</h2>
 <ul>
 <li>
-<p>Em ambos, para navegar entre diretórios mantendo o histórico: pushd, popd.</p>
+<p>Ententa a estrutura de diretórios e arquivos do seu sistema; organize (do seu jeito, mas organize).</p>
 </li>
 <li>
-<p>Para buscar por arquivos no Windows dir; para buscar por arquivos no Linux find; use the manual.</p>
+<p>Em ambos SOs, para navegar entre diretórios mantendo o histórico: pushd, popd.</p>
 </li>
 <li>
-<p>Como encontrar mais atalhos: Google? (Falar sobre como atalhos no Vim são customizados por cérebro.)</p>
+<p>Para buscar por arquivos no Windows dir; para buscar por arquivos no Linux find; use o manual.</p>
 </li>
 <li>
-<p>Caso de uso: como eu encontrava atalhos e janelas escondidas no Visual Studio.</p>
+<p>Como encontrar mais atalhos: encontre o subconjunto que você usa. Ex: atalhos das tarefas mais comuns do seu editor favorito.</p>
 </li>
 <li>
-<p>Caso de uso 2: como eu decorava atalhos no Vim.</p>
+<p>Caso de uso #1: como eu encontrava atalhos e janelas escondidas no Visual Studio.</p>
+</li>
+<li>
+<p>Caso de uso #2: como eu decorava atalhos no Vim.</p>
 </li>
 </ul>
 <h2 id="ferramentas-úteis-para-análise">Ferramentas úteis para análise</h2>
+<blockquote>
+<p>A lenda conta que em uma competição para ver quem cortava a árvore mais rápido, o lenhador mais velho passou a maior parte do tempo amolando o machado, enquanto o competidor mais jovem dedicou-se em golpear a árvore com toda a sua força. Quando o jovem estava no meio do tronco o competidor mais experiente começou a cortar sua árvore.</p>
+</blockquote>
 <p>Como diria, edw519, um dos membros mais populares do Hacker News:</p>
 <ul>
 <li>
-<p>Use a ferramenta certa para o trabalho certo.</p>
+<p>Use a ferramenta certa para o trabalho certo. Ex: Vim para tudo.</p>
 </li>
 <li>
-<p>Quase qualquer ferramenta pode fazer o trabalho. Algumas são melhores que outras.</p>
+<p>Quase qualquer ferramenta pode fazer o trabalho. Algumas são melhores que outras. Ex: uma leiteira é multiuso.</p>
 </li>
 <li>
-<p>Lembre-se dos padrões que você usou antes. Você irá usá-los novamente.</p>
+<p>Lembre-se dos padrões que você usou antes. Você irá usá-los novamente. Ex: atalho chato no Visual Studio para economizar dez digitações por uma.</p>
 </li>
 </ul>
 <h3 id="process-explorer-e-como-encontrar-quem-travou-seu-arquivo">Process Explorer e como encontrar quem travou seu arquivo</h3>
@@ -276,6 +280,9 @@ Truques e Macetes na Hora de Programar
 <h3 id="ferramentas-unix-desde-1970-por-aí">Ferramentas UNIX (desde 1970 por aí)</h3>
 <ul>
 <li>
+<p>Turbinar Windows usando Git (sed, grep, ls): colocar no path do usuário ou do sistema.</p>
+</li>
+<li>
 <p>Grep: buscar coisas dentros dos arquivos.</p>
 </li>
 <li>
@@ -297,18 +304,10 @@ Truques e Macetes na Hora de Programar
 <p>Awk: poder dos programadores de Asgard; use o guia GNU.</p>
 </li>
 </ul>
-<h4 id="git-para-ter-grep-sed-tail-e-awk-no-seu-windows">Git para ter grep, sed, tail e awk no seu Windows</h4>
-<ul>
-<li>Path do usuário e do sistema; tome o poder para você; sussurro: \Program Files\Git\usr\bin.</li>
-</ul>
-<h2 id="ferramentas-do-dia-a-dia">Ferramentas do dia-a-dia</h2>
-<blockquote>
-<p>A lenda conta que em uma competição para ver quem cortava a árvore mais rápido, o lenhador mais velho passou a maior parte do tempo amolando o machado, enquanto o competidor mais jovem dedicou-se em golpear a árvore com toda a sua força. Quando o jovem estava no meio do tronco o competidor mais experiente começou a cortar sua árvore.</p>
-</blockquote>
-<h3 id="git-mais-uma-vez-e-como-usar-de-verdade-comandos-esotéricos-como-cherry-pick">Git mais uma vez, e como usar de verdade (comandos esotéricos como cherry-pick)</h3>
+<h3 id="git">Git</h3>
 <ul>
 <li>
-<p>Leia <a href="https://git-scm.com/book/en/v2">o livro</a> pelamordedeus.</p>
+<p>Leia <a href="https://git-scm.com/book/en/v2">o livro</a> na segunda vez que ficar confuso usando Git fazendo a mesma coisa.</p>
 </li>
 <li>
 <p>Encanamento: Git é um map de chave/valor em arquivo.</p>
@@ -316,7 +315,11 @@ Truques e Macetes na Hora de Programar
 <li>
 <p>Porcelana: Git é uma lista encadeada de arquivos patch.</p>
 </li>
+<li>
+<p>Comandos esotéricos: cherry-pick, rebase, squash, revert, sub-tree.</p>
+</li>
 </ul>
+<h3 id="perguntas">Perguntas?</h3>
 
             
 
