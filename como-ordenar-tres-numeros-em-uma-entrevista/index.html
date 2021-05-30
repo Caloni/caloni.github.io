@@ -97,37 +97,33 @@ Como Ordenar Três Números em Uma Entrevista
 <p>No meio de uma entrevista, entediado, resolvi eu mesmo ir resolvendo enquanto aguardava o candidato. Imaginei o que eu, como hipotético candidato, faria para resolver esse exercício da maneira mais rápida. Meu objetivo não era apenas cuspir código, mas entender qual o raciocínio envolvido na obtenção de uma lógica simples dessa.</p>
 <p>Então vamos lá. A primeira coisa que eu pensei é fazer em Python. Porque programar em Python um código desses dá para fazer em qualquer editor, inclusive na web. Inclusive em um papel de pão.</p>
 <p>A segunda coisa que eu pensei é em já criar a função recebendo os três números, mas em não usá-los no cálculo, porque usar três nomes de variáveis para decidir qual é o maior e menor seria um pé no saco cheio de ifs e elses. Melhor rodar um loop que alimenta o maior e o menor de todos. Sabendo disso eu crio duas variáveis, maior e menor:</p>
-<pre><code>def func(a, b, c):
-  maior = 0
-  menor = 100000000
-  nums = [ a, b, c ]
-</code></pre>
-<p>Eu inicializo maior com o &quot;menor valor possível&quot;, zero, e menor com o &quot;maior valor possível&quot;, no caso um número muito grande. É o maior possível? Não, mas já resolve o problema para números médios e grandes. Caso o entrevistador questionasse essa parte do código eu poderia simplesmente pesquisar qual o maior valor representável por um inteiro em Python para inicializar corretamente. Para um problema em que a resposta precisa ser dada em alguns minutos está de bom tamanho.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(a, b, c):
+  maior <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  menor <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000000</span>
+  nums <span style="color:#f92672">=</span> [ a, b, c ]
+</code></pre></div><p>Eu inicializo maior com o &quot;menor valor possível&quot;, zero, e menor com o &quot;maior valor possível&quot;, no caso um número muito grande. É o maior possível? Não, mas já resolve o problema para números médios e grandes. Caso o entrevistador questionasse essa parte do código eu poderia simplesmente pesquisar qual o maior valor representável por um inteiro em Python para inicializar corretamente. Para um problema em que a resposta precisa ser dada em alguns minutos está de bom tamanho.</p>
 <p>Por fim, meu loop que verifica qual o menor e maior varre o array que criei e no final eu sei que o menor e maior valor estarão nas variáveis de mesmo nome.</p>
-<pre><code>for n in nums:
-  if n &gt; maior:
-    maior = n
-  if n &lt; menor:
-    menor = n
-</code></pre>
-<p>E a média é obtida somando os três números dividido por três, me lembrando que pode ser um número quebrado, então é melhor que seja um ponto flutuante, o que eu consigo dividindo por 3.0 em vez de 3.</p>
-<pre><code>print(&quot;media: &quot;, (a + b + c) / 3.0);
-</code></pre>
-<p>O conjunto da obra é bem simples e intuitivo. Não precisou de muito raciocínio. O maior desafio, em minha opinião, é manter a calma, entender o problema, e abordar da maneira que consuma menos tempo e esforço intelectual, os recursos escassos do desafio.</p>
-<pre><code>def func(a, b, c):
-  maior = 0
-  menor = 100000000
-  nums = [ a, b, c ]
-  for n in nums:
-    if n &gt; maior:
-      maior = n
-    if n &lt; menor:
-      menor = n
-  print(&quot;maior: &quot;, maior);
-  print(&quot;menor: &quot;, menor);
-  print(&quot;media: &quot;, (a + b + c) / 3.0);
-</code></pre>
-<p>Não precisa ser a melhor solução do mundo, mas já é uma solução boa o suficiente. Justamente o que a Intelitrader pede aos seus candidatos e funcionários. =)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> nums:
+  <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&gt;</span> maior:
+    maior <span style="color:#f92672">=</span> n
+  <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> menor:
+    menor <span style="color:#f92672">=</span> n
+</code></pre></div><p>E a média é obtida somando os três números dividido por três, me lembrando que pode ser um número quebrado, então é melhor que seja um ponto flutuante, o que eu consigo dividindo por 3.0 em vez de 3.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;media: &#34;</span>, (a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.0</span>);
+</code></pre></div><p>O conjunto da obra é bem simples e intuitivo. Não precisou de muito raciocínio. O maior desafio, em minha opinião, é manter a calma, entender o problema, e abordar da maneira que consuma menos tempo e esforço intelectual, os recursos escassos do desafio.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(a, b, c):
+  maior <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+  menor <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000000</span>
+  nums <span style="color:#f92672">=</span> [ a, b, c ]
+  <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> nums:
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&gt;</span> maior:
+      maior <span style="color:#f92672">=</span> n
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> menor:
+      menor <span style="color:#f92672">=</span> n
+  <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;maior: &#34;</span>, maior);
+  <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;menor: &#34;</span>, menor);
+  <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;media: &#34;</span>, (a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.0</span>);
+</code></pre></div><p>Não precisa ser a melhor solução do mundo, mas já é uma solução boa o suficiente. Justamente o que a Intelitrader pede aos seus candidatos e funcionários. =)</p>
 
             
 

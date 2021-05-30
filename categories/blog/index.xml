@@ -2815,53 +2815,35 @@ Eu fico sinceramente muito feliz em saber que existem muito mais pessoas interes
 
      
         <item>
-  <title>Launchpad e a democracia do código-fonte</title>
-  <link>http://www.caloni.com.br/launchpad-e-a-democracia-do-codigo-fonte/</link>
-  <pubDate>2008-06-04</pubDate>
+  <title>Resultado do Seminário CCPP</title>
+  <link>http://www.caloni.com.br/resultado-do-seminario-ccpp/</link>
+  <pubDate>2008-06-03</pubDate>
   
-  <guid>http://www.caloni.com.br/launchpad-e-a-democracia-do-codigo-fonte/</guid>
-  <description>Após a publicação dos projetos que ando mexendo no próprio saite do Caloni.com.br, recebi uma enxurrada de _downloads _e quase atingi meu limite de fluxo mensal no provedor.
-Devido a esse problema inesperado, irei fazer o inevitável: publicar os projetos em um repositório sério. E aproveitando que já estou usando o Bazaar, nada melhor que usar o Launchpad.net.
-E o que é o Launchpad.net? O Launchpad nada mais é do que um lugar onde é possível publicar seus projetos de fonte aberto para que pessoas possam ter livre acesso ao seu histórico de mudanças, assim como a liberdade de criar sua própria ramificação (branch). O esquema todo é organizado no formato comunidade, o que permite o compartilhamento não só de código, mas de bugs, traduções e, principalmente, idéias.
-A idéia é uma das primeiras que usa a modalidade de controle de fonte distribuído, e permite o uso do Bazaar como o controlador oficial, ou importação de outros controles de fonte, em um processo conhecido como espelhamento. Tudo foi feito de forma a amenizar o processo de migração dos sistemas de controle de código centralizado, como CVS e Subversion.
-Para ter acesso aos meus projetos iniciais é simples: basta usar o mesmo comando que é usado para obter um novo branch de um projeto do Bazaar:
-  MouseTool - Simulador de clique de mouse
-   bzr branch https://code.launchpad.net/mtool
-  Influence Board - Complemento ao Winboard que mostra a influência das peças
-   bzr branch https://code.launchpad.net/infboard
-  Conversor Houaiss Babylon - Converte de um dicionário para o outro
-   bzr branch https://code.launchpad.net/houaiss2babylon
-   Atualização  _Aviso de plantão. Não irei mais atualizar os projetos acima no LaunchPad, pois estou considerando reorganizar os fontes para algo mais simplificado. Aguardem por novidades no próprio blogue. _Como o Bazaar foi feito integrado com o Launchpad, também é possível usar um comando bem mais fácil:
-bzr branch lp:project_name Assim como é possível usar comandos de repositório, também é possível navegar pelo histórico de mudanças do projeto simplesmente usando os linques acima no navegador de sua preferência. E é nessa hora que começa a ficar interessante publicar seu projeto na web. Por falar nisso, que tal aprender como
-Criar seu próprio projeto no Launchpad Tudo que precisamos é de um login, facilmente obtido na página principal, e de registrar um projeto. Para criar o primeiro _branch _e fazermos alterações precisaremos também de um par de chaves pública e privada para a conexão SSH criada automaticamente pelo Bazaar. Tudo isso é facilmente possível com o uso das ferramentas do Putty, um cliente SSH para Windows.
-Dessa forma os passos são os seguintes:
-  Criar um login
-  Registrar um projeto
-  Criar um par de chaves através do PuTTYgen
-   Atualizar no cadastro do saite (item &amp;quot;Update SSH keys&amp;quot;)
-  Usar o Pageant para carregar a chave privada na memória
-   Use os comandos do Bazaar passando o usuário e o branch:
-bzr branch lp:~seu-usuario/projeto/branch
-  Simples e direto. E funciona!
-</description>
-</item>
-
-     
-        <item>
-  <title>How to run anything as a service</title>
-  <link>http://www.caloni.com.br/how-to-run-anything-as-a-service/</link>
-  <pubDate>2008-05-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
-  <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
-Today I&#39;ve figured out a pretty interesting shortcut to achieve it.
-Service Controller (or SC) An Alex Ionescu article talks about this command line application used to create, initiate and remove services. Even not being the article focus, I found the information pretty useful, since I didn&#39;t know such app. Soon some ideas starting to born in my mind:
-Well, the Notepad is the default test victim. Soon, the following line would prove possible to run it in the system account:
-sc create Notepad binpath= &amp;quot;%systemroot%NOTEPAD.EXE&amp;quot; type= interact type= own However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &amp;quot;knows&amp;quot; it is now a superpowerful service, the service initialization time is expired and SCM kills the process.
-&amp;gt;net start notepadThe service is not responding to the control function.More help is available by typing NET HELPMSG 2186. As would say my friend Thiago, &amp;quot;not good&amp;quot;.
-&amp;quot;Yet however&amp;quot;, SCM doesn&#39;t kill the child processes from the service-process. Bug? Feature? Workaround? Whatever it is, it can be used to initiate our beloved msvcmon:
-set binpath=%systemroot%system32cmd.exe /c c:Toolsmsvcmon.exe -tcpip -anyuser -timeout -1sc create Msvcmon binpath= &amp;quot;%binpath%&amp;quot; type= interact type= own Now, when we start Msvcmon service, the process cmd.exe will be create, that on the other hand will run the msvcmon.exe target process. Cmd in this case will only wait for its imminent death.
-
+  <guid>http://www.caloni.com.br/resultado-do-seminario-ccpp/</guid>
+  <description>Aconteceu nesse fim-de-semana, como era previsto, o nosso primeiro Seminário CCPP Brasil, com direito a pessoas de todas as idades e origens, mas todas com algo em comum: a paixão e o interesse pelas linguagens-mestre do mundo da programação.
+Começo esse artigo agradecendo a todos os que direta e indiretamente participaram para o sucesso do evento, entre eles os organizadores, o carro-chefe responsável por acordar o espírito C&#43;&#43; da galera no início do ano, os palestrantes e, claro, óbvio, toda a comunidade C&#43;&#43; que participou em corpo (vulgo hardware) e alma (vulgo software).
+Termino a introdução fazendo uma minicrítica ao preço pago pelos participantes. Não que eu ache que seja muito, pelo contrário: dado o alto nível técnico das palestras, parece até mentira termos acesso a um evento com essa estrutura por tão pouco. Porém, o muito e o pouco são relativos, e ainda acredito que existam pessoas que não vão aos encontros por falta de recursos. Por isso mesmo vai um apelo para que nos futuros encontros tenhamos alguma forma de permitir às pessoas menos favorecidas de participar democraticamente dessa que é a expressão viva das linguagens C e C&#43;&#43; em nosso país.
+Vamos às palestras!
+Dicas e Truques de Portabilidade, por Wanderley Caloni É muito difícil analisar uma palestra feita por você mesmo. É mais difícil ainda quando essa palestra é a primeira de uma batelada de argumentações de alto nível técnico que seguiram o dia. Posso dizer, no entanto, que consegui o que queria quando fui para o evento: demonstrar as dificuldades e as facilidades de tornar um código portável, independente se entre sistemas operacionais, ambientes ou compiladores.
+Foi visto primeiramente o que faz da portabilidade uma coisa difícil. Detalhes como sintaxe e gramática fazem toda a diferença quando o que se almeja é um código limpo de imperfeições trazidas pelo ambiente de desenvolvimento. Também foi dada especial atenção às famigeradas extensões de compiladores, que fazem a linguagem parecer uma coisa que não é.
+Por fim, foram apresentadas algumas sugestões movidas pela experiência e estudo dessas mesmas dificuldades. Para ilustrar, dois exemplos bem vivos de como um código portável deve se comportar, tanto no código-fonte quanto em sua documentação.
+Programação Concorrente com C&#43;&#43;, por Fábio Galuppo Para quem está acostumado com os temas geralmente &amp;quot;gerenciados&amp;quot; de Fábio Galuppo com certeza deve ter se surpreendido com a descrição teórica dos inúmeros problemas que cercam a vida do programador multithreading. O palestrante partiu do mais simples, o conceito de threads, conceito que, segundo ele mesmo, pode ser explicado em 15 minutos, para algo mais sutil e que gera muitos erros escondidos: o conceito de locks (semáforos, mutexes, etc).
+Os programadores em nível de sistema devem ter adorado o contexto histórico dos problemas (você sabia que o primeiro lock inventado foi o semáforo?) tanto quanto o contexto teórico (explicação sobre modelo de memória).
+Um destaque especial foram os experimentos com código rodando de verdade no Visual Studio, como o exemplo que tenta criar o maior número de threads possível na arquitetura 64. Simplesmente assustador!
+Se por um lado faltou tempo para explicar os usos e princípios das bibliotecas de programação paralela disponíveis e mais usadas do mercado, por outro a palestra preencheu uma lacuna importante na minha primeira palestra sobre threads em C&#43;&#43;, demonstrando os erros mais comuns e o que não se deve fazer em programas que rodam mais de uma thread.
+Mais uma vez voltando à teoria, a palestra foca mais uma vez em bons princípios de design, como o padrão de projeto monitor e a descrição dos modelos onde é justificado o uso de mais de uma thread no programa.
+Programação Multiplataforma Usando STL e Boost, por Rodrigo Strauss Como sempre, Strauss está apaixonado pelo Boost (e a STL). Descrevendo as partes mais importantes que todo programador C&#43;&#43; moderno deve saber sobre essas bibliotecas, ambas modernas, a palestra focou principalmente no uso do dia-a-dia, e as vantagens produtivas que o C&#43;&#43; atual pode ter sobre o velho e tradicional programa em C com listas encadeadas artesanais.
+Entre as coisas mais importantes citadas, que todo programador do novo século deveria saber, estão:
+  A total falta da necessidade de desalocarmos objetos manualmente em nossos programas, visto que o auto_ptr (STL) e shared_ptr (Boost) dão conta do recado de maneira impecável.
+  A total falta da necessidade de usarmos aqueles velhos arrays em C que quase nunca sabemos o tamanho exato para guardar nossos valores (e que continuamente colocávamos com o tamanho 100, MAX_PATH, ou UM_OUTRO_DEFINE_COMUM_EM_LINUX). A classe boost::array provê todas as funcionalidades básicas, além das avançadas, do uso de arrays tradicionais, sem qualquer overhead adicional de um array em C.
+  A total falta de necessidade de ficar convertendo strings e inteiros. Com a ajuda da classe std::string e de construções geniais como lexical_cast (Boost), felizmente podemos deixar nossas velhas funções que precisavam de um buffer, como _itoa (embora não-padrão).
+  Enfim, para quem pôde ver, a palestra focou nos princípios que farão hoje em dia um programador C&#43;&#43; completo, profissional e que, como seus colegas de outras linguagens, se preocupa igualmente com a produtividade de seu código. Ah, sim, e não gosta nem um pouco de reinventar a roda.
+Técnicas de Otimização de Código, por Rodrigo Kumpera &amp;amp; André Tupinambá Aparentemente o que pensei que seria, em minha sincera opinião, um desastre (dois palestrantes falando sobre a mesma coisa) se transformou em uma combinação estupenda de teoria e prática aplicadas à arte de otimização de código. Rodrigo e André conseguiram destrinchar o tema harmoniosamente, sempre dividido entre técnicas avançadas (algumas demonstradas pela experiência dos palestrantes) e teoria disciplinar, que visa alertar o wannabe que otimizar pode ser uma coisa boa; porém, preste atenção aos que já fizeram isso têm a dizer.
+Com uma didática impecável, o novato nesse tema (como eu) pôde ver as dificuldades de conseguir determinar o objetivo de todo otimizador de código que, segundo eles, deve estar sempre atento na máxima de que &amp;quot;toda otimização é na verdade uma troca&amp;quot;. Ou seja, se o programador quer melhor processamento, pagará com memória, se quiser otimizar espaço na RAM, irá gastar mais com processamento e/ou disco, e assim por diante.
+Foram apresentados exemplos reais de otimização, além de dicas muito importantes sobre o comportamento das compilações de cada dia. Você sabia, por exemplo, que ao declarar em escopos mais locais suas variáveis usadas apenas em pequenos trechos de código estará dando uma poderosa dica ao compilador para que ele consiga usar os registradores no máximo de sua capacidade?
+Ao final, como é de praxe, tivemos um sorteio de ótimos livros sobre programação e C&#43;&#43; em geral, com destaque aos livros do Herb Sutter. Rodrigo Strauss, conhecido fundador dos encontros, recebeu sua mais que merecida homenagem ao receber um de seus livros autografados. É o mais novo MVP da comunidade!
+E por falar em comunidade, e agora podemos ver claramente, estamos com uma força bem maior do que no início do ano. A seqüência de ótimos eventos, além de nossos mestres do conselho Jedi de programadores C&#43;&#43;, prova finalmente que, se depender da qualidade dos desenvolvedores, o Brasil pode sim ser uma poderosa fonte de programas de qualidade que façam coisas bem mais interessantes do que acessar um banco SQL. Nós já temos a matéria-prima.
+Imagens do evento cedidas por Fernando Roberto (valeu, Ferdinando!).
 </description>
 </item>
 
@@ -2873,14 +2855,12 @@ set binpath=%systemroot%system32cmd.exe /c c:Toolsmsvcmon.exe -tcpip -anyuser -t
   
   <guid>http://www.caloni.com.br/busca-do-google-com-atalhos/</guid>
   <description>Eu adoro atalhos de teclado. Desde meus primeiros anos usando computadores, atalhos têm se tornado minha obsessão. Sempre faço minha pesquisa pessoal de tempos em tempos, colecionando e usando novos atalhos descobertos. Por um bom tempo eu evitei ter que usar o mouse, treinando-me para lembrar de todas as seqüências de teclas que conhecia.
-Até algum tempo atrás a _web _não era muito convidativa para usuários de atalhos. Então surgiu o Google e as suas aplicações que suportavam essa característica, o que me deu uma razão a mais para passar a usar seu cliente de e-mail e leitor de notícias sem pressionar constantemente a tecla . No entanto, ainda faltava a mesma funcionalidade para seu buscador. Felizmente, isso não é mais verdade.
-Busca Experimental
-Ainda em teste, eu comecei a usar os novos atalhos de teclado na busca do Google disponíveis no saite Google Experimental Search. Até agora existem atalhos para próximo resultado (J), resultado anterior (K), abertura da busca (O ou ) e colocação do cursor na caixa de busca (/). Eles funcionam exatamente como o Gmail e o Google Reader. Eu fiquei tão empolgado com a idéia que mudei o complemento de busca do Google de dentro do meu Firefox. E agora vou contar como isso pode ser feito facilmente (nota: minhas dicas servem para usuário de Windows apenas).
-Colocando atalhos do Google dentro do Firefox
+Eu não tenho nada contra o uso do mouse nem as pessoas que o usam. Eu apenas não sou tão entusiástico em usar o mouse. Por algum tempo, eu até acreditei que o ponteiro do cursor estava me atrapalhando, então eu desenvolvi um programa para tirá-lo da tela (usando um atalho de teclado, claro). Porém, mais uma vez, não sou contra seu uso. Eu mesmo uso-o de vez em quando (quando eu preciso).
+Até algum tempo atrás a web não era muito convidativa para usuários de atalhos. Então surgiu o Google e as suas aplicações que suportavam essa característica, o que me deu uma razão a mais para passar a usar seu cliente de e-mail e leitor de notícias sem pressionar constantemente a tecla Tab. No entanto, ainda faltava a mesma funcionalidade para seu buscador. Felizmente, isso não é mais verdade.
+Ainda em teste, eu comecei a usar os novos atalhos de teclado na busca do Google disponíveis no saite Google Experimental Search. Até agora existem atalhos para próximo resultado (J), resultado anterior (K), abertura da busca (O ou Enter) e colocação do cursor na caixa de busca (/). Eles funcionam exatamente como o Gmail e o Google Reader. Eu fiquei tão empolgado com a idéia que mudei o complemento de busca do Google de dentro do meu Firefox. E agora vou contar como isso pode ser feito facilmente (nota: minhas dicas servem para usuário de Windows apenas).
 Provavelmente seu complemento de busca estará em uma das duas pastas abaixo:
-%programfiles%\Mozilla Firefox\searchplugins %appdata%\Mozilla\Firefox\Profiles*.default\searchplugins
-O arquivo do complemento tem o nome google.xml e você pode editá-lo usando o Bloco de Notas ou qualquer outro editor de texto simples (sem formatação). Abaixo está o ponto onde você deve inserir a nova linha que irá ativar os atalhos dentro da página de buscas do Google.
-É isso aí. Agora você pode ter o melhor dos dois mundos: o melhor buscador da internete_ _com atalhos. Existirá maneira de se tornar ainda mais produtivo?
+%programfiles%\Mozilla Firefox\searchplugins%appdata%\Mozilla\Firefox\Profiles\*.default\searchplugins O arquivo do complemento tem o nome google.xml e você pode editá-lo usando o Bloco de Notas ou qualquer outro editor de texto simples (sem formatação). Abaixo está o ponto onde você deve inserir a nova linha que irá ativar os atalhos dentro da página de buscas do Google.
+&amp;lt;Url type=&amp;quot;text/html&amp;quot; method=&amp;quot;GET&amp;quot; template=&amp;quot;http://www.google.com/search&amp;quot;&amp;gt;&amp;lt;Param name=&amp;quot;q&amp;quot; value=&amp;quot;{searchTerms}&amp;quot;/&amp;gt;&amp;lt;...&amp;gt;&amp;lt;Param name=&amp;quot;esrch&amp;quot; value=&amp;quot;BetaShortcuts&amp;quot;/&amp;gt; &amp;lt;!-- Google Shortcuts Here --&amp;gt;&amp;lt;!-- Dynamic parameters --&amp;gt;&amp;lt;...&amp;gt;&amp;lt;/Url&amp;gt; É isso aí. Agora você pode ter o melhor dos dois mundos: o melhor buscador da internete com atalhos. Existirá maneira de se tornar ainda mais produtivo?
 </description>
 </item>
 

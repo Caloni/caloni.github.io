@@ -93,27 +93,27 @@ How to run anything as a service
           <div class="content">
 
             
-              <p>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a <a href="http://www.caloni.com.br/gina-x-credential-provider">GINA</a>. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run <strong>Msvcmon</strong>, the server part of debugging, as a service.</p>
+              <p>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a <a href="/gina-x-credential-provider">GINA</a>. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.</p>
 <p>Today I've figured out a pretty interesting shortcut to achieve it.</p>
-<h4 id="service-controller-or-sc">Service Controller (or SC)</h4>
 <p>An <a href="http://www.alex-ionescu.com/?p=59">Alex Ionescu article</a> talks about this command line application used to create, initiate and remove services. Even not being the article focus, I found the information pretty useful, since I didn't know such app. Soon some ideas starting to born in my mind:</p>
-<!-- raw HTML omitted -->
+<blockquote>
+<p>&quot;What if I used this guy to run notepad?&quot;</p>
+</blockquote>
 <p>Well, the Notepad is the default test victim. Soon, the following line would prove possible to run it in the system account:</p>
-<pre><code>sc create Notepad binpath= &quot;%systemroot%NOTEPAD.EXE&quot; type= interact type= own
+<pre><code>sc create Notepad binpath= &quot;%systemroot%\NOTEPAD.EXE&quot; type= interact type= own
 </code></pre>
-<p>However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &quot;knows&quot; it is now a superpowerful service, the service initialization time is expired and <a href="http://msdn2.microsoft.com/en-us/library/ms685150.aspx">SCM</a> kills the process.</p>
+<p>However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &quot;knows&quot; it is now a superpowerful service, the service initialization time is expired and SCM kills the process.</p>
 <pre><code>&gt;net start notepad
 The service is not responding to the control function.
-
 More help is available by typing NET HELPMSG 2186.
 </code></pre>
-<p>As would say my friend <a href="http://codebehind.wordpress.com/">Thiago</a>, &quot;not good&quot;.</p>
+<p>As would say my friend <a href="http://codebehind.wordpress.com">Thiago</a>, &quot;not good&quot;.</p>
 <p>&quot;Yet however&quot;, SCM doesn't kill the child processes from the service-process. Bug? Feature? Workaround? Whatever it is, it can be used to initiate our beloved msvcmon:</p>
-<pre><code>set binpath=%systemroot%system32cmd.exe /c c:Toolsmsvcmon.exe -tcpip -anyuser -timeout -1
+<pre><code>set binpath=%systemroot%\system32\cmd.exe /c c:\Tools\msvcmon.exe -tcpip -anyuser -timeout -1
 sc create Msvcmon binpath= &quot;%binpath%&quot; type= interact type= own
 </code></pre>
 <p>Now, when we start Msvcmon service, the process cmd.exe will be create, that on the other hand will run the msvcmon.exe target process. Cmd in this case will only wait for its imminent death.</p>
-<p><a href="/images/msvcmon-service.png"><img src="http://i.imgur.com/y7WmPEK.png" alt="MsvcMon Service"></a></p>
+<p><img src="/img/msvcmon-service.png" alt="MsvcMon Service"></p>
 
             
 
@@ -133,8 +133,8 @@ sc create Msvcmon binpath= &quot;%binpath%&quot; type= interact type= own
 </p>
 
             
-      <a href="/categories/blog">blog</a> 
-      <a href="/tags/draft">draft</a> 
+      <a href="/categories/code">code</a>  <a href="/categories/english">english</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

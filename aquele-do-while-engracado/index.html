@@ -96,143 +96,134 @@ Aquele do-while engraçado
               <p>Nesses últimos dias andei conversando com um amigo que está estudando sistemas operacionais na faculdade. Melhor ainda, vendo o código real de um sistema operacional em funcionamento. A conseqüência é que, além de aprender um bocado de como as coisas funcionam de verdade debaixo dos panos, acaba-se aprendendo alguns truquezinhos básicos e tradicionais da linguagem C.</p>
 <p>Por exemplo, é um hábito conhecido o uso de construções do-while quando existe a necessidade de definir uma macro que possui mais de um comando em vez de usar a igualmente conhecida { construção de múltiplos comandos entre chaves }.</p>
 <p>O que talvez não seja tão conhecido é o porquê das coisas serem assim.</p>
-<p>Vamos imaginar uma macro de logue que é habilitada em compilações <em>debug</em>, mas é mantida em silêncio em compilações <em>release</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifdef NDEBUG
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message ) </span><span style="color:#75715e">/* nothing */</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#else
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message )        \
-</span><span style="color:#75715e"></span>	{                              <span style="color:#960050;background-color:#1e0010">\</span>
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];           <span style="color:#960050;background-color:#1e0010">\</span>
-		sprintf(buffer,             <span style="color:#960050;background-color:#1e0010">\</span>
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,  <span style="color:#960050;background-color:#1e0010">\</span>
-			__FILE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			__LINE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			message);                <span style="color:#960050;background-color:#1e0010">\</span>
-		OutputDebugString(buffer);  <span style="color:#960050;background-color:#1e0010">\</span>
-	}
+<p>Vamos imaginar uma macro de logue que é habilitada em compilações debug, mas é mantida em silêncio em compilações release:</p>
+<pre><code>#ifdef NDEBUG
+#define MYTRACE(message) /*nada*/
+#else
+#define MYTRACE(message)  \
+    { \
+        char buffer[500]; \
+        sprintf(buffer, \
+            &quot;DBG: %s(%d) %s\n&quot;, \
+            __FILE__, \
+            __LINE__, \
+            message); \
+        output(buffer); \
+    }
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Nada de mais, e parece até funcionar. Porém, como veremos nas próximas linhas, esse é realmente um exemplo de código &quot;buguento&quot;, já que uma chamada dentro de uma construção if-else simplesmente não funciona.</p>
+<pre><code>if( exploded() )
+    MYTRACE(&quot;Oh, my God&quot;);
+else
+    MYTRACE(&quot;That's right&quot;); 
 
-<span style="color:#75715e">#endif </span><span style="color:#75715e">/* NDEBUG */</span><span style="color:#75715e"> 
-</span><span style="color:#75715e"></span>
-</code></pre></div><p>Nada de mais, e parece até funcionar. Porém, como veremos nas próximas linhas, esse é realmente um exemplo de código &quot;buguento&quot;, já que uma chamada dentro de uma construção if-else simplesmente não funciona.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	MYTRACE(<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-<span style="color:#66d9ef">else</span>
-	<span style="color:#a6e22e">MYTRACE</span>(<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>); 
-
-</code></pre></div><pre><code>error C2181: illegal else without matching if
+error C2181: illegal else without matching if
 </code></pre>
 <p>Por que isso? Para responder a essa questão nós precisamos olhar um pouco mais de perto no resultado do preprocessador da linguagem, que apenas troca nossa macro pelo pedaço de código que ela representa:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-		OutputDebugString(buffer);
-	};
-<span style="color:#66d9ef">else</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>);
-		OutputDebugString(buffer);
-	};
- 
-
-</code></pre></div><p>Dessa forma, podemos ver o porquê. Quando chamamos a macro, geralmente usamos a sintaxe de chamada de função, colocando um sinal de ponto-e-vírgula logo após a chamada. Essa é a maneira correta de se chamar uma função, mas no caso de uma macro, dessa macro, é um desastre, porque ela cria dois comandos em vez de um só (um ponto-e-vírgula vazio, apesar de não fazer nada, é um comando válido). Então, isso é o que o compilador faz:</p>
+<pre><code>if( exploded() )
+{
+  char buffer[500];
+  sprintf(buffer,
+      &quot;DBG: %s(%d) %s\n&quot;,
+      __FILE__,
+      __LINE__,
+      &quot;Oh, my God&quot;);
+  output(buffer);
+};
+else
+{
+  char buffer[500];
+  sprintf(buffer,
+      &quot;DBG: %s(%d) %s\n&quot;,
+      __FILE__,
+      __LINE__,
+      &quot;That's right&quot;);
+  output(buffer);
+};
+</code></pre>
+<p>Dessa forma, podemos ver o porquê. Quando chamamos a macro, geralmente usamos a sintaxe de chamada de função, colocando um sinal de ponto-e-vírgula logo após a chamada. Essa é a maneira correta de se chamar uma função, mas no caso de uma macro, dessa macro, é um desastre, porque ela cria dois comandos em vez de um só (um ponto-e-vírgula vazio, apesar de não fazer nada, é um comando válido). Então, isso é o que o compilador faz:</p>
 <pre><code>if( instruction )
 {
-    /* um monte de comandos */
+  /* um monte de comandos */
 
 } /* aqui eu esperaria um else ou uma instrução nova */
-</code></pre>
-<p>; /* uma instrução nova! ok, sem else desa vez */</p>
-<pre><code>else /* espere ae! o que esse else está fazendo aqui sem um if?!?! */
+
+; /* uma instrução nova! ok, sem else desa vez */
+
+else /* espere ae! o que esse else está fazendo aqui sem um if?!?! */
 {
-    /* mais comandos */
+  /* mais comandos */
 }
 </code></pre>
 <p>Pense sobre o comando vazio como se ele fosse um comando real, o que é a maneira mais fácil de entender o erro de compilação que recebemos ao compilar o código abaixo:</p>
 <pre><code>if( error() )
 {
-    printf(&quot;error&quot;);
+  printf(&quot;error&quot;);
 }
-</code></pre>
-<p>printf(&quot;here we go&quot;);</p>
-<pre><code>else /* llegal else without matching if! */
+
+printf(&quot;here we go&quot;);
+
+else /* llegal else without matching if! */
 {
-    printf(&quot;okay&quot;);
+  printf(&quot;okay&quot;);
 }
 </code></pre>
-<p>Por essa razão, a maneira tradicional de escapar desse erro comum é usar uma construção válida que peça de fato um ponto-e-vírgula no final. Felizmente nós, programadores C/C++, temos essa construção, e ela é... muito bem, o <strong>do-while</strong>!</p>
+<p>Por essa razão, a maneira tradicional de escapar desse erro comum é usar uma construção válida que peça de fato um ponto-e-vírgula no final. Felizmente nós, programadores C/C++, temos essa construção, e ela é... muito bem, o do-while!</p>
 <pre><code>do
 {
-    /* múltiplos comandos aqui */
+  /* múltiplos comandos aqui */
 }
 while( expression )
-</code></pre>
-<p>;</p>
-<pre><code> /* eu espero um ponto-e-vírgula aqui, para
-                         finalizar minha instrução do-while */
+  ; /* eu espero um ponto-e-vírgula aqui,
+       para finalizar minha 
+       instrução do-while */
 </code></pre>
 <p>Assim nós podemos reescrever nossa macro de logue da maneira certa (e todas as 549.797 macros já escritas em nossa vida de programador). E, apesar de ser uma construção um tanto bizarra, ela funciona melhor do que nossa tentativa inicial:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#ifdef NDEBUG
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message ) </span><span style="color:#75715e">/* nothing */</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#else
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MYTRACE( message )        \
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">do</span>                             <span style="color:#960050;background-color:#1e0010">\</span>
-	{                              <span style="color:#960050;background-color:#1e0010">\</span>
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];           <span style="color:#960050;background-color:#1e0010">\</span>
-		sprintf(buffer,             <span style="color:#960050;background-color:#1e0010">\</span>
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,  <span style="color:#960050;background-color:#1e0010">\</span>
-			__FILE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			__LINE__,                <span style="color:#960050;background-color:#1e0010">\</span>
-			message);                <span style="color:#960050;background-color:#1e0010">\</span>
-		printf(buffer);             <span style="color:#960050;background-color:#1e0010">\</span>
-	}                              <span style="color:#960050;background-color:#1e0010">\</span>
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> )
+<pre><code>#ifdef NDEBUG
+#define MYTRACE(message) /*nada*/
+#else
+#define MYTRACE(message)  \
+do  \
+{ \
+  char buffer[500]; \
+  sprintf(buffer, \
+    &quot;DBG: %s(%d) %s\n&quot;, \
+    __FILE__, \
+    __LINE__, \
+    message); \
+  output(buffer); \
+} \
+while( 0 )
+#endif /* NDEBUG */ 
+</code></pre>
+<p>Ao usar um do-while (com uma expressão que retorna falso dentro do teste, de maneira que o código seja executado apenas uma vez) a construção if-else consegue funcionar perfeitamente:</p>
+<pre><code>if( exploded() )
+  do
+  {
+    char buffer[500];
+    sprintf(buffer,
+        &quot;MYTRACE: %s(%d) %s\n&quot;,
+        __FILE__,
+        __LINE__,
+        &quot;Oh, my God&quot;);
+    OutputDebugString(buffer);
+  }
+  while( 0 );
+else
+  do
+  {
+    char buffer[500];
+    sprintf(buffer,
+        &quot;MYTRACE: %s(%d) %s\n&quot;,
+        __FILE__,
+        __LINE__,
+        &quot;That's right&quot;);
+    OutputDebugString(buffer);
+  }
+  while( 0 );
+</code></pre>
 
-<span style="color:#75715e">#endif </span><span style="color:#75715e">/* NDEBUG */</span><span style="color:#75715e"> 
-</span><span style="color:#75715e"></span>
-</code></pre></div><p>Ao usar um do-while (com uma expressão que retorna falso dentro do teste, de maneira que o código seja executado apenas uma vez) a construção if-else consegue funcionar perfeitamente:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span>( exploded() )
-	<span style="color:#66d9ef">do</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;Oh, my God&#34;</span>);
-		OutputDebugString(buffer);
-	}
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> );
-<span style="color:#66d9ef">else</span>
-	<span style="color:#66d9ef">do</span>
-	{
-		<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">500</span>];
-		sprintf(buffer,
-			<span style="color:#e6db74">&#34;MYTRACE: %s(%d) %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
-			__FILE__,
-			__LINE__,
-			<span style="color:#e6db74">&#34;That&#39;s right&#34;</span>);
-		OutputDebugString(buffer);
-	}
-	<span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">0</span> );
- 
-
-</code></pre></div>
             
 
           </div>
@@ -251,8 +242,8 @@ while( expression )
 </p>
 
             
-      <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+      <a href="/categories/code">code</a>  <a href="/categories/ccpp">ccpp</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 
