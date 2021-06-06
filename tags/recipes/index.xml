@@ -5,9 +5,27 @@
     <description>Recent content in recipes on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 27 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/tags/recipes/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>Em busca da pizza perfeita</title>
+  <link>http://www.caloni.com.br/como-fazer-pizza/</link>
+  <pubDate>2021-06-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/como-fazer-pizza/</guid>
+  <description>Agora que me sinto confortável com minha massa básica de pão rústico é hora de voltar para o projeto pizza de longa fermentação caseira. A última massa que trabalhei, a receita de Pizza Crust do site King Arthur Baking, estava semi-aprovada depois de um teste rápido cujo resultado de fato ficou crocante por fora e macia por dentro. Para quem gosta de massa fina é possível deixar mais baixa e para os fãs da grossa é só deixar crescer. Há, portanto, uma boa faixa de experimentação para todos os gostos.
+Existe a versão da mesma receita com fermento natural no site, mas mesmo com o fermento instantâneo o truque para desenvolver aroma é deixar fermentar lentamente na geladeira, de 4 a 24h, podendo se estender dependendo do uso do fermento. O uso do azeite é primordial para separar do molho e manter a crocância.
+Um problema com essa versão que tive foi a forma de sovar, que por usar batedeira entendi que precisava de uma boa sova para sua maciez. Pensando em um modelo mais viável no momento comecei a buscar no mesmo site uma versão sem sovar e descobri duas versões candidatas: a No-Knead Pizza Crust e a Artisan No-Knead Pizza Crust. A primeira receita parece mais direta ao ponto, mas sua alta hidratação me deixou intimidado. Já a versão Artisan possui menos hidratação (apesar de alta) e poderia dar certo com uma farinha comum de mercado, que é meu objetivo, e ainda de quebra não necessita de trabalhar a massa. Apenas deixar o tempo passar.
+E a partir dela há mais três links úteis para entender melhor o processo, com imagens e vídeos, e como converter a receita para usar fermento natural (o objetivo final):
+ The best pizza you&#39;ll ever make, versão original do blogue de Julia Reed. Um vídeo do processo de dobra após a fermentação inicial. Mais um vídeo de Martin Bakes preparando e assando pizzas. Como adicionar fermento natural a receitas, um guia super-completo e fundamental.  Com toda essa munição lida, o primeiro passo é preparar a primeira massa de teste, versão reduzida, com fermento instantâneo, apenas mantendo as proporções, e ver o que acontece no forno. O tempo da longa fermentação é de 24 horas em temperatura ambiente, mas a própria Julia Reed disse que uma versão de 16 horas ficou mais suave para combinar com os toppings. Vou buscar um meio termo, embora meu primeiro teste seja realmente a textura da massa e a tentativa de moldá-la.
+Preocupado e curioso a respeito das proporções entre farinha, água e fermento, e tentando entender o porquê do mesmo princípio se aplicar a receitas aparentemente tão diferentes quanto pão e pizza, coletei as proporções dessas receitas para começar a entender a dinâmica na prática e experimentar novas proporções porventura. Fiz uma listinha em Python:
+{&#39;pao&#39;: {&#39;fermento&#39;: 227, &#39;agua&#39;: 340, &#39;farinha&#39;: 602, &#39;alimentado&#39;: True, &#39;instantaneo&#39;: 4.5, &#39;sal&#39;: 15}, &#39;pizza&#39;: {&#39;fermento&#39;: 227, &#39;agua&#39;: 155, &#39;farinha&#39;: 300, &#39;instantaneo&#39;: 1.5, &#39;sal&#39;: 6}, &#39;pizza_sem_sovar&#39;: {&#39;fermento&#39;: 0, &#39;agua&#39;: 340, &#39;farinha&#39;: 362, &#39;instantaneo&#39;: 0.75, &#39;sal&#39;: 6}, &#39;pizza_sem_sovar_artisan&#39;: {&#39;fermento&#39;: 0, &#39;agua&#39;: 185, &#39;farinha&#39;: 250, &#39;instantaneo&#39;: 0.375, &#39;sal&#39;: 8, &#39;acucar&#39;: 2}}
+O código abaixo fiz para imprmir as proporções:
+def proporcao(recipe):print(&amp;#39;agua:&amp;#39;, &amp;#39;{:.2f}%&amp;#39;.format(100.0 * recipe[&amp;#39;agua&amp;#39;] / recipe[&amp;#39;farinha&amp;#39;]))print(&amp;#39;fermento:&amp;#39;, &amp;#39;{:.2f}%&amp;#39;.format(100.0 * recipe[&amp;#39;fermento&amp;#39;] / recipe[&amp;#39;farinha&amp;#39;]), &amp;#39;(alimentado)&amp;#39; if &amp;#39;alimentado&amp;#39; in recipe else &amp;#39;(sem alimentar)&amp;#39;)if &amp;#39;instantaneo&amp;#39; in recipe:print(&amp;#39;instantaneo:&amp;#39;, &amp;#39;{:.2f}%&amp;#39;.format(100.0 * recipe[&amp;#39;instantaneo&amp;#39;] / recipe[&amp;#39;farinha&amp;#39;]))print(&amp;#39;sal:&amp;#39;, &amp;#39;{:.2f}%&amp;#39;.format(100.0 * recipe[&amp;#39;sal&amp;#39;] / recipe[&amp;#39;farinha&amp;#39;]))if &amp;#39;acucar&amp;#39; in recipe:print(&amp;#39;acucar:&amp;#39;, &amp;#39;{:.2f}%&amp;#39;.format(100.0 * recipe[&amp;#39;acucar&amp;#39;] / recipe[&amp;#39;farinha&amp;#39;]))for name, recipe in recipes.items():print(name)print(&amp;#39;ingredientes:&amp;#39;, recipe)proporcao(recipe)print(&amp;#39;---&amp;#39;)paoingredientes: {&#39;fermento&#39;: 227, &#39;agua&#39;: 340, &#39;farinha&#39;: 602, &#39;alimentado&#39;: True, &#39;instantaneo&#39;: 4.5, &#39;sal&#39;: 15}agua: 56.48%fermento: 37.71% (alimentado)instantaneo: 0.75%sal: 2.49%---pizzaingredientes: {&#39;fermento&#39;: 227, &#39;agua&#39;: 155, &#39;farinha&#39;: 300, &#39;instantaneo&#39;: 1.5, &#39;sal&#39;: 6}agua: 51.67%fermento: 75.67% (sem alimentar)instantaneo: 0.50%sal: 2.00%---pizza_sem_sovaringredientes: {&#39;fermento&#39;: 0, &#39;agua&#39;: 340, &#39;farinha&#39;: 362, &#39;instantaneo&#39;: 0.75, &#39;sal&#39;: 6}agua: 93.92%fermento: 0.00% (sem alimentar)instantaneo: 0.21%sal: 1.66%---pizza_sem_sovar_artisaningredientes: {&#39;fermento&#39;: 0, &#39;agua&#39;: 185, &#39;farinha&#39;: 250, &#39;instantaneo&#39;: 0.375, &#39;sal&#39;: 8, &#39;acucar&#39;: 2}agua: 74.00%fermento: 0.00% (sem alimentar)instantaneo: 0.15%sal: 3.20%acucar: 0.80%</description>
+</item>
+
      
         <item>
   <title>Pão de Queijo Fácil</title>
@@ -29,17 +47,6 @@ Misture uma caixinha de creme de leite (200 ml), 1 copo de queijo ralado (parmes
   <guid>http://www.caloni.com.br/bolo-cremoso-de-milho/</guid>
   <description>Para esta receita usar uma lata de milho em conserva como base de 200g. Ligue o forno a 200 graus, unte uma forma com manteiga e farinha de milho e quebre três ovos dentro do liquificador. Em seguida adicione a lata de milho e na mesma lata encha metade de óleo e jogue novamente. Depois adicione uma lata de açúcar; nessa parte pode ser mais ou menos, dependendo do seu paladar (comece com uma). Bata bem, para que triture bem o milho e misture com os outros ingredientes. Em seguida adicione uma lata de farinha de milho, que pode ser fubá, milharina, fubarina, qualquer farinha de milho à disposição, embora a receita original use um fubá mais grosso como fubarina. A seguir coloque uma lata de leite; aqui é outra hora em que você pode escolher trocar seu leite por leite de coco ou outros leites, adicionar um pouco de coco ralado, etc. Porém, mantenha a quantidade em uma lata. Bata novamente, só que bem mais rápido, só para misturar os ingredientes mesmo. Enquanto está batendo ainda jogue uma colher de sopa de fermento químico.
  2021-03-20 Ficou excelente. Usei milho ralado da espiga, um pouco menos de açúcar (3/4) e um pouco mais de fubá (1/4); untei bem e deixei no forno até sentir um leve cheiro de queimado, ou 40 minutos. Uma próxima ideia é diminuir mais ainda o açúcar (1/2) e jogar uma pitada de sal para realçar.  </description>
-</item>
-
-     
-        <item>
-  <title>Pizza Crust</title>
-  <link>http://www.caloni.com.br/pizza-crust/</link>
-  <pubDate>2021-01-14</pubDate>
-  
-  <guid>http://www.caloni.com.br/pizza-crust/</guid>
-  <description>Essa massa está semi-aprovada depois de um teste rapidão cujo resultado de fato ficou crocante por fora, macia por dentro. Para quem gosta de massa fina é possível deixar mais baixa e para os fãs da grossa é só deixar crescer e cair de boca (nota mental: isso soa bem errado). Existe a versão da mesma receita com fermento natural no site, mas mesmo com o fermento instantâneo o truque para desenvolver aroma é deixar fermentar lentamente na geladeira, de 4 a 24h, podendo se estender dependendo do uso do fermento. O uso do azeite é primordial para separar do molho e manter a crocância.
-</description>
 </item>
 
      

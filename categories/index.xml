@@ -5,9 +5,19 @@
     <description>Recent content in Categories on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 05 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>food</title>
+  <link>http://www.caloni.com.br/categories/food/</link>
+  <pubDate>2021-06-06</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/food/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>blog</title>
@@ -65,16 +75,6 @@
   <pubDate>2021-05-02</pubDate>
   
   <guid>http://www.caloni.com.br/categories/lists/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>food</title>
-  <link>http://www.caloni.com.br/categories/food/</link>
-  <pubDate>2021-04-17</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/food/</guid>
   <description></description>
 </item>
 
