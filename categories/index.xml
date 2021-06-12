@@ -5,9 +5,39 @@
     <description>Recent content in Categories on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Jun 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/" rel="self" type="application/rss+xml" />
     
+     
+        <item>
+  <title>animes</title>
+  <link>http://www.caloni.com.br/categories/animes/</link>
+  <pubDate>2021-06-12</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/animes/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/categories/movies/</link>
+  <pubDate>2021-06-12</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/movies/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>series</title>
+  <link>http://www.caloni.com.br/categories/series/</link>
+  <pubDate>2021-06-12</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/series/</guid>
+  <description></description>
+</item>
+
      
         <item>
   <title>blog</title>
@@ -30,41 +60,11 @@
 
      
         <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/categories/movies/</link>
-  <pubDate>2021-06-05</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/movies/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>series</title>
-  <link>http://www.caloni.com.br/categories/series/</link>
-  <pubDate>2021-05-15</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/series/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
   <title>code</title>
   <link>http://www.caloni.com.br/categories/code/</link>
   <pubDate>2021-05-13</pubDate>
   
   <guid>http://www.caloni.com.br/categories/code/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>animes</title>
-  <link>http://www.caloni.com.br/categories/animes/</link>
-  <pubDate>2021-05-04</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/animes/</guid>
   <description></description>
 </item>
 
