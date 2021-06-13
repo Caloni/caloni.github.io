@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="O termo e conceito de &quot;reflection&quot; (reflexão), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler..."/>
+        content="O termo e conceito de reflection, muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -84,10 +84,10 @@ Reflexão em C&#43;&#43;
           <div class="content">
 
             
-              <p>O termo e conceito de &quot;<a href="http://en.wikipedia.org/wiki/Reflection_(computer_science)"><em>reflection</em></a>&quot; (<a href="http://pt.wikipedia.org/wiki/Reflex%C3%A3o_%28programa%C3%A7%C3%A3o%29">reflexão</a>), muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.</p>
+              <p>O termo e conceito de reflection, muito usado em linguagens modernas, é a capacidade de um programa de observar e até de alterar sua própria estrutura. Bom, isso você pode ler na Wikipédia. O interessante é o que podemos usar desse conceito na linguagem C++.</p>
 <p>Infelizmente não muito.</p>
-<p>O sistema de <strong>RTTI</strong> (<em>Run Time Type Identification</em>), a identificação de tipos em tempo de execução, seria o começo do _reflection _em C++. Foi um começo que não teve meio nem fim, mas existe na linguagem. Dessa forma podemos tirar algum proveito disso.</p>
-<p>Um leitor pediu para que eu falasse um pouco sobre essas coisas, especificamente como se faz para obter o nome da classe de onde estamos executando um determinado método. Para esse tipo de construção podemos usar o operado <strong>typeid</strong>, que retorna informações básicas sobre um tipo de acordo com um tipo, instância ou expressão:</p>
+<p>O sistema de RTTI (Run Time Type Identification), a identificação de tipos em tempo de execução, seria o começo do reflection em C++. Foi um começo que não teve meio nem fim, mas existe na linguagem. Dessa forma podemos tirar algum proveito disso.</p>
+<p>Um leitor pediu para que eu falasse um pouco sobre essas coisas, especificamente como se faz para obter o nome da classe de onde estamos executando um determinado método. Para esse tipo de construção podemos usar o operado typeid, que retorna informações básicas sobre um tipo de acordo com um tipo, instância ou expressão:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
@@ -101,9 +101,6 @@ Reflexão em C&#43;&#43;
 
 	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>( <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> ).name() <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-
- 
-
 </code></pre></div><pre><code>C:\Tests&gt;cl typeid.cpp
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -114,7 +111,7 @@ typeid.obj
 C:\Tests&gt;typeid.exe
 int
 </code></pre>
-<p>Dessa forma, podemos nos aproveitar do fato que todo método não-estático possui a variável implícita <strong>this</strong>, do tipo &quot;ponteiro constante para T&quot;, onde T é o tipo da classe que contém o método sendo chamado.</p>
+<p>Dessa forma, podemos nos aproveitar do fato que todo método não-estático possui a variável implícita this, do tipo &quot;ponteiro constante para T&quot;, onde T é o tipo da classe que contém o método sendo chamado.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
@@ -134,9 +131,6 @@ int
 
 	myc.MyMethod();
 }
-
- 
-
 </code></pre></div><pre><code>C:\Tests&gt;cl typeid-class.cpp
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -145,8 +139,9 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 typeid-class.obj
 
 C:\Tests&gt;typeid-class.exe
+
+class MyClass::MyMethod
 </code></pre>
-<p>class MyClass::MyMethod</p>
 <p>Com classes não-polimórficas a coisa parece não ter muita utilidade. No entanto, essa mesma técnica pode ser aplicada em classes derivadas, uma vez que o operador typeid pode trabalhar em tempo de execução:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
@@ -173,9 +168,6 @@ C:\Tests&gt;typeid-class.exe
 	myc1<span style="color:#f92672">-&gt;</span>MyMethod();
 	myc2<span style="color:#f92672">-&gt;</span>MyMethod();
 }
-
- 
-
 </code></pre></div><pre><code>C:\Tests&gt;cl typeid-class2.cpp
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -186,7 +178,7 @@ typeid-class2.obj
 C:\Tests&gt;typeid-class2.exe
 </code></pre>
 <p>class MyDerivatedClass1::MyMethod class MyDerivatedClass2::MyMethod</p>
-<p>Apenas se lembre de ter de fato uma classe polimórfica (eu consegui isso tornando MyMethod uma função virtual). Do contrário você pode <a href="http://www.caloni.com.br/typeid-e-os-perigos-do-nao-polimorfismo">ter problemas</a>.</p>
+<p>Apenas se lembre de ter de fato uma classe polimórfica (eu consegui isso tornando MyMethod uma função virtual). Do contrário você pode <a href="/typeid-e-os-perigos-do-nao-polimorfismo">ter problemas</a>.</p>
 
             
 
@@ -207,7 +199,7 @@ C:\Tests&gt;typeid-class2.exe
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

@@ -87,23 +87,13 @@ Antidebugging using the DebugPort
               <p>When a debugger starts a process to be debugged or, the article case, connects to a already created process, the communication between these processes is made through an internal resource inside Windows called LPC (Local Procedure Call). The system creates a &quot;magic&quot; communication port for debugging and the debugging events pass throw it.</p>
 <p>Among these events we can tell the most frequent:</p>
 <ul>
-<li>
-<p>Activated breakpoints</p>
-</li>
-<li>
-<p>Thrown exceptions</p>
-</li>
-<li>
-<p>Threads creation/termination</p>
-</li>
-<li>
-<p>DLLs load/unload</p>
-</li>
-<li>
-<p>Process exit</p>
-</li>
+<li>Activated breakpoints</li>
+<li>Thrown exceptions</li>
+<li>Threads creation/termination</li>
+<li>DLLs load/unload</li>
+<li>Process exit</li>
 </ul>
-<p>In the case of connecting into a existent process, the API <a href="http://www.google.com/url?sa=t&amp;ct=res&amp;cd=1&amp;url=http%3A%2F%2Fmsdn2.microsoft.com%2Fen-us%2Flibrary%2Fms679295.aspx&amp;ei=cqDERvWoA4GKerippJ0M&amp;usg=AFQjCNFzrdQ83SQzTQxBiT9iEauTFyUPcA&amp;sig2=4p-HOh1Wk6uhDYD0ceEMDw">DebugActiveProcess</a> is called. Since this call, if successful, the caller program is free now to call the API <a href="http://www.google.com/url?sa=t&amp;ct=res&amp;cd=1&amp;url=http%3A%2F%2Fmsdn2.microsoft.com%2Fen-us%2Flibrary%2Fms679295.aspx&amp;ei=cqDERvWoA4GKerippJ0M&amp;usg=AFQjCNFzrdQ83SQzTQxBiT9iEauTFyUPcA&amp;sig2=4p-HOh1Wk6uhDYD0ceEMDw">DebugActiveProcess</a>, looking for debugging events. The main loop for a debugger is, so, pretty simple:</p>
+<p>In the case of connecting into a existent process, the API DebugActiveProcess is called. Since this call, if successful, the caller program is free now to call the API DebugActiveProcess, looking for debugging events. The main loop for a debugger is, so, pretty simple:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DebugLoop</span>()
 {
 	<span style="color:#66d9ef">bool</span> exitLoop <span style="color:#f92672">=</span> false;
@@ -133,7 +123,6 @@ Antidebugging using the DebugPort
 </span><span style="color:#75715e"></span>		ContinueDebugEvent(debugEvt.dwProcessId, debugEvt.dwThreadId, DBG_EXCEPTION_NOT_HANDLED);
 	}
 } 
-
 </code></pre></div><p>The interesting detail about this communication process is that a program can be debugged actively only for ONE debugger. In other words, while there's a process A debugging process B, no one besides A can debug and break B.Using this principle, we can imagine a debugging protection based on this exclusivity, creating a protector process that connects to the protected process and &quot;debugs&quot; it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @brief Antidebug protection based on DebugPort aquisition.
 </span><span style="color:#75715e">* @author Wanderley Caloni (wanderley@caloni.com.br)
@@ -209,27 +198,16 @@ DWORD <span style="color:#a6e22e">AntiAttach</span>(DWORD pid)
 
 	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
 } 
-
 </code></pre></div><p>The needed steps to test the code above are:</p>
 <ol>
-<li>
-<p>Compile the code</p>
-</li>
-<li>
-<p>Run notepad (or another victim)</p>
-</li>
-<li>
-<p>Get its PID (Process ID)</p>
-</li>
-<li>
-<p>Run the protector process passing the notepad PID as the argument</p>
-</li>
-<li>
-<p>Try to attach to the notepad using a debugger (e.g. Visual C++)</p>
-</li>
+<li>Compile the code</li>
+<li>Run notepad (or another victim)</li>
+<li>Get its PID (Process ID)</li>
+<li>Run the protector process passing the notepad PID as the argument</li>
+<li>Try to attach to the notepad using a debugger (e.g. Visual C++)</li>
 </ol>
 <p>After the attach process, the debug port is occupied, and the communication between the debugger and debuggee is made throug LPC. Bellow we can see a little illustration of how things work:</p>
-<p><a href="/images/debug-port2.gif"><img src="http://i.imgur.com/dVz6dYQ.gif" alt="debug-port2.gif"></a></p>
+<p><img src="/img/debug-port2.gif" alt="Debug port"></p>
 <p>Basically the process stay receiving debugging events (through the LPC message queue) until the final event, the process exit. Notice that if someone try to terminate the protector process the debuggee process will be terminated, too.</p>
 <h4 id="flawless-ok">Flawless? OK...</h4>
 <p>The strength in this protection is that it doesn't affect the code understanding and readability. In fact the code that protects is in another process. The weakness, I would say, it is your visibility. Everyone that will try to attack the solution will se two processes being created, what gives him/her something to think about...</p>
@@ -255,7 +233,7 @@ DWORD <span style="color:#a6e22e">AntiAttach</span>(DWORD pid)
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

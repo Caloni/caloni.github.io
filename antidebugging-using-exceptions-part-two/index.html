@@ -117,7 +117,6 @@ Antidebugging using exceptions (part two)
 	<span style="color:#75715e">// 6. End of execution.
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 } 
-
 </code></pre></div><p>The solution above is explained in pseudocode to make things clearer. Notice that exist some kind of invisible return, not stack based. To handle it, however, we can use the good for all C ANSI standard, using the setjmp (step one) and longjmp (step 3). To understand the implementation for theses functions running on the 8086 platform we need to get the basic vision of the function calls in a stack based environment (the C and Pascal way).</p>
 <h4 id="registers-stack-frame-and-callret">Registers, stack frame and call/ret</h4>
 <p>Registers are reserved variables in the processor that can be used by the assembly code. Stack frame is the function calling hierarchy, the &quot;who called who&quot; in a given execution state. Call and ret are assembly instructions to call and return from a function, respectively. Both change the stack frame.</p>
@@ -126,7 +125,6 @@ Antidebugging using exceptions (part two)
 {
    return;
 }
-
 
 void CallFunc()
 {
@@ -137,7 +135,6 @@ void CallFunc()
 <pre><code>Func:
 00411F73 prev_instruction ; ESP = 0012FD38 (four bytes stacked up)
 00411F74 ret ; *ESP = 00411FA3 (return address)
-
 
 CallFunc:
 00411F9C prev_instruction
@@ -172,7 +169,6 @@ CallFunc:
 
 	<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// 4. Next instruction.
 </span><span style="color:#75715e"></span>} 
-
 </code></pre></div><p>That was the new trick for the trowing of exceptions. The final code is clearer, now:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** The only purpose of this function is to generate an exception.
 </span><span style="color:#75715e">*/</span>
@@ -217,7 +213,6 @@ DWORD <span style="color:#a6e22e">LongJmp</span>(jmp_buf<span style="color:#f926
 
 	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
 } 
-
 </code></pre></div><p>At first sight, it seems a waste the if being directly in the code (remember we gonna use the same conditional structure in several parts in the code). To turn things clearer, resume the protected call and allows the protection to be disabled in debug version code, let's create a macro:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** Use this macro instead LongJmp
 </span><span style="color:#75715e">*/</span>
@@ -253,7 +248,6 @@ DWORD <span style="color:#a6e22e">LongJmp</span>(jmp_buf<span style="color:#f926
 
 	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
 } 
-
 </code></pre></div><p>Now we allow the antidebugging selection by call, what turns things much easier than to choose the protected points inside the code.</p>
 
             
@@ -275,7 +269,7 @@ DWORD <span style="color:#a6e22e">LongJmp</span>(jmp_buf<span style="color:#f926
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

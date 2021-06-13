@@ -84,14 +84,13 @@ Como fazer merge de projetos distintos no Bazaar
           <div class="content">
 
             
-              <p>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo <a href="http://bazaar-vcs.org/">Bazaar</a> na parte Linux do projeto, já que ela não iria funcionar pelo <a href="http://www.caloni.com.br/blog/guia-basico-de-controle-de-codigo-source-safe">Source Safe</a>, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.</p>
+              <p>O problema foi o seguinte: Nós iniciamos o controle de fonte pelo Bazaar na parte Linux do projeto, já que ela não iria funcionar pelo Source Safe, mesmo. Dessa forma apenas um braço do projeto estava no controle de fonte e o resto não.</p>
 <p>No segundo momento da evolução decidimos começar a migrar os projetos para o Bazaar, inclusive a parte daquele projeto que compila no Windows. Maravilha. Ambos sendo controlados é uma beleza, não é mesmo?</p>
 <p>Até que veio o dia de juntar.</p>
-<p>O processo de _merge _de um controle de fonte supõe que os _branches _começaram em algum <strong>ponto em comum</strong>; do contrário não há como o controlador saber as coisas que mudaram em paralelo. Pois é achando a modificação <strong>ancestral</strong>, pai de ambos os <em>branches</em>, que ele irá medir a dificuldade de juntar as versões novamente. Se não existe ancestral, não existe análise. Como exemplificado na figura:</p>
-<p><a href="/images/branches-sem-ancestral.gif"><img src="http://i.imgur.com/HfJy8hP.gif" alt="branches-sem-ancestral.gif"></a></p>
-<h4 id="se-baseando-no-rebase">Se baseando no rebase</h4>
-<p>Acontece que existe um _plugin _esperto que consegue migrar revisões (<em>commits</em>) entre _branches _sem qualquer parentesco. Não me pergunte como ele faz isso. Mas ele faz. E foi assim que resolvemos o problema dos _branches _órfãos.</p>
-<p>Para instalar o _plugin _do <strong>rebase</strong>, basta <a href="http://bazaar-vcs.org/Rebase">baixá-lo e</a> copiar sua pasta extraída com um nome válido no Python (rebase, por exemplo). A partir daí os comandos do _plugin _estão disponíveis no _prompt _do Bazaar, assim como a instalação de qualquer _plugin _que cria novos comandos.</p>
+<p>O processo de merge de um controle de fonte supõe que os branches começaram em algum ponto em comum; do contrário não há como o controlador saber as coisas que mudaram em paralelo. Pois é achando a modificação ancestral, pai de ambos os branches, que ele irá medir a dificuldade de juntar as versões novamente. Se não existe ancestral, não existe análise. Como exemplificado na figura:</p>
+<p><img src="/img/branches-sem-ancestral.gif" alt="Branches sem ancestral"></p>
+<p>Acontece que existe um plugin esperto que consegue migrar revisões (commits) entre branches sem qualquer parentesco. Não me pergunte como ele faz isso. Mas ele faz. E foi assim que resolvemos o problema dos branches órfãos.</p>
+<p>Para instalar o plugin do rebase, basta baixá-lo e copiar sua pasta extraída com um nome válido no Python (rebase, por exemplo). A partir daí os comandos do plugin estão disponíveis no prompt do Bazaar, assim como a instalação de qualquer plugin que cria novos comandos.</p>
 <pre><code>&gt;bzr help commands
 add             Add specified files or directories.
 annotate        Show the origin of each line in a file.
@@ -99,26 +98,25 @@ bind            Convert the current branch into a checkout of the supplied branc
 branch          Create a new copy of a branch.
 ...
 push            Update a mirror of this branch.
-&lt;font color=&quot;#ff0000&quot;&gt;rebase          Re-base a branch. [rebase]
+rebase          Re-base a branch. [rebase]
 rebase-abort    Abort an interrupted rebase [rebase]
 rebase-continue Continue an interrupted rebase after resolving conflicts [rebase]
 rebase-todo     Print list of revisions that still need to be replayed as part of the  [rebase]
-&lt;/font&gt;reconcile       Reconcile bzr metadata in a branch.
+reconcile       Reconcile bzr metadata in a branch.
 reconfigure     Reconfigure the type of a bzr directory.
 register-branch Register a branch with launchpad.net. [launchpad]
 remerge         Redo a merge.
 remove          Remove files or directories.
 remove-tree     Remove the working tree from a given branch/checkout.
 renames         Show list of renamed files.
-&lt;font color=&quot;#ff0000&quot;&gt;replay          Replay commits from another branch on top of this one. [rebase]
-&lt;/font&gt;resolve         Mark a conflict as resolved.
+replay          Replay commits from another branch on top of this one. [rebase]
+resolve         Mark a conflict as resolved.
 revert          Revert files to a previous revision.
 ...
 whoami          Show or set bzr user id.
 </code></pre>
-<h4 id="fica-de-olho-no-replay">Fica de olho no replay!</h4>
-<p>O comando que usamos foi o <strong>replay</strong>, que não é comando principal do _plugin, _mas que resolve esse problema de maneira quase satisfatória. Como era tudo o que tínhamos, valeu a pena.</p>
-<p>O processo que usei foi de usar esse comando n vezes para buscar revisões de um branch e colocar no outro. Um grande problema com ele é que ao encontrar merges no branch origem ele se perde e o usuário tem que fazer as modificações &quot;na mão&quot;. Deu um pouco de trabalho, mas conseguimos migrar nossos _commits _mais importantes e deixar o projeto inteiro, Linux+Windows, em um _branch _só.</p>
+<p>O comando que usamos foi o replay, que não é comando principal do plugin, mas que resolve esse problema de maneira quase satisfatória. Como era tudo o que tínhamos, valeu a pena.</p>
+<p>O processo que usei foi de usar esse comando n vezes para buscar revisões de um branch e colocar no outro. Um grande problema com ele é que ao encontrar merges no branch origem ele se perde e o usuário tem que fazer as modificações &quot;na mão&quot;. Deu um pouco de trabalho, mas conseguimos migrar nossos commits mais importantes e deixar o projeto inteiro, Linux+Windows, em um branch só.</p>
 <pre><code>C:\Tests&gt;bzr init linux
 
 C:\Tests&gt;cd linux
@@ -194,7 +192,6 @@ Committing to: C:/Tests/linux/
 added win2
 Committed revision 4.
 
-
 C:\Tests\linux&gt;bzr log
 ------------------------------------------------------------
 revno: 4
@@ -230,7 +227,8 @@ lnx  lnx2  win1  win2
 
 C:\Tests\linux&gt;
 </code></pre>
-<p><img src="http://i.imgur.com/3X8DCfS.gif" alt="branches-com-replay.gif"></p>
+<p>O resultado:</p>
+<p><img src="/img/branches-com-replay.gif" alt="Branches com replay"></p>
 
             
 
@@ -251,7 +249,7 @@ C:\Tests\linux&gt;
 
             
       <a href="/categories/blog">blog</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

@@ -26,7 +26,7 @@
   <meta property="og:image"
         content="/img/author.jpg"/>
   <meta property="og:description"
-        content="Today was a great day for reverse engineering and protection analysis. I&#39;ve found two great programs to to these things: a API call monitor and a COM call monitor. Besides that, in the first program..."/>
+        content="Today was a great day for reverse engineering and protection analysis. I&#39;ve found two great programs to to these things: a API call monitor (update: does not exist anymore) and a COM call monitor..."/>
 
   
   <link href="" rel="feed" type="application/rss+xml"
@@ -84,10 +84,10 @@ Antidebugging during the process attach
           <div class="content">
 
             
-              <p>Today was a great day for reverse engineering and protection analysis. I've found two great programs to to these things: a <a href="http://www.kakeeware.com/">API call monitor</a> and a <a href="http://www.blunck.info/comtrace.html">COM call monitor</a>. Besides that, in the first program site - from a enthusiastic of the good for all Win32 Assembly - I've found the source code for one more antidebugging technique, what bring us back to our series of <a href="http://www.caloni.com.br/blog/?s=antidebug%3A">antidebugging techniques</a>.</p>
+              <p>Today was a great day for reverse engineering and protection analysis. I've found two great programs to to these things: a API call monitor (update: does not exist anymore) and a COM call monitor (update: either). Besides that, in the first program site - from a enthusiastic of the good for all Win32 Assembly - I've found the source code for one more antidebugging technique, what bring us back to our series of antidebugging techniques.</p>
 <h4 id="the-antiattaching-technique">The antiattaching technique</h4>
 <p>The purpose of this protection is to detect if some debugger tries to attach into our running process. The attach to process operation is pretty common in all known debugger, as WinDbg and Visual Studio. Different from the DebugPort protection, this solution avoids the attach action from the debuggee program. In this case the protection can make choices about what to do on the event of attach (terminate the process, send an e-mail, etc).</p>
-<p>The code I've found does nothing more than to make use of the attach process function that's always called: the <strong>ntdll!DbgUiRemoteBreakin</strong>. Being always called, we can just to put our code there, what is relatively easy to do:</p>
+<p>The code I've found does nothing more than to make use of the attach process function that's always called: the ntdll!DbgUiRemoteBreakin. Being always called, we can just to put our code there, what is relatively easy to do:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;assert.h&gt;</span><span style="color:#75715e">
@@ -147,21 +147,17 @@ Antidebugging during the process attach
 	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Try to attach, if you can...&#34;</span>;
 	cin.get();
 } 
-
 </code></pre></div><p>To compile the code above, just call the compiler and linker normally. Obs.: We need the user32.lib in order to call MessageBox API:</p>
 <pre><code>cl /c antiattach.cpp
 link antiattach.obj user32.lib
-
 
 antiattach.exe
 Try to attach, if you can...
 </code></pre>
 <p>After the program has been running, every try to attach will show a detection message and program termination.</p>
 <pre><code>windbg -pn antiattach.exe
-
-
-&lt;a href=&quot;http://i.imgur.com/mdRqvjp.png&quot; title=&quot;Detecção de attach&quot;&gt;&lt;img src=&quot;http://www.caloni.com.br/blog/wp-content/uploads/antiattach.png&quot; alt=&quot;Detecção de attach&quot;&gt;&lt;/img&gt;&lt;/a&gt;
 </code></pre>
+<p><img src="/img/espertinho.png" alt="Espertinho"></p>
 <h4 id="code-peculiarities">Code peculiarities</h4>
 <p>Yes, I know. Sometimes we have to use &quot;brute force codding&quot; and make obscure codes, like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// opcodes to run a jump to the function AntiAttachAbort
@@ -171,8 +167,7 @@ Try to attach, if you can...
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// we change 0xCCCCCCCC using a more useful address
 </span><span style="color:#75715e"></span><span style="color:#f92672">*</span><span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>PVOID<span style="color:#f92672">*&gt;</span>(<span style="color:#f92672">&amp;</span>jmpToAntiAttachAbort[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">=</span> AntiAttachAbort; 
-
-</code></pre></div><p>There are a lot of ways to do the same thing. The example above is what is normally called in the crackers community as a <a href="http://shellcode.org/Shellcode/"><strong>shellcode</strong></a>, what is a pretty name for &quot;byte array that is really the assembly code that does interesting things&quot;. <em>Shellcode for short</em> =).</p>
+</code></pre></div><p>There are a lot of ways to do the same thing. The example above is what is normally called in the crackers community as a shellcode, what is a pretty name for &quot;byte array that is really the assembly code that does interesting things&quot;. Shellcode for short =).</p>
 <p>Alternative ways to do this are:</p>
 <ol>
 <li>
@@ -204,7 +199,7 @@ Try to attach, if you can...
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

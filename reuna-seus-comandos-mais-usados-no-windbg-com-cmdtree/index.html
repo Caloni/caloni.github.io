@@ -84,10 +84,9 @@ Reúna seus comandos mais usados no WinDbg com .cmdtree
           <div class="content">
 
             
-              <p>Tudo começou com o <a href="http://blogs.msdn.com/debuggingtoolbox/archive/2008/09/17/special-command-execute-commands-from-a-customized-user-interface-with-cmdtree.aspx">artigo de Roberto Farah</a> sobre o comando &quot;escondido&quot; do WinDbg <a href="http://www.microsoft.com/whdc/devtools/debugging/whatsnew.mspx">.cmdtree</a>. Logo depois meus outros colegas do fã-clube do WinDbg <a href="http://voneinem-windbg.blogspot.com/2008/09/amazing-helper-cmdtree.html">Volker von Einem</a> e <a href="http://www.dumpanalysis.org/blog/index.php/2008/09/18/cmdtreetxt-for-cda-checklist/">Dmitry Vostokov</a> comentaram sobre a imensa utilidade desse comando.</p>
-<p>E não é pra menos. É de longe o melhor comando não-documentado do ano. Tão bom que sou obrigado a comentar em português sobre ele, apesar dos três artigos já citados.</p>
+              <p>Tudo começou com o <a href="https://docs.microsoft.com/en-us/archive/blogs/debuggingtoolbox/special-commandexecute-commands-from-a-customized-user-interface-with-cmdtree">artigo de Roberto Farah</a> sobre o comando &quot;escondido&quot; do WinDbg .cmdtree. Logo depois meus outros colegas do fã-clube do WinDbg <a href="http://voneinem-windbg.blogspot.com/2008/09/amazing-helper-cmdtree.html">Volker von Einem</a> e <a href="http://www.dumpanalysis.org/blog/index.php/2008/09/18/cmdtreetxt-for-cda-checklist/">Dmitry Vostokov</a> comentaram sobre a imensa utilidade desse comando. E não é pra menos. É de longe o melhor comando não-documentado do ano. Tão bom que sou obrigado a comentar em português sobre ele, apesar dos três artigos já citados.</p>
 <h4 id="comandos-repetitivos">Comandos repetitivos</h4>
-<p>E eu estava justamente falando sobre essa <a href="http://www.caloni.com.br/todo-programador-e-um-filosofo-em-potencial">mania dos programadores</a> sempre acharem soluções para tarefas repetitivas e monótonas que o computador possa fazer sozinho.O comando .**cmdtree **é uma dessas soluções, pois possibilita ao depurador profissional juntar em uma só guia o conjunto de comandos mais usados por ele no dia-a-dia, por mais bizarros e com mais parâmetros que eles sejam, já que é possível representá-los por um <em>alias</em> (apelido):</p>
+<p>E eu estava justamente falando sobre essa mania dos programadores sempre acharem soluções para tarefas repetitivas e monótonas que o computador possa fazer sozinho.O comando .cmdtree é uma dessas soluções, pois possibilita ao depurador profissional juntar em uma só guia o conjunto de comandos mais usados por ele no dia-a-dia, por mais bizarros e com mais parâmetros que eles sejam, já que é possível representá-los por um alias (apelido):</p>
 <pre><code>windbg ANSI Command Tree 1.0
 title {&quot;Meus Comandos Comuns&quot;}
 body
@@ -97,11 +96,10 @@ body
   {&quot;GetLastError&quot;} {&quot;!gle&quot;}
 </code></pre>
 <p>O resultado:</p>
-<p><img src="http://i.imgur.com/3Dg69vQ.png" alt="cmdtree.png"></p>
+<p><img src="/img/cmdtree.png" alt=".cmdtree"></p>
 <p>E podemos usar essa janela no nosso WinDbg, cada vez mais bonitinho e cada vez mais <a href="http://pt.wikipedia.org/wiki/Wysiwyg">WYSIWYG</a>:</p>
-<p><a href="/images/cmdtree2.png"><img src="http://i.imgur.com/rT1WBgt.png" alt="cmdtree2.png"></a></p>
+<p><img src="/img/cmdtree2.png" alt=".cmdtree2.png"></p>
 <p>Realmente não há segredos em seu uso. Esse artigo foi apenas um patrocínio do clube do WinDbg.</p>
-<!-- raw HTML omitted -->
 
             
 
@@ -121,8 +119,8 @@ body
 </p>
 
             
-      <a href="/categories/blog">blog</a> 
-      <a href="/tags/draft">draft</a> 
+      <a href="/categories/code">code</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

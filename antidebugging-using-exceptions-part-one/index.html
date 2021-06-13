@@ -84,8 +84,8 @@ Antidebugging using exceptions (part one)
           <div class="content">
 
             
-              <p>A debugger puts breakpoints to stop for a moment the debuggee execution. In order to do this it makes use of a well known instruction: <strong>int 3</strong>. This instruction throws an exception - the breakpoint exception - that is caught by the operating system and bypassed to the handling code for this exception. For debuggee processes this code is inside the debugger. For free processes this code normally doesn't exist and the application simply crashs.</p>
-<p>The main idea in this protection is to take care these exceptions during the application execution. Doing this, we can make use of this fact and, in the handling code, <strong>run the protected code</strong>. The solution here looks like a <strong>script interpreter</strong>. It consists basically of two threads: The first one read an instructions sequence and tells the second thread to <strong>run it step to step</strong>. In order to do this the second thread uses a <strong>small functions</strong> set with well defined code blocks. Here's the example in pseudocode:</p>
+              <p>A debugger puts breakpoints to stop for a moment the debuggee execution. In order to do this it makes use of a well known instruction: int 3. This instruction throws an exception - the breakpoint exception - that is caught by the operating system and bypassed to the handling code for this exception. For debuggee processes this code is inside the debugger. For free processes this code normally doesn't exist and the application simply crashs.</p>
+<p>The main idea in this protection is to take care these exceptions during the application execution. Doing this, we can make use of this fact and, in the handling code, run the protected code. The solution here looks like a script interpreter. It consists basically of two threads: The first one read an instructions sequence and tells the second thread to run it step to step. In order to do this the second thread uses a small functions set with well defined code blocks. Here's the example in pseudocode:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// the well-defined functions are functional blocks of code and have
 </span><span style="color:#75715e">// the same signature, allowing the creation of a pointer array to them
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">WellDefinedFunction1</span>( args );
@@ -125,7 +125,6 @@ Antidebugging using exceptions (part one)
 	<span style="color:#75715e">// 6. end of execution.
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 } 
-
 </code></pre></div><p>The protection isn't there yet. But it will as intrinsic part of the execution thread. All we need to do is to add a exception handling and to throw lots of int 3. The thrown exceptions are caught by a second function that runs the instruction before to returning:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// filter exceptions that were thrown by the thread below
 </span><span style="color:#75715e"></span>DWORD <span style="color:#a6e22e">ExceptionFilterButExecuteWellDefinedFunction</span>()
@@ -158,10 +157,9 @@ Antidebugging using exceptions (part one)
 		Sleep( someTime ); <span style="color:#75715e">// give some time
 </span><span style="color:#75715e"></span>	}
 } 
-
 </code></pre></div><p>The execution thread algorithm is the same. Just the point where each instruction is executed depends to the exception throw system. Note that this exception has to be thrown in order to the next instruction run. This is fundamental, since this way nobody can just rip of the int 3 code to avoid the exception. If one does that, so no instruction will be executed at all.</p>
-<p>In practice, if one tries to debug such a program one will have to deal with tons of exceptions until find out what's happening. Of course, as in every software protection, is's not definitive; it has as a purpose to <strong>make hard</strong> the reverse engineering understanding. That's not going to stop those who are <a href="http://www.codebreakers-journal.com/">really good</a> doing that stuff.</p>
-<p><strong>Nothing is for free</strong></p>
+<p>In practice, if one tries to debug such a program one will have to deal with tons of exceptions until find out what's happening. Of course, as in every software protection, is's not definitive; it has as a purpose to make hard the reverse engineering understanding. That's not going to stop those who are <a href="http://www.codebreakers-journal.com/">really good</a> doing that stuff.</p>
+<p>Nothing is for free</p>
 <p>The price paid for this protection stays on the source code visibility and understanding, compromised by the use of this technique. The programming is state machine based, and the functions are limited to some kind of behavior standard. So much smaller the code blocks inside the minifunctions, so much hard the code understanding will be.</p>
 <p>The example bellow receives input through a command prompt and maps the first word typed to the function that must be called. The rest of the typed line is passed as arguments to the functions. The interpreter thread reads the user input and writes into a global string variable, at the same time the executor thread waits the string to be completed to starts the action. It was used the variable pool to let the code simpler, but the ideal would be some kind of synchronise, just like <a href="http://msdn.microsoft.com/library/en-us/dllproc/base/createevent.asp">events</a>, by example. You can download the source code <a href="/images/antidebug.cpp">here</a>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/** @brief Sample demonstrating how to implemente antidebug in a code exception based.
@@ -323,8 +321,7 @@ DWORD WINAPI <span style="color:#a6e22e">AntiDebugThread</span>(PVOID)
    <span style="color:#75715e">// 6. end of execution.
 </span><span style="color:#75715e"></span>   <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) ret;
 } 
-
-</code></pre></div><p>The <strong>strength</strong> in this protection is to confound the attacker easily in the first steps (days, months...). Its <strong>weakness</strong> is the simplicity for the solution, since the attacker eventually realize what is going on. It is so easy that I will let it as an exercise for my readers.</p>
+</code></pre></div><p>The strength in this protection is to confound the attacker easily in the first steps (days, months...). Its weakness is the simplicity for the solution, since the attacker eventually realize what is going on. It is so easy that I will let it as an exercise for my readers.</p>
 <p>In the next part we will se an alternative to make the code clearer and easy to use in the every day by a security software developer.</p>
 
             
@@ -346,7 +343,7 @@ DWORD WINAPI <span style="color:#a6e22e">AntiDebugThread</span>(PVOID)
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 

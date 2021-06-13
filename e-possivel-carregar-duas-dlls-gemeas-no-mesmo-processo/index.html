@@ -84,9 +84,8 @@
           <div class="content">
 
             
-              <p>Um <a href="http://www.dumpanalysis.org/blog/index.php/2008/06/19/crash-dump-analysis-patterns-part-64/">dos últimos artigos</a> de Dmitry Vostokov, e tenho que falar assim porque o cara escreve <strong>muito</strong> em pouco tempo, fala sobre os perigos de termos uma mesma DLL carregada duas vezes em um único processo, muitas vezes em versões diferentes. Para os observadores atentos como Dmitry esse é um perigo que muitas vezes temos que estar preparados. Para os espertinhos de plantão, a resposta padrão seria: &quot;não vou me preocupar, porque o contador de instâncias cuida disso&quot;.</p>
+              <p>Um <a href="http://www.dumpanalysis.org/blog/index.php/2008/06/19/crash-dump-analysis-patterns-part-64/">dos últimos artigos</a> de Dmitry Vostokov, e tenho que falar assim porque o cara escreve muito em pouco tempo, fala sobre os perigos de termos uma mesma DLL carregada duas vezes em um único processo, muitas vezes em versões diferentes. Para os observadores atentos como Dmitry esse é um perigo que muitas vezes temos que estar preparados. Para os espertinhos de plantão, a resposta padrão seria: &quot;não vou me preocupar, porque o contador de instâncias cuida disso&quot;.</p>
 <p>Será mesmo tão simples?</p>
-<h4 id="regra-número-1-o-_loader-_não-sabe-tudo-que-você-sabe">Regra número 1: o _loader _não sabe tudo que você sabe</h4>
 <p>Vamos supor um caso bem simples e plausível, que é exatamente o mesmo do artigo do Crash Dump Analysis: um produto qualquer possui dois pontos em que ele carrega a mesma DLL. Contudo, no primeiro ponto é usado um caminho relativo, dentro da pasta DLL; na segunda chamada é usado o caminho atual. Se existir de fato duas DLLs, mesmo que idênticas, nesses lugares, então teremos duas instâncias da &quot;mesma DLL&quot; carregadas no processo.</p>
 <p>O código do aplicativo apenas tenta carregar a DLL em dois lugares distintos e exibe o endereço para onde elas foram mapeadas em nosso processo de teste:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
@@ -102,9 +101,6 @@
 
 	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-
- 
-
 </code></pre></div><p>A DLL é uma DLL trivial:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
@@ -112,12 +108,8 @@ BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE inst, DWORD rea
 {
 	<span style="color:#66d9ef">return</span> TRUE;
 }
-
- 
-
 </code></pre></div><p>Vamos aos testes.</p>
-<h4 id="dll-não-existe">DLL não existe</h4>
-<p>Nesse caso, ambos os retornos serão nulos, que é o natural e esperado quando a DLL não pode ser encontrada nos lugares especificados pelo sistema e pelo aplicativo.</p>
+<p>No caso da DLL não existir ambos os retornos serão nulos, que é o natural e esperado quando a DLL não pode ser encontrada nos lugares especificados pelo sistema e pelo aplicativo.</p>
 <pre><code>K:\Docs\Projects&gt;cl app.c
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -127,16 +119,10 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 /out:app.exe
 app.obj
 K:\Docs\Projects&gt;app
-First DLL:
+First DLL: 00000000
+Second DLL: 00000000
 </code></pre>
-<p>00000000</p>
-<pre><code>Second DLL:
-</code></pre>
-<p>00000000</p>
-<pre><code>K:\Docs\Projects&gt;
-</code></pre>
-<h4 id="dll-existe-apenas-no-caminho-do-aplicativo">DLL existe apenas no caminho do aplicativo</h4>
-<p>No segundo caso, a DLL é carregada com sucesso se usado o caminho relativo, pois o caminho atual faz parte da <a href="http://msdn.microsoft.com/en-us/library/ms682586.aspx">lista de caminhos que o sistema percorre</a> para encontrá-la. A primeira chamada deve falhar.</p>
+<p>No caso que a DLL existe apenas no caminho do aplicativo ela é carregada com sucesso se usado o caminho relativo, pois o caminho atual faz parte da lista de caminhos que o sistema percorre para encontrá-la. A primeira chamada deve falhar.</p>
 <pre><code>K:\Docs\Projects&gt;cl /LD dll.c
 Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 14.00.50727.42 for 80x86
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -149,41 +135,25 @@ Copyright (C) Microsoft Corporation.  All rights reserved.
 dll.obj
 K:\Docs\Projects&gt;app
 First DLL: 00000000
-Second DLL:
+Second DLL: 10000000
 </code></pre>
-<p>10000000</p>
-<pre><code>K:\Docs\Projects&gt;
-</code></pre>
-<h4 id="dll-existe-em-ambos-os-lugares">DLL existe em ambos os lugares</h4>
-<p>No caso problemático, a mesma DLL é carregada em dois endereços distintos da memória do mesmo processo, o que pode causar sérios problemas dependendo do código envolvido.</p>
+<p>No caso problemático em que a DLL existe em ambos os lugares a mesma DLL é carregada em dois endereços distintos da memória do mesmo processo, o que pode causar sérios problemas dependendo do código envolvido.</p>
 <pre><code>K:\Docs\Projects&gt;mkdir DLL
 K:\Docs\Projects&gt;copy dll.dll DLL
 1 arquivo(s) copiado(s).
 K:\Docs\Projects&gt;app
-First DLL:
-</code></pre>
-<p>10000000</p>
-<pre><code>Second DLL:
-</code></pre>
-<p>00350000</p>
-<pre><code>K:\Docs\Projects&gt;
+First DLL: 10000000
+Second DLL: 00350000
 </code></pre>
 <p>Apesar do mundo parecer injusto, temos uma segunda regra que podemos usar para aqueles casos onde a idiotisse já foi feita:</p>
-<h4 id="regra-número-2-você-pode-contar-para-o-_loader-_o-que-pretende-fazer">Regra número 2: você pode contar para o _loader _o que pretende fazer</h4>
-<p>Vamos supor que estamos no meio de uma mudança bem radical no produto e queremos ter certeza que qualquer chamada à nossa DLL irá invocar unicamente a que estiver dentro do caminho do produto (caminho atual). Para esse caso o Windows permite uma saída muito interessante, que é o uso de um arquivo com o nome do aplicativo mais o sufixo &quot;.local&quot;. Se esse arquivo existir, <a href="http://msdn.microsoft.com/en-us/library/ms682600(VS.85).aspx">de acordo com o MSDN</a>, então qualquer chamada à DLL irá ter sempre a prioridade do caminho atual.</p>
+<p>Vamos supor que estamos no meio de uma mudança bem radical no produto e queremos ter certeza que qualquer chamada à nossa DLL irá invocar unicamente a que estiver dentro do caminho do produto (caminho atual). Para esse caso o Windows permite uma saída muito interessante, que é o uso de um arquivo com o nome do aplicativo mais o sufixo &quot;.local&quot;. Se esse arquivo existir, de acordo com o MSDN, então qualquer chamada à DLL irá ter sempre a prioridade do caminho atual.</p>
 <pre><code>K:\Docs\Projects&gt;copy con app.exe.local
 ^Z
 1 arquivo(s) copiado(s).
 K:\Docs\Projects&gt;app
-First DLL:
+First DLL: 10000000
+Second DLL: 10000000
 </code></pre>
-<p>10000000</p>
-<pre><code>Second DLL:
-</code></pre>
-<p>10000000</p>
-<pre><code>K:\Docs\Projects&gt;
-</code></pre>
-<h4 id="moral-da-história">Moral da história</h4>
 <p>Tente evitar a replicação do mesmo arquivo em diversos lugares. Quando eu digo &quot;mesmo arquivo&quot; me refiro ao mesmo nome de DLL, embora não necessariamente a mesma versão. Isso pode evitar algumas dores de cabeça futuras. E muitas, muitas horas de depuração.</p>
 
             
@@ -205,7 +175,7 @@ First DLL:
 
             
       <a href="/categories/code">code</a> 
-      <a href="/tags/draft">draft</a> 
+    
     <a class="externalgray" href="https://t.me/bloguedocalonidiscuss">discuss</a>
 
 
