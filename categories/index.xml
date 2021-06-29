@@ -5,26 +5,36 @@
     <description>Recent content in Categories on Blogue do Caloni</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 12 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 25 Jun 2021 13:13:00 +0300</lastBuildDate>
     <atom:link href="http://www.caloni.com.br/categories/" rel="self" type="application/rss+xml" />
     
      
         <item>
-  <title>animes</title>
-  <link>http://www.caloni.com.br/categories/animes/</link>
-  <pubDate>2021-06-12</pubDate>
+  <title>movies</title>
+  <link>http://www.caloni.com.br/categories/movies/</link>
+  <pubDate>2021-06-25</pubDate>
   
-  <guid>http://www.caloni.com.br/categories/animes/</guid>
+  <guid>http://www.caloni.com.br/categories/movies/</guid>
   <description></description>
 </item>
 
      
         <item>
-  <title>movies</title>
-  <link>http://www.caloni.com.br/categories/movies/</link>
-  <pubDate>2021-06-12</pubDate>
+  <title>food</title>
+  <link>http://www.caloni.com.br/categories/food/</link>
+  <pubDate>2021-06-25</pubDate>
   
-  <guid>http://www.caloni.com.br/categories/movies/</guid>
+  <guid>http://www.caloni.com.br/categories/food/</guid>
+  <description></description>
+</item>
+
+     
+        <item>
+  <title>animes</title>
+  <link>http://www.caloni.com.br/categories/animes/</link>
+  <pubDate>2021-06-25</pubDate>
+  
+  <guid>http://www.caloni.com.br/categories/animes/</guid>
   <description></description>
 </item>
 
@@ -45,16 +55,6 @@
   <pubDate>2021-06-09</pubDate>
   
   <guid>http://www.caloni.com.br/categories/blog/</guid>
-  <description></description>
-</item>
-
-     
-        <item>
-  <title>food</title>
-  <link>http://www.caloni.com.br/categories/food/</link>
-  <pubDate>2021-06-06</pubDate>
-  
-  <guid>http://www.caloni.com.br/categories/food/</guid>
   <description></description>
 </item>
 
