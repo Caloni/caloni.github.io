@@ -1,293 +1,0 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>english on Blogue do Caloni</title>
-    <link>http://www.caloni.com.br/categories/english/</link>
-    <description>Recent content in english on Blogue do Caloni</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://www.caloni.com.br/categories/english/" rel="self" type="application/rss+xml" />
-    
-     
-        <item>
-  <title>Close Remote Socket</title>
-  <link>http://www.caloni.com.br/close-remote-socket/</link>
-  <pubDate>2020-07-05</pubDate>
-  
-  <guid>http://www.caloni.com.br/close-remote-socket/</guid>
-  <description>I got used to close sockets in Windows using TCP View, but I haven&#39;t learned yet how to do this in Linux. Some Google and now I know. It is kinda simple in terminal mode, as any task a programmer needs to do in your system.
-You just need to find the process using netstat, find the socket descriptor using lsof, debug the process with gdb, close the socket using call command, close the debugger. You done. How simple is that, right?
-</description>
-</item>
-
-     
-        <item>
-  <title>Some things I learned in a Hacker Rank exercise</title>
-  <link>http://www.caloni.com.br/hacker-rank/</link>
-  <pubDate>2019-08-08</pubDate>
-  
-  <guid>http://www.caloni.com.br/hacker-rank/</guid>
-  <description>A couple of days ago I subscribed to Hacker Hank, a website specialized in provide interview exercises. The site is as a better version of Code Jam, with the possibility to Compile &amp;amp; Run the code, as well as running several test cases.
-Talking with friends about one of them proposed a interesting puzzle called Find the Running Median. This is a good problem because it is easy to understand and tricky to implement.
-My first attempt was naive, but worked for test cases where there were no duplicated numbers, a detail I overlooked in the description and happenned the very first test (lucky me it is possible to download the test cases, input and output, giving in return some of the points accumulated solving other problems).
-/** Complete the runningMedian function below.*/vector&amp;lt;double&amp;gt; runningMedian(ofstream&amp;amp; fout, vector&amp;lt;int&amp;gt; a) {vector&amp;lt;double&amp;gt; ret;set&amp;lt;int&amp;gt; oa;for( int n: a ) {oa.insert(n);auto oaMidIt = oa.size() == 1 ? oa.begin(): next(oa.begin(), oa.size() / 2 - (oa.size() % 2 == 0 ? 1 : 0) );auto oaMidIt2 = next(oaMidIt);double median;if( oa.size() % 2 == 1 ) {median = *oaMidIt;}else {median = ( *oaMidIt &#43; *oaMidIt2 ) / 2.0;}fout &amp;lt;&amp;lt; median &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;ret.push_back(median);}return ret;} So I started to draw in my window a new solution, based on inplace sort algorithm, using the same vector proposed skeleton by the site. The idea was to just move elements inside the vector, ordering them as calculating the median to evey new number.
-BEGIN --&amp;gt; 12, 4, 5, 3, 8, 7 &amp;lt;-- END^ ^| |-- SORTED_ENDMEDIAN ^|-- NEWBOOL ODD = TRUE;{DOUBLE MEDIAN = ODD ? MEDIAN : (MEDIAN &#43; MEDIAN&#43;1) / 2NEW = SORTED_ENDRECURSIVE/ITERATIVE_INSERT(BEGIN, SORTED_END, MEDIAN, NEW)ODD = ! ODDSORTED_END&#43;&#43;} WHILE( SORTED_END != END )INSERT(BEG, END, NEW, MED, ODD) {MED = SZ/2 - (SZ_ODD ? 0 : 1)1, 2, 3, 5, 6 (4)-&amp;lt; ?RIGHT OR LEFT/*my playgroundvector&amp;lt;int&amp;gt; test = { 12, 4, 5, 3, 8, 7, 5, 5 };for (size_t new_element = 1; new_element &amp;lt; test.size(); &#43;&#43;new_element)insert_new_element(test, new_element);return 0;*/ I still wasn&#39;t thinking about the sort algorithm until I began to try and fail several times, but this try/error bitch always taught me how to make things faster then embryological bullshit to born from scribbed windows. It only requested a debugger to make the edit, compile, debug triple step.
-I was still trying in the window, thought, until in one of these iteractions with the compiler/debugger I achieved a simples, clearer solution, using only offsets from the vector instead of iterators.
-void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){size_t begin = 0;size_t end = new_element;size_t sz = end - begin;size_t median= begin &#43; sz / 2 - (sz % 2 ? 0 : 1);while( sz &amp;gt; 1 ) {if( a[new_element] &amp;lt; a[median] ) end = median;elsebegin = median &#43; 1;sz = end - begin;median = median == begin? begin : begin &#43; sz / 2 - (sz % 2 ? 0 : 1);}size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];a.erase(a.begin() &#43; new_element);a.insert(a.begin() &#43; insert_offset, element);} This version almost done it, except for timeout error. Hacker Hank has a timeout of 2 seconds to C&#43;&#43; solutions and I was exceding it. After some thought (more try/error) I thought about change the container, but before I made a simples test: instead of using erase/insert methods make the things manually as in good old C.
-void insert_new_element(vector&amp;lt;int&amp;gt;&amp;amp; a, size_t new_element){//...size_t insert_offset = a[new_element] &amp;lt; a[median] ? median : median &#43; 1;int element = a[new_element];//a.erase(a.begin() &#43; new_element);//a.insert(a.begin() &#43; insert_offset, element);memmove(&amp;amp;a[insert_offset &#43; 1], &amp;amp;a[insert_offset], (new_element - insert_offset) * sizeof(int));a[insert_offset] = element;} And it worked. Now what I learned looking the other solutions.
-There are incredible tools in C&#43;&#43;, even since 98 or 11, that are frequently overlooked, but it is important to notice that the language has a framework for processing: containers, algorithms and so on. By example, looking for other solutions I learned about the characteristics of multiset and priorityqueue (spoiler: both have a ordering predicate and are logarithmic). There are smart functions in algorithm, too, as lowerbound.
-A lot of solutions simply ignored the skeleton provided by the site and began its own code from scratch, eliminating the &amp;quot;request&amp;quot; that the numbers must be stored first in a vector. Sometimes, when there as skeleton in our life, we use them as guidelines, forgetting that &amp;quot;there is no spoon&amp;quot;.
-I hope you learned something, too. You can see my Hacker Rank attempts in the site (nickname caloni) or my GitHub repository.
-</description>
-</item>
-
-     
-        <item>
-  <title>Real Programmers Don&#39;t Use Java</title>
-  <link>http://www.caloni.com.br/real-programmers-dont-use-java/</link>
-  <pubDate>2014-02-20</pubDate>
-  
-  <guid>http://www.caloni.com.br/real-programmers-dont-use-java/</guid>
-  <description>When I was a newbie (and a wanna-be) I enjoyed reading &amp;quot;Real Programmers Don&#39;t Use Pascal&amp;quot;, a satiric text that influenced and encouraged me into the path of &amp;quot;C/C&#43;&#43; enlightenment&amp;quot;, most even than K&amp;amp;R&#39;s book. Since then I thought that being a &amp;quot;Real Programmer&amp;quot; was something close to everything one needs to know to get (hard) things done (quickly). Being a &amp;quot;Quiche Eater&amp;quot; was, in couterpart, comparable to nothing. Real Programmers solve real problems! Quiche Eaters are losers who study the academic concepts of computer science and never do a damn useful and/or working program (maybe you know some guy like this).
-Jokes apart, the spirit of the text can also be used by those who already find them very good programmers and believe no longer have to grow professionally. The times my ego inflates I still remember that my code use child APIs and an operating system that is a joke. I also remember that there are some people out there designing a starship that will leave the orbit of the Solar System!
-On the other hand, many people that just got out of CS course still find programming a difficult matter. This text reminds us that life was difficult 20, 40, 70 years ago, when engineers and programmers were the same person and when you didn&#39;t know that what you were doing could put millions at risk in a project.
-Hence, the Real Programmer live in the past. And he always will be worthier than young folks, because he knows how to solve that blue screen problem that nobody else does. As I always say, paraphrasing an illustrious figure in Brazilian television, who is afraid to open Visual Studio and is eternally designing the software instead does not go very far: &amp;quot;who knows to do, do it right way!&amp;quot; .
-Here follows a brief summary of the original text adapted to the current times and with my prejucided view of thinking about it. If you wish to use your politically correct piece of mind and criticize me, be my guest!
-Languages. Remember: the need to invent more languages/resources to do your job is to remind yourself about your own incompetence to invent such excuse. You are one of those who says &amp;quot;every problem has a specific tool&amp;quot; or something like that. In other words: an inefficient programmer. Don&#39;t you see that everything you need is C. If C won&#39;t do, then assembly will. If none of them, then is isn&#39;t worth doing.
-Structured Programming. It is the first and last paradigm to be applied. After all, Object Orientation is another excuse to not program. They are more abstractions that, once you are a dead weight, you are unable to solve a problem using just functions and variables. No, you need classes, inheritance, templates and whatever the hell that will transform your simple and straight code into a magical horn of plenty that will only impress others at the futility and complexity of the solution.
-Data structure. Another great concept to fool yourself. Today are many who enslave us to weird SQL layouts and weird frameworks that do all the work. We all know that the only really useful to know the structure is the array. The rest are variants of the same theme: queues and stacks.
-Operating system. Mac and Windows are just toys and Linux is a video game that takes more work to set up than playing. The programmer actually uses something like mainframes or other beta operating system, which are too weird and can make a real mess in the hands of those who have not read the WHOLE manual. And knowing all known major kernel bugs and its location by heart at the time of booting is vital.
-Tools. If you depend on an IDE that have Code Completion and other fancy stuff or any other editor that depends on your favorite 17,459 plugins installed, then you are not a Real Programmer. A Real Programmer actually use what he have on hand at the time, like notepad, hexdump or even some beeps . The tool is no limit to one that can really code.
-Debugging. Are you saying that you need the source code in order to debug? So you do not have a clue of what the program does. Just a few glances at call stack and the registers can make a Real Programmer solve a bug that Quiche Eaters would not get after analyzing those charts with boxes inside UML and use cases for months.
-The Real Programmers Work is certainly not doing trivial databases to trivial programs that access SQL with trivial queries. Neither are those horrible websites with PHP/Apache and scripts and more scripts written by kids. No, sir. These are programs that deal with the OS in a more intimate way (HD encryption, file system drivers, critical communication services, etc.), or are programs that do something really useful (compilers, the operating system itself). Or maybe those programs that deal directly with hardware (complex microcontrollers, robots, ships, medical devices, etc.).
-The Fun of every Real Programmer is actually chat with friends (about programming), read something (about programming) and watch intelligent movies (about programming or people who have some kind of intellectual challenge to solve &amp;quot;the hard way&amp;quot;). Is there anything more fun than that?
-And, finally, in their Natural Habitat, we can find pages and pages of assembly code scattered around the table, a computer locked by a remote kernel debugging serial cable, some notes in hex on a piece of paper, a few dozen browser pages openned about the behavior of functions in BIOS SATA HDDs with 500 GB working on RAID4, coffee (of course), chips, stains on the carpet. When there&#39;s nothing to do the environment is pretty tidy and one cannot notice the presence of Real Programmers in sight.
-And the Future of Real Programmer? Well, C may even be dying. But so what? It seems C&#43;&#43; supports pointers as well. The rest of the useless abstractions like classes and inheritance may be totally ignored. The basics will always exist. Forget versions with multiple inheritance and enigmatic concepts. Be a (wo)man!
-The real, happy, final truth is: regardless of how much more the world becomes &amp;quot;managed&amp;quot; behind frameworks and programmers who prefer to &amp;quot;do projects&amp;quot; behind their office packages and use cases, when problems pop up, some bug murky life threatening useful for a project, a Real Programmer will be there to save the day, because only a programmer really knows how to do his job well done and have a good night of sleep knowing that everything will just be OK.
-If it doesn&#39;t, there will be always a Real Programmer to save the day.
-&amp;quot;As long as there are ill-defined goals, bizarre bugs, and unrealistic schedules, there will be Real Programmers willing to jump in and Solve The Problem, saving the documentation for later. Long live FORTRAN!&amp;quot;
-</description>
-</item>
-
-     
-        <item>
-  <title>Using TodoList and Microsoft Project together</title>
-  <link>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</link>
-  <pubDate>2010-04-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/using-todolist-and-microsoft-project-together/</guid>
-  <description>The next article about bits is still in the oven. Taking vacation (40 days) had drop me out of ideas! At the moment, I can explain the tips and tricks using TodoList to manage my team and synchronize my tasks in a Microsoft Project timesheet.
-The reasons why I am using TodoList are kind of obvious: it does everything I need to organize my day to day tasks and it is portable. Meanwhile, the Project, besides not being portable (I need to carry on with me a 200 MB installer? And do install?) it uses a hard to change format and it was made to project the world, and not to be easily shared.
-So, let&#39;s go. Everything we need is a current edition of TodoList and Microsoft Project. The first thing we must to do é to export the tasks we want to a default CSV, using the columns we would like to import to Project:
-After that it comes the tricky thing, but not so much. We open the project to where we want to import the tasks and choose the option Open again, but this time we select our friend exported-tasks.CSV.
-Before we do import, we got to create a new column that will keep the TodoList tasks IDs, to make sure that in the next imports we make we could merge datum together. So, create this column using a significant name.
-Now we can go on the import process. Imagining to be the first one, let&#39;s create a inicial map for this migration:
-The time we choose who is who in the columns list, we just need to setup which columns in Project are the counterpart for the columns in TodoList, and remember to allocate our special column ID.
-Just more a few Nexts and voilà! We got our tasks properly imported.
-But of course all this work would be useless if we had to (sigh) open the Project. To avoid this impure job, we keep on updating the project status in our tiny, tidy TodoList and, when we need, we just import the data again, but this time using a already saved map (follow the screenshots above) and setting our TodoList ID as the key. This way the tasks already present will be just updated, and the unknown tasks will be added. That&#39;s the most important trick in this post.
-After I researched all this, I just found out the Project won&#39;t be necessary anymore. Lucky me. Now, if you don&#39;t have such luck, you can use this post =)
-</description>
-</item>
-
-     
-        <item>
-  <title>How to run anything as a service</title>
-  <link>http://www.caloni.com.br/how-to-run-anything-as-a-service/</link>
-  <pubDate>2008-05-27</pubDate>
-  
-  <guid>http://www.caloni.com.br/how-to-run-anything-as-a-service/</guid>
-  <description>The biggest advantage running an application as a service, interactive or not, is to allow its start before a logon be performed. An example that happens to me is the need of debugging a GINA. In order to do this, I need the Visual Studio remote debugger be started before logon. The easiest and fastest solution is to run Msvcmon, the server part of debugging, as a service.
-Today I&#39;ve figured out a pretty interesting shortcut to achieve it.
-An Alex Ionescu article talks about this command line application used to create, initiate and remove services. Even not being the article focus, I found the information pretty useful, since I didn&#39;t know such app. Soon some ideas starting to born in my mind:
- &amp;quot;What if I used this guy to run notepad?&amp;quot;
- Well, the Notepad is the default test victim. Soon, the following line would prove possible to run it in the system account:
-sc create Notepad binpath= &amp;quot;%systemroot%\NOTEPAD.EXE&amp;quot; type= interact type= own However, as every service, it is supposed to communicate with the Windows Service Manager. Since Notepad even &amp;quot;knows&amp;quot; it is now a superpowerful service, the service initialization time is expired and SCM kills the process.
-&amp;gt;net start notepadThe service is not responding to the control function.More help is available by typing NET HELPMSG 2186. As would say my friend Thiago, &amp;quot;not good&amp;quot;.
-&amp;quot;Yet however&amp;quot;, SCM doesn&#39;t kill the child processes from the service-process. Bug? Feature? Workaround? Whatever it is, it can be used to initiate our beloved msvcmon:
-set binpath=%systemroot%\system32\cmd.exe /c c:\Tools\msvcmon.exe -tcpip -anyuser -timeout -1sc create Msvcmon binpath= &amp;quot;%binpath%&amp;quot; type= interact type= own Now, when we start Msvcmon service, the process cmd.exe will be create, that on the other hand will run the msvcmon.exe target process. Cmd in this case will only wait for its imminent death.
-</description>
-</item>
-
-     
-        <item>
-  <title>Funky do-while</title>
-  <link>http://www.caloni.com.br/funky-do-while/</link>
-  <pubDate>2008-02-13</pubDate>
-  
-  <guid>http://www.caloni.com.br/funky-do-while/</guid>
-  <description>It&#39;s a known habit to use do-while constructions when there&#39;s a need to define a macro that has more than one command instead of using the { simple multicommand brackets }. What was never clear is why this is so.
-Let&#39;s imagine a trace macro that&#39;s enabled in debug mode, whilst kept in silence in release builds:
-#ifdef NDEBUG#define MYTRACE( message ) /* nothing */#else#define MYTRACE( message ) \{ \char buffer[500]; \sprintf(buffer, \&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;, \__FILE__, \__LINE__, \message); \OutputDebugString(buffer); \}#endif /* NDEBUG */  Nothing much, but it seems to work. But, as we going to see in the following lines, it is really a buggy piece of code, since a call inside an if-else construction simply doesn&#39;t work.
-if( exploded() )MYTRACE(&amp;quot;Oh, my God&amp;quot;);elseMYTRACE(&amp;quot;That&#39;s right&amp;quot;); error C2181: illegal else without matching if Why&#39;s that? In order to answer this question, we need to look closer into the result code from the preprocessor, just replacing the macro for its piece of code:
-if( exploded() ){char buffer[500];sprintf(buffer,&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;,__FILE__,__LINE__,&amp;quot;Oh, my God&amp;quot;);OutputDebugString(buffer);};else{char buffer[500];sprintf(buffer,&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;,__FILE__,__LINE__,&amp;quot;That&#39;s right&amp;quot;);OutputDebugString(buffer);}; So, that&#39;s why. When we call a macro, generally we use the funcion-call syntax, putting a semicolon in the end. This is the right way to call a function, but in the macro case, it&#39;s a disaster, because it creates two commands instead of one (an empty semicolon, despite doing nothing, it&#39;s a valid command). So that&#39;s what the compiler does:
-if( instruction ){/* a lot of comands */} /* here I would expect an else or new instruction */; /* a new command! okay, no else this time */else /* wait! what this else is doing here without an if?!?! */{/* more commands */} Think about the empty command as if it was a real command, what is the easier way to realize the compiler error:
-if( error() ){printf(&amp;quot;error&amp;quot;);}printf(&amp;quot;here we go&amp;quot;);else /* llegal else without matching if! */{printf(&amp;quot;okay&amp;quot;);} For this reason, the tradicional way to skip this common error is to use a valid construction who asks for a semicolon in the end. Fortunately, language C has such construction, and it is... right, the do-while!
-do{/* multiple commands here */}while( expression );/* I expect a semicolon here, in orderto end the do-while instruction */ So we can rewrite our trace macro the right way, even being a funcky one:
-#ifdef NDEBUG#define MYTRACE( message ) /* nothing */#else#define MYTRACE( message ) \do \{ \char buffer[500]; \sprintf(buffer, \&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;, \__FILE__, \__LINE__, \message); \printf(buffer); \} \while( 0 )#endif /* NDEBUG */  Using a do-while (with a false expression inside the test to execute the block just once) the if-else construction is allowed and working properly:
-if( exploded() )do{char buffer[500];sprintf(buffer,&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;,__FILE__,__LINE__,&amp;quot;Oh, my God&amp;quot;);OutputDebugString(buffer);}while( 0 );elsedo{char buffer[500];sprintf(buffer,&amp;quot;MYTRACE: %s(%d) %s\n&amp;quot;,__FILE__,__LINE__,&amp;quot;That&#39;s right&amp;quot;);OutputDebugString(buffer);}while( 0 ); </description>
-</item>
-
-     
-        <item>
-  <title>Silly regex trick: finding the project who failed inside a big VS solution</title>
-  <link>http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/</link>
-  <pubDate>2008-02-07</pubDate>
-  
-  <guid>http://www.caloni.com.br/silly-regex-trick-finding-the-project-who-failed-inside-a-vs-big-solution/</guid>
-  <description>I know what you going to think about this one: &amp;quot;silly trick&amp;quot;. That&#39;s why I just put it in the title. Anyway, that is something I use everyday, so I thought it might be useful to who cares about productivity.
-Let&#39;s say you have to manage a big solution in Visual Studio made of more than 30 projects, and needs to rebuild all them. Suddenly, something goes wrong. The question is: how to discover, in a heartbeat, what project has failed?
-Note that you need to enable &amp;quot;Regular Expressions&amp;quot; option in the Find Dialog (not shown here).
-What I&#39;m saying inside this regex is &amp;quot;find the first number different from zero followed by a space and the letters err&amp;quot;. This lead us to the first project who has at least one error:
------- Build started: Project: FailedProj, Configuration: Release Win32 ------Compiling...stdafx.cppCompiling...FailedProj.cppFailedProj.cpp(2477) : error C2039: &#39;Blablabla&#39; : is not a member of &#39;IBlabla&#39;Build log was saved at &amp;quot;file://c:Projects...ReleaseBuildLog.htm&amp;quot;FailedProj - 2 error(s), 0 warning(s) If you think &amp;quot;what about when a project generates more than 9 errors? the regex wouldn&#39;t be able to catch this case&amp;quot;, well, you&#39;re right. Anyway, that&#39;s the quicker form to search for the unsuccessful project inside a big solution. A more complex yet complete regex would be:
-[1-9][0-9]* err For me, the first version is enough. It is faster to type, simpler to catch and solves my problem. I hope it can solve yours =)
-</description>
-</item>
-
-     
-        <item>
-  <title>MouseTool</title>
-  <link>http://www.caloni.com.br/mousetool/</link>
-  <pubDate>2007-11-13</pubDate>
-  
-  <guid>http://www.caloni.com.br/mousetool/</guid>
-  <description>Well, as most of you already know, I really don&#39;t like mice. Nevertheless I respect the users who use it and like it. That is the reason why I am writing a little more about it. This time, I going to show a program I use every day: MouseTool, for the users who does not use the mouse and like it.
-The program main purpose is to avoid clicking the mouse, simulating a click every time the user stops to move the cursor. Just this: simple, efficient and mouseless =).
-There are some options like drag-and-drop and double-click, both available through the program. You can choose to use a keyboard shortcut or the mode state, where you can switch the program default among simple-click, double-click and drag-and-drop.
-MouseTool was originally a open source tool. That means the lastest open source code is available, right? Wrong. Actually, I was unable to find it in every place I looked for.
-Fortunately, my friend Marcio Andrey has got the source, and just like me, he wanted to make it available to everyone who would like to use it and change it. That&#39;s why I&#39;m publishing it in GitHub. It&#39;s free, and it&#39;s 4all =).
-Let&#39;s make use of this source and show how to explore a code not written by us. Normally the first things to do are: download the compacted file and extract the files into a new folder. So we find the project file (in this case, MouseTool.dsw) and try to open it. The result is a total failure, because I believe no one use the Visual Studio version that opens this kind of file (it will convert it to another one).
-Normally open source projects programmers are used to get the source code files, modify them, use them, publish them and all. But this is not always true about strict Windows commercial programmers.
-Given the source files, we can explore some interesting parts we&#39;d like to do someday in our own programs. And the main part is: we have the source, but not the copyright.
-Click in the link in the end of the post and make good use of it.
-Update: MouseTool now has a home page and a Source Forge project! Its new name is GMouseTool.
-</description>
-</item>
-
-     
-        <item>
-  <title>Why is my DLL locked?</title>
-  <link>http://www.caloni.com.br/why-is-my-dll-locked/</link>
-  <pubDate>2007-09-24</pubDate>
-  
-  <guid>http://www.caloni.com.br/why-is-my-dll-locked/</guid>
-  <description>The Windows code responsible to call DllMain for each loaded and unloaded DLLs uses an exclusive access object, the so-called mutex, to synchronize its calls. The result is that inside a process just one DllMain can be called at a given moment. This object-mutex is called &amp;quot;loader lock&amp;quot; into the Microsoft documentation.
-I wrote a silly code that represents quite well what I&#39;ve seen in lots of production code. For many times I was unable to realize what was going on (whether because I didn&#39;t know about the loader lock or the code readability was too bad). The code say by itself: calling CreateThread inside DllMain must lock your execution forever.
-A simple victim of all this can be an executable using a poorly written DLL, just like the code above:
-int main(){printf(&amp;quot;load dll&amp;quot;);HMODULE lockDll = LoadLibrary(_T(&amp;quot;dll_lock.dll&amp;quot;));if( lockDll ){Sleep(2000);printf(&amp;quot;free dll&amp;quot;);FreeLibrary(lockDll), lockDll = NULL;printf(&amp;quot;done&amp;quot;);}} It is important to remember that a DllMain dependant code is a very, very bad thing. Nevertheless, there are some particular cases the only place to run our code is inside DllMain. In these cases, when detected, try to run a side by side communication with your locked thread using an event object (or equivalent) before it really returns. Using this craft the thread can warn the waiting thread that the important thing to be done is done, and the waiting thread can go to sleep and stop waiting forever locked threads.
-Among the classic Matt Pietrek posts in Microsoft Journal there is in the [1999 september edition] a short one about DLL initialization. That is the more sucint, didatic and simple text about this question.
-[[1999 september edition]]: http://bytepointer.com/resources/pietrek_debug_init_routines.htm
-</description>
-</item>
-
-     
-        <item>
-  <title>C and C&#43;&#43; Operators Precedence Table</title>
-  <link>http://www.caloni.com.br/c-and-c-operators-precedence-table/</link>
-  <pubDate>2007-07-30</pubDate>
-  
-  <guid>http://www.caloni.com.br/c-and-c-operators-precedence-table/</guid>
-  <description> Wanderley, your explanation about why a program compiles in C&#43;&#43; and not in C seems to me logic and correct, but gave me some doubts, because I always learned that the C and C&#43;&#43; operator precedence are the same thing. I checked out the Appendix A in the &amp;quot;C &#43;&#43; - How To Program&amp;quot; (sixth edition) and the book table is equal to the C operators precedence table and it is different from the C&#43;&#43; precedence table presented by you in the article. I went to the internet and found out in two websites the table and both are equal to the book table:
- Wikipedia CppPreference  From where did you get the presented C&#43;&#43; table?
-[]s,
-Márcio Andrey Oliveira
- Dear Márcio,
-You have been my most productive reader ever. Besides having found the portability fail using static variables inside ifs, now you put in check the precedence table comparison between these two languages. In fact, some things were not so clear in that post. Let&#39;s clarify everything now (or at least try) using trustworthy sources, including the Wikipedia link sent to me.
-The first doubt it&#39;s about the most basic principle: what is a precedence table? Well, it is what defines, amount a set of concurrent operations in a language, which will be the evaluation order. In other words, what cames first, what cames next, etc. Through this table is possible to know all the language facts, as the fact that the multiplication operators are evaluated before the addition operators.
-This way, the table can resolve 99% of the evaluation order issues in a language, but it is not perfect.
-Let&#39;s see, by example, the conditional operator, most of the times known by ternary operator. Given its peculiar format, even having the precedence lower than the comma operator, the language doesn&#39;t allow a misinterpretation. If so,
-a ? b , c : d will be interpreted as
-a ? ( b , c ) : d and not as
-( a ? b ) , ( c : d ) that would be the logic result if we followed the precedence table, since the comma operator has lower precedence than the ternary operator. But that doesn&#39;t make any sense in the language, and that&#39;s why the first form is understood by the compiler, even contradicting the precedence table. This is corroborated by the following quote from Wikipedia in the page you shared:
- A precedence table, while mostly adequate, cannot resolve a few details. In particular, note that the ternary operator allows any arbitrary expression as its middle operand, despite being listed as having higher precedence than the assignment and comma operators.
- That is one of the reasons why the precedence table is just a way to express the grammar rules of a language in a simple and resumed manner. It is not the grammar neither ought to be. Let&#39;s see one more quotation, this time from the Stroustrup himself, just after presented the C&#43;&#43; precedence table (by the way, that was the source used by me to get the table for my post):
- A few grammar rules cannot be expressed in terms of precedence (also known as binding strength) and associativity.
- We can see from my example, the Wikipedia example and the Stroustrup example that the ternary operator is the main victim. Not for less. Talking about the grammar, the C ternary operator definition is different from the C&#43;&#43; ternary operator definition. While in C this operator is defined like this:
-conditional-expression:logical-OR-expressionlogical-OR-expression ? expression : conditional-expression In C&#43;&#43; language it is defined like this:
-conditional-expression:logical-OR-expressionlogical-OR-expression ? expression : assignment-expression This little difference can give us some (rare) situations where we can get a syntax error in C. As in a Wikipedia example, the following expression:
-e = a ? b : c = d It is interpreted by the C language as:
-e = ( ( a ? b : c ) = d ) In the C&#43;&#43; language is interpreted as:
-e = ( a ? b : ( c = d ) )  In the C language case, we have a compilation error because the code is trying to assign a value to a lvalue (remember that lvalues can&#39;t be assigned to anything).
-( a ? b : c ) = d  But in C&#43;&#43; there&#39;s no invalid assignment, what makes a no error compilation performed.
-Now, one last question, that seems to be the most relevant in this precedence issue: why is the Stroustrup book precedence table different from the C precedence table?
-Well, I believe that, after all our analysis, the answer must be somewhat obvious: knowing that, in the ternary operator, the third operand is an assignment-expression, it is most likely the table is agree with the grammar if we put a extra weight for the assignment operators before the ternary operator. This way, if the third operand is an assignment operation (as the case above), the imaginary parentesis will be put first in the assignment operation, making the grammar definition valid:
-( a ? b : ( c ) = d ) I hope this second post about the precedence table have cleared a bit more about the subject. It is not easy to understand the C language, but once you start to try, one magic door opens. Some things to remember from this experience:
- The precedence table is not in the Standard; it is deduced from the grammar rules. There are rare expressions where we can&#39;t use the precedence table (e.g. ternary operator). Nobody knows so well a language to the point to understand 100% from it; after all, nobody (and nothing) is perfect.  </description>
-</item>
-
-     
-        <item>
-  <title>What happens inside the sizeof operator</title>
-  <link>http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/</link>
-  <pubDate>2007-07-16</pubDate>
-  
-  <guid>http://www.caloni.com.br/what-happens-inside-the-sizeof-operator/</guid>
-  <description>The question: how to get the size of a struct member without declaring it as a variable in memory? In pseudocode:
-static const size_t FIELD_SIZE_MSGID = 15;struct FEEDER_RECORD_HEADER{char MessageID[FIELD_SIZE_MSGID];char MessageIndex[10];};// error C2143: syntax error : missing &#39;)&#39; before &#39;.&#39;char MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER.MessageIndex) &#43; 1];// error C2070: &#39;&#39;: illegal sizeof operandchar MessageIndexBuffer[sizeof(FEEDER_RECORD_HEADER::MessageIndex) &#43; 1];  In this first try (even being a nice one) we can clearly see by instinct that the construction is not supposed to work. The compiler error is not even clear. The member access operator (the point sign) needs to have as its left some variable or constant of the same type of the struct. Since the operand is the type itself, there is no deal.
-The second test is more feasible. Even the compiler can alert us. We have accessed the right member in the right struct but in the wrong way. As we&#39;re not using a static member or, in other words, a class variable, we can&#39;t access the member by scope. We need an object. But in order to have an object we are supposed to have to create one, and this is exactly what is not allowed in our solution.
-This kind of problem reminds me about a curious feature inside the sizeof operator: it doesn&#39;t evaluate the expressions used as operands. How&#39;s that? Well, as the sizeof main purpose is to provide us the memory size filled by the expression, it simply doesn&#39;t make sense to execute the expression. We just need to note that the language we&#39;re talking about defends eficiency and clarity as main principles. If you want to execute the expression, we do it without using sizeof operator.
-So, now we know that everything put inside a sizeof is not going to be executed in fact. It works somewhat like the c&#43;&#43; &amp;quot;dead zone&amp;quot;: is the place where - talking about executable code - nothing runs. That means we can build a object inside sizeof that nothing is going to happen, except for the expression size. Let&#39;s look the resulting assembly:
-sz = sizeof( (new FEEDER_RECORD_HEADER)-&amp;gt;MessageID ); // this...mov dword ptr [sz], 0Fh ; ... is translated into this Another way to do the same thing (for those who can&#39;t bear the use of operator new delete, seeing the code as a memory leak):
-sz = sizeof( ((FEEDER_RECORD_HEADER*)0)-&amp;gt;MessageID ); // this...mov dword ptr [sz], 0Fh ; ... is translated into this Conclusion: the operator new is called and nothing happens. We got what we wanted. That shows us one more time that the little details built inside a language layout are only very important in the exact time we need them.
-</description>
-</item>
-
-     
-        <item>
-  <title>Precedence difference</title>
-  <link>http://www.caloni.com.br/precedence-difference/</link>
-  <pubDate>2007-07-10</pubDate>
-  
-  <guid>http://www.caloni.com.br/precedence-difference/</guid>
-  <description>Once upon a time my old friend Kabloc wrote this little and &amp;quot;harmless&amp;quot; function in order to print the multiplication table:
-#include &amp;lt;stdio.h&amp;gt;int main(){int f1,f2,s=0;for(f1=1;(f1==11&amp;amp;&amp;amp;s!=5)?s=5,f1=0,putchar(10):(f1&amp;lt;=10)?f1=f1:f1=12,f1&amp;lt;=11;f1&#43;&#43;)for(f2=1&#43;s;f2&amp;lt;=5&#43;s;f2&#43;&#43;)printf(&amp;quot;%dx%d=%d%c&amp;quot;,f2,f1,f1*f2,(f2==5&#43;s)?10:9);return 0;}  Despite the fact the result is a strong candidate to The International Obfuscated C Code Contest the Linux guys told him the code was not successful on GCC, and somewhere inside those four lines there was a non-standard piece of code.
-Asked to solve the problem, given my congenital inclination to random subjects involving C&#43;&#43;, I decided to fix the things up in my old-n-good Visual Studio 2003. Nonetheless, it compiles C source code as well. We just need to rename the file from .cpp to .c. It was doing this that I found the following compiler error:
-error C2106: &#39;=&#39; : left operand must be l-value That happens in the line 6, the first for line. In other words, a C source that compiles as C&#43;&#43; but gives us a lack of l-value error since compiled as pure C.
-Thinking about the problem rather intuitively than rationally I imagined that could be some little difference in the precedence table. Keeping that in mind, wrested the standard papers for both languages and took a look at this reduced C&#43;&#43; table and C ANSI standard from 1989:
-   C C&#43;&#43;     [L2R] () [] -&amp;gt; . () [] -&amp;gt; . [L2R]   [R2L] ! ~ &#43;&#43; -- ! ~ &#43;&#43; -- [R2L]   [L2R] * / % * / % [L2R]   [L2R] &#43; - &#43; - [L2R]   [L2R] &amp;lt;&amp;lt; &amp;gt;&amp;gt; &amp;lt;&amp;lt; &amp;gt;&amp;gt; [L2R]   [L2R] &amp;lt; &amp;lt;= &amp;gt; &amp;gt;= &amp;lt; &amp;lt;= &amp;gt; &amp;gt;= [L2R]   [L2R] == != == != [L2R]   [L2R] &amp;amp; &amp;amp; [L2R]   [L2R] ^ ^ [L2R]   [L2R] | | [L2R]   [L2R] &amp;amp;&amp;amp; &amp;amp;&amp;amp; [L2R]   [L2R] || || [L2R]   [R2L] ?: = &#43;= -= *= /= %= [R2L]   [R2L] = &#43;= -= *= /= %= ?: [L2R]   [L2R] , , [L2R]    Besides some now less important details we can notice in the end of the table a inversion between the ternary operator and the attribution operator and, more importantly, the inversion of the evaluation order. In C, the ternary operator is evaluated from right to left (R2L), whilst in C&#43;&#43; from left to right (L2R), like the rest. This is going to shows us that, in line 6, the same expression has two different interpretations in each language.
-In order to understand bit by bit the problem, let&#39;s disassemble the second part of that for:
-( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? s = 5, f1 = 0, putchar(10) : ( f1 &amp;lt;= 10 ) ? f1 = f1 : f1 = 12, f1 &amp;lt;= 11;  We have two ternary operators nestled. In accordance with C&#43;&#43; standard, the ternary operators have less precedence than the attribution operators and are evaluated from left to right. In other words, in first place all the atributions inside the expression are made before any ternary operator. After that, the first ternary operator is executed, followed by the second:
-( ( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? (s = 5), (f1 = 0), putchar(10) : ( f1 &amp;lt;= 10 ) ) ? (f1 = f1) : (f1 = 12), f1 &amp;lt;= 11;  Now let&#39;t take a look in C. In this language, different from C&#43;&#43;, the ternary operators have more precedence than the attribution operators, and are executed from right to left. That means the first and last ternary operators are executed, ignoring the right attribution, and after that the first ternary operator is executed. Only after these two events the right attribution is evaluated:
-( ( f1 == 11 &amp;amp;&amp;amp; s != 5 ) ? s = 5, f1 = 0, putchar(10) : ( ( f1 &amp;lt;= 10 ) ? f1 = f1 : f1 ) ) = 12, f1 &amp;lt;= 11; All this make us to see the attribution to 12 will be done on the first ternary operator result, which possible values could be from the putchar return or f1. Remember that the comma operator purpose outside function calls is to chain expressions, execute them and return the value from the rightmost expression:
-s = 5, f1 = 0, putchar(10) // makes s equals 5, f1 equals 0 and returns the putchar call value.f1 = f1 : f1 // in both cases the returned value is the f1 variable Well, the f1 variable is an integer. And putchar return as well. This is not going to break any type rule. However, breaks the attribution gold rule: &amp;quot;put an lvalue in the right side of an attribution&amp;quot;.
-f1 = 12; // right; nothing to sayputchar(10) = 12; // woops! what&#39;s that? putchar doesn&#39;t return variable but a constant value This finishes the long explanation about why that little insignificant error at the beginning of this article happened only in the C language. This is a perfect example of the little differences between these two languages. Perhaps do you use parenthesis like a crazy, and are not going to find this kind of problems inside your source code. Perhaps not.
-</description>
-</item>
-
-     
-        <item>
-  <title>Google shortcuts</title>
-  <link>http://www.caloni.com.br/google-shortcuts/</link>
-  <pubDate>2007-07-06</pubDate>
-  
-  <guid>http://www.caloni.com.br/google-shortcuts/</guid>
-  <description>I love shortcuts. Since my very first years using computers, shortcuts had become my obsession. I research them through the time, collecting them, using them. For a long time I avoid myself from touching the mouse, trainning to remember all keystroke sequences I know.
- I have nothing against using the mouse neither the people that do it. I&#39;m just not very much enthusiastic in using mice. For sometime, I even believed that the cursor pointer was getting me annoyed, so I developed a program to get rid of it from the screen (using a shortcut, of course). But, one more time, I&#39;m not againt its use, and I use it myself sometimes (when I need to).
- Until some time ago the web was not so good for shortcut users. So came out Google, plenty of web applications supporting shortcuts and giving me a true reason to use webmail and web RSS reader without pressing constantly the tab key. But there was a lack for its web search engine. Fortunately, there WAS.
-Even being in test, I began to use the new keyboard shortcuts in Google search, available in the Google Experimental Search website. Until now there is shortcuts for next result (J), previous result (K), opening the search (O or ) and putting the cursor in the search box (/). It is just like Gmail and Google Reader. I was so excited with the idea that I changed the Google search plugin inside Firefox by myself. And now I&#39;m going to tell how to do it (note: Windows only).
-To put Google search shortcuts inside Firefox probably your search plugin will be in one of these two folder bellow. Try one of them: %programfiles%, Mozilla Firefox, searchplugins or %appdata%, MozillaFirefoxProfiles, *.defaultsearchplugins. The search plugin file has the name google.xml and you can edit it using notepad or another simple text editor. Bellow is the point where you must insert the new line that will get the plugin able to show the shortcuts inside Google.
-&amp;lt;Url type=&amp;quot;text/html&amp;quot; method=&amp;quot;GET&amp;quot; template=&amp;quot;http://www.google.com/search&amp;quot;&amp;gt;&amp;lt;Param name=&amp;quot;q&amp;quot; value=&amp;quot;{searchTerms}&amp;quot;/&amp;gt;&amp;lt;...&amp;gt;&amp;lt;Param name=&amp;quot;esrch&amp;quot; value=&amp;quot;BetaShortcuts&amp;quot;/&amp;gt; &amp;lt;!-- Google Shortcuts Here --&amp;gt;&amp;lt;!-- Dynamic parameters --&amp;gt;&amp;lt;...&amp;gt;&amp;lt;/Url&amp;gt; That&#39;s all. Now you can get all the best: the best search engine with shortcuts. How can we be even more productive?
-</description>
-</item>
-
-     
-        <item>
-  <title>Disassembling the array operator</title>
-  <link>http://www.caloni.com.br/disassembling-the-array-operator/</link>
-  <pubDate>2007-06-22</pubDate>
-  
-  <guid>http://www.caloni.com.br/disassembling-the-array-operator/</guid>
-  <description>Arrays are fascinating in C language because they are so simple and so powerful at the same time. When we start to really understand them and realize all its power we are very close to understand another awesome feature of the language: pointers.
-When I was reading the K&amp;amp;R book (again) I was enjoying the language specification details in the Appendix A. It was specially odd the description as an array must be accessed:
- A postfix expression followed by an expression in square brackets is a postfix expression. One of the expressions shall have the type &amp;quot;pointer to T&amp;quot; and the other shall have enumeration or integral type. The result is an lvalue of type &amp;quot;T&amp;quot;. (...) The expression E1 [ E2 ] is identical (by definition) to *( (E1) &#43; (E2) ).
- Notice that the rules don&#39;t specify the order of expressions to access the array. In other words, it doesn&#39;t matter for the language if we use a pointer before the integer or an integer before the pointer.
-#include &amp;lt;iostream&amp;gt;#include &amp;lt;cassert&amp;gt;int main(){char q[] = &amp;quot;Show me your Code, &amp;quot;&amp;quot;and I&#39;ll tell you who you are.&amp;quot;;int i = 13;std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; q [ i ] &amp;lt;&amp;lt; std::endl;assert( q[i] == i[q] );assert( q[13] == 13[q] );assert( *(q &#43; i) == &amp;quot;That&#39;s C!&amp;quot;[7] );return 13[q] - &amp;quot;CThings&amp;quot;[0];}  The q[i] bellow shows that we can use both orders and the code will compile successfully.
-std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; i [ q ] &amp;lt;&amp;lt; std::endl; This code doesn&#39;t show how obscure we can be. If we use a constant integer replacing the i, by example, the code starts to be an IOCCC participant:
-std::cout &amp;lt;&amp;lt; &amp;quot;And the language is: &amp;quot; &amp;lt;&amp;lt; 13 [ q ] &amp;lt;&amp;lt; std::endl; Is this a valid code yet, right? The expression types are following the rule. It is easy to see if we always think about using the &amp;quot;universal match&amp;quot; *( (E1) &#43; (E2) ). Even bizarre things like this are easy to realize:
-std::cout &amp;lt;&amp;lt; 8[&amp;quot;Is this Code right?&amp;quot;] &amp;lt;&amp;lt; std::endl; Obs.: this kind of &amp;quot;obscure rule&amp;quot; hardly will pass in a code review since it is a useless feature. Be wise and don&#39;t use it in production code. This is just an amusing detail in the language specification scope. It can help in analysis, never in programming.
-</description>
-</item>
-
-     
-    
-  </channel>
-</rss>
